@@ -1,543 +1,61 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`text resizer does not render if textSize is null 1`] = `
-.c2 {
+.c0 {
   display: contents;
 }
 
-.c3 {
-  cursor: pointer;
-  border: none;
-  padding: 0;
-  background: none;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  color: #5e6062;
-  height: 100%;
-  min-width: 45px;
-}
-
-.c3:hover,
-.c3:focus {
-  color: #424242;
-}
-
-.c0 {
-  position: -webkit-sticky;
-  position: sticky;
-  top: 7rem;
-  width: 100%;
-  overflow: visible;
-  display: block;
-  z-index: 30;
-}
-
-.c5 {
-  height: 2.5rem;
-  width: 2.5rem;
-  padding: 0.4rem;
-}
-
-.c4 {
-  display: none;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-}
-
-.c10 {
-  height: 3.2rem;
-  border-radius: 0;
-  margin: 0;
-  -webkit-transition: none;
-  transition: none;
-  background: transparent;
-  color: #5e6062;
-  display: none;
-}
-
-.c10 > svg {
-  height: 2.5rem;
-  width: 2.5rem;
-  padding: 0.4rem;
-  vertical-align: middle;
-}
-
-.c11 {
-  height: 3.2rem;
-  border-radius: 0;
-  margin: 0;
-  -webkit-transition: none;
-  transition: none;
-  background: transparent;
-  color: #5e6062;
-}
-
-.c11 > svg {
-  height: 2.5rem;
-  width: 2.5rem;
-  padding: 0.4rem;
-  vertical-align: middle;
-}
-
-.c7 {
-  margin-left: auto;
-  margin-right: auto;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  position: relative;
-  color: #5e6062;
-  border: solid 0.1rem;
-  border-radius: 0.2rem;
-  width: 38rem;
-}
-
-.c7:last-child {
-  margin-right: auto;
-}
-
-.c7:focus-within {
-  border: solid 0.1rem #0dc0dc;
-  box-shadow: 0 0 4px 0 rgba(13,192,220,0.5);
-}
-
-.c7.focus-within {
-  border: solid 0.1rem #0dc0dc;
-  box-shadow: 0 0 4px 0 rgba(13,192,220,0.5);
-}
-
-.c8 {
-  color: #424242;
-  -webkit-appearance: textfield;
-  -moz-appearance: textfield;
-  appearance: textfield;
-  font-size: 1.6rem;
-  margin: 0 1rem 0 1rem;
-  height: 3.2rem;
-  border: none;
-  outline: none;
-  width: 100%;
-  -webkit-appearance: textfield;
-  -moz-appearance: textfield;
-  appearance: textfield;
-}
-
-.c8::-webkit-search-decoration,
-.c8::-webkit-search-cancel-button,
-.c8::-webkit-search-results-button,
-.c8::-webkit-search-results-decoration {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  display: none;
-}
-
-.c8::-webkit-input-placeholder {
-  color: #6f6f6f;
-}
-
-.c8::-moz-placeholder {
-  color: #6f6f6f;
-}
-
-.c8:-ms-input-placeholder {
-  color: #6f6f6f;
-}
-
-.c8::placeholder {
-  color: #6f6f6f;
-}
-
-.c17 {
-  color: #424242;
-  -webkit-appearance: textfield;
-  -moz-appearance: textfield;
-  appearance: textfield;
-  font-size: 1.6rem;
-  margin: 0 1rem 0 1rem;
-  height: 3.2rem;
-  border: none;
-  outline: none;
-  width: 100%;
-  -webkit-appearance: textfield;
-  -moz-appearance: textfield;
-  appearance: textfield;
-}
-
-.c17::-webkit-search-decoration,
-.c17::-webkit-search-cancel-button,
-.c17::-webkit-search-results-button,
-.c17::-webkit-search-results-decoration {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  display: none;
-}
-
-.c17::-webkit-input-placeholder {
-  color: #6f6f6f;
-}
-
-.c17::-moz-placeholder {
-  color: #6f6f6f;
-}
-
-.c17:-ms-input-placeholder {
-  color: #6f6f6f;
-}
-
-.c17::placeholder {
-  color: #6f6f6f;
-}
-
 .c1 {
-  height: 5rem;
-  max-width: 128rem;
-  margin: 0 auto;
-  text-align: right;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  overflow: visible;
-  background-color: #fff;
-  -webkit-transition: padding-left 300ms;
-  transition: padding-left 300ms;
-  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.14);
-}
-
-.c14 {
-  max-width: 128rem;
-  margin: 0 auto;
-  width: calc(100% - 3.2rem * 2);
-  overflow: visible;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  height: 3.2rem;
-}
-
-.c12 {
-  display: none;
-  overflow: visible;
-  height: 5.3rem;
-  background-color: #fff;
-  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.14);
-}
-
-.c13 {
-  border: none;
-  border-top: 0.1rem solid #efeff1;
-  display: none;
-  margin: 0;
-}
-
-.c16 {
-  white-space: nowrap;
-  margin-right: 1rem;
-  text-align: left;
-}
-
-.c15 {
-  cursor: pointer;
-  border: none;
-  padding: 0;
-  background: none;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  color: #5e6062;
-  height: 100%;
-  min-width: 45px;
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  overflow: visible;
-  min-width: auto;
-  display: none;
-}
-
-.c15:hover,
-.c15:focus {
-  color: #424242;
-}
-
-.c15:hover,
-.c15:focus {
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-  color: #0064A0;
-}
-
-@media screen and (max-width:75em) {
-  .c0 {
-    top: 6rem;
-  }
-}
-
-@media screen and (max-width:50em) {
-  .c0 {
-    z-index: 51;
-  }
-}
-
-@media print {
-  .c0 {
-    display: none;
-  }
-}
-
-@media screen and (max-width:50em) {
-  .c4 {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c10 {
-    display: block;
-    height: 100%;
-  }
-}
-
-@media screen and (max-width:50em) {
-  .c11 {
-    display: none;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c7 {
-    height: 100%;
-    overflow: hidden;
-  }
-}
-
-@media screen and (max-width:50em) {
-  .c7 {
-    width: 100%;
-  }
-
-  .c7,
-  .c7:last-child {
-    margin-right: 0;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .byGtpQ .c9 {
-    color: #5e6062;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .dRKHdb .c9 {
-    color: #fff;
-  }
-
-  .dRKHdb .c9:hover,
-  .dRKHdb .c9:focus {
-    color: #fff;
-    -webkit-transition: color 200ms;
-    transition: color 200ms;
-  }
-
-  .dRKHdb .c9:hover::before,
-  .dRKHdb .c9:focus::before {
-    content: "";
-    display: block;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    right: 0;
-    min-width: 45px;
-    background-color: rgba(0,0,0,0.06);
-  }
-}
-
-@media screen and (max-width:75em) {
-  .fFDZyK .c9 {
-    color: #000;
-  }
-
-  .fFDZyK .c9:hover,
-  .fFDZyK .c9:focus {
-    color: #000;
-    -webkit-transition: color 200ms;
-    transition: color 200ms;
-  }
-
-  .fFDZyK .c9:hover::before,
-  .fFDZyK .c9:focus::before {
-    content: "";
-    display: block;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    right: 0;
-    min-width: 45px;
-    background-color: rgba(0,0,0,0.06);
-  }
-}
-
-@media screen and (max-width:50em) {
-  .c8 {
-    display: none;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c1 {
-    padding-left: 0 !important;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c1 {
-    display: none;
-  }
-}
-
-@media screen and (max-width:50em) {
-  .c1 {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    height: 5.3rem;
-    -webkit-box-pack: justify;
-    -webkit-justify-content: space-between;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
-    padding: 0 6px;
-    -webkit-transition: none;
-    transition: none;
-  }
-
-  .c1 .c6 {
-    border: none;
-    border-radius: 0;
-    width: 45px;
-  }
-}
-
-@media screen and (max-width:50em) {
-  .jaAsIA .c6 {
-    border: none;
-    border-radius: 0;
-    width: 45px;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c14 {
-    width: calc(100% - 1.6rem * 2);
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c14 {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: center;
-    -webkit-justify-content: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-    -webkit-align-items: center;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-  }
-}
-
-@media screen and (max-width:50em) {
-  .c14 {
-    -webkit-box-pack: justify;
-    -webkit-justify-content: space-between;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c12 {
-    display: block;
-  }
-}
-
-@media screen and (max-width:50em) {
-  .c12 {
-    padding-left: 0;
-    display: none;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c13 {
-    display: block;
-  }
-}
-
-@media screen and (max-width:50em) {
-  .c15 {
-    display: block;
-  }
+  height: 2.5rem;
+  width: 2.5rem;
+  padding: 0.4rem;
 }
 
 <div
-  className="c0"
+  className="topbar-wrapper"
   data-testid="topbar"
+  style={
+    Object {
+      "--topbar-sticky-top-desktop": "7rem",
+      "--topbar-sticky-top-mobile": "6rem",
+      "--topbar-z-index": 30,
+      "--topbar-z-index-mobile-medium": 51,
+    }
+  }
 >
   <div
-    className="c1"
+    className="topbar-search-print-wrapper sidebar-closed"
+    style={
+      Object {
+        "--button-min-width": "45px",
+        "--content-wrapper-max-width": "128rem",
+        "--neutral-color": "#fff",
+        "--sidebar-transition-time": "300ms",
+        "--topbar-desktop-height": "5rem",
+        "--topbar-mobile-height": "5.3rem",
+      }
+    }
   >
     <div
-      className="c2"
+      className="c0"
       id="mobile-menu-button"
     >
       <button
         aria-label="Open menu"
-        className="c3 c4"
+        className="toolbar-plain-button topbar-menu-button"
         onClick={[Function]}
+        style={
+          Object {
+            "--button-min-width": "45px",
+            "--toolbar-icon-color": "#5e6062",
+            "--toolbar-icon-darker-color": "#424242",
+          }
+        }
         type="button"
       >
         <svg
           aria-hidden="true"
-          className="c5"
+          className="c1"
           viewBox="0 0 448 512"
         >
           <path
@@ -548,27 +66,52 @@ exports[`text resizer does not render if textSize is null 1`] = `
       </button>
     </div>
     <form
-      className="c6 c7"
+      className="topbar-search-input-wrapper"
       data-experiment={true}
       data-testid="desktop-search"
       onSubmit={[Function]}
+      style={
+        Object {
+          "--button-min-width": "45px",
+          "--light-blue-color": "#0dc0dc",
+          "--search-button-bg-color": "transparent",
+          "--search-icon-color": "#5e6062",
+          "--toolbar-icon-color": "#5e6062",
+        }
+      }
     >
       <input
         aria-label="Search this book"
-        className="c8"
+        className="topbar-search-input desktop"
         data-testid="desktop-search-input"
         onChange={[Function]}
         placeholder="Search this book"
+        style={
+          Object {
+            "--text-label-color": "#6f6f6f",
+            "--toolbar-search-input-height": "3.2rem",
+          }
+        }
         type="search"
         value=""
       />
       <button
-        aria-label="Search"
-        className="c3 c9 c10"
+        aria-label="Search this book"
+        className="toolbar-plain-button topbar-search-button mobile"
         data-analytics-label="Search this book"
         data-experiment={true}
         data-testid="mobile-toggle"
         onClick={[Function]}
+        style={
+          Object {
+            "--button-min-width": "45px",
+            "--search-button-bg-color": "transparent",
+            "--search-button-transition": "none",
+            "--search-icon-color": "#5e6062",
+            "--toolbar-icon-color": "#5e6062",
+            "--toolbar-icon-darker-color": "#424242",
+          }
+        }
         type="button"
         value="Search"
       >
@@ -603,8 +146,18 @@ exports[`text resizer does not render if textSize is null 1`] = `
       </button>
       <button
         aria-label="Search"
-        className="c3 c9 c11"
+        className="toolbar-plain-button topbar-search-button desktop"
         data-experiment={true}
+        style={
+          Object {
+            "--button-min-width": "45px",
+            "--search-button-bg-color": "transparent",
+            "--search-button-transition": "none",
+            "--search-icon-color": "#5e6062",
+            "--toolbar-icon-color": "#5e6062",
+            "--toolbar-icon-darker-color": "#424242",
+          }
+        }
         value="Search"
       >
         <svg
@@ -639,45 +192,97 @@ exports[`text resizer does not render if textSize is null 1`] = `
     </form>
   </div>
   <div
-    className="c12"
+    className="topbar-mobile-search-wrapper"
+    style={
+      Object {
+        "--neutral-color": "#fff",
+        "--toolbar-mobile-search-wrapper-height": "5.3rem",
+      }
+    }
   >
     <hr
-      className="c13"
+      className="topbar-hr"
+      style={
+        Object {
+          "--toolbar-hr-height": "0.1rem",
+        }
+      }
     />
     <div
-      className="c14"
+      className="topbar-mobile-search-container"
+      style={
+        Object {
+          "--max-nav-width": "128rem",
+          "--mobile-search-container-margin": "1rem",
+          "--page-padding-desktop": "3.2rem",
+          "--page-padding-mobile": "1.6rem",
+          "--toolbar-search-input-mobile-height": "3.2rem",
+        }
+      }
     >
       <button
-        className="c15"
+        className="toolbar-plain-button topbar-search-results-text-button topbar-close-search-results-text-button"
         data-testid="close-search-results"
         onClick={[Function]}
+        style={
+          Object {
+            "--button-min-width": "45px",
+            "--toolbar-icon-color": "#5e6062",
+            "--toolbar-icon-darker-color": "#424242",
+          }
+        }
       >
         <div
-          className="c16"
+          className="topbar-inner-text"
         >
           Close
         </div>
       </button>
       <form
         action="#"
-        className="c6 c7"
+        className="topbar-search-input-wrapper"
         data-experiment={true}
         data-testid="mobile-search"
         onSubmit={[Function]}
+        style={
+          Object {
+            "--button-min-width": "45px",
+            "--light-blue-color": "#0dc0dc",
+            "--search-button-bg-color": "transparent",
+            "--search-icon-color": "#5e6062",
+            "--toolbar-icon-color": "#5e6062",
+          }
+        }
       >
         <input
           aria-label="Search this book"
-          className="c17"
+          className="topbar-search-input"
           data-testid="mobile-search-input"
           onChange={[Function]}
           placeholder="Search this book"
+          style={
+            Object {
+              "--text-label-color": "#6f6f6f",
+              "--toolbar-search-input-height": "3.2rem",
+            }
+          }
           type="search"
           value=""
         />
         <button
           aria-label="Search"
-          className="c3 c9 c11"
+          className="toolbar-plain-button topbar-search-button desktop"
           data-experiment={true}
+          style={
+            Object {
+              "--button-min-width": "45px",
+              "--search-button-bg-color": "transparent",
+              "--search-button-transition": "none",
+              "--search-icon-color": "#5e6062",
+              "--toolbar-icon-color": "#5e6062",
+              "--toolbar-icon-darker-color": "#424242",
+            }
+          }
           value="Search"
         >
           <svg
@@ -718,58 +323,22 @@ exports[`text resizer does not render if textSize is null 1`] = `
 `;
 
 exports[`text resizer opens menu when clicking menu button 1`] = `
-.c2 {
+.c0 {
   display: contents;
 }
 
-.c12 {
+.c2 {
   overflow: visible;
   position: relative;
 }
 
-.c23 {
+.c4 {
   position: relative;
   border-left: 0.1rem solid transparent;
   border-right: 0.1rem solid transparent;
 }
 
-.c23 > div {
-  padding: 2rem 2.4rem;
-  outline: none;
-  color: #424242;
-  font-size: 1.6rem;
-  color: #5e6062;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: end;
-  -webkit-justify-content: flex-end;
-  -ms-flex-pack: end;
-  justify-content: flex-end;
-}
-
-.c14 {
-  position: relative;
-  border-left: 0.1rem solid transparent;
-  border-right: 0.1rem solid transparent;
-  z-index: 2;
-  box-shadow: 0 0 0.6rem 0 rgba(0,0,0,0.2);
-  -webkit-clip-path: inset(0 -0.6rem 0px -0.6rem);
-  clip-path: inset(0 -0.6rem 0px -0.6rem);
-  background-color: #fff;
-  border-left: 0.1rem solid #d5d5d5;
-  border-right: 0.1rem solid #d5d5d5;
-}
-
-.c14 > div {
+.c4 > div {
   padding: 2rem 2.4rem;
   outline: none;
   color: #424242;
@@ -793,658 +362,104 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
 }
 
 .c3 {
-  cursor: pointer;
-  border: none;
-  padding: 0;
-  background: none;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  color: #5e6062;
-  height: 100%;
-  min-width: 45px;
+  position: relative;
+  border-left: 0.1rem solid transparent;
+  border-right: 0.1rem solid transparent;
+  z-index: 2;
+  box-shadow: 0 0 0.6rem 0 rgba(0,0,0,0.2);
+  -webkit-clip-path: inset(0 -0.6rem 0px -0.6rem);
+  clip-path: inset(0 -0.6rem 0px -0.6rem);
+  background-color: #fff;
+  border-left: 0.1rem solid #d5d5d5;
+  border-right: 0.1rem solid #d5d5d5;
 }
 
-.c3:hover,
-.c3:focus {
+.c3 > div {
+  padding: 2rem 2.4rem;
+  outline: none;
   color: #424242;
-}
-
-.c0 {
-  position: -webkit-sticky;
-  position: sticky;
-  top: 7rem;
-  width: 100%;
-  overflow: visible;
-  display: block;
-  z-index: 30;
-}
-
-.c5 {
-  height: 2.5rem;
-  width: 2.5rem;
-  padding: 0.4rem;
-}
-
-.c4 {
-  display: none;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-}
-
-.c10 {
-  height: 3.2rem;
-  border-radius: 0;
-  margin: 0;
-  -webkit-transition: none;
-  transition: none;
-  background: transparent;
+  font-size: 1.6rem;
   color: #5e6062;
-  display: none;
-}
-
-.c10 > svg {
-  height: 2.5rem;
-  width: 2.5rem;
-  padding: 0.4rem;
-  vertical-align: middle;
-}
-
-.c11 {
-  height: 3.2rem;
-  border-radius: 0;
-  margin: 0;
-  -webkit-transition: none;
-  transition: none;
-  background: transparent;
-  color: #5e6062;
-}
-
-.c11 > svg {
-  height: 2.5rem;
-  width: 2.5rem;
-  padding: 0.4rem;
-  vertical-align: middle;
-}
-
-.c7 {
-  margin-left: auto;
-  margin-right: auto;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  position: relative;
-  color: #5e6062;
-  border: solid 0.1rem;
-  border-radius: 0.2rem;
-  width: 38rem;
-}
-
-.c7:last-child {
-  margin-right: auto;
-}
-
-.c7:focus-within {
-  border: solid 0.1rem #0dc0dc;
-  box-shadow: 0 0 4px 0 rgba(13,192,220,0.5);
-}
-
-.c7.focus-within {
-  border: solid 0.1rem #0dc0dc;
-  box-shadow: 0 0 4px 0 rgba(13,192,220,0.5);
-}
-
-.c8 {
-  color: #424242;
-  -webkit-appearance: textfield;
-  -moz-appearance: textfield;
-  appearance: textfield;
-  font-size: 1.6rem;
-  margin: 0 1rem 0 1rem;
-  height: 3.2rem;
-  border: none;
-  outline: none;
-  width: 100%;
-  -webkit-appearance: textfield;
-  -moz-appearance: textfield;
-  appearance: textfield;
-}
-
-.c8::-webkit-search-decoration,
-.c8::-webkit-search-cancel-button,
-.c8::-webkit-search-results-button,
-.c8::-webkit-search-results-decoration {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  display: none;
-}
-
-.c8::-webkit-input-placeholder {
-  color: #6f6f6f;
-}
-
-.c8::-moz-placeholder {
-  color: #6f6f6f;
-}
-
-.c8:-ms-input-placeholder {
-  color: #6f6f6f;
-}
-
-.c8::placeholder {
-  color: #6f6f6f;
-}
-
-.c22 {
-  color: #424242;
-  -webkit-appearance: textfield;
-  -moz-appearance: textfield;
-  appearance: textfield;
-  font-size: 1.6rem;
-  margin: 0 1rem 0 1rem;
-  height: 3.2rem;
-  border: none;
-  outline: none;
-  width: 100%;
-  -webkit-appearance: textfield;
-  -moz-appearance: textfield;
-  appearance: textfield;
-}
-
-.c22::-webkit-search-decoration,
-.c22::-webkit-search-cancel-button,
-.c22::-webkit-search-results-button,
-.c22::-webkit-search-results-decoration {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  display: none;
-}
-
-.c22::-webkit-input-placeholder {
-  color: #6f6f6f;
-}
-
-.c22::-moz-placeholder {
-  color: #6f6f6f;
-}
-
-.c22:-ms-input-placeholder {
-  color: #6f6f6f;
-}
-
-.c22::placeholder {
-  color: #6f6f6f;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
 }
 
 .c1 {
-  height: 5rem;
-  max-width: 128rem;
-  margin: 0 auto;
-  text-align: right;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  overflow: visible;
-  background-color: #fff;
-  -webkit-transition: padding-left 300ms;
-  transition: padding-left 300ms;
-  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.14);
-}
-
-.c19 {
-  max-width: 128rem;
-  margin: 0 auto;
-  width: calc(100% - 3.2rem * 2);
-  overflow: visible;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  height: 3.2rem;
-}
-
-.c17 {
-  display: none;
-  overflow: visible;
-  height: 5.3rem;
-  background-color: #fff;
-  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.14);
-}
-
-.c18 {
-  border: none;
-  border-top: 0.1rem solid #efeff1;
-  display: none;
-  margin: 0;
-}
-
-.c21 {
-  white-space: nowrap;
-  margin-right: 1rem;
-  text-align: left;
-}
-
-.c13 {
-  z-index: 3;
-}
-
-.c13 > button {
-  max-height: 5.2rem;
-}
-
-.c13 > button > div {
-  padding: 1.4rem;
-}
-
-.c15 {
-  color: #5e6062;
-  text-align: left;
-  font-weight: bold;
-}
-
-.c15 label {
-  padding: 1.6rem 1.6rem 0;
-  display: block;
-}
-
-.c15 .controls {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-}
-
-.c15 .controls > button {
-  height: 4rem;
-  width: 4.8rem;
-}
-
-.c15 .controls input {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  background: linear-gradient( to right, #002468  calc( (0 - -2) * 100 / (3 - -2) * 1% ) , #888888  calc( (0 - -2) * 100 / (3 - -2) * 1% )  );
-  overflow: visible;
-  height: 0.4rem;
-  width: 12rem;
-  margin: 0.8rem 0.7rem;
-  cursor: pointer;
-}
-
-.c15 .controls input[type="range"]::-webkit-slider-runnable-track,
-.c15 .controls input[type="range"]::-moz-range-track {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  box-shadow: none;
-  border: none;
-  height: 0.2rem;
-  background: repeating-linear-gradient( to right, rgba(0,0,0,0), rgba(0,0,0,0) 19%, #fff 19%, #fff 20%, rgba(0,0,0,0) 20%, rgba(0,0,0,0) 20% );
-}
-
-.c15 .controls input[type="range"]::-webkit-slider-runnable-track {
-  height: 0.2rem;
-  background: repeating-linear-gradient( to right, rgba(0,0,0,0), rgba(0,0,0,0) 19%, #fff 19%, #fff 20%, rgba(0,0,0,0) 20%, rgba(0,0,0,0) 20% );
-}
-
-.c15 .controls input[type="range"]::-moz-range-thumb {
-  background: white;
-  height: 1.5rem;
-  width: 0.7rem;
-  border: 1px solid #5e6062;
-  border-radius: 1px;
-  box-shadow: 0 2px 1px -1px rgba(0,0,0,0.04), 0 1px 1px 0 rgba(0,0,0,0.14), 0 1px 3px 0 rgba(0,0,0,0.12);
-}
-
-.c15 .controls input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  background: white;
-  height: 1.5rem;
-  width: 0.7rem;
-  border: 1px solid #5e6062;
-  border-radius: 1px;
-  box-shadow: 0 2px 1px -1px rgba(0,0,0,0.04), 0 1px 1px 0 rgba(0,0,0,0.14), 0 1px 3px 0 rgba(0,0,0,0.12);
-  width: 0.8rem;
-  margin-top: -6px;
-}
-
-.c16 {
-  margin: 0.2rem 0.6rem;
-}
-
-.c20 {
-  cursor: pointer;
-  border: none;
-  padding: 0;
-  background: none;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  color: #5e6062;
-  height: 100%;
-  min-width: 45px;
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  overflow: visible;
-  min-width: auto;
-  display: none;
-}
-
-.c20:hover,
-.c20:focus {
-  color: #424242;
-}
-
-.c20:hover,
-.c20:focus {
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-  color: #0064A0;
+  height: 2.5rem;
+  width: 2.5rem;
+  padding: 0.4rem;
 }
 
 @media screen and (max-width:75em) {
-  .c23 > div {
+  .c4 > div {
     padding: 1rem 1.6rem;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c14 > div {
+  .c3 > div {
     padding: 1rem 1.6rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c0 {
-    top: 6rem;
-  }
-}
-
-@media screen and (max-width:50em) {
-  .c0 {
-    z-index: 51;
-  }
-}
-
-@media print {
-  .c0 {
-    display: none;
-  }
-}
-
-@media screen and (max-width:50em) {
-  .c4 {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c10 {
-    display: block;
-    height: 100%;
-  }
-}
-
-@media screen and (max-width:50em) {
-  .c11 {
-    display: none;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c7 {
-    height: 100%;
-    overflow: hidden;
-  }
-}
-
-@media screen and (max-width:50em) {
-  .c7 {
-    width: 100%;
-  }
-
-  .c7,
-  .c7:last-child {
-    margin-right: 0;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .byGtpQ .c9 {
-    color: #5e6062;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .dRKHdb .c9 {
-    color: #fff;
-  }
-
-  .dRKHdb .c9:hover,
-  .dRKHdb .c9:focus {
-    color: #fff;
-    -webkit-transition: color 200ms;
-    transition: color 200ms;
-  }
-
-  .dRKHdb .c9:hover::before,
-  .dRKHdb .c9:focus::before {
-    content: "";
-    display: block;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    right: 0;
-    min-width: 45px;
-    background-color: rgba(0,0,0,0.06);
-  }
-}
-
-@media screen and (max-width:75em) {
-  .fFDZyK .c9 {
-    color: #000;
-  }
-
-  .fFDZyK .c9:hover,
-  .fFDZyK .c9:focus {
-    color: #000;
-    -webkit-transition: color 200ms;
-    transition: color 200ms;
-  }
-
-  .fFDZyK .c9:hover::before,
-  .fFDZyK .c9:focus::before {
-    content: "";
-    display: block;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    right: 0;
-    min-width: 45px;
-    background-color: rgba(0,0,0,0.06);
-  }
-}
-
-@media screen and (max-width:50em) {
-  .c8 {
-    display: none;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c1 {
-    padding-left: 0 !important;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c1 {
-    display: none;
-  }
-}
-
-@media screen and (max-width:50em) {
-  .c1 {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    height: 5.3rem;
-    -webkit-box-pack: justify;
-    -webkit-justify-content: space-between;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
-    padding: 0 6px;
-    -webkit-transition: none;
-    transition: none;
-  }
-
-  .c1 .c6 {
-    border: none;
-    border-radius: 0;
-    width: 45px;
-  }
-}
-
-@media screen and (max-width:50em) {
-  .jaAsIA .c6 {
-    border: none;
-    border-radius: 0;
-    width: 45px;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c19 {
-    width: calc(100% - 1.6rem * 2);
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c19 {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: center;
-    -webkit-justify-content: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-    -webkit-align-items: center;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-  }
-}
-
-@media screen and (max-width:50em) {
-  .c19 {
-    -webkit-box-pack: justify;
-    -webkit-justify-content: space-between;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c17 {
-    display: block;
-  }
-}
-
-@media screen and (max-width:50em) {
-  .c17 {
-    padding-left: 0;
-    display: none;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c18 {
-    display: block;
-  }
-}
-
-@media screen and (max-width:50em) {
-  .c13 {
-    margin-left: 0;
-    display: block;
-  }
-
-  .c13 > button {
-    max-height: 4.6rem;
-  }
-
-  .c13 > button > div {
-    padding: 0.9rem 1.5rem;
-  }
-}
-
-@media screen and (max-width:50em) {
-  .c20 {
-    display: block;
   }
 }
 
 <div
-  className="c0"
+  className="topbar-wrapper"
   data-testid="topbar"
+  style={
+    Object {
+      "--topbar-sticky-top-desktop": "7rem",
+      "--topbar-sticky-top-mobile": "6rem",
+      "--topbar-z-index": 30,
+      "--topbar-z-index-mobile-medium": 51,
+    }
+  }
 >
   <div
-    className="c1"
+    className="topbar-search-print-wrapper sidebar-closed"
+    style={
+      Object {
+        "--button-min-width": "45px",
+        "--content-wrapper-max-width": "128rem",
+        "--neutral-color": "#fff",
+        "--sidebar-transition-time": "300ms",
+        "--topbar-desktop-height": "5rem",
+        "--topbar-mobile-height": "5.3rem",
+      }
+    }
   >
     <div
-      className="c2"
+      className="c0"
       id="mobile-menu-button"
     >
       <button
         aria-label="Open menu"
-        className="c3 c4"
+        className="toolbar-plain-button topbar-menu-button"
         onClick={[Function]}
+        style={
+          Object {
+            "--button-min-width": "45px",
+            "--toolbar-icon-color": "#5e6062",
+            "--toolbar-icon-darker-color": "#424242",
+          }
+        }
         type="button"
       >
         <svg
           aria-hidden="true"
-          className="c5"
+          className="c1"
           viewBox="0 0 448 512"
         >
           <path
@@ -1455,27 +470,52 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
       </button>
     </div>
     <form
-      className="c6 c7"
+      className="topbar-search-input-wrapper"
       data-experiment={true}
       data-testid="desktop-search"
       onSubmit={[Function]}
+      style={
+        Object {
+          "--button-min-width": "45px",
+          "--light-blue-color": "#0dc0dc",
+          "--search-button-bg-color": "transparent",
+          "--search-icon-color": "#5e6062",
+          "--toolbar-icon-color": "#5e6062",
+        }
+      }
     >
       <input
         aria-label="Search this book"
-        className="c8"
+        className="topbar-search-input desktop"
         data-testid="desktop-search-input"
         onChange={[Function]}
         placeholder="Search this book"
+        style={
+          Object {
+            "--text-label-color": "#6f6f6f",
+            "--toolbar-search-input-height": "3.2rem",
+          }
+        }
         type="search"
         value=""
       />
       <button
-        aria-label="Search"
-        className="c3 c9 c10"
+        aria-label="Search this book"
+        className="toolbar-plain-button topbar-search-button mobile"
         data-analytics-label="Search this book"
         data-experiment={true}
         data-testid="mobile-toggle"
         onClick={[Function]}
+        style={
+          Object {
+            "--button-min-width": "45px",
+            "--search-button-bg-color": "transparent",
+            "--search-button-transition": "none",
+            "--search-icon-color": "#5e6062",
+            "--toolbar-icon-color": "#5e6062",
+            "--toolbar-icon-darker-color": "#424242",
+          }
+        }
         type="button"
         value="Search"
       >
@@ -1510,8 +550,18 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
       </button>
       <button
         aria-label="Search"
-        className="c3 c9 c11"
+        className="toolbar-plain-button topbar-search-button desktop"
         data-experiment={true}
+        style={
+          Object {
+            "--button-min-width": "45px",
+            "--search-button-bg-color": "transparent",
+            "--search-button-transition": "none",
+            "--search-icon-color": "#5e6062",
+            "--toolbar-icon-color": "#5e6062",
+            "--toolbar-icon-darker-color": "#424242",
+          }
+        }
         value="Search"
       >
         <svg
@@ -1545,13 +595,13 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
       </button>
     </form>
     <div
-      className="c12 c13"
+      className="c2 topbar-text-resizer-dropdown mobile-variant mobile-toolbar-closed"
     >
       <button
         aria-controls="text-resizer-menu"
         aria-expanded={true}
         aria-label="Change text size"
-        className="plain-button c14 dropdown-toggle "
+        className="plain-button c3 dropdown-toggle "
         data-analytics-label="Change text size"
         onClick={[Function]}
       >
@@ -1569,8 +619,21 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
         className="dropdown-menu text-resizer-menu"
       >
         <div
-          className="c15"
+          className="topbar-text-resizer-menu"
           id="text-resizer-menu"
+          style={
+            Object {
+              "--primary-gray-color": "#5e6062",
+              "--primary-gray-medium-color": "#888888",
+              "--text-resizer-gradient": "linear-gradient(
+        to right,
+        #002468
+          calc((0 - -2) * 100 / (3 - -2) * 1%),
+          #888888
+          calc((0 - -2) * 100 / (3 - -2) * 1%)
+      )",
+            }
+          }
         >
           <label
             id="text-resizer-label"
@@ -1584,9 +647,16 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
           >
             <button
               aria-label="Decrease text size"
-              className="c3 c16"
+              className="toolbar-plain-button topbar-text-resizer-change-button"
               data-testid="decrease-text-size"
               onClick={[Function]}
+              style={
+                Object {
+                  "--button-min-width": "45px",
+                  "--toolbar-icon-color": "#5e6062",
+                  "--toolbar-icon-darker-color": "#424242",
+                }
+              }
             >
               <img
                 alt=""
@@ -1606,9 +676,16 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
             />
             <button
               aria-label="Increase text size"
-              className="c3 c16"
+              className="toolbar-plain-button topbar-text-resizer-change-button"
               data-testid="increase-text-size"
               onClick={[Function]}
+              style={
+                Object {
+                  "--button-min-width": "45px",
+                  "--toolbar-icon-color": "#5e6062",
+                  "--toolbar-icon-darker-color": "#424242",
+                }
+              }
             >
               <img
                 alt=""
@@ -1622,45 +699,97 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
     </div>
   </div>
   <div
-    className="c17"
+    className="topbar-mobile-search-wrapper"
+    style={
+      Object {
+        "--neutral-color": "#fff",
+        "--toolbar-mobile-search-wrapper-height": "5.3rem",
+      }
+    }
   >
     <hr
-      className="c18"
+      className="topbar-hr"
+      style={
+        Object {
+          "--toolbar-hr-height": "0.1rem",
+        }
+      }
     />
     <div
-      className="c19"
+      className="topbar-mobile-search-container"
+      style={
+        Object {
+          "--max-nav-width": "128rem",
+          "--mobile-search-container-margin": "1rem",
+          "--page-padding-desktop": "3.2rem",
+          "--page-padding-mobile": "1.6rem",
+          "--toolbar-search-input-mobile-height": "3.2rem",
+        }
+      }
     >
       <button
-        className="c20"
+        className="toolbar-plain-button topbar-search-results-text-button topbar-close-search-results-text-button"
         data-testid="close-search-results"
         onClick={[Function]}
+        style={
+          Object {
+            "--button-min-width": "45px",
+            "--toolbar-icon-color": "#5e6062",
+            "--toolbar-icon-darker-color": "#424242",
+          }
+        }
       >
         <div
-          className="c21"
+          className="topbar-inner-text"
         >
           Close
         </div>
       </button>
       <form
         action="#"
-        className="c6 c7"
+        className="topbar-search-input-wrapper"
         data-experiment={true}
         data-testid="mobile-search"
         onSubmit={[Function]}
+        style={
+          Object {
+            "--button-min-width": "45px",
+            "--light-blue-color": "#0dc0dc",
+            "--search-button-bg-color": "transparent",
+            "--search-icon-color": "#5e6062",
+            "--toolbar-icon-color": "#5e6062",
+          }
+        }
       >
         <input
           aria-label="Search this book"
-          className="c22"
+          className="topbar-search-input"
           data-testid="mobile-search-input"
           onChange={[Function]}
           placeholder="Search this book"
+          style={
+            Object {
+              "--text-label-color": "#6f6f6f",
+              "--toolbar-search-input-height": "3.2rem",
+            }
+          }
           type="search"
           value=""
         />
         <button
           aria-label="Search"
-          className="c3 c9 c11"
+          className="toolbar-plain-button topbar-search-button desktop"
           data-experiment={true}
+          style={
+            Object {
+              "--button-min-width": "45px",
+              "--search-button-bg-color": "transparent",
+              "--search-button-transition": "none",
+              "--search-icon-color": "#5e6062",
+              "--toolbar-icon-color": "#5e6062",
+              "--toolbar-icon-darker-color": "#424242",
+            }
+          }
           value="Search"
         >
           <svg
@@ -1696,13 +825,13 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
         
       </form>
       <div
-        className="c12 c13"
+        className="c2 topbar-text-resizer-dropdown mobile-variant mobile-toolbar-closed"
       >
         <button
           aria-controls="text-resizer-menu"
           aria-expanded={false}
           aria-label="Change text size"
-          className="plain-button c23 dropdown-toggle "
+          className="plain-button c4 dropdown-toggle "
           data-analytics-label="Change text size"
           onClick={[Function]}
         >
