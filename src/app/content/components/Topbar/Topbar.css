@@ -191,6 +191,9 @@
 .topbar-search-button svg {
   vertical-align: middle;
   fill: var(--search-icon-color);
+  padding: 0.4rem;
+  height: 2.5rem;
+  width: 2.5rem;
 }
 
 .topbar-search-button.desktop {
@@ -386,6 +389,7 @@
 @media screen and (max-width: 50em) {
   .topbar-text-resizer-dropdown.mobile-variant {
     margin-left: 0;
+    display: block;
   }
 
   .topbar-text-resizer-dropdown.mobile-variant > button {
@@ -397,7 +401,7 @@
   }
 
   .topbar-text-resizer-dropdown.mobile-variant.mobile-toolbar-open {
-    display: block;
+    display: none;
   }
 }
 
