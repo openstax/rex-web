@@ -46,7 +46,7 @@
   border-left: 1px solid var(--neutral-form-border-color);
 }
 
-/* hides the sidebar whens it's sliding in */
+/* hides the sidebar when it's sliding in */
 .toolbar-wrapper::before {
   content: "";
   position: absolute;
@@ -148,21 +148,28 @@
 
 /* Print option wrapper */
 .toolbar-print-opt-wrapper {
-  height: auto;
+  display: flex;
+  align-items: center;
+  height: max-content;
   padding: 0 10px;
+  margin-left: auto;
 }
 
 /* Print options */
 .toolbar-print-options {
   font-weight: 600;
-  font-size: 1.2rem;
-  line-height: 1.5rem;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  margin: 0 0 0 0.5rem;
 }
 
-@media screen and (max-width: 50em) {
+@media screen and (max-width: 75em) {
+  .toolbar-print-opt-wrapper {
+    padding-right: 1.6rem;
+  }
+
   .toolbar-print-options {
-    font-size: 1.6rem;
-    margin-left: 1.2rem;
+    display: none;
   }
 }
 
@@ -182,6 +189,9 @@
 .toolbar-times-icon {
   vertical-align: middle;
   color: var(--toolbar-icon-color);
+  height: 2.5rem;
+  width: 2.5rem;
+  padding: 0.4rem;
 }
 
 .toolbar-times-icon:hover {

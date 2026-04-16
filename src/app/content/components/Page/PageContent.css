@@ -1,8 +1,6 @@
 /* PageContent styles */
 
 .page-content {
-  max-width: var(--content-text-width);
-  margin: 0 auto;
   overflow: visible;
 }
 
@@ -13,7 +11,7 @@
 /* Media queries at top level */
 @media screen {
   .page-content {
-    /* full page width in print */
+    /* constrain width on screen; full page width in print */
     max-width: var(--content-text-width);
     margin: 0 auto;
     flex: 1;

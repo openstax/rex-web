@@ -69,9 +69,19 @@ export const buttonMinWidth = `45px`;
 
 export const PlainButton = React.forwardRef<
   HTMLButtonElement,
-  React.ButtonHTMLAttributes<HTMLButtonElement> & { theme?: unknown }
+  React.ButtonHTMLAttributes<HTMLButtonElement> & {
+    theme?: unknown;
+    isActive?: boolean;
+    practiceQuestionsEnabled?: boolean;
+  }
 >(function PlainButton({ className, style, ...props }, ref) {
-  const { theme: _theme, ...domProps } = props as Record<string, unknown>;
+  // Filter out non-DOM props before spreading to button element
+  const {
+    theme: _theme,
+    isActive: _isActive,
+    practiceQuestionsEnabled: _practiceQuestionsEnabled,
+    ...domProps
+  } = props as Record<string, unknown>;
 
   return (
     <button

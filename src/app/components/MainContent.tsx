@@ -48,8 +48,8 @@ const MainContent = React.forwardRef<HTMLDivElement, React.PropsWithChildren<Pro
   ({ book, children, className, style, ...props }, ref) => (
     <Consumer>
       {({ registerMainContent }) => (
-        <main ref={mergeRefs(ref, registerMainContent)} className={className} tabIndex={-1}>
-          <ContentStyles id={MAIN_CONTENT_ID} book={book} style={style} tabIndex={-1} {...props}>
+        <main ref={mergeRefs(ref, registerMainContent)} className={className} style={style} tabIndex={-1}>
+          <ContentStyles id={MAIN_CONTENT_ID} book={book} tabIndex={-1} {...props}>
             {children}
           </ContentStyles>
         </main>

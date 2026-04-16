@@ -24,9 +24,8 @@ import {
 } from '../constants';
 import { FilterDropdown } from '../popUp/Filters';
 import { toolbarIconStyles } from '../Toolbar/iconStyles';
-import { buttonMinWidth } from '../Toolbar/styled';
+import { buttonMinWidth, PlainButton as PlainButtonBase } from '../Toolbar/styled';
 import { isVerticalNavOpenConnector } from '../utils/sidebar';
-import { PlainButton as PlainButtonBase } from "../Toolbar/styled";
 import Color from 'color';
 import './Topbar.css';
 
@@ -193,22 +192,17 @@ export const SearchButton = function SearchButton({
   const searchIconColor = colorSchema
     ? Color(theme.color.primary[colorSchema].base).isDark()
       ? theme.color.text.white
-      : theme.color.primary[colorSchema].base
+      : theme.color.primary[colorSchema].foreground
     : toolbarIconColor.base;
 
   return (
     <PlainButton
       {...domProps}
-      {...(ariaLabelId
-        ? {
-            'aria-label': intl.formatMessage({ id: ariaLabelId }),
-          }
-        : {})}
       value={intl.formatMessage({
         id: 'i18n:search-results:bar:search-icon:value',
       })}
       aria-label={intl.formatMessage({
-        id: 'i18n:search-results:bar:search-icon:value',
+        id: ariaLabelId || 'i18n:search-results:bar:search-icon:value',
       })}
       className={classNames(
         'topbar-search-button',
@@ -328,7 +322,7 @@ export const SearchInputWrapper = function SearchInputWrapper({
   const searchIconColor = colorSchema
     ? Color(theme.color.primary[colorSchema].base).isDark()
       ? theme.color.text.white
-      : theme.color.primary[colorSchema].base
+      : theme.color.primary[colorSchema].foreground
     : toolbarIconColor.base;
 
   return (
@@ -526,7 +520,7 @@ export const InnerText = function InnerText({
   );
 };
 
-export const SeachResultsTextButton = function SeachResultsTextButton({
+export const SearchResultsTextButton = function SearchResultsTextButton({
   className,
   style,
   ...props
@@ -647,7 +641,7 @@ export const CloseSearchResultsTextButton =
     const { theme: _theme, ...domProps } = props as Record<string, unknown>;
 
     return (
-      <SeachResultsTextButton
+      <SearchResultsTextButton
         {...domProps}
         className={classNames(
           'topbar-close-search-results-text-button',
