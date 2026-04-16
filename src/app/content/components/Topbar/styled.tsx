@@ -197,9 +197,6 @@ export const SearchButton = function SearchButton({
   return (
     <PlainButton
       {...domProps}
-      value={intl.formatMessage({
-        id: 'i18n:search-results:bar:search-icon:value',
-      })}
       aria-label={intl.formatMessage({
         id: ariaLabelId || 'i18n:search-results:bar:search-icon:value',
       })}
@@ -302,7 +299,7 @@ export const CloseButtonNew = function CloseButtonNew({
   );
 };
 
-export const SearchInputWrapper = function SearchInputWrapper({
+export const SearchInputWrapper = styled(function SearchInputWrapper({
   active,
   colorSchema,
   searchInSidebar,
@@ -346,7 +343,7 @@ export const SearchInputWrapper = function SearchInputWrapper({
       }
     />
   );
-};
+})``;
 
 export const SearchInput = function SearchInput({
   desktop,
