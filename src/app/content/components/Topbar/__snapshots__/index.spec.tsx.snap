@@ -66,7 +66,7 @@ exports[`text resizer does not render if textSize is null 1`] = `
       </button>
     </div>
     <form
-      className="topbar-search-input-wrapper"
+      className="topbar-search-input-wrapper "
       data-experiment={true}
       data-testid="desktop-search"
       onSubmit={[Function]}
@@ -113,7 +113,6 @@ exports[`text resizer does not render if textSize is null 1`] = `
           }
         }
         type="button"
-        value="Search"
       >
         <svg
           aria-hidden="true"
@@ -158,7 +157,6 @@ exports[`text resizer does not render if textSize is null 1`] = `
             "--toolbar-icon-darker-color": "#424242",
           }
         }
-        value="Search"
       >
         <svg
           aria-hidden="true"
@@ -240,7 +238,7 @@ exports[`text resizer does not render if textSize is null 1`] = `
       </button>
       <form
         action="#"
-        className="topbar-search-input-wrapper"
+        className="topbar-search-input-wrapper "
         data-experiment={true}
         data-testid="mobile-search"
         onSubmit={[Function]}
@@ -283,7 +281,6 @@ exports[`text resizer does not render if textSize is null 1`] = `
               "--toolbar-icon-darker-color": "#424242",
             }
           }
-          value="Search"
         >
           <svg
             aria-hidden="true"
@@ -470,7 +467,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
       </button>
     </div>
     <form
-      className="topbar-search-input-wrapper"
+      className="topbar-search-input-wrapper "
       data-experiment={true}
       data-testid="desktop-search"
       onSubmit={[Function]}
@@ -517,7 +514,6 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
           }
         }
         type="button"
-        value="Search"
       >
         <svg
           aria-hidden="true"
@@ -562,7 +558,6 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
             "--toolbar-icon-darker-color": "#424242",
           }
         }
-        value="Search"
       >
         <svg
           aria-hidden="true"
@@ -747,7 +742,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
       </button>
       <form
         action="#"
-        className="topbar-search-input-wrapper"
+        className="topbar-search-input-wrapper "
         data-experiment={true}
         data-testid="mobile-search"
         onSubmit={[Function]}
@@ -790,7 +785,6 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
               "--toolbar-icon-darker-color": "#424242",
             }
           }
-          value="Search"
         >
           <svg
             aria-hidden="true"
