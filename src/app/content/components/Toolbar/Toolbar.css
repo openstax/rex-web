@@ -151,7 +151,7 @@
   display: flex;
   align-items: center;
   height: max-content;
-  padding: 0 10px;
+  padding: 0 2.5rem 0 1%;
   margin-left: auto;
 }
 
@@ -171,18 +171,6 @@
   .toolbar-print-options {
     display: none;
   }
-}
-
-/* Left arrow */
-.toolbar-left-arrow {
-  width: 4rem;
-  height: 4rem;
-  color: var(--toolbar-icon-color);
-  margin: 0 -1rem;
-}
-
-.toolbar-left-arrow:hover {
-  color: var(--toolbar-icon-darker-color);
 }
 
 /* Times icon */

@@ -266,6 +266,7 @@ export const CloseIcon = function CloseIcon({
     <Times
       {...domProps}
       aria-hidden="true"
+      focusable="false"
       className={classNames('topbar-close-icon', className)}
       style={
         {
@@ -402,7 +403,14 @@ export const SearchPrintWrapper = isVerticalNavOpenConnector(
     isVerticalNavOpen?: boolean;
     theme?: unknown;
   }) {
-    const { theme: _theme, ...domProps } = props as Record<string, unknown>;
+    // Filter out non-DOM props injected by isVerticalNavOpenConnector
+    const {
+      theme: _theme,
+      dispatch: _dispatch,
+      isDesktopSearchOpen: _isDesktopSearchOpen,
+      isTocOpen: _isTocOpen,
+      ...domProps
+    } = props as Record<string, unknown>;
 
     return (
       <div
