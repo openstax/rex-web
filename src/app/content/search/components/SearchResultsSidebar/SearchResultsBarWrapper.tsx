@@ -2,7 +2,7 @@ import { SearchResultHit } from '@openstax/open-search-client';
 import { HTMLElement, HTMLDivElement } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import searchIcon from '../.../../../../../../assets/search-icon-v2.svg';
+import searchIcon from '../../../../../assets/search-icon-v2.svg';
 import Loader from '../../../../components/Loader';
 import { assertDefined, assertNotNull } from '../../../../utils/assertions';
 import { Book, BookWithOSWebData } from '../../../types';

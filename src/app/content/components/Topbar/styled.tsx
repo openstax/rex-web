@@ -443,7 +443,7 @@ export const MobileSearchContainer = function MobileSearchContainer({
         {
           '--mobile-search-container-margin': `${mobileSearchContainerMargin}rem`,
           '--toolbar-search-input-mobile-height': `${toolbarSearchInputMobileHeight}rem`,
-          '--max-nav-width': '120rem', // maxNavWidth from NavBar/styled
+          '--max-nav-width': `${contentWrapperMaxWidth}rem`,
           '--page-padding-desktop': `${theme.padding.page.desktop}rem`,
           '--page-padding-mobile': `${theme.padding.page.mobile}rem`,
           ...style,
