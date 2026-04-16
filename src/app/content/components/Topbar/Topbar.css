@@ -344,10 +344,11 @@
   display: flex;
   overflow: visible;
   min-width: auto;
+
   /* Typography styles (textRegularStyle + decoratedLinkStyle) */
   font-size: 1.6rem;
   line-height: 2.5rem;
-  color: #027EB5; /* linkColor */
+  color: #027eb5; /* linkColor */
   cursor: pointer;
   text-decoration: none;
 }
@@ -355,7 +356,7 @@
 .topbar-search-results-text-button:hover,
 .topbar-search-results-text-button:focus {
   text-decoration: underline;
-  color: #0064A0; /* linkHover */
+  color: #0064a0; /* linkHover */
 }
 
 /* Close search results text button */
