@@ -407,12 +407,20 @@ export const SearchPrintWrapper = isVerticalNavOpenConnector(
       ...domProps
     } = props as Record<string, unknown>;
 
+    // Apply sidebar-closed class only when both conditions are explicitly false (desktop closed state)
+    // When isVerticalNavOpen is null, it means "open on desktop / closed on mobile"
+    const isDesktopClosed = _isDesktopSearchOpen === false && isVerticalNavOpen === false;
+    const isMobileClosed = isVerticalNavOpen === null;
+
     return (
       <div
         {...domProps}
         className={classNames(
           'topbar-search-print-wrapper',
-          { 'sidebar-closed': !isVerticalNavOpen },
+          {
+            'sidebar-closed': isDesktopClosed,
+            'sidebar-mobile-closed': isMobileClosed,
+          },
           className
         )}
         style={

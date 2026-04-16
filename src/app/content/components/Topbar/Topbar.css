@@ -47,10 +47,19 @@
 }
 
 /* stylelint-disable declaration-no-important */
+
+/* Desktop closed state: both search and sidebar are closed */
 .topbar-search-print-wrapper.sidebar-closed {
   padding-left: 0 !important;
 }
 /* stylelint-enable declaration-no-important */
+
+/* Mobile closed state: sidebar is null (open on desktop, closed on mobile) */
+@media screen and (max-width: 75em) {
+  .topbar-search-print-wrapper.sidebar-mobile-closed {
+    padding-left: 0;
+  }
+}
 
 /* Mobile breakpoint */
 @media screen and (max-width: 75em) {
@@ -185,6 +194,13 @@
   margin: 0;
   transition: var(--search-button-transition, none);
   background: var(--search-button-bg-color, transparent);
+  color: var(--search-icon-color);
+}
+
+/* Preserve search icon color on hover/focus (override toolbar-plain-button hover) */
+.topbar-search-button.toolbar-plain-button:hover,
+.topbar-search-button.toolbar-plain-button:focus,
+.topbar-search-button.toolbar-plain-button:focus-visible {
   color: var(--search-icon-color);
 }
 
@@ -350,6 +366,12 @@
 .topbar-search-results-text-button:hover,
 .topbar-search-results-text-button:focus {
   text-decoration: underline;
+  color: #0064a0; /* linkHover */
+}
+
+.topbar-search-results-text-button.toolbar-plain-button:hover,
+.topbar-search-results-text-button.toolbar-plain-button:focus,
+.topbar-search-results-text-button.toolbar-plain-button:focus-visible {
   color: #0064a0; /* linkHover */
 }
 
