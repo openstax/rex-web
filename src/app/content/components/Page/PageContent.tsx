@@ -99,6 +99,10 @@ const dynamicHighlightStyles = highlightStyles.map((highlightStyle) => {
  */
 const PageContent = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageContentProps>>(
   ({ book, className, dangerouslySetInnerHTML, textSize, style, children, ...props }, ref) => {
+    // Only add 'page-content' if not already present to avoid duplication
+    const hasPageContentClass = className?.includes('page-content');
+    const finalClassName = hasPageContentClass ? className : classNames('page-content', className);
+
     return (
       <>
         <style>{dynamicHighlightStyles}</style>
@@ -108,7 +112,7 @@ const PageContent = React.forwardRef<HTMLDivElement, React.PropsWithChildren<Pag
           book={book}
           dangerouslySetInnerHTML={dangerouslySetInnerHTML}
           textSize={textSize}
-          className={classNames('page-content', className)}
+          className={finalClassName}
           style={{
             '--content-text-width': `${contentTextWidth}rem`,
             '--page-margin-top-desktop': `${theme.padding.page.desktop}rem`,

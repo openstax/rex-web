@@ -74,14 +74,14 @@ export const PlainButton = React.forwardRef<
     isActive?: boolean;
     practiceQuestionsEnabled?: boolean;
   }
->(function PlainButton({ className, style, ...props }, ref) {
-  // Filter out non-DOM props before spreading to button element
-  const {
-    theme: _theme,
-    isActive: _isActive,
-    practiceQuestionsEnabled: _practiceQuestionsEnabled,
-    ...domProps
-  } = props as Record<string, unknown>;
+>(function PlainButton(
+  {
+    className, style, theme: _theme, isActive: _isActive,
+    practiceQuestionsEnabled: _practiceQuestionsEnabled, ...domProps
+  },
+  ref
+) {
+  // Non-DOM props filtered out via destructuring
 
   return (
     <button

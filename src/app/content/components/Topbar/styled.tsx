@@ -116,9 +116,9 @@ const TimesCircleIcon = styled(TimesCircleIconBase)``;
 function PlainButton({
   className,
   style,
-  ...props
+  theme: _theme,
+  ...domProps
 }: React.ButtonHTMLAttributes<HTMLButtonElement> & { theme?: unknown }) {
-  const { theme: _theme, ...domProps } = props as Record<string, unknown>;
   return <PlainButtonBase {...domProps} className={className} style={style} />;
 }
 
@@ -395,7 +395,7 @@ export const SearchPrintWrapper = isVerticalNavOpenConnector(
     style,
     ...props
   }: React.HTMLAttributes<HTMLDivElement> & {
-    isVerticalNavOpen?: boolean;
+    isVerticalNavOpen?: boolean | null;
     theme?: unknown;
   }) {
     // Filter out non-DOM props injected by isVerticalNavOpenConnector
