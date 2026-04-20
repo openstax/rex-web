@@ -23,6 +23,7 @@ interface PageContentProps extends React.HTMLAttributes<HTMLDivElement> {
   textSize?: TextResizerValue;
 }
 
+// Generate dynamic highlight styles once at module level
 const dynamicHighlightStyles = highlightStyles.map((highlightStyle) => {
   const isDark = Color(highlightStyle.focused).isDark();
 
@@ -91,6 +92,20 @@ const dynamicHighlightStyles = highlightStyles.map((highlightStyle) => {
   `;
 }).join('\n');
 
+// Track if styles have been injected globally to avoid duplicates
+let stylesInjected = false;
+
+// Inject dynamic highlight styles once globally
+function injectHighlightStyles() {
+  if (typeof document !== 'undefined' && !stylesInjected) {
+    const styleElement = document.createElement('style');
+    styleElement.setAttribute('data-page-content-highlights', '');
+    styleElement.textContent = dynamicHighlightStyles;
+    document.head.appendChild(styleElement);
+    stylesInjected = true;
+  }
+}
+
 /**
  * PageContent component - Main content container for book pages
  *
@@ -99,30 +114,32 @@ const dynamicHighlightStyles = highlightStyles.map((highlightStyle) => {
  */
 const PageContent = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageContentProps>>(
   ({ book, className, dangerouslySetInnerHTML, textSize, style, children, ...props }, ref) => {
+    // Inject highlight styles once globally on first mount
+    React.useEffect(() => {
+      injectHighlightStyles();
+    }, []);
+
     // Only add 'page-content' if not already present to avoid duplication
     const hasPageContentClass = className?.includes('page-content');
     const finalClassName = hasPageContentClass ? className : classNames('page-content', className);
 
     return (
-      <>
-        <style>{dynamicHighlightStyles}</style>
-        <MainContent
-          {...props}
-          ref={ref}
-          book={book}
-          dangerouslySetInnerHTML={dangerouslySetInnerHTML}
-          textSize={textSize}
-          className={finalClassName}
-          style={{
-            '--content-text-width': `${contentTextWidth}rem`,
-            '--page-margin-top-desktop': `${theme.padding.page.desktop}rem`,
-            '--page-margin-top-mobile': `${theme.padding.page.mobile}rem`,
-            ...style,
-          } as React.CSSProperties}
-        >
-          {children}
-        </MainContent>
-      </>
+      <MainContent
+        {...props}
+        ref={ref}
+        book={book}
+        dangerouslySetInnerHTML={dangerouslySetInnerHTML}
+        textSize={textSize}
+        className={finalClassName}
+        style={{
+          '--content-text-width': `${contentTextWidth}rem`,
+          '--page-margin-top-desktop': `${theme.padding.page.desktop}rem`,
+          '--page-margin-top-mobile': `${theme.padding.page.mobile}rem`,
+          ...style,
+        } as React.CSSProperties}
+      >
+        {children}
+      </MainContent>
     );
   }
 );
