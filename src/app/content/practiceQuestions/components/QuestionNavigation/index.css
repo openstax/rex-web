@@ -1,0 +1,22 @@
+.question-navigation {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 3.2rem;
+  overflow: visible;
+}
+
+.question-navigation input {
+  appearance: none;
+}
+
+.question-navigation .button {
+  margin-left: 0.1rem;
+}
+
+/* max-width: 75em (1200px) */
+@media screen and (max-width: 75em) {
+  .question-navigation {
+    margin-bottom: 1rem;
+  }
+}

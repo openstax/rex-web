@@ -1,35 +1,13 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import styled, { css } from 'styled-components/macro';
-import theme from '../../../../theme';
 import * as pqSelectors from '../../selectors';
 import { PracticeAnswer, PracticeQuestion } from '../../types';
-import { Button } from './Button';
 import FinishButton from './FinishButton';
 import NextButton from './NextButton';
 import ShowAnswerButton from './ShowAnswerButton';
 import SkipAndSubmitButtons from './SkipAndSubmitButtons';
-
-const Wrapper = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  margin-bottom: 3.2rem;
-  overflow: visible;
-
-  input {
-    appearance: none;
-  }
-
-  ${Button} {
-    margin-left: 0.1rem;
-  }
-
-  ${theme.breakpoints.mobile(css`
-    margin-bottom: 1rem;
-  `)}
-`;
+import './index.css';
 
 interface QuestionNavigationProps {
   question: PracticeQuestion;
@@ -59,7 +37,7 @@ const QuestionNavigation = ({ question, selectedAnswer, ...props }: QuestionNavi
     }
   }, [submittedAnswer, submittedAnswerIsCorrect]);
 
-  return <Wrapper>
+  return <div className="question-navigation">
     {showSkipAndSubmit && <SkipAndSubmitButtons
       isFinalQuestion={isFinalQuestion}
       disableSubmit={!selectedAnswer}
@@ -68,7 +46,7 @@ const QuestionNavigation = ({ question, selectedAnswer, ...props }: QuestionNavi
     {showShowAnswer && <ShowAnswerButton ref={showAnswerButton} onClick={props.onShowAnswer} />}
     {showNext && <NextButton ref={nextButton} submittedAnswerIsCorrect={submittedAnswerIsCorrect} />}
     {showFinish && <FinishButton />}
-  </Wrapper>;
+  </div>;
 };
 
 export default QuestionNavigation;
