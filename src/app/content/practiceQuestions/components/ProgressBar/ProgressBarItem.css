@@ -23,6 +23,7 @@
   }
 }
 
+/* stylelint-disable selector-class-pattern */
 .progress-bar-item__circle {
   display: flex;
   justify-content: center;
@@ -48,3 +49,4 @@
   background-color: #f1f1f1;
   border-color: #f1f1f1;
 }
+/* stylelint-enable selector-class-pattern */
