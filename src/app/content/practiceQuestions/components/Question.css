@@ -1,0 +1,60 @@
+/**
+ * Question component styles
+ *
+ * Styles for the practice question form including question content,
+ * answer wrapper, and fieldset elements.
+ */
+
+.question-wrapper {
+  overflow: visible;
+  padding: 0 var(--question-padding-desktop);
+}
+
+/* max-width: 75em (1200px) */
+@media screen and (max-width: 75em) {
+  .question-wrapper {
+    padding: 0 var(--question-padding-mobile);
+  }
+}
+
+.question-wrapper fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.question-content {
+  /* H4 styles from Typography/Headings.css */
+  font-size: 1.8rem;
+  line-height: 2.5rem;
+  padding-top: 1rem;
+  letter-spacing: -0.02rem;
+  padding-bottom: 1rem;
+  margin: 0;
+
+  /* Question-specific styles */
+  font-weight: bold;
+  color: var(--question-content-color);
+  overflow: initial;
+  outline: none;
+}
+
+/* H4 mobile styles */
+@media screen and (max-width: 75em) {
+  .question-content {
+    font-size: 1.6rem;
+    line-height: 2rem;
+  }
+}
+
+.answers-wrapper {
+  margin-top: var(--question-padding-desktop);
+  overflow: visible;
+}
+
+/* max-width: 75em (1200px) */
+@media screen and (max-width: 75em) {
+  .answers-wrapper {
+    margin-top: var(--question-padding-mobile);
+  }
+}
