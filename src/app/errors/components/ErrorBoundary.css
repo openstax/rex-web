@@ -1,0 +1,30 @@
+/* ErrorBoundary Styles
+ * Migrated from styled-components to plain CSS (Phase 2.5)
+ */
+
+.error-wrapper {
+  flex: 1;
+  margin: 3rem auto;
+  padding: 0 1.6rem;
+}
+
+.heading-wrapper {
+  text-align: center;
+  margin-top: 5rem;
+}
+
+.error-wrapper .body-error-text {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+}
+
+.error-wrapper .body-error-text a {
+  color: #027eb5;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.error-wrapper .body-error-text a:hover {
+  color: #0064a0;
+}
