@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ToastNotifications matches snapshot for few notifications 1`] = `
-.c4 {
+.c0 {
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
@@ -11,146 +11,57 @@ exports[`ToastNotifications matches snapshot for few notifications 1`] = `
   line-height: 4rem;
 }
 
-.c4 a {
+.c0 a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c4 a:hover {
+.c0 a:hover {
   color: #0064A0;
 }
 
-.c0 {
-  width: 100%;
-  position: absolute;
-  overflow: visible;
-}
-
-.c1 {
-  width: 100%;
-  margin: 0;
-  overflow: visible;
-  -webkit-transition: -webkit-transform 0.6s;
-  -webkit-transition: transform 0.6s;
-  transition: transform 0.6s;
-  z-index: 1;
-  -webkit-transform: translateY(-100%);
-  -ms-transform: translateY(-100%);
-  transform: translateY(-100%);
-}
-
-.c7 {
-  width: 100%;
-  margin: 0;
-  overflow: visible;
-  -webkit-transition: -webkit-transform 0.6s;
-  -webkit-transition: transform 0.6s;
-  transition: transform 0.6s;
-  z-index: 2;
-  -webkit-transform: translateY(-100%);
-  -ms-transform: translateY(-100%);
-  transform: translateY(-100%);
-}
-
-.c2 {
-  width: 100%;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  padding: 0.5rem 1rem;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  background: #F8E8EB;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  border: 1px solid #E297A0;
-}
-
-.c2 .c3 {
-  background: inherit;
-  color: #C23834;
-  font-weight: normal;
-  line-height: 2.6rem;
-}
-
-.c6 {
-  width: 1.8rem;
-  height: 1.8rem;
-  cursor: pointer;
-}
-
-.c5 {
-  color: #C22032;
-  overflow: visible;
-}
-
-.c5:hover {
-  color: #E297A0;
-}
-
 @media (max-width:75em) {
-  .c4 {
+  .c0 {
     padding: 0;
     line-height: 2rem;
     background-color: initial;
   }
 }
 
-@media print {
-  .c1 {
-    display: none;
-  }
-}
-
-@media print {
-  .c7 {
-    display: none;
-  }
-}
-
-@media (max-width:75em) {
-  .c2 {
-    -webkit-align-items: flex-start;
-    -webkit-box-align: flex-start;
-    -ms-flex-align: flex-start;
-    align-items: flex-start;
-    padding: 1.6rem 1.6rem;
-  }
-}
-
 <div
-  className="c0"
+  className="toasts-container"
 >
   <div
-    className="c1"
+    className="banner-body-wrapper"
+    data-fading-in={false}
+    data-fading-out={false}
     data-testid="banner-body"
     onAnimationEnd={[Function]}
     role="alert"
+    style={
+      Object {
+        "zIndex": 1,
+      }
+    }
   >
     <div
-      className="c2"
+      className="banner-body banner-body-error"
     >
       <div
-        className="c3 c4"
+        className="c0 toast-header"
       >
         The highlight could not be saved. Please check your connection and try again.
       </div>
       <button
         aria-label="dismiss"
-        className="plain-button c5"
+        className="toast-close-button toast-close-button-error"
         onClick={[Function]}
       >
         <svg
           aria-hidden="true"
-          className="c6"
-          focusable="false"
+          className="toast-close-icon"
           height="15px"
           version="1.1"
           viewBox="0 0 15 15"
@@ -180,28 +91,34 @@ exports[`ToastNotifications matches snapshot for few notifications 1`] = `
     </div>
   </div>
   <div
-    className="c7"
+    className="banner-body-wrapper"
+    data-fading-in={false}
+    data-fading-out={false}
     data-testid="banner-body"
     onAnimationEnd={[Function]}
     role="alert"
+    style={
+      Object {
+        "zIndex": 2,
+      }
+    }
   >
     <div
-      className="c2"
+      className="banner-body banner-body-error"
     >
       <div
-        className="c3 c4"
+        className="c0 toast-header"
       >
         The highlight could not be deleted. Please check your connection and try again.
       </div>
       <button
         aria-label="dismiss"
-        className="plain-button c5"
+        className="toast-close-button toast-close-button-error"
         onClick={[Function]}
       >
         <svg
           aria-hidden="true"
-          className="c6"
-          focusable="false"
+          className="toast-close-icon"
           height="15px"
           version="1.1"
           viewBox="0 0 15 15"
