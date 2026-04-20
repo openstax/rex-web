@@ -2,41 +2,11 @@
 
 exports[`ErrorBoundary captures unhandled rejected promises 1`] = `
 Array [
-  .c0 {
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  margin: 3rem auto;
-  padding: 0 1.6rem;
-}
-
-.c1 {
-  text-align: center;
-  margin-top: 5rem;
-}
-
-.c2 {
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-}
-
-.c2 a {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c2 a:hover {
-  color: #0064A0;
-}
-
-<div
-    className="c0"
+  <div
+    className="error-wrapper"
   >
     <div
-      className="c1"
+      className="heading-wrapper"
     >
       <h2
         className="typography-heading typography-h2"
@@ -50,7 +20,7 @@ Array [
       </h2>
     </div>
     <div
-      className="c2"
+      className="body-error-text"
       dangerouslySetInnerHTML={
         Object {
           "__html": "
@@ -791,41 +761,11 @@ Array [
 
 exports[`ErrorBoundary matches snapshot 1`] = `
 Array [
-  .c0 {
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  margin: 3rem auto;
-  padding: 0 1.6rem;
-}
-
-.c1 {
-  text-align: center;
-  margin-top: 5rem;
-}
-
-.c2 {
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-}
-
-.c2 a {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c2 a:hover {
-  color: #0064A0;
-}
-
-<div
-    className="c0"
+  <div
+    className="error-wrapper"
   >
     <div
-      className="c1"
+      className="heading-wrapper"
     >
       <h2
         className="typography-heading typography-h2"
@@ -839,7 +779,7 @@ Array [
       </h2>
     </div>
     <div
-      className="c2"
+      className="body-error-text"
       dangerouslySetInnerHTML={
         Object {
           "__html": "
