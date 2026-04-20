@@ -2,6 +2,7 @@ import { HTMLElement } from '@openstax/types/lib.dom';
 import React, { Component, MutableRefObject } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { connect } from 'react-redux';
+import { Tree, TreeItem, TreeItemContent } from 'react-aria-components';
 import { AppState, Dispatch } from '../../../types';
 import { closeMobileMenu, resetToc } from '../../actions';
 import { isArchiveTree } from '../../guards';
@@ -14,9 +15,16 @@ import { stripIdVersion } from '../../utils/idUtils';
 import { CloseToCAndMobileMenuButton, TOCBackButton, TOCCloseButton } from '../SidebarControl';
 import { Header, HeaderText, SidebarPaneBody } from '../SidebarPane';
 import { LeftArrow, TimesIcon } from '../Toolbar/styled';
-import * as Styled from './styled';
+import { ExpandIcon, CollapseIcon } from './styled';
+import ContentLinkBase from '../ContentLink';
+import getNumberWidth, { dividerWidth } from './utils';
 import { createTrapTab, useMatchMobileQuery, useMatchMobileMediumQuery, isSSR } from '../../../reactUtils';
 import { stripHtml } from '../../../utils';
+import './TableOfContents.css';
+
+// Wrapper component to add className support to ContentLink
+// ContentLink already supports all anchor props via ...anchorProps spread, so we just pass everything through
+const ContentLink = ContentLinkBase;
 
 interface SidebarProps {
   onNavigate: () => void;
@@ -123,13 +131,13 @@ function TocToggle({
 }: { title: string }) {
   return (
     // TreeItemContent does not render a DOM node
-    <Styled.StyledTreeItemContent>
-      <Styled.SummaryWrapper>
-        <Styled.ExpandIcon />
-        <Styled.CollapseIcon />
-        <Styled.SummaryTitle dangerouslySetInnerHTML={{ __html: title }}/>
-      </Styled.SummaryWrapper>
-    </Styled.StyledTreeItemContent>
+    <TreeItemContent>
+      <div className="toc-summary-wrapper">
+        <span className="toc-expand-icon"><ExpandIcon /></span>
+        <span className="toc-collapse-icon"><CollapseIcon /></span>
+        <span className="toc-summary-title" dangerouslySetInnerHTML={{ __html: title }}/>
+      </div>
+    </TreeItemContent>
   );
 }
 
@@ -224,13 +232,21 @@ function TocLeaf({
     contentLinkAriaAttrs['aria-label'] = disambiguatedTitle;
   }
 
+  // Compute dynamic styles
+  const numberWidth = getNumberWidth(section.contents);
+  const marginLeft = numberWidth + dividerWidth;
+
   return (
-    <Styled.StyledTreeItem
-      section={section}
+    <TreeItem
       id={item.id}
       key={item.id}
       textValue={strippedTitle}
       aria-label={intl.formatMessage({ id: 'i18n:toc:aria-label:link' }, { title: disambiguatedTitle })}
+      className="toc-tree-item"
+      style={{
+        '--toc-number-width': `${numberWidth}rem`,
+        '--toc-margin-left': `${marginLeft}rem`,
+      } as React.CSSProperties}
       onAction={
         // Ignored until RAC and TS versions are compatible
         // istanbul ignore next
@@ -239,20 +255,22 @@ function TocLeaf({
         }
       }
     >
-      <Styled.NavItem
+      <TreeItemContent
+        className="toc-nav-item"
         data-type={sectionType}
         textValue={strippedTitle}
       >
-        <Styled.ContentLink
+        <ContentLink
           ref={linkRef}
           onClick={onNavigate}
-          book={book}
+          book={book!} // eslint-disable-line @typescript-eslint/no-non-null-assertion
           page={item}
+          className="toc-content-link"
           dangerouslySetInnerHTML={{ __html: item.title }}
           {...contentLinkAriaAttrs}
         />
-      </Styled.NavItem>
-    </Styled.StyledTreeItem>
+      </TreeItemContent>
+    </TreeItem>
   );
 }
 
@@ -280,15 +298,23 @@ function TocSection({
         const active = page && stripIdVersion(item.id) === page.id;
         const strippedTitle = stripHtml(item.title, true);
 
+        // Compute dynamic styles
+        const numberWidth = getNumberWidth(section.contents);
+        const marginLeft = numberWidth + dividerWidth;
+
         return (
           <React.Fragment key={item.id}>
             {isArchiveTree(item)
               ?
-              <Styled.StyledTreeItem
-                section={section}
+              <TreeItem
                 id={item.id}
                 textValue={strippedTitle}
                 aria-label={intl.formatMessage({ id: 'i18n:toc:aria-label:section' }, { title: strippedTitle })}
+                className="toc-tree-item"
+                style={{
+                  '--toc-number-width': `${numberWidth}rem`,
+                  '--toc-margin-left': `${marginLeft}rem`,
+                } as React.CSSProperties}
               >
                 <ArchiveTreeComponent
                   item={item}
@@ -298,7 +324,7 @@ function TocSection({
                   onNavigate={onNavigate}
                   expandedKeys={expandedKeys}
                 />
-              </Styled.StyledTreeItem>
+              </TreeItem>
               : <TocLeaf
                 section={section}
                 item={item}
@@ -337,7 +363,8 @@ export class TableOfContents extends Component<SidebarProps, { expandedKeys: Set
         <TocHeader />
         {book && (
           <div>
-            <Styled.StyledTree
+            <Tree
+              className="toc-tree"
               aria-label='Table of Contents'
               expandedKeys={this.state.expandedKeys}
               onExpandedChange={this.handleExpandedChange}
@@ -351,7 +378,7 @@ export class TableOfContents extends Component<SidebarProps, { expandedKeys: Set
                 onNavigate={this.props.onNavigate}
                 expandedKeys={this.state.expandedKeys}
               />
-            </Styled.StyledTree >
+            </Tree >
           </div>
         )}
       </SidebarBody>
