@@ -25,9 +25,8 @@
 }
 
 /* Focus styles for keyboard navigation */
-.answer-wrapper:focus .answer-block,
-input:focus + .answer-block {
-  outline: auto;
+input:focus + .answer-block,
+.answer-wrapper:focus .answer-block {
   outline: -webkit-focus-ring-color auto 1px;
 }
 
@@ -98,10 +97,6 @@ input:not(:focus-visible):focus + .answer-block {
   border-color: var(--answer-border-unselected);
 }
 
-.answer-block--unselected:hover .answer-indicator {
-  border-color: var(--answer-border-hover-unselected);
-}
-
 /* Theme: Selected */
 .answer-block--selected {
   background-color: var(--answer-bg-selected);
@@ -111,10 +106,6 @@ input:not(:focus-visible):focus + .answer-block {
   color: var(--answer-indicator-fg-selected);
   background-color: var(--answer-indicator-bg-selected);
   border-color: var(--answer-border-selected);
-}
-
-.answer-block--selected:hover .answer-indicator {
-  border-color: var(--answer-border-hover-selected);
 }
 
 /* Theme: Correct */
@@ -128,10 +119,6 @@ input:not(:focus-visible):focus + .answer-block {
   border-color: var(--answer-border-correct);
 }
 
-.answer-block--correct:hover .answer-indicator {
-  border-color: var(--answer-border-hover-correct);
-}
-
 /* Theme: Incorrect */
 .answer-block--incorrect {
   background-color: var(--answer-bg-incorrect);
@@ -141,6 +128,19 @@ input:not(:focus-visible):focus + .answer-block {
   color: var(--answer-indicator-fg-incorrect);
   background-color: var(--answer-indicator-bg-incorrect);
   border-color: var(--answer-border-incorrect);
+}
+
+/* Hover states - placed after base states to maintain proper specificity */
+.answer-block--unselected:hover .answer-indicator {
+  border-color: var(--answer-border-hover-unselected);
+}
+
+.answer-block--selected:hover .answer-indicator {
+  border-color: var(--answer-border-hover-selected);
+}
+
+.answer-block--correct:hover .answer-indicator {
+  border-color: var(--answer-border-hover-correct);
 }
 
 .answer-block--incorrect:hover .answer-indicator {
