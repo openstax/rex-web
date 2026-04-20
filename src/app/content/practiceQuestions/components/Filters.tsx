@@ -1,16 +1,12 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components/macro';
 import ChapterFilter from '../../components/popUp/ChapterFilter';
 import Filters, { FilterDropdown, FiltersTopBar } from '../../components/popUp/Filters';
 import { FiltersChange } from '../../components/popUp/types';
 import { LinkedArchiveTreeSection } from '../../types';
 import { setSelectedSection } from '../actions';
 import * as selectors from '../selectors';
-
-const StyledChapterFilters = styled(ChapterFilter)`
-  padding: 0;
-`;
+import './Filters.css';
 
 export default () => {
   const [open, setOpen] = React.useState(false);
@@ -41,7 +37,8 @@ export default () => {
         setOpen={(isOpen: boolean) => setOpen(isOpen)}
         controlsId='practice-filter-chapter'
       >
-        <StyledChapterFilters
+        <ChapterFilter
+          className="practice-questions-chapter-filters"
           id='practice-filter-chapter'
           locationFilters={locationFilters}
           selectedLocationFilters={selectedLocationFilters}
