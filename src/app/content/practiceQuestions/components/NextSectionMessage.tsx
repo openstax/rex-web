@@ -1,33 +1,9 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import styled from 'styled-components/macro';
-import ButtonBase from '../../../components/Button';
-import { textRegularStyle } from '../../../components/Typography';
+import Button from '../../../components/Button';
+import theme from '../../../theme';
 import { LinkedArchiveTreeSection } from '../../types';
-
-// Wrap Button with styled() to make it compatible with component selectors
-const Button = styled(ButtonBase)``;
-
-const StyledNextSectionMessage = styled.div`
-  max-width: 38rem;
-  overflow: initial;
-
-  ${Button} {
-    margin: 4rem auto;
-  }
-`;
-
-const StyledMessage = styled.div`
-  ${textRegularStyle}
-`;
-
-export const StyledMessageText = styled.span`
-  display: inline;
-`;
-
-const StyledSectionTitle = styled.span`
-  font-weight: 700;
-`;
+import './NextSectionMessage.css';
 
 interface NextSectionMessageProps {
   nextSection: LinkedArchiveTreeSection;
@@ -40,16 +16,22 @@ interface NextSectionMessageProps {
 const NextSectionMessage = ({
   nextSection, messageKey, onClick, analyticsLabel, className,
 }: NextSectionMessageProps) => (
-  <StyledNextSectionMessage className={className}>
-    <StyledMessage>
-      <StyledMessageText>
+  <div
+    className={`next-section-message ${className || ''}`}
+    style={{
+      '--text-color': theme.color.text.default,
+    } as React.CSSProperties}
+  >
+    <div className="next-section-message-content">
+      <span className="next-section-message-text">
         <FormattedMessage id={messageKey}>
           {(msg) => msg}
         </FormattedMessage>
-      </StyledMessageText>
-      <StyledSectionTitle dangerouslySetInnerHTML={{ __html: nextSection.title }} />
-    </StyledMessage>
+      </span>
+      <span className="next-section-title" dangerouslySetInnerHTML={{ __html: nextSection.title }} />
+    </div>
     <Button
+      className="next-section-button"
       variant='primary'
       size='large'
       onClick={onClick}
@@ -59,7 +41,7 @@ const NextSectionMessage = ({
         {(msg) => msg}
       </FormattedMessage>
     </Button>
-  </StyledNextSectionMessage>
+  </div>
 );
 
 export default NextSectionMessage;

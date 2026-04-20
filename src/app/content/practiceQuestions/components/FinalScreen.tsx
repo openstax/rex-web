@@ -1,44 +1,28 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useDispatch } from 'react-redux';
-import styled from 'styled-components/macro';
-import { textRegularStyle } from '../../../components/Typography';
+import theme from '../../../theme';
 import { LinkedArchiveTreeSection } from '../../types';
 import { setSelectedSection } from '../actions';
-import NextSectionMessage, { StyledMessageText } from './NextSectionMessage';
-
-const StyledFinalScreen = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  margin: 2rem auto;
-  flex: 1;
-  text-align: center;
-  ${textRegularStyle}
-`;
-
-const StyledText = styled.span`
-  margin-bottom: -1rem;
-  max-width: 38rem;
-  overflow: initial;
-`;
-
-const StyledNextSectionMessage = styled(NextSectionMessage)`
-  ${StyledMessageText} {
-    display: block;
-  }
-`;
+import NextSectionMessage from './NextSectionMessage';
+import './FinalScreen.css';
 
 interface FinalScreenProps {
   nextSection?: LinkedArchiveTreeSection;
 }
 
-export const FinalScreenStatus = () => <StyledFinalScreen>
-  <StyledText>
-    <FormattedMessage id='i18n:practice-questions:popup:final' />
-  </StyledText>
-</StyledFinalScreen>;
+export const FinalScreenStatus = () => (
+  <div
+    className="final-screen"
+    style={{
+      '--text-color': theme.color.text.default,
+    } as React.CSSProperties}
+  >
+    <span className="final-screen-text">
+      <FormattedMessage id='i18n:practice-questions:popup:final' />
+    </span>
+  </div>
+);
 
 const FinalScreen = ({ nextSection }: FinalScreenProps) => {
   const dispatch = useDispatch();
@@ -47,14 +31,22 @@ const FinalScreen = ({ nextSection }: FinalScreenProps) => {
     return null;
   }
 
-  return <StyledFinalScreen>
-      <StyledNextSectionMessage
+  return (
+    <div
+      className="final-screen"
+      style={{
+        '--text-color': theme.color.text.default,
+      } as React.CSSProperties}
+    >
+      <NextSectionMessage
+        className="final-screen-next-section"
         nextSection={nextSection}
         messageKey='i18n:practice-questions:popup:final:next-section'
         onClick={() => dispatch(setSelectedSection(nextSection))}
         analyticsLabel='Continue (Final Screen)'
       />
-  </StyledFinalScreen>;
+    </div>
+  );
 };
 
 export default FinalScreen;
