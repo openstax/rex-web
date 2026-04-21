@@ -1,38 +1,36 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
 import { useDispatch } from 'react-redux';
-import styled, { css } from 'styled-components/macro';
-import { textRegularSize } from '../../../components/Typography';
-import theme from '../../../theme';
+import { toolbarIconColor } from '../constants';
 import * as actions from '../../actions';
-import { PlainButton, TimesIcon } from '../Toolbar/styled';
+import { TimesIcon } from '../Toolbar/styled';
 import { InnerProps } from './types';
-import { CloseButton, ButtonText } from './Buttons';
+import { CloseButton } from './Buttons';
 import { TOCControl, lockTocControlState, withMobileResponsiveTocControl } from './TOCControl';
+import './SidebarControl.css';
 
-export const CloseToCAndMobileMenuButton = styled((props) => {
+export const CloseToCAndMobileMenuButton: React.FC<React.ButtonHTMLAttributes<HTMLButtonElement>> = (props) => {
   const intl = useIntl();
   const dispatch = useDispatch();
 
-  return <PlainButton
-    {...props}
-    onClick={() => {
-      dispatch(actions.closeMobileMenu());
-      dispatch(actions.resetToc());
-    }}
-    aria-label={intl.formatMessage({ id: 'i18n:toolbar:mobile-menu:close'})}
+  return (
+    <button
+      {...props}
+      className="sidebar-control-close-toc-mobile-button"
+      onClick={() => {
+        dispatch(actions.closeMobileMenu());
+        dispatch(actions.resetToc());
+      }}
+      aria-label={intl.formatMessage({ id: 'i18n:toolbar:mobile-menu:close'})}
+      style={{
+        '--sidebar-control-icon-color-base': toolbarIconColor.base,
+        '--sidebar-control-icon-color-darker': toolbarIconColor.darker,
+      } as React.CSSProperties}
     >
       <TimesIcon />
-  </PlainButton>;
-})`
-  height: 40px;
-  position: absolute;
-  right: 0;
-  display: none;
-  ${theme.breakpoints.mobileMedium(css`
-    display: block;
-  `)}
-`;
+    </button>
+  );
+};
 
 export const CloseTOC = ({ message, children, ...props}: React.PropsWithChildren<InnerProps>) =>
   <CloseButton
@@ -42,26 +40,16 @@ export const CloseTOC = ({ message, children, ...props}: React.PropsWithChildren
     {children}
   </CloseButton>;
 
-
 export const TOCControlButton = withMobileResponsiveTocControl(TOCControl);
 
-export const TOCCloseButton = (lockTocControlState(true, CloseTOC));
+export const TOCCloseButton = lockTocControlState(true, CloseTOC);
 
-export const TOCBackButton = styled(TOCCloseButton)`
-  display: none;
-  ${theme.breakpoints.mobileMedium(css`
-    display: block;
-  `)}
-`;
+export const TOCBackButton: React.FC<Omit<InnerProps, 'isOpen' | 'message' | 'onClick'>> = (props) => {
+  const Component = TOCCloseButton;
+  return <div className="sidebar-control-toc-back-button"><Component {...props} /></div>;
+};
 
-export const StyledOpenTOCControl = styled(lockTocControlState(false, TOCControl))`
-  display: flex;
-  padding: 0;
-  min-height: unset;
-  flex-direction: row;
-  justify-content: start;
-
-  ${ButtonText} {
-    ${textRegularSize};
-  }
-`;
+export const StyledOpenTOCControl: React.FC<Omit<InnerProps, 'isOpen' | 'message' | 'onClick'>> = (props) => {
+  const Component = lockTocControlState(false, TOCControl);
+  return <div className="sidebar-control-styled-open-toc"><Component {...props} /></div>;
+};

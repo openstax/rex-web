@@ -1,11 +1,10 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useIntl } from 'react-intl';
 import TocIcon from '../../../../assets/TocIcon';
 import * as selectors from '../../selectors';
 import * as actions from '../../actions';
-import { AppState, Dispatch } from '../../../types';
-import type { InnerProps, MiddleProps } from './types';
+import type { InnerProps } from './types';
 import { OpenButton, ButtonText } from './Buttons';
 import { useMatchMobileQuery } from '../../../reactUtils';
 
@@ -28,40 +27,45 @@ export const TOCControl = ({ message, children, 'aria-expanded': ariaExpanded, '
   </OpenButton>;
 };
 
-export const tocConnector = connect(
-  (state: AppState) => ({
-      isOpen:  selectors.tocOpen(state),
-  }),
-  (dispatch: Dispatch) => ({
-      close: () => dispatch(actions.closeToc()),
-      open: () => dispatch(actions.openToc()),
-  })
-);
+export function lockTocControlState(isOpenLocked: boolean, Control: React.ComponentType<InnerProps>) {
+  return (props: Omit<InnerProps, 'isOpen' | 'message' | 'onClick'>) => {
+    const dispatch = useDispatch();
+    const isOpen = useSelector(selectors.tocOpen);
 
-export function lockTocControlState(isOpen: boolean, Control: React.ComponentType<InnerProps>) {
-  return tocConnector(({open, close, ...props}: MiddleProps) => <Control
-    {...props}
-    data-testid='toc-button'
-    message={isOpen ? openTocMessage : closedTocMessage}
-    data-analytics-label={isOpen ? 'Click to close the Table of Contents' : 'Click to open the Table of Contents'}
-    onClick={isOpen ? close : open}
-    isActive={false}
-  />);
-}
-
-export function withMobileResponsiveTocControl(Control: React.ComponentType<InnerProps>) {
-  return tocConnector(({open, close, ...props}: MiddleProps) => {
-    const isMobile = useMatchMobileQuery();
-    const isOpen = props.isOpen === null ? !isMobile : props.isOpen;
+    const close = () => dispatch(actions.closeToc());
+    const open = () => dispatch(actions.openToc());
 
     return <Control
       {...props}
+      isOpen={isOpen}
+      data-testid='toc-button'
+      message={isOpenLocked ? openTocMessage : closedTocMessage}
+      data-analytics-label={isOpenLocked ? 'Click to close the Table of Contents' : 'Click to open the Table of Contents'}
+      onClick={isOpenLocked ? close : open}
+      isActive={false}
+    />;
+  };
+}
+
+export function withMobileResponsiveTocControl(Control: React.ComponentType<InnerProps>) {
+  return (props: Omit<InnerProps, 'message' | 'onClick'>) => {
+    const dispatch = useDispatch();
+    const isOpenFromState = useSelector(selectors.tocOpen);
+    const isMobile = useMatchMobileQuery();
+
+    const close = () => dispatch(actions.closeToc());
+    const open = () => dispatch(actions.openToc());
+
+    const isOpen = isOpenFromState === null ? !isMobile : isOpenFromState;
+
+    return <Control
+      {...props}
+      isOpen={isOpen}
       data-testid='toc-button'
       message={isOpen ? openTocMessage : closedTocMessage}
       onClick={isOpen ? close : open}
-      isOpen={isOpen}
       aria-expanded={isOpen === true}
       aria-controls='toc-sidebar'
     />;
-  });
+  };
 }
