@@ -29,7 +29,7 @@
   font-size: 1.6rem;
   line-height: 1.8rem;
   display: flex;
-  margin-left: 2.4rem; /* iconSize from Details.legacy */
+  margin-left: var(--details-icon-size);
   text-decoration: none;
 }
 
@@ -65,7 +65,7 @@
 }
 
 .toc-summary-wrapper:hover .toc-summary-title,
-.toc-summary-wrapper:focus .toc-summary-title {
+.toc-summary-wrapper:focus-within .toc-summary-title {
   color: #000; /* theme.color.text.black */
   text-decoration: underline;
 }
@@ -110,7 +110,7 @@
 }
 
 .toc-tree-item .os-divider {
-  width: 0.8rem; /* dividerWidth constant */
+  width: var(--toc-divider-width);
   text-align: center;
   overflow: hidden;
 }
