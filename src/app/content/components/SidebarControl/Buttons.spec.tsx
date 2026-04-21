@@ -13,9 +13,9 @@ describe('Buttons', () => {
       expect(button.props['data-active']).toBe(false);
     });
 
-    it('sets data-active to false when both isActive and isOpen are null', () => {
+    it('sets data-active to false when isActive is undefind and isOpen is null', () => {
       const component = renderer.create(
-        <OpenButton isActive={null} isOpen={null}>Test Button</OpenButton>
+        <OpenButton isOpen={null}>Test Button</OpenButton>
       );
 
       const button = component.root.findByType('button');
