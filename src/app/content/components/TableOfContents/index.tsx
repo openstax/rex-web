@@ -265,7 +265,6 @@ function TocLeaf({
           page={item}
           className="toc-content-link"
           dangerouslySetInnerHTML={{ __html: item.title }}
-          style={{'--details-icon-size': `${iconSize}rem`}}
           {...contentLinkAriaAttrs}
         />
       </TreeItemContent>
