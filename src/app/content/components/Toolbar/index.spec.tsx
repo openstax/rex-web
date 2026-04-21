@@ -19,7 +19,6 @@ import { clearSearch, openSearchInSidebar, requestSearch, receiveSearchResults }
 import * as searchSelectors from '../../search/selectors';
 import * as selectors from '../../selectors';
 import { CloseToCAndMobileMenuButton } from '../SidebarControl';
-import { PlainButton } from './styled';
 
 describe('toolbar', () => {
   let store: Store;
@@ -57,12 +56,16 @@ describe('toolbar', () => {
   it('has a button that closes mobile menu', () => {
     const dispatchSpy = jest.spyOn(store, 'dispatch');
     const sidebar = assertWindow().document.createElement('div');
+    jest.spyOn(selectors, 'mobileMenuOpen').mockReturnValue(true);
     const component = renderer.create(<TestContainer store={store}>
       <Toolbar />
     </TestContainer>, { createNodeMock: () => sidebar });
 
+    const closeButton = component.root.findByType(CloseToCAndMobileMenuButton);
+    const buttonElement = closeButton.findByType('button');
+
     renderer.act(() => {
-      component.root.findByType(CloseToCAndMobileMenuButton).findByType(PlainButton).props.onClick();
+      buttonElement.props.onClick();
     });
 
     expect(dispatchSpy).toHaveBeenCalledWith(closeMobileMenu());
@@ -72,6 +75,34 @@ describe('toolbar', () => {
       store.dispatch(openToc());
     });
     expect(selectors.tocOpen(store.getState())).toEqual(true);
+  });
+
+  it('adds and removes keydown event listener for mobile menu', () => {
+    const sidebar = assertWindow().document.createElement('div');
+    const addEventListenerSpy = jest.spyOn(assertWindow().document, 'addEventListener');
+    const removeEventListenerSpy = jest.spyOn(assertWindow().document, 'removeEventListener');
+
+    // Mock mobile menu open and TOC closed to trigger the useEffect
+    jest.spyOn(selectors, 'mobileMenuOpen').mockReturnValue(true);
+    jest.spyOn(selectors, 'tocOpen').mockReturnValue(false);
+
+    const component = renderer.create(<TestContainer store={store}>
+      <Toolbar />
+    </TestContainer>, { createNodeMock: () => sidebar });
+
+    // Verify event listener was added
+    expect(addEventListenerSpy).toHaveBeenCalledWith('keydown', expect.any(Function), true);
+
+    // Unmount component to trigger cleanup
+    renderer.act(() => {
+      component.unmount();
+    });
+
+    // Verify event listener was removed
+    expect(removeEventListenerSpy).toHaveBeenCalledWith('keydown', expect.any(Function), true);
+
+    addEventListenerSpy.mockRestore();
+    removeEventListenerSpy.mockRestore();
   });
 
   describe('print button', () => {
