@@ -232,10 +232,6 @@ function TocLeaf({
     contentLinkAriaAttrs['aria-label'] = disambiguatedTitle;
   }
 
-  // Compute dynamic styles
-  const numberWidth = getNumberWidth(section.contents);
-  const marginLeft = numberWidth + dividerWidth;
-
   return (
     <TreeItem
       id={item.id}
@@ -265,10 +261,11 @@ function TocLeaf({
         <ContentLink
           ref={linkRef}
           onClick={onNavigate}
-          book={book!} // eslint-disable-line @typescript-eslint/no-non-null-assertion
+          book={book}
           page={item}
           className="toc-content-link"
           dangerouslySetInnerHTML={{ __html: item.title }}
+          style={{'--details-icon-size': `${iconSize}rem`}}
           {...contentLinkAriaAttrs}
         />
       </TreeItemContent>
@@ -302,10 +299,6 @@ function TocSection({
         const sectionType = getArchiveTreeSectionType(item);
         const active = page && stripIdVersion(item.id) === page.id;
         const strippedTitle = stripHtml(item.title, true);
-
-        // Compute dynamic styles
-        const numberWidth = getNumberWidth(section.contents);
-        const marginLeft = numberWidth + dividerWidth;
 
         return (
           <React.Fragment key={item.id}>
