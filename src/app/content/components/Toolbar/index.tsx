@@ -64,7 +64,7 @@ const VerticalNav = () => {
     >
       {isMobileMenuOpen && <MobileMenu />}
       <Styled.ToolbarElements>
-        <TOCControlButton showActivatedState />
+        <TOCControlButton showActivatedState isOpen={isTocOpen} />
         {showSearchInSidebar
           ? <SearchControlButton />
           : null}
