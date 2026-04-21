@@ -1,10 +1,5 @@
 /* TableOfContents Styles - Migrated from styled-components */
 
-/* Base tree styles */
-.toc-tree {
-  /* Empty wrapper - no styles needed */
-}
-
 /* Summary title for expandable sections */
 .toc-summary-title,
 .toc-content-link {

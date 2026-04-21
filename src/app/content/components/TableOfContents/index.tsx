@@ -363,7 +363,6 @@ export class TableOfContents extends Component<SidebarProps, { expandedKeys: Set
         {book && (
           <div>
             <Tree
-              className="toc-tree"
               aria-label='Table of Contents'
               expandedKeys={this.state.expandedKeys}
               onExpandedChange={this.handleExpandedChange}
