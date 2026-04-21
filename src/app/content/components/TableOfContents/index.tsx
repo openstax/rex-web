@@ -243,6 +243,7 @@ function TocLeaf({
         '--toc-number-width': `${numberWidth}rem`,
         '--toc-divider-width': `${dividerWidth}rem`,
         '--toc-margin-left': `${marginLeft}rem`,
+        '--details-icon-size': `${iconSize}rem`,
       } as React.CSSProperties}
       onAction={
         // Ignored until RAC and TS versions are compatible
@@ -264,7 +265,6 @@ function TocLeaf({
           page={item}
           className="toc-content-link"
           dangerouslySetInnerHTML={{ __html: item.title }}
-          style={{'--details-icon-size': `${iconSize}rem`}}
           {...contentLinkAriaAttrs}
         />
       </TreeItemContent>
