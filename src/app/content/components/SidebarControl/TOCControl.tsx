@@ -11,7 +11,9 @@ import { useMatchMobileQuery } from '../../../reactUtils';
 const closedTocMessage = 'i18n:toc:toggle:closed';
 const openTocMessage = 'i18n:toc:toggle:opened';
 
-export const TOCControl = ({ message, children, 'aria-expanded': ariaExpanded, 'aria-controls': ariaControls, ...props }: React.PropsWithChildren<InnerProps>) => {
+export const TOCControl = ({
+  message, children, 'aria-expanded': ariaExpanded, 'aria-controls': ariaControls, ...props
+}: React.PropsWithChildren<InnerProps>) => {
   const intl = useIntl();
   return <OpenButton
     aria-label={intl.formatMessage({ id: message })}
@@ -28,7 +30,7 @@ export const TOCControl = ({ message, children, 'aria-expanded': ariaExpanded, '
 };
 
 export function lockTocControlState(isOpenLocked: boolean, Control: React.ComponentType<InnerProps>) {
-  return (props: Omit<InnerProps, 'isOpen' | 'message' | 'onClick'>) => {
+  return (props: React.PropsWithChildren<Omit<InnerProps, 'isOpen' | 'message' | 'onClick'>>) => {
     const dispatch = useDispatch();
     const isOpen = useSelector(selectors.tocOpen);
 

@@ -3,7 +3,7 @@ export interface InnerProps {
   message: string;
   onClick: () => void;
   className?: string;
-  isActive?: boolean | null;
+  isActive?: boolean;
   'aria-expanded'?: React.AriaAttributes['aria-expanded'];
   'aria-controls'?: React.AriaAttributes['aria-controls'];
 }

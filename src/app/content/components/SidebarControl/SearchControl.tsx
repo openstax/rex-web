@@ -21,7 +21,6 @@ export const SearchControlButton: React.FC<SearchControlButtonProps> = ({
   ...props
 }) => {
   const dispatch = useDispatch();
-  const hasQuery = useSelector((state) => !!searchSelectors.query(state));
   const isOpen = useSelector(searchSelectors.searchResultsOpen);
   const intl = useIntl();
 
