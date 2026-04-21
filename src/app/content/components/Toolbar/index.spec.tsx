@@ -11,7 +11,7 @@ import * as Services from '../../../context/Services';
 import { receiveFeatureFlags } from '../../../featureFlags/actions';
 import { MiddlewareAPI, Store } from '../../../types';
 import { assertWindow } from '../../../utils';
-import { closeMobileMenu } from '../../actions';
+import { closeMobileMenu, openMobileMenu } from '../../actions';
 import { openToc } from '../../actions';
 import { practiceQuestionsFeatureFlag } from '../../constants';
 import { SearchResult } from '@openstax/open-search-client';
@@ -82,13 +82,20 @@ describe('toolbar', () => {
     const addEventListenerSpy = jest.spyOn(assertWindow().document, 'addEventListener');
     const removeEventListenerSpy = jest.spyOn(assertWindow().document, 'removeEventListener');
 
-    // Mock mobile menu open and TOC closed to trigger the useEffect
-    jest.spyOn(selectors, 'mobileMenuOpen').mockReturnValue(true);
-    jest.spyOn(selectors, 'tocOpen').mockReturnValue(false);
-
+    // Create component with mobile menu closed initially
     const component = renderer.create(<TestContainer store={store}>
       <Toolbar />
-    </TestContainer>, { createNodeMock: () => sidebar });
+    </TestContainer>, { createNodeMock: (element) => {
+      if (element.type === 'nav') {
+        return sidebar;
+      }
+      return null;
+    }});
+
+    // Open mobile menu to trigger the useEffect (TOC is closed by default)
+    renderer.act(() => {
+      store.dispatch(openMobileMenu());
+    });
 
     // Verify event listener was added
     expect(addEventListenerSpy).toHaveBeenCalledWith('keydown', expect.any(Function), true);
