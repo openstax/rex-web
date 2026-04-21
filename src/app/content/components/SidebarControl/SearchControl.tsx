@@ -10,16 +10,12 @@ const closedSearchMessage = 'i18n:toolbar:search:toggle:closed';
 const openedSearchMessage = 'i18n:toolbar:search:toggle:opened';
 
 interface SearchControlButtonProps {
-  desktop?: boolean;
   className?: string;
   isActive?: boolean;
 }
 
 // Search in sidebar experiment
-export const SearchControlButton: React.FC<SearchControlButtonProps> = ({
-  desktop = false,
-  ...props
-}) => {
+export const SearchControlButton: React.FC<SearchControlButtonProps> = (props) => {
   const dispatch = useDispatch();
   const isOpen = useSelector(searchSelectors.searchResultsOpen);
   const intl = useIntl();

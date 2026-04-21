@@ -123,7 +123,7 @@
 }
 
 /* StyledOpenTOCControl - special styling for TOC open control */
-.sidebar-control-styled-open-toc {
+.sidebar-control-styled-open-toc .sidebar-control-open-button {
   display: flex;
   padding: 0;
   min-height: unset;

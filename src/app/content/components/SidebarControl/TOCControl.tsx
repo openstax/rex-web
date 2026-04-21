@@ -50,7 +50,7 @@ export function lockTocControlState(isOpenLocked: boolean, Control: React.Compon
 }
 
 export function withMobileResponsiveTocControl(Control: React.ComponentType<InnerProps>) {
-  return (props: Omit<InnerProps, 'message' | 'onClick'> & { showActivatedState?: boolean }) => {
+  return ({ showActivatedState, ...props }: Omit<InnerProps, 'message' | 'onClick'> & { showActivatedState?: boolean }) => {
     const dispatch = useDispatch();
     const isOpenFromState = useSelector(selectors.tocOpen);
     const isMobile = useMatchMobileQuery();
@@ -59,10 +59,12 @@ export function withMobileResponsiveTocControl(Control: React.ComponentType<Inne
     const open = () => dispatch(actions.openToc());
 
     const isOpen = isOpenFromState === null ? !isMobile : isOpenFromState;
+    const isActive = showActivatedState ? isOpen : undefined;
 
     return <Control
       {...props}
       isOpen={isOpen}
+      isActive={isActive}
       data-testid='toc-button'
       message={isOpen ? openTocMessage : closedTocMessage}
       onClick={isOpen ? close : open}

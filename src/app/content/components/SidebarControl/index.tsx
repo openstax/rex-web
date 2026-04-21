@@ -44,12 +44,13 @@ export const TOCControlButton = withMobileResponsiveTocControl(TOCControl);
 
 export const TOCCloseButton = lockTocControlState(true, CloseTOC);
 
+export const TOCOpenButton = lockTocControlState(false, TOCControl);
+
 export const TOCBackButton: React.FC<Omit<InnerProps, 'isOpen' | 'message' | 'onClick'>> = (props) => {
   const Component = TOCCloseButton;
   return <div className="sidebar-control-toc-back-button"><Component {...props} /></div>;
 };
 
 export const StyledOpenTOCControl: React.FC<Omit<InnerProps, 'isOpen' | 'message' | 'onClick'>> = (props) => {
-  const Component = lockTocControlState(false, TOCControl);
-  return <div className="sidebar-control-styled-open-toc"><Component {...props} /></div>;
+  return <div className="sidebar-control-styled-open-toc"><TOCOpenButton {...props} /></div>;
 };

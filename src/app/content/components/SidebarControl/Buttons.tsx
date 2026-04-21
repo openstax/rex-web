@@ -48,7 +48,7 @@ export const OpenButton = React.forwardRef<HTMLButtonElement, OpenButtonProps>(
     <button
       ref={ref}
       className="sidebar-control-open-button"
-      data-active={isActive || false}
+      data-active={isActive ?? isOpen ?? false}
       style={{
         '--sidebar-control-icon-color-base': toolbarIconColor.base,
         '--sidebar-control-icon-color-darker': toolbarIconColor.darker,
