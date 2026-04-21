@@ -36,5 +36,31 @@ describe('SidebarControl/index', () => {
       expect(dispatchSpy).toHaveBeenCalledWith(resetToc());
       expect(dispatchSpy).toHaveBeenCalledTimes(2);
     });
+
+    it('applies base className when no className prop is provided', () => {
+      const component = renderer.create(
+        <Provider store={store}>
+          <MessageProvider>
+            <CloseToCAndMobileMenuButton />
+          </MessageProvider>
+        </Provider>
+      );
+
+      const button = component.root.findByType('button');
+      expect(button.props.className).toBe('sidebar-control-close-toc-mobile-button');
+    });
+
+    it('merges base className with consumer className when className prop is provided', () => {
+      const component = renderer.create(
+        <Provider store={store}>
+          <MessageProvider>
+            <CloseToCAndMobileMenuButton className="custom-mobile-class" />
+          </MessageProvider>
+        </Provider>
+      );
+
+      const button = component.root.findByType('button');
+      expect(button.props.className).toBe('sidebar-control-close-toc-mobile-button custom-mobile-class');
+    });
   });
 });

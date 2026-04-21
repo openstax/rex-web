@@ -9,14 +9,16 @@ import { CloseButton } from './Buttons';
 import { TOCControl, lockTocControlState, withMobileResponsiveTocControl } from './TOCControl';
 import './SidebarControl.css';
 
-export const CloseToCAndMobileMenuButton: React.FC<React.ButtonHTMLAttributes<HTMLButtonElement>> = (props) => {
+export function CloseToCAndMobileMenuButton(
+  { className, style, ...props }: React.ButtonHTMLAttributes<HTMLButtonElement>
+) {
   const intl = useIntl();
   const dispatch = useDispatch();
 
   return (
     <button
       {...props}
-      className="sidebar-control-close-toc-mobile-button"
+      className={`sidebar-control-close-toc-mobile-button${className ? ` ${className}` : ''}`}
       onClick={() => {
         dispatch(actions.closeMobileMenu());
         dispatch(actions.resetToc());
@@ -25,12 +27,13 @@ export const CloseToCAndMobileMenuButton: React.FC<React.ButtonHTMLAttributes<HT
       style={{
         '--sidebar-control-icon-color-base': toolbarIconColor.base,
         '--sidebar-control-icon-color-darker': toolbarIconColor.darker,
+        ...style,
       } as React.CSSProperties}
     >
       <TimesIcon />
     </button>
   );
-};
+}
 
 export const CloseTOC = ({ message, children, ...props}: React.PropsWithChildren<InnerProps>) =>
   <CloseButton
@@ -51,6 +54,6 @@ export const TOCBackButton: React.FC<Omit<InnerProps, 'isOpen' | 'message' | 'on
   return <div className="sidebar-control-toc-back-button"><Component {...props} /></div>;
 };
 
-export const StyledOpenTOCControl: React.FC<Omit<InnerProps, 'isOpen' | 'message' | 'onClick'>> = (props) => {
+export function StyledOpenTOCControl(props: Omit<InnerProps, 'isOpen' | 'message' | 'onClick'>) {
   return <div className="sidebar-control-styled-open-toc"><TOCOpenButton {...props} /></div>;
-};
+}

@@ -33,6 +33,10 @@ describe('toolbar', () => {
     };
   });
 
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
   it('resizes on scroll', () => {
     const sidebar = assertWindow().document.createElement('div');
     jest.spyOn(selectors, 'mobileMenuOpen').mockReturnValue(true);
