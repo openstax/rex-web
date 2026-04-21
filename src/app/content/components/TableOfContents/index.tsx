@@ -265,7 +265,7 @@ function TocLeaf({
         <ContentLink
           ref={linkRef}
           onClick={onNavigate}
-          book={book!}
+          book={book!} // eslint-disable-line @typescript-eslint/no-non-null-assertion
           page={item}
           className="toc-content-link"
           dangerouslySetInnerHTML={{ __html: item.title }}
