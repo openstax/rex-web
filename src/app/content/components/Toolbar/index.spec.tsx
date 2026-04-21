@@ -85,12 +85,7 @@ describe('toolbar', () => {
     // Create component with mobile menu closed initially
     const component = renderer.create(<TestContainer store={store}>
       <Toolbar />
-    </TestContainer>, { createNodeMock: (element) => {
-      if (element.type === 'nav') {
-        return sidebar;
-      }
-      return null;
-    }});
+    </TestContainer>, { createNodeMock: () => sidebar });
 
     // Open mobile menu to trigger the useEffect (TOC is closed by default)
     renderer.act(() => {
