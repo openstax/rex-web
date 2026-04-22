@@ -7,7 +7,6 @@ import { TimesIcon } from '../Toolbar/styled';
 import { InnerProps } from './types';
 import { CloseButton } from './Buttons';
 import { TOCControl, lockTocControlState, withMobileResponsiveTocControl } from './TOCControl';
-import './SidebarControl.css';
 
 export function CloseToCAndMobileMenuButton(
   { className, style, ...props }: React.ButtonHTMLAttributes<HTMLButtonElement>
