@@ -98,6 +98,11 @@ describe('toolbar', () => {
 
     // Verify event listener was added
     expect(addEventListenerSpy).toHaveBeenCalledWith('keydown', expect.any(Function), true);
+    const keydownHandler = addEventListenerSpy.mock.calls.find(
+      ([eventName, , useCapture]) => eventName === 'keydown' && useCapture === true
+    )?.[1];
+
+    expect(keydownHandler).toEqual(expect.any(Function));
 
     // Unmount component to trigger cleanup
     renderer.act(() => {
@@ -105,7 +110,7 @@ describe('toolbar', () => {
     });
 
     // Verify event listener was removed
-    expect(removeEventListenerSpy).toHaveBeenCalledWith('keydown', expect.any(Function), true);
+    expect(removeEventListenerSpy).toHaveBeenCalledWith('keydown', keydownHandler, true);
   });
 
   describe('print button', () => {
