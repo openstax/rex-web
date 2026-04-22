@@ -40,6 +40,17 @@ function MaybeSectionTitle() {
 // Export for backward compatibility with tests
 export const SectionTitle = MaybeSectionTitle;
 
+// Export wrapper components for backward compatibility with tests
+export const QuestionsWrapper = (props: React.HTMLAttributes<HTMLDivElement>) => (
+  <div {...props} className="show-practice-questions-wrapper" />
+);
+
+
+export const QuestionsHeader = (props: React.HTMLAttributes<HTMLHeadingElement>) => (
+  // eslint-disable-next-line jsx-a11y/heading-has-content
+  <h3 {...props} className="show-practice-questions-header" id='progress-bar-header' />
+);
+
 interface StatusRegionProps {
   questionsCount: number;
   nextSection: LinkedArchiveTreeSection | undefined;
@@ -100,16 +111,13 @@ function PracticeQuestionsDisplay({
 
   // Questions in progress or intro screen
   return (
-    <div
-      className="show-practice-questions-wrapper"
+    <QuestionsWrapper
       style={{
         '--wrapper-border-color': theme.color.neutral.darkest,
         '--wrapper-bg-color': theme.color.white,
       } as React.CSSProperties}
     >
-      <h3
-        className="show-practice-questions-header"
-        id='progress-bar-header'
+      <QuestionsHeader
         style={{
           '--header-text-color': theme.color.text.default,
           '--header-bg-color': theme.color.neutral.darkest,
@@ -118,10 +126,10 @@ function PracticeQuestionsDisplay({
         <FormattedMessage id='i18n:practice-questions:popup:questions'>
           {(msg) => msg}
         </FormattedMessage>
-      </h3>
+      </QuestionsHeader>
       <ProgressBar total={questionsCount} activeIndex={currentQuestionIndex} />
       {questionsInProgress ? <Question /> : <IntroScreen />}
-    </div>
+    </QuestionsWrapper>
   );
 }
 
@@ -174,14 +182,5 @@ const ShowPracticeQuestions = () => {
     </PopupBody>
   );
 };
-
-// Export wrapper components for backward compatibility with tests
-export const QuestionsWrapper = (props: React.HTMLAttributes<HTMLDivElement>) => (
-  <div {...props} className="show-practice-questions-wrapper" />
-);
-
-export const QuestionsHeader = (props: React.HTMLAttributes<HTMLHeadingElement>) => (
-  <h3 {...props} className="show-practice-questions-header" id='progress-bar-header' />
-);
 
 export default ShowPracticeQuestions;

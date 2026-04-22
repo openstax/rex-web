@@ -36,7 +36,9 @@ export const QuestionContent = React.forwardRef<HTMLElement, QuestionContentProp
 });
 
 // Export wrapper components for backward compatibility with tests
-export const QuestionWrapper = (props: React.HTMLAttributes<HTMLFormElement>) => <form {...props} className="question-wrapper" />;
+export const QuestionWrapper = React.forwardRef<HTMLFormElement, React.HTMLAttributes<HTMLFormElement>>(
+  (props, ref) => <form {...props} ref={ref} className="question-wrapper" />
+);
 export const AnswersWrapper = (props: React.HTMLAttributes<HTMLDivElement>) => <div {...props} className="answers-wrapper" />;
 
 const getChoiceLetter = (value: number) => {
@@ -81,9 +83,8 @@ const Question = () => {
     dispatch(setAnswer({ answer: selectedAnswer, questionId: question.uid }));
   };
 
-  return <form
+  return <QuestionWrapper
     ref={container}
-    className="question-wrapper"
     onSubmit={onSubmit}
     data-testid='question-form'
     style={{
@@ -93,7 +94,7 @@ const Question = () => {
   >
     <fieldset>
       <QuestionContent ref={questionContent} tabIndex={0} content={question.stem_html} source={section} />
-      <div className="answers-wrapper">
+      <AnswersWrapper>
         {question.answers.map((answer, index) =>
           <Answer
             key={index}
@@ -107,7 +108,7 @@ const Question = () => {
             onSelect={() => isSubmitted ? null : setSelectedAnswer(answer)}
           />
         )}
-      </div>
+      </AnswersWrapper>
     </fieldset>
     <QuestionNavigation
       question={question}
@@ -115,7 +116,7 @@ const Question = () => {
       onShowAnswer={() => setShowCorrect(question)}
       hideShowAnswerButton={showCorrect}
     />
-  </form>;
+  </QuestionWrapper>;
 };
 
 export default Question;
