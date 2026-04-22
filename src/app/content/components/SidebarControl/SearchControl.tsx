@@ -33,6 +33,7 @@ export const SearchControlButton: React.FC<SearchControlButtonProps> = (props) =
       aria-label={label}
       aria-controls='search-results-sidebar'
       aria-expanded={isOpen}
+      data-is-open={isOpen}
       data-analytics-label={label}
       data-testid='desktop-search-button'
       onClick={action}

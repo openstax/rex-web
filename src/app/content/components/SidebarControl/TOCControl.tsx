@@ -59,7 +59,7 @@ export function withMobileResponsiveTocControl(Control: React.ComponentType<Inne
     const open = () => dispatch(actions.openToc());
 
     const isOpen = isOpenFromState === null ? !isMobile : isOpenFromState;
-    const isActive = showActivatedState ? isOpen : undefined;
+    const isActive = showActivatedState ? isOpen : false;
 
     return <Control
       {...props}

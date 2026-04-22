@@ -10,7 +10,7 @@
   padding: 0;
 }
 
-@media screen and (max-width: 75em) {
+@media screen and (max-width: 50em) {
   .sidebar-control-button-text {
     /* textRegularSize from Typography */
     font-size: 1.4rem;
@@ -34,7 +34,7 @@
   color: var(--sidebar-control-icon-color-darker);
 }
 
-@media screen and (max-width: 75em) {
+@media screen and (max-width: 50em) {
   .sidebar-control-close-button {
     display: none;
   }
@@ -67,12 +67,13 @@
 }
 
 .sidebar-control-open-button > svg {
-  /* toolbarIconStyles from Toolbar/iconStyles.tsx */
-  width: 2.4rem;
-  height: 2.4rem;
+  /* toolbarIconStyles from Toolbar/iconStyles.ts */
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0.4rem;
 }
 
-@media screen and (max-width: 75em) {
+@media screen and (max-width: 50em) {
   .sidebar-control-open-button {
     flex-direction: row;
     justify-content: start;
@@ -92,7 +93,6 @@
   border: none;
   padding: 0;
   background: none;
-  align-items: center;
   color: var(--sidebar-control-icon-color-base);
   height: 40px;
   position: absolute;
@@ -105,7 +105,7 @@
   color: var(--sidebar-control-icon-color-darker);
 }
 
-@media screen and (max-width: 75em) {
+@media screen and (max-width: 50em) {
   .sidebar-control-close-toc-mobile-button {
     display: block;
   }
@@ -116,7 +116,7 @@
   display: none;
 }
 
-@media screen and (max-width: 75em) {
+@media screen and (max-width: 50em) {
   .sidebar-control-toc-back-button {
     display: block;
   }

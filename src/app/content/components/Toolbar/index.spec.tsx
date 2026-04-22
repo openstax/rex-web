@@ -34,7 +34,7 @@ describe('toolbar', () => {
   });
 
   afterEach(() => {
-    jest.restoreAllMocks();
+    jest.clearAllMocks();
   });
 
   it('resizes on scroll', () => {
@@ -106,9 +106,6 @@ describe('toolbar', () => {
 
     // Verify event listener was removed
     expect(removeEventListenerSpy).toHaveBeenCalledWith('keydown', expect.any(Function), true);
-
-    addEventListenerSpy.mockRestore();
-    removeEventListenerSpy.mockRestore();
   });
 
   describe('print button', () => {

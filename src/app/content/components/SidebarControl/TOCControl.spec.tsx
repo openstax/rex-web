@@ -60,7 +60,7 @@ describe('TOCControl', () => {
   });
 
   describe('withMobileResponsiveTocControl', () => {
-    it('sets isActive to undefined when showActivatedState is false', () => {
+    it('sets data-active to false when showActivatedState is false', () => {
       jest.spyOn(selectors, 'tocOpen').mockReturnValue(true);
       const ResponsiveControl = withMobileResponsiveTocControl(TOCControl);
 
@@ -72,12 +72,12 @@ describe('TOCControl', () => {
         </Provider>
       );
 
-      const button = component.root.findByProps({ 'data-testid': 'toc-button' });
+      const button = component.root.findByType('button');
 
-      expect(button.props.isActive).toBeUndefined();
+      expect(button.props['data-active']).toBe(false);
     });
 
-    it('sets isActive based on isOpen when showActivatedState is true', () => {
+    it('sets data-active based on isOpen when showActivatedState is true', () => {
       jest.spyOn(selectors, 'tocOpen').mockReturnValue(true);
       const ResponsiveControl = withMobileResponsiveTocControl(TOCControl);
 
@@ -89,12 +89,12 @@ describe('TOCControl', () => {
         </Provider>
       );
 
-      const button = component.root.findByProps({ 'data-testid': 'toc-button' });
+      const button = component.root.findByType('button');
 
-      expect(button.props.isActive).toBe(true);
+      expect(button.props['data-active']).toBe(true);
     });
 
-    it('sets isActive to false when showActivatedState is true but TOC is closed', () => {
+    it('sets data-active to false when showActivatedState is true but TOC is closed', () => {
       jest.spyOn(selectors, 'tocOpen').mockReturnValue(false);
       const ResponsiveControl = withMobileResponsiveTocControl(TOCControl);
 
@@ -106,9 +106,9 @@ describe('TOCControl', () => {
         </Provider>
       );
 
-      const button = component.root.findByProps({ 'data-testid': 'toc-button' });
+      const button = component.root.findByType('button');
 
-      expect(button.props.isActive).toBe(false);
+      expect(button.props['data-active']).toBe(false);
     });
   });
 });
