@@ -37,6 +37,9 @@ function MaybeSectionTitle() {
   );
 }
 
+// Export for backward compatibility with tests
+export const SectionTitle = MaybeSectionTitle;
+
 interface StatusRegionProps {
   questionsCount: number;
   nextSection: LinkedArchiveTreeSection | undefined;
@@ -171,5 +174,14 @@ const ShowPracticeQuestions = () => {
     </PopupBody>
   );
 };
+
+// Export wrapper components for backward compatibility with tests
+export const QuestionsWrapper = (props: React.HTMLAttributes<HTMLDivElement>) => (
+  <div {...props} className="show-practice-questions-wrapper" />
+);
+
+export const QuestionsHeader = (props: React.HTMLAttributes<HTMLHeadingElement>) => (
+  <h3 {...props} className="show-practice-questions-header" id='progress-bar-header' />
+);
 
 export default ShowPracticeQuestions;

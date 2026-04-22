@@ -15,7 +15,13 @@ import QuestionNavigation from './QuestionNavigation';
 import './Question.css';
 
 // QuestionContent component wraps ContentExcerpt in a legend element
-export const QuestionContent = React.forwardRef<HTMLElement, any>((props, ref) => {
+interface QuestionContentProps {
+  content: string;
+  source: string | import('../../types').LinkedArchiveTreeSection;
+  tabIndex?: number;
+}
+
+export const QuestionContent = React.forwardRef<HTMLElement, QuestionContentProps>((props, ref) => {
   return (
     <legend
       className="question-content"
@@ -30,8 +36,8 @@ export const QuestionContent = React.forwardRef<HTMLElement, any>((props, ref) =
 });
 
 // Export wrapper components for backward compatibility with tests
-export const QuestionWrapper = (props: any) => <form {...props} className="question-wrapper" />;
-export const AnswersWrapper = (props: any) => <div {...props} className="answers-wrapper" />;
+export const QuestionWrapper = (props: React.HTMLAttributes<HTMLFormElement>) => <form {...props} className="question-wrapper" />;
+export const AnswersWrapper = (props: React.HTMLAttributes<HTMLDivElement>) => <div {...props} className="answers-wrapper" />;
 
 const getChoiceLetter = (value: number) => {
   return (value + 10).toString(36);
