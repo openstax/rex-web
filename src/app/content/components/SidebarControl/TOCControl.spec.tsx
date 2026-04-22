@@ -60,6 +60,10 @@ describe('TOCControl', () => {
   });
 
   describe('withMobileResponsiveTocControl', () => {
+    afterEach(() => {
+      jest.restoreAllMocks();
+    });
+
     it('sets data-active to false when showActivatedState is false', () => {
       jest.spyOn(selectors, 'tocOpen').mockReturnValue(true);
       const ResponsiveControl = withMobileResponsiveTocControl(TOCControl);

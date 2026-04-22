@@ -34,7 +34,7 @@ describe('toolbar', () => {
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    jest.restoreAllMocks();
   });
 
   it('resizes on scroll', () => {

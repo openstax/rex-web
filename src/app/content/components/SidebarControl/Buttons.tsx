@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import { toolbarIconColor } from '../constants';
 import type { InnerProps } from './types';
 import './SidebarControl.css';
@@ -9,7 +10,7 @@ interface ButtonTextProps {
 }
 
 export const ButtonText: React.FC<ButtonTextProps> = ({ children, className }) => (
-  <span className={`sidebar-control-button-text ${className || ''}`}>
+  <span className={classNames('sidebar-control-button-text', className)}>
     {children}
   </span>
 );

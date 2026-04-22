@@ -120,6 +120,10 @@
   .sidebar-control-toc-back-button {
     display: block;
   }
+
+  .sidebar-control-toc-back-button .sidebar-control-close-button {
+    display: block;
+  }
 }
 
 /* StyledOpenTOCControl - special styling for TOC open control */
