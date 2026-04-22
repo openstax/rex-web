@@ -55,6 +55,14 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
   order: 1;
 }
 
+.c5 {
+  -webkit-overflow-scrolling: touch;
+  height: calc(100% - 7.2rem);
+  background: #fff;
+  z-index: 4;
+  overflow: auto;
+}
+
 .c1 {
   top: 0;
   z-index: 110;
@@ -180,69 +188,6 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
   max-height: calc(100vh - 26rem);
 }
 
-.c14 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  width: 100%;
-  margin: 2rem auto;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  text-align: center;
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-}
-
-.c15 {
-  margin-bottom: -1rem;
-  max-width: 38rem;
-  overflow: initial;
-}
-
-.c5 {
-  -webkit-overflow-scrolling: touch;
-  height: calc(100% - 7.2rem);
-  background: #fff;
-  z-index: 4;
-  overflow: auto;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  background: #fafafa;
-}
-
-.c13 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -webkit-box-pack: start;
-  -webkit-justify-content: start;
-  -ms-flex-pack: start;
-  justify-content: start;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  padding: 2rem 3.2rem 0 3.2rem;
-}
-
 @media print {
   .c0 {
     display: block;
@@ -269,6 +214,22 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
 @media screen and (max-width:75em) {
   .c2 {
     padding: 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c5 {
+    text-align: center;
+    padding: 8rem 3.2rem;
+  }
+}
+
+@media print {
+  .c5 {
+    height: -webkit-max-content;
+    height: -moz-max-content;
+    height: max-content;
+    overflow: auto;
   }
 }
 
@@ -327,35 +288,6 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
 @media print {
   .c6 > *:not(.FiltersList-sc-1sdnk9e-4) {
     display: none;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c5 {
-    text-align: center;
-    padding: 8rem 3.2rem;
-  }
-}
-
-@media print {
-  .c5 {
-    height: -webkit-max-content;
-    height: -moz-max-content;
-    height: max-content;
-    overflow: auto;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c5 {
-    padding: 0;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c13 {
-    text-align: left;
-    padding: 0;
   }
 }
 
@@ -429,10 +361,16 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
       </h1>
     </div>
     <div
-      className="c5"
+      className="c5 show-practice-questions-body"
       data-analytics-location="section not loaded"
       data-analytics-region="PQ popup"
       data-testid="show-practice-questions-body"
+      style={
+        Object {
+          "--body-bg": "#fafafa",
+          "--body-padding": "initial",
+        }
+      }
     >
       <div
         className="c6"
@@ -472,16 +410,21 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
         </div>
       </div>
       <div
-        className="c13"
+        className="show-practice-questions-content"
       >
         <div
           role="status"
         >
           <div
-            className="c14"
+            className="final-screen"
+            style={
+              Object {
+                "--text-color": "#424242",
+              }
+            }
           >
             <span
-              className="c15"
+              className="final-screen-text"
             >
               You have reached the end of this set!
             </span>
