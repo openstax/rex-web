@@ -1,40 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`EmptyScreen for practice questions EmptyScreenStatus renders status message without next section button 1`] = `
-.c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  width: 100%;
-  margin: 2rem auto;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  text-align: center;
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-}
-
-.c1 {
-  margin-bottom: -1rem;
-  max-width: 38rem;
-  overflow: initial;
-}
-
 <div
-  className="c0"
+  className="empty-screen"
+  style={
+    Object {
+      "--text-color": "#424242",
+    }
+  }
 >
   <span
-    className="c1"
+    className="empty-screen-text"
   >
     There are no questions for this chapter/section.
   </span>
@@ -42,68 +18,32 @@ exports[`EmptyScreen for practice questions EmptyScreenStatus renders status mes
 `;
 
 exports[`EmptyScreen for practice questions renders properly and dispatches action on click 1`] = `
-.c1 {
-  max-width: 38rem;
-  overflow: initial;
-}
-
-.c1 .c5 {
-  margin: 4rem auto;
-}
-
-.c2 {
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-}
-
-.c3 {
-  display: inline;
-}
-
-.c4 {
-  font-weight: 700;
-}
-
-.c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  width: 100%;
-  margin: 2rem auto;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  text-align: center;
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-}
-
 <div
-  className="c0"
+  className="empty-screen"
+  style={
+    Object {
+      "--text-color": "#424242",
+    }
+  }
 >
   <div
-    className="c1"
+    className="next-section-message "
+    style={
+      Object {
+        "--text-color": "#424242",
+      }
+    }
   >
     <div
-      className="c2"
+      className="next-section-message-content"
     >
       <span
-        className="c3"
+        className="next-section-message-text"
       >
         Select a section from the dropdown above or continue to 
       </span>
       <span
-        className="c4"
+        className="next-section-title"
         dangerouslySetInnerHTML={
           Object {
             "__html": "some title",
@@ -112,7 +52,7 @@ exports[`EmptyScreen for practice questions renders properly and dispatches acti
       />
     </div>
     <button
-      className="button button-primary button-large c5 "
+      className="button button-primary button-large next-section-button"
       data-analytics-label="Continue (Empty Screen)"
       disabled={false}
       onClick={[Function]}
