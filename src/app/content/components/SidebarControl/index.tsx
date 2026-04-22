@@ -35,16 +35,20 @@ export function CloseToCAndMobileMenuButton(
   );
 }
 
-export const CloseTOC = (
+export function CloseTOC(
   { message, children, isOpen, isActive, onClick, ...props }: React.PropsWithChildren<InnerProps>
-) =>
-  <CloseButton
+) {
+  void isOpen;
+  void isActive;
+
+  return <CloseButton
     aria-label={useIntl().formatMessage({ id: message })}
     onClick={onClick}
     {...props}
   >
     {children}
   </CloseButton>;
+}
 
 export const TOCControlButton = withMobileResponsiveTocControl(TOCControl);
 

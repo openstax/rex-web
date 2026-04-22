@@ -23,7 +23,7 @@ export const CloseButton = React.forwardRef<HTMLButtonElement, CloseButtonProps>
   ({ children, style, className, ...props }, ref) => (
     <button
       ref={ref}
-      className={`sidebar-control-close-button${className ? ` ${className}` : ''}`}
+      className={classNames('sidebar-control-close-button', className)}
       style={{
         '--sidebar-control-icon-color-base': toolbarIconColor.base,
         '--sidebar-control-icon-color-darker': toolbarIconColor.darker,
@@ -49,7 +49,7 @@ export const OpenButton = React.forwardRef<HTMLButtonElement, OpenButtonProps>(
     <button
       ref={ref}
       {...props}
-      className={`sidebar-control-open-button${className ? ` ${className}` : ''}`}
+      className={classNames('sidebar-control-open-button', className)}
       data-active={isActive ?? isOpen ?? false}
       style={{
         '--sidebar-control-icon-color-base': toolbarIconColor.base,
