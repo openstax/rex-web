@@ -48,6 +48,7 @@ export const OpenButton = React.forwardRef<HTMLButtonElement, OpenButtonProps>(
   ({ isOpen, isActive, children, style, className, ...props }, ref) => (
     <button
       ref={ref}
+      {...props}
       className={`sidebar-control-open-button${className ? ` ${className}` : ''}`}
       data-active={isActive ?? isOpen ?? false}
       style={{
@@ -55,7 +56,6 @@ export const OpenButton = React.forwardRef<HTMLButtonElement, OpenButtonProps>(
         '--sidebar-control-icon-color-darker': toolbarIconColor.darker,
         ...style,
       } as React.CSSProperties}
-      {...props}
     >
       {children}
     </button>

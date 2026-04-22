@@ -35,9 +35,12 @@ export function CloseToCAndMobileMenuButton(
   );
 }
 
-export const CloseTOC = ({ message, children, ...props}: React.PropsWithChildren<InnerProps>) =>
+export const CloseTOC = (
+  { message, children, isOpen, isActive, onClick, ...props }: React.PropsWithChildren<InnerProps>
+) =>
   <CloseButton
     aria-label={useIntl().formatMessage({ id: message })}
+    onClick={onClick}
     {...props}
   >
     {children}
