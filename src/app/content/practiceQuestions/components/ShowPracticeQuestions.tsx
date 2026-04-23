@@ -41,14 +41,20 @@ function MaybeSectionTitle() {
 export const SectionTitle = MaybeSectionTitle;
 
 // Export wrapper components for backward compatibility with tests
-export const QuestionsWrapper = (props: React.HTMLAttributes<HTMLDivElement>) => (
-  <div {...props} className="show-practice-questions-wrapper" />
+export const QuestionsWrapper = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
+  <div
+    {...props}
+    className={className ? `${className} show-practice-questions-wrapper` : 'show-practice-questions-wrapper'}
+  />
 );
 
-
-export const QuestionsHeader = (props: React.HTMLAttributes<HTMLHeadingElement>) => (
+export const QuestionsHeader = ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
   // eslint-disable-next-line jsx-a11y/heading-has-content
-  <h3 {...props} className="show-practice-questions-header" id='progress-bar-header' />
+  <h3
+    {...props}
+    className={className ? `${className} show-practice-questions-header` : 'show-practice-questions-header'}
+    id='progress-bar-header'
+  />
 );
 
 interface StatusRegionProps {

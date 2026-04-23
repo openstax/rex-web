@@ -1,4 +1,5 @@
-.show-practice-questions-body {
+/* Increased specificity to override styled-components (PopupBody) */
+.show-practice-questions-body.show-practice-questions-body {
   display: flex;
   flex-direction: column;
   background: var(--body-bg);
@@ -6,7 +7,7 @@
 }
 
 @media screen and (max-width: 75em) {
-  .show-practice-questions-body {
+  .show-practice-questions-body.show-practice-questions-body {
     padding: 0;
   }
 }
@@ -33,14 +34,20 @@
   margin-top: 0;
   margin-bottom: 3rem;
   color: var(--section-title-color);
-  font-size: 2.4rem;
-  line-height: 3rem;
+
+  /* h4Style from Typography/Headings.legacy.ts */
+  font-size: 1.8rem;
+  line-height: 2.5rem;
 }
 
 @media screen and (max-width: 75em) {
   .show-practice-questions-section-title {
     margin: 1.4rem;
     padding: 0;
+
+    /* h4MobileStyle from Typography/Headings.legacy.ts */
+    font-size: 1.6rem;
+    line-height: 2rem;
   }
 }
 
