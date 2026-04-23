@@ -1,103 +1,63 @@
 import { Highlight } from '@openstax/highlighter/dist/api';
 import React from 'react';
-import styled, { css } from 'styled-components/macro';
-import { textRegularStyle } from '../../../components/Typography';
-import theme, { hiddenButAccessible } from '../../../theme';
+import { FormattedMessage } from 'react-intl';
 import ContentExcerpt from '../../components/ContentExcerpt';
 import { highlightStyles } from '../../constants';
 import { popupPadding } from '../../styles/PopupStyles';
-import { FormattedMessage } from 'react-intl';
-
-const HighlightOuterWrapper = styled.div`
-  overflow: visible;
-  padding: 0 ${popupPadding}rem 1rem ${popupPadding}rem;
-
-  :not(:last-child) {
-    border-bottom: solid 0.2rem ${theme.color.neutral.darker};
-  }
-
-  @media print {
-    page-break-inside: avoid;
-
-    :not(:last-child) {
-      border-color: white;
-    }
-  }
-
-  background: ${theme.color.neutral.base};
-  ${theme.breakpoints.mobile`
-    padding: 0 0 1rem 0;
-  `}
-`;
-
-const HighlightAnnotation = styled.div`
-  ${textRegularStyle}
-  display: flex;
-  padding: 1.2rem 0;
-  color: ${theme.color.text.black};
-  white-space: pre-wrap;
-  word-break: break-word;
-  ${theme.breakpoints.mobile`
-    padding: 1rem;
-  `}
-`;
-
-export const HighlightContentWrapper = styled.div`
-  padding-left: 0.4rem;
-  ${(props: {color: string}) => {
-    const style = highlightStyles.find((search) => search.label === props.color);
-
-    if (!style) {
-      return null;
-    }
-
-    return css`
-      border-left: solid 0.8rem ${style.passive};
-      margin-left: 2.1rem;
-    `;
-  }}
-
-  ${theme.breakpoints.mobile`
-    margin-left: 2rem;
-  `}
-
-  @media print {
-    break-inside: avoid-page;
-
-    ${ContentExcerpt} {
-      background-color: white;
-    }
-  }
-`;
-
-const HiddenLabel = styled.div`
-  ${hiddenButAccessible}
-`;
+import theme from '../../../theme';
+import './StudyGuidesListElement.css';
 
 function HighlightContentLabel({color}: {color: string}) {
   const assertedColor = ['blue', 'green', 'purple'].includes(color) ? color : 'yellow';
-  return <HiddenLabel>
+  return <div className="study-guides-list-element-hidden-label">
     <FormattedMessage id={`i18n:studyguides:popup:filters:${assertedColor}`} />
-  </HiddenLabel>;
+  </div>;
 }
 
 interface HighlightListElementProps {
   highlight: Highlight;
 }
 
-const HighlightListElement = ({ highlight }: HighlightListElementProps) =>
-  <HighlightOuterWrapper>
-    <HighlightAnnotation>
-      {highlight.annotation}
-    </HighlightAnnotation>
-    <HighlightContentWrapper color={highlight.color}>
-      <HighlightContentLabel color={highlight.color} />
-      <ContentExcerpt
-        data-highlight-id={highlight.id}
-        content={highlight.highlightedContent}
-        source={highlight.sourceId}
-      />
-    </HighlightContentWrapper>
-  </HighlightOuterWrapper>;
+const HighlightListElement = ({ highlight }: HighlightListElementProps) => {
+  // Find the highlight style for the dynamic border color
+  const style = highlightStyles.find((search) => search.label === highlight.color);
+  const highlightBorderColor = style?.passive || '';
+
+  return (
+    <div
+      className="study-guides-list-element-outer"
+      style={{
+        '--popup-padding': `${popupPadding}rem`,
+        '--bg-color': theme.color.neutral.base,
+        '--border-color': theme.color.neutral.darker,
+      } as React.CSSProperties}
+    >
+      {highlight.annotation && (
+        <div
+          className="study-guides-list-element-annotation"
+          style={{
+            '--text-color-default': theme.color.text.default,
+            '--text-color-black': theme.color.text.black,
+          } as React.CSSProperties}
+        >
+          {highlight.annotation}
+        </div>
+      )}
+      <div
+        className="study-guides-list-element-content"
+        style={{
+          '--highlight-border-color': highlightBorderColor,
+        } as React.CSSProperties}
+      >
+        <HighlightContentLabel color={highlight.color} />
+        <ContentExcerpt
+          data-highlight-id={highlight.id}
+          content={highlight.highlightedContent}
+          source={highlight.sourceId}
+        />
+      </div>
+    </div>
+  );
+};
 
 export default HighlightListElement;

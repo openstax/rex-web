@@ -1,0 +1,193 @@
+.study-guides-cta-wrapper {
+  display: flex;
+  height: 20rem;
+  padding: 0 8rem;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--text-color-default);
+  box-shadow: inset 0 0 10px 0 rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+}
+
+.study-guides-cta-wrapper strong {
+  white-space: nowrap;
+  color: var(--deep-green-color);
+}
+
+/* max-width: 75em (1200px) */
+@media screen and (max-width: 75em) {
+  .study-guides-cta-wrapper {
+    height: 17.6rem;
+    padding: 0 1.6rem;
+    justify-content: center;
+  }
+}
+
+@media print {
+  .study-guides-cta-wrapper {
+    display: none !important;
+  }
+}
+
+.study-guides-cta-inner-wrapper {
+  display: contents;
+}
+
+/* max-width: 75em (1200px) */
+@media screen and (max-width: 75em) {
+  .study-guides-cta-inner-wrapper {
+    display: flex;
+    max-width: 34rem;
+    height: 100%;
+    overflow: visible;
+  }
+}
+
+.study-guides-cta-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.study-guides-cta-title {
+  overflow: hidden;
+  font-size: 2.4rem;
+  margin: 0 0 1rem 0;
+}
+
+/* max-width: 75em (1200px) */
+@media screen and (max-width: 75em) {
+  .study-guides-cta-title {
+    font-size: 1.8rem;
+    line-height: 2.6rem;
+    margin-top: 1rem;
+  }
+}
+
+.study-guides-cta-buttons {
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.study-guides-cta-button {
+  width: 24rem;
+  height: 4.8rem;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--button-text-color);
+  background-color: var(--button-bg-color);
+  border: none;
+  margin-right: 1.6rem;
+}
+
+.study-guides-cta-button:hover {
+  background-color: var(--button-bg-color);
+}
+
+/* max-width: 75em (1200px) */
+@media screen and (max-width: 75em) {
+  .study-guides-cta-button {
+    font-size: 1.4rem;
+    width: 11rem;
+    height: 3rem;
+  }
+}
+
+.study-guides-cta-buttons-secondary {
+  padding: 1.4rem 0;
+}
+
+.study-guides-cta-separator {
+  font-size: 1.6rem;
+  text-transform: uppercase;
+  margin-right: 1.6rem;
+}
+
+/* max-width: 75em (1200px) */
+@media screen and (max-width: 75em) {
+  .study-guides-cta-separator {
+    font-size: 1.4rem;
+    margin-right: 1.2rem;
+  }
+}
+
+.study-guides-cta-link {
+  font-size: 1.6rem;
+  color: #027eb5;
+}
+
+/* max-width: 75em (1200px) */
+@media screen and (max-width: 75em) {
+  .study-guides-cta-link {
+    font-size: 1.4rem;
+  }
+}
+
+.study-guides-cta-info-wrapper {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+  overflow: visible;
+  position: relative;
+}
+
+/* max-width: 75em (1200px) */
+@media screen and (max-width: 75em) {
+  .study-guides-cta-info-wrapper {
+    justify-content: flex-start;
+  }
+}
+
+.study-guides-cta-info {
+  font-size: 1.8rem;
+  line-height: 2.5rem;
+  width: 24rem;
+  margin-top: 2.5rem;
+  z-index: 1;
+}
+
+.study-guides-cta-info strong {
+  display: block;
+}
+
+/* max-width: 75em (1200px) */
+@media screen and (max-width: 75em) {
+  .study-guides-cta-info {
+    width: 10rem;
+    font-size: 1.2rem;
+    line-height: 1.7rem;
+    margin-left: 2rem;
+  }
+}
+
+.study-guides-cta-arrow-desktop {
+  position: absolute;
+}
+
+/* max-width: 75em (1200px) */
+@media screen and (max-width: 75em) {
+  .study-guides-cta-arrow-desktop {
+    display: none;
+  }
+}
+
+.study-guides-cta-arrow-mobile {
+  position: absolute;
+  left: -4rem;
+  display: none;
+}
+
+/* max-width: 75em (1200px) */
+@media screen and (max-width: 75em) {
+  .study-guides-cta-arrow-mobile {
+    display: block;
+  }
+}
