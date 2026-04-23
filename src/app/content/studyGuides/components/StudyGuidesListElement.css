@@ -26,13 +26,12 @@
 }
 
 .study-guides-list-element-annotation {
-  /* textRegularStyle */
-  color: var(--text-color-default);
+  /* textRegularStyle - using theme.color.text.black as the final color (overrides text.default) */
+  color: var(--text-color-black);
   font-size: 1.6rem;
   line-height: 2.5rem;
   display: flex;
   padding: 1.2rem 0;
-  color: var(--text-color-black);
   white-space: pre-wrap;
   word-break: break-word;
 }
@@ -62,7 +61,7 @@
     break-inside: avoid-page;
   }
 
-  .study-guides-list-element-content :global(.content-excerpt) {
+  .study-guides-list-element-content .content-excerpt {
     background-color: white;
   }
 }
