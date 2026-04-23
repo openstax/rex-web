@@ -25,6 +25,7 @@
 
 @media print {
   .study-guides-cta-wrapper {
+    /* stylelint-disable-next-line declaration-no-important -- needed to override other display styles in print */
     display: none !important;
   }
 }
