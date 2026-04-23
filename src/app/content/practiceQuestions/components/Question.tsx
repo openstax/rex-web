@@ -37,9 +37,21 @@ export const QuestionContent = React.forwardRef<HTMLElement, QuestionContentProp
 
 // Export wrapper components for backward compatibility with tests
 export const QuestionWrapper = React.forwardRef<HTMLFormElement, React.HTMLAttributes<HTMLFormElement>>(
-  (props, ref) => <form {...props} ref={ref} className="question-wrapper" />
+  ({ className, ...props }, ref) => (
+    <form
+      {...props}
+      ref={ref}
+      className={className ? `${className} question-wrapper` : 'question-wrapper'}
+    />
+  )
 );
-export const AnswersWrapper = (props: React.HTMLAttributes<HTMLDivElement>) => <div {...props} className="answers-wrapper" />;
+
+export const AnswersWrapper = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
+  <div
+    {...props}
+    className={className ? `${className} answers-wrapper` : 'answers-wrapper'}
+  />
+);
 
 const getChoiceLetter = (value: number) => {
   return (value + 10).toString(36);
