@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import * as redux from 'react-redux';
-import Footer, { ContactDialog, useContactDialog } from '.';
+import Footer, { ContactDialog, useContactDialog, getSafeRelAttribute } from '.';
 import TestContainer from '../../../test/TestContainer';
 import createTestStore from '../../../test/createTestStore';
 import { openKeyboardShortcutsMenu } from '../../content/keyboardShortcuts/actions';
@@ -11,6 +11,54 @@ import * as analytics from '../../../helpers/analytics';
 import * as focusManager from '../../content/utils/focusManager';
 
 jest.mock('../../content/utils/focusManager');
+
+describe('getSafeRelAttribute', () => {
+  it('returns empty string when both target and rel are undefined', () => {
+    expect(getSafeRelAttribute(undefined, undefined)).toBe('');
+  });
+
+  it('returns rel as-is when target is not _blank', () => {
+    expect(getSafeRelAttribute('_self', 'external')).toBe('external');
+    expect(getSafeRelAttribute('_parent', 'nofollow')).toBe('nofollow');
+  });
+
+  it('adds noopener and noreferrer for target="_blank" with no rel', () => {
+    const result = getSafeRelAttribute('_blank', undefined);
+    const tokens = result.split(/\s+/).sort();
+    expect(tokens).toEqual(['noopener', 'noreferrer']);
+  });
+
+  it('adds noopener and noreferrer for target="_blank" with empty rel', () => {
+    const result = getSafeRelAttribute('_blank', '');
+    const tokens = result.split(/\s+/).sort();
+    expect(tokens).toEqual(['noopener', 'noreferrer']);
+  });
+
+  it('preserves existing rel tokens and adds noopener/noreferrer for target="_blank"', () => {
+    const result = getSafeRelAttribute('_blank', 'external nofollow');
+    const tokens = result.split(/\s+/).sort();
+    expect(tokens).toEqual(['external', 'nofollow', 'noopener', 'noreferrer']);
+  });
+
+  it('does not duplicate noopener/noreferrer if already present', () => {
+    const result = getSafeRelAttribute('_blank', 'noopener noreferrer external');
+    const tokens = result.split(/\s+/).sort();
+    expect(tokens).toEqual(['external', 'noopener', 'noreferrer']);
+  });
+
+  it('handles whitespace in rel attribute correctly', () => {
+    const result = getSafeRelAttribute('_blank', '  external   nofollow  ');
+    const tokens = result.split(/\s+/).sort();
+    expect(tokens).toEqual(['external', 'nofollow', 'noopener', 'noreferrer']);
+  });
+
+  it('ensures both noopener and noreferrer even when caller passes custom rel', () => {
+    const result = getSafeRelAttribute('_blank', 'external');
+    expect(result).toContain('noopener');
+    expect(result).toContain('noreferrer');
+    expect(result).toContain('external');
+  });
+});
 
 describe('Footer', () => {
   it('uses normal footer', () => {
@@ -50,8 +98,8 @@ describe('Footer', () => {
       <Footer />
     </TestContainer>);
 
-    const contactUsButton = component.root.findAllByType(require('./styled').FooterButton)
-      .find(button => button.props.children.props.id === 'i18n:footer:column1:contact-us')!;
+    // Find portal footer Contact Us button by data-testid
+    const contactUsButton = component.root.findByProps({ 'data-testid': 'portal-footer-contact-button' });
 
     renderer.act(() => {
       contactUsButton.props.onClick();
