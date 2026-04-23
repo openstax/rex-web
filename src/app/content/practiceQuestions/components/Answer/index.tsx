@@ -120,6 +120,7 @@ const Answer = ({
   const themeKey = (showCorrect && isCorrect) || (isSubmitted && isSelected)
     ? (isCorrect ? 'correct' : 'incorrect')
     : (isSelected ? 'selected' : 'unselected');
+  const {formatMessage} = useIntl();
 
   return <div className="answer-wrapper" tabIndex={-1} ref={answerRef}>
     <input
@@ -148,7 +149,7 @@ const Answer = ({
     >
       <span
         className="answer-indicator"
-        aria-label={useIntl().formatMessage(
+        aria-label={formatMessage(
           {id: 'i18n:practice-questions:popup:answers:choice'},
           {choiceIndicator: choiceIndicator.toUpperCase()}
         )}

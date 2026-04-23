@@ -41,18 +41,18 @@ function MaybeSectionTitle() {
 export const SectionTitle = MaybeSectionTitle;
 
 // Export wrapper components for backward compatibility with tests
-export const QuestionsWrapper = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
+export const QuestionsWrapper = (props: React.HTMLAttributes<HTMLDivElement>) => (
   <div
     {...props}
-    className={className ? `${className} show-practice-questions-wrapper` : 'show-practice-questions-wrapper'}
+    className='show-practice-questions-wrapper' // overrides props, which is ok
   />
 );
 
-export const QuestionsHeader = ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
+export const QuestionsHeader = (props: React.HTMLAttributes<HTMLHeadingElement>) => (
   // eslint-disable-next-line jsx-a11y/heading-has-content
   <h3
     {...props}
-    className={className ? `${className} show-practice-questions-header` : 'show-practice-questions-header'}
+    className='show-practice-questions-header' // overrides props, which is ok
     id='progress-bar-header'
   />
 );
