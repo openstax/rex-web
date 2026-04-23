@@ -1,0 +1,27 @@
+/* ShowStudyGuides.css - Plain CSS migration from styled-components */
+
+/* StudyGuidesBody: Extends PopupBody with study-guides-specific styling */
+.study-guides-body {
+  /* Override PopupBody background for study guides */
+  background: var(--study-guides-bg);
+}
+
+/* Mobile responsive styles (max-width: 75em / 1200px) */
+@media screen and (max-width: 75em) {
+  .study-guides-body {
+    text-align: left;
+    padding: 0;
+  }
+}
+
+/* Print styles */
+@media print {
+  .study-guides-body {
+    background: white;
+  }
+
+  /* Nested component styling: FiltersList should have no left padding in print */
+  .study-guides-body .filters-list {
+    padding-left: 0;
+  }
+}

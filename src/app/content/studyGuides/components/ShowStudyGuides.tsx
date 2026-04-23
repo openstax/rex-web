@@ -1,10 +1,9 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import styled, { css } from 'styled-components/macro';
+import classNames from 'classnames';
 import GoToTopButton from '../../../components/GoToTopButton';
 import theme from '../../../theme';
-import FiltersList from '../../components/popUp/FiltersList';
 import { loadMoreDistanceFromBottom } from '../../constants';
 import { PopupBody } from '../../styles/PopupStyles';
 import { loadMoreStudyGuides } from '../actions';
@@ -13,22 +12,11 @@ import Filters from './Filters';
 import StudyGuides from './StudyGuides';
 import StudyGuidesCTA from './StudyGuidesCTA';
 import StudyGuidesToasts from './StudyGuidesToasts';
+import './ShowStudyGuides.css';
 
-export const StudyGuidesBody = styled(PopupBody)`
-  background: ${theme.color.neutral.darker};
-  ${theme.breakpoints.mobile(css`
-    text-align: left;
-    padding: 0;
-  `)}
-
-  @media print {
-    background: white;
-
-    ${FiltersList} {
-      padding-left: 0;
-    }
-  }
-`;
+// Export PopupBody as StudyGuidesBody for test compatibility
+// The actual styling is now in ShowStudyGuides.css
+export const StudyGuidesBody = PopupBody;
 
 const ShowStudyGuides = ({topElRef}: {topElRef: React.RefObject<HTMLElement>}) => {
   const ref = React.useRef<HTMLElement>(null);
@@ -68,8 +56,12 @@ const ShowStudyGuides = ({topElRef}: {topElRef: React.RefObject<HTMLElement>}) =
   };
 
   return (
-    <StudyGuidesBody
+    <PopupBody
       ref={ref}
+      className={classNames('study-guides-body')}
+      style={{
+        '--study-guides-bg': theme.color.neutral.darker,
+      } as React.CSSProperties}
       onScroll={() => {
         const refElement = ref.current;
 
@@ -92,7 +84,7 @@ const ShowStudyGuides = ({topElRef}: {topElRef: React.RefObject<HTMLElement>}) =
         onClick={goToTop}
         data-testid='back-to-top-studyguides'
       />}
-    </StudyGuidesBody>
+    </PopupBody>
   );
 };
 

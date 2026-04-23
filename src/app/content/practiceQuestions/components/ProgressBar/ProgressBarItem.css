@@ -1,0 +1,52 @@
+.progress-bar-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.progress-bar-item::after {
+  content: "";
+  display: block;
+  height: 0.1rem;
+  width: 5.6rem;
+  background-color: var(--progress-bar-line-color);
+}
+
+.progress-bar-item:last-child::after {
+  content: none;
+}
+
+/* max-width: 75em (1200px) */
+@media screen and (max-width: 75em) {
+  .progress-bar-item::after {
+    width: 3.3rem;
+  }
+}
+
+/* stylelint-disable selector-class-pattern */
+.progress-bar-item__circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 50%;
+  background-color: var(--progress-bar-bg);
+  border: 1px solid var(--progress-bar-border);
+  color: var(--progress-bar-color);
+  margin: 0 0.4rem;
+  font-weight: bold;
+}
+
+.progress-bar-item__circle--active {
+  color: var(--progress-bar-active-color);
+  background-color: var(--progress-bar-active-bg);
+  border-color: var(--progress-bar-active-border);
+}
+
+.progress-bar-item__circle--disabled {
+  color: #6e6e6e;
+  background-color: #f1f1f1;
+  border-color: #f1f1f1;
+}
+/* stylelint-enable selector-class-pattern */

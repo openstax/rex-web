@@ -1,72 +1,32 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`FinalScreen for practice questions renders properly and dispatches action on click 1`] = `
-.c1 {
-  max-width: 38rem;
-  overflow: initial;
-}
-
-.c1 .c7 {
-  margin: 4rem auto;
-}
-
-.c3 {
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-}
-
-.c5 {
-  display: inline;
-}
-
-.c6 {
-  font-weight: 700;
-}
-
-.c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  width: 100%;
-  margin: 2rem auto;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  text-align: center;
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-}
-
-.c2 .c4 {
-  display: block;
-}
-
 <div
-  className="c0"
+  className="final-screen"
+  style={
+    Object {
+      "--text-color": "#424242",
+    }
+  }
 >
   <div
-    className="c1 c2"
+    className="next-section-message final-screen-next-section"
+    style={
+      Object {
+        "--text-color": "#424242",
+      }
+    }
   >
     <div
-      className="c3"
+      className="next-section-message-content"
     >
       <span
-        className="c4 c5"
+        className="next-section-message-text"
       >
         Next section:
       </span>
       <span
-        className="c6"
+        className="next-section-title"
         dangerouslySetInnerHTML={
           Object {
             "__html": "some title",
@@ -75,7 +35,7 @@ exports[`FinalScreen for practice questions renders properly and dispatches acti
       />
     </div>
     <button
-      className="button button-primary button-large c7 "
+      className="button button-primary button-large next-section-button"
       data-analytics-label="Continue (Final Screen)"
       disabled={false}
       onClick={[Function]}

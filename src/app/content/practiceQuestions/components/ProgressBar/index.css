@@ -1,0 +1,21 @@
+/**
+ * ProgressBar container styles
+ *
+ * Styles for the ProgressBar wrapper component that displays
+ * a list of question progress items.
+ */
+
+.progress-bar-wrapper {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  margin: 3.2rem;
+  padding: 0;
+}
+
+/* max-width: 75em (1200px) */
+@media screen and (max-width: 75em) {
+  .progress-bar-wrapper {
+    margin: 1rem;
+  }
+}

@@ -1,0 +1,22 @@
+.next-section-message {
+  max-width: 38rem;
+  overflow: initial;
+}
+
+.next-section-message .next-section-button {
+  margin: 4rem auto;
+}
+
+.next-section-message-content {
+  color: var(--text-color);
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+}
+
+.next-section-message-text {
+  display: inline;
+}
+
+.next-section-title {
+  font-weight: 700;
+}

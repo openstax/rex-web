@@ -1,25 +1,14 @@
 import React from 'react';
-import styled, { css } from 'styled-components/macro';
-import theme from '../../../../theme';
 import ProgressBarItem from './ProgressBarItem';
-
-const ProgressBarWrapper = styled.ul`
-  display: flex;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  margin: 3.2rem;
-  ${theme.breakpoints.mobile(css`
-    margin: 1rem;
-  `)}
-  padding: 0;
-`;
+import './index.css';
 
 interface ProgressBarProps {
   total: number;
   activeIndex: number | null;
 }
 
-const ProgressBar = ({ total, activeIndex }: ProgressBarProps) => <ProgressBarWrapper
+const ProgressBar = ({ total, activeIndex }: ProgressBarProps) => <ul
+    className='progress-bar-wrapper'
     aria-labelledby='progress-bar-header'
   >
   {Array.from({ length: total }, (_, index) => <ProgressBarItem
@@ -28,6 +17,6 @@ const ProgressBar = ({ total, activeIndex }: ProgressBarProps) => <ProgressBarWr
     isActive={index === activeIndex}
     isDisabled={activeIndex === null || index > activeIndex}
   />).map((item) => item)}
-</ProgressBarWrapper>;
+</ul>;
 
 export default ProgressBar;
