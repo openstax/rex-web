@@ -18,7 +18,6 @@ import './Question.css';
 interface QuestionContentProps {
   content: string;
   source: string | import('../../types').LinkedArchiveTreeSection;
-  tabIndex?: number;
 }
 
 export const QuestionContent = React.forwardRef<HTMLElement, QuestionContentProps>((props, ref) => {
@@ -37,19 +36,19 @@ export const QuestionContent = React.forwardRef<HTMLElement, QuestionContentProp
 
 // Export wrapper components for backward compatibility with tests
 export const QuestionWrapper = React.forwardRef<HTMLFormElement, React.HTMLAttributes<HTMLFormElement>>(
-  ({ className, ...props }, ref) => (
+  (props, ref) => (
     <form
       {...props}
       ref={ref}
-      className={className ? `${className} question-wrapper` : 'question-wrapper'}
+      className='question-wrapper' // overrides params, which is ok
     />
   )
 );
 
-export const AnswersWrapper = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
+export const AnswersWrapper = (props: React.HTMLAttributes<HTMLDivElement>) => (
   <div
     {...props}
-    className={className ? `${className} answers-wrapper` : 'answers-wrapper'}
+    className='answers-wrapper'
   />
 );
 
@@ -105,7 +104,7 @@ const Question = () => {
     } as React.CSSProperties}
   >
     <fieldset>
-      <QuestionContent ref={questionContent} tabIndex={0} content={question.stem_html} source={section} />
+      <QuestionContent ref={questionContent} content={question.stem_html} source={section} />
       <AnswersWrapper>
         {question.answers.map((answer, index) =>
           <Answer
