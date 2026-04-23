@@ -95,7 +95,7 @@ exports[`StudyGuides properly display summary highlights 1`] = `
   width: 0.8rem;
 }
 
-.c14 {
+.c9 {
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
@@ -103,84 +103,19 @@ exports[`StudyGuides properly display summary highlights 1`] = `
   padding: 0.8rem 0;
 }
 
-.c14 a {
+.c9 a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c14 a:hover {
+.c9 a:hover {
   color: #0064A0;
 }
 
-.c14 * {
+.c9 * {
   overflow: initial;
-}
-
-.c9 {
-  overflow: visible;
-  padding: 0 3.2rem 1rem 3.2rem;
-  background: #fff;
-}
-
-.c9:not(:last-child) {
-  border-bottom: solid 0.2rem #fafafa;
-}
-
-.c10 {
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  padding: 1.2rem 0;
-  color: #000;
-  white-space: pre-wrap;
-  word-break: break-word;
-}
-
-.c11 {
-  padding-left: 0.4rem;
-  border-left: solid 0.8rem #c8f5ff;
-  margin-left: 2.1rem;
-}
-
-.c15 {
-  padding-left: 0.4rem;
-  border-left: solid 0.8rem #def99f;
-  margin-left: 2.1rem;
-}
-
-.c16 {
-  padding-left: 0.4rem;
-  border-left: solid 0.8rem #ffc5e1;
-  margin-left: 2.1rem;
-}
-
-.c17 {
-  padding-left: 0.4rem;
-  border-left: solid 0.8rem #cbcfff;
-  margin-left: 2.1rem;
-}
-
-.c18 {
-  padding-left: 0.4rem;
-}
-
-.c12 {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border: 0;
 }
 
 .c0 {
@@ -233,113 +168,6 @@ exports[`StudyGuides properly display summary highlights 1`] = `
     -webkit-break-inside: avoid;
     break-inside: avoid;
     background: white;
-  }
-}
-
-@media print {
-  .c9 {
-    page-break-inside: avoid;
-  }
-
-  .c9:not(:last-child) {
-    border-color: white;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c9 {
-    padding: 0 0 1rem 0;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c10 {
-    padding: 1rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c11 {
-    margin-left: 2rem;
-  }
-}
-
-@media print {
-  .c11 {
-    -webkit-break-inside: avoid-page;
-    break-inside: avoid-page;
-  }
-
-  .c11 .c13 {
-    background-color: white;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c15 {
-    margin-left: 2rem;
-  }
-}
-
-@media print {
-  .c15 {
-    -webkit-break-inside: avoid-page;
-    break-inside: avoid-page;
-  }
-
-  .c15 .c13 {
-    background-color: white;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c16 {
-    margin-left: 2rem;
-  }
-}
-
-@media print {
-  .c16 {
-    -webkit-break-inside: avoid-page;
-    break-inside: avoid-page;
-  }
-
-  .c16 .c13 {
-    background-color: white;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c17 {
-    margin-left: 2rem;
-  }
-}
-
-@media print {
-  .c17 {
-    -webkit-break-inside: avoid-page;
-    break-inside: avoid-page;
-  }
-
-  .c17 .c13 {
-    background-color: white;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c18 {
-    margin-left: 2rem;
-  }
-}
-
-@media print {
-  .c18 {
-    -webkit-break-inside: avoid-page;
-    break-inside: avoid-page;
-  }
-
-  .c18 .c13 {
-    background-color: white;
   }
 }
 
@@ -408,24 +236,41 @@ exports[`StudyGuides properly display summary highlights 1`] = `
         data-testid="section-title"
       />
       <div
-        className="c9"
+        className="study-guides-list-element-outer"
+        style={
+          Object {
+            "--bg-color": "#fff",
+            "--border-color": "#fafafa",
+            "--popup-padding": "3.2rem",
+          }
+        }
       >
         <div
-          className="c10"
+          className="study-guides-list-element-annotation"
+          style={
+            Object {
+              "--text-color-black": "#000",
+              "--text-color-default": "#424242",
+            }
+          }
         >
           hl1
         </div>
         <div
-          className="c11"
-          color="blue"
+          className="study-guides-list-element-content"
+          style={
+            Object {
+              "--highlight-border-color": "#c8f5ff",
+            }
+          }
         >
           <div
-            className="c12"
+            className="study-guides-list-element-hidden-label"
           >
             Important Concepts
           </div>
           <div
-            className="content-excerpt c13 c14"
+            className="content-excerpt c9"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "<a href=\\"/books/book-slug-1/pages/link\\" target=\\"_blank\\">Link</a>",
@@ -437,24 +282,41 @@ exports[`StudyGuides properly display summary highlights 1`] = `
         </div>
       </div>
       <div
-        className="c9"
+        className="study-guides-list-element-outer"
+        style={
+          Object {
+            "--bg-color": "#fff",
+            "--border-color": "#fafafa",
+            "--popup-padding": "3.2rem",
+          }
+        }
       >
         <div
-          className="c10"
+          className="study-guides-list-element-annotation"
+          style={
+            Object {
+              "--text-color-black": "#000",
+              "--text-color-default": "#424242",
+            }
+          }
         >
           hl
         </div>
         <div
-          className="c15"
-          color="green"
+          className="study-guides-list-element-content"
+          style={
+            Object {
+              "--highlight-border-color": "#def99f",
+            }
+          }
         >
           <div
-            className="c12"
+            className="study-guides-list-element-hidden-label"
           >
             Connections & Relationships
           </div>
           <div
-            className="content-excerpt c13 c14"
+            className="content-excerpt c9"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "content",
@@ -466,24 +328,41 @@ exports[`StudyGuides properly display summary highlights 1`] = `
         </div>
       </div>
       <div
-        className="c9"
+        className="study-guides-list-element-outer"
+        style={
+          Object {
+            "--bg-color": "#fff",
+            "--border-color": "#fafafa",
+            "--popup-padding": "3.2rem",
+          }
+        }
       >
         <div
-          className="c10"
+          className="study-guides-list-element-annotation"
+          style={
+            Object {
+              "--text-color-black": "#000",
+              "--text-color-default": "#424242",
+            }
+          }
         >
           hl
         </div>
         <div
-          className="c16"
-          color="pink"
+          className="study-guides-list-element-content"
+          style={
+            Object {
+              "--highlight-border-color": "#ffc5e1",
+            }
+          }
         >
           <div
-            className="c12"
+            className="study-guides-list-element-hidden-label"
           >
             Key Terms
           </div>
           <div
-            className="content-excerpt c13 c14"
+            className="content-excerpt c9"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "content",
@@ -495,24 +374,41 @@ exports[`StudyGuides properly display summary highlights 1`] = `
         </div>
       </div>
       <div
-        className="c9"
+        className="study-guides-list-element-outer"
+        style={
+          Object {
+            "--bg-color": "#fff",
+            "--border-color": "#fafafa",
+            "--popup-padding": "3.2rem",
+          }
+        }
       >
         <div
-          className="c10"
+          className="study-guides-list-element-annotation"
+          style={
+            Object {
+              "--text-color-black": "#000",
+              "--text-color-default": "#424242",
+            }
+          }
         >
           hl
         </div>
         <div
-          className="c17"
-          color="purple"
+          className="study-guides-list-element-content"
+          style={
+            Object {
+              "--highlight-border-color": "#cbcfff",
+            }
+          }
         >
           <div
-            className="c12"
+            className="study-guides-list-element-hidden-label"
           >
             Enrichment
           </div>
           <div
-            className="content-excerpt c13 c14"
+            className="content-excerpt c9"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "content",
@@ -524,22 +420,30 @@ exports[`StudyGuides properly display summary highlights 1`] = `
         </div>
       </div>
       <div
-        className="c9"
+        className="study-guides-list-element-outer"
+        style={
+          Object {
+            "--bg-color": "#fff",
+            "--border-color": "#fafafa",
+            "--popup-padding": "3.2rem",
+          }
+        }
       >
         <div
-          className="c10"
-        />
-        <div
-          className="c18"
-          color={null}
+          className="study-guides-list-element-content"
+          style={
+            Object {
+              "--highlight-border-color": "",
+            }
+          }
         >
           <div
-            className="c12"
+            className="study-guides-list-element-hidden-label"
           >
             Key Terms
           </div>
           <div
-            className="content-excerpt c13 c14"
+            className="content-excerpt c9"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "content",
@@ -577,24 +481,41 @@ exports[`StudyGuides properly display summary highlights 1`] = `
         data-testid="section-title"
       />
       <div
-        className="c9"
+        className="study-guides-list-element-outer"
+        style={
+          Object {
+            "--bg-color": "#fff",
+            "--border-color": "#fafafa",
+            "--popup-padding": "3.2rem",
+          }
+        }
       >
         <div
-          className="c10"
+          className="study-guides-list-element-annotation"
+          style={
+            Object {
+              "--text-color-black": "#000",
+              "--text-color-default": "#424242",
+            }
+          }
         >
           hl1
         </div>
         <div
-          className="c11"
-          color="blue"
+          className="study-guides-list-element-content"
+          style={
+            Object {
+              "--highlight-border-color": "#c8f5ff",
+            }
+          }
         >
           <div
-            className="c12"
+            className="study-guides-list-element-hidden-label"
           >
             Important Concepts
           </div>
           <div
-            className="content-excerpt c13 c14"
+            className="content-excerpt c9"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "content",
@@ -606,24 +527,41 @@ exports[`StudyGuides properly display summary highlights 1`] = `
         </div>
       </div>
       <div
-        className="c9"
+        className="study-guides-list-element-outer"
+        style={
+          Object {
+            "--bg-color": "#fff",
+            "--border-color": "#fafafa",
+            "--popup-padding": "3.2rem",
+          }
+        }
       >
         <div
-          className="c10"
+          className="study-guides-list-element-annotation"
+          style={
+            Object {
+              "--text-color-black": "#000",
+              "--text-color-default": "#424242",
+            }
+          }
         >
           hl
         </div>
         <div
-          className="c15"
-          color="green"
+          className="study-guides-list-element-content"
+          style={
+            Object {
+              "--highlight-border-color": "#def99f",
+            }
+          }
         >
           <div
-            className="c12"
+            className="study-guides-list-element-hidden-label"
           >
             Connections & Relationships
           </div>
           <div
-            className="content-excerpt c13 c14"
+            className="content-excerpt c9"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "content",
