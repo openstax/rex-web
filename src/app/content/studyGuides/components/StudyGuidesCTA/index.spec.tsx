@@ -5,7 +5,6 @@ import createTestStore from '../../../../../test/createTestStore';
 import TestContainer from '../../../../../test/TestContainer';
 import { receiveLoggedOut, receiveUser } from '../../../../auth/actions';
 import { Store } from '../../../../types';
-import * as Styled from './styles';
 
 describe('StudyGuidesCTA', () => {
   let store: Store;
@@ -21,7 +20,8 @@ describe('StudyGuidesCTA', () => {
       <StudyGuidesCTA />
     </TestContainer>);
 
-    expect(() => component.root.findByType(Styled.StudyGuidesCTAWrapper)).toThrow();
+    // After migration to plain CSS, check for the wrapper div by className
+    expect(() => component.root.findByProps({ className: 'study-guides-cta-wrapper' })).toThrow();
   });
 
   it('does render if user is not logged in', () => {
