@@ -14,6 +14,7 @@ import arrowMobile from './assets/arrow-mobile.svg';
 import './StudyGuidesCTA.css';
 
 const StudyGuidesCTATitle = htmlMessage('i18n:studyguides:cta:title', (props) => (
+  // eslint-disable-next-line jsx-a11y/heading-has-content
   <h2 className="study-guides-cta-title" {...props} />
 ));
 
