@@ -1,6 +1,6 @@
 import React from 'react';
 import styled, { css, keyframes } from 'styled-components/macro';
-import { maxNavWidth } from '../../../components/NavBar/styled';
+import { maxNavWidth } from '../../../components/NavBar/constants';
 import Times from '../../../components/Times';
 import {
   textRegularSize,
