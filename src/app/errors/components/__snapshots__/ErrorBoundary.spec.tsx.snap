@@ -31,428 +31,42 @@ Array [
       }
     />
   </div>,
-  .c18 {
+  .c0 {
   height: 1em;
-}
-
-.c20 {
-  height: 1em;
-}
-
-.c19 {
-  height: 1em;
-}
-
-.c0 {
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  z-index: 0;
-  opacity: 1;
-  -webkit-transition: opacity 0.2s;
-  transition: opacity 0.2s;
 }
 
 .c1 {
-  color: #d5d5d5;
-  display: grid;
-}
-
-.c2 {
-  background-color: #424242;
+  height: 1em;
 }
 
 .c3 {
-  max-width: 131rem;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-flow: column nowrap;
-  -ms-flex-flow: column nowrap;
-  flex-flow: column nowrap;
-  margin: 0 auto;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-  width: 100%;
-  display: grid;
-  grid-row-gap: 2rem;
-  overflow: visible;
+  height: 1em;
 }
 
-.c4 {
-  grid-area: headline;
-  margin: 0;
-}
-
-.c5 {
-  grid-area: mission;
-}
-
-.c5 a {
-  color: #d5d5d5;
-  font-weight: bold;
-  text-underline-position: under;
-}
-
-.c5 a:hover,
-.c5 a:active,
-.c5 a:focus {
-  color: inherit;
-}
-
-.c9 {
-  color: #d5d5d5;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c9:hover,
-.c9:active,
-.c9:focus {
-  color: inherit;
-}
-
-.c9:hover {
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c10 {
-  color: #d5d5d5;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  font-size: inherit;
-  cursor: pointer;
-  padding: 0;
-  border: none;
-  background-color: transparent;
-}
-
-.c10:hover,
-.c10:active,
-.c10:focus {
-  color: inherit;
-}
-
-.c10:hover {
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c21 {
-  color: #d5d5d5;
-  display: inline-grid;
-  grid-auto-flow: column;
-  grid-column-gap: 0.7rem;
-  overflow: hidden;
-}
-
-.c21:hover,
-.c21:active,
-.c21:focus {
-  color: inherit;
-}
-
-.c6 {
-  display: grid;
-  grid-gap: 0.5rem;
-  overflow: visible;
-  grid-area: col1;
-}
-
-.c11 {
-  display: grid;
-  grid-gap: 0.5rem;
-  overflow: visible;
-  grid-area: col2;
-}
-
-.c12 {
-  display: grid;
-  grid-gap: 0.5rem;
-  overflow: visible;
-  grid-area: col3;
-}
-
-.c7 {
-  font-size: 1.8rem;
-  font-weight: bold;
-  -webkit-letter-spacing: -0.072rem;
-  -moz-letter-spacing: -0.072rem;
-  -ms-letter-spacing: -0.072rem;
-  letter-spacing: -0.072rem;
-  line-height: normal;
-  margin: 0;
-}
-
-.c13 {
-  font-size: 1.2rem;
-  font-weight: normal;
-  -webkit-letter-spacing: normal;
-  -moz-letter-spacing: normal;
-  -ms-letter-spacing: normal;
-  letter-spacing: normal;
-  line-height: normal;
-  background-color: #3b3b3b;
-}
-
-.c14 {
-  max-width: 131rem;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-flow: column nowrap;
-  -ms-flex-flow: column nowrap;
-  flex-flow: column nowrap;
-  margin: 0 auto;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-  width: 100%;
-  display: grid;
-  grid-gap: 1.5rem 4rem;
-  overflow: visible;
-}
-
-.c15 {
-  display: grid;
-  grid-gap: 1rem;
-  overflow: visible;
-}
-
-.c15 [data-html="copyright"] {
-  overflow: visible;
-}
-
-.c15 a {
-  color: #d5d5d5;
-  overflow: visible;
-}
-
-.c15 a:hover,
-.c15 a:active,
-.c15 a:focus {
-  color: inherit;
-}
-
-.c15 sup {
-  font-size: 66%;
-  margin-left: 0.1rem;
-  position: relative;
-  top: -0.25em;
-  vertical-align: top;
-}
-
-.c16 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  display: grid;
-  grid-auto-flow: column;
-  grid-gap: 1rem;
-  -webkit-box-pack: end;
-  -webkit-justify-content: end;
-  -ms-flex-pack: end;
-  justify-content: end;
-  list-style: none;
-  overflow: visible;
-}
-
-.c8 {
-  margin: 0;
-  padding: 0;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  gap: 0.5rem;
-  list-style: none;
-}
-
-.c17 {
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  background-color: #767676;
-  color: #fff;
-  -webkit-align-content: center;
-  -ms-flex-line-pack: center;
-  align-content: center;
-  border-radius: 50%;
-  display: grid;
-  height: 3rem;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  overflow: hidden;
-  width: 3rem;
-}
-
-.c22 {
-  height: 4.7rem;
-  -webkit-transform: translateY(0.2rem);
-  -ms-transform: translateY(0.2rem);
-  transform: translateY(0.2rem);
-}
-
-@media print {
-  .c0 {
-    display: none;
-  }
-}
-
-@media (min-width:60.1em) {
-  .c2 {
-    padding: 7rem 0;
-  }
-}
-
-@media (max-width:37.5em) {
-  .c2 {
-    padding: 2rem 0;
-  }
-}
-
-@media (max-width:60.1em) and (min-width:37.6em) {
-  .c2 {
-    padding: 4rem 0;
-  }
-}
-
-@media (min-width:37.6em) {
-  .c3 {
-    -webkit-align-items: start;
-    -webkit-box-align: start;
-    -ms-flex-align: start;
-    align-items: start;
-    grid-column-gap: 4rem;
-    grid-template: "headline col1 col2 col3" "mission col1 col2 col3" / minmax(auto,50rem) auto auto auto;
-  }
-}
-
-@media (max-width:37.5em) {
-  .c3 {
-    grid-template: "headline" "mission" "col1" "col2" "col3";
-  }
-}
-
-@media (min-width:60.1em) {
-  .c3 {
-    grid-column-gap: 8rem;
-  }
-}
-
-@media (min-width:37.6em) {
-  .c4 {
-    font-size: 2.4rem;
-    font-weight: bold;
-    -webkit-letter-spacing: -0.096rem;
-    -moz-letter-spacing: -0.096rem;
-    -ms-letter-spacing: -0.096rem;
-    letter-spacing: -0.096rem;
-    line-height: normal;
-  }
-}
-
-@media (max-width:37.5em) {
-  .c4 {
-    font-size: 2rem;
-    font-weight: bold;
-    -webkit-letter-spacing: -0.08rem;
-    -moz-letter-spacing: -0.08rem;
-    -ms-letter-spacing: -0.08rem;
-    letter-spacing: -0.08rem;
-    line-height: normal;
-  }
-}
-
-@media (min-width:37.6em) {
-  .c5 {
-    font-size: 1.8rem;
-    font-weight: normal;
-    -webkit-letter-spacing: normal;
-    -moz-letter-spacing: normal;
-    -ms-letter-spacing: normal;
-    letter-spacing: normal;
-    line-height: 3rem;
-  }
-}
-
-@media (max-width:37.5em) {
-  .c9 {
-    line-height: 4.5rem;
-  }
-}
-
-@media (max-width:37.5em) {
-  .c10 {
-    line-height: 4.5rem;
-  }
-}
-
-@media (max-width:37.5em) {
-  .c7 {
-    line-height: 4.5rem;
-  }
-}
-
-@media (min-width:37.6em) {
-  .c13 {
-    padding: 2.5rem 0;
-  }
-}
-
-@media (max-width:37.5em) {
-  .c13 {
-    padding: 1.5rem;
-  }
-}
-
-@media (min-width:37.6em) {
-  .c14 {
-    grid-auto-flow: column;
-  }
-}
-
-@media (max-width:37.5em) {
-  .c14 {
-    padding: 0;
-  }
+.c2 {
+  height: 1em;
 }
 
 <footer
-    className="c0"
+    className="footer-wrapper"
     data-analytics-region="footer"
   >
     <div
-      className="c1"
+      className="footer-inner"
     >
       <div
-        className="c2"
+        className="footer-top"
       >
         <div
-          className="c3"
+          className="footer-top-boxed"
         >
           <h2
-            className="c4"
+            className="footer-heading"
           >
             OpenStax’s mission is to make an amazing education accessible for all.
           </h2>
           <div
-            className="c5"
+            className="footer-mission"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "
@@ -463,19 +77,19 @@ Array [
             }
           />
           <div
-            className="c6"
+            className="footer-column footer-column-1"
           >
             <h3
-              className="c7"
+              className="footer-column-heading"
             >
               Help
             </h3>
             <menu
-              className="c8"
+              className="footer-link-list-wrapper"
             >
               <li>
                 <a
-                  className="c9"
+                  className="footer-link"
                   href="/contact"
                   rel=""
                   target="_self"
@@ -485,9 +99,9 @@ Array [
               </li>
               <li>
                 <a
-                  className="c9"
+                  className="footer-link"
                   href="https://help.openstax.org/s/"
-                  rel="noopener"
+                  rel="noopener noreferrer"
                   target="_blank"
                 >
                   Support Center
@@ -495,7 +109,7 @@ Array [
               </li>
               <li>
                 <a
-                  className="c9"
+                  className="footer-link"
                   href="/faq"
                   rel=""
                   target="_self"
@@ -505,9 +119,9 @@ Array [
               </li>
               <li>
                 <a
-                  className="c9"
+                  className="footer-link"
                   href="https://status.openstax.org/"
-                  rel="noopener"
+                  rel="noopener noreferrer"
                   target="_blank"
                 >
                   System Status
@@ -515,7 +129,7 @@ Array [
               </li>
               <li>
                 <button
-                  className="c10"
+                  className="footer-button"
                   data-testid="shortcut-link"
                   onClick={[Function]}
                   type="button"
@@ -526,19 +140,19 @@ Array [
             </menu>
           </div>
           <div
-            className="c11"
+            className="footer-column footer-column-2"
           >
             <h3
-              className="c7"
+              className="footer-column-heading"
             >
               OpenStax
             </h3>
             <menu
-              className="c8"
+              className="footer-link-list-wrapper"
             >
               <li>
                 <a
-                  className="c9"
+                  className="footer-link"
                   href="/press"
                   rel=""
                   target="_self"
@@ -548,9 +162,9 @@ Array [
               </li>
               <li>
                 <a
-                  className="c9"
+                  className="footer-link"
                   href="http://www2.openstax.org/l/218812/2016-10-04/lvk"
-                  rel="noopener"
+                  rel="noopener noreferrer"
                   target="_blank"
                 >
                   Newsletter
@@ -558,7 +172,7 @@ Array [
               </li>
               <li>
                 <a
-                  className="c9"
+                  className="footer-link"
                   href="/careers"
                   rel=""
                   target="_self"
@@ -569,19 +183,19 @@ Array [
             </menu>
           </div>
           <div
-            className="c12"
+            className="footer-column footer-column-3"
           >
             <h3
-              className="c7"
+              className="footer-column-heading"
             >
               Policies
             </h3>
             <menu
-              className="c8"
+              className="footer-link-list-wrapper"
             >
               <li>
                 <a
-                  className="c9"
+                  className="footer-link"
                   href="/accessibility-statement"
                   rel=""
                   target="_self"
@@ -591,7 +205,7 @@ Array [
               </li>
               <li>
                 <a
-                  className="c9"
+                  className="footer-link"
                   href="/tos"
                   rel=""
                   target="_self"
@@ -601,7 +215,7 @@ Array [
               </li>
               <li>
                 <a
-                  className="c9"
+                  className="footer-link"
                   href="/license"
                   rel=""
                   target="_self"
@@ -611,7 +225,7 @@ Array [
               </li>
               <li>
                 <a
-                  className="c9"
+                  className="footer-link"
                   href="/privacy-policy"
                   rel=""
                   target="_self"
@@ -625,13 +239,13 @@ Array [
         </div>
       </div>
       <div
-        className="c13"
+        className="footer-bottom"
       >
         <div
-          className="c14"
+          className="footer-bottom-boxed"
         >
           <div
-            className="c15"
+            className="footer-copyrights"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "
@@ -649,19 +263,25 @@ Array [
             }
           />
           <menu
-            className="c16"
+            className="footer-social"
           >
             <li>
               <a
                 aria-label="OpenStax on Facebook"
-                className="c17"
+                className="footer-social-icon"
                 href="https://www.facebook.com/openstax"
-                rel="noopener"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "--footer-social-icon-bg": "#767676",
+                    "--footer-social-icon-color": "#fff",
+                  }
+                }
                 target="_blank"
               >
                 <svg
                   aria-hidden="true"
-                  className="c18"
+                  className="c0"
                   viewBox="0 0 320 512"
                 >
                   <path
@@ -674,14 +294,20 @@ Array [
             <li>
               <a
                 aria-label="OpenStax on X"
-                className="c17"
+                className="footer-social-icon"
                 href="https://twitter.com/openstax"
-                rel="noopener"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "--footer-social-icon-bg": "#767676",
+                    "--footer-social-icon-color": "#fff",
+                  }
+                }
                 target="_blank"
               >
                 <svg
                   aria-hidden="true"
-                  className="svg-inline--fa fa-x-twitter"
+                  className="c1"
                   data-icon="x-twitter"
                   data-prefix="fab"
                   focusable="false"
@@ -700,14 +326,20 @@ Array [
             <li>
               <a
                 aria-label="OpenStax on LinkedIn"
-                className="c17"
+                className="footer-social-icon"
                 href="https://www.linkedin.com/company/openstax"
-                rel="noopener"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "--footer-social-icon-bg": "#767676",
+                    "--footer-social-icon-color": "#fff",
+                  }
+                }
                 target="_blank"
               >
                 <svg
                   aria-hidden="true"
-                  className="c19"
+                  className="c2"
                   viewBox="0 0 448 512"
                 >
                   <path
@@ -720,14 +352,20 @@ Array [
             <li>
               <a
                 aria-label="OpenStax on Instagram"
-                className="c17"
+                className="footer-social-icon"
                 href="https://www.instagram.com/openstax/"
-                rel="noopener"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "--footer-social-icon-bg": "#767676",
+                    "--footer-social-icon-color": "#fff",
+                  }
+                }
                 target="_blank"
               >
                 <svg
                   aria-hidden="true"
-                  className="c20"
+                  className="c3"
                   viewBox="0 0 448 512"
                 >
                   <path
@@ -739,14 +377,14 @@ Array [
             </li>
             <li>
               <a
-                className="c21"
+                className="footer-bottom-link"
                 href="http://www.rice.edu"
-                rel="noopener"
+                rel="noopener noreferrer"
                 target="_blank"
               >
                 <img
                   alt="Rice University logo"
-                  className="c22"
+                  className="footer-logo"
                   src="rice-logo-white.png"
                 />
               </a>
@@ -790,428 +428,42 @@ Array [
       }
     />
   </div>,
-  .c18 {
+  .c0 {
   height: 1em;
-}
-
-.c20 {
-  height: 1em;
-}
-
-.c19 {
-  height: 1em;
-}
-
-.c0 {
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  z-index: 0;
-  opacity: 1;
-  -webkit-transition: opacity 0.2s;
-  transition: opacity 0.2s;
 }
 
 .c1 {
-  color: #d5d5d5;
-  display: grid;
-}
-
-.c2 {
-  background-color: #424242;
+  height: 1em;
 }
 
 .c3 {
-  max-width: 131rem;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-flow: column nowrap;
-  -ms-flex-flow: column nowrap;
-  flex-flow: column nowrap;
-  margin: 0 auto;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-  width: 100%;
-  display: grid;
-  grid-row-gap: 2rem;
-  overflow: visible;
+  height: 1em;
 }
 
-.c4 {
-  grid-area: headline;
-  margin: 0;
-}
-
-.c5 {
-  grid-area: mission;
-}
-
-.c5 a {
-  color: #d5d5d5;
-  font-weight: bold;
-  text-underline-position: under;
-}
-
-.c5 a:hover,
-.c5 a:active,
-.c5 a:focus {
-  color: inherit;
-}
-
-.c9 {
-  color: #d5d5d5;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c9:hover,
-.c9:active,
-.c9:focus {
-  color: inherit;
-}
-
-.c9:hover {
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c10 {
-  color: #d5d5d5;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  font-size: inherit;
-  cursor: pointer;
-  padding: 0;
-  border: none;
-  background-color: transparent;
-}
-
-.c10:hover,
-.c10:active,
-.c10:focus {
-  color: inherit;
-}
-
-.c10:hover {
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c21 {
-  color: #d5d5d5;
-  display: inline-grid;
-  grid-auto-flow: column;
-  grid-column-gap: 0.7rem;
-  overflow: hidden;
-}
-
-.c21:hover,
-.c21:active,
-.c21:focus {
-  color: inherit;
-}
-
-.c6 {
-  display: grid;
-  grid-gap: 0.5rem;
-  overflow: visible;
-  grid-area: col1;
-}
-
-.c11 {
-  display: grid;
-  grid-gap: 0.5rem;
-  overflow: visible;
-  grid-area: col2;
-}
-
-.c12 {
-  display: grid;
-  grid-gap: 0.5rem;
-  overflow: visible;
-  grid-area: col3;
-}
-
-.c7 {
-  font-size: 1.8rem;
-  font-weight: bold;
-  -webkit-letter-spacing: -0.072rem;
-  -moz-letter-spacing: -0.072rem;
-  -ms-letter-spacing: -0.072rem;
-  letter-spacing: -0.072rem;
-  line-height: normal;
-  margin: 0;
-}
-
-.c13 {
-  font-size: 1.2rem;
-  font-weight: normal;
-  -webkit-letter-spacing: normal;
-  -moz-letter-spacing: normal;
-  -ms-letter-spacing: normal;
-  letter-spacing: normal;
-  line-height: normal;
-  background-color: #3b3b3b;
-}
-
-.c14 {
-  max-width: 131rem;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-flow: column nowrap;
-  -ms-flex-flow: column nowrap;
-  flex-flow: column nowrap;
-  margin: 0 auto;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-  width: 100%;
-  display: grid;
-  grid-gap: 1.5rem 4rem;
-  overflow: visible;
-}
-
-.c15 {
-  display: grid;
-  grid-gap: 1rem;
-  overflow: visible;
-}
-
-.c15 [data-html="copyright"] {
-  overflow: visible;
-}
-
-.c15 a {
-  color: #d5d5d5;
-  overflow: visible;
-}
-
-.c15 a:hover,
-.c15 a:active,
-.c15 a:focus {
-  color: inherit;
-}
-
-.c15 sup {
-  font-size: 66%;
-  margin-left: 0.1rem;
-  position: relative;
-  top: -0.25em;
-  vertical-align: top;
-}
-
-.c16 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  display: grid;
-  grid-auto-flow: column;
-  grid-gap: 1rem;
-  -webkit-box-pack: end;
-  -webkit-justify-content: end;
-  -ms-flex-pack: end;
-  justify-content: end;
-  list-style: none;
-  overflow: visible;
-}
-
-.c8 {
-  margin: 0;
-  padding: 0;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  gap: 0.5rem;
-  list-style: none;
-}
-
-.c17 {
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  background-color: #767676;
-  color: #fff;
-  -webkit-align-content: center;
-  -ms-flex-line-pack: center;
-  align-content: center;
-  border-radius: 50%;
-  display: grid;
-  height: 3rem;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  overflow: hidden;
-  width: 3rem;
-}
-
-.c22 {
-  height: 4.7rem;
-  -webkit-transform: translateY(0.2rem);
-  -ms-transform: translateY(0.2rem);
-  transform: translateY(0.2rem);
-}
-
-@media print {
-  .c0 {
-    display: none;
-  }
-}
-
-@media (min-width:60.1em) {
-  .c2 {
-    padding: 7rem 0;
-  }
-}
-
-@media (max-width:37.5em) {
-  .c2 {
-    padding: 2rem 0;
-  }
-}
-
-@media (max-width:60.1em) and (min-width:37.6em) {
-  .c2 {
-    padding: 4rem 0;
-  }
-}
-
-@media (min-width:37.6em) {
-  .c3 {
-    -webkit-align-items: start;
-    -webkit-box-align: start;
-    -ms-flex-align: start;
-    align-items: start;
-    grid-column-gap: 4rem;
-    grid-template: "headline col1 col2 col3" "mission col1 col2 col3" / minmax(auto,50rem) auto auto auto;
-  }
-}
-
-@media (max-width:37.5em) {
-  .c3 {
-    grid-template: "headline" "mission" "col1" "col2" "col3";
-  }
-}
-
-@media (min-width:60.1em) {
-  .c3 {
-    grid-column-gap: 8rem;
-  }
-}
-
-@media (min-width:37.6em) {
-  .c4 {
-    font-size: 2.4rem;
-    font-weight: bold;
-    -webkit-letter-spacing: -0.096rem;
-    -moz-letter-spacing: -0.096rem;
-    -ms-letter-spacing: -0.096rem;
-    letter-spacing: -0.096rem;
-    line-height: normal;
-  }
-}
-
-@media (max-width:37.5em) {
-  .c4 {
-    font-size: 2rem;
-    font-weight: bold;
-    -webkit-letter-spacing: -0.08rem;
-    -moz-letter-spacing: -0.08rem;
-    -ms-letter-spacing: -0.08rem;
-    letter-spacing: -0.08rem;
-    line-height: normal;
-  }
-}
-
-@media (min-width:37.6em) {
-  .c5 {
-    font-size: 1.8rem;
-    font-weight: normal;
-    -webkit-letter-spacing: normal;
-    -moz-letter-spacing: normal;
-    -ms-letter-spacing: normal;
-    letter-spacing: normal;
-    line-height: 3rem;
-  }
-}
-
-@media (max-width:37.5em) {
-  .c9 {
-    line-height: 4.5rem;
-  }
-}
-
-@media (max-width:37.5em) {
-  .c10 {
-    line-height: 4.5rem;
-  }
-}
-
-@media (max-width:37.5em) {
-  .c7 {
-    line-height: 4.5rem;
-  }
-}
-
-@media (min-width:37.6em) {
-  .c13 {
-    padding: 2.5rem 0;
-  }
-}
-
-@media (max-width:37.5em) {
-  .c13 {
-    padding: 1.5rem;
-  }
-}
-
-@media (min-width:37.6em) {
-  .c14 {
-    grid-auto-flow: column;
-  }
-}
-
-@media (max-width:37.5em) {
-  .c14 {
-    padding: 0;
-  }
+.c2 {
+  height: 1em;
 }
 
 <footer
-    className="c0"
+    className="footer-wrapper"
     data-analytics-region="footer"
   >
     <div
-      className="c1"
+      className="footer-inner"
     >
       <div
-        className="c2"
+        className="footer-top"
       >
         <div
-          className="c3"
+          className="footer-top-boxed"
         >
           <h2
-            className="c4"
+            className="footer-heading"
           >
             OpenStax’s mission is to make an amazing education accessible for all.
           </h2>
           <div
-            className="c5"
+            className="footer-mission"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "
@@ -1222,19 +474,19 @@ Array [
             }
           />
           <div
-            className="c6"
+            className="footer-column footer-column-1"
           >
             <h3
-              className="c7"
+              className="footer-column-heading"
             >
               Help
             </h3>
             <menu
-              className="c8"
+              className="footer-link-list-wrapper"
             >
               <li>
                 <a
-                  className="c9"
+                  className="footer-link"
                   href="/contact"
                   rel=""
                   target="_self"
@@ -1244,9 +496,9 @@ Array [
               </li>
               <li>
                 <a
-                  className="c9"
+                  className="footer-link"
                   href="https://help.openstax.org/s/"
-                  rel="noopener"
+                  rel="noopener noreferrer"
                   target="_blank"
                 >
                   Support Center
@@ -1254,7 +506,7 @@ Array [
               </li>
               <li>
                 <a
-                  className="c9"
+                  className="footer-link"
                   href="/faq"
                   rel=""
                   target="_self"
@@ -1264,9 +516,9 @@ Array [
               </li>
               <li>
                 <a
-                  className="c9"
+                  className="footer-link"
                   href="https://status.openstax.org/"
-                  rel="noopener"
+                  rel="noopener noreferrer"
                   target="_blank"
                 >
                   System Status
@@ -1274,7 +526,7 @@ Array [
               </li>
               <li>
                 <button
-                  className="c10"
+                  className="footer-button"
                   data-testid="shortcut-link"
                   onClick={[Function]}
                   type="button"
@@ -1285,19 +537,19 @@ Array [
             </menu>
           </div>
           <div
-            className="c11"
+            className="footer-column footer-column-2"
           >
             <h3
-              className="c7"
+              className="footer-column-heading"
             >
               OpenStax
             </h3>
             <menu
-              className="c8"
+              className="footer-link-list-wrapper"
             >
               <li>
                 <a
-                  className="c9"
+                  className="footer-link"
                   href="/press"
                   rel=""
                   target="_self"
@@ -1307,9 +559,9 @@ Array [
               </li>
               <li>
                 <a
-                  className="c9"
+                  className="footer-link"
                   href="http://www2.openstax.org/l/218812/2016-10-04/lvk"
-                  rel="noopener"
+                  rel="noopener noreferrer"
                   target="_blank"
                 >
                   Newsletter
@@ -1317,7 +569,7 @@ Array [
               </li>
               <li>
                 <a
-                  className="c9"
+                  className="footer-link"
                   href="/careers"
                   rel=""
                   target="_self"
@@ -1328,19 +580,19 @@ Array [
             </menu>
           </div>
           <div
-            className="c12"
+            className="footer-column footer-column-3"
           >
             <h3
-              className="c7"
+              className="footer-column-heading"
             >
               Policies
             </h3>
             <menu
-              className="c8"
+              className="footer-link-list-wrapper"
             >
               <li>
                 <a
-                  className="c9"
+                  className="footer-link"
                   href="/accessibility-statement"
                   rel=""
                   target="_self"
@@ -1350,7 +602,7 @@ Array [
               </li>
               <li>
                 <a
-                  className="c9"
+                  className="footer-link"
                   href="/tos"
                   rel=""
                   target="_self"
@@ -1360,7 +612,7 @@ Array [
               </li>
               <li>
                 <a
-                  className="c9"
+                  className="footer-link"
                   href="/license"
                   rel=""
                   target="_self"
@@ -1370,7 +622,7 @@ Array [
               </li>
               <li>
                 <a
-                  className="c9"
+                  className="footer-link"
                   href="/privacy-policy"
                   rel=""
                   target="_self"
@@ -1384,13 +636,13 @@ Array [
         </div>
       </div>
       <div
-        className="c13"
+        className="footer-bottom"
       >
         <div
-          className="c14"
+          className="footer-bottom-boxed"
         >
           <div
-            className="c15"
+            className="footer-copyrights"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "
@@ -1408,19 +660,25 @@ Array [
             }
           />
           <menu
-            className="c16"
+            className="footer-social"
           >
             <li>
               <a
                 aria-label="OpenStax on Facebook"
-                className="c17"
+                className="footer-social-icon"
                 href="https://www.facebook.com/openstax"
-                rel="noopener"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "--footer-social-icon-bg": "#767676",
+                    "--footer-social-icon-color": "#fff",
+                  }
+                }
                 target="_blank"
               >
                 <svg
                   aria-hidden="true"
-                  className="c18"
+                  className="c0"
                   viewBox="0 0 320 512"
                 >
                   <path
@@ -1433,14 +691,20 @@ Array [
             <li>
               <a
                 aria-label="OpenStax on X"
-                className="c17"
+                className="footer-social-icon"
                 href="https://twitter.com/openstax"
-                rel="noopener"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "--footer-social-icon-bg": "#767676",
+                    "--footer-social-icon-color": "#fff",
+                  }
+                }
                 target="_blank"
               >
                 <svg
                   aria-hidden="true"
-                  className="svg-inline--fa fa-x-twitter"
+                  className="c1"
                   data-icon="x-twitter"
                   data-prefix="fab"
                   focusable="false"
@@ -1459,14 +723,20 @@ Array [
             <li>
               <a
                 aria-label="OpenStax on LinkedIn"
-                className="c17"
+                className="footer-social-icon"
                 href="https://www.linkedin.com/company/openstax"
-                rel="noopener"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "--footer-social-icon-bg": "#767676",
+                    "--footer-social-icon-color": "#fff",
+                  }
+                }
                 target="_blank"
               >
                 <svg
                   aria-hidden="true"
-                  className="c19"
+                  className="c2"
                   viewBox="0 0 448 512"
                 >
                   <path
@@ -1479,14 +749,20 @@ Array [
             <li>
               <a
                 aria-label="OpenStax on Instagram"
-                className="c17"
+                className="footer-social-icon"
                 href="https://www.instagram.com/openstax/"
-                rel="noopener"
+                rel="noopener noreferrer"
+                style={
+                  Object {
+                    "--footer-social-icon-bg": "#767676",
+                    "--footer-social-icon-color": "#fff",
+                  }
+                }
                 target="_blank"
               >
                 <svg
                   aria-hidden="true"
-                  className="c20"
+                  className="c3"
                   viewBox="0 0 448 512"
                 >
                   <path
@@ -1498,14 +774,14 @@ Array [
             </li>
             <li>
               <a
-                className="c21"
+                className="footer-bottom-link"
                 href="http://www.rice.edu"
-                rel="noopener"
+                rel="noopener noreferrer"
                 target="_blank"
               >
                 <img
                   alt="Rice University logo"
-                  className="c22"
+                  className="footer-logo"
                   src="rice-logo-white.png"
                 />
               </a>
