@@ -8,23 +8,25 @@
  * 3. touchScreenDisplay - Fixed positioning for mobile touch devices
  */
 
-/* === Constants (from cardStyles.ts) ===
+/* === Constants (from cardStyles.ts and content/components/constants.ts) ===
  * cardWidth: 20rem
  * cardPadding: 0.8rem
  * cardContentMargin: 3rem
  * cardFocusedContentMargin: 1rem
  * cardMinWindowMargin: 2rem
- * contentTextWidth: 73rem
- * sidebarDesktopWidth: 28rem
- * searchResultsBarDesktopWidth: 28rem
+ * contentTextWidth: 82.5rem
+ * sidebarDesktopWidth: 37.5rem
+ * searchResultsBarDesktopWidth: 37.5rem
+ * mobileBreak: 75em
+ * remsToEms conversion: rems * 10 / 16 = ems (because 1rem = 10px, 1em = 16px in media queries)
 */
 
 /* Calculated breakpoints:
  * additionalWidthForCard = (20 + 3 + 2) * 2 = 50rem
- * minimalWidth = 73 + 50 = 123rem
- * minimalWidthForCards = 123rem (1968px)
- * minimalWidthForCardsWithToc = 123 + 28 = 151rem (2416px)
- * minimalWidthForCardsWithSearchResults = 123 + 28 = 151rem (2416px)
+ * minimalWidth = 82.5 + 50 = 132.5rem
+ * minimalWidthForCards = remsToEms(132.5) = 82.8125em
+ * minimalWidthForCardsWithToc = remsToEms(132.5 + 37.5) = remsToEms(170) = 106.25em
+ * minimalWidthForCardsWithSearchResults = remsToEms(132.5 + 37.5) = 106.25em
  */
 
 /* === Keyframe Animations === */
@@ -50,19 +52,13 @@
   animation: 600ms highlight-card-fade-in ease-out;
 
   /* Positioning - rightSideDisplay (default) */
-  left: calc(50% + (73rem / 2) + 3rem); /* contentTextWidth/2 + cardContentMargin */
+  left: calc(50% + (82.5rem / 2) + 3rem); /* contentTextWidth/2 + cardContentMargin */
   right: unset;
   top: var(--card-top-offset, 0);
 
   /* Dynamic z-index set via inline style */
   z-index: var(--card-z-index, 10);
   transition: opacity 0.3s, top 0.3s, left 0.3s;
-
-  /* Disable printing */
-  @media print {
-    /* stylelint-disable-next-line declaration-no-important */
-    display: none !important;
-  }
 }
 
 /* Hidden state */
@@ -76,7 +72,7 @@
 
 /* Active card positioning adjustment */
 .highlight-card[data-active="true"] {
-  left: calc(50% + (73rem / 2) + 1rem); /* contentTextWidth/2 + cardFocusedContentMargin */
+  left: calc(50% + (82.5rem / 2) + 1rem); /* contentTextWidth/2 + cardFocusedContentMargin */
 }
 
 /* Color border indicator (left side on desktop, top on mobile) */
@@ -96,50 +92,44 @@
   z-index: 1;
 }
 
-/* === Overlap Display Mode === */
-
-/* Triggered when ToC is open and window is too narrow */
-@media (max-width: 151em) { /* minimalWidthForCardsWithToc */
-  .highlight-card[data-toc-open="true"] {
-    animation: none;
-  }
-
-  .highlight-card[data-toc-open="true"][data-active="true"] {
-    left: calc(75vw - (73rem / 2) + 1rem); /* contentTextWidth/2 + cardFocusedContentMargin */
-    right: unset;
-    top: var(--card-highlight-offset, var(--card-top-offset, 0));
-  }
-
-  .highlight-card[data-toc-open="true"]:not([data-active="true"]) {
-    display: none;
+/* Disable printing */
+@media print {
+  .highlight-card {
+    /* stylelint-disable-next-line declaration-no-important */
+    display: none !important;
   }
 }
 
-/* Triggered when search results are open and window is too narrow */
-@media (max-width: 151em) { /* minimalWidthForCardsWithSearchResults */
+/* === Overlap Display Mode === */
+
+/* Triggered when ToC or search results are open and window is too narrow */
+@media (max-width: 106.25em) { /* minimalWidthForCardsWithToc / minimalWidthForCardsWithSearchResults */
+  .highlight-card[data-toc-open="true"],
   .highlight-card[data-has-query="true"] {
     animation: none;
   }
 
+  .highlight-card[data-toc-open="true"][data-active="true"],
   .highlight-card[data-has-query="true"][data-active="true"] {
-    left: calc(75vw - (73rem / 2) + 1rem); /* contentTextWidth/2 + cardFocusedContentMargin */
+    left: calc(75vw - (82.5rem / 2) + 1rem); /* contentTextWidth/2 + cardFocusedContentMargin */
     right: unset;
     top: var(--card-highlight-offset, var(--card-top-offset, 0));
   }
 
+  .highlight-card[data-toc-open="true"]:not([data-active="true"]),
   .highlight-card[data-has-query="true"]:not([data-active="true"]) {
     display: none;
   }
 }
 
 /* Triggered when window is too narrow even without sidebars */
-@media (max-width: 123em) { /* minimalWidthForCards */
+@media (max-width: 82.8125em) { /* minimalWidthForCards */
   .highlight-card {
     animation: none;
   }
 
   .highlight-card[data-active="true"] {
-    left: calc(75vw - (73rem / 2) + 1rem); /* contentTextWidth/2 + cardFocusedContentMargin */
+    left: calc(75vw - (82.5rem / 2) + 1rem); /* contentTextWidth/2 + cardFocusedContentMargin */
     right: unset;
     top: var(--card-highlight-offset, var(--card-top-offset, 0));
   }
@@ -153,7 +143,7 @@
 
 /* Triggered on mobile devices with touch screens */
 @media screen and (max-width: 75em) { /* mobileBreak */
-  @media (hover: none) { /* touchDeviceQuery */
+  @media not all and (pointer: fine), (hover: none) { /* touchDeviceQuery */
     .highlight-card {
       animation: none;
     }
@@ -187,26 +177,26 @@
   position: relative;
   overflow: visible;
   z-index: 10; /* theme.zIndex.highlightInlineCard */
-  transform: auto;
+  transform: none;
   transition: transform 0.3s;
 }
 
 /* stylelint-disable declaration-no-important */
 
 /* Override JS inline styles for display of all cards while using overlap display */
-@media (max-width: 151em) { /* minimalWidthForCardsWithToc */
+@media (max-width: 106.25em) { /* minimalWidthForCardsWithToc */
   .highlight-card-wrapper[data-toc-open="true"] {
     transform: none !important;
   }
 }
 
-@media (max-width: 151em) { /* minimalWidthForCardsWithSearchResults */
+@media (max-width: 106.25em) { /* minimalWidthForCardsWithSearchResults */
   .highlight-card-wrapper[data-has-query="true"] {
     transform: none !important;
   }
 }
 
-@media (max-width: 123em) { /* minimalWidthForCards */
+@media (max-width: 82.8125em) { /* minimalWidthForCards */
   .highlight-card-wrapper {
     transform: none !important;
   }

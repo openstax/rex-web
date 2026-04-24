@@ -23,7 +23,7 @@ import {
 } from '../actions';
 import { HighlightData } from '../types';
 import { getHighlightLocationFilterForPage } from '../utils';
-import { getHighlightBottomOffset, getPreferEnd } from './cardUtils';
+import { getHighlightBottomOffset, getHighlightTopOffset, getPreferEnd } from './cardUtils';
 import { OVERLAP_CARD_TOP_OFFSET } from './cardStyles';
 import DisplayNote from './DisplayNote';
 import EditCard from './EditCard';
@@ -31,6 +31,7 @@ import scrollHighlightIntoView from './utils/scrollHighlightIntoView';
 import showConfirmation from './utils/showConfirmation';
 import { useConfirmationToastContext } from '../../components/ConfirmationToast';
 import { useIntl } from 'react-intl';
+
 
 export interface CardProps {
   page: ReturnType<typeof selectContent['bookAndPage']>['page'];
@@ -80,17 +81,27 @@ function useComputedProps(props: CardProps) {
     }
   }, [isActive, hasUnsavedHighlight, id, focus, services]);
   const element = React.useRef<HTMLElement>(null);
+  const wrapperRef = React.useRef<HTMLDivElement>(null);
+
+  // Intercept onHeightChange to use the wrapper ref instead of the inner element ref
+  // This ensures height measurements include the outer wrapper's padding/box-shadow
+  const onHeightChangeWrapper = React.useCallback((_ref: React.RefObject<HTMLElement>) => {
+    // Always use the wrapper ref for height measurements instead of the inner element ref
+    // This ensures we measure the full card including padding and box-shadow
+    props.onHeightChange(wrapperRef as React.RefObject<HTMLElement>);
+  }, [props, wrapperRef]);
+
   const commonProps = React.useMemo(
     () => ({
       className: props.className,
       highlight: props.highlight,
       isActive: props.isActive,
       onBlur: props.blur,
-      onHeightChange: props.onHeightChange,
+      onHeightChange: onHeightChangeWrapper,
       ref: element,
       shouldFocusCard: props.shouldFocusCard,
     }),
-    [props]
+    [props, onHeightChangeWrapper]
   );
 
   useFocusIn(element, true, focusCard);
@@ -219,14 +230,18 @@ function NoteOrCard({
     ? props.topOffset
     : getHighlightBottomOffset(props.container, props.highlight);
 
+  // For overlap mode positioning: compute highlight offset for active cards
+  // When highlightOffsets is provided, use it; otherwise compute from highlight position
   const highlightOffset = props.highlightOffsets
     ? (props.preferEnd
         ? props.highlightOffsets.bottom
         : props.highlightOffsets.top - OVERLAP_CARD_TOP_OFFSET)
-    : undefined;
+    : (props.preferEnd
+        ? getHighlightBottomOffset(props.container, props.highlight)
+        : (getHighlightTopOffset(props.container, props.highlight) ?? 0) - OVERLAP_CARD_TOP_OFFSET);
 
   const cardStyle: React.CSSProperties = {
-    '--card-top-offset': `${topOffset}px`,
+    ...(topOffset !== undefined && { '--card-top-offset': `${topOffset}px` }),
     '--card-z-index': props.zIndex,
     '--highlight-color': style?.focused,
     ...(highlightOffset !== undefined && { '--card-highlight-offset': `${highlightOffset}px` }),

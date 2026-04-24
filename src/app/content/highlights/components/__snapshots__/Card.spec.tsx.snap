@@ -83,7 +83,6 @@ exports[`Card matches snapshot when passed data without note 1`] = `
   style={
     Object {
       "--card-highlight-offset": "-110px",
-      "--card-top-offset": "undefinedpx",
       "--card-z-index": undefined,
       "--highlight-color": undefined,
     }
@@ -140,6 +139,7 @@ exports[`Card matches snapshot without data and preferEnd 1`] = `
   onClick={[Function]}
   style={
     Object {
+      "--card-highlight-offset": "200px",
       "--card-top-offset": "200px",
       "--card-z-index": undefined,
       "--highlight-color": undefined,
@@ -164,8 +164,16 @@ exports[`Card matches snapshot without data and preferEnd 1`] = `
           "getBoundingClientRect": [MockFunction] {
             "calls": Array [
               Array [],
+              Array [],
             ],
             "results": Array [
+              Object {
+                "type": "return",
+                "value": Object {
+                  "bottom": 200,
+                  "top": 100,
+                },
+              },
               Object {
                 "type": "return",
                 "value": Object {
@@ -205,6 +213,7 @@ exports[`Card matches snapshot without data and preferEnd as false 1`] = `
   onClick={[Function]}
   style={
     Object {
+      "--card-highlight-offset": "-10px",
       "--card-top-offset": "200px",
       "--card-z-index": undefined,
       "--highlight-color": undefined,
@@ -229,8 +238,16 @@ exports[`Card matches snapshot without data and preferEnd as false 1`] = `
           "getBoundingClientRect": [MockFunction] {
             "calls": Array [
               Array [],
+              Array [],
             ],
             "results": Array [
+              Object {
+                "type": "return",
+                "value": Object {
+                  "bottom": 200,
+                  "top": 100,
+                },
+              },
               Object {
                 "type": "return",
                 "value": Object {
