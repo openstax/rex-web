@@ -4,7 +4,7 @@ exports[`CardWrapper matches snapshot 1`] = `
 <div
   className="highlight-card-wrapper"
   data-has-query={false}
-  data-toc-open={null}
+  data-toc-open={true}
 >
   <span
     container={<div />}

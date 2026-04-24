@@ -18,7 +18,7 @@ import { editCardVisibilityHandler, getHighlightOffset, noopKeyCombinationHandle
 
 export interface WrapperProps {
   hasQuery: boolean;
-  isTocOpen: boolean;
+  isTocOpen: boolean | null;
   container: HTMLElement;
   highlighter: Highlighter;
   highlights: Highlight[];
@@ -271,7 +271,7 @@ const Wrapper = ({ highlights, hasQuery, isTocOpen, container, highlighter, disp
     return () => document?.removeEventListener('mouseup', handleGlobalMouseUp);
   }, [container]);
 
-  return <div className="highlight-card-wrapper" data-has-query={hasQuery} data-toc-open={isTocOpen} ref={element}>
+  return <div className="highlight-card-wrapper" data-has-query={hasQuery} data-toc-open={isTocOpen === null || isTocOpen} ref={element}>
     <CardsForHighlights
       highlights={highlights}
       container={container}
