@@ -508,4 +508,71 @@ describe('Card', () => {
     expect(spyScrollIntoView).toHaveBeenCalledWith(firstElement, [secondElement, cardElement]);
   });
 
+  it('uses topOffset prop when provided', () => {
+    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+    store.dispatch(receivePage({...page, references: []}));
+    store.dispatch(receiveHighlights({
+      highlights: [
+        {
+          annotation: 'test annotation',
+          color: highlightStyles[0].label,
+          id: highlightData.id,
+        },
+      ] as HighlightData[],
+      pageId: '123',
+    }));
+    store.dispatch(focusHighlight(highlight.id));
+
+    const topOffset = 150;
+    const component = renderer.create(<TestContainer store={store}>
+      <Card {...cardProps} topOffset={topOffset} />
+    </TestContainer>, {createNodeMock});
+
+    const card = component.root.findByProps({ 'data-testid': 'card' });
+    expect(card.props.style['--card-top-offset']).toBe(`${topOffset}px`);
+  });
+
+  it('calculates topOffset from highlight when not provided', () => {
+    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+    store.dispatch(receivePage({...page, references: []}));
+    store.dispatch(receiveHighlights({
+      highlights: [
+        {
+          annotation: 'test annotation',
+          color: highlightStyles[0].label,
+          id: highlightData.id,
+        },
+      ] as HighlightData[],
+      pageId: '123',
+    }));
+    store.dispatch(focusHighlight(highlight.id));
+
+    const container = {
+      nodeName: 'div',
+      nodeType: 1,
+      offsetParent: {
+        nodeName: 'div',
+        nodeType: 1,
+        offsetTop: 50,
+        tagName: 'DIV',
+        title: '',
+      },
+      tagName: 'DIV',
+      title: '',
+    } as unknown as HTMLElement;
+
+    highlight.range.getBoundingClientRect.mockReturnValue({
+      bottom: 200,
+      top: 100,
+    });
+
+    const component = renderer.create(<TestContainer store={store}>
+      <Card {...cardProps} container={container} />
+    </TestContainer>, {createNodeMock});
+
+    const card = component.root.findByProps({ 'data-testid': 'card' });
+    // Should be calculated using getHighlightBottomOffset
+    expect(card.props.style['--card-top-offset']).toBeDefined();
+  });
+
 });

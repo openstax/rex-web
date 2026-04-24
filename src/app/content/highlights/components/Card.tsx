@@ -4,7 +4,6 @@ import { HTMLElement } from '@openstax/types/lib.dom';
 import flow from 'lodash/fp/flow';
 import React from 'react';
 import { connect, useSelector } from 'react-redux';
-import styled from 'styled-components';
 import { useServices } from '../../../context/Services';
 import { useFocusIn } from '../../../reactUtils';
 import { AppState, Dispatch } from '../../../types';
@@ -24,14 +23,14 @@ import {
 } from '../actions';
 import { HighlightData } from '../types';
 import { getHighlightLocationFilterForPage } from '../utils';
-import { mainCardStyles } from './cardStyles';
+import { getHighlightBottomOffset, getPreferEnd } from './cardUtils';
+import { OVERLAP_CARD_TOP_OFFSET } from './cardStyles';
 import DisplayNote from './DisplayNote';
 import EditCard from './EditCard';
 import scrollHighlightIntoView from './utils/scrollHighlightIntoView';
 import showConfirmation from './utils/showConfirmation';
 import { useConfirmationToastContext } from '../../components/ConfirmationToast';
 import { useIntl } from 'react-intl';
-import { getPreferEnd } from './cardUtils';
 
 export interface CardProps {
   page: ReturnType<typeof selectContent['bookAndPage']>['page'];
@@ -215,8 +214,38 @@ function NoteOrCard({
     search => props.data && search.label === props.data.color
   );
 
+  // Calculate dynamic CSS custom properties for positioning
+  const topOffset = props.topOffset !== undefined
+    ? props.topOffset
+    : getHighlightBottomOffset(props.container, props.highlight);
+
+  const highlightOffset = props.highlightOffsets
+    ? (props.preferEnd
+        ? props.highlightOffsets.bottom
+        : props.highlightOffsets.top - OVERLAP_CARD_TOP_OFFSET)
+    : undefined;
+
+  const cardStyle: React.CSSProperties = {
+    '--card-top-offset': `${topOffset}px`,
+    '--card-z-index': props.zIndex,
+    '--highlight-color': style?.focused,
+    ...(highlightOffset !== undefined && { '--card-highlight-offset': `${highlightOffset}px` }),
+  } as React.CSSProperties;
+
+  // Build className with data attributes for state-based styling
+  const className = props.className || 'highlight-card';
+
   return (
-    <div onClick={focusCard} data-testid='card'>
+    <div
+      className={className}
+      onClick={focusCard}
+      data-testid='card'
+      data-active={props.isActive}
+      data-hidden={props.isHidden}
+      data-toc-open={props.isTocOpen}
+      data-has-query={props.hasQuery}
+      style={cardStyle}
+    >
       {!editing && style && annotation ? (
         <DisplayNote
           {...commonProps}
@@ -291,10 +320,6 @@ function EditCardWithOnCreate({
   );
 }
 
-const StyledCard = styled(Card)`
-  ${mainCardStyles}
-`;
-
 // Styling is expensive and most Cards don't need to render
 function PreCard(props: CardProps) {
   const computedProps = useComputedProps(props);
@@ -304,7 +329,7 @@ function PreCard(props: CardProps) {
     return null;
   }
   return (
-    <StyledCard {...props} preferEnd={preferEnd} />
+    <Card {...props} preferEnd={preferEnd} />
   );
 }
 
