@@ -20,7 +20,9 @@ import './cardStyles.css';
  * The actual CSS styles are now in cardStyles.css.
  *
  * NOTE: These constants are exported for testing purposes and backwards compatibility.
- * The CSS file uses hardcoded values that match these calculations.
+ * The CSS file uses hardcoded em values derived from these calculations using the remsToEms
+ * conversion (rems * 10/16). If constants in this file or content/components/constants.ts
+ * change, the corresponding values in cardStyles.css must be updated manually.
  */
 
 /*

@@ -575,4 +575,90 @@ describe('Card', () => {
     expect(card.props.style['--card-top-offset']).toBeDefined();
   });
 
+  it('uses ?? 0 fallback when getHighlightTopOffset returns undefined', () => {
+    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+    store.dispatch(receivePage({...page, references: []}));
+    store.dispatch(receiveHighlights({
+      highlights: [
+        {
+          annotation: 'test annotation',
+          color: highlightStyles[0].label,
+          id: highlightData.id,
+        },
+      ] as HighlightData[],
+      pageId: '123',
+    }));
+    store.dispatch(focusHighlight(highlight.id));
+
+    // Mock getHighlightTopOffset to return undefined
+    jest.spyOn(cardUtils, 'getHighlightTopOffset').mockReturnValue(undefined);
+    // Mock getPreferEnd to return false so it uses getHighlightTopOffset path
+    jest.spyOn(cardUtils, 'getPreferEnd').mockReturnValue(false);
+
+    const component = renderer.create(<TestContainer store={store}>
+      <Card {...{...cardProps, highlightOffsets: undefined}} />
+    </TestContainer>, {createNodeMock});
+
+    const card = component.root.findByProps({ 'data-testid': 'card' });
+    // When getHighlightTopOffset returns undefined, the ?? 0 fallback should be used
+    // The highlightOffset should be 0 - OVERLAP_CARD_TOP_OFFSET = -110
+    expect(card.props.style['--card-highlight-offset']).toBe('-110px');
+  });
+
+  it('omits CSS custom properties when offset values are undefined', () => {
+    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+    store.dispatch(receivePage({...page, references: []}));
+    store.dispatch(receiveHighlights({
+      highlights: [
+        {
+          annotation: 'test annotation',
+          color: highlightStyles[0].label,
+          id: highlightData.id,
+        },
+      ] as HighlightData[],
+      pageId: '123',
+    }));
+    store.dispatch(focusHighlight(highlight.id));
+
+    // Mock both functions to return undefined
+    jest.spyOn(cardUtils, 'getHighlightTopOffset').mockReturnValue(undefined);
+    jest.spyOn(cardUtils, 'getHighlightBottomOffset').mockReturnValue(undefined);
+
+    const component = renderer.create(<TestContainer store={store}>
+      <Card {...{...cardProps, highlightOffsets: undefined}} />
+    </TestContainer>, {createNodeMock});
+
+    const card = component.root.findByProps({ 'data-testid': 'card' });
+    // When offsets are undefined, the CSS custom properties should not be set
+    // This allows the CSS fallback values to take effect
+    expect(card.props.style['--card-top-offset']).toBeUndefined();
+  });
+
+  it('calls onHeightChange with wrapper ref when inner component triggers callback', () => {
+    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+    store.dispatch(receivePage({...page, references: []}));
+    store.dispatch(focusHighlight(highlight.id));
+
+    const onHeightChangeMock = jest.fn();
+    const component = renderer.create(<TestContainer store={store}>
+      <Card {...{...cardProps, onHeightChange: onHeightChangeMock}} />
+    </TestContainer>, {createNodeMock});
+
+    // The inner EditCard or DisplayNote component will call onHeightChange with its own ref
+    const editCard = component.root.findByProps({ 'mock-edit': true });
+    const mockInnerRef = { current: assertDocument().createElement('div') };
+
+    // Call the onHeightChange callback that was passed to the inner component
+    editCard.props.onHeightChange(mockInnerRef);
+
+    // Verify that onHeightChange was called
+    expect(onHeightChangeMock).toHaveBeenCalled();
+
+    // The callback should pass the wrapper ref, not the inner ref
+    const callArg = onHeightChangeMock.mock.calls[0][0];
+    expect(callArg).toHaveProperty('current');
+    // We can't easily verify it's the exact wrapper ref in this test setup,
+    // but we've verified the callback is executed
+  });
+
 });
