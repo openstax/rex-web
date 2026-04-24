@@ -1,0 +1,221 @@
+/**
+ * Highlight Card Positioning Styles
+ *
+ * This file contains all positioning and display logic for highlight annotation cards.
+ * It handles three display modes:
+ * 1. rightSideDisplay - Default positioning next to content
+ * 2. overlapDisplay - Overlay mode when ToC/search is open or window is narrow
+ * 3. touchScreenDisplay - Fixed positioning for mobile touch devices
+ */
+
+/* === Constants (from cardStyles.ts) ===
+ * cardWidth: 20rem
+ * cardPadding: 0.8rem
+ * cardContentMargin: 3rem
+ * cardFocusedContentMargin: 1rem
+ * cardMinWindowMargin: 2rem
+ * contentTextWidth: 73rem
+ * sidebarDesktopWidth: 28rem
+ * searchResultsBarDesktopWidth: 28rem
+*/
+
+/* Calculated breakpoints:
+ * additionalWidthForCard = (20 + 3 + 2) * 2 = 50rem
+ * minimalWidth = 73 + 50 = 123rem
+ * minimalWidthForCards = 123rem (1968px)
+ * minimalWidthForCardsWithToc = 123 + 28 = 151rem (2416px)
+ * minimalWidthForCardsWithSearchResults = 123 + 28 = 151rem (2416px)
+ */
+
+/* === Keyframe Animations === */
+@keyframes highlight-card-fade-in {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+/* === Base Card Styles === */
+.highlight-card {
+  display: block;
+  position: absolute;
+  padding: 0.8rem; /* cardPadding */
+  border-radius: 0.4rem;
+  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.14), 0 2px 2px 0 rgba(0, 0, 0, 0.12), 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+
+  /* Fade-in animation */
+  animation: 600ms highlight-card-fade-in ease-out;
+
+  /* Positioning - rightSideDisplay (default) */
+  left: calc(50% + (73rem / 2) + 3rem); /* contentTextWidth/2 + cardContentMargin */
+  right: unset;
+  top: var(--card-top-offset, 0);
+
+  /* Dynamic z-index set via inline style */
+  z-index: var(--card-z-index, 10);
+  transition: opacity 0.3s, top 0.3s, left 0.3s;
+
+  /* Disable printing */
+  @media print {
+    /* stylelint-disable-next-line declaration-no-important */
+    display: none !important;
+  }
+}
+
+/* Hidden state */
+.highlight-card[data-hidden="true"] {
+  visibility: hidden;
+}
+
+.highlight-card:not([data-hidden="true"]) {
+  visibility: visible;
+}
+
+/* Active card positioning adjustment */
+.highlight-card[data-active="true"] {
+  left: calc(50% + (73rem / 2) + 1rem); /* contentTextWidth/2 + cardFocusedContentMargin */
+}
+
+/* Color border indicator (left side on desktop, top on mobile) */
+.highlight-card::before {
+  content: " ";
+  border-radius: 0.4rem 0 0 0.4rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 0.4rem; /* cardPadding / 2 */
+  background-color: var(--highlight-color, transparent);
+}
+
+/* Dropdown z-index override */
+.highlight-card .dropdown-list {
+  z-index: 1;
+}
+
+/* === Overlap Display Mode === */
+
+/* Triggered when ToC is open and window is too narrow */
+@media (max-width: 151em) { /* minimalWidthForCardsWithToc */
+  .highlight-card[data-toc-open="true"] {
+    animation: none;
+  }
+
+  .highlight-card[data-toc-open="true"][data-active="true"] {
+    left: calc(75vw - (73rem / 2) + 1rem); /* contentTextWidth/2 + cardFocusedContentMargin */
+    right: unset;
+    top: var(--card-highlight-offset, var(--card-top-offset, 0));
+  }
+
+  .highlight-card[data-toc-open="true"]:not([data-active="true"]) {
+    display: none;
+  }
+}
+
+/* Triggered when search results are open and window is too narrow */
+@media (max-width: 151em) { /* minimalWidthForCardsWithSearchResults */
+  .highlight-card[data-has-query="true"] {
+    animation: none;
+  }
+
+  .highlight-card[data-has-query="true"][data-active="true"] {
+    left: calc(75vw - (73rem / 2) + 1rem); /* contentTextWidth/2 + cardFocusedContentMargin */
+    right: unset;
+    top: var(--card-highlight-offset, var(--card-top-offset, 0));
+  }
+
+  .highlight-card[data-has-query="true"]:not([data-active="true"]) {
+    display: none;
+  }
+}
+
+/* Triggered when window is too narrow even without sidebars */
+@media (max-width: 123em) { /* minimalWidthForCards */
+  .highlight-card {
+    animation: none;
+  }
+
+  .highlight-card[data-active="true"] {
+    left: calc(75vw - (73rem / 2) + 1rem); /* contentTextWidth/2 + cardFocusedContentMargin */
+    right: unset;
+    top: var(--card-highlight-offset, var(--card-top-offset, 0));
+  }
+
+  .highlight-card:not([data-active="true"]) {
+    display: none;
+  }
+}
+
+/* === Touch Screen Display Mode === */
+
+/* Triggered on mobile devices with touch screens */
+@media screen and (max-width: 75em) { /* mobileBreak */
+  @media (hover: none) { /* touchDeviceQuery */
+    .highlight-card {
+      animation: none;
+    }
+
+    .highlight-card[data-active="true"] {
+      left: 0;
+      right: 0;
+      bottom: 0;
+      top: unset;
+      position: fixed;
+      padding: 0;
+    }
+
+    .highlight-card:not([data-active="true"]) {
+      display: none;
+    }
+
+    /* Mobile touch screen: border on top instead of left */
+    .highlight-card::before {
+      border-radius: 0.4rem 0.4rem 0 0;
+      right: 0;
+      bottom: unset;
+      width: unset;
+      height: 0.4rem; /* cardPadding / 2 */
+    }
+  }
+}
+
+/* === Card Wrapper Styles === */
+.highlight-card-wrapper {
+  position: relative;
+  overflow: visible;
+  z-index: 10; /* theme.zIndex.highlightInlineCard */
+  transform: auto;
+  transition: transform 0.3s;
+}
+
+/* stylelint-disable declaration-no-important */
+
+/* Override JS inline styles for display of all cards while using overlap display */
+@media (max-width: 151em) { /* minimalWidthForCardsWithToc */
+  .highlight-card-wrapper[data-toc-open="true"] {
+    transform: none !important;
+  }
+}
+
+@media (max-width: 151em) { /* minimalWidthForCardsWithSearchResults */
+  .highlight-card-wrapper[data-has-query="true"] {
+    transform: none !important;
+  }
+}
+
+@media (max-width: 123em) { /* minimalWidthForCards */
+  .highlight-card-wrapper {
+    transform: none !important;
+  }
+}
+
+@media screen and (max-width: 75em) { /* mobile breakpoint */
+  .highlight-card-wrapper {
+    /* override js inline styles for display of all cards while using overlap display */
+    transform: none !important;
+  }
+}
+/* stylelint-enable declaration-no-important */
