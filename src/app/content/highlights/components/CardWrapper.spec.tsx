@@ -1055,15 +1055,15 @@ describe('CardWrapper', () => {
       expect(wrapper.props['data-toc-open']).toBe(true);
     });
 
-    it('sets data-toc-open attribute to false when isTocOpen is false', () => {
-      // The default store has tocOpen = false
+    it('sets data-toc-open attribute to true when tocOpen is null in state', () => {
+      // The default store state leaves tocOpen as null.
       const component = renderer.create(<Provider store={store}>
         <CardWrapper container={container} highlights={[createMockHighlight('id1')]} />
       </Provider>);
 
       const wrapper = component.root.findByProps({ className: 'highlight-card-wrapper' });
-      // React converts boolean false to null for data attributes
-      expect(wrapper.props['data-toc-open']).toBe(null);
+      // When tocOpen is null, we treat it as true (ToC open) to preserve old styled-components behavior
+      expect(wrapper.props['data-toc-open']).toBe(true);
     });
 
     it('sets data-has-query attribute when hasQuery is true', () => {

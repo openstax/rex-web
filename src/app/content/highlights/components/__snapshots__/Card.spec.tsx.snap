@@ -6,7 +6,7 @@ exports[`Card matches snapshot when focused without note 1`] = `
   data-active={true}
   data-has-query={false}
   data-testid="card"
-  data-toc-open={null}
+  data-toc-open={true}
   onClick={[Function]}
   style={
     Object {

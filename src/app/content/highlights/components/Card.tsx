@@ -39,7 +39,7 @@ export interface CardProps {
   container?: HTMLElement;
   isActive: boolean;
   lastActive: number;
-  isTocOpen: boolean;
+  isTocOpen: boolean | null;
   hasQuery: boolean;
   highlighter: Highlighter;
   highlight: Highlight;
@@ -49,7 +49,7 @@ export interface CardProps {
   blur: typeof clearFocusedHighlight;
   setAnnotationChangesPending: typeof setAnnotationChangesPending;
   data?: HighlightData;
-  className: string;
+  className?: string;
   zIndex: number;
   shouldFocusCard: boolean;
   topOffset?: number;
@@ -81,15 +81,12 @@ function useComputedProps(props: CardProps) {
     }
   }, [isActive, hasUnsavedHighlight, id, focus, services]);
   const element = React.useRef<HTMLElement>(null);
-  const wrapperRef = React.useRef<HTMLDivElement>(null);
 
-  // Intercept onHeightChange to use the wrapper ref instead of the inner element ref
+  // Forward the ref that is actually attached to the rendered card element
   // This ensures height measurements include the outer wrapper's padding/box-shadow
   const onHeightChangeWrapper = React.useCallback((_ref: React.RefObject<HTMLElement>) => {
-    // Always use the wrapper ref for height measurements instead of the inner element ref
-    // This ensures we measure the full card including padding and box-shadow
-    props.onHeightChange(wrapperRef as React.RefObject<HTMLElement>);
-  }, [props, wrapperRef]);
+    props.onHeightChange(element);
+  }, [props, element]);
 
   const commonProps = React.useMemo(
     () => ({
@@ -115,15 +112,11 @@ function useComputedProps(props: CardProps) {
   }, [element, lastActive, highlight]);
 
   React.useEffect(() => {
-    if (annotation) {
-      highlight.elements.forEach(el =>
-        (el as HTMLElement).classList.add('has-note')
-      );
-    } else {
-      highlight.elements.forEach(el =>
-        (el as HTMLElement).classList.remove('has-note')
-      );
-    }
+    const action = annotation ? 'add' : 'remove';
+
+    highlight.elements.forEach(el =>
+      (el as unknown as HTMLElement).classList[action]('has-note')
+    );
   }, [highlight.elements, annotation]);
 
   React.useEffect(() => {
@@ -230,15 +223,17 @@ function NoteOrCard({
     ? props.topOffset
     : getHighlightBottomOffset(props.container, props.highlight);
 
-  // For overlap mode positioning: compute highlight offset for active cards
-  // When highlightOffsets is provided, use it; otherwise compute from highlight position
-  const highlightOffset = props.highlightOffsets
-    ? (props.preferEnd
-        ? props.highlightOffsets.bottom
-        : props.highlightOffsets.top - OVERLAP_CARD_TOP_OFFSET)
-    : (props.preferEnd
-        ? getHighlightBottomOffset(props.container, props.highlight)
-        : (getHighlightTopOffset(props.container, props.highlight) ?? 0) - OVERLAP_CARD_TOP_OFFSET);
+  // For overlap mode positioning: only compute highlight offset for active cards.
+  // When highlightOffsets is provided, use it; otherwise compute from highlight position.
+  const highlightOffset = props.isActive
+    ? (props.highlightOffsets
+        ? (props.preferEnd
+            ? props.highlightOffsets.bottom
+            : props.highlightOffsets.top - OVERLAP_CARD_TOP_OFFSET)
+        : (props.preferEnd
+            ? getHighlightBottomOffset(props.container, props.highlight)
+            : (getHighlightTopOffset(props.container, props.highlight) ?? 0) - OVERLAP_CARD_TOP_OFFSET))
+    : undefined;
 
   const cardStyle: React.CSSProperties = {
     ...(topOffset !== undefined && { '--card-top-offset': `${topOffset}px` }),
@@ -249,15 +244,17 @@ function NoteOrCard({
 
   // Build className with data attributes for state-based styling
   const className = props.className || 'highlight-card';
+  const element = React.useRef<HTMLDivElement>(null);
 
   return (
     <div
+      ref={element}
       className={className}
       onClick={focusCard}
       data-testid='card'
       data-active={props.isActive}
       data-hidden={props.isHidden}
-      data-toc-open={props.isTocOpen}
+      data-toc-open={props.isTocOpen === null || props.isTocOpen}
       data-has-query={props.hasQuery}
       style={cardStyle}
     >
