@@ -640,25 +640,37 @@ describe('Card', () => {
     store.dispatch(focusHighlight(highlight.id));
 
     const onHeightChangeMock = jest.fn();
+    const wrapperNode = assertDocument().createElement('div');
+    const innerNode = assertDocument().createElement('div');
+    const createNodeMockForWrapperRef = (element: { props?: { className?: string; ['mock-edit']?: boolean } }) => {
+      if (element.props?.className?.includes('highlight-card')) {
+        return wrapperNode;
+      }
+
+      if (element.props?.['mock-edit']) {
+        return innerNode;
+      }
+
+      return createNodeMock();
+    };
+
     const component = renderer.create(<TestContainer store={store}>
       <Card {...{...cardProps, onHeightChange: onHeightChangeMock}} />
-    </TestContainer>, {createNodeMock});
+    </TestContainer>, {createNodeMock: createNodeMockForWrapperRef});
 
     // The inner EditCard or DisplayNote component will call onHeightChange with its own ref
     const editCard = component.root.findByProps({ 'mock-edit': true });
-    const mockInnerRef = { current: assertDocument().createElement('div') };
+    const mockInnerRef = { current: innerNode };
 
     // Call the onHeightChange callback that was passed to the inner component
     editCard.props.onHeightChange(mockInnerRef);
 
-    // Verify that onHeightChange was called
-    expect(onHeightChangeMock).toHaveBeenCalled();
-
-    // The callback should pass the wrapper ref, not the inner ref
+    // Verify that onHeightChange was called with the outer wrapper ref, not the inner ref
+    expect(onHeightChangeMock).toHaveBeenCalledTimes(1);
     const callArg = onHeightChangeMock.mock.calls[0][0];
     expect(callArg).toHaveProperty('current');
-    // We can't easily verify it's the exact wrapper ref in this test setup,
-    // but we've verified the callback is executed
+    expect(callArg).not.toBe(mockInnerRef);
+    expect(callArg.current).toBe(wrapperNode);
   });
 
 });

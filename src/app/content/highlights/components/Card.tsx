@@ -49,7 +49,6 @@ export interface CardProps {
   blur: typeof clearFocusedHighlight;
   setAnnotationChangesPending: typeof setAnnotationChangesPending;
   data?: HighlightData;
-  className?: string;
   zIndex: number;
   shouldFocusCard: boolean;
   topOffset?: number;
@@ -82,24 +81,16 @@ function useComputedProps(props: CardProps) {
   }, [isActive, hasUnsavedHighlight, id, focus, services]);
   const element = React.useRef<HTMLElement | null>(null);
 
-  // Keep the local ref in sync with the actual rendered card wrapper element
-  // so focus, scrolling and height measurements all target the same node.
-  const onHeightChangeWrapper = React.useCallback((ref: React.RefObject<HTMLElement>) => {
-    element.current = ref.current;
-    onHeightChange(ref);
-  }, [onHeightChange]);
-
   const commonProps = React.useMemo(
     () => ({
-      className: props.className,
       highlight: props.highlight,
       isActive: props.isActive,
       onBlur: props.blur,
-      onHeightChange: onHeightChangeWrapper,
+      onHeightChange,
       ref: element,
       shouldFocusCard: props.shouldFocusCard,
     }),
-    [props, onHeightChangeWrapper]
+    [props, onHeightChange]
   );
 
   useFocusIn(element, true, focusCard);
@@ -243,14 +234,24 @@ function NoteOrCard({
     ...(highlightOffset !== undefined && { '--card-highlight-offset': `${highlightOffset}px` }),
   } as React.CSSProperties;
 
-  // Build className with data attributes for state-based styling
-  const className = props.className || 'highlight-card';
-  const element = React.useRef<HTMLDivElement>(null);
+  const wrapperElement = React.useRef<HTMLElement>(null);
+
+  // Update the main element ref to point to the wrapper for focus/scroll
+  React.useEffect(() => {
+    commonProps.ref.current = wrapperElement.current;
+  }, [commonProps.ref, wrapperElement]);
+
+  // Intercept onHeightChange calls from inner components and pass the wrapper ref instead.
+  // This ensures height measurements include the wrapper's padding and box-shadow.
+  const onHeightChangeWrapper = React.useCallback((_ref: React.RefObject<HTMLElement>) => {
+    // Pass the wrapper element ref, not the inner component's ref
+    commonProps.onHeightChange(wrapperElement as React.RefObject<HTMLElement>);
+  }, [commonProps, wrapperElement]);
 
   return (
     <div
-      ref={element}
-      className={className}
+      ref={wrapperElement}
+      className="highlight-card"
       onClick={focusCard}
       data-testid='card'
       data-active={props.isActive}
@@ -261,7 +262,7 @@ function NoteOrCard({
     >
       {!editing && style && annotation ? (
         <DisplayNote
-          {...commonProps}
+          {...{ ...commonProps, onHeightChange: onHeightChangeWrapper }}
           onRemove={onRemove}
           style={style}
           note={annotation}
@@ -271,7 +272,7 @@ function NoteOrCard({
       ) : (
         <EditCardWithOnCreate
           cardProps={props}
-          commonProps={{ ...commonProps, onRemove }}
+          commonProps={{ ...commonProps, onRemove, onHeightChange: onHeightChangeWrapper }}
           locationFilterId={locationFilterId}
           hasUnsavedHighlight={hasUnsavedHighlight}
           setEditing={setEditing}
