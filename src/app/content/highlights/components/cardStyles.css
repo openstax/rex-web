@@ -54,7 +54,7 @@
   /* Positioning - rightSideDisplay (default) */
   left: calc(50% + (82.5rem / 2) + 3rem); /* contentTextWidth/2 + cardContentMargin */
   right: unset;
-  top: var(--card-top-offset, 0);
+  top: var(--card-top-offset, auto);
 
   /* Dynamic z-index set via inline style */
   z-index: var(--card-z-index, 10);
@@ -113,7 +113,7 @@
   .highlight-card[data-has-query="true"][data-active="true"] {
     left: calc(75vw - (82.5rem / 2) + 1rem); /* contentTextWidth/2 + cardFocusedContentMargin */
     right: unset;
-    top: var(--card-highlight-offset, var(--card-top-offset, 0));
+    top: var(--card-highlight-offset, var(--card-top-offset, auto));
   }
 
   .highlight-card[data-toc-open="true"]:not([data-active="true"]),
@@ -131,7 +131,7 @@
   .highlight-card[data-active="true"] {
     left: calc(75vw - (82.5rem / 2) + 1rem); /* contentTextWidth/2 + cardFocusedContentMargin */
     right: unset;
-    top: var(--card-highlight-offset, var(--card-top-offset, 0));
+    top: var(--card-highlight-offset, var(--card-top-offset, auto));
   }
 
   .highlight-card:not([data-active="true"]) {
