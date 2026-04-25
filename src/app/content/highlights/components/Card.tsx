@@ -80,13 +80,14 @@ function useComputedProps(props: CardProps) {
       focus(id);
     }
   }, [isActive, hasUnsavedHighlight, id, focus, services]);
-  const element = React.useRef<HTMLElement>(null);
+  const element = React.useRef<HTMLElement | null>(null);
 
-  // Forward the ref that is actually attached to the rendered card element
-  // This ensures height measurements include the outer wrapper's padding/box-shadow
-  const onHeightChangeWrapper = React.useCallback((_ref: React.RefObject<HTMLElement>) => {
-    props.onHeightChange(element);
-  }, [props, element]);
+  // Keep the local ref in sync with the actual rendered card wrapper element
+  // so focus, scrolling and height measurements all target the same node.
+  const onHeightChangeWrapper = React.useCallback((ref: React.RefObject<HTMLElement>) => {
+    element.current = ref.current;
+    onHeightChange(ref);
+  }, [onHeightChange]);
 
   const commonProps = React.useMemo(
     () => ({
