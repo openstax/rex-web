@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import { useIntl } from 'react-intl';
 import { useDispatch } from 'react-redux';
 import { toolbarIconColor } from '../constants';
@@ -17,7 +18,7 @@ export function CloseToCAndMobileMenuButton(
   return (
     <button
       {...props}
-      className={`sidebar-control-close-toc-mobile-button${className ? ` ${className}` : ''}`}
+      className={classNames('sidebar-control-close-toc-mobile-button', className)}
       onClick={() => {
         dispatch(actions.closeMobileMenu());
         dispatch(actions.resetToc());
@@ -35,11 +36,8 @@ export function CloseToCAndMobileMenuButton(
 }
 
 export function CloseTOC(
-  { message, children, isOpen, isActive, onClick, ...props }: React.PropsWithChildren<InnerProps>
+  { message, children, onClick, isOpen: _isOpen, isActive: _isActive, ...props }: React.PropsWithChildren<InnerProps>
 ) {
-  void isOpen;
-  void isActive;
-
   return <CloseButton
     aria-label={useIntl().formatMessage({ id: message })}
     onClick={onClick}
