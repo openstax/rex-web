@@ -575,7 +575,7 @@ describe('Card', () => {
     expect(card.props.style['--card-top-offset']).toBeDefined();
   });
 
-  it('uses ?? 0 fallback when getHighlightTopOffset returns undefined', () => {
+  it('omits --card-highlight-offset when getHighlightTopOffset returns undefined', () => {
     store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
     store.dispatch(receivePage({...page, references: []}));
     store.dispatch(receiveHighlights({
@@ -600,9 +600,9 @@ describe('Card', () => {
     </TestContainer>, {createNodeMock});
 
     const card = component.root.findByProps({ 'data-testid': 'card' });
-    // When getHighlightTopOffset returns undefined, the ?? 0 fallback should be used
-    // The highlightOffset should be 0 - OVERLAP_CARD_TOP_OFFSET = -110
-    expect(card.props.style['--card-highlight-offset']).toBe('-110px');
+    // When getHighlightTopOffset returns undefined, --card-highlight-offset should be omitted
+    // so the CSS can fall back to --card-top-offset or auto
+    expect(card.props.style['--card-highlight-offset']).toBeUndefined();
   });
 
   it('omits CSS custom properties when offset values are undefined', () => {

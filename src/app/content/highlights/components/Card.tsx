@@ -224,7 +224,12 @@ function NoteOrCard({
             : props.highlightOffsets.top - OVERLAP_CARD_TOP_OFFSET)
         : (props.preferEnd
             ? getHighlightBottomOffset(props.container, props.highlight)
-            : (getHighlightTopOffset(props.container, props.highlight) ?? 0) - OVERLAP_CARD_TOP_OFFSET))
+            : (() => {
+                const computedTopOffset = getHighlightTopOffset(props.container, props.highlight);
+                return computedTopOffset !== undefined
+                  ? computedTopOffset - OVERLAP_CARD_TOP_OFFSET
+                  : undefined;
+              })()))
     : undefined;
 
   const cardStyle: React.CSSProperties = {
@@ -234,7 +239,7 @@ function NoteOrCard({
     ...(highlightOffset !== undefined && { '--card-highlight-offset': `${highlightOffset}px` }),
   } as React.CSSProperties;
 
-  const wrapperElement = React.useRef<HTMLElement>(null);
+  const wrapperElement = React.useRef<HTMLElement | null>(null);
 
   // Update the main element ref to point to the wrapper for focus/scroll
   React.useEffect(() => {
