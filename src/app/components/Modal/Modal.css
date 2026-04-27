@@ -34,7 +34,7 @@
   /* bodyCopyRegularStyle - font-size: 1.6rem, line-height: 2.5rem, color from theme */
   font-size: 1.6rem;
   line-height: 2.5rem;
-  color: var(--text-color, #424242);
+  color: var(--color-text-default);
 }
 
 /* Link styling inside modal card - mirrors bodyCopyRegularStyle link behavior */
@@ -54,8 +54,8 @@
   align-items: center;
   margin-bottom: 1.5rem; /* modalPadding * 0.5 = 3.0 * 0.5 */
   padding: 1.5rem 3rem; /* modalPadding * 0.5, modalPadding */
-  background: var(--header-bg, #f1f1f1);
-  border-bottom: solid 0.1rem var(--header-border, #fafafa);
+  background: var(--color-neutral-page-background);
+  border-bottom: solid 0.1rem var(--color-neutral-darker);
   justify-content: space-between;
 }
 
@@ -67,7 +67,7 @@
   letter-spacing: -0.02rem;
   padding: 1rem 0 1rem 0;
   margin: 0;
-  color: var(--text-color, #424242);
+  color: var(--color-text-default);
 
   /* Additional heading styles */
   display: flex;
@@ -89,7 +89,7 @@
   line-height: 3rem;
   letter-spacing: -0.02rem;
   margin: 0;
-  color: var(--text-color, #424242);
+  color: var(--color-text-default);
 
   /* Additional styles from BodyHeading */
   font-weight: 400;

@@ -212,6 +212,84 @@ export function Button({ children, ...props }) {
 }
 ```
 
+### Pattern 2.5: Using Root-Level CSS Variables for Static Theme Colors
+
+For static theme colors that don't require dynamic property access (like `theme.color.text.*`, `theme.color.neutral.*`, `theme.color.disabled.*`), use root-level CSS variables defined in `src/index.css` instead of binding them at the component level.
+
+**Benefits:**
+- Reduces code duplication across components
+- Improves maintainability by centralizing static color definitions
+- Establishes clear patterns for future migrations
+- Still maintains theme.ts as single source of truth
+
+**When to use root-level variables:**
+- Static colors that never change based on props
+- Colors used across multiple components
+- Colors from `theme.color.text.*`, `theme.color.neutral.*`, `theme.color.disabled.*`, and `theme.color.primary.gray.*`
+
+**When to use component-level bindings:**
+- Book-specific theme colors requiring dynamic property access (`theme.color.primary[bookTheme]`)
+- Colors with runtime computations (highlight colors using Color library)
+- Any color that changes based on props or state
+
+**Example:**
+
+```typescript
+// ❌ Before: Component-level binding for static color
+import theme from '../theme';
+
+export function Card({ className, style, ...props }) {
+  return (
+    <div
+      className="modal-card"
+      style={{
+        '--text-color': theme.color.text.default,  // Static, repeated across components
+        ...style,
+      } as React.CSSProperties}
+    />
+  );
+}
+```
+
+```typescript
+// ✅ After: Use root-level CSS variable
+export function Card({ className, style, ...props }) {
+  return (
+    <div
+      className="modal-card"
+      style={style}  // No need to bind static colors
+    />
+  );
+}
+```
+
+```css
+/* Component.css */
+.modal-card {
+  color: var(--color-text-default);  /* References root-level variable */
+  background: var(--color-neutral-base);
+}
+```
+
+**Naming Convention:**
+
+Root-level CSS variables follow the pattern: `--color-{category}-{property}`
+
+- `theme.color.text.default` → `--color-text-default`
+- `theme.color.neutral.pageBackground` → `--color-neutral-page-background`
+- `theme.color.primary.gray.base` → `--color-primary-gray-base`
+- `theme.color.disabled.foreground` → `--color-disabled-foreground`
+
+Note: camelCase properties in theme.ts become kebab-case in CSS variable names.
+
+**Available Root-Level Variables:**
+
+See `src/index.css` for the complete list of available root-level CSS variables. These include:
+- Text colors: `--color-text-black`, `--color-text-default`, `--color-text-label`, `--color-text-white`
+- Neutral colors: `--color-neutral-base`, `--color-neutral-darker`, `--color-neutral-darkest`, `--color-neutral-page-background`, etc.
+- Disabled colors: `--color-disabled-base`, `--color-disabled-foreground`
+- Primary gray colors: `--color-primary-gray-base`, `--color-primary-gray-darker`, etc.
+
 ### Pattern 3: Component with Dynamic Theme Access
 
 For components that need **runtime theme lookups** (this is the key pattern!):

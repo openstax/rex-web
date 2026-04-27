@@ -54,7 +54,6 @@ export function Card(
       {...props}
       className={classNames('modal-card', className)}
       style={{
-        '--text-color': theme.color.text.default,
         '--link-color': linkColor,
         '--link-hover-color': linkHover,
         ...style,
@@ -71,11 +70,7 @@ export function Header(
     <header
       {...props}
       className={classNames('modal-header', className)}
-      style={{
-        '--header-bg': theme.color.neutral.pageBackground,
-        '--header-border': theme.color.neutral.darker,
-        ...style,
-      } as React.CSSProperties}
+      style={style}
     />
   );
 }
@@ -89,10 +84,7 @@ export function Heading(
     <h1
       {...props}
       className={classNames('modal-heading', className)}
-      style={{
-        '--text-color': theme.color.text.default,
-        ...style,
-      } as React.CSSProperties}
+      style={style}
     >
       {children}
     </h1>
@@ -108,10 +100,7 @@ export function BodyHeading(
     <h3
       {...props}
       className={classNames('modal-body-heading', className)}
-      style={{
-        '--text-color': theme.color.text.default,
-        ...style,
-      } as React.CSSProperties}
+      style={style}
     >
       {children}
     </h3>
