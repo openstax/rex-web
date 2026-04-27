@@ -1,0 +1,11 @@
+/* LoaderCentered Styles
+ * Migrated from styled-components to plain CSS (Phase 2.5)
+ */
+
+.loader-wrapper {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

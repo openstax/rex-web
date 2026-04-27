@@ -1,6 +1,6 @@
 import { ActionType } from 'typesafe-actions';
 import * as actions from './actions';
-import { ToastVariant } from './components/ToastNotifications/styles';
+import { ToastVariant } from './components/ToastNotifications/Toast';
 
 export interface Message {
   id: string;
