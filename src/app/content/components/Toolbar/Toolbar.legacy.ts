@@ -6,7 +6,7 @@
  */
 
 import { css } from 'styled-components/macro';
-import { maxNavWidth } from '../../../components/NavBar/styled';
+import { maxNavWidth } from '../../../components/NavBar';
 import { textRegularSize } from '../../../components/Typography';
 import theme from '../../../theme';
 
