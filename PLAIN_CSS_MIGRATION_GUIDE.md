@@ -220,8 +220,9 @@ For static theme colors that don't require dynamic property access (like `theme.
 - Reduces code duplication across components
 - Improves maintainability by centralizing static color definitions
 - Establishes clear patterns for future migrations
-- Still maintains theme.ts as single source of truth
+- Keeps a documented mapping from `src/app/theme.ts` into shared CSS variables
 
+**Important:** The root-level variables in `src/index.css` are copied from `src/app/theme.ts`; they are not automatically generated or verified by the process described in this guide. When updating these values, keep `src/index.css` and `src/app/theme.ts` in sync manually.
 **When to use root-level variables:**
 - Static colors that never change based on props
 - Colors used across multiple components

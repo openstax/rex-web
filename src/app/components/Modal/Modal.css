@@ -54,8 +54,8 @@
   align-items: center;
   margin-bottom: 1.5rem; /* modalPadding * 0.5 = 3.0 * 0.5 */
   padding: 1.5rem 3rem; /* modalPadding * 0.5, modalPadding */
-  background: var(--color-neutral-page-background);
-  border-bottom: solid 0.1rem var(--color-neutral-darker);
+  background: var(--color-neutral-page-background, '#f1f1f1');
+  border-bottom: solid 0.1rem var(--color-neutral-darker, '#fafafa');
   justify-content: space-between;
 }
 
