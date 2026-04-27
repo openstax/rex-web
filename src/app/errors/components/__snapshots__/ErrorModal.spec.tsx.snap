@@ -18,26 +18,14 @@ exports[`ErrorModal matches snapshot 1`] = `
         Object {
           "--link-color": "#027EB5",
           "--link-hover-color": "#0064A0",
-          "--text-color": "#424242",
         }
       }
     >
       <header
         className="modal-header"
-        style={
-          Object {
-            "--header-bg": "#f1f1f1",
-            "--header-border": "#fafafa",
-          }
-        }
       >
         <h1
           className="modal-heading"
-          style={
-            Object {
-              "--text-color": "#424242",
-            }
-          }
         >
           Error
         </h1>
@@ -88,11 +76,6 @@ exports[`ErrorModal matches snapshot 1`] = `
         <h3
           className="modal-body-heading "
           id="modal-title"
-          style={
-            Object {
-              "--text-color": "#424242",
-            }
-          }
         >
           Uh-oh, there's been a glitch
         </h3>
@@ -168,26 +151,14 @@ exports[`ErrorModal matches snapshots with recorded error ids 1`] = `
         Object {
           "--link-color": "#027EB5",
           "--link-hover-color": "#0064A0",
-          "--text-color": "#424242",
         }
       }
     >
       <header
         className="modal-header"
-        style={
-          Object {
-            "--header-bg": "#f1f1f1",
-            "--header-border": "#fafafa",
-          }
-        }
       >
         <h1
           className="modal-heading"
-          style={
-            Object {
-              "--text-color": "#424242",
-            }
-          }
         >
           Error
         </h1>
@@ -238,11 +209,6 @@ exports[`ErrorModal matches snapshots with recorded error ids 1`] = `
         <h3
           className="modal-body-heading "
           id="modal-title"
-          style={
-            Object {
-              "--text-color": "#424242",
-            }
-          }
         >
           Uh-oh, there's been a glitch
         </h3>
