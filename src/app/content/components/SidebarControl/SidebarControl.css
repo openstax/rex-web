@@ -98,6 +98,7 @@
   position: absolute;
   right: 0;
   display: none;
+  min-width: 4.5rem;
 }
 
 .sidebar-control-close-toc-mobile-button:hover,
