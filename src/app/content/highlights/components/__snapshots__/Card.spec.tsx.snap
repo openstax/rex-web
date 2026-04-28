@@ -12,7 +12,6 @@ exports[`Card matches snapshot when focused without note 1`] = `
     Object {
       "--card-highlight-offset": "-110px",
       "--card-top-offset": "150px",
-      "--card-z-index": undefined,
       "--highlight-color": "#fed200",
     }
   }
@@ -83,8 +82,6 @@ exports[`Card matches snapshot when passed data without note 1`] = `
   style={
     Object {
       "--card-highlight-offset": "-110px",
-      "--card-z-index": undefined,
-      "--highlight-color": undefined,
     }
   }
 >
@@ -141,8 +138,6 @@ exports[`Card matches snapshot without data and preferEnd 1`] = `
     Object {
       "--card-highlight-offset": "200px",
       "--card-top-offset": "200px",
-      "--card-z-index": undefined,
-      "--highlight-color": undefined,
     }
   }
 >
@@ -215,8 +210,6 @@ exports[`Card matches snapshot without data and preferEnd as false 1`] = `
     Object {
       "--card-highlight-offset": "-10px",
       "--card-top-offset": "200px",
-      "--card-z-index": undefined,
-      "--highlight-color": undefined,
     }
   }
 >
