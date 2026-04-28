@@ -89,6 +89,7 @@ function useComputedProps(props: CardProps) {
       onHeightChange,
       ref: element,
       shouldFocusCard: props.shouldFocusCard,
+      className: 'highlight-card',
     }),
     [props, onHeightChange]
   );
@@ -239,28 +240,23 @@ function NoteOrCard({
     ...(highlightOffset !== undefined && { '--card-highlight-offset': `${highlightOffset}px` }),
   } as React.CSSProperties;
 
-  // Intercept onHeightChange calls from inner components and pass the wrapper ref instead.
-  // This ensures height measurements include the wrapper's padding and box-shadow.
-  const onHeightChangeWrapper = React.useCallback((_ref: React.RefObject<HTMLElement>) => {
-    // Pass the wrapper element ref (which is the main element ref), not the inner component's ref
-    commonProps.onHeightChange(commonProps.ref as React.RefObject<HTMLElement>);
-  }, [commonProps]);
+  // Additional props to pass to the child component (DisplayNote or EditCard)
+  const cardElementProps = {
+    onClick: focusCard,
+    'data-testid': 'card' as const,
+    'data-active': props.isActive,
+    'data-hidden': props.isHidden,
+    'data-toc-open': props.isTocOpen === null || props.isTocOpen,
+    'data-has-query': props.hasQuery,
+    style: cardStyle,
+  };
 
   return (
-    <div
-      ref={commonProps.ref as React.RefObject<HTMLDivElement>}
-      className="highlight-card"
-      onClick={focusCard}
-      data-testid='card'
-      data-active={props.isActive}
-      data-hidden={props.isHidden}
-      data-toc-open={props.isTocOpen === null || props.isTocOpen}
-      data-has-query={props.hasQuery}
-      style={cardStyle}
-    >
+    <>
       {!editing && style && annotation ? (
         <DisplayNote
-          {...{ ...commonProps, onHeightChange: onHeightChangeWrapper }}
+          {...commonProps}
+          {...cardElementProps}
           onRemove={onRemove}
           style={style}
           note={annotation}
@@ -270,28 +266,34 @@ function NoteOrCard({
       ) : (
         <EditCardWithOnCreate
           cardProps={props}
-          commonProps={{ ...commonProps, onRemove, onHeightChange: onHeightChangeWrapper }}
+          commonProps={commonProps}
+          cardElementProps={cardElementProps}
           locationFilterId={locationFilterId}
           hasUnsavedHighlight={hasUnsavedHighlight}
           setEditing={setEditing}
+          onRemove={onRemove}
         />
       )}
-    </div>
+    </>
   );
 }
 
 type EditCardProps = {
-  commonProps: CommonProps & {onRemove: () => void};
+  commonProps: CommonProps;
   cardProps: CardPropsWithBookAndPage;
+  cardElementProps: object;
   locationFilterId: string;
+  onRemove: () => void;
 } & Pick<ComputedProps, 'hasUnsavedHighlight' | 'setEditing'>;
 
 function EditCardWithOnCreate({
   commonProps,
   cardProps,
+  cardElementProps,
   locationFilterId,
   hasUnsavedHighlight,
   setEditing,
+  onRemove,
 }: EditCardProps) {
   const { create, highlight, highlighter, book, page } = cardProps;
   const onCreate = React.useCallback(
@@ -321,12 +323,14 @@ function EditCardWithOnCreate({
   return (
     <EditCard
       {...commonProps}
+      {...cardElementProps}
       locationFilterId={locationFilterId}
       hasUnsavedHighlight={hasUnsavedHighlight}
       pageId={cardProps.page.id}
       onCreate={onCreate}
       setAnnotationChangesPending={cardProps.setAnnotationChangesPending}
       onCancel={stopEditing}
+      onRemove={onRemove}
       data={cardProps.data}
     />
   );

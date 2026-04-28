@@ -1,5 +1,5 @@
 import { Highlight } from '@openstax/highlighter';
-import { HTMLElement } from '@openstax/types/lib.dom';
+import { HTMLElement, FocusEvent } from '@openstax/types/lib.dom';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
@@ -46,10 +46,17 @@ export interface DisplayNoteProps {
   onHeightChange: (ref: React.RefObject<HTMLElement>) => void;
   className: string;
   shouldFocusCard: boolean;
+  onClick?: () => void;
+  'data-testid'?: string;
+  'data-active'?: boolean;
+  'data-hidden'?: boolean;
+  'data-toc-open'?: boolean;
+  'data-has-query'?: boolean;
 }
 
 const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
-  {note, isActive, highlight, onBlur, onEdit, onRemove, onHeightChange, className, shouldFocusCard},
+  {note, isActive, highlight, onBlur, onEdit, onRemove,
+  onHeightChange, className, shouldFocusCard, onClick, style, ...restProps},
   ref
 ) => {
   const [confirmingDelete, setConfirmingDelete] = React.useState<boolean>(false);
@@ -98,7 +105,7 @@ const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
   React.useEffect(() => {
     const el = dropdownRef.current;
     if (!el) { return; }
-    const stopFocusPropagation = (e: Event) => e.stopPropagation();
+    const stopFocusPropagation = (e: FocusEvent) => e.stopPropagation();
     el.addEventListener('focusin', stopFocusPropagation);
     return () => el.removeEventListener('focusin', stopFocusPropagation);
   }, []);
@@ -111,6 +118,8 @@ const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
       data-highlight-card
       role='dialog'
       aria-labelledby={noteId}
+      onClick={onClick}
+      {...restProps}
     >
       <Dropdown
         ref={dropdownRef}

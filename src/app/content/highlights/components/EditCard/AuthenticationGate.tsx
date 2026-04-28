@@ -20,6 +20,13 @@ interface LoginOrEditProps {
   onBlur: typeof clearFocusedHighlight;
   fref: React.ForwardedRef<HTMLElement>;
   elementRef: React.RefObject<HTMLElement>;
+  onClick?: () => void;
+  'data-testid'?: string;
+  'data-active'?: boolean;
+  'data-hidden'?: boolean;
+  'data-toc-open'?: boolean;
+  'data-has-query'?: boolean;
+  style?: React.CSSProperties;
 }
 
 export function LoginOrEdit({
@@ -31,6 +38,8 @@ export function LoginOrEdit({
   onBlur,
   fref,
   elementRef,
+  onClick,
+  ...restProps
 }: LoginOrEditProps) {
   const authenticated = !!useSelector(selectAuth.user);
   const { formatMessage } = useIntl();
@@ -47,6 +56,8 @@ export function LoginOrEdit({
       className={className}
       role='dialog'
       aria-label={formatMessage({ id: 'i18n:highlighter:edit-note:label' })}
+      onClick={onClick}
+      {...restProps}
     >
       {authenticated ? (
         <HiddenOnMobile>
