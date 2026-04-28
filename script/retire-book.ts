@@ -6,7 +6,6 @@ import { ARCHIVE_URL, REACT_APP_OS_WEB_API_URL } from '../src/config';
 import createArchiveLoader from '../src/gateways/createArchiveLoader';
 import { getBooksConfigSync } from '../src/gateways/createBookConfigLoader';
 import createOSWebLoader from '../src/gateways/createOSWebLoader';
-import updateCanonicalMaps from './utils/update-canonical-maps';
 import updateRedirectsData from './utils/update-redirects-data';
 
 const booksPath = path.resolve(__dirname, '../src/config.books.json');
@@ -53,8 +52,6 @@ const retireBook = async() => {
 
   const count = await updateRedirectsData(currentBook, newBook, true);
   console.log(`Updated ${count} redirects.`);
-
-  updateCanonicalMaps(currentBook, newBook);
 
   updatedBooksConfig[args.retiredBook].retired = true;
   delete updatedBooksConfig[args.retiredBook].archiveOverride;
