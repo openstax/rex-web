@@ -62,7 +62,6 @@ exports[`DisplayNote matches snapshot 1`] = `
   aria-labelledby="display-note-undefined"
   className="c0"
   data-highlight-card={true}
-  focus={[MockFunction]}
   role="dialog"
   tabIndex={-1}
 >
@@ -211,7 +210,6 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
   aria-labelledby="display-note-undefined"
   className="c0"
   data-highlight-card={true}
-  focus={[MockFunction]}
   role="dialog"
   tabIndex={-1}
 >
@@ -360,7 +358,6 @@ exports[`DisplayNote matches snapshot when focused with opened dropdown 1`] = `
   aria-labelledby="display-note-undefined"
   className="c0"
   data-highlight-card={true}
-  focus={[MockFunction]}
   role="dialog"
   tabIndex={-1}
 >
