@@ -34,7 +34,7 @@ describe('DisplayNote', () => {
       onEdit: doNothing,
       onHeightChange: jest.fn(),
       onRemove: jest.fn(),
-      style: highlightStyles[0],
+      highlightStyle: highlightStyles[0],
     };
   });
 

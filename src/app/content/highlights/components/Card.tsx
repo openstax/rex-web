@@ -81,17 +81,23 @@ function useComputedProps(props: CardProps) {
   }, [isActive, hasUnsavedHighlight, id, focus, services]);
   const element = React.useRef<HTMLElement | null>(null);
 
+  // Wrapper callback that ensures the parent always receives the wrapper ref
+  // (element) instead of the inner component's ref when height changes
+  const onHeightChangeWrapper = React.useCallback((_ref: React.RefObject<HTMLElement>) => {
+    onHeightChange(element as React.RefObject<HTMLElement>);
+  }, [onHeightChange, element]);
+
   const commonProps = React.useMemo(
     () => ({
       highlight: props.highlight,
       isActive: props.isActive,
       onBlur: props.blur,
-      onHeightChange,
+      onHeightChange: onHeightChangeWrapper,
       ref: element,
       shouldFocusCard: props.shouldFocusCard,
       className: 'highlight-card',
     }),
-    [props, onHeightChange]
+    [props, onHeightChangeWrapper]
   );
 
   useFocusIn(element, true, focusCard);
@@ -258,7 +264,7 @@ function NoteOrCard({
           {...commonProps}
           {...cardElementProps}
           onRemove={onRemove}
-          style={style}
+          highlightStyle={style}
           note={annotation}
           focus={props.focus}
           onEdit={() => setEditing(true)}
