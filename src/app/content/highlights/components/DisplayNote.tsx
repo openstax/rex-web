@@ -56,7 +56,7 @@ export interface DisplayNoteProps {
 }
 
 const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
-  {note, isActive, highlight, onBlur, onEdit, onRemove,
+  {note, isActive, highlight, onBlur, onEdit, onRemove, focus,
   onHeightChange, className, shouldFocusCard, onClick, highlightStyle, style, ...restProps},
   ref
 ) => {
