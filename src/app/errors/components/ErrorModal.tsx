@@ -1,32 +1,33 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { connect } from 'react-redux';
-import styled from 'styled-components/macro';
+import { useDispatch, useSelector } from 'react-redux';
 import Button from '../../components/Button';
 import { supportCenterLink } from '../../components/Footer';
 import htmlMessage from '../../components/htmlMessage';
 import Modal from '../../components/Modal';
-import { Body, BodyHeading, Footer, modalPadding } from '../../components/Modal/styles';
-import { AppState, Dispatch } from '../../types';
+import { Body, BodyHeading, Footer } from '../../components/Modal/styles';
+import { AppState } from '../../types';
 import { hideErrorDialog } from '../actions';
 import * as select from '../selectors';
 import ErrorIdList from './ErrorIdList';
 import { useModalFocusManagement } from '../../content/hooks/useModalFocusManagement';
 
-const BodyErrorText = styled.div`
-  padding: ${modalPadding * 0.5}rem 0;
-`;
+// Note: ErrorModal.css is imported globally from src/app/index.tsx to ensure consistent
+// CSS ordering across code-split chunks
+
+// Simple wrapper component to replace styled component
+function BodyErrorText(props: React.HTMLAttributes<HTMLDivElement>) {
+  return <div {...props} className="body-error-text" />;
+}
 
 const BodyWithLink = htmlMessage('i18n:error:boundary:body', BodyErrorText);
 
-interface PropTypes {
-  show: boolean;
-  error?: Error;
-  stack: string[];
-  clearError: () => void;
-}
+const ErrorModal = () => {
+  const dispatch = useDispatch();
+  const show = useSelector((state: AppState) => select.showErrorDialog(state));
+  const stack = useSelector((state: AppState) => select.getMessageIdStack(state));
+  const clearError = () => dispatch(hideErrorDialog());
 
-const ErrorModal = ({ show, clearError, stack }: PropTypes) => {
   const { closeButtonRef } = useModalFocusManagement({ modalId: 'errordialog', isOpen: show });
 
   if (!show) { return null; }
@@ -59,12 +60,4 @@ const ErrorModal = ({ show, clearError, stack }: PropTypes) => {
   );
 };
 
-export default connect(
-  (state: AppState) => ({
-    show: select.showErrorDialog(state),
-    stack: select.getMessageIdStack(state),
-  }),
-  (dispatch: Dispatch) => ({
-    clearError: () => dispatch(hideErrorDialog()),
-  })
-)(ErrorModal);
+export default ErrorModal;

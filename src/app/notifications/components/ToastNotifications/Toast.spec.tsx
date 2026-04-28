@@ -82,7 +82,7 @@ describe('Toast', () => {
 
     const bannerBody = component.root.findByProps({'data-testid': 'banner-body'});
 
-    expect(bannerBody.props.isFadingOut).toBe(true);
+    expect(bannerBody.props['data-fading-out']).toBe(true);
 
     component.unmount();
   });
@@ -98,7 +98,7 @@ describe('Toast', () => {
 
     const bannerBody = component.root.findByProps({'data-testid': 'banner-body'});
 
-    expect(bannerBody.props.isFadingOut).toBe(false);
+    expect(bannerBody.props['data-fading-out']).toBe(false);
 
     component.unmount();
   });
@@ -135,7 +135,7 @@ describe('Toast', () => {
       assertWindow().dispatchEvent(event);
     });
 
-    expect(bannerBody.props.isFadingOut).toBe(true);
+    expect(bannerBody.props['data-fading-out']).toBe(true);
 
     component.unmount();
   });
@@ -157,7 +157,7 @@ describe('Toast', () => {
       assertWindow().dispatchEvent(event);
     });
 
-    expect(bannerBody.props.isFadingOut).toBe(true);
+    expect(bannerBody.props['data-fading-out']).toBe(true);
 
     renderer.act(() => {
       component.update(<TestContainer>
@@ -165,7 +165,7 @@ describe('Toast', () => {
       </TestContainer>);
     });
 
-    expect(bannerBody.props.isFadingOut).toBe(false);
+    expect(bannerBody.props['data-fading-out']).toBe(false);
     component.unmount();
   });
 

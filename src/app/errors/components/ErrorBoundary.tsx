@@ -1,23 +1,20 @@
-import flow from 'lodash/fp/flow';
 import React, { ReactNode } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { connect } from 'react-redux';
-import styled from 'styled-components/macro';
+import { useDispatch, useSelector } from 'react-redux';
 import Sentry from '../../../helpers/Sentry';
 import Footer from '../../components/Footer';
 import { supportCenterLink } from '../../components/Footer';
 import htmlMessage from '../../components/htmlMessage';
-import { bodyCopyRegularStyle } from '../../components/Typography';
 import { H2 } from '../../components/Typography';
-import theme from '../../theme';
-import { AppState, Dispatch } from '../../types';
+import { AppState } from '../../types';
 import { recordError } from '../actions';
 import { getMessageIdStack } from '../selectors';
 import ErrorIdList from './ErrorIdList';
+import './ErrorBoundary.css';
 
 interface Props {
   children: ReactNode;
-  recordError: typeof recordError;
+  recordError: (error: Error) => void;
   stack: string[];
   handlePromiseRejection?: boolean;
 }
@@ -26,25 +23,37 @@ interface State {
   error?: Error;
 }
 
-const ErrorWrapper = styled.div`
-  flex: 1;
-  margin: 3rem auto;
-  padding: 0 ${theme.padding.page.mobile}rem;
-`;
-
-const HeadingWrapper = styled.div`
-  text-align: center;
-  margin-top: 5rem;
-`;
-
-const BodyErrorText = styled.div`
-  ${bodyCopyRegularStyle};
-`;
+// Simple wrapper component to replace styled component
+function BodyErrorText(props: React.HTMLAttributes<HTMLDivElement>) {
+  return <div {...props} className="body-error-text" />;
+}
 
 const BodyWithLink = htmlMessage('i18n:error:boundary:body', BodyErrorText);
 
-class ErrorBoundary extends React.Component<Props, State> {
+// Error display component using hooks
+interface ErrorDisplayProps {
+  stack: string[];
+}
 
+function ErrorDisplay({ stack }: ErrorDisplayProps) {
+  return (
+    <React.Fragment>
+      <div className="error-wrapper">
+        <div className="heading-wrapper">
+          <FormattedMessage id='i18n:error:boundary:sub-heading'>
+            {(msg) => <H2>{msg}</H2>}
+          </FormattedMessage>
+        </div>
+        <BodyWithLink values={{supportCenterLink}}/>
+        <ErrorIdList ids={stack} />
+      </div>
+      <Footer />
+    </React.Fragment>
+  );
+}
+
+// Error Boundary class component (must be a class to use componentDidCatch)
+class ErrorBoundaryClass extends React.Component<Props, State> {
   public state: State = { error: undefined };
 
   public componentDidCatch(error: Error) {
@@ -67,18 +76,7 @@ class ErrorBoundary extends React.Component<Props, State> {
 
   public render() {
     if (this.state.error) {
-      return <React.Fragment>
-        <ErrorWrapper error={this.state.error}>
-          <HeadingWrapper>
-            <FormattedMessage id='i18n:error:boundary:sub-heading'>
-              {(msg) => <H2>{msg}</H2>}
-            </FormattedMessage>
-          </HeadingWrapper>
-          <BodyWithLink values={{supportCenterLink}}/>
-          <ErrorIdList ids={this.props.stack} />
-        </ErrorWrapper>
-        <Footer />
-      </React.Fragment>;
+      return <ErrorDisplay stack={this.props.stack} />;
     }
     return this.props.children;
   }
@@ -89,11 +87,27 @@ class ErrorBoundary extends React.Component<Props, State> {
   };
 }
 
-export default connect(
-  (state: AppState) => ({
-    stack: getMessageIdStack(state),
-  }),
-  (dispatch: Dispatch) => ({
-    recordError: flow(recordError, dispatch),
-  })
-)(ErrorBoundary);
+// Wrapper component using hooks to connect to Redux
+function ErrorBoundary({
+  children,
+  handlePromiseRejection,
+}: { children: ReactNode; handlePromiseRejection?: boolean }) {
+  const dispatch = useDispatch();
+  const stack = useSelector((state: AppState) => getMessageIdStack(state));
+
+  const handleRecordError = (error: Error) => {
+    dispatch(recordError(error));
+  };
+
+  return (
+    <ErrorBoundaryClass
+      recordError={handleRecordError}
+      stack={stack}
+      handlePromiseRejection={handlePromiseRejection}
+    >
+      {children}
+    </ErrorBoundaryClass>
+  );
+}
+
+export default ErrorBoundary;
