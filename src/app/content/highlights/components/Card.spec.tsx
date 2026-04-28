@@ -634,6 +634,31 @@ describe('Card', () => {
     expect(card.props.style['--card-top-offset']).toBeUndefined();
   });
 
+  it('sets --card-z-index CSS custom property when zIndex is provided', () => {
+    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+    store.dispatch(receivePage({...page, references: []}));
+    store.dispatch(receiveHighlights({
+      highlights: [
+        {
+          annotation: 'test annotation',
+          color: highlightStyles[0].label,
+          id: highlightData.id,
+        },
+      ] as HighlightData[],
+      pageId: '123',
+    }));
+    store.dispatch(focusHighlight(highlight.id));
+
+    const zIndex = 25;
+    const component = renderer.create(<TestContainer store={store}>
+      <Card {...{...cardProps, zIndex}} />
+    </TestContainer>, {createNodeMock});
+
+    const card = component.root.findByProps({ 'data-testid': 'card' });
+    // When zIndex is provided, the --card-z-index CSS custom property should be set
+    expect(card.props.style['--card-z-index']).toBe(zIndex);
+  });
+
   it('calls onHeightChange with wrapper ref when inner component triggers callback', () => {
     store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
     store.dispatch(receivePage({...page, references: []}));
