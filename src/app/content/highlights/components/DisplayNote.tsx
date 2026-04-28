@@ -37,7 +37,7 @@ const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' focusab
 export interface DisplayNoteProps {
   highlight: Highlight;
   note: string;
-  style: typeof highlightStyles[number];
+  highlightStyle: typeof highlightStyles[number];
   isActive: boolean;
   focus: typeof focusHighlight;
   onEdit: () => void;
@@ -47,6 +47,7 @@ export interface DisplayNoteProps {
   className: string;
   shouldFocusCard: boolean;
   onClick?: () => void;
+  style?: React.CSSProperties;
   'data-testid'?: string;
   'data-active'?: boolean;
   'data-hidden'?: boolean;
@@ -56,7 +57,7 @@ export interface DisplayNoteProps {
 
 const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
   {note, isActive, highlight, onBlur, onEdit, onRemove,
-  onHeightChange, className, shouldFocusCard, onClick, style, ...restProps},
+  onHeightChange, className, shouldFocusCard, onClick, highlightStyle, style, ...restProps},
   ref
 ) => {
   const [confirmingDelete, setConfirmingDelete] = React.useState<boolean>(false);
@@ -119,6 +120,7 @@ const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
       role='dialog'
       aria-labelledby={noteId}
       onClick={onClick}
+      style={style}
       {...restProps}
     >
       <Dropdown
@@ -165,7 +167,7 @@ export default styled(DisplayNote)`
   > label {
     display: none;
     ${textStyle}
-    color: ${(props: DisplayNoteProps) => props.style.focused};
+    color: ${(props: DisplayNoteProps) => props.highlightStyle.focused};
     font-size: 1.4rem;
     line-height: 2rem;
     margin: ${cardPadding * 1.5}rem 0 0 ${cardPadding * 2}rem;

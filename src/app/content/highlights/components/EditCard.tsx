@@ -96,12 +96,12 @@ export interface EditCardProps {
   shouldFocusCard: boolean;
   minimize?: boolean;
   onClick?: () => void;
+  style?: React.CSSProperties;
   'data-testid'?: string;
   'data-active'?: boolean;
   'data-hidden'?: boolean;
   'data-toc-open'?: boolean;
   'data-has-query'?: boolean;
-  style?: React.CSSProperties;
 }
 
 // tslint:disable-next-line:variable-name
