@@ -2,8 +2,417 @@
 import { CanonicalBookMap } from '../canonicalBookMap';
 
 export default {
-  /* American Government 3e */ '30e47181-f52c-4a91-9c11-33380c428268': [
-    /* American Government 4e */ ['cf61aefd-61e9-4bee-8340-db083e1898d9', {}],
+  /* American Government 3e */
+  '30e47181-f52c-4a91-9c11-33380c428268': [
+    /* American Government 4e */['cf61aefd-61e9-4bee-8340-db083e1898d9', {
+      /* Preface */
+      '3ddde3e1-0765-4692-a525-58f481af278b': '3ddde3e1-0765-4692-a525-58f481af278b',
+      '47f8f28a-cfb1-4323-8f23-c7bd71856e99': '47f8f28a-cfb1-4323-8f23-c7bd71856e99',
+      /* 1.1 What is Government? */
+      '1105deb5-ddeb-4777-80cf-f844a0d1492b': '1105deb5-ddeb-4777-80cf-f844a0d1492b',
+      /* 1.2 Who Governs? Elitism, Pluralism, and Tradeoffs */
+      '1df654ee-6899-49a8-a1a2-8a6f85610fa3': '1df654ee-6899-49a8-a1a2-8a6f85610fa3',
+      /* 1.3 Engagement in a Democracy */
+      '3cde8682-1626-42e6-902d-d6f01e4cc538': '3cde8682-1626-42e6-902d-d6f01e4cc538',
+      /* Key Terms */
+      '057cbca4-af03-5138-875c-234a9b8f24b4': '86743ae1-7373-5e31-9075-fb2779acf27b',
+      /* Summary */
+      'e287aad3-ff62-59ef-8edd-1ff7b3325839': 'fc5f2c37-64f6-5a30-b0c7-52a9566dc9fc',
+      /* Review Questions */
+      '18c4665c-1e63-59a2-8108-6c5fb1d3e292': '58ad7202-5520-5335-9ce7-dc636d4bedeb',
+      /* Critical Thinking Questions */
+      'beefce71-0f99-5725-8a1a-82d41d121b36': 'a40d7645-e337-51a1-8eb5-0d4cd4bc7128',
+      /* Suggestions for Further Study */
+      '862ec364-75a1-503a-8acd-344f583a7208': '29e66b20-a373-5fd9-b4d2-d5abdc207ddf',
+      /* Introduction */
+      '0acb62c3-5ee2-4202-a325-96983c7015d9': '0acb62c3-5ee2-4202-a325-96983c7015d9',
+      /* 2.1 The Pre-Revolutionary Period and the Roots of the American Political Tradition */
+      '26e5cf13-84b1-40ad-8538-8fbd73ab94cf': '26e5cf13-84b1-40ad-8538-8fbd73ab94cf',
+      /* 2.2 The Articles of Confederation */
+      'b1c8c9e2-5571-4d8e-85db-0a3d6d9cb17b': 'b1c8c9e2-5571-4d8e-85db-0a3d6d9cb17b',
+      /* 2.3 The Development of the Constitution */
+      'b4b48c79-2ad8-45fe-9993-e37900e03d8a': 'b4b48c79-2ad8-45fe-9993-e37900e03d8a',
+      /* 2.4 The Ratification of the Constitution */
+      '5dfb7c7b-c9c2-4911-8769-873adc2d054d': '5dfb7c7b-c9c2-4911-8769-873adc2d054d',
+      /* 2.5 Constitutional Change */
+      '40f8c706-891b-4236-891d-13159e643868': '40f8c706-891b-4236-891d-13159e643868',
+      /* Key Terms */
+      '128c134d-f653-5f30-8f07-082bcd30d07e': 'b7c84540-53cf-59ec-bc79-97b010e80d4a',
+      /* Summary */
+      '0c61aa9d-52b0-5c07-9aad-f780e8dd083c': 'c89bed83-3bec-5ffe-8d50-1fd4db2e669f',
+      /* Review Questions */
+      '72ecd16e-e74a-5987-a160-224a770fd9a9': 'c226d364-812c-57fe-8fad-2191b7db80a9',
+      /* Critical Thinking Questions */
+      '7190e0e1-2eb9-5b3c-9843-ba629d28d1f5': '1e642b4b-9dbc-528e-aa70-de62af47d792',
+      /* Suggestions for Further Study */
+      '140c0bd0-e3e2-55fb-8f38-cbcd97f5e6b2': 'b6ebcc94-b2b1-570c-92e2-1f81c01da770',
+      /* Introduction */
+      'f7de2032-db57-44ed-9b6c-2453aa420cc9': 'f7de2032-db57-44ed-9b6c-2453aa420cc9',
+      /* 3.1 The Division of Powers */
+      '24e2e5a3-0f2d-442b-ad45-87d7ebd4ad78': '24e2e5a3-0f2d-442b-ad45-87d7ebd4ad78',
+      /* 3.2 The Evolution of American Federalism */
+      '8343b65e-02ae-493f-b015-83b060b81649': '8343b65e-02ae-493f-b015-83b060b81649',
+      /* 3.3 Intergovernmental Relationships */
+      '0fc32f7c-a8e3-4739-9729-4297630e2646': '0fc32f7c-a8e3-4739-9729-4297630e2646',
+      /* 3.4 Competitive Federalism Today */
+      'b34fa025-904a-41ab-af57-a54866886dd4': 'b34fa025-904a-41ab-af57-a54866886dd4',
+      /* 3.5 Advantages and Disadvantages of Federalism */
+      '015fceb6-72f3-413b-95d9-fddfbb2cbc41': '015fceb6-72f3-413b-95d9-fddfbb2cbc41',
+      /* Key Terms */
+      'fdc198df-0ed4-59e8-8c47-56b3865af189': '5002d529-2932-53e0-b33e-20f982e286dd',
+      /* Summary */
+      'd37d02fd-f6b7-54a5-9742-c3b2df963612': '5594f52f-bcd8-56c2-9ebe-322397a100ae',
+      /* Review Questions */
+      'd8f0d5a1-9dcc-5b60-833a-27230334fbd7': '9ff59b70-85e6-5c09-a3cb-ee9887ae848d',
+      /* Critical Thinking Questions */
+      'bfc6b146-34b2-5702-be32-955098c8d281': '7522bcc4-bc39-51e8-97d3-6ea812994e3e',
+      /* Suggestions for Further Study */
+      '99672d88-2b2e-5f1f-95df-3417ab8a3185': 'cbe224c6-2628-5112-a3b3-0d8586db9652',
+      /* Introduction */
+      '2db6b141-4e2e-43f0-b782-b241acf60b55': '2db6b141-4e2e-43f0-b782-b241acf60b55',
+      /* 4.1 What Are Civil Liberties? */
+      'eb3e05c2-0768-4325-9ef2-80f400303115': 'eb3e05c2-0768-4325-9ef2-80f400303115',
+      /* 4.2 Securing Basic Freedoms */
+      '57462d7e-2d4a-4866-85b8-00b9d09544d1': '57462d7e-2d4a-4866-85b8-00b9d09544d1',
+      /* 4.3 The Rights of Suspects */
+      '7760a2b3-c3b9-416c-9520-b8cc4fa954fa': '7760a2b3-c3b9-416c-9520-b8cc4fa954fa',
+      /* 4.4 Interpreting the Bill of Rights */
+      'cb752abe-3cf9-4da4-8fc5-60b9e3752e5a': 'cb752abe-3cf9-4da4-8fc5-60b9e3752e5a',
+      /* Key Terms */
+      'fb7adef5-c6e5-52ad-a4a6-95014b22d1f7': '52c4c33d-033a-595c-8641-816b9d44a129',
+      /* Summary */
+      '46752d2b-3d9b-5532-ad13-8fcda5586457': '14fcedcb-3203-5e96-8c1a-2a9ae09c5eed',
+      /* Review Questions */
+      'fa0afc70-9c5f-55ff-9280-81f68e2ef0e5': 'efa76d51-d0da-5243-a050-9b71bae741b0',
+      /* Critical Thinking Questions */
+      '25752e69-3d77-506e-b2d3-e90f70e33635': '7cde353b-77f1-5f43-90da-5c1235d17407',
+      /* Suggestions for Further Study */
+      'e8ac6a19-b9c7-5533-80ee-b5974cfff3e3': '8c78576b-932e-57aa-97fe-92fdb5d21a13',
+      /* Introduction */
+      '9d5dd1d4-a37c-45be-a6c5-1af41cabed33': '9d5dd1d4-a37c-45be-a6c5-1af41cabed33',
+      /* 5.1 What Are Civil Rights and How Do We Identify Them? */
+      '2d27051a-78f8-4af2-acc1-d6ca2217ef70': '2d27051a-78f8-4af2-acc1-d6ca2217ef70',
+      /* 5.2 The African American Struggle for Equality */
+      '74a23661-4daf-4a10-bc9d-c3ed4f376559': '74a23661-4daf-4a10-bc9d-c3ed4f376559',
+      /* 5.3 The Fight for Women’s Rights */
+      '9e78d921-0fcf-442a-9559-fb776b07f83a': '9e78d921-0fcf-442a-9559-fb776b07f83a',
+      /* 5.4 Civil Rights for Indigenous Groups: Native Americans, Alaskans, and Hawaiians */
+      'abd1148e-11a9-497a-a8b9-5fb54fa0fa65': 'abd1148e-11a9-497a-a8b9-5fb54fa0fa65',
+      /* 5.5 Equal Protection for Other Groups */
+      'adbb9b19-c66e-4349-84ec-ac884a95350f': 'adbb9b19-c66e-4349-84ec-ac884a95350f',
+      /* Key Terms */
+      '1f7a3507-26ef-5294-9d79-796e95a392c9': '04e6320f-eb24-53e2-ba50-c5cdf278baa9',
+      /* Summary */
+      'b1fe6194-7c8a-55cc-a358-fb78a6e66df6': '291b1813-6203-5b71-8dfd-61995ae2f0fc',
+      /* Review Questions */
+      'f975957b-b838-5c0b-ad07-a1506b88ef92': 'eb82ab60-5f6a-59ce-841a-49deddb5156f',
+      /* Critical Thinking Questions */
+      '39470ac2-fcd7-5c96-9cea-8fefdf126bca': 'a509c487-acbd-5cc1-ab41-2f04c94171f6',
+      /* Suggestions for Further Study */
+      '06c29c99-db1a-5e6b-8c6c-638d7d69dbc0': '4f46eaf4-03aa-560e-8336-25fe181e50fe',
+      /* Introduction */
+      'df668cb5-1468-413b-bb81-48892079c551': 'df668cb5-1468-413b-bb81-48892079c551',
+      /* 6.1 The Nature of Public Opinion */
+      '27c601c8-bbe9-47e2-9d5d-530471dc0d6d': '27c601c8-bbe9-47e2-9d5d-530471dc0d6d',
+      /* 6.2 How Is Public Opinion Measured? */
+      '6a864811-c55a-4a9b-86f1-e54f7f267200': '6a864811-c55a-4a9b-86f1-e54f7f267200',
+      /* 6.3 What Does the Public Think? */
+      '6a4ab4fc-1153-4177-9f06-5674d9e2d35c': '6a4ab4fc-1153-4177-9f06-5674d9e2d35c',
+      /* 6.4 The Effects of Public Opinion */
+      '035914b9-6d85-44e2-aa6a-b5ea7a4a0de3': '035914b9-6d85-44e2-aa6a-b5ea7a4a0de3',
+      /* Key Terms */
+      '62da9431-04c8-5a9a-a411-1df3b463788c': 'b323a7df-ebc9-51b0-97f5-706bde928db5',
+      /* Summary */
+      '0126080c-767e-5508-8a2d-55ee69341fd6': '9381f816-b485-53fd-8dd4-daac9dca513f',
+      /* Review Questions */
+      'd6ceecfe-cf24-58da-b9e4-9835e86d00f2': '8e02b550-60ba-59a1-80f1-66bb5093d9eb',
+      /* Critical Thinking Questions */
+      '88f93c61-97eb-5dbb-beaf-b46700249d2a': 'c9228995-c339-5157-abd0-6165b49e780a',
+      /* Suggestions for Further Study */
+      'a2cb1a25-eef8-5c93-923e-42fb9c1d4b92': '77630401-d21b-5fb1-abab-cade3970ad87',
+      /* Introduction */
+      'cc0700a4-b5dd-4f20-be5d-ab2197d6aba9': 'cc0700a4-b5dd-4f20-be5d-ab2197d6aba9',
+      /* 7.1 Voter Registration */
+      '6ef5c455-9913-48dd-b5dc-baa1c504d705': '6ef5c455-9913-48dd-b5dc-baa1c504d705',
+      /* 7.2 Voter Turnout */
+      '82c33a61-85a8-4d52-9da1-22557766fe8a': '82c33a61-85a8-4d52-9da1-22557766fe8a',
+      /* 7.3 Elections */
+      'af5199d5-f904-4823-93a1-e6d7d07b3e31': 'af5199d5-f904-4823-93a1-e6d7d07b3e31',
+      /* 7.4 Campaigns and Voting */
+      'f5119285-0710-42ac-b138-8c0d29f475fd': 'f5119285-0710-42ac-b138-8c0d29f475fd',
+      /* 7.5 Direct Democracy */
+      '0ecf3286-577c-4e30-b3c8-fb404d662bfa': '0ecf3286-577c-4e30-b3c8-fb404d662bfa',
+      /* Key Terms */
+      '4ec44162-e778-5a0b-abc7-c66e55a03041': '105f6c1d-bf9d-5550-8622-c4abd65415e2',
+      /* Summary */
+      'bcd03f5d-96bd-57dd-8263-2811c9921c5b': '4a24e055-d7fd-597c-9502-2c4e02995a51',
+      /* Review Questions */
+      '498958a2-8ae2-5e7b-b7b0-24d860378162': '1181b457-14b5-53ce-80ff-6987bb88f897',
+      /* Critical Thinking Questions */
+      'c85bb582-d229-5608-b1c9-a6a1bdc5dd9a': 'e658f5ae-eed3-5ac6-bcf2-969ae671e19c',
+      /* Suggestions for Further Study */
+      '9b417733-d863-5be4-8e83-ecc281bce129': 'd77fa588-db13-5ee9-9458-e1734411c56b',
+      /* Introduction */
+      '4ae046d7-323a-4461-b376-80fb519a2b9f': '4ae046d7-323a-4461-b376-80fb519a2b9f',
+      /* 8.1 What Is the Media? */
+      'd99257c0-99a0-4fbd-a37d-24dc4f8b4bf6': 'd99257c0-99a0-4fbd-a37d-24dc4f8b4bf6',
+      /* 8.2 The Evolution of the Media */
+      '7ddcab89-17f6-44a1-b776-fbcd5496cfa0': '7ddcab89-17f6-44a1-b776-fbcd5496cfa0',
+      /* 8.3 Regulating the Media */
+      'ddaabc97-5173-416c-a395-93de3b97cc29': 'ddaabc97-5173-416c-a395-93de3b97cc29',
+      /* 8.4 The Impact of the Media */
+      '79abc4c0-9d0d-46fd-8f4b-d9e5342e4521': '79abc4c0-9d0d-46fd-8f4b-d9e5342e4521',
+      /* Key Terms */
+      '32729414-ee73-57e1-bedc-b51d9ec0a35b': '62cc5128-1a22-56b4-a24d-68e6e1be9bd6',
+      /* Summary */
+      '36a7d63d-0a3f-5491-8ac5-9376552a1e7e': 'dfb6a0a0-5483-5a80-8c2e-216a1e35f217',
+      /* Review Questions */
+      '3414f9ef-c43a-50b7-83ae-c91635423013': '88a562ab-befa-5b29-a8b6-1b78352deee6',
+      /* Critical Thinking Questions */
+      'e0f9cb52-aa47-58ac-b083-1f02d40881e0': '4c2c2342-343e-5b69-accc-dc366a5bbc52',
+      /* Suggestions for Further Study */
+      'a69321bb-f17f-50e6-b7e8-61002c152590': '30e3c371-a547-5ceb-be79-4ad4993f6539',
+      /* Introduction */
+      'a249315d-6f4b-42c2-9b47-b95452c61a91': 'a249315d-6f4b-42c2-9b47-b95452c61a91',
+      /* 9.1 What Are Parties and How Did They Form? */
+      '1256514d-6e71-40f1-9990-991749dfda9e': '1256514d-6e71-40f1-9990-991749dfda9e',
+      /* 9.2 The Two-Party System */
+      'bd6b97dc-a859-434d-be99-e8739b6bb0dd': 'bd6b97dc-a859-434d-be99-e8739b6bb0dd',
+      /* 9.3 The Shape of Modern Political Parties */
+      '64a9b2ad-babb-4834-abd9-a69b6bb7a6fe': '64a9b2ad-babb-4834-abd9-a69b6bb7a6fe',
+      /* 9.4 Divided Government and Partisan Polarization */
+      '767541a3-4cf0-4b69-9afe-70eb5e5f9b1f': '767541a3-4cf0-4b69-9afe-70eb5e5f9b1f',
+      /* Key Terms */
+      '3fb2b036-828c-590b-bbd4-dea13c7b537e': 'ef1964a2-5345-5cf7-a4f5-2aeae3ae4e89',
+      /* Summary */
+      '33de929c-b4c1-5097-b2f8-3d5a7a9aeadf': '3e1983de-b232-525b-b41b-2b50b489ed2f',
+      /* Review Questions */
+      'f4737611-e064-5103-8f06-51a11693996b': '1a18c289-6be4-5c7f-bb93-9b5cb52ae726',
+      /* Critical Thinking Questions */
+      'd7e902f3-0658-5670-9b0a-9e6949cdf17f': '25b4fe20-dc3a-5b64-ae12-9feb446c2ee4',
+      /* Suggestions for Further Study */
+      '65d98dec-8ccf-5e23-bdb7-dbee0b4d3b53': 'aed43889-2fa9-5287-be2a-0e0cb6146dc2',
+      /* Introduction */
+      '10b9f291-6c21-4b2a-bfa5-d9f956a7b115': '10b9f291-6c21-4b2a-bfa5-d9f956a7b115',
+      /* 10.1 Interest Groups Defined */
+      '08ab7418-4b34-4a12-afa6-fd914a715079': '08ab7418-4b34-4a12-afa6-fd914a715079',
+      /* 10.2 Collective Action and Interest Group Formation */
+      '8320d218-36c4-4389-8f51-f0e59e2eeeee': '8320d218-36c4-4389-8f51-f0e59e2eeeee',
+      /* 10.3 Interest Groups as Political Participation */
+      'f9500c23-31fc-40e8-94c5-334884b54d46': 'f9500c23-31fc-40e8-94c5-334884b54d46',
+      /* 10.4 Pathways of Interest Group Influence */
+      '37864b89-ebe7-470b-82d3-35944aa44819': '37864b89-ebe7-470b-82d3-35944aa44819',
+      /* 10.5 Free Speech and the Regulation of Interest Groups */
+      '7b71fbfd-9476-4f54-928f-8156f7a6a893': '7b71fbfd-9476-4f54-928f-8156f7a6a893',
+      /* Key Terms */
+      'd9804a47-7654-5d37-ab1d-e2f6abb45b7b': 'd8d3b3d0-bc66-55e4-a105-81586fdacff0',
+      /* Summary */
+      'b6d0bc9a-4a04-5609-99f6-2b7e325add4a': 'd59432d3-15e6-5d9b-8e68-15ec69df366d',
+      /* Review Questions */
+      '75a78b88-7fe1-529b-b162-ea351f5d6d5f': '39c16a4e-e521-5160-adc5-b6de7a755db7',
+      /* Critical Thinking Questions */
+      '06a344b2-494c-589c-88f3-b4716cf995fa': '5f0a6b0f-50e5-5724-870c-dd7108423f60',
+      /* Suggestions for Further Study */
+      '97534c80-78b3-5575-becb-d47ad21287cc': 'b206d158-cfbd-5dc6-a56d-b8598a263799',
+      /* Introduction */
+      'fe018d16-2067-40ba-835d-89e0b9f7e039': 'fe018d16-2067-40ba-835d-89e0b9f7e039',
+      /* 11.1 The Institutional Design of Congress */
+      '6199efb8-f2eb-490f-9ac2-27c644fa9387': '6199efb8-f2eb-490f-9ac2-27c644fa9387',
+      /* 11.2 Congressional Elections */
+      '6e9ad9d6-4fd5-4950-b9a0-fe847f9a75fe': '6e9ad9d6-4fd5-4950-b9a0-fe847f9a75fe',
+      /* 11.3 Congressional Representation */
+      'c1bd3f27-d95e-4322-8753-a023ea892917': 'c1bd3f27-d95e-4322-8753-a023ea892917',
+      /* 11.4 House and Senate Organizations */
+      '710f9908-e826-4b95-9195-2fe844cf3191': '710f9908-e826-4b95-9195-2fe844cf3191',
+      /* 11.5 The Legislative Process */
+      '343f9e7b-2486-4aba-b746-8984c04ae82a': '343f9e7b-2486-4aba-b746-8984c04ae82a',
+      /* Key Terms */
+      '4c0e4bfa-8348-5b43-9800-d4618072f399': '6fe6c0bc-5bfb-5168-b116-4302db8b18a5',
+      /* Summary */
+      '7c39bb7d-d520-511a-b120-930885228272': '51bb946d-8a35-5140-9cec-0ef6e2438a55',
+      /* Review Questions */
+      '2ea2b709-8cbf-59e5-b2ef-95ca983871a0': '54ebc0c1-47fe-51a4-a306-f816bb4765a5',
+      /* Critical Thinking Questions */
+      '75dca9cf-f0e5-59ed-8952-2852b329227f': 'b300a86e-3870-59fe-aa63-09b04dc32201',
+      /* Suggestions for Further Study */
+      '6f8f0590-c77f-5ee3-818a-908a19d7fcfa': '8ecfbb04-8f71-52c0-89d3-ba4f8654050d',
+      /* Introduction */
+      '310044aa-f728-4875-99f8-54fd5f771aba': '310044aa-f728-4875-99f8-54fd5f771aba',
+      /* 12.1 The Design and Evolution of the Presidency */
+      '932d9a9e-e892-48fb-9541-5116d6a805e1': '932d9a9e-e892-48fb-9541-5116d6a805e1',
+      /* 12.2 The Presidential Election Process */
+      'f27a2d49-5377-4915-a1e4-fbc470346010': 'f27a2d49-5377-4915-a1e4-fbc470346010',
+      /* 12.3 Organizing to Govern */
+      '481612e6-f7e2-4fee-9ec2-90a811bbab1c': '481612e6-f7e2-4fee-9ec2-90a811bbab1c',
+      /* 12.4 The Public Presidency */
+      'e3571a7b-3d87-4ac5-9642-981141b86dbe': 'e3571a7b-3d87-4ac5-9642-981141b86dbe',
+      /* 12.5 Presidential Governance: Direct Presidential Action */
+      'de1695dc-a8e6-474a-a703-9d8b00c1ee1d': 'de1695dc-a8e6-474a-a703-9d8b00c1ee1d',
+      /* Key Terms */
+      'ff93b27e-a3ba-516f-8ff4-392463092541': '1d9e810f-44a4-5d15-acf8-5ce2ea4b5b59',
+      /* Summary */
+      'c5171f80-0e76-586b-8e8d-adc1bc84c354': 'b4fd3f8a-20b5-51e7-bfd0-9d028e1ff59f',
+      /* Review Questions */
+      '94923690-1aa7-56fe-b2b0-d67530879b8c': '02fcfeba-ac08-5836-bf01-7b1b6ceba9c4',
+      /* Critical Thinking Questions */
+      'f87d882a-fb9f-55ac-b1c6-5ee5ebe5cde6': 'ae3899ee-404d-57b4-89fc-459dea0ba6c4',
+      /* Suggestions for Further Study */
+      '5fc9e649-8e0c-5fa0-844d-a8794b17a89f': 'd5f50c32-8c0c-5b09-be62-131a4cfb6d62',
+      /* Introduction */
+      'fa7f59b0-7449-4259-ac58-c03a48e91a63': 'fa7f59b0-7449-4259-ac58-c03a48e91a63',
+      /* 13.1 Guardians of the Constitution and Individual Rights */
+      'fa0a555c-ebd6-4c95-a6e9-b13f56b991dc': 'fa0a555c-ebd6-4c95-a6e9-b13f56b991dc',
+      /* 13.2 The Dual Court System */
+      'a44deb15-adb0-4b53-8639-655481d0a424': 'a44deb15-adb0-4b53-8639-655481d0a424',
+      /* 13.3 The Federal Court System */
+      '3f70a13f-b0ee-4352-85ca-133d1163e1f0': '3f70a13f-b0ee-4352-85ca-133d1163e1f0',
+      /* 13.4 The Supreme Court */
+      '94177f18-ac67-4cfc-b2e7-77c694457ba4': '94177f18-ac67-4cfc-b2e7-77c694457ba4',
+      /* 13.5 Judicial Decision-Making and Implementation by the Supreme Court */
+      '4a2a2bda-0f5d-454c-8a23-04df0002e0d1': '4a2a2bda-0f5d-454c-8a23-04df0002e0d1',
+      /* Key Terms */
+      '18914174-b8ac-52a2-ab3d-1e2346a0de97': '6527ebd5-e51d-5ef1-b2c2-13a640f0fcad',
+      /* Summary */
+      '3a5185e2-5e28-5b65-a6fc-f4fa9d65421b': '28e34457-cd00-5afb-972c-f49b69c81db6',
+      /* Review Questions */
+      '52f91e42-4b41-5b16-bb6c-e7c782e7aaba': '88911349-fed5-5cb2-bd38-9a44ae374b60',
+      /* Critical Thinking Questions */
+      'd2c38d60-9d33-5121-889e-80ba51cfd3f2': '66b97fab-3628-5e7e-abb2-d96b6308233b',
+      /* Suggestions for Further Study */
+      '322582cb-7e36-58bb-b788-cc2d3daff40b': 'edf7612d-acf0-58c9-a7e2-655bad63eb5e',
+      /* Introduction */
+      '12759463-1dc1-49e7-96a6-280154ef0a0c': '12759463-1dc1-49e7-96a6-280154ef0a0c',
+      /* 14.1 State Power and Delegation */
+      '246672e7-c242-430d-a7bf-92d222774ada': '246672e7-c242-430d-a7bf-92d222774ada',
+      /* 14.2 State Political Culture */
+      '8e532a78-4479-4484-906b-f7c0997cb627': '8e532a78-4479-4484-906b-f7c0997cb627',
+      /* 14.3 Governors and State Legislatures */
+      '7a179ea7-cc0d-4e63-b289-dbc5734ed409': '7a179ea7-cc0d-4e63-b289-dbc5734ed409',
+      /* 14.4 State Legislative Term Limits */
+      '2f232356-cbee-4fbb-84a7-f09087818965': '2f232356-cbee-4fbb-84a7-f09087818965',
+      /* 14.5 County and City Government */
+      'ad7cceb0-fb00-4395-b54b-9cab17583a8a': 'ad7cceb0-fb00-4395-b54b-9cab17583a8a',
+      /* Key Terms */
+      'a0825186-2a45-56d7-b75f-30110fab12a8': 'e8528fbd-cf3f-5649-9201-d4a633cdfe60',
+      /* Summary */
+      '0b357f46-3b4a-5f26-b5f4-ffe72dd8ad4d': '1fe65f5a-3938-5ff0-a41a-e881c336953e',
+      /* Review Questions */
+      '8c88ae1d-94fb-5c02-842d-72d26a8e8967': '01215d03-677f-565a-b00f-77b045a26e06',
+      /* Critical Thinking Questions */
+      '8f29033e-e158-5d11-8b92-ff671f645776': '1ed8a17d-8073-5bb7-bf9a-8148edeb546c',
+      /* Suggestions for Further Study */
+      '7b684316-37cc-5990-89fd-2d5b11f120f4': '293d3606-5fcb-5dd5-9925-d40de56002da',
+      /* Introduction */
+      'd99803f1-ce63-4132-aea3-66bb70342f97': 'd99803f1-ce63-4132-aea3-66bb70342f97',
+      /* 15.1 Bureaucracy and the Evolution of Public Administration */
+      '07d930bd-80db-48b5-958f-f2280b9ebdf2': '07d930bd-80db-48b5-958f-f2280b9ebdf2',
+      /* 15.2 Toward a Merit-Based Civil Service */
+      '75501032-f37d-442b-9672-ee923e861f00': '75501032-f37d-442b-9672-ee923e861f00',
+      /* 15.3 Understanding Bureaucracies and their Types */
+      '0931bb7a-0181-4267-b79c-0b3e04b14a3f': '0931bb7a-0181-4267-b79c-0b3e04b14a3f',
+      /* 15.4 Controlling the Bureaucracy */
+      'f41badb3-ef10-44e8-b879-b952d737d7d2': 'f41badb3-ef10-44e8-b879-b952d737d7d2',
+      /* Key Terms */
+      '733eb806-7ac0-5c11-a652-aac633a18fdb': 'bdf65f70-7676-5dcf-ad4e-0783a3af5794',
+      /* Summary */
+      '08f61297-69fc-5b0a-8075-a3c458995c51': '3dc93e03-7d60-5d97-bde3-4bf61202ccc2',
+      /* Review Questions */
+      'fe6a0401-af17-5972-8f85-7398a4d44b30': '04847185-d538-5c4d-9d4c-ac454c27e07e',
+      /* Critical Thinking Questions */
+      '1862631b-4819-5017-9a5e-5f6bec1fdab2': '65a24917-57db-59c9-a5e6-060a21d48747',
+      /* Suggestions for Further Study */
+      '87b7809b-1b1f-5de4-a14e-0afeb5d1d6d2': '73975eae-a31b-5d27-9274-d08dc732542d',
+      /* Introduction */
+      'f21be3c3-e961-4b58-81a6-9fdffa41b19b': 'f21be3c3-e961-4b58-81a6-9fdffa41b19b',
+      /* 16.1 What Is Public Policy? */
+      '9f36abf1-8a4f-4cb5-8f19-e038d120a3e3': '9f36abf1-8a4f-4cb5-8f19-e038d120a3e3',
+      /* 16.2 Categorizing Public Policy */
+      '1d8926ba-8aa0-4804-a4b2-0b962b7b8010': '1d8926ba-8aa0-4804-a4b2-0b962b7b8010',
+      /* 16.3 Policy Arenas */
+      'cf773e85-df38-49c3-aec3-3cee17f1c70b': 'cf773e85-df38-49c3-aec3-3cee17f1c70b',
+      /* 16.4 Policymakers */
+      'd063d604-3d34-4775-8be6-cb7c77a6c314': 'd063d604-3d34-4775-8be6-cb7c77a6c314',
+      /* 16.5 Budgeting and Tax Policy */
+      '3401a477-02c2-451c-a574-d837f26445fb': '3401a477-02c2-451c-a574-d837f26445fb',
+      /* Key Terms */
+      'adcdafcb-07c5-52f0-b6e8-007d87537edf': '20a69c6c-f94f-5bea-bca2-5d2177f21414',
+      /* Summary */
+      '0b02a97b-0081-50c1-95ca-7cae95af05d1': 'a7f58162-add3-5580-908b-134a66e6bace',
+      /* Review Questions */
+      'a62f8c72-d5bf-51e4-b878-f63ccae7edee': '57b1818e-6051-5e3c-adb9-746d82adf4c4',
+      /* Critical Thinking Questions */
+      '3f826fcf-9c46-535f-bf7b-6ec1aa75ab21': '4895187d-1851-5ddd-99b8-7a96eb26b920',
+      /* Suggestions for Further Study */
+      'dc9b34a3-b199-59c2-8575-15a2a76f53ab': '0f0a674c-9d4b-545b-9d8c-6fe04fbcfc97',
+      /* Introduction */
+      '6d0bcc16-3c09-43fe-9a69-7dca0bdf5966': '6d0bcc16-3c09-43fe-9a69-7dca0bdf5966',
+      /* 17.1 Defining Foreign Policy */
+      '8ca6f524-dbdb-4627-9a98-0ce15179829d': '8ca6f524-dbdb-4627-9a98-0ce15179829d',
+      /* 17.2 Foreign Policy Instruments */
+      'a537b76d-6188-49ab-a2cf-87bae04094a3': 'a537b76d-6188-49ab-a2cf-87bae04094a3',
+      /* 17.3 Institutional Relations in Foreign Policy */
+      'b76ea2cb-fbac-4ff1-8d41-2dffc1e3d98e': 'b76ea2cb-fbac-4ff1-8d41-2dffc1e3d98e',
+      /* 17.4 Approaches to Foreign Policy */
+      '8c2f6286-6f4c-4448-830e-c585282ea466': '8c2f6286-6f4c-4448-830e-c585282ea466',
+      /* Key Terms */
+      '44bf3065-a862-5cab-9b9d-d00367b82600': '7575b5a4-91dd-561f-a462-364953b9c633',
+      /* Summary */
+      'bb193ed1-7021-5cbb-b719-c42f25b9c471': '77642c26-ee86-500d-8ea1-da78ae4caf06',
+      /* Review Questions */
+      '14e0aa95-43cd-553c-bd74-1277d9495a67': '317f6795-20ee-5976-9416-41823d39bd75',
+      /* Critical Thinking Questions */
+      '1906e302-429a-5b1d-90ee-27f41bec4926': '820e62f7-027e-5021-8a3d-ad0d48f35c6b',
+      /* Suggestions for Further Study */
+      '2e43e38f-7613-534b-a600-146fedba8a49': '2e1e258e-afcf-5f65-84ea-370a2d8bc0e1',
+      /* Appendix A Declaration of Independence */
+      '97a153dd-5719-4de8-b8e7-828b7f5b4396': '97a153dd-5719-4de8-b8e7-828b7f5b4396',
+      /* Appendix B The Constitution of the United States */
+      '1ec16a27-0461-4812-b91b-ffa28f8d8232': '1ec16a27-0461-4812-b91b-ffa28f8d8232',
+      /* Appendix C Federalist Papers #10 and #51 */
+      '4a682489-9204-46b4-89c0-261ae689d86b': '4a682489-9204-46b4-89c0-261ae689d86b',
+      /* Appendix D Electoral College Map */
+      '985b4a50-7460-400f-a21d-92944c265ecb': '985b4a50-7460-400f-a21d-92944c265ecb',
+      /* Appendix E Selected Supreme Court Cases */
+      '04a407a3-7158-4b76-aae1-950913b78341': '04a407a3-7158-4b76-aae1-950913b78341',
+      /* Chapter 1 */
+      '39955048-6862-5796-abe4-3e520332c91d': '596a5df2-eb1f-559a-9334-177143f1a6b8',
+      /* Chapter 2 */
+      'fa5f8a13-417b-5758-9ce1-4ef18cb5ea61': 'c52b9228-aba2-59b0-bdb9-c1bf1f36a74d',
+      /* Chapter 3 */
+      '7cf19cfa-5941-5820-87b8-dd5a6440cbb1': '710e2fbc-09e7-5535-b3c3-001a79b688c3',
+      /* Chapter 4 */
+      '8a1e5e0b-1531-5df0-bcbd-726a2a225747': 'b7d5f727-4851-5729-81a9-beef95e0999a',
+      /* Chapter 5 */
+      'bf21e90e-d2ec-513f-9dd2-4309e718c6c8': '23f84a05-ec48-5556-9afa-e7ecff48e6ad',
+      /* Chapter 6 */
+      '92173589-fa52-59a0-ae36-7163d49af1dc': '425a4b7a-27fa-552a-9948-c84cb7da6713',
+      /* Chapter 7 */
+      'd88e5b81-20a9-5f83-a3e2-22121c676753': '3e245396-851e-53b1-880e-bcce1ac2f21f',
+      /* Chapter 8 */
+      'b21362b4-7888-576e-af95-4a564657f949': '8a6b1ef2-03b4-5dee-93b7-f5d120c1a435',
+      /* Chapter 9 */
+      '41b879db-b05a-527b-a622-b1cdb3bae152': '887ff2d3-6085-54ce-8200-81bf2f0ed113',
+      /* Chapter 10 */
+      '03fd63ae-c201-5f50-9e4b-58c903a616ab': 'f782f30a-5bde-5cb4-bfaf-c1841be5e397',
+      /* Chapter 11 */
+      '1da0ab01-c007-53d1-bb26-43659a3a3511': 'db4ba737-69c0-523c-944b-567e4ab4a6e4',
+      /* Chapter 12 */
+      'ea3edcda-0270-5743-bada-3cb3d1b846c1': '0ed1f5b1-ac94-5c09-8cf0-914f1e2a7d91',
+      /* Chapter 13 */
+      'ecddf519-280e-540c-ae83-f14422a1d06a': 'fb7e606b-b154-5ac1-bae0-57be87a021f4',
+      /* Chapter 14 */
+      'faf46105-25f3-52c0-8e39-f4336caba63a': 'c8dbdcea-c14f-55bf-8845-dfa20a2c2a6d',
+      /* Chapter 15 */
+      '21074d43-dad7-5506-b2be-a8ffdcb5b9d1': '0b784e03-e04a-5c1a-a389-ac913898d99a',
+      /* Chapter 16 */
+      'd7f32454-fed3-5771-b2fb-af5f055f8172': '745520c9-d379-58b1-8254-47729a708045',
+      /* Chapter 17 */
+      'bcb813cf-64c6-59e1-b1fd-4e11aefae589': '7b7e53f8-3536-5127-8b5c-72d2422422f3',
+      /* References */
+      'ccd70ac1-42fc-5e53-8a28-08336534f45d': '8a92c5e9-2f3a-5bde-8276-96265d1df491',
+      /* Index */
+      '45f5e5a2-582c-50a0-8c2d-b9b8c93b5d45': '23feb626-fd56-5168-adfb-667aae1367f9',
+    }],
   ],
   /* American Government 1e */ '5bcc0e59-7345-421d-8507-a1e4608685e8': [
     /* American Government 3e */ ['30e47181-f52c-4a91-9c11-33380c428268', {
