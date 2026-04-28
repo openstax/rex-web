@@ -234,28 +234,21 @@ function NoteOrCard({
 
   const cardStyle: React.CSSProperties = {
     ...(topOffset !== undefined && { '--card-top-offset': `${topOffset}px` }),
-    '--card-z-index': props.zIndex,
-    '--highlight-color': style?.focused,
+    ...(props.zIndex !== undefined && { '--card-z-index': props.zIndex }),
+    ...(style?.focused !== undefined && { '--highlight-color': style.focused }),
     ...(highlightOffset !== undefined && { '--card-highlight-offset': `${highlightOffset}px` }),
   } as React.CSSProperties;
-
-  const wrapperElement = React.useRef<HTMLElement | null>(null);
-
-  // Update the main element ref to point to the wrapper for focus/scroll
-  React.useEffect(() => {
-    commonProps.ref.current = wrapperElement.current;
-  }, [commonProps.ref, wrapperElement]);
 
   // Intercept onHeightChange calls from inner components and pass the wrapper ref instead.
   // This ensures height measurements include the wrapper's padding and box-shadow.
   const onHeightChangeWrapper = React.useCallback((_ref: React.RefObject<HTMLElement>) => {
-    // Pass the wrapper element ref, not the inner component's ref
-    commonProps.onHeightChange(wrapperElement as React.RefObject<HTMLElement>);
-  }, [commonProps, wrapperElement]);
+    // Pass the wrapper element ref (which is the main element ref), not the inner component's ref
+    commonProps.onHeightChange(commonProps.ref as React.RefObject<HTMLElement>);
+  }, [commonProps]);
 
   return (
     <div
-      ref={wrapperElement}
+      ref={commonProps.ref as React.RefObject<HTMLDivElement>}
       className="highlight-card"
       onClick={focusCard}
       data-testid='card'
