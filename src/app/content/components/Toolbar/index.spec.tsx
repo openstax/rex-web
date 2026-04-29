@@ -11,7 +11,7 @@ import * as Services from '../../../context/Services';
 import { receiveFeatureFlags } from '../../../featureFlags/actions';
 import { MiddlewareAPI, Store } from '../../../types';
 import { assertWindow } from '../../../utils';
-import { closeMobileMenu } from '../../actions';
+import { closeMobileMenu, openMobileMenu } from '../../actions';
 import { openToc } from '../../actions';
 import { practiceQuestionsFeatureFlag } from '../../constants';
 import { SearchResult } from '@openstax/open-search-client';
@@ -19,7 +19,6 @@ import { clearSearch, openSearchInSidebar, requestSearch, receiveSearchResults }
 import * as searchSelectors from '../../search/selectors';
 import * as selectors from '../../selectors';
 import { CloseToCAndMobileMenuButton } from '../SidebarControl';
-import { PlainButton } from './styled';
 
 describe('toolbar', () => {
   let store: Store;
@@ -32,6 +31,10 @@ describe('toolbar', () => {
       dispatch: store.dispatch,
       getState: store.getState,
     };
+  });
+
+  afterEach(() => {
+    jest.restoreAllMocks();
   });
 
   it('resizes on scroll', () => {
@@ -57,12 +60,16 @@ describe('toolbar', () => {
   it('has a button that closes mobile menu', () => {
     const dispatchSpy = jest.spyOn(store, 'dispatch');
     const sidebar = assertWindow().document.createElement('div');
+    jest.spyOn(selectors, 'mobileMenuOpen').mockReturnValue(true);
     const component = renderer.create(<TestContainer store={store}>
       <Toolbar />
     </TestContainer>, { createNodeMock: () => sidebar });
 
+    const closeButton = component.root.findByType(CloseToCAndMobileMenuButton);
+    const buttonElement = closeButton.findByType('button');
+
     renderer.act(() => {
-      component.root.findByType(CloseToCAndMobileMenuButton).findByType(PlainButton).props.onClick();
+      buttonElement.props.onClick();
     });
 
     expect(dispatchSpy).toHaveBeenCalledWith(closeMobileMenu());
@@ -72,6 +79,38 @@ describe('toolbar', () => {
       store.dispatch(openToc());
     });
     expect(selectors.tocOpen(store.getState())).toEqual(true);
+  });
+
+  it('adds and removes keydown event listener for mobile menu', () => {
+    const sidebar = assertWindow().document.createElement('div');
+    const addEventListenerSpy = jest.spyOn(assertWindow().document, 'addEventListener');
+    const removeEventListenerSpy = jest.spyOn(assertWindow().document, 'removeEventListener');
+
+    // Create component with mobile menu closed initially
+    const component = renderer.create(<TestContainer store={store}>
+      <Toolbar />
+    </TestContainer>, { createNodeMock: () => sidebar });
+
+    // Open mobile menu to trigger the useEffect (TOC is closed by default)
+    renderer.act(() => {
+      store.dispatch(openMobileMenu());
+    });
+
+    // Verify event listener was added
+    expect(addEventListenerSpy).toHaveBeenCalledWith('keydown', expect.any(Function), true);
+    const keydownHandler = addEventListenerSpy.mock.calls.find(
+      ([eventName, , useCapture]) => eventName === 'keydown' && useCapture === true
+    )?.[1];
+
+    expect(keydownHandler).toEqual(expect.any(Function));
+
+    // Unmount component to trigger cleanup
+    renderer.act(() => {
+      component.unmount();
+    });
+
+    // Verify event listener was removed
+    expect(removeEventListenerSpy).toHaveBeenCalledWith('keydown', keydownHandler, true);
   });
 
   describe('print button', () => {
