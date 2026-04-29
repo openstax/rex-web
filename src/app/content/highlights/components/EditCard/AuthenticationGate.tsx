@@ -53,7 +53,7 @@ export function LoginOrEdit({
 
   return (
     <div
-      ref={fref as React.RefObject<HTMLDivElement>}
+      ref={fref as React.Ref<HTMLDivElement>}
       className={className}
       role='dialog'
       aria-label={formatMessage({ id: 'i18n:highlighter:edit-note:label' })}
