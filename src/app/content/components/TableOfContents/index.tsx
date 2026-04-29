@@ -1,7 +1,8 @@
-import { HTMLElement } from '@openstax/types/lib.dom';
+import { HTMLElement, HTMLButtonElement, HTMLAnchorElement } from '@openstax/types/lib.dom';
 import React, { Component, MutableRefObject } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { connect } from 'react-redux';
+import { Tree, TreeItem, TreeItemContent } from 'react-aria-components';
 import { AppState, Dispatch } from '../../../types';
 import { closeMobileMenu, resetToc } from '../../actions';
 import { isArchiveTree } from '../../guards';
@@ -14,9 +15,14 @@ import { stripIdVersion } from '../../utils/idUtils';
 import { CloseToCAndMobileMenuButton, TOCBackButton, TOCCloseButton } from '../SidebarControl';
 import { Header, HeaderText, SidebarPaneBody } from '../SidebarPane';
 import { LeftArrow, TimesIcon } from '../Toolbar/styled';
-import * as Styled from './styled';
+import { ExpandIcon, CollapseIcon } from './styled';
+import ContentLink from '../ContentLink';
+import getNumberWidth, { dividerWidth } from './utils';
 import { createTrapTab, useMatchMobileQuery, useMatchMobileMediumQuery, isSSR } from '../../../reactUtils';
 import { stripHtml } from '../../../utils';
+import { iconSize } from '../../../components/Details';
+
+import './TableOfContents.css';
 
 interface SidebarProps {
   onNavigate: () => void;
@@ -73,8 +79,8 @@ const SidebarBody = React.forwardRef<
           firstItemInToc?.focus();
         } else {
           // Restore focus to TOC button when TOC closes
-          const tocButton = document?.querySelector('[data-testid="toc-button"]');
-          (tocButton as HTMLElement)?.focus();
+          const tocButton = document?.querySelector<HTMLButtonElement>('[data-testid="toc-button"]');
+          tocButton?.focus();
         }
       };
 
@@ -123,13 +129,13 @@ function TocToggle({
 }: { title: string }) {
   return (
     // TreeItemContent does not render a DOM node
-    <Styled.StyledTreeItemContent>
-      <Styled.SummaryWrapper>
-        <Styled.ExpandIcon />
-        <Styled.CollapseIcon />
-        <Styled.SummaryTitle dangerouslySetInnerHTML={{ __html: title }}/>
-      </Styled.SummaryWrapper>
-    </Styled.StyledTreeItemContent>
+    <TreeItemContent>
+      <div className="toc-summary-wrapper">
+        <span className="toc-expand-icon"><ExpandIcon /></span>
+        <span className="toc-collapse-icon"><CollapseIcon /></span>
+        <span className="toc-summary-title" dangerouslySetInnerHTML={{ __html: title }}/>
+      </div>
+    </TreeItemContent>
   );
 }
 
@@ -142,7 +148,7 @@ function ArchiveTreeComponent({
   expandedKeys,
 }: {
   item: LinkedArchiveTree;
-  book: Book | undefined;
+  book: Book;
   page: Page | undefined;
   activeSection: React.RefObject<HTMLElement>;
   onNavigate: () => void;
@@ -176,7 +182,7 @@ function getChapterDisambiguation(page: LinkedArchiveTreeSection): {
 
   const [parentNum, parentTitleText] = splitTitleParts(page.parent.title);
 
-  if (!parentNum || titleText.includes(parentTitleText)) {
+  if (!parentNum || titleText?.includes(parentTitleText)) {
     return null;
   }
 
@@ -187,21 +193,23 @@ function getChapterDisambiguation(page: LinkedArchiveTreeSection): {
 }
 
 function TocLeaf({
-  section,
   item,
   sectionType,
   onNavigate,
   book,
   active,
+  numberWidth,
+  marginLeft,
 }: {
-  section: ArchiveTree;
   item: LinkedArchiveTreeSection;
   sectionType: string;
   onNavigate: () => void;
-  book: Book | undefined;
+  book: Book;
   active: boolean | undefined;
+  numberWidth: number;
+  marginLeft: number;
 }) {
-  const linkRef = React.useRef<HTMLElement>(null);
+  const linkRef = React.useRef<HTMLAnchorElement>(null);
   const intl = useIntl();
   const strippedTitle = stripHtml(item.title, true);
 
@@ -225,12 +233,18 @@ function TocLeaf({
   }
 
   return (
-    <Styled.StyledTreeItem
-      section={section}
+    <TreeItem
       id={item.id}
       key={item.id}
       textValue={strippedTitle}
       aria-label={intl.formatMessage({ id: 'i18n:toc:aria-label:link' }, { title: disambiguatedTitle })}
+      className="toc-tree-item"
+      style={{
+        '--toc-number-width': `${numberWidth}rem`,
+        '--toc-divider-width': `${dividerWidth}rem`,
+        '--toc-margin-left': `${marginLeft}rem`,
+        '--details-icon-size': `${iconSize}rem`,
+      } as React.CSSProperties}
       onAction={
         // Ignored until RAC and TS versions are compatible
         // istanbul ignore next
@@ -239,20 +253,22 @@ function TocLeaf({
         }
       }
     >
-      <Styled.NavItem
+      <TreeItemContent
+        className="toc-nav-item"
         data-type={sectionType}
         textValue={strippedTitle}
       >
-        <Styled.ContentLink
+        <ContentLink
           ref={linkRef}
           onClick={onNavigate}
           book={book}
           page={item}
+          className="toc-content-link"
           dangerouslySetInnerHTML={{ __html: item.title }}
           {...contentLinkAriaAttrs}
         />
-      </Styled.NavItem>
-    </Styled.StyledTreeItem>
+      </TreeItemContent>
+    </TreeItem>
   );
 }
 
@@ -264,7 +280,7 @@ function TocSection({
   onNavigate,
   expandedKeys,
 }: {
-  book: Book | undefined;
+  book: Book;
   page: Page | undefined;
   section: ArchiveTree;
   activeSection: React.RefObject<HTMLElement>;
@@ -272,6 +288,9 @@ function TocSection({
   expandedKeys: Set<string>;
 }) {
   const intl = useIntl();
+  // Compute dynamic styles
+  const numberWidth = getNumberWidth(section.contents);
+  const marginLeft = numberWidth + dividerWidth;
 
   return (
     <>
@@ -284,11 +303,16 @@ function TocSection({
           <React.Fragment key={item.id}>
             {isArchiveTree(item)
               ?
-              <Styled.StyledTreeItem
-                section={section}
+              <TreeItem
                 id={item.id}
                 textValue={strippedTitle}
                 aria-label={intl.formatMessage({ id: 'i18n:toc:aria-label:section' }, { title: strippedTitle })}
+                className="toc-tree-item"
+                style={{
+                  '--toc-number-width': `${numberWidth}rem`,
+                  '--toc-divider-width': `${dividerWidth}rem`,
+                  '--toc-margin-left': `${marginLeft}rem`,
+                } as React.CSSProperties}
               >
                 <ArchiveTreeComponent
                   item={item}
@@ -298,14 +322,15 @@ function TocSection({
                   onNavigate={onNavigate}
                   expandedKeys={expandedKeys}
                 />
-              </Styled.StyledTreeItem>
+              </TreeItem>
               : <TocLeaf
-                section={section}
                 item={item}
                 sectionType={sectionType}
                 onNavigate={onNavigate}
                 book={book}
                 active={active}
+                numberWidth={numberWidth}
+                marginLeft={marginLeft}
               />}
           </React.Fragment>
         );
@@ -337,7 +362,7 @@ export class TableOfContents extends Component<SidebarProps, { expandedKeys: Set
         <TocHeader />
         {book && (
           <div>
-            <Styled.StyledTree
+            <Tree
               aria-label='Table of Contents'
               expandedKeys={this.state.expandedKeys}
               onExpandedChange={this.handleExpandedChange}
@@ -351,7 +376,7 @@ export class TableOfContents extends Component<SidebarProps, { expandedKeys: Set
                 onNavigate={this.props.onNavigate}
                 expandedKeys={this.state.expandedKeys}
               />
-            </Styled.StyledTree >
+            </Tree >
           </div>
         )}
       </SidebarBody>
