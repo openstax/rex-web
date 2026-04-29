@@ -145,7 +145,7 @@
 
 /* touchDeviceQuery from theme.ts: "not all and (pointer: fine), (hover: none)" */
 
-/* Since plain CSS doesn't support nested @media, we expand the nested query into two separate rules */
+/* Using nested @media rules to match the original theme.ts structure */
 @media screen and (max-width: 75em) { /* mobileBreak */
   @media not all and (pointer: fine), (hover: none) { /* touchDeviceQuery */
     .highlight-card {
