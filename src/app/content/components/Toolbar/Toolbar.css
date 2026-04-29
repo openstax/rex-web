@@ -1,0 +1,187 @@
+/* Toolbar styles */
+
+/* Mobile menu animations */
+@keyframes show-mobile-menu {
+  0% {
+    opacity: 0;
+  }
+
+  99% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+@keyframes hide-mobile-menu {
+  0% {
+    opacity: 1;
+  }
+
+  99% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+/* Toolbar wrapper */
+.toolbar-wrapper {
+  grid-area: 1 / 1 / auto / 2;
+  position: sticky;
+  top: var(--toolbar-sticky-top-desktop);
+  height: calc(100vh - 13rem);
+  max-height: calc(100vh - 7rem);
+  max-width: var(--vertical-navbar-max-width);
+  overflow: visible;
+  z-index: var(--toolbar-z-index);
+  background-color: var(--neutral-darker-color);
+  border-right: 1px solid var(--neutral-form-border-color);
+  border-left: 1px solid var(--neutral-form-border-color);
+}
+
+/* hides the sidebar when it's sliding in */
+.toolbar-wrapper::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: calc(var(--sidebar-desktop-width) * -1 - 0.1rem); /* adding 1px prevents hiding toolbar's left border */
+  width: var(--sidebar-desktop-width);
+  height: 100%;
+  background-color: var(--neutral-darker-color);
+}
+
+/* Mobile breakpoint: max-width: 75em (1200px) */
+@media screen and (max-width: 75em) {
+  .toolbar-wrapper {
+    top: var(--toolbar-sticky-top-mobile);
+    max-height: calc(100vh - 6rem);
+  }
+
+  .toolbar-wrapper::before {
+    display: none;
+  }
+}
+
+/* Mobile medium breakpoint: max-width: 50em (800px) */
+@media screen and (max-width: 50em) {
+  .toolbar-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    max-height: unset;
+    max-width: 100%;
+    width: 100%;
+    animation: hide-mobile-menu 0.2s forwards;
+    z-index: var(--mobile-menu-z-index);
+  }
+
+  .toolbar-wrapper.mobile-menu-open {
+    animation: show-mobile-menu 0.2s forwards;
+  }
+}
+
+/* Disable print */
+@media print {
+  .toolbar-wrapper {
+    display: none;
+  }
+}
+
+/* Toolbar mobile header */
+.toolbar-mobile-header {
+  display: none;
+}
+
+@media screen and (max-width: 50em) {
+  .toolbar-mobile-header {
+    display: flex;
+    width: 100%;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    border-bottom: 1px solid var(--neutral-form-border-color);
+  }
+}
+
+/* Toolbar mobile header title */
+.toolbar-mobile-header-title {
+  font-size: 1.8rem;
+  color: var(--primary-gray-color);
+  font-weight: bold;
+}
+
+/* Toolbar elements */
+.toolbar-elements {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Plain button */
+.toolbar-plain-button {
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  background: none;
+  align-items: center;
+  color: var(--toolbar-icon-color);
+  height: 100%;
+  min-width: var(--button-min-width);
+}
+
+.toolbar-plain-button:hover,
+.toolbar-plain-button:focus {
+  color: var(--toolbar-icon-darker-color);
+}
+
+/* Print option wrapper */
+.toolbar-print-opt-wrapper {
+  display: flex;
+  align-items: center;
+  height: max-content;
+  padding: 0 2.5rem 0 1%;
+  margin-left: auto;
+}
+
+/* Print options */
+.toolbar-print-options {
+  font-weight: 600;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  margin: 0 0 0 0.5rem;
+}
+
+@media screen and (max-width: 75em) {
+  .toolbar-print-opt-wrapper {
+    padding-right: 1.6rem;
+  }
+
+  .toolbar-print-options {
+    display: none;
+  }
+}
+
+/* Times icon */
+.toolbar-times-icon {
+  vertical-align: middle;
+  color: var(--toolbar-icon-color);
+  height: 2.5rem;
+  width: 2.5rem;
+  padding: 0.4rem;
+}
+
+.toolbar-times-icon:hover {
+  color: var(--toolbar-icon-darker-color);
+}

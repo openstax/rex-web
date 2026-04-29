@@ -6,13 +6,13 @@ exports[`assigned route route renders renders a component 1`] = `
   position: relative;
 }
 
-.c5 {
+.c4 {
   position: relative;
   border-left: 0.1rem solid transparent;
   border-right: 0.1rem solid transparent;
 }
 
-.c5 > div {
+.c4 > div {
   padding: 2rem 2.4rem;
   outline: none;
   color: #424242;
@@ -35,384 +35,34 @@ exports[`assigned route route renders renders a component 1`] = `
   justify-content: flex-end;
 }
 
-.c4 {
-  z-index: 3;
-}
-
-.c4 > button {
-  max-height: 5.2rem;
-}
-
-.c4 > button > div {
-  padding: 1.4rem;
-}
-
-.c17 {
+.c15 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c20 {
+.c18 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c13 {
+.c11 {
   list-style: none;
   cursor: pointer;
 }
 
-.c13::before {
+.c11::before {
   display: none;
 }
 
-.c13::-moz-list-bullet {
+.c11::-moz-list-bullet {
   list-style-type: none;
 }
 
-.c13::-webkit-details-marker {
+.c11::-webkit-details-marker {
   display: none;
 }
 
-.c10 {
-  overflow: visible;
-}
-
-.c10:focus-visible {
-  outline: none;
-}
-
-.c10 .highlight {
-  position: relative;
-  z-index: 1;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-.c10 [data-type="equation"] {
-  text-align: center;
-}
-
-.c10 [data-type="equation"] .highlight {
-  grid-column: 2;
-}
-
-.c10 mark mjx-container,
-.c10 mark mjx-math,
-.c10 mark mjx-semantics,
-.c10 mark mjx-mrow,
-.c10 mark mjx-row,
-.c10 mark mjx-under,
-.c10 mark mjx-base,
-.c10 mark mjx-munder,
-.c10 mark mjx-mo,
-.c10 mark mjx-mi,
-.c10 mark mjx-mn,
-.c10 mark mjx-mtext,
-.c10 mark mjx-c {
-  background: inherit;
-}
-
-.c10 .highlight.yellow {
-  background-color: #ffff8a;
-}
-
-.c10 .highlight.yellow.block {
-  display: block;
-}
-
-.c10 .highlight.yellow.block:after {
-  position: absolute;
-  z-index: -1;
-  content: "";
-  display: block;
-  top: -1rem;
-  bottom: -1rem;
-  left: -1rem;
-  right: -1rem;
-  background-color: #ffff8a;
-}
-
-.c10 .highlight.yellow.block.first.has-note:before {
-  position: absolute;
-  top: -1rem;
-  left: -1rem;
-  content: "";
-  width: 0;
-  height: 0;
-  opacity: 0.8;
-  border-left: 1.2em solid #fed200;
-  border-bottom: 1.2em solid transparent;
-}
-
-.c10 .highlight.yellow.first.text.has-note:after {
-  position: absolute;
-  top: 0;
-  left: 0;
-  content: "";
-  width: 0;
-  height: 0;
-  opacity: 0.8;
-  border-left: 0.9em solid #fed200;
-  border-top: 0.9em solid transparent;
-  -webkit-transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
-  transform: rotate(90deg);
-}
-
-.c10 .highlight.green {
-  background-color: #def99f;
-}
-
-.c10 .highlight.green.block {
-  display: block;
-}
-
-.c10 .highlight.green.block:after {
-  position: absolute;
-  z-index: -1;
-  content: "";
-  display: block;
-  top: -1rem;
-  bottom: -1rem;
-  left: -1rem;
-  right: -1rem;
-  background-color: #def99f;
-}
-
-.c10 .highlight.green.block.first.has-note:before {
-  position: absolute;
-  top: -1rem;
-  left: -1rem;
-  content: "";
-  width: 0;
-  height: 0;
-  opacity: 0.8;
-  border-left: 1.2em solid #92d101;
-  border-bottom: 1.2em solid transparent;
-}
-
-.c10 .highlight.green.first.text.has-note:after {
-  position: absolute;
-  top: 0;
-  left: 0;
-  content: "";
-  width: 0;
-  height: 0;
-  opacity: 0.8;
-  border-left: 0.9em solid #92d101;
-  border-top: 0.9em solid transparent;
-  -webkit-transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
-  transform: rotate(90deg);
-}
-
-.c10 .highlight.blue {
-  background-color: #c8f5ff;
-}
-
-.c10 .highlight.blue.block {
-  display: block;
-}
-
-.c10 .highlight.blue.block:after {
-  position: absolute;
-  z-index: -1;
-  content: "";
-  display: block;
-  top: -1rem;
-  bottom: -1rem;
-  left: -1rem;
-  right: -1rem;
-  background-color: #c8f5ff;
-}
-
-.c10 .highlight.blue.block.first.has-note:before {
-  position: absolute;
-  top: -1rem;
-  left: -1rem;
-  content: "";
-  width: 0;
-  height: 0;
-  opacity: 0.8;
-  border-left: 1.2em solid #00c3ed;
-  border-bottom: 1.2em solid transparent;
-}
-
-.c10 .highlight.blue.first.text.has-note:after {
-  position: absolute;
-  top: 0;
-  left: 0;
-  content: "";
-  width: 0;
-  height: 0;
-  opacity: 0.8;
-  border-left: 0.9em solid #00c3ed;
-  border-top: 0.9em solid transparent;
-  -webkit-transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
-  transform: rotate(90deg);
-}
-
-.c10 .highlight.purple {
-  background-color: #cbcfff;
-}
-
-.c10 .highlight.purple.block {
-  display: block;
-}
-
-.c10 .highlight.purple.block:after {
-  position: absolute;
-  z-index: -1;
-  content: "";
-  display: block;
-  top: -1rem;
-  bottom: -1rem;
-  left: -1rem;
-  right: -1rem;
-  background-color: #cbcfff;
-}
-
-.c10 .highlight.purple.block.first.has-note:before {
-  position: absolute;
-  top: -1rem;
-  left: -1rem;
-  content: "";
-  width: 0;
-  height: 0;
-  opacity: 0.8;
-  border-left: 1.2em solid #545ec8;
-  border-bottom: 1.2em solid transparent;
-}
-
-.c10 .highlight.purple.first.text.has-note:after {
-  position: absolute;
-  top: 0;
-  left: 0;
-  content: "";
-  width: 0;
-  height: 0;
-  opacity: 0.8;
-  border-left: 0.9em solid #545ec8;
-  border-top: 0.9em solid transparent;
-  -webkit-transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
-  transform: rotate(90deg);
-}
-
-.c10 .highlight.pink {
-  background-color: #ffc5e1;
-}
-
-.c10 .highlight.pink.block {
-  display: block;
-}
-
-.c10 .highlight.pink.block:after {
-  position: absolute;
-  z-index: -1;
-  content: "";
-  display: block;
-  top: -1rem;
-  bottom: -1rem;
-  left: -1rem;
-  right: -1rem;
-  background-color: #ffc5e1;
-}
-
-.c10 .highlight.pink.block.first.has-note:before {
-  position: absolute;
-  top: -1rem;
-  left: -1rem;
-  content: "";
-  width: 0;
-  height: 0;
-  opacity: 0.8;
-  border-left: 1.2em solid #de017e;
-  border-bottom: 1.2em solid transparent;
-}
-
-.c10 .highlight.pink.first.text.has-note:after {
-  position: absolute;
-  top: 0;
-  left: 0;
-  content: "";
-  width: 0;
-  height: 0;
-  opacity: 0.8;
-  border-left: 0.9em solid #de017e;
-  border-top: 0.9em solid transparent;
-  -webkit-transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
-  transform: rotate(90deg);
-}
-
-.c10 [data-for-screenreaders="true"] {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border: 0;
-}
-
-.c10 .os-figure,
-.c10 .os-figure:last-child {
-  margin-bottom: 5px;
-}
-
-.c10 #main-content .os-figure > figure,
-.c10 #main-content .os-figure > figure:not([data-orient="vertical"]) {
-  display: contents;
-}
-
-.c10 #main-content .os-figure > figure > figcaption.os-caption-container,
-.c10 #main-content .os-figure > figure:not([data-orient="vertical"]) > figcaption.os-caption-container {
-  text-align: left;
-  padding: 1rem 0 0;
-  margin-bottom: 0;
-}
-
-.c10 .image-button-wrapper {
-  border: none;
-  padding: 0;
-  margin: 0;
-  background: none;
-  display: inline-block;
-  cursor: pointer;
-}
-
-.c10 .image-button-wrapper:focus {
-  outline: 1px solid Highlight;
-  outline: 1px solid -webkit-focus-ring-color;
-  outline-offset: 2px;
-}
-
-.c10 .image-button-wrapper img {
-  display: block;
-  max-width: 100%;
-  height: auto;
-}
-
-.c10 #main-content * {
-  overflow: initial;
-}
-
 .c1 {
-  position: -webkit-sticky;
-  position: sticky;
-  top: 7rem;
-  width: 100%;
-  overflow: visible;
-  display: block;
-  z-index: 30;
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.14);
   background-color: #fff;
   color: #424242;
@@ -437,21 +87,21 @@ exports[`assigned route route renders renders a component 1`] = `
   margin-left: 1.6rem;
 }
 
-.c18 {
+.c16 {
   margin-left: -0.3rem;
 }
 
-.c21 {
+.c19 {
   margin-left: -0.3rem;
 }
 
-.c15 {
+.c13 {
   font-weight: 500;
   list-style: none;
 }
 
-.c15,
-.c15 span {
+.c13,
+.c13 span {
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
@@ -461,33 +111,33 @@ exports[`assigned route route renders renders a component 1`] = `
   text-decoration: none;
 }
 
-.c15 a,
-.c15 span a {
+.c13 a,
+.c13 span a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c15 a:hover,
-.c15 span a:hover {
+.c13 a:hover,
+.c13 span a:hover {
   color: #0064A0;
 }
 
-.c15:hover,
-.c15 span:hover,
-.c15:focus,
-.c15 span:focus {
+.c13:hover,
+.c13 span:hover,
+.c13:focus,
+.c13 span:focus {
   -webkit-text-decoration: underline;
   text-decoration: underline;
   color: #0064A0;
 }
 
-.c22 blockquote {
+.c20 blockquote {
   margin-left: 0;
 }
 
-.c11 {
+.c9 {
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
@@ -498,35 +148,35 @@ exports[`assigned route route renders renders a component 1`] = `
   padding-top: 1.8rem;
 }
 
-.c11[open] > summary .c16 {
+.c9[open] > summary .c14 {
   display: none;
 }
 
-.c11:not([open]) > summary .c19 {
+.c9:not([open]) > summary .c17 {
   display: none;
 }
 
-.c11 a {
+.c9 a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c11 a:hover {
+.c9 a:hover {
   color: #0064A0;
 }
 
-.c11 > .c14 {
+.c9 > .c12 {
   margin-bottom: 1.8rem;
 }
 
-.c11 li {
+.c9 li {
   margin-bottom: 1rem;
   overflow: visible;
 }
 
-.c7 {
+.c6 {
   position: -webkit-sticky;
   position: sticky;
   overflow: visible;
@@ -534,11 +184,11 @@ exports[`assigned route route renders renders a component 1`] = `
   top: 12rem;
 }
 
-.c9:focus-within {
+.c8:focus-within {
   overflow: visible;
 }
 
-.c8 {
+.c7 {
   top: 5rem;
   left: 0;
   max-width: 100%;
@@ -549,160 +199,8 @@ exports[`assigned route route renders renders a component 1`] = `
 }
 
 @media screen and (max-width:75em) {
-  .c5 > div {
+  .c4 > div {
     padding: 1rem 1.6rem;
-  }
-}
-
-@media screen {
-  .c10 {
-    max-width: 82.5rem;
-    margin: 0 auto;
-  }
-}
-
-@media screen {
-  .c10 {
-    -webkit-flex: 1;
-    -ms-flex: 1;
-    flex: 1;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    width: 100%;
-  }
-
-  .c10 #main-content {
-    overflow: visible;
-    width: 100%;
-  }
-
-  .c10 #main-content > [data-type="page"],
-  .c10 #main-content > [data-type="composite-page"] {
-    margin-top: 3.2rem;
-  }
-}
-
-@media screen {
-  .c10 .highlight.yellow[aria-current] {
-    background-color: #fed200;
-    border-bottom: 0.2rem solid #8f7700;
-    padding: 0.2rem 0 0;
-  }
-
-  .c10 .highlight.yellow[aria-current].block:after {
-    background-color: #fed200;
-  }
-
-  .c10 .highlight.yellow[aria-current].first.text.has-note:after {
-    display: none;
-  }
-}
-
-@media screen {
-  .c10 .highlight.green[aria-current] {
-    background-color: #92d101;
-    border-bottom: 0.2rem solid #4e6f01;
-    padding: 0.2rem 0 0;
-  }
-
-  .c10 .highlight.green[aria-current].block:after {
-    background-color: #92d101;
-  }
-
-  .c10 .highlight.green[aria-current].first.text.has-note:after {
-    display: none;
-  }
-}
-
-@media screen {
-  .c10 .highlight.blue[aria-current] {
-    background-color: #00c3ed;
-    border-bottom: 0.2rem solid #006880;
-    padding: 0.2rem 0 0;
-  }
-
-  .c10 .highlight.blue[aria-current].block:after {
-    background-color: #00c3ed;
-  }
-
-  .c10 .highlight.blue[aria-current].first.text.has-note:after {
-    display: none;
-  }
-}
-
-@media screen {
-  .c10 .highlight.purple[aria-current] {
-    background-color: #545ec8;
-    border-bottom: 0.2rem solid #141a3e;
-    padding: 0.2rem 0 0;
-    color: #fff;
-  }
-
-  .c10 .highlight.purple[aria-current].block:after {
-    background-color: #545ec8;
-  }
-
-  .c10 .highlight.purple[aria-current].first.text.has-note:after {
-    display: none;
-  }
-}
-
-@media screen {
-  .c10 .highlight.pink[aria-current] {
-    background-color: #de017e;
-    border-bottom: 0.2rem solid #560131;
-    padding: 0.2rem 0 0;
-    color: #fff;
-  }
-
-  .c10 .highlight.pink[aria-current].block:after {
-    background-color: #de017e;
-  }
-
-  .c10 .highlight.pink[aria-current].first.text.has-note:after {
-    display: none;
-  }
-}
-
-@media screen {
-  .c10 .search-highlight {
-    font-weight: bold;
-  }
-
-  .c10 .search-highlight,
-  .c10 .search-highlight .math {
-    background-color: #ffea00;
-    box-shadow: 0 0.2rem 0.3rem 0 rgb(0,0,0,0.41);
-  }
-
-  .c10 .search-highlight[aria-current],
-  .c10 .search-highlight[aria-current] .math {
-    background-color: #ff9e4b;
-    padding: 0.2rem 0;
-  }
-
-  .c10 .search-highlight[aria-current] .search-highlight {
-    background-color: unset;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c1 {
-    top: 6rem;
-  }
-}
-
-@media screen and (max-width:50em) {
-  .c1 {
-    z-index: 51;
-  }
-}
-
-@media print {
-  .c1 {
-    display: none;
   }
 }
 
@@ -721,58 +219,58 @@ exports[`assigned route route renders renders a component 1`] = `
 }
 
 @media screen {
-  .c15 {
+  .c13 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c22 {
+  .c20 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c11 {
+  .c9 {
     padding: 0 1.6rem;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c11 {
+  .c9 {
     min-height: 4rem;
     padding-top: 0.8rem;
   }
 
-  .c11 > .c12 {
+  .c9 > .c10 {
     margin-bottom: 0.8rem;
   }
 }
 
 @media print {
-  .c11 {
+  .c9 {
     display: none;
   }
 }
 
 @media screen and (max-width:90em) {
-  .c7 {
+  .c6 {
     max-width: calc(100vw - ((100vw - 128rem) / 2) - 8rem);
     left: calc(100vw - (100vw - ((100vw - 128rem) / 2) - 8rem));
   }
 }
 
 @media screen and (max-width:80em) {
-  .c7 {
+  .c6 {
     max-width: calc(100vw - 8rem);
     left: 8rem;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c7 {
+  .c6 {
     max-width: 100%;
     left: 0;
     z-index: 21;
@@ -781,7 +279,7 @@ exports[`assigned route route renders renders a component 1`] = `
 }
 
 @media screen {
-  .c6 {
+  .c5 {
     overflow: visible;
     -webkit-flex: 1;
     -ms-flex: 1;
@@ -798,7 +296,7 @@ exports[`assigned route route renders renders a component 1`] = `
 }
 
 @media screen {
-  .c9 {
+  .c8 {
     padding: 0 3.2rem;
     -webkit-flex: 1;
     -ms-flex: 1;
@@ -814,7 +312,7 @@ exports[`assigned route route renders renders a component 1`] = `
 }
 
 @media screen and (max-width:75em) {
-  .c8 {
+  .c7 {
     top: 5.300000000000001rem;
   }
 }
@@ -861,7 +359,15 @@ exports[`assigned route route renders renders a component 1`] = `
     Keyboard shortcuts menu
   </button>
   <div
-    className="c1"
+    className="topbar-wrapper c1"
+    style={
+      Object {
+        "--topbar-sticky-top-desktop": "7rem",
+        "--topbar-sticky-top-mobile": "6rem",
+        "--topbar-z-index": 30,
+        "--topbar-z-index-mobile-medium": 51,
+      }
+    }
   >
     <h2
       className="c2"
@@ -872,13 +378,13 @@ exports[`assigned route route renders renders a component 1`] = `
       }
     />
     <div
-      className="c3 c4"
+      className="c3 topbar-text-resizer-dropdown"
     >
       <button
         aria-controls="text-resizer-menu"
         aria-expanded={false}
         aria-label="Change text size"
-        className="plain-button c5 dropdown-toggle "
+        className="plain-button c4 dropdown-toggle "
         data-analytics-label="Change text size"
         onClick={[Function]}
       >
@@ -895,17 +401,24 @@ exports[`assigned route route renders renders a component 1`] = `
     </div>
   </div>
   <div
-    className="c6"
+    className="c5"
   >
     <div
       aria-live="polite"
-      className="c7 c8"
+      className="c6 c7"
     />
     <div
-      className="c9"
+      className="c8"
     >
       <main
-        className="c10 page-content"
+        className="page-content"
+        style={
+          Object {
+            "--content-text-width": "82.5rem",
+            "--page-margin-top-desktop": "3.2rem",
+            "--page-margin-top-mobile": "1.6rem",
+          }
+        }
         tabIndex={-1}
       >
         <div
@@ -928,17 +441,17 @@ exports[`assigned route route renders renders a component 1`] = `
     </div>
   </div>
   <details
-    className="c11"
+    className="c9"
     data-analytics-region="attribution"
     data-testid="attribution-details"
   >
     <summary
       aria-label="Citation/Attribution"
-      className="c12 c13 c14 c15"
+      className="c10 c11 c12 c13"
     >
       <svg
         aria-hidden="true"
-        className="details-expand-icon c16 c17 c18"
+        className="details-expand-icon c14 c15 c16"
         viewBox="0 0 192 512"
       >
         <path
@@ -948,7 +461,7 @@ exports[`assigned route route renders renders a component 1`] = `
       </svg>
       <svg
         aria-hidden="true"
-        className="details-collapse-icon c19 c20 c21"
+        className="details-collapse-icon c17 c18 c19"
         viewBox="0 0 320 512"
       >
         <path
@@ -964,7 +477,7 @@ exports[`assigned route route renders renders a component 1`] = `
       </span>
     </summary>
     <div
-      className="c22"
+      className="c20"
       dangerouslySetInnerHTML={
         Object {
           "__html": "

@@ -1,8 +1,11 @@
 import Color from 'color';
-import styled, { css } from 'styled-components/macro';
+import React from 'react';
+import classNames from 'classnames';
+import { HTMLDivElement } from '@openstax/types/lib.dom';
 import MainContent from '../../../components/MainContent';
-import { MAIN_CONTENT_ID } from '../../../context/constants';
-import theme, { hiddenButAccessible } from '../../../theme';
+import theme from '../../../theme';
+import { TextResizerValue } from '../../constants';
+import { State } from '../../types';
 import { highlightStyles } from '../../constants';
 import {
   highlightBlockPadding,
@@ -10,225 +13,135 @@ import {
   highlightIndicatorSizeForBlock,
 } from '../../highlights/constants';
 import { contentTextWidth } from '../constants';
+import './PageContent.css';
 
-export const contentTextStyle = css`
-  @media screen { /* full page width in print */
-    max-width: ${contentTextWidth}rem;
-    margin: 0 auto;
-  }
-`;
+interface PageContentProps extends React.HTMLAttributes<HTMLDivElement> {
+  book?: State['book'];
+  className?: string;
+  dangerouslySetInnerHTML?: { __html: string; };
+  style?: React.CSSProperties;
+  textSize?: TextResizerValue;
+}
 
-// Search and key term highlights need to target .math as well,
-// otherwise math elements won't have full height background color
-const SELF_AND_CHILD_MATH_SELECTOR = '&, & .math';
+// Generate dynamic highlight styles once at module level
+const dynamicHighlightStyles = highlightStyles.map((highlightStyle) => {
+  const isDark = Color(highlightStyle.focused).isDark();
 
-export default styled(MainContent)`
-  ${contentTextStyle}
-  overflow: visible;
-
-  :focus-visible {
-    outline: none;
-  }
-
-  @media screen {
-    flex: 1;
-    display: flex;
-    width: 100%;
-
-    #${MAIN_CONTENT_ID} {
-      overflow: visible;
-      width: 100%;
+  return `
+    .page-content .highlight.${highlightStyle.label} {
+      background-color: ${highlightStyle.passive};
     }
 
-    /* trying to add margin to a page wrapper that
-     * will collapse with the margin of the top element in the
-     * page. can't add it to the page element because it is flexy,
-     * or the main_content because page makes it flexy. those
-     * need to be flexy to center the loading indicator
-     */
-    #${MAIN_CONTENT_ID} > [data-type="page"],
-    #${MAIN_CONTENT_ID} > [data-type="composite-page"] {
-      margin-top: ${theme.padding.page.desktop}rem;
-      ${theme.breakpoints.mobile(css`
-        margin-top: ${theme.padding.page.mobile}rem;
-      `)}
+    .page-content .highlight.${highlightStyle.label}.block {
+      display: block;
     }
-  }
 
-  .highlight {
-    position: relative;
-    z-index: 1;
-    user-select: none;
-  }
-
-  /* fixes to keep MathJax 4 highlighted equations centered and
-   * showing the background without the .MathJax_Display wrapper
-   */
-  [data-type="equation"] {
-    text-align: center;
-
-    .highlight {
-      grid-column: 2;
+    .page-content .highlight.${highlightStyle.label}.block:after {
+      position: absolute;
+      z-index: -1;
+      content: "";
+      display: block;
+      top: -1rem;
+      bottom: -1rem;
+      left: -1rem;
+      right: -1rem;
+      background-color: ${highlightStyle.passive};
     }
-  }
 
-  /* Fix MathJax 4 highlights not inheriting background color
-   * In v4, mjx-row uses display:table-row which doesn't inherit backgrounds like v2's inline elements
-   */
-  /* stylelint-disable selector-type-no-unknown */
-  mark {
-    mjx-container,
-    mjx-math,
-    mjx-semantics,
-    mjx-mrow,
-    mjx-row,
-    mjx-under,
-    mjx-base,
-    mjx-munder,
-    mjx-mo,
-    mjx-mi,
-    mjx-mn,
-    mjx-mtext,
-    mjx-c {
-      background: inherit;
+    .page-content .highlight.${highlightStyle.label}.block.first.has-note:before {
+      position: absolute;
+      top: -${highlightBlockPadding}rem;
+      left: -${highlightBlockPadding}rem;
+      content: "";
+      width: 0;
+      height: 0;
+      opacity: 0.8;
+      border-left: ${highlightIndicatorSizeForBlock}em solid ${highlightStyle.focused};
+      border-bottom: ${highlightIndicatorSizeForBlock}em solid transparent;
     }
-  }
-  /* stylelint-enable selector-type-no-unknown */
 
-  ${highlightStyles.map((style) => css`
-    .highlight.${style.label} {
-      background-color: ${style.passive};
+    .page-content .highlight.${highlightStyle.label}.first.text.has-note:after {
+      position: absolute;
+      top: 0;
+      left: 0;
+      content: "";
+      width: 0;
+      height: 0;
+      opacity: 0.8;
+      border-left: ${highlightIndicatorSize}em solid ${highlightStyle.focused};
+      border-top: ${highlightIndicatorSize}em solid transparent;
+      transform: rotate(90deg);
+    }
 
-      &.block {
-        display: block;
-
-        &:after {
-          position: absolute;
-          z-index: -1;
-          content: "";
-          display: block;
-          top: -1rem;
-          bottom: -1rem;
-          left: -1rem;
-          right: -1rem;
-          background-color: ${style.passive};
-        }
-
-        &.first.has-note:before {
-          position: absolute;
-          top: -${highlightBlockPadding}rem;
-          left: -${highlightBlockPadding}rem;
-          content: "";
-          width: 0;
-          height: 0;
-          opacity: 0.8;
-          border-left: ${highlightIndicatorSizeForBlock}em solid ${style.focused};
-          border-bottom: ${highlightIndicatorSizeForBlock}em solid transparent;
-        }
+    @media screen {
+      .page-content .highlight.${highlightStyle.label}[aria-current] {
+        background-color: ${highlightStyle.focused};
+        border-bottom: 0.2rem solid ${highlightStyle.focusBorder};
+        padding: 0.2rem 0 0;
+        ${isDark ? `color: ${theme.color.text.white};` : ''}
       }
 
-      &.first.text.has-note:after {
-        position: absolute;
-        top: 0;
-        left: 0;
-        content: "";
-        width: 0;
-        height: 0;
-        opacity: 0.8;
-        border-left: ${highlightIndicatorSize}em solid ${style.focused};
-        border-top: ${highlightIndicatorSize}em solid transparent;
-        transform: rotate(90deg);
+      .page-content .highlight.${highlightStyle.label}[aria-current].block:after {
+        background-color: ${highlightStyle.focused};
       }
 
-      @media screen {
-        &[aria-current] {
-          background-color: ${style.focused};
-          border-bottom: 0.2rem solid ${style.focusBorder};
-          padding: 0.2rem 0 0;
-
-          ${Color(style.focused).isDark() && css`
-            color: ${theme.color.text.white};
-          `}
-
-          &.block:after {
-            background-color: ${style.focused};
-          }
-
-          &.first.text.has-note:after {
-            display: none;
-          }
-        }
+      .page-content .highlight.${highlightStyle.label}[aria-current].first.text.has-note:after {
+        display: none;
       }
     }
-  `)}
+  `;
+}).join('\n');
 
-  @media screen {
-    .search-highlight {
-      font-weight: bold;
+// Track if styles have been injected globally to avoid duplicates
+let stylesInjected = false;
 
-      ${SELF_AND_CHILD_MATH_SELECTOR} {
-        background-color: #ffea00;
-        box-shadow: 0 0.2rem 0.3rem 0 rgb(0, 0, 0, 0.41);
-      }
-
-      &[aria-current] {
-        ${SELF_AND_CHILD_MATH_SELECTOR} {
-          background-color: #ff9e4b;
-          padding: 0.2rem 0;
-        }
-
-        .search-highlight {
-          background-color: unset;
-        }
-      }
-    }
+// Inject dynamic highlight styles once globally
+function injectHighlightStyles() {
+  if (typeof document !== 'undefined' && !stylesInjected) {
+    const styleElement = document.createElement('style');
+    styleElement.setAttribute('data-page-content-highlights', '');
+    styleElement.textContent = dynamicHighlightStyles;
+    document.head.appendChild(styleElement);
+    stylesInjected = true;
   }
+}
 
-  [data-for-screenreaders="true"] {
-    ${hiddenButAccessible}
+/**
+ * PageContent component - Main content container for book pages
+ *
+ * Migrated from styled-components to plain CSS.
+ * Dynamic highlight styles are generated as inline <style> tag.
+ */
+const PageContent = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageContentProps>>(
+  ({ book, className, dangerouslySetInnerHTML, textSize, style, children, ...props }, ref) => {
+    // Inject highlight styles once globally on first mount
+    React.useEffect(() => {
+      injectHighlightStyles();
+    }, []);
+
+    // Only add 'page-content' if not already present to avoid duplication
+    const hasPageContentClass = className?.includes('page-content');
+    const finalClassName = hasPageContentClass ? className : classNames('page-content', className);
+
+    return (
+      <MainContent
+        {...props}
+        ref={ref}
+        book={book}
+        dangerouslySetInnerHTML={dangerouslySetInnerHTML}
+        textSize={textSize}
+        className={finalClassName}
+        style={{
+          '--content-text-width': `${contentTextWidth}rem`,
+          '--page-margin-top-desktop': `${theme.padding.page.desktop}rem`,
+          '--page-margin-top-mobile': `${theme.padding.page.mobile}rem`,
+          ...style,
+        } as React.CSSProperties}
+      >
+        {children}
+      </MainContent>
+    );
   }
+);
 
-  .os-figure,
-  .os-figure:last-child {
-    margin-bottom: 5px; /* fix double scrollbar bug */
-  }
-
-  /* Make inner figure transparent in layout so figcaption's table-caption
-     applies to the .os-figure table */
-  #${MAIN_CONTENT_ID} .os-figure > figure,
-  #${MAIN_CONTENT_ID} .os-figure > figure:not([data-orient="vertical"]) {
-    display: contents;
-
-    > figcaption.os-caption-container {
-      text-align: left;
-      padding: 1rem 0 0;
-      margin-bottom: 0;
-    }
-  }
-
-  .image-button-wrapper {
-    /* Remove default button styles for media modal img wrapper */
-    border: none;
-    padding: 0;
-    margin: 0;
-    background: none;
-    display: inline-block;
-    cursor: pointer;
-  }
-
-  .image-button-wrapper:focus {
-    outline: 1px solid Highlight;
-    outline: 1px solid -webkit-focus-ring-color;
-    outline-offset: 2px;
-  }
-
-  .image-button-wrapper img {
-    display: block;
-    max-width: 100%;
-    height: auto;
-  }
-
-  #${MAIN_CONTENT_ID} * {
-    overflow: initial; /* rex styles default to overflow hidden, breaks content */
-  }
-`;
+export default PageContent;

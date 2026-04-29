@@ -120,7 +120,7 @@ export const searchButtonColor = createSelector(
   searchButtonStyle,
   parentSelectors.book,
   parentSelectors.bookTheme,
-  (selectedStyle, selectedBook, selectedTheme) =>
+  (selectedStyle, selectedBook, selectedTheme): BookWithOSWebData['theme'] | null =>
     selectedBook && selectedStyle === 'grayButton' ? 'gray' as BookWithOSWebData['theme']
       : (selectedBook && selectedStyle === 'bannerColorButton' ? selectedTheme : null
   )
