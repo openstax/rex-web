@@ -3,19 +3,9 @@
 exports[`FinalScreen for practice questions renders properly and dispatches action on click 1`] = `
 <div
   className="final-screen"
-  style={
-    Object {
-      "--text-color": "#424242",
-    }
-  }
 >
   <div
     className="next-section-message final-screen-next-section"
-    style={
-      Object {
-        "--text-color": "#424242",
-      }
-    }
   >
     <div
       className="next-section-message-content"

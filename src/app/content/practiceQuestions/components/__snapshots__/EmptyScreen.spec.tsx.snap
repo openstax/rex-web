@@ -3,11 +3,6 @@
 exports[`EmptyScreen for practice questions EmptyScreenStatus renders status message without next section button 1`] = `
 <div
   className="empty-screen"
-  style={
-    Object {
-      "--text-color": "#424242",
-    }
-  }
 >
   <span
     className="empty-screen-text"
@@ -20,19 +15,9 @@ exports[`EmptyScreen for practice questions EmptyScreenStatus renders status mes
 exports[`EmptyScreen for practice questions renders properly and dispatches action on click 1`] = `
 <div
   className="empty-screen"
-  style={
-    Object {
-      "--text-color": "#424242",
-    }
-  }
 >
   <div
     className="next-section-message "
-    style={
-      Object {
-        "--text-color": "#424242",
-      }
-    }
   >
     <div
       className="next-section-message-content"

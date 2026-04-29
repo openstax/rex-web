@@ -7,17 +7,6 @@ exports[`ProgressBar displays properly 1`] = `
 >
   <li
     className="progress-bar-item"
-    style={
-      Object {
-        "--progress-bar-active-bg": "#fff",
-        "--progress-bar-active-border": "#fff",
-        "--progress-bar-active-color": "#5e6062",
-        "--progress-bar-bg": "#5e6062",
-        "--progress-bar-border": "#5e6062",
-        "--progress-bar-color": "#fff",
-        "--progress-bar-line-color": "#5e6062",
-      }
-    }
   >
     <span
       className="progress-bar-item__circle"
@@ -27,18 +16,7 @@ exports[`ProgressBar displays properly 1`] = `
   </li>
   <li
     aria-current="true"
-    className="progress-bar-item"
-    style={
-      Object {
-        "--progress-bar-active-bg": "#fff",
-        "--progress-bar-active-border": "#fff",
-        "--progress-bar-active-color": "#5e6062",
-        "--progress-bar-bg": "#5e6062",
-        "--progress-bar-border": "#5e6062",
-        "--progress-bar-color": "#fff",
-        "--progress-bar-line-color": "#F1F1F1",
-      }
-    }
+    className="progress-bar-item progress-bar-item--active"
   >
     <span
       className="progress-bar-item__circle progress-bar-item__circle--active"
@@ -47,18 +25,7 @@ exports[`ProgressBar displays properly 1`] = `
     </span>
   </li>
   <li
-    className="progress-bar-item"
-    style={
-      Object {
-        "--progress-bar-active-bg": "#fff",
-        "--progress-bar-active-border": "#fff",
-        "--progress-bar-active-color": "#5e6062",
-        "--progress-bar-bg": "#5e6062",
-        "--progress-bar-border": "#5e6062",
-        "--progress-bar-color": "#fff",
-        "--progress-bar-line-color": "#F1F1F1",
-      }
-    }
+    className="progress-bar-item progress-bar-item--disabled"
   >
     <span
       className="progress-bar-item__circle progress-bar-item__circle--disabled"

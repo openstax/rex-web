@@ -132,7 +132,7 @@ input:not(:focus-visible):focus + .answer-block {
 
 /* Hover states - placed after base states to maintain proper specificity */
 .answer-block--unselected:hover .answer-indicator {
-  border-color: #0064A0; /* linkHover from Links.constants.ts */
+  border-color: #0064a0; /* linkHover from Links.constants.ts */
 }
 
 .answer-block--selected:hover .answer-indicator {

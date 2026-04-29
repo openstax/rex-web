@@ -35,7 +35,7 @@ const answerThemes = {
     indicatorBackground: theme.color.primary.red.base,
   },
   selected: {
-    background: '#E3F8FB',
+    background: '#e3f8fb',
     border: linkHover, // linkColor has insufficient contrast with background
     borderHovered: linkHover,
     fontColor: theme.color.neutral.base,
