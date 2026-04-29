@@ -16,6 +16,7 @@ interface AnswerResultProps {
 }
 
 // Answer theme definitions (matching styled.tsx)
+// Note: unselected theme uses root-level CSS variables directly in CSS file
 const answerThemes = {
   correct: {
     background: theme.color.neutral.base,
@@ -122,6 +123,16 @@ const Answer = ({
     : (isSelected ? 'selected' : 'unselected');
   const {formatMessage} = useIntl();
 
+  // Only bind CSS variables for dynamic themes (correct, incorrect, selected)
+  // unselected theme uses root-level CSS variables directly
+  const cssVariables = themeKey !== 'unselected' ? {
+    [`--answer-bg-${themeKey}`]: answerTheme.background,
+    [`--answer-indicator-fg-${themeKey}`]: answerTheme.fontColor,
+    [`--answer-indicator-bg-${themeKey}`]: answerTheme.indicatorBackground,
+    [`--answer-border-${themeKey}`]: answerTheme.border,
+    [`--answer-border-hover-${themeKey}`]: answerTheme.borderHovered,
+  } : {};
+
   return <div className="answer-wrapper" tabIndex={-1} ref={answerRef}>
     <input
       id={choiceIndicator}
@@ -139,13 +150,7 @@ const Answer = ({
         'answer-block--disabled': isSubmitted,
         [`answer-block--${themeKey}`]: true,
       })}
-      style={{
-        [`--answer-bg-${themeKey}`]: answerTheme.background,
-        [`--answer-indicator-fg-${themeKey}`]: answerTheme.fontColor,
-        [`--answer-indicator-bg-${themeKey}`]: answerTheme.indicatorBackground,
-        [`--answer-border-${themeKey}`]: answerTheme.border,
-        [`--answer-border-hover-${themeKey}`]: answerTheme.borderHovered,
-      } as React.CSSProperties}
+      style={cssVariables as React.CSSProperties}
     >
       <span
         className="answer-indicator"

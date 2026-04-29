@@ -86,15 +86,15 @@ input:not(:focus-visible):focus + .answer-block {
   color: var(--answer-result-color);
 }
 
-/* Theme: Unselected */
+/* Theme: Unselected - uses root-level CSS variables for static colors */
 .answer-block--unselected {
-  background-color: var(--answer-bg-unselected);
+  background-color: var(--color-neutral-base);
 }
 
 .answer-block--unselected .answer-indicator {
-  color: var(--answer-indicator-fg-unselected);
-  background-color: var(--answer-indicator-bg-unselected);
-  border-color: var(--answer-border-unselected);
+  color: var(--color-text-label);
+  background-color: var(--color-neutral-base);
+  border-color: var(--color-primary-gray-medium);
 }
 
 /* Theme: Selected */
@@ -132,7 +132,7 @@ input:not(:focus-visible):focus + .answer-block {
 
 /* Hover states - placed after base states to maintain proper specificity */
 .answer-block--unselected:hover .answer-indicator {
-  border-color: var(--answer-border-hover-unselected);
+  border-color: #0064A0; /* linkHover from Links.constants.ts */
 }
 
 .answer-block--selected:hover .answer-indicator {

@@ -6,7 +6,7 @@
   margin: 2rem auto;
   flex: 1;
   text-align: center;
-  color: var(--text-color);
+  color: var(--color-text-default);
   font-size: 1.6rem;
   line-height: 2.5rem;
 }
