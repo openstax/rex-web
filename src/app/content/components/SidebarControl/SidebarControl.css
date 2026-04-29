@@ -1,0 +1,143 @@
+/* SidebarControl Styles - Migrated from styled-components */
+
+/* ButtonText - Text label for sidebar control buttons */
+.sidebar-control-button-text {
+  /* toolbarDefaultText from Toolbar/styled.tsx */
+  font-weight: 600;
+  font-size: 1.2rem;
+  line-height: 1.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+@media screen and (max-width: 50em) {
+  .sidebar-control-button-text {
+    /* textRegularSize from Typography */
+    font-size: 1.4rem;
+    line-height: 1.6rem;
+    margin-left: 1.2rem;
+  }
+}
+
+/* CloseButton - Close (X) button inside sidebar panels */
+.sidebar-control-close-button {
+  color: var(--sidebar-control-icon-color-base);
+  border: none;
+  padding: 0;
+  background: none;
+  overflow: visible;
+  cursor: pointer;
+  display: block;
+}
+
+.sidebar-control-close-button:hover {
+  color: var(--sidebar-control-icon-color-darker);
+}
+
+@media screen and (max-width: 50em) {
+  .sidebar-control-close-button {
+    display: none;
+  }
+}
+
+/* OpenButton - Open button in toolbar for sidebars */
+.sidebar-control-open-button {
+  /* Base button styles */
+  background: none;
+  border: none;
+  padding: 0;
+  overflow: visible;
+  cursor: pointer;
+  color: var(--sidebar-control-icon-color-base);
+
+  /* toolbarDefaultButton from Toolbar/styled.tsx */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 77px;
+}
+
+.sidebar-control-open-button[data-active="true"] {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-control-open-button:hover {
+  color: var(--sidebar-control-icon-color-darker);
+}
+
+.sidebar-control-open-button > svg {
+  /* toolbarIconStyles from Toolbar/iconStyles.ts */
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0.4rem;
+}
+
+@media screen and (max-width: 50em) {
+  .sidebar-control-open-button {
+    flex-direction: row;
+    justify-content: start;
+    min-height: unset;
+    margin-top: 25px;
+    background: none;
+  }
+
+  .sidebar-control-open-button[data-active="true"] {
+    background: none;
+  }
+}
+
+/* CloseToCAndMobileMenuButton - special close button for mobile TOC/menu */
+.sidebar-control-close-toc-mobile-button {
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  background: none;
+  color: var(--sidebar-control-icon-color-base);
+  height: 40px;
+  position: absolute;
+  right: 0;
+  display: none;
+  min-width: 4.5rem;
+}
+
+.sidebar-control-close-toc-mobile-button:hover,
+.sidebar-control-close-toc-mobile-button:focus {
+  color: var(--sidebar-control-icon-color-darker);
+}
+
+@media screen and (max-width: 50em) {
+  .sidebar-control-close-toc-mobile-button {
+    display: block;
+  }
+}
+
+/* TOCBackButton - Back button for mobile TOC */
+.sidebar-control-toc-back-button {
+  display: none;
+}
+
+@media screen and (max-width: 50em) {
+  .sidebar-control-toc-back-button {
+    display: block;
+  }
+
+  .sidebar-control-toc-back-button .sidebar-control-close-button {
+    display: block;
+  }
+}
+
+/* StyledOpenTOCControl - special styling for TOC open control */
+.sidebar-control-styled-open-toc .sidebar-control-open-button {
+  display: flex;
+  padding: 0;
+  min-height: unset;
+  flex-direction: row;
+  justify-content: start;
+}
+
+.sidebar-control-styled-open-toc .sidebar-control-button-text {
+  /* textRegularSize from Typography */
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+}
