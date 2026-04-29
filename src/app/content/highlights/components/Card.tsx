@@ -4,7 +4,6 @@ import { HTMLElement } from '@openstax/types/lib.dom';
 import flow from 'lodash/fp/flow';
 import React from 'react';
 import { connect, useSelector } from 'react-redux';
-import styled from 'styled-components';
 import { useServices } from '../../../context/Services';
 import { useFocusIn } from '../../../reactUtils';
 import { AppState, Dispatch } from '../../../types';
@@ -24,14 +23,15 @@ import {
 } from '../actions';
 import { HighlightData } from '../types';
 import { getHighlightLocationFilterForPage } from '../utils';
-import { mainCardStyles } from './cardStyles';
+import { getHighlightBottomOffset, getHighlightTopOffset, getPreferEnd } from './cardUtils';
+import { OVERLAP_CARD_TOP_OFFSET } from './cardStyles';
 import DisplayNote from './DisplayNote';
 import EditCard from './EditCard';
 import scrollHighlightIntoView from './utils/scrollHighlightIntoView';
 import showConfirmation from './utils/showConfirmation';
 import { useConfirmationToastContext } from '../../components/ConfirmationToast';
 import { useIntl } from 'react-intl';
-import { getPreferEnd } from './cardUtils';
+
 
 export interface CardProps {
   page: ReturnType<typeof selectContent['bookAndPage']>['page'];
@@ -39,7 +39,7 @@ export interface CardProps {
   container?: HTMLElement;
   isActive: boolean;
   lastActive: number;
-  isTocOpen: boolean;
+  isTocOpen: boolean | null;
   hasQuery: boolean;
   highlighter: Highlighter;
   highlight: Highlight;
@@ -49,7 +49,6 @@ export interface CardProps {
   blur: typeof clearFocusedHighlight;
   setAnnotationChangesPending: typeof setAnnotationChangesPending;
   data?: HighlightData;
-  className: string;
   zIndex: number;
   shouldFocusCard: boolean;
   topOffset?: number;
@@ -80,18 +79,25 @@ function useComputedProps(props: CardProps) {
       focus(id);
     }
   }, [isActive, hasUnsavedHighlight, id, focus, services]);
-  const element = React.useRef<HTMLElement>(null);
+  const element = React.useRef<HTMLElement | null>(null);
+
+  // Wrapper callback that ensures the parent always receives the wrapper ref
+  // (element) instead of the inner component's ref when height changes
+  const onHeightChangeWrapper = React.useCallback((_ref: React.RefObject<HTMLElement>) => {
+    onHeightChange(element as React.RefObject<HTMLElement>);
+  }, [onHeightChange, element]);
+
   const commonProps = React.useMemo(
     () => ({
-      className: props.className,
       highlight: props.highlight,
       isActive: props.isActive,
       onBlur: props.blur,
-      onHeightChange: props.onHeightChange,
+      onHeightChange: onHeightChangeWrapper,
       ref: element,
       shouldFocusCard: props.shouldFocusCard,
+      className: 'highlight-card',
     }),
-    [props]
+    [props, onHeightChangeWrapper]
   );
 
   useFocusIn(element, true, focusCard);
@@ -105,15 +111,11 @@ function useComputedProps(props: CardProps) {
   }, [element, lastActive, highlight]);
 
   React.useEffect(() => {
-    if (annotation) {
-      highlight.elements.forEach(el =>
-        (el as HTMLElement).classList.add('has-note')
-      );
-    } else {
-      highlight.elements.forEach(el =>
-        (el as HTMLElement).classList.remove('has-note')
-      );
-    }
+    const action = annotation ? 'add' : 'remove';
+
+    highlight.elements.forEach(el =>
+      (el as unknown as HTMLElement).classList[action]('has-note')
+    );
   }, [highlight.elements, annotation]);
 
   React.useEffect(() => {
@@ -215,13 +217,54 @@ function NoteOrCard({
     search => props.data && search.label === props.data.color
   );
 
+  // Calculate dynamic CSS custom properties for positioning
+  const topOffset = props.topOffset !== undefined
+    ? props.topOffset
+    : getHighlightBottomOffset(props.container, props.highlight);
+
+  // For overlap mode positioning: only compute highlight offset for active cards.
+  // When highlightOffsets is provided, use it; otherwise compute from highlight position.
+  const highlightOffset = props.isActive
+    ? (props.highlightOffsets
+        ? (props.preferEnd
+            ? props.highlightOffsets.bottom
+            : props.highlightOffsets.top - OVERLAP_CARD_TOP_OFFSET)
+        : (props.preferEnd
+            ? getHighlightBottomOffset(props.container, props.highlight)
+            : (() => {
+                const computedTopOffset = getHighlightTopOffset(props.container, props.highlight);
+                return computedTopOffset !== undefined
+                  ? computedTopOffset - OVERLAP_CARD_TOP_OFFSET
+                  : undefined;
+              })()))
+    : undefined;
+
+  const cardStyle: React.CSSProperties = {
+    ...(topOffset !== undefined && { '--card-top-offset': `${topOffset}px` }),
+    ...(props.zIndex !== undefined && { '--card-z-index': props.zIndex }),
+    ...(style?.focused !== undefined && { '--highlight-color': style.focused }),
+    ...(highlightOffset !== undefined && { '--card-highlight-offset': `${highlightOffset}px` }),
+  } as React.CSSProperties;
+
+  // Additional props to pass to the child component (DisplayNote or EditCard)
+  const cardElementProps = {
+    onClick: focusCard,
+    'data-testid': 'card' as const,
+    'data-active': props.isActive,
+    'data-hidden': props.isHidden,
+    'data-toc-open': props.isTocOpen === null || props.isTocOpen,
+    'data-has-query': props.hasQuery,
+    style: cardStyle,
+  };
+
   return (
-    <div onClick={focusCard} data-testid='card'>
+    <>
       {!editing && style && annotation ? (
         <DisplayNote
           {...commonProps}
+          {...cardElementProps}
           onRemove={onRemove}
-          style={style}
+          highlightStyle={style}
           note={annotation}
           focus={props.focus}
           onEdit={() => setEditing(true)}
@@ -229,28 +272,34 @@ function NoteOrCard({
       ) : (
         <EditCardWithOnCreate
           cardProps={props}
-          commonProps={{ ...commonProps, onRemove }}
+          commonProps={commonProps}
+          cardElementProps={cardElementProps}
           locationFilterId={locationFilterId}
           hasUnsavedHighlight={hasUnsavedHighlight}
           setEditing={setEditing}
+          onRemove={onRemove}
         />
       )}
-    </div>
+    </>
   );
 }
 
 type EditCardProps = {
-  commonProps: CommonProps & {onRemove: () => void};
+  commonProps: CommonProps;
   cardProps: CardPropsWithBookAndPage;
+  cardElementProps: object;
   locationFilterId: string;
+  onRemove: () => void;
 } & Pick<ComputedProps, 'hasUnsavedHighlight' | 'setEditing'>;
 
 function EditCardWithOnCreate({
   commonProps,
   cardProps,
+  cardElementProps,
   locationFilterId,
   hasUnsavedHighlight,
   setEditing,
+  onRemove,
 }: EditCardProps) {
   const { create, highlight, highlighter, book, page } = cardProps;
   const onCreate = React.useCallback(
@@ -280,20 +329,18 @@ function EditCardWithOnCreate({
   return (
     <EditCard
       {...commonProps}
+      {...cardElementProps}
       locationFilterId={locationFilterId}
       hasUnsavedHighlight={hasUnsavedHighlight}
       pageId={cardProps.page.id}
       onCreate={onCreate}
       setAnnotationChangesPending={cardProps.setAnnotationChangesPending}
       onCancel={stopEditing}
+      onRemove={onRemove}
       data={cardProps.data}
     />
   );
 }
-
-const StyledCard = styled(Card)`
-  ${mainCardStyles}
-`;
 
 // Styling is expensive and most Cards don't need to render
 function PreCard(props: CardProps) {
@@ -304,7 +351,7 @@ function PreCard(props: CardProps) {
     return null;
   }
   return (
-    <StyledCard {...props} preferEnd={preferEnd} />
+    <Card {...props} preferEnd={preferEnd} />
   );
 }
 

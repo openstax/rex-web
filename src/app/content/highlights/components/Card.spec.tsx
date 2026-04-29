@@ -75,6 +75,7 @@ describe('Card', () => {
 
   afterEach(() => {
     createPortalMock.mockClear();
+    jest.restoreAllMocks();
   });
 
   it('matches snapshot when focused without note', () => {
@@ -506,6 +507,196 @@ describe('Card', () => {
     });
 
     expect(spyScrollIntoView).toHaveBeenCalledWith(firstElement, [secondElement, cardElement]);
+  });
+
+  it('uses topOffset prop when provided', () => {
+    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+    store.dispatch(receivePage({...page, references: []}));
+    store.dispatch(receiveHighlights({
+      highlights: [
+        {
+          annotation: 'test annotation',
+          color: highlightStyles[0].label,
+          id: highlightData.id,
+        },
+      ] as HighlightData[],
+      pageId: '123',
+    }));
+    store.dispatch(focusHighlight(highlight.id));
+
+    const topOffset = 150;
+    const component = renderer.create(<TestContainer store={store}>
+      <Card {...cardProps} topOffset={topOffset} />
+    </TestContainer>, {createNodeMock});
+
+    const card = component.root.findByProps({ 'data-testid': 'card' });
+    expect(card.props.style['--card-top-offset']).toBe(`${topOffset}px`);
+  });
+
+  it('calculates topOffset from highlight when not provided', () => {
+    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+    store.dispatch(receivePage({...page, references: []}));
+    store.dispatch(receiveHighlights({
+      highlights: [
+        {
+          annotation: 'test annotation',
+          color: highlightStyles[0].label,
+          id: highlightData.id,
+        },
+      ] as HighlightData[],
+      pageId: '123',
+    }));
+    store.dispatch(focusHighlight(highlight.id));
+
+    const container = {
+      nodeName: 'div',
+      nodeType: 1,
+      offsetParent: {
+        nodeName: 'div',
+        nodeType: 1,
+        offsetTop: 50,
+        tagName: 'DIV',
+        title: '',
+      },
+      tagName: 'DIV',
+      title: '',
+    } as unknown as HTMLElement;
+
+    highlight.range.getBoundingClientRect.mockReturnValue({
+      bottom: 200,
+      top: 100,
+    });
+
+    const component = renderer.create(<TestContainer store={store}>
+      <Card {...cardProps} container={container} />
+    </TestContainer>, {createNodeMock});
+
+    const card = component.root.findByProps({ 'data-testid': 'card' });
+    // Should be calculated using getHighlightBottomOffset
+    expect(card.props.style['--card-top-offset']).toBeDefined();
+  });
+
+  it('omits --card-highlight-offset when getHighlightTopOffset returns undefined', () => {
+    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+    store.dispatch(receivePage({...page, references: []}));
+    store.dispatch(receiveHighlights({
+      highlights: [
+        {
+          annotation: 'test annotation',
+          color: highlightStyles[0].label,
+          id: highlightData.id,
+        },
+      ] as HighlightData[],
+      pageId: '123',
+    }));
+    store.dispatch(focusHighlight(highlight.id));
+
+    // Mock getHighlightTopOffset to return undefined
+    jest.spyOn(cardUtils, 'getHighlightTopOffset').mockReturnValue(undefined);
+    // Mock getPreferEnd to return false so it uses getHighlightTopOffset path
+    jest.spyOn(cardUtils, 'getPreferEnd').mockReturnValue(false);
+
+    const component = renderer.create(<TestContainer store={store}>
+      <Card {...{...cardProps, highlightOffsets: undefined}} />
+    </TestContainer>, {createNodeMock});
+
+    const card = component.root.findByProps({ 'data-testid': 'card' });
+    // When getHighlightTopOffset returns undefined, --card-highlight-offset should be omitted
+    // so the CSS can fall back to --card-top-offset or auto
+    expect(card.props.style['--card-highlight-offset']).toBeUndefined();
+  });
+
+  it('omits CSS custom properties when offset values are undefined', () => {
+    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+    store.dispatch(receivePage({...page, references: []}));
+    store.dispatch(receiveHighlights({
+      highlights: [
+        {
+          annotation: 'test annotation',
+          color: highlightStyles[0].label,
+          id: highlightData.id,
+        },
+      ] as HighlightData[],
+      pageId: '123',
+    }));
+    store.dispatch(focusHighlight(highlight.id));
+
+    // Mock both functions to return undefined
+    jest.spyOn(cardUtils, 'getHighlightTopOffset').mockReturnValue(undefined);
+    jest.spyOn(cardUtils, 'getHighlightBottomOffset').mockReturnValue(undefined);
+
+    const component = renderer.create(<TestContainer store={store}>
+      <Card {...{...cardProps, highlightOffsets: undefined}} />
+    </TestContainer>, {createNodeMock});
+
+    const card = component.root.findByProps({ 'data-testid': 'card' });
+    // When offsets are undefined, the CSS custom properties should not be set
+    // This allows the CSS fallback values to take effect
+    expect(card.props.style['--card-top-offset']).toBeUndefined();
+  });
+
+  it('sets --card-z-index CSS custom property when zIndex is provided', () => {
+    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+    store.dispatch(receivePage({...page, references: []}));
+    store.dispatch(receiveHighlights({
+      highlights: [
+        {
+          annotation: 'test annotation',
+          color: highlightStyles[0].label,
+          id: highlightData.id,
+        },
+      ] as HighlightData[],
+      pageId: '123',
+    }));
+    store.dispatch(focusHighlight(highlight.id));
+
+    const zIndex = 25;
+    const component = renderer.create(<TestContainer store={store}>
+      <Card {...{...cardProps, zIndex}} />
+    </TestContainer>, {createNodeMock});
+
+    const card = component.root.findByProps({ 'data-testid': 'card' });
+    // When zIndex is provided, the --card-z-index CSS custom property should be set
+    expect(card.props.style['--card-z-index']).toBe(zIndex);
+  });
+
+  it('calls onHeightChange with wrapper ref when inner component triggers callback', () => {
+    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+    store.dispatch(receivePage({...page, references: []}));
+    store.dispatch(focusHighlight(highlight.id));
+
+    const onHeightChangeMock = jest.fn();
+    const wrapperNode = assertDocument().createElement('div');
+    const innerNode = assertDocument().createElement('div');
+    const createNodeMockForWrapperRef = (element: { props?: { className?: string; ['mock-edit']?: boolean } }) => {
+      if (element.props?.className?.includes('highlight-card')) {
+        return wrapperNode;
+      }
+
+      if (element.props?.['mock-edit']) {
+        return innerNode;
+      }
+
+      return createNodeMock();
+    };
+
+    const component = renderer.create(<TestContainer store={store}>
+      <Card {...{...cardProps, onHeightChange: onHeightChangeMock}} />
+    </TestContainer>, {createNodeMock: createNodeMockForWrapperRef});
+
+    // The inner EditCard or DisplayNote component will call onHeightChange with its own ref
+    const editCard = component.root.findByProps({ 'mock-edit': true });
+    const mockInnerRef = { current: innerNode };
+
+    // Call the onHeightChange callback that was passed to the inner component
+    editCard.props.onHeightChange(mockInnerRef);
+
+    // Verify that onHeightChange was called with the outer wrapper ref, not the inner ref
+    expect(onHeightChangeMock).toHaveBeenCalledTimes(1);
+    const callArg = onHeightChangeMock.mock.calls[0][0];
+    expect(callArg).toHaveProperty('current');
+    expect(callArg).not.toBe(mockInnerRef);
+    expect(callArg.current).toBe(wrapperNode);
   });
 
 });

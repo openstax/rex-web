@@ -1,5 +1,5 @@
 import { Highlight } from '@openstax/highlighter';
-import { HTMLElement } from '@openstax/types/lib.dom';
+import { HTMLElement, FocusEvent } from '@openstax/types/lib.dom';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
@@ -37,7 +37,7 @@ const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' focusab
 export interface DisplayNoteProps {
   highlight: Highlight;
   note: string;
-  style: typeof highlightStyles[number];
+  highlightStyle: typeof highlightStyles[number];
   isActive: boolean;
   focus: typeof focusHighlight;
   onEdit: () => void;
@@ -46,10 +46,18 @@ export interface DisplayNoteProps {
   onHeightChange: (ref: React.RefObject<HTMLElement>) => void;
   className: string;
   shouldFocusCard: boolean;
+  onClick?: () => void;
+  style?: React.CSSProperties;
+  'data-testid'?: string;
+  'data-active'?: boolean;
+  'data-hidden'?: boolean;
+  'data-toc-open'?: boolean;
+  'data-has-query'?: boolean;
 }
 
 const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
-  {note, isActive, highlight, onBlur, onEdit, onRemove, onHeightChange, className, shouldFocusCard},
+  {note, isActive, highlight, onBlur, onEdit, onRemove, focus,
+  onHeightChange, className, shouldFocusCard, onClick, highlightStyle, style, ...restProps},
   ref
 ) => {
   const [confirmingDelete, setConfirmingDelete] = React.useState<boolean>(false);
@@ -98,7 +106,7 @@ const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
   React.useEffect(() => {
     const el = dropdownRef.current;
     if (!el) { return; }
-    const stopFocusPropagation = (e: Event) => e.stopPropagation();
+    const stopFocusPropagation = (e: FocusEvent) => e.stopPropagation();
     el.addEventListener('focusin', stopFocusPropagation);
     return () => el.removeEventListener('focusin', stopFocusPropagation);
   }, []);
@@ -111,6 +119,9 @@ const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
       data-highlight-card
       role='dialog'
       aria-labelledby={noteId}
+      onClick={onClick}
+      style={style}
+      {...restProps}
     >
       <Dropdown
         ref={dropdownRef}
@@ -156,7 +167,7 @@ export default styled(DisplayNote)`
   > label {
     display: none;
     ${textStyle}
-    color: ${(props: DisplayNoteProps) => props.style.focused};
+    color: ${(props: DisplayNoteProps) => props.highlightStyle.focused};
     font-size: 1.4rem;
     line-height: 2rem;
     margin: ${cardPadding * 1.5}rem 0 0 ${cardPadding * 2}rem;

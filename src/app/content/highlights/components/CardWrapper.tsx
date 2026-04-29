@@ -5,7 +5,6 @@ import { connect, useSelector } from 'react-redux';
 import flow from 'lodash/fp/flow';
 import { clearFocusedHighlight } from '../actions';
 import ResizeObserver from 'resize-observer-polyfill';
-import styled from 'styled-components';
 import { isHtmlElement, isElement } from '../../../guards';
 import { useFocusLost, useKeyCombination, useFocusHighlight, useOnEsc } from '../../../reactUtils';
 import { AppState, Dispatch } from '../../../types';
@@ -15,12 +14,11 @@ import * as contentSelect from '../../selectors';
 import { highlightKeyCombination } from '../constants';
 import { focused } from '../selectors';
 import Card from './Card';
-import { mainWrapperStyles } from './cardStyles';
 import { editCardVisibilityHandler, getHighlightOffset, noopKeyCombinationHandler, updateCardsPositions } from './cardUtils';
 
 export interface WrapperProps {
   hasQuery: boolean;
-  isTocOpen: boolean;
+  isTocOpen: boolean | null;
   container: HTMLElement;
   highlighter: Highlighter;
   highlights: Highlight[];
@@ -246,7 +244,7 @@ function CardsForHighlights({
   </>;
 }
 
-const Wrapper = ({ highlights, className, container, highlighter, dispatch }: WrapperProps) => {
+const Wrapper = ({ highlights, hasQuery, isTocOpen, container, highlighter, dispatch }: WrapperProps) => {
   const element = React.useRef<HTMLElement>(null);
   const unfocus = flow(clearFocusedHighlight, dispatch);
   const [focusedHighlight, shouldFocusCard, setShouldFocusCard] = useFocusedHighlight(
@@ -273,7 +271,7 @@ const Wrapper = ({ highlights, className, container, highlighter, dispatch }: Wr
     return () => document?.removeEventListener('mouseup', handleGlobalMouseUp);
   }, [container]);
 
-  return <div className={className} ref={element}>
+  return <div className="highlight-card-wrapper" data-has-query={hasQuery} data-toc-open={isTocOpen === null || isTocOpen} ref={element}>
     <CardsForHighlights
       highlights={highlights}
       container={container}
@@ -306,10 +304,8 @@ function MaybeWrapper(props: WrapperProps) {
 
 export default connect(
   (state: AppState) => ({
-    // These are used in the cardStyles.ts
+    // These props control the card display modes via data attributes in CSS
     hasQuery: !!selectSearch.query(state),
     isTocOpen: contentSelect.tocOpen(state),
   })
-)(styled(MaybeWrapper)`
-  ${mainWrapperStyles}
-`);
+)(MaybeWrapper);
