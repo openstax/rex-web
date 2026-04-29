@@ -75,6 +75,7 @@ describe('Card', () => {
 
   afterEach(() => {
     createPortalMock.mockClear();
+    jest.restoreAllMocks();
   });
 
   it('matches snapshot when focused without note', () => {
