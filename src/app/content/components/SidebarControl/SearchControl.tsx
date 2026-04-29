@@ -1,61 +1,47 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useIntl } from 'react-intl';
 import SearchIcon from '../../../../assets/SearchIcon';
 import * as searchActions from '../../search/actions';
 import * as searchSelectors from '../../search/selectors';
-import { AppState, Dispatch } from '../../../types';
-import type { MiddleProps } from './types';
 import { OpenButton, ButtonText } from './Buttons';
 
 const closedSearchMessage = 'i18n:toolbar:search:toggle:closed';
 const openedSearchMessage = 'i18n:toolbar:search:toggle:opened';
 
-const searchConnector = connect(
-  (state: AppState) => ({
-    hasQuery: !!searchSelectors.query(state),
-    isOpen: searchSelectors.searchResultsOpen(state),
-  }),
-  (dispatch: Dispatch) => ({
-    close: () => dispatch(searchActions.clearSearch()),
-    open: () => {
-      dispatch(searchActions.openSearchInSidebar());
-    },
-  })
-);
+interface SearchControlButtonProps {
+  className?: string;
+  isActive?: boolean;
+}
 
 // Search in sidebar experiment
-export const SearchControlButton = searchConnector(
-  ({
-    open,
-    close,
-    hasQuery,
-    desktop = false,
-    ...props
-  }: MiddleProps & {
-    desktop?: boolean;
-    hasQuery: boolean;
-  }) => {
-    const message = props.isOpen ? openedSearchMessage : closedSearchMessage;
-    const label = useIntl().formatMessage({ id: message });
-    const action = props.isOpen ? close : open;
+export const SearchControlButton: React.FC<SearchControlButtonProps> = (props) => {
+  const dispatch = useDispatch();
+  const isOpen = useSelector(searchSelectors.searchResultsOpen);
+  const intl = useIntl();
 
-    return (
-      <OpenButton
-        aria-label={label}
-        aria-controls='search-results-sidebar'
-        aria-expanded={props.isOpen}
-        data-analytics-label={label}
-        data-testid='desktop-search-button'
-        hideMobile={true}
-        onClick={action}
-        {...props}
-      >
-        <SearchIcon />
-        <ButtonText>
-          {useIntl().formatMessage({ id: 'i18n:toolbar:search:text' })}
-        </ButtonText>
-      </OpenButton>
-    );
-  }
-);
+  const close = () => dispatch(searchActions.clearSearch());
+  const open = () => dispatch(searchActions.openSearchInSidebar());
+
+  const message = isOpen ? openedSearchMessage : closedSearchMessage;
+  const label = intl.formatMessage({ id: message });
+  const action = isOpen ? close : open;
+
+  return (
+    <OpenButton
+      isOpen={isOpen}
+      aria-label={label}
+      aria-controls='search-results-sidebar'
+      aria-expanded={isOpen}
+      data-analytics-label={label}
+      data-testid='desktop-search-button'
+      onClick={action}
+      {...props}
+    >
+      <SearchIcon />
+      <ButtonText>
+        {intl.formatMessage({ id: 'i18n:toolbar:search:text' })}
+      </ButtonText>
+    </OpenButton>
+  );
+};
