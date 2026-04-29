@@ -2,7 +2,6 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useSelector } from 'react-redux';
 import Loader from '../../../components/Loader';
-import theme from '../../../theme';
 import * as contentSelectors from '../../selectors';
 import LoaderWrapper from '../../styles/LoaderWrapper';
 import { PopupBody } from '../../styles/PopupStyles';
@@ -30,9 +29,6 @@ function MaybeSectionTitle() {
       className="show-practice-questions-section-title"
       tabIndex={-1}
       dangerouslySetInnerHTML={{ __html: section.title }}
-      style={{
-        '--section-title-color': theme.color.text.default,
-      } as React.CSSProperties}
     />
   );
 }
@@ -117,18 +113,8 @@ function PracticeQuestionsDisplay({
 
   // Questions in progress or intro screen
   return (
-    <QuestionsWrapper
-      style={{
-        '--wrapper-border-color': theme.color.neutral.darkest,
-        '--wrapper-bg-color': theme.color.white,
-      } as React.CSSProperties}
-    >
-      <QuestionsHeader
-        style={{
-          '--header-text-color': theme.color.text.default,
-          '--header-bg-color': theme.color.neutral.darkest,
-        } as React.CSSProperties}
-      >
+    <QuestionsWrapper>
+      <QuestionsHeader>
         <FormattedMessage id='i18n:practice-questions:popup:questions'>
           {(msg) => msg}
         </FormattedMessage>
@@ -159,10 +145,6 @@ const ShowPracticeQuestions = () => {
       data-testid='show-practice-questions-body'
       data-analytics-region='PQ popup'
       data-analytics-location={section ? splitTitleParts(section.title).join(' ') : 'section not loaded'}
-      style={{
-        '--body-bg': theme.color.neutral.darker,
-        '--body-padding': 'initial',
-      } as React.CSSProperties}
     >
       <Filters />
       {isLoading ? (

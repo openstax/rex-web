@@ -8,7 +8,7 @@
 }
 
 .next-section-message-content {
-  color: var(--text-color);
+  color: var(--color-text-default);
   font-size: 1.6rem;
   line-height: 2.5rem;
 }

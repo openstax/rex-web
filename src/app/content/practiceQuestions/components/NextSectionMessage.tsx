@@ -1,7 +1,6 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import Button from '../../../components/Button';
-import theme from '../../../theme';
 import { LinkedArchiveTreeSection } from '../../types';
 import './NextSectionMessage.css';
 
@@ -16,12 +15,7 @@ interface NextSectionMessageProps {
 const NextSectionMessage = ({
   nextSection, messageKey, onClick, analyticsLabel, className,
 }: NextSectionMessageProps) => (
-  <div
-    className={`next-section-message ${className || ''}`}
-    style={{
-      '--text-color': theme.color.text.default,
-    } as React.CSSProperties}
-  >
+  <div className={`next-section-message ${className || ''}`}>
     <div className="next-section-message-content">
       <span className="next-section-message-text">
         <FormattedMessage id={messageKey}>

@@ -9,7 +9,12 @@
   display: block;
   height: 0.1rem;
   width: 5.6rem;
-  background-color: var(--progress-bar-line-color);
+  background-color: var(--color-primary-gray-base);
+}
+
+.progress-bar-item--active::after,
+.progress-bar-item--disabled::after {
+  background-color: var(--color-neutral-page-background);
 }
 
 .progress-bar-item:last-child::after {
@@ -31,22 +36,22 @@
   width: 2.4rem;
   height: 2.4rem;
   border-radius: 50%;
-  background-color: var(--progress-bar-bg);
-  border: 1px solid var(--progress-bar-border);
-  color: var(--progress-bar-color);
+  background-color: var(--color-primary-gray-base);
+  border: 1px solid var(--color-primary-gray-base);
+  color: var(--color-neutral-base);
   margin: 0 0.4rem;
   font-weight: bold;
 }
 
 .progress-bar-item__circle--active {
-  color: var(--progress-bar-active-color);
-  background-color: var(--progress-bar-active-bg);
-  border-color: var(--progress-bar-active-border);
+  color: var(--color-primary-gray-base);
+  background-color: var(--color-neutral-base);
+  border-color: var(--color-neutral-base);
 }
 
 .progress-bar-item__circle--disabled {
-  color: #6e6e6e;
-  background-color: #f1f1f1;
-  border-color: #f1f1f1;
+  color: var(--color-text-label);
+  background-color: var(--color-neutral-page-background);
+  border-color: var(--color-neutral-page-background);
 }
 /* stylelint-enable selector-class-pattern */

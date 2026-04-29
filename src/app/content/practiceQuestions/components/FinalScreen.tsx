@@ -1,7 +1,6 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useDispatch } from 'react-redux';
-import theme from '../../../theme';
 import { LinkedArchiveTreeSection } from '../../types';
 import { setSelectedSection } from '../actions';
 import NextSectionMessage from './NextSectionMessage';
@@ -12,12 +11,7 @@ interface FinalScreenProps {
 }
 
 export const FinalScreenStatus = () => (
-  <div
-    className="final-screen"
-    style={{
-      '--text-color': theme.color.text.default,
-    } as React.CSSProperties}
-  >
+  <div className="final-screen">
     <span className="final-screen-text">
       <FormattedMessage id='i18n:practice-questions:popup:final' />
     </span>
@@ -32,12 +26,7 @@ const FinalScreen = ({ nextSection }: FinalScreenProps) => {
   }
 
   return (
-    <div
-      className="final-screen"
-      style={{
-        '--text-color': theme.color.text.default,
-      } as React.CSSProperties}
-    >
+    <div className="final-screen">
       <NextSectionMessage
         className="final-screen-next-section"
         nextSection={nextSection}
