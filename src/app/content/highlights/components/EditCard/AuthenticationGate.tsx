@@ -9,7 +9,7 @@ import { cardWidth } from '../../constants';
 import Confirmation from '../Confirmation';
 import theme from '../../../../theme';
 import { HTMLElement } from '@openstax/types/lib.dom';
-import { mergeRefs, assertWindow } from '../../../../utils';
+import { assertWindow } from '../../../../utils';
 
 interface LoginOrEditProps {
   children: React.ReactNode;
@@ -53,6 +53,7 @@ export function LoginOrEdit({
 
   return (
     <div
+      ref={fref as React.RefObject<HTMLDivElement>}
       className={className}
       role='dialog'
       aria-label={formatMessage({ id: 'i18n:highlighter:edit-note:label' })}
@@ -63,7 +64,7 @@ export function LoginOrEdit({
         <HiddenOnMobile>
           {shouldFocusCard || hasAnnotation ? (
             <form
-              ref={mergeRefs(fref, elementRef)}
+              ref={elementRef}
               data-analytics-region='edit-note'
               data-highlight-card
             >

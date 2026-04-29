@@ -144,31 +144,35 @@
 /* Triggered on mobile devices with touch screens */
 
 /* touchDeviceQuery from theme.ts: "not all and (pointer: fine), (hover: none)" */
-@media screen and (max-width: 75em) and not all and (pointer: fine), screen and (max-width: 75em) and (hover: none) { /* mobileBreak + touchDeviceQuery */
-  .highlight-card {
-    animation: none;
-  }
 
-  .highlight-card[data-active="true"] {
-    left: 0;
-    right: 0;
-    bottom: 0;
-    top: unset;
-    position: fixed;
-    padding: 0;
-  }
+/* Since plain CSS doesn't support nested @media, we expand the nested query into two separate rules */
+@media screen and (max-width: 75em) { /* mobileBreak */
+  @media not all and (pointer: fine), (hover: none) { /* touchDeviceQuery */
+    .highlight-card {
+      animation: none;
+    }
 
-  .highlight-card:not([data-active="true"]) {
-    display: none;
-  }
+    .highlight-card[data-active="true"] {
+      left: 0;
+      right: 0;
+      bottom: 0;
+      top: unset;
+      position: fixed;
+      padding: 0;
+    }
 
-  /* Mobile touch screen: border on top instead of left */
-  .highlight-card::before {
-    border-radius: 0.4rem 0.4rem 0 0;
-    right: 0;
-    bottom: unset;
-    width: unset;
-    height: 0.4rem; /* cardPadding / 2 */
+    .highlight-card:not([data-active="true"]) {
+      display: none;
+    }
+
+    /* Mobile touch screen: border on top instead of left */
+    .highlight-card::before {
+      border-radius: 0.4rem 0.4rem 0 0;
+      right: 0;
+      bottom: unset;
+      width: unset;
+      height: 0.4rem; /* cardPadding / 2 */
+    }
   }
 }
 
