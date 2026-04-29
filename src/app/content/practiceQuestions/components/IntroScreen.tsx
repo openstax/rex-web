@@ -1,40 +1,23 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components/macro';
-import ButtonBase from '../../../components/Button';
-import { textRegularSize } from '../../../components/Typography';
+import Button from '../../../components/Button';
 import { nextQuestion } from '../actions';
 import * as pqSelectors from '../selectors';
-
-// Wrap Button with styled() to make it compatible with component selectors
-const Button = styled(ButtonBase)``;
-
-const IntroScreenWrapper = styled.div`
-  text-align: center;
-
-  ${Button} {
-    display: block;
-    margin: 2rem auto;
-  }
-`;
-
-const IntroScreenMessage = styled.span`
-  ${textRegularSize}
-  margin: 4rem 0;
-`;
+import './IntroScreen.css';
 
 const IntroScreen = () => {
   const questionsCount = useSelector(pqSelectors.questionsCount);
   const dispatch = useDispatch();
 
-  return <IntroScreenWrapper>
-    <IntroScreenMessage>
+  return <div className="intro-screen-wrapper">
+    <span className="intro-screen-message">
       <FormattedMessage id='i18n:practice-questions:popup:intro:message' values={{ questions: questionsCount }}>
         {(msg) => msg}
       </FormattedMessage>
-    </IntroScreenMessage>
+    </span>
     <Button
+      className="intro-screen-button"
       variant='primary'
       size='large'
       onClick={() => dispatch(nextQuestion())}
@@ -44,7 +27,7 @@ const IntroScreen = () => {
         {(msg) => msg}
       </FormattedMessage>
     </Button>
-  </IntroScreenWrapper>;
+  </div>;
 };
 
 export default IntroScreen;

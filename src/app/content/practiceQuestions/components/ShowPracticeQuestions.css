@@ -1,0 +1,71 @@
+/* Increased specificity to override styled-components (PopupBody) */
+.show-practice-questions-body.show-practice-questions-body {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-neutral-darker);
+  padding: initial;
+}
+
+@media screen and (max-width: 75em) {
+  .show-practice-questions-body.show-practice-questions-body {
+    padding: 0;
+  }
+}
+
+.show-practice-questions-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  flex: 1;
+  padding: 2rem 3.2rem 0 3.2rem;
+}
+
+@media screen and (max-width: 75em) {
+  .show-practice-questions-content {
+    text-align: left;
+    padding: 0;
+  }
+}
+
+.show-practice-questions-section-title {
+  flex-shrink: 0;
+  font-weight: bold;
+  padding: 0;
+  margin-top: 0;
+  margin-bottom: 3rem;
+  color: var(--color-text-default);
+
+  /* h4Style from Typography/Headings.legacy.ts */
+  font-size: 1.8rem;
+  line-height: 2.5rem;
+}
+
+@media screen and (max-width: 75em) {
+  .show-practice-questions-section-title {
+    margin: 1.4rem;
+    padding: 0;
+
+    /* h4MobileStyle from Typography/Headings.legacy.ts */
+    font-size: 1.6rem;
+    line-height: 2rem;
+  }
+}
+
+.show-practice-questions-wrapper {
+  flex: 1 0;
+  overflow: initial;
+  border: 1px solid var(--color-neutral-darkest);
+  background-color: var(--color-neutral-base);
+}
+
+.show-practice-questions-header {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: var(--color-text-default);
+  background-color: var(--color-neutral-darkest);
+  height: 3.2rem;
+  width: 100%;
+  padding: 0 3.2rem;
+  display: flex;
+  align-items: center;
+}

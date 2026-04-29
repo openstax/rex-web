@@ -406,7 +406,6 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
   outline: none;
   overflow: auto;
   z-index: 1;
-  padding: 0;
 }
 
 .c8 .c20 {
@@ -519,7 +518,7 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
         className="dropdown-menu"
       >
         <div
-          className="c8"
+          className="c8 practice-questions-chapter-filters"
           id="practice-filter-chapter"
           tabIndex={-1}
         >
@@ -917,7 +916,6 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
   outline: none;
   overflow: auto;
   z-index: 1;
-  padding: 0;
 }
 
 .c8 .c20 {
@@ -1030,7 +1028,7 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
         className="dropdown-menu"
       >
         <div
-          className="c8"
+          className="c8 practice-questions-chapter-filters"
           id="practice-filter-chapter"
           tabIndex={-1}
         >

@@ -1,9 +1,7 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import styled, { css } from 'styled-components/macro';
 import { typesetMath } from '../../../../helpers/mathjax';
-import { h4Style } from '../../../components/Typography';
 import { useServices } from '../../../context/Services';
 import { match } from '../../../fpUtils';
 import theme from '../../../theme';
@@ -14,35 +12,45 @@ import * as pqSelectors from '../selectors';
 import { PracticeAnswer, PracticeQuestion } from '../types';
 import Answer from './Answer';
 import QuestionNavigation from './QuestionNavigation';
+import './Question.css';
 
-export const QuestionWrapper = styled.form`
-  overflow: visible;
-  padding: 0 ${theme.padding.page.desktop}rem;
-  ${theme.breakpoints.mobile(css`
-    padding: 0 ${theme.padding.page.mobile}rem;
-  `)}
+// QuestionContent component wraps ContentExcerpt in a legend element
+interface QuestionContentProps {
+  content: string;
+  source: string | import('../../types').LinkedArchiveTreeSection;
+}
 
-  fieldset {
-    border: none;
-    padding: 0;
-    margin: 0;
-  }
-`;
+export const QuestionContent = React.forwardRef<HTMLElement, QuestionContentProps>((props, ref) => {
+  return (
+    <legend
+      className="question-content"
+      tabIndex={0}
+      style={{
+        '--question-content-color': theme.color.primary.gray.base,
+      } as React.CSSProperties}
+    >
+      <ContentExcerpt {...props} tabIndex={-1} ref={ref} disableDynamicContentStyles={true} />
+    </legend>
+  );
+});
 
-export const QuestionContent = styled(React.forwardRef((props, ref) => <legend tabIndex={0}>
-  <ContentExcerpt {...props} tabIndex={-1} ref={ref} disableDynamicContentStyles={true} />
-</legend>))`
-  ${h4Style}
-  font-weight: bold;
-  color: ${theme.color.primary.gray.base};
-  overflow: initial;
-  outline: none;
-`;
+// Export wrapper components for backward compatibility with tests
+export const QuestionWrapper = React.forwardRef<HTMLFormElement, React.HTMLAttributes<HTMLFormElement>>(
+  (props, ref) => (
+    <form
+      {...props}
+      ref={ref}
+      className='question-wrapper' // overrides params, which is ok
+    />
+  )
+);
 
-export const AnswersWrapper = styled.div`
-  margin-top: ${theme.padding.page.desktop}rem;
-  overflow: visible;
-`;
+export const AnswersWrapper = (props: React.HTMLAttributes<HTMLDivElement>) => (
+  <div
+    {...props}
+    className='answers-wrapper'
+  />
+);
 
 const getChoiceLetter = (value: number) => {
   return (value + 10).toString(36);
@@ -86,9 +94,17 @@ const Question = () => {
     dispatch(setAnswer({ answer: selectedAnswer, questionId: question.uid }));
   };
 
-  return <QuestionWrapper ref={container} onSubmit={onSubmit} data-testid='question-form'>
+  return <QuestionWrapper
+    ref={container}
+    onSubmit={onSubmit}
+    data-testid='question-form'
+    style={{
+      '--question-padding-desktop': `${theme.padding.page.desktop}rem`,
+      '--question-padding-mobile': `${theme.padding.page.mobile}rem`,
+    } as React.CSSProperties}
+  >
     <fieldset>
-      <QuestionContent ref={questionContent} tabIndex={0} content={question.stem_html} source={section} />
+      <QuestionContent ref={questionContent} content={question.stem_html} source={section} />
       <AnswersWrapper>
         {question.answers.map((answer, index) =>
           <Answer
