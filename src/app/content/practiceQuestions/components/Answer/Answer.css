@@ -68,6 +68,7 @@ input:not(:focus-visible):focus + .answer-block {
 
 /* AnswerExcerpt */
 .answer-excerpt {
+  color: var(--color-text-default);
   font-size: 1.6rem;
   line-height: 2.5rem;
   width: 100%;
