@@ -16,7 +16,7 @@ interface AnswerResultProps {
 }
 
 // Answer theme definitions (matching styled.tsx)
-// Note: unselected theme uses root-level CSS variables directly in CSS file
+// Note: unselected theme uses root-level CSS variables directly in CSS file, so no theme object needed
 const answerThemes = {
   correct: {
     background: theme.color.neutral.base,
@@ -41,14 +41,6 @@ const answerThemes = {
     fontColor: theme.color.neutral.base,
     fontColorActive: theme.color.secondary.lightBlue.base,
     indicatorBackground: linkColor,
-  },
-  unselected: {
-    background: theme.color.neutral.base,
-    border: theme.color.primary.gray.medium,
-    borderHovered: linkHover,
-    fontColor: theme.color.text.label,
-    fontColorActive: '#C6C6C6',
-    indicatorBackground: theme.color.neutral.base,
   },
 };
 
@@ -109,11 +101,12 @@ const Answer = ({
   }, [showCorrect, isCorrect]);
 
   // Determine which theme to apply based on answer state
+  // Returns null for unselected state (uses root-level CSS variables directly)
   const getAnswerTheme = () => {
     if ((showCorrect && isCorrect) || (isSubmitted && isSelected)) {
       return isCorrect ? answerThemes.correct : answerThemes.incorrect;
     } else {
-      return isSelected ? answerThemes.selected : answerThemes.unselected;
+      return isSelected ? answerThemes.selected : null; // null for unselected - uses root CSS vars
     }
   };
 
@@ -124,8 +117,8 @@ const Answer = ({
   const {formatMessage} = useIntl();
 
   // Only bind CSS variables for dynamic themes (correct, incorrect, selected)
-  // unselected theme uses root-level CSS variables directly
-  const cssVariables = themeKey !== 'unselected' ? {
+  // unselected theme uses root-level CSS variables directly (no binding needed)
+  const cssVariables = answerTheme ? {
     [`--answer-bg-${themeKey}`]: answerTheme.background,
     [`--answer-indicator-fg-${themeKey}`]: answerTheme.fontColor,
     [`--answer-indicator-bg-${themeKey}`]: answerTheme.indicatorBackground,
