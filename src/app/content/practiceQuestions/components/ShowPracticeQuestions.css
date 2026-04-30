@@ -38,6 +38,7 @@
   /* h4Style from Typography/Headings.legacy.ts */
   font-size: 1.8rem;
   line-height: 2.5rem;
+  letter-spacing: -0.02rem;
 }
 
 @media screen and (max-width: 75em) {
