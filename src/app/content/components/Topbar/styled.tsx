@@ -380,7 +380,6 @@ export const SearchInput = function SearchInput({
       style={
         {
           '--toolbar-search-input-height': `${toolbarSearchInputHeight}rem`,
-          '--text-label-color': theme.color.text.label,
           ...style,
         } as React.CSSProperties
       }
@@ -427,7 +426,6 @@ export const SearchPrintWrapper = isVerticalNavOpenConnector(
           {
             '--topbar-desktop-height': `${topbarDesktopHeight}rem`,
             '--content-wrapper-max-width': `${contentWrapperMaxWidth}rem`,
-            '--neutral-color': theme.color.neutral.base,
             '--sidebar-transition-time': `${sidebarTransitionTime}ms`,
             '--topbar-mobile-height': `${topbarMobileHeight}rem`,
             '--button-min-width': buttonMinWidth,
@@ -486,7 +484,6 @@ export const MobileSearchWrapper = function MobileSearchWrapper({
       style={
         {
           '--toolbar-mobile-search-wrapper-height': `${toolbarMobileSearchWrapperHeight}rem`,
-          '--neutral-color': theme.color.neutral.base,
           ...style,
         } as React.CSSProperties
       }
@@ -590,12 +587,13 @@ export const TextResizerMenu = function TextResizerMenu({
   const { theme: _theme, ...domProps } = props as Record<string, unknown>;
 
   // Compute text resizer gradient
+  // Note: Uses root-level CSS variable for gray, but bookTheme color is dynamic
   const textResizerGradient = bookTheme
     ? `linear-gradient(
         to right,
         ${theme.color.primary[bookTheme].base}
           calc((${textSize} - ${textResizerMinValue}) * 100 / (${textResizerMaxValue} - ${textResizerMinValue}) * 1%),
-          ${theme.color.primary.gray.medium}
+          var(--color-primary-gray-medium)
           calc((${textSize} - ${textResizerMinValue}) * 100 / (${textResizerMaxValue} - ${textResizerMinValue}) * 1%)
       )`
     : undefined;
@@ -606,9 +604,7 @@ export const TextResizerMenu = function TextResizerMenu({
       className={classNames('topbar-text-resizer-menu', className)}
       style={
         {
-          '--primary-gray-color': theme.color.primary.gray.base,
           '--text-resizer-gradient': textResizerGradient,
-          '--primary-gray-medium-color': theme.color.primary.gray.medium,
           ...style,
         } as React.CSSProperties
       }

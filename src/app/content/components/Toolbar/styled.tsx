@@ -164,8 +164,6 @@ export const ToolbarWrapper = React.forwardRef<
           '--toolbar-sticky-top-mobile': `${bookBannerMobileMiniHeight}rem`,
           '--vertical-navbar-max-width': `${verticalNavbarMaxWidth}rem`,
           '--toolbar-z-index': theme.zIndex.toolbar,
-          '--neutral-darker-color': theme.color.neutral.darker,
-          '--neutral-form-border-color': theme.color.neutral.formBorder,
           '--sidebar-desktop-width': `${sidebarDesktopWidth}rem`,
           '--mobile-menu-z-index': theme.zIndex.mobileMenu,
           ...style,
@@ -186,12 +184,7 @@ export const ToolbarMobileHeader = function ToolbarMobileHeader({
     <div
       {...domProps}
       className={classNames('toolbar-mobile-header', className)}
-      style={
-        {
-          '--neutral-form-border-color': theme.color.neutral.formBorder,
-          ...style,
-        } as React.CSSProperties
-      }
+      style={style}
     />
   );
 };
@@ -207,12 +200,7 @@ export const ToolbarMobileHeaderTitle = function ToolbarMobileHeaderTitle({
     <span
       {...domProps}
       className={classNames('toolbar-mobile-header-title', className)}
-      style={
-        {
-          '--primary-gray-color': theme.color.primary.gray.base,
-          ...style,
-        } as React.CSSProperties
-      }
+      style={style}
     />
   );
 };

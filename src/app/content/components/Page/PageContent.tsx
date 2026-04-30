@@ -78,7 +78,7 @@ const dynamicHighlightStyles = highlightStyles.map((highlightStyle) => {
         background-color: ${highlightStyle.focused};
         border-bottom: 0.2rem solid ${highlightStyle.focusBorder};
         padding: 0.2rem 0 0;
-        ${isDark ? `color: ${theme.color.text.white};` : ''}
+        ${isDark ? `color: var(--color-text-white);` : ''}
       }
 
       .page-content .highlight.${highlightStyle.label}[aria-current].block:after {

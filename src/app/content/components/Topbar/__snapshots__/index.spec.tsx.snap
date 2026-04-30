@@ -29,7 +29,6 @@ exports[`text resizer does not render if textSize is null 1`] = `
       Object {
         "--button-min-width": "45px",
         "--content-wrapper-max-width": "128rem",
-        "--neutral-color": "#fff",
         "--sidebar-transition-time": "300ms",
         "--topbar-desktop-height": "5rem",
         "--topbar-mobile-height": "5.3rem",
@@ -88,7 +87,6 @@ exports[`text resizer does not render if textSize is null 1`] = `
         placeholder="Search this book"
         style={
           Object {
-            "--text-label-color": "#6f6f6f",
             "--toolbar-search-input-height": "3.2rem",
           }
         }
@@ -193,7 +191,6 @@ exports[`text resizer does not render if textSize is null 1`] = `
     className="topbar-mobile-search-wrapper"
     style={
       Object {
-        "--neutral-color": "#fff",
         "--toolbar-mobile-search-wrapper-height": "5.3rem",
       }
     }
@@ -260,7 +257,6 @@ exports[`text resizer does not render if textSize is null 1`] = `
           placeholder="Search this book"
           style={
             Object {
-              "--text-label-color": "#6f6f6f",
               "--toolbar-search-input-height": "3.2rem",
             }
           }
@@ -430,7 +426,6 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
       Object {
         "--button-min-width": "45px",
         "--content-wrapper-max-width": "128rem",
-        "--neutral-color": "#fff",
         "--sidebar-transition-time": "300ms",
         "--topbar-desktop-height": "5rem",
         "--topbar-mobile-height": "5.3rem",
@@ -489,7 +484,6 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
         placeholder="Search this book"
         style={
           Object {
-            "--text-label-color": "#6f6f6f",
             "--toolbar-search-input-height": "3.2rem",
           }
         }
@@ -618,13 +612,11 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
           id="text-resizer-menu"
           style={
             Object {
-              "--primary-gray-color": "#5e6062",
-              "--primary-gray-medium-color": "#888888",
               "--text-resizer-gradient": "linear-gradient(
         to right,
         #002468
           calc((0 - -2) * 100 / (3 - -2) * 1%),
-          #888888
+          var(--color-primary-gray-medium)
           calc((0 - -2) * 100 / (3 - -2) * 1%)
       )",
             }
@@ -697,7 +689,6 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
     className="topbar-mobile-search-wrapper"
     style={
       Object {
-        "--neutral-color": "#fff",
         "--toolbar-mobile-search-wrapper-height": "5.3rem",
       }
     }
@@ -764,7 +755,6 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
           placeholder="Search this book"
           style={
             Object {
-              "--text-label-color": "#6f6f6f",
               "--toolbar-search-input-height": "3.2rem",
             }
           }

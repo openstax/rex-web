@@ -41,7 +41,7 @@
   justify-content: center;
   align-items: center;
   overflow: visible;
-  background-color: var(--neutral-color);
+  background-color: var(--color-neutral-base);
   transition: padding-left var(--sidebar-transition-time);
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.14);
 }
@@ -174,7 +174,7 @@
 }
 
 .topbar-search-input::placeholder {
-  color: var(--text-label-color);
+  color: var(--color-text-label);
 }
 
 .topbar-search-input.desktop {
@@ -281,7 +281,7 @@
   display: none;
   overflow: visible;
   height: var(--toolbar-mobile-search-wrapper-height);
-  background-color: var(--neutral-color);
+  background-color: var(--color-neutral-base);
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.14);
 }
 
@@ -424,7 +424,7 @@
 
 /* Text resizer menu */
 .topbar-text-resizer-menu {
-  color: var(--primary-gray-color);
+  color: var(--color-primary-gray-base);
   text-align: left;
   font-weight: bold;
 }
@@ -446,7 +446,7 @@
 
 .topbar-text-resizer-menu .controls input {
   appearance: none;
-  background: var(--text-resizer-gradient, var(--primary-gray-medium-color));
+  background: var(--text-resizer-gradient, var(--color-primary-gray-medium));
   overflow: visible;
   height: 0.4rem;
   width: 12rem;
@@ -482,7 +482,7 @@
   background: white;
   height: 1.5rem;
   width: 0.7rem;
-  border: 1px solid var(--primary-gray-color);
+  border: 1px solid var(--color-primary-gray-base);
   border-radius: 1px;
   box-shadow:
     0 2px 1px -1px rgba(0, 0, 0, 0.04),
@@ -495,7 +495,7 @@
   background: white;
   height: 1.5rem;
   width: 0.8rem;
-  border: 1px solid var(--primary-gray-color);
+  border: 1px solid var(--color-primary-gray-base);
   border-radius: 1px;
   box-shadow:
     0 2px 1px -1px rgba(0, 0, 0, 0.04),

@@ -41,9 +41,9 @@
   max-width: var(--vertical-navbar-max-width);
   overflow: visible;
   z-index: var(--toolbar-z-index);
-  background-color: var(--neutral-darker-color);
-  border-right: 1px solid var(--neutral-form-border-color);
-  border-left: 1px solid var(--neutral-form-border-color);
+  background-color: var(--color-neutral-darker);
+  border-right: 1px solid var(--color-neutral-form-border);
+  border-left: 1px solid var(--color-neutral-form-border);
 }
 
 /* hides the sidebar when it's sliding in */
@@ -54,7 +54,7 @@
   left: calc(var(--sidebar-desktop-width) * -1 - 0.1rem); /* adding 1px prevents hiding toolbar's left border */
   width: var(--sidebar-desktop-width);
   height: 100%;
-  background-color: var(--neutral-darker-color);
+  background-color: var(--color-neutral-darker);
 }
 
 /* Mobile breakpoint: max-width: 75em (1200px) */
@@ -112,14 +112,14 @@
     justify-content: center;
     align-items: center;
     position: relative;
-    border-bottom: 1px solid var(--neutral-form-border-color);
+    border-bottom: 1px solid var(--color-neutral-form-border);
   }
 }
 
 /* Toolbar mobile header title */
 .toolbar-mobile-header-title {
   font-size: 1.8rem;
-  color: var(--primary-gray-color);
+  color: var(--color-primary-gray-base);
   font-weight: bold;
 }
 
