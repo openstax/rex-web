@@ -212,10 +212,6 @@
   width: 2.5rem;
 }
 
-.topbar-search-button.desktop {
-  /* Will be hidden on mobile medium */
-}
-
 @media screen and (max-width: 50em) {
   .topbar-search-button.desktop {
     display: none;
