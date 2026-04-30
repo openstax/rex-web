@@ -46,7 +46,6 @@
 .progress-bar-item__circle--active {
   color: var(--color-primary-gray-base);
   background-color: var(--color-neutral-base);
-  border-color: var(--color-neutral-base);
 }
 
 .progress-bar-item__circle--disabled {
