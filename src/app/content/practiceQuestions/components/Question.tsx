@@ -35,7 +35,7 @@ export const QuestionContent = React.forwardRef<HTMLElement, QuestionContentProp
 });
 
 // Export wrapper components for backward compatibility with tests
-export const QuestionWrapper = React.forwardRef<HTMLFormElement, React.HTMLAttributes<HTMLFormElement>>(
+export const QuestionWrapper = React.forwardRef<HTMLFormElement, React.FormHTMLAttributes<HTMLFormElement>>(
   (props, ref) => (
     <form
       {...props}

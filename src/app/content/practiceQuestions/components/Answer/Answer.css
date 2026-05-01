@@ -27,7 +27,8 @@
 /* Focus styles for keyboard navigation */
 input:focus + .answer-block,
 .answer-wrapper:focus .answer-block {
-  outline: -webkit-focus-ring-color auto 1px;
+  outline: auto; /* Firefox and other browsers */
+  outline: -webkit-focus-ring-color auto 1px; /* WebKit browsers */
 }
 
 input:not(:focus-visible):focus + .answer-block {

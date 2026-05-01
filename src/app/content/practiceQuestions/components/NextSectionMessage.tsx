@@ -15,7 +15,7 @@ interface NextSectionMessageProps {
 const NextSectionMessage = ({
   nextSection, messageKey, onClick, analyticsLabel, className,
 }: NextSectionMessageProps) => (
-  <div className={`next-section-message ${className || ''}`}>
+  <div className={className ? `next-section-message ${className}` : 'next-section-message'}>
     <div className="next-section-message-content">
       <span className="next-section-message-text">
         <FormattedMessage id={messageKey}>
