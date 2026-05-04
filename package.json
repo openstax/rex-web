@@ -1,223 +1,26 @@
 {
-  "name": "rex-web",
+  "name": "openstax-ai-toolbox",
   "version": "0.1.0",
-  "private": true,
-  "engines": {
-    "node": "14.x"
-  },
-  "dependencies": {
-    "@craco/craco": "<7",
-    "@formatjs/intl-pluralrules": "^5.2.3",
-    "@openstax/event-capture-client": "^2.0.2",
-    "@openstax/highlighter": "https://github.com/openstax/highlighter#1.16.4b",
-    "@openstax/open-search-client": "0.1.0-build.7",
-    "@openstax/ts-utils": "1.19.0",
-    "@openstax/ui-components": "openstax/ui-components#1.21.1",
-    "@sentry/integrations": "^7.54.0",
-    "@sentry/react": "^7.54.0",
-    "classnames": "2.3.2",
-    "color": "^3.1.2",
-    "details-element-polyfill": "^2.4.0",
-    "flat": "~5.0",
-    "focus-within-polyfill": "^5.2.1",
-    "history": "4.7.2",
-    "js-cookie": "~2.2",
-    "lodash": "^4.18.1",
-    "mdn-polyfills": "^5.20.0",
-    "mime": "^3.0.0",
-    "path-to-regexp": "<4",
-    "query-string": "~6.2",
-    "quick-lru": "^4.0.1",
-    "rangy": "^1.3.1",
-    "react": "^16",
-    "react-aria-components": "^1.10.1",
-    "react-dom": "^16",
-    "react-intl": "<5.13",
-    "react-loadable": "~5.5",
-    "react-redux": "~7.1",
-    "redux": "4.0.1",
-    "reselect": "4.0.0",
-    "scroll-to-element": "^2.0.3",
-    "styled-components": "^4",
-    "typesafe-actions": "^4.4.2",
-    "typescript": "^4",
-    "uuid": "~7.0",
-    "weak-map": "^1.0.8",
-    "workbox-core": "^7.0.0",
-    "workbox-expiration": "^7.0.0",
-    "workbox-precaching": "^7.0.0",
-    "workbox-routing": "^7.0.0",
-    "workbox-strategies": "^7.0.0"
+  "description": "OpenStax AI toolbox — skills + tools served via MCP",
+  "bin": {
+    "openstax-ai-toolbox-mcp": "./mcp-server.ts"
   },
   "scripts": {
-    "trust-localhost": "./script/trust-localhost.bash",
-    "lint": "npm run-script lint:bash && npm run-script lint:css && npm run-script lint:typescript",
-    "lint:typescript": "eslint src && tsc",
-    "lint:exports": "ts-unused-exports ./tsconfig.json",
-    "lint:css": "npm run-script lint:css:tsx && npm run-script lint:css:plain",
-    "lint:css:tsx": "stylelint 'src/**/*.tsx'",
-    "lint:css:plain": "stylelint --config .stylelintrc.css.json 'src/**/*.css'",
-    "lint:bash": "shellcheck $(find . -type f \\( -iname '*\\.sh' -or -iname '*\\.bash' \\) | grep -v -e .venv -e node_modules)",
-    "prestart": "npm run-script build:css",
-    "start": "./script/start.bash",
-    "start:static": "export REACT_APP_ENV=${REACT_APP_ENV:-test} && npm run-script build && npm run-script prerender:local && npm run-script server",
-    "clean": "rm -rf ./build",
-    "build": "export DISABLE_NEW_JSX_TRANSFORM=true && npm run-script build:css && npm run-script build:js",
-    "build:css": "lessc --source-map --source-map-include-source ./generic-styles/index.less ./src/content.css",
-    "build:js": "export REACT_APP_ENV=${REACT_APP_ENV:-production} && GENERATE_SOURCEMAP=${GENERATE_SOURCEMAP:-true} craco build",
-    "build:clean": "npm run-script clean && npm run-script build",
-    "prerender:local": "REACT_APP_ENV=${REACT_APP_ENV:-production} node ./script/entry prerender/local",
-    "prerender:fleet": "REACT_APP_ENV=${REACT_APP_ENV:-production} node ./script/entry prerender/fleet",
-    "prerender:work": "REACT_APP_ENV=${REACT_APP_ENV:-production} node ./script/entry prerender/work",
-    "server": "REACT_APP_ENV=${REACT_APP_ENV:-development} node ./script/entry server/cli",
-    "codecov": "codecov -f ./coverage/lcov.info",
-    "coverage-report": "open coverage/index.html",
-    "pretest:sims": "./script/build-simulations.bash",
-    "pretest": "npm run-script build:css",
-    "ci:test:unit": "CI=true npm run-script test:unit && npm run-script codecov",
-    "ci:test:build": "CI=true npm run-script test:build",
-    "test": "npm run-script test:unit && npm run-script test:browser && npm run-script test:build",
-    "test:unit": "REACT_APP_ENV=test jest --coverage --testPathPattern=\"(\\.|/)spec\\.tsx?\"",
-    "test:browser": "npm run-script pretest:sims && REACT_APP_ENV=test jest --testPathPattern=\"(\\.|/)browserspec\\.tsx?\" --config jest-puppeteer.config.json -i",
-    "test:screenshots": "npm run-script pretest:sims && REACT_APP_ENV=test jest --testPathPattern=\"(\\.|/)screenshotspec\\.tsx?\" --config jest-puppeteer.config.json -i",
-    "test:build": "REACT_APP_ENV=test npm run-script build:clean && npm run-script test:sourcemap && npm run-script test:prerender",
-    "test:sourcemap": "REACT_APP_ENV=test node ./script/verifySourcemaps.js",
-    "test:prerender": "npm run-script test:prerender:setup && npm run-script test:prerender:specs && npm run-script test:prerender:browser",
-    "test:prerender:setup": "REACT_APP_ENV=test npm run-script prerender:local && npm run-script pretest:sims",
-    "test:prerender:specs": "REACT_APP_ENV=test SERVER_MODE=built jest --testPathPattern=\"(\\.|/)prerenderspec\\.tsx?\" --config jest-puppeteer.config.json",
-    "test:prerender:browser": "REACT_APP_ENV=test SERVER_MODE=built jest --testPathPattern=\"(\\.|/)browserspec\\.tsx?\" --config jest-puppeteer.config.json -i",
-    "test:prerender:screenshots": "REACT_APP_ENV=test SERVER_MODE=built jest --testPathPattern=\"(\\.|/)screenshotspec\\.tsx?\" --config jest-puppeteer.config.json",
-    "test:lighthouse:manual": "REACT_APP_ENV=test lighthouse --view --config-path=./src/test/audits/index.js",
-    "analyze:bundle": "craco build && source-map-explorer 'build/static/js/*.js' -m",
-    "analyze:dom": "node ./script/entry.js domVisitor",
-    "heroku-postbuild": "npm run-script build:clean"
+    "start": "tsx mcp-server.ts",
+    "typecheck": "tsc --noEmit",
+    "sync-skills": "tsx scripts/sync-skills.ts",
+    "package-skills": "npm run sync-skills && tsx scripts/package-skills.ts"
   },
-  "eslintConfig": {
-    "extends": "react-app"
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "zod": "^3.23.8"
   },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ],
   "devDependencies": {
-    "@aws-sdk/client-cloudformation": "<3.567.0",
-    "@aws-sdk/client-ecs": "<3.567.0",
-    "@aws-sdk/client-s3": "<3.567.0",
-    "@aws-sdk/client-sqs": "<3.567.0",
-    "@aws-sdk/credential-providers": "<3.567.0",
-    "@babel/core": "^7.22.5",
-    "@babel/plugin-transform-runtime": "^7.22.5",
-    "@babel/preset-env": "^7.22.5",
-    "@babel/preset-react": "7.22.5",
-    "@babel/preset-typescript": "^7.22.5",
-    "@babel/register": "^7.22.5",
-    "@openstax/types": "^3.1.0",
-    "@types/color": "^3.0.3",
-    "@types/express": "~4.17",
-    "@types/flat": "~5.0",
-    "@types/gtag.js": "0.0.12",
-    "@types/history": "4.7.2",
-    "@types/ignore-styles": "~5.0",
-    "@types/jest": "^26",
-    "@types/jest-image-snapshot": "^6",
-    "@types/js-cookie": "~2.2",
-    "@types/lodash": "4.14.160",
-    "@types/node": "^14.0.0",
-    "@types/node-fetch": "~2.6",
-    "@types/pretty": "^2.0.0",
-    "@types/progress": "^2.0.3",
-    "@types/query-string": "~6.2",
-    "@types/react": "^16",
-    "@types/react-dom": "^16",
-    "@types/react-loadable": "~5.5",
-    "@types/react-redux": "~7.1",
-    "@types/react-test-renderer": "~16.9",
-    "@types/serve-static": "~1.15",
-    "@types/styled-components": "~4.1",
-    "@types/tiny-async-pool": "~1.0",
-    "@types/uuid": "~7.0",
-    "@types/yargs": "~13.0",
-    "codecov": "^3.8.3",
-    "date-fns": "^2.30.0",
-    "date-fns-tz": "^2.0.0",
-    "express": "~4.20",
-    "glob": "<9",
-    "http-proxy-middleware": "<3",
-    "ignore-styles": "~5.0",
-    "jest-image-snapshot": "^6",
-    "jest-puppeteer": "^6",
-    "jest-styled-components": "^6",
-    "less": "^4.1.3",
-    "lighthouse": "^9",
-    "node-fetch": "~2.6",
-    "pify": "^4.0.1",
-    "portfinder": "^1.0.32",
-    "pretty": "^2.0.0",
-    "progress": "^2.0.3",
-    "puppeteer": "^13.7.0",
-    "react-scripts": "^4.0.3",
-    "react-test-renderer": "~16.9",
-    "resize-observer-polyfill": "^1.5.1",
-    "serve-static": "~1.16",
-    "sitemap": "<4",
-    "source-map-explorer": "^2.5.3",
-    "stylelint": "<14",
-    "stylelint-config-standard": "<23",
-    "stylelint-config-styled-components": "^0.1.1",
-    "stylelint-processor-styled-components": "^1.5.2",
-    "tiny-async-pool": "~1.0",
-    "yargs": "^17.3.1"
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0"
   },
-  "jest": {
-    "testEnvironment": "jsdom",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "jsx",
-      "json"
-    ],
-    "moduleNameMapper": {
-      "//comment//": "remove this when CRA upgrades jest above 28",
-      "(.*)@openstax/ts-utils(.*)": "$1@openstax/ts-utils/dist/cjs$2",
-      "\\.css$": "<rootDir>/__mocks__/styleMock.js"
-    },
-    "setupFilesAfterEnv": [
-      "<rootDir>/src/test/setup.ts"
-    ],
-    "setupFiles": [
-      "react-app-polyfill/jsdom"
-    ],
-    "testRegex": "(\\.|/)(screenshot|browser|prerender)?spec\\.tsx?$",
-    "transform": {
-      "^.+\\.tsx?$": "<rootDir>/node_modules/react-scripts/config/jest/babelTransform.js",
-      "^(?!.*\\.(js|jsx|ts|tsx|css|json)$)": "<rootDir>/node_modules/react-scripts/config/jest/fileTransform.js"
-    },
-    "collectCoverageFrom": [
-      "src/{app,helpers,gateways}/**/*.{ts,tsx}"
-    ],
-    "coverageThreshold": {
-      "global": {
-        "branches": 100,
-        "functions": 100,
-        "lines": 100,
-        "statements": 100
-      }
-    },
-    "coverageReporters": [
-      "text-summary",
-      "html",
-      "lcovonly"
-    ]
-  },
-  "babelMacros": {
-    "styledComponents": {
-      "pure": true
-    }
-  },
-  "resolutions": {
-    "crypto-browserify": "npm:crypto-browserify@^3.12.0"
+  "engines": {
+    "node": ">=20"
   }
 }
