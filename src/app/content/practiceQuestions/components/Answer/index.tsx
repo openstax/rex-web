@@ -7,6 +7,7 @@ import theme, { hiddenButAccessibleClass } from '../../../../theme';
 import { LinkedArchiveTreeSection } from '../../../types';
 import { PracticeAnswer, PracticeQuestion } from '../../types';
 import './Answer.css';
+import { assertDefined } from '../../../../utils';
 
 interface AnswerResultProps {
   showCorrect: boolean;
@@ -138,8 +139,9 @@ const Answer = ({
   }
   if (answerTheme.border) cssVariables[`--answer-border-${themeKey}`] = answerTheme.border;
   // Note: borderHovered is always defined for all themes (correct, incorrect, selected, unselected)
-  // The conditional check is defensive programming for potential future themes
-  if (answerTheme.borderHovered) cssVariables[`--answer-border-hover-${themeKey}`] = answerTheme.borderHovered;
+  assertDefined(answerTheme.borderHovered, 'Need to add defined check for borderHovered');
+  // If that changes, add the defined check as above
+  cssVariables[`--answer-border-hover-${themeKey}`] = answerTheme.borderHovered;
 
   return <div className="answer-wrapper" tabIndex={-1} ref={answerRef}>
     <input
