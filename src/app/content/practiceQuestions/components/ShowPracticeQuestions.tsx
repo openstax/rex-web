@@ -15,6 +15,7 @@ import IntroScreen from './IntroScreen';
 import ProgressBar from './ProgressBar';
 import Question from './Question';
 import { LinkedArchiveTreeSection } from '../../types';
+import classNames from 'classnames';
 import './ShowPracticeQuestions.css';
 
 function MaybeSectionTitle() {
@@ -40,7 +41,7 @@ export const SectionTitle = MaybeSectionTitle;
 export const QuestionsWrapper = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
   <div
     {...props}
-    className={className ? `${className} show-practice-questions-wrapper` : 'show-practice-questions-wrapper'}
+    className={classNames('show-practice-questions-wrapper', className)}
   />
 );
 
@@ -48,7 +49,7 @@ export const QuestionsHeader = ({ className, id, ...props }: React.HTMLAttribute
   // eslint-disable-next-line jsx-a11y/heading-has-content
   <h3
     {...props}
-    className={className ? `${className} show-practice-questions-header` : 'show-practice-questions-header'}
+    className={classNames('show-practice-questions-header', className)}
     id={id || 'progress-bar-header'}
   />
 );
