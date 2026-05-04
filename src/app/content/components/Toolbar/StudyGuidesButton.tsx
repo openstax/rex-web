@@ -7,7 +7,8 @@ import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import { openStudyGuides as openStudyGuidesAction } from '../../studyGuides/actions';
 import { hasStudyGuides, studyGuidesEnabled, studyGuidesOpen } from '../../studyGuides/selectors';
 import { toolbarIconStyles } from './iconStyles';
-import { PlainButton, toolbarDefaultButton, toolbarDefaultText } from './styled';
+import { PlainButton } from './styled';
+import { toolbarDefaultButton, toolbarDefaultText } from './Toolbar.legacy';
 import { captureOpeningElement } from '../../utils/focusManager';
 
 export const StudyGuidesWrapper = styled(PlainButton)`

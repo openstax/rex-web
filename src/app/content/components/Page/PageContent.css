@@ -1,0 +1,166 @@
+/* PageContent styles */
+
+.page-content {
+  overflow: visible;
+}
+
+.page-content:focus-visible {
+  outline: none;
+}
+
+/* Media queries at top level */
+@media screen {
+  .page-content {
+    /* constrain width on screen; full page width in print */
+    max-width: var(--content-text-width);
+    margin: 0 auto;
+    flex: 1;
+    display: flex;
+    width: 100%;
+  }
+
+  .page-content #main-content {
+    overflow: visible;
+    width: 100%;
+  }
+
+  /* trying to add margin to a page wrapper that
+   * will collapse with the margin of the top element in the
+   * page. can't add it to the page element because it is flexy,
+   * or the main_content because page makes it flexy. those
+   * need to be flexy to center the loading indicator
+   */
+  .page-content #main-content > [data-type="page"],
+  .page-content #main-content > [data-type="composite-page"] {
+    margin-top: var(--page-margin-top-desktop);
+  }
+}
+
+/* Mobile breakpoint: max-width: 75em (1200px) */
+@media screen and (max-width: 75em) {
+  .page-content #main-content > [data-type="page"],
+  .page-content #main-content > [data-type="composite-page"] {
+    margin-top: var(--page-margin-top-mobile);
+  }
+}
+
+/* Highlight styles */
+.page-content .highlight {
+  position: relative;
+  z-index: 1;
+  user-select: none;
+}
+
+/* fixes to keep MathJax 4 highlighted equations centered and
+ * showing the background without the .MathJax_Display wrapper
+ */
+.page-content [data-type="equation"] {
+  text-align: center;
+}
+
+.page-content [data-type="equation"] .highlight {
+  grid-column: 2;
+}
+
+/* Fix MathJax 4 highlights not inheriting background color
+ * In v4, mjx-row uses display:table-row which doesn't inherit backgrounds like v2's inline elements
+ */
+/* stylelint-disable selector-type-no-unknown */
+.page-content mark mjx-container,
+.page-content mark mjx-math,
+.page-content mark mjx-semantics,
+.page-content mark mjx-mrow,
+.page-content mark mjx-row,
+.page-content mark mjx-under,
+.page-content mark mjx-base,
+.page-content mark mjx-munder,
+.page-content mark mjx-mo,
+.page-content mark mjx-mi,
+.page-content mark mjx-mn,
+.page-content mark mjx-mtext,
+.page-content mark mjx-c {
+  background: inherit;
+}
+/* stylelint-enable selector-type-no-unknown */
+
+/* Search highlights */
+@media screen {
+  .page-content .search-highlight {
+    font-weight: bold;
+  }
+
+  .page-content .search-highlight,
+  .page-content .search-highlight .math {
+    background-color: #ffea00;
+    box-shadow: 0 0.2rem 0.3rem 0 rgb(0, 0, 0, 0.41);
+  }
+
+  .page-content .search-highlight[aria-current],
+  .page-content .search-highlight[aria-current] .math {
+    background-color: #ff9e4b;
+    padding: 0.2rem 0;
+  }
+
+  .page-content .search-highlight[aria-current] .search-highlight {
+    background-color: unset;
+  }
+}
+
+/* Screen reader only content */
+.page-content [data-for-screenreaders="true"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Figure styles */
+.page-content .os-figure,
+.page-content .os-figure:last-child {
+  margin-bottom: 5px; /* fix double scrollbar bug */
+}
+
+/* Make inner figure transparent in layout so figcaption's table-caption
+   applies to the .os-figure table */
+.page-content #main-content .os-figure > figure,
+.page-content #main-content .os-figure > figure:not([data-orient="vertical"]) {
+  display: contents;
+}
+
+.page-content #main-content .os-figure > figure > figcaption.os-caption-container {
+  text-align: left;
+  padding: 1rem 0 0;
+  margin-bottom: 0;
+}
+
+/* Image button wrapper */
+.page-content .image-button-wrapper {
+  /* Remove default button styles for media modal img wrapper */
+  border: none;
+  padding: 0;
+  margin: 0;
+  background: none;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.page-content .image-button-wrapper:focus {
+  outline: 1px solid Highlight;
+  outline: 1px solid -webkit-focus-ring-color;
+  outline-offset: 2px;
+}
+
+.page-content .image-button-wrapper img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.page-content #main-content * {
+  overflow: initial; /* rex styles default to overflow hidden, breaks content */
+}

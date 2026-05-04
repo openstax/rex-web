@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { AppState, Dispatch } from '../../../../types';
 import * as select from '../../../selectors';
-import { Book } from '../../../types';
+import { Book, BookWithOSWebData } from '../../../types';
 import { clearSearch, requestSearch } from '../../actions';
 import * as selectSearch from '../../selectors';
 import { SearchResultContainer, SelectedResult } from '../../types';
@@ -23,7 +23,7 @@ interface Props {
   onClose: () => void;
   clearSearch: () => void;
   search: typeof requestSearch;
-  searchButtonColor: string | null;
+  searchButtonColor: BookWithOSWebData['theme'] | null;
   searchInSidebar: boolean;
   searchResultsOpen: boolean;
   selectedResult: SelectedResult | null;

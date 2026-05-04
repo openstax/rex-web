@@ -57,6 +57,7 @@
     "lint:css": "npm run-script lint:css:tsx && npm run-script lint:css:plain",
     "lint:css:tsx": "stylelint 'src/**/*.tsx'",
     "lint:css:plain": "stylelint --config .stylelintrc.css.json 'src/**/*.css'",
+    "lint:css:plain-fix": "stylelint --fix --config .stylelintrc.css.json 'src/**/*.css'",
     "lint:bash": "shellcheck $(find . -type f \\( -iname '*\\.sh' -or -iname '*\\.bash' \\) | grep -v -e .venv -e node_modules)",
     "prestart": "npm run-script build:css",
     "start": "./script/start.bash",

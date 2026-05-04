@@ -114,7 +114,7 @@ describe('search', () => {
         </Services.Provider>
       </Provider>
     );
-    const tb = node.querySelector<HTMLElement>('[class*="TopBar"]');
+    const tb = node.querySelector<HTMLElement>('[data-testid="topbar"]');
 
     act(() => dispatchSearchShortcut(tb!));
     expect(document?.activeElement?.tagName).toBe('MAIN');
@@ -132,7 +132,7 @@ describe('search', () => {
         </Services.Provider>
       </Provider>
     );
-    const tb = node.querySelector<HTMLElement>('[class*="TopBar"]');
+    const tb = node.querySelector<HTMLElement>('[data-testid="topbar"]');
 
     store.dispatch(receiveSearchResults(makeSearchResults()));
 
@@ -156,7 +156,7 @@ describe('search', () => {
         </Services.Provider>
       </Provider>
     );
-    const tb = node.querySelector<HTMLElement>('[class*="TopBar"]');
+    const tb = node.querySelector<HTMLElement>('[data-testid="topbar"]');
 
     act(() => dispatchSearchShortcut(tb!));
     expect(document?.activeElement?.tagName).toBe('INPUT');
