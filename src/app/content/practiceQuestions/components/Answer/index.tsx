@@ -47,6 +47,11 @@ const answerThemes = {
     // Most styles use root-level CSS variables directly
     // Only hover border needs dynamic binding from linkHover constant
     borderHovered: linkHover,
+    background: undefined,
+    border: undefined,
+    fontColor: undefined,
+    fontColorActive: undefined,
+    indicatorBackground: undefined,
   },
 };
 
@@ -128,7 +133,9 @@ const Answer = ({
 
   if (answerTheme.background) cssVariables[`--answer-bg-${themeKey}`] = answerTheme.background;
   if (answerTheme.fontColor) cssVariables[`--answer-indicator-fg-${themeKey}`] = answerTheme.fontColor;
-  if (answerTheme.indicatorBackground) cssVariables[`--answer-indicator-bg-${themeKey}`] = answerTheme.indicatorBackground;
+  if (answerTheme.indicatorBackground) {
+    cssVariables[`--answer-indicator-bg-${themeKey}`] = answerTheme.indicatorBackground;
+  }
   if (answerTheme.border) cssVariables[`--answer-border-${themeKey}`] = answerTheme.border;
   if (answerTheme.borderHovered) cssVariables[`--answer-border-hover-${themeKey}`] = answerTheme.borderHovered;
 
