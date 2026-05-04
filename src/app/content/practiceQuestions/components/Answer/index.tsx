@@ -137,6 +137,8 @@ const Answer = ({
     cssVariables[`--answer-indicator-bg-${themeKey}`] = answerTheme.indicatorBackground;
   }
   if (answerTheme.border) cssVariables[`--answer-border-${themeKey}`] = answerTheme.border;
+  // Note: borderHovered is always defined for all themes (correct, incorrect, selected, unselected)
+  // The conditional check is defensive programming for potential future themes
   if (answerTheme.borderHovered) cssVariables[`--answer-border-hover-${themeKey}`] = answerTheme.borderHovered;
 
   return <div className="answer-wrapper" tabIndex={-1} ref={answerRef}>
