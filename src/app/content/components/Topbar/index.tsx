@@ -6,6 +6,7 @@ import { TextResizerValue } from '../../constants';
 import { openSearchResultsMobile } from '../../search/actions';
 import * as selectSearch from '../../search/selectors';
 import * as selectContent from '../../selectors';
+import { BookWithOSWebData } from '../../types';
 import { mobileNudgeStudyToolsTargetId } from '../NudgeStudyTools/constants';
 import { NudgeElementTarget } from '../NudgeStudyTools/styles';
 import * as Styled from './styled';
@@ -19,7 +20,7 @@ import { useSearchState, useMobileToolbar } from './hooks';
 
 type CommonSearchInputParams = {
   mobileToolbarOpen: boolean;
-  searchButtonColor: string | null;
+  searchButtonColor: BookWithOSWebData['theme'] | null;
   searchInSidebar: boolean;
   newButtonEnabled: boolean;
   onSearchChange: (e: React.FormEvent<HTMLInputElement>) => void;
@@ -125,9 +126,9 @@ function MobileSearchInputWrapper({
     <Styled.MobileSearchContainer>
       {showBackToSearchResults &&
         <FormattedMessage id='i18n:search-results:bar:toggle-text:mobile'>
-          {(msg) => <Styled.SeachResultsTextButton onClick={openSearchbar} data-testid='back-to-search-results'>
+          {(msg) => <Styled.SearchResultsTextButton onClick={openSearchbar} data-testid='back-to-search-results'>
             <Styled.LeftArrow /><Styled.InnerText>{msg}</Styled.InnerText>
-          </Styled.SeachResultsTextButton>}
+          </Styled.SearchResultsTextButton>}
         </FormattedMessage>}
       {!showBackToSearchResults &&
         <FormattedMessage id='i18n:search-results:bar:close-text:mobile'>
@@ -192,7 +193,7 @@ function AltSCycler({hasSearchResults}: {hasSearchResults: boolean}) {
         return;
       }
       const targets = [
-        '[class*="SearchInputWrapper"] input',
+        '.topbar-search-input-wrapper input',
         '[class*="SearchResultsBar"]',
         'main',
       ].map((q) => document?.querySelector<HTMLElement>(q));
@@ -241,7 +242,7 @@ function Topbar() {
   const dispatch = useDispatch();
   const bookTheme = useSelector(selectContent.bookTheme);
   const hasSearchResults = useSelector(selectSearch.hasResults);
-  const searchButtonColor = useSelector(selectSearch.searchButtonColor);
+  const searchButtonColor: BookWithOSWebData['theme'] | null = useSelector(selectSearch.searchButtonColor);
   const searchInSidebar = useSelector(selectSearch.searchInSidebar);
   const searchSidebarOpen = useSelector(selectSearch.searchResultsOpen);
   const textSize = useSelector(selectContent.textSize);

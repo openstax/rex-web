@@ -34,6 +34,7 @@ import './components/Dropdown.css';
 import './components/ScrollLock.css';
 import './components/ScrollOffset.css';
 import './content/components/ContentPane.css';
+import './content/components/Topbar/Topbar.css';
 import './errors/components/ErrorModal.css';
 import './notifications/components/ToastNotifications/ToastNotifications.css';
 
