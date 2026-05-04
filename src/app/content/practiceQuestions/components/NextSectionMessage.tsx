@@ -2,6 +2,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import Button from '../../../components/Button';
 import { LinkedArchiveTreeSection } from '../../types';
+import classNames from 'classnames';
 import './NextSectionMessage.css';
 
 interface NextSectionMessageProps {
@@ -15,7 +16,7 @@ interface NextSectionMessageProps {
 const NextSectionMessage = ({
   nextSection, messageKey, onClick, analyticsLabel, className,
 }: NextSectionMessageProps) => (
-  <div className={className ? `next-section-message ${className}` : 'next-section-message'}>
+  <div className={classNames('next-section-message', className)}>
     <div className="next-section-message-content">
       <span className="next-section-message-text">
         <FormattedMessage id={messageKey}>
