@@ -16,7 +16,8 @@ interface AnswerResultProps {
 }
 
 // Answer theme definitions (matching styled.tsx)
-// Note: unselected theme uses root-level CSS variables directly in CSS file, so no theme object needed
+// Note: unselected theme uses root-level CSS variables for most styles,
+// but hover border needs to be bound from linkHover constant
 const answerThemes = {
   correct: {
     background: theme.color.neutral.base,
@@ -41,6 +42,11 @@ const answerThemes = {
     fontColor: theme.color.neutral.base,
     fontColorActive: theme.color.secondary.lightBlue.base,
     indicatorBackground: linkColor,
+  },
+  unselected: {
+    // Most styles use root-level CSS variables directly
+    // Only hover border needs dynamic binding from linkHover constant
+    borderHovered: linkHover,
   },
 };
 
@@ -101,12 +107,11 @@ const Answer = ({
   }, [showCorrect, isCorrect]);
 
   // Determine which theme to apply based on answer state
-  // Returns null for unselected state (uses root-level CSS variables directly)
   const getAnswerTheme = () => {
     if ((showCorrect && isCorrect) || (isSubmitted && isSelected)) {
       return isCorrect ? answerThemes.correct : answerThemes.incorrect;
     } else {
-      return isSelected ? answerThemes.selected : null; // null for unselected - uses root CSS vars
+      return isSelected ? answerThemes.selected : answerThemes.unselected;
     }
   };
 
@@ -116,15 +121,16 @@ const Answer = ({
     : (isSelected ? 'selected' : 'unselected');
   const {formatMessage} = useIntl();
 
-  // Only bind CSS variables for dynamic themes (correct, incorrect, selected)
-  // unselected theme uses root-level CSS variables directly (no binding needed)
-  const cssVariables = answerTheme ? {
-    [`--answer-bg-${themeKey}`]: answerTheme.background,
-    [`--answer-indicator-fg-${themeKey}`]: answerTheme.fontColor,
-    [`--answer-indicator-bg-${themeKey}`]: answerTheme.indicatorBackground,
-    [`--answer-border-${themeKey}`]: answerTheme.border,
-    [`--answer-border-hover-${themeKey}`]: answerTheme.borderHovered,
-  } : {};
+  // Bind CSS variables for dynamic theme values
+  // For unselected state, most styles use root-level CSS variables,
+  // but we still need to bind the hover border color from linkHover constant
+  const cssVariables: Record<string, string> = {};
+
+  if (answerTheme.background) cssVariables[`--answer-bg-${themeKey}`] = answerTheme.background;
+  if (answerTheme.fontColor) cssVariables[`--answer-indicator-fg-${themeKey}`] = answerTheme.fontColor;
+  if (answerTheme.indicatorBackground) cssVariables[`--answer-indicator-bg-${themeKey}`] = answerTheme.indicatorBackground;
+  if (answerTheme.border) cssVariables[`--answer-border-${themeKey}`] = answerTheme.border;
+  if (answerTheme.borderHovered) cssVariables[`--answer-border-hover-${themeKey}`] = answerTheme.borderHovered;
 
   return <div className="answer-wrapper" tabIndex={-1} ref={answerRef}>
     <input
