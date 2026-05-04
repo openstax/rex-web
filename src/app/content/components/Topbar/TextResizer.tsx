@@ -11,10 +11,11 @@ import {
   TextResizerValue,
   textResizerValues,
 } from '../../constants';
+import { BookWithOSWebData } from '../../types';
 import * as Styled from './styled';
 
 export interface TextResizerProps {
-  bookTheme: string;
+  bookTheme: BookWithOSWebData['theme'];
   textSize: TextResizerValue | null;
   setTextSize: (value: TextResizerValue) => void;
   mobileToolbarOpen?: boolean;
@@ -29,14 +30,14 @@ export const TextResizer = (props: TextResizerProps) => {
     props.setTextSize(value);
   };
 
-  const onDecreaseTextSize = (e: React.FormEvent<HTMLInputElement>) => {
+  const onDecreaseTextSize = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const newValue = ((props.textSize || textResizerDefaultValue) - 1);
     if (newValue < textResizerMinValue) { return; }
     props.setTextSize(newValue as TextResizerValue);
   };
 
-  const onIncreaseTextSize = (e: React.FormEvent<HTMLInputElement>) => {
+  const onIncreaseTextSize = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const newValue = ((props.textSize || textResizerDefaultValue) + 1);
     if (newValue > textResizerMaxValue) { return; }

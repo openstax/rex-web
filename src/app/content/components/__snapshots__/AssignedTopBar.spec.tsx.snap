@@ -6,13 +6,13 @@ exports[`AssignedTopBar renders 1`] = `
   position: relative;
 }
 
-.c4 {
+.c3 {
   position: relative;
   border-left: 0.1rem solid transparent;
   border-right: 0.1rem solid transparent;
 }
 
-.c4 > div {
+.c3 > div {
   padding: 2rem 2.4rem;
   outline: none;
   color: #424242;
@@ -35,26 +35,7 @@ exports[`AssignedTopBar renders 1`] = `
   justify-content: flex-end;
 }
 
-.c3 {
-  z-index: 3;
-}
-
-.c3 > button {
-  max-height: 5.2rem;
-}
-
-.c3 > button > div {
-  padding: 1.4rem;
-}
-
 .c0 {
-  position: -webkit-sticky;
-  position: sticky;
-  top: 7rem;
-  width: 100%;
-  overflow: visible;
-  display: block;
-  z-index: 30;
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.14);
   background-color: #fff;
   color: #424242;
@@ -80,26 +61,8 @@ exports[`AssignedTopBar renders 1`] = `
 }
 
 @media screen and (max-width:75em) {
-  .c4 > div {
+  .c3 > div {
     padding: 1rem 1.6rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c0 {
-    top: 6rem;
-  }
-}
-
-@media screen and (max-width:50em) {
-  .c0 {
-    z-index: 51;
-  }
-}
-
-@media print {
-  .c0 {
-    display: none;
   }
 }
 
@@ -118,7 +81,15 @@ exports[`AssignedTopBar renders 1`] = `
 }
 
 <div
-  className="c0"
+  className="topbar-wrapper c0"
+  style={
+    Object {
+      "--topbar-sticky-top-desktop": "7rem",
+      "--topbar-sticky-top-mobile": "6rem",
+      "--topbar-z-index": 30,
+      "--topbar-z-index-mobile-medium": 51,
+    }
+  }
 >
   <h2
     className="c1"
@@ -129,13 +100,13 @@ exports[`AssignedTopBar renders 1`] = `
     }
   />
   <div
-    className="c2 c3"
+    className="c2 topbar-text-resizer-dropdown"
   >
     <button
       aria-controls="text-resizer-menu"
       aria-expanded={false}
       aria-label="Change text size"
-      className="plain-button c4 dropdown-toggle "
+      className="plain-button c3 dropdown-toggle "
       data-analytics-label="Change text size"
       onClick={[Function]}
     >
