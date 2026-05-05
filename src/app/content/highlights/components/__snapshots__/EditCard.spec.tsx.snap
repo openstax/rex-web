@@ -16,7 +16,7 @@ Array [
 }
 
 .c1.c1.c1 {
-  z-index: 71;
+  z-index: 131;
 }
 
 <div
@@ -202,7 +202,7 @@ Array [
 }
 
 .c1.c1.c1 {
-  z-index: 71;
+  z-index: 131;
 }
 
 <div
