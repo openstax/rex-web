@@ -275,8 +275,10 @@ describe('MyHighlights button and PopUp', () => {
       </TestContainer>);
 
       setTimeout(() => {
-        const modal = document.querySelector('[data-testid="highlights-popup-wrapper"]');
-        assertNotNull(modal, 'modal should exist');
+        const modal = assertNotNull(
+          document.querySelector('[data-testid="highlights-popup-wrapper"]'),
+          'modal should exist'
+        );
 
         const focusableElements = Array.from(
           modal.querySelectorAll<HTMLElement>(
@@ -317,8 +319,10 @@ describe('MyHighlights button and PopUp', () => {
       </TestContainer>);
 
       setTimeout(() => {
-        const modal = document.querySelector('[data-testid="highlights-popup-wrapper"]');
-        assertNotNull(modal, 'modal should exist');
+        const modal = assertNotNull(
+          document.querySelector('[data-testid="highlights-popup-wrapper"]'),
+          'modal should exist'
+        );
 
         const focusableElements = Array.from(
           modal.querySelectorAll<HTMLElement>(
