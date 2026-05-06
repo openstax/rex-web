@@ -9,7 +9,7 @@ import notLoggedImage2Retina from '../../../../assets/My_Highlights_page_empty_2
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import * as authSelect from '../../../auth/selectors';
 import { User } from '../../../auth/types';
-import { useOnEsc } from '../../../reactUtils';
+import { useOnEsc, useTrapTabNavigation } from '../../../reactUtils';
 import theme from '../../../theme';
 import { AppState, Dispatch } from '../../../types';
 import { useModalFocusManagementUnmounting } from '../../hooks/useModalFocusManagement';
@@ -109,6 +109,7 @@ const HighlightsPopUp = ({ closeMyHighlights, ...props }: Omit<Props, 'myHighlig
   const { closeButtonRef } = useModalFocusManagementUnmounting('highlights');
 
   useOnEsc(true, closeAndTrack('esc'));
+  useTrapTabNavigation(popUpRef);
 
   return <Modal
     ref={popUpRef}

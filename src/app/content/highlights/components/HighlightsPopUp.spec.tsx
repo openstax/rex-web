@@ -264,6 +264,96 @@ describe('MyHighlights button and PopUp', () => {
     }, 10);
   });
 
+  describe('tab navigation trapping', () => {
+    it('wraps focus from last to first element when Tab is pressed', (done) => {
+      const document = utils.assertDocument();
+      store.dispatch(openMyHighlights());
+      store.dispatch(receiveUser(user));
+
+      renderToDom(<TestContainer services={services} store={store}>
+        <HighlightsPopUp />
+      </TestContainer>);
+
+      setTimeout(() => {
+        const modal = assertNotNull(
+          document.querySelector('[data-testid="highlights-popup-wrapper"]'),
+          'modal should exist'
+        );
+
+        const focusableElements = Array.from(
+          modal.querySelectorAll<HTMLElement>(
+            'button, input, select, textarea, [href], [tabindex]:not([tabindex="-1"])'
+          )
+        ).filter(el => !el.hasAttribute('disabled'));
+
+        expect(focusableElements.length).toBeGreaterThan(0);
+
+        const lastElement = focusableElements[focusableElements.length - 1];
+        const firstElement = focusableElements[0];
+
+        lastElement.focus();
+        expect(document.activeElement).toBe(lastElement);
+
+        // Simulate Tab key press on the last element
+        dispatchKeyDownEvent({
+          element: modal as HTMLElement,
+          key: 'Tab',
+          shiftKey: false,
+          target: lastElement,
+        });
+
+        setTimeout(() => {
+          expect(document.activeElement).toBe(firstElement);
+          done();
+        }, 10);
+      }, 10);
+    });
+
+    it('wraps focus from first to last element when Shift+Tab is pressed', (done) => {
+      const document = utils.assertDocument();
+      store.dispatch(openMyHighlights());
+      store.dispatch(receiveUser(user));
+
+      renderToDom(<TestContainer services={services} store={store}>
+        <HighlightsPopUp />
+      </TestContainer>);
+
+      setTimeout(() => {
+        const modal = assertNotNull(
+          document.querySelector('[data-testid="highlights-popup-wrapper"]'),
+          'modal should exist'
+        );
+
+        const focusableElements = Array.from(
+          modal.querySelectorAll<HTMLElement>(
+            'button, input, select, textarea, [href], [tabindex]:not([tabindex="-1"])'
+          )
+        ).filter(el => !el.hasAttribute('disabled'));
+
+        expect(focusableElements.length).toBeGreaterThan(0);
+
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
+
+        firstElement.focus();
+        expect(document.activeElement).toBe(firstElement);
+
+        // Simulate Shift+Tab key press on the first element
+        dispatchKeyDownEvent({
+          element: modal as HTMLElement,
+          key: 'Tab',
+          shiftKey: true,
+          target: firstElement,
+        });
+
+        setTimeout(() => {
+          expect(document.activeElement).toBe(lastElement);
+          done();
+        }, 10);
+      }, 10);
+    });
+  });
+
   describe('with unsaved highlights', () => {
 
     beforeEach(() => {
