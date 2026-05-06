@@ -606,7 +606,7 @@ describe('Card', () => {
     expect(card.props.style['--card-highlight-offset']).toBeUndefined();
   });
 
-  it('omits CSS custom properties when offset values are undefined', () => {
+  it('uses 0px fallback for --card-top-offset when getHighlightBottomOffset returns undefined', () => {
     store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
     store.dispatch(receivePage({...page, references: []}));
     store.dispatch(receiveHighlights({
@@ -630,9 +630,9 @@ describe('Card', () => {
     </TestContainer>, {createNodeMock});
 
     const card = component.root.findByProps({ 'data-testid': 'card' });
-    // When offsets are undefined, the CSS custom properties should not be set
-    // This allows the CSS fallback values to take effect
-    expect(card.props.style['--card-top-offset']).toBeUndefined();
+    // When getHighlightBottomOffset returns undefined, the ?? 0 fallback ensures
+    // the CSS custom property is set to 0px to prevent cards from jumping to the top
+    expect(card.props.style['--card-top-offset']).toBe('0px');
   });
 
   it('sets --card-z-index CSS custom property when zIndex is provided', () => {

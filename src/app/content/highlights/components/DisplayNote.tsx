@@ -56,8 +56,8 @@ export interface DisplayNoteProps {
 }
 
 const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
-  {note, isActive, highlight, onBlur, onEdit, onRemove, focus,
-  onHeightChange, className, shouldFocusCard, onClick, highlightStyle, style, ...restProps},
+  {note, isActive, highlight, onBlur, onEdit, onRemove,
+  onHeightChange, className, shouldFocusCard, onClick, highlightStyle, style, focus: _focus, ...restProps},
   ref
 ) => {
   const [confirmingDelete, setConfirmingDelete] = React.useState<boolean>(false);

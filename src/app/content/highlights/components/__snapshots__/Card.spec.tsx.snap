@@ -115,6 +115,7 @@ exports[`Card matches snapshot when passed data without note 1`] = `
   style={
     Object {
       "--card-highlight-offset": "-110px",
+      "--card-top-offset": "0px",
     }
   }
 />
@@ -251,7 +252,7 @@ exports[`Card matches snapshot without data and preferEnd as false 1`] = `
   setAnnotationChangesPending={[Function]}
   style={
     Object {
-      "--card-highlight-offset": "-10px",
+      "--card-highlight-offset": "100px",
       "--card-top-offset": "200px",
     }
   }

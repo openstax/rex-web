@@ -114,7 +114,7 @@ function useComputedProps(props: CardProps) {
     const action = annotation ? 'add' : 'remove';
 
     highlight.elements.forEach(el =>
-      (el as unknown as HTMLElement).classList[action]('has-note')
+      (el as HTMLElement).classList[action]('has-note')
     );
   }, [highlight.elements, annotation]);
 
@@ -218,26 +218,29 @@ function NoteOrCard({
   );
 
   // Calculate dynamic CSS custom properties for positioning
-  const topOffset = props.topOffset !== undefined
+  // Always provide a fallback to ensure cards are positioned correctly
+  const topOffset = (props.topOffset !== undefined && !isNaN(props.topOffset))
     ? props.topOffset
-    : getHighlightBottomOffset(props.container, props.highlight);
+    : (getHighlightBottomOffset(props.container, props.highlight) ?? 0);
 
   // For overlap mode positioning: only compute highlight offset for active cards.
   // When highlightOffsets is provided, use it; otherwise compute from highlight position.
-  const highlightOffset = props.isActive
-    ? (props.highlightOffsets
-        ? (props.preferEnd
-            ? props.highlightOffsets.bottom
-            : props.highlightOffsets.top - OVERLAP_CARD_TOP_OFFSET)
-        : (props.preferEnd
-            ? getHighlightBottomOffset(props.container, props.highlight)
-            : (() => {
-                const computedTopOffset = getHighlightTopOffset(props.container, props.highlight);
-                return computedTopOffset !== undefined
-                  ? computedTopOffset - OVERLAP_CARD_TOP_OFFSET
-                  : undefined;
-              })()))
-    : undefined;
+  const highlightOffset = React.useMemo(() => {
+    if (!props.isActive) {
+      return undefined;
+    }
+
+    if (props.preferEnd) {
+      return props.highlightOffsets?.bottom
+        ?? getHighlightBottomOffset(props.container, props.highlight);
+    }
+
+    // When highlightOffsets is provided, subtract OVERLAP_CARD_TOP_OFFSET
+    // When computed from DOM, use the value directly (matches original behavior)
+    return props.highlightOffsets
+      ? props.highlightOffsets.top - OVERLAP_CARD_TOP_OFFSET
+      : getHighlightTopOffset(props.container, props.highlight);
+  }, [props.isActive, props.preferEnd, props.highlightOffsets, props.container, props.highlight]);
 
   const cardStyle: React.CSSProperties = {
     ...(topOffset !== undefined && { '--card-top-offset': `${topOffset}px` }),
