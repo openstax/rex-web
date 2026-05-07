@@ -1,3 +1,4 @@
+import fs from 'fs';
 import fetch from 'node-fetch';
 import path from 'path';
 import argv from 'yargs';
@@ -114,12 +115,12 @@ const addNewEdition = async() => {
     `../src/canonicalBookMap/${previousBook.slug}.ts`
   );
 
-  const fileExists = require('fs').existsSync(outputPath);
+  const fileExists = fs.existsSync(outputPath);
 
   if (fileExists) {
     const existing = readFile(outputPath);
-    const insertionPoint = '\n} as CanonicalBookMap;\n';
-    if (!existing.endsWith(insertionPoint)) {
+    const closingMarker = /\n} as CanonicalBookMap;\s*$/;
+    if (!closingMarker.test(existing)) {
       console.error(
         `Cannot append: ${outputPath} does not end with the expected ` +
         `'} as CanonicalBookMap;' marker. Edit it manually.`
@@ -127,8 +128,8 @@ const addNewEdition = async() => {
       process.exit(1);
     }
     const updated = existing.replace(
-      insertionPoint,
-      `\n${entryBlock}` + insertionPoint
+      closingMarker,
+      `\n${entryBlock}\n} as CanonicalBookMap;\n`
     );
     writeFile(outputPath, updated);
     console.log(`Appended new entry to src/canonicalBookMap/${previousBook.slug}.ts`);
