@@ -69,8 +69,11 @@ const addNewEdition = async() => {
     .filter((s) => s.id !== previousBook.id);
   const flatPreviousPages = flatPreviousTree.filter(archiveTreeSectionIsPage);
 
-  const flatNewTree = flattenArchiveTree(newBook.tree)
-    .filter((s) => s.id !== newBook.id);
+  const flatNewPages = flattenArchiveTree(newBook.tree)
+    .filter((s) => s.id !== newBook.id)
+    .filter(archiveTreeSectionIsPage);
+
+  const newPagesBySlug = new Map(flatNewPages.map((p) => [p.slug, p]));
 
   // Borrow the matchSlug pattern from update-redirects-data.ts:
   // for each page in the previous edition, find a matching slug in the new edition.
@@ -78,7 +81,7 @@ const addNewEdition = async() => {
   const pageMap: Array<{ prevId: string; newId: string; title: string }> = [];
 
   for (const prevPage of flatPreviousPages) {
-    const newPage = flatNewTree.find((p) => p.slug === prevPage.slug);
+    const newPage = newPagesBySlug.get(prevPage.slug);
     if (newPage) {
       const prevId = stripIdVersion(prevPage.id);
       const newId = stripIdVersion(newPage.id);
@@ -116,7 +119,7 @@ const addNewEdition = async() => {
   if (fileExists) {
     const existing = readFile(outputPath);
     const insertionPoint = '\n} as CanonicalBookMap;\n';
-    if (!existing.includes(insertionPoint)) {
+    if (!existing.endsWith(insertionPoint)) {
       console.error(
         `Cannot append: ${outputPath} does not end with the expected ` +
         `'} as CanonicalBookMap;' marker. Edit it manually.`
