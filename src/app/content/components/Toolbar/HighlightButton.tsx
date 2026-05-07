@@ -9,7 +9,8 @@ import { openMyHighlights as openMyHighlightsAction } from '../../highlights/act
 import * as selectors from '../../highlights/selectors';
 import { practiceQuestionsEnabled as practiceQuestionsEnabledSelector } from '../../practiceQuestions/selectors';
 import { toolbarIconStyles } from './iconStyles';
-import { PlainButton, toolbarDefaultButton, toolbarDefaultText } from './styled';
+import { PlainButton } from './styled';
+import { toolbarDefaultButton, toolbarDefaultText } from './Toolbar.legacy';
 import showConfirmation from '../../highlights/components/utils/showConfirmation';
 import { useServices } from '../../../context/Services';
 import { hasUnsavedHighlight as hasUnsavedHighlightSelector } from '../../highlights/selectors';
