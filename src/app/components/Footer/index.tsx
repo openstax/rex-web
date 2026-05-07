@@ -17,7 +17,7 @@ import { assertWindow } from '../../utils';
 import './Footer.css';
 
 // Constants
-const copyrightLink = 'https://creativecommons.org/licenses/by/4.0/';
+const copyrightLink = 'https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en';
 export const supportCenterLink = 'https://help.openstax.org/s/';
 const systemStatusLink = 'https://status.openstax.org/';
 const newsletterLink = 'http://www2.openstax.org/l/218812/2016-10-04/lvk';

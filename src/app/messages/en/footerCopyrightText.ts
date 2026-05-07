@@ -2,7 +2,7 @@ export const bottomText = `
   <div data-html="copyright">© 1999-{currentYear}, Rice University. Except where otherwise noted, textbooks on this site
     are licensed under a
     <a href="{copyrightLink}" target="_blank"
-    rel="noreferrer">Creative Commons Attribution 4.0 International License</a>.
+    rel="noreferrer">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 (CC BY NC-SA) license</a>.
   </div>
   <div data-html="apStatement">
     Advanced Placement<sup>®</sup> and AP<sup>®</sup> are trademarks registered and/or owned by the College Board,
