@@ -153,6 +153,7 @@
     }
 
     /* Touch device positioning - needs to override overlap display rules */
+
     /* Must have higher specificity than the data-toc-open/data-has-query rules */
     .highlight-card[data-active="true"],
     .highlight-card[data-toc-open="true"][data-active="true"],
