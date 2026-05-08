@@ -2,6 +2,13 @@
 
 exports[`Card matches snapshot when focused without note 1`] = `
 <div
+  cardStyle={
+    Object {
+      "--card-highlight-offset": "-110px",
+      "--card-top-offset": "150px",
+      "--highlight-color": "#fed200",
+    }
+  }
   className="highlight-card"
   data={
     Object {
@@ -58,18 +65,17 @@ exports[`Card matches snapshot when focused without note 1`] = `
   onRemove={[Function]}
   pageId="testbook1-testpage1-uuid"
   setAnnotationChangesPending={[Function]}
-  style={
-    Object {
-      "--card-highlight-offset": "-110px",
-      "--card-top-offset": "150px",
-      "--highlight-color": "#fed200",
-    }
-  }
 />
 `;
 
 exports[`Card matches snapshot when passed data without note 1`] = `
 <div
+  cardStyle={
+    Object {
+      "--card-highlight-offset": "-110px",
+      "--card-top-offset": "0px",
+    }
+  }
   className="highlight-card"
   data={
     Object {
@@ -112,86 +118,17 @@ exports[`Card matches snapshot when passed data without note 1`] = `
   onRemove={[Function]}
   pageId="testbook1-testpage1-uuid"
   setAnnotationChangesPending={[Function]}
-  style={
-    Object {
-      "--card-highlight-offset": "-110px",
-      "--card-top-offset": "0px",
-    }
-  }
 />
 `;
 
 exports[`Card matches snapshot without data and preferEnd 1`] = `
 <div
-  className="highlight-card"
-  data-active={true}
-  data-has-query={true}
-  data-testid="card"
-  data-toc-open={false}
-  hasUnsavedHighlight={false}
-  highlight={
-    Object {
-      "addFocusedStyles": [MockFunction],
-      "content": "test highlight content",
-      "elements": Array [
-        <span />,
-      ],
-      "focus": [MockFunction],
-      "getStyle": [MockFunction],
-      "id": "asdf",
-      "isAttached": [MockFunction],
-      "range": Object {
-        "commonAncestorContainer": null,
-        "getBoundingClientRect": [MockFunction] {
-          "calls": Array [
-            Array [],
-            Array [],
-          ],
-          "results": Array [
-            Object {
-              "type": "return",
-              "value": Object {
-                "bottom": 200,
-                "top": 100,
-              },
-            },
-            Object {
-              "type": "return",
-              "value": Object {
-                "bottom": 200,
-                "top": 100,
-              },
-            },
-          ],
-        },
-      },
-      "serialize": [Function],
-      "setStyle": [MockFunction],
-      "sourceId": "testbook1-testpage1-uuid",
-    }
-  }
-  isActive={true}
-  locationFilterId="testbook1-testpage1-uuid"
-  mock-edit={true}
-  onBlur={[Function]}
-  onCancel={[Function]}
-  onClick={[Function]}
-  onCreate={[Function]}
-  onHeightChange={[Function]}
-  onRemove={[Function]}
-  pageId="testbook1-testpage1-uuid"
-  setAnnotationChangesPending={[Function]}
-  style={
+  cardStyle={
     Object {
       "--card-highlight-offset": "200px",
       "--card-top-offset": "200px",
     }
   }
-/>
-`;
-
-exports[`Card matches snapshot without data and preferEnd as false 1`] = `
-<div
   className="highlight-card"
   data-active={true}
   data-has-query={true}
@@ -250,11 +187,74 @@ exports[`Card matches snapshot without data and preferEnd as false 1`] = `
   onRemove={[Function]}
   pageId="testbook1-testpage1-uuid"
   setAnnotationChangesPending={[Function]}
-  style={
+/>
+`;
+
+exports[`Card matches snapshot without data and preferEnd as false 1`] = `
+<div
+  cardStyle={
     Object {
       "--card-highlight-offset": "100px",
       "--card-top-offset": "200px",
     }
   }
+  className="highlight-card"
+  data-active={true}
+  data-has-query={true}
+  data-testid="card"
+  data-toc-open={false}
+  hasUnsavedHighlight={false}
+  highlight={
+    Object {
+      "addFocusedStyles": [MockFunction],
+      "content": "test highlight content",
+      "elements": Array [
+        <span />,
+      ],
+      "focus": [MockFunction],
+      "getStyle": [MockFunction],
+      "id": "asdf",
+      "isAttached": [MockFunction],
+      "range": Object {
+        "commonAncestorContainer": null,
+        "getBoundingClientRect": [MockFunction] {
+          "calls": Array [
+            Array [],
+            Array [],
+          ],
+          "results": Array [
+            Object {
+              "type": "return",
+              "value": Object {
+                "bottom": 200,
+                "top": 100,
+              },
+            },
+            Object {
+              "type": "return",
+              "value": Object {
+                "bottom": 200,
+                "top": 100,
+              },
+            },
+          ],
+        },
+      },
+      "serialize": [Function],
+      "setStyle": [MockFunction],
+      "sourceId": "testbook1-testpage1-uuid",
+    }
+  }
+  isActive={true}
+  locationFilterId="testbook1-testpage1-uuid"
+  mock-edit={true}
+  onBlur={[Function]}
+  onCancel={[Function]}
+  onClick={[Function]}
+  onCreate={[Function]}
+  onHeightChange={[Function]}
+  onRemove={[Function]}
+  pageId="testbook1-testpage1-uuid"
+  setAnnotationChangesPending={[Function]}
 />
 `;

@@ -1,72 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`DisplayNote matches snapshot 1`] = `
-.c2 {
+.c0 {
   overflow: visible;
   position: relative;
 }
 
-.c4 {
-  color: #c5c5c5;
-  height: 4.2rem;
-  width: 4.2rem;
-  padding: 1.6rem;
-  display: none;
-  position: absolute;
-  top: 0;
-  right: 0;
-}
-
-.c0 {
-  width: 20rem;
-  overflow: visible;
-  background: #f5f5f5;
-}
-
-.c0 > label {
-  display: none;
-  color: #424242;
-  color: #fed200;
-  font-size: 1.4rem;
-  line-height: 2rem;
-  margin: 1.2000000000000002rem 0 0 1.6rem;
-}
-
-.c0 .c1 {
-  position: absolute;
-  top: 0.8rem;
-  right: -0.2rem;
-}
-
-.c0 .c1 .focus-within .c3 {
-  color: #5e6062;
-}
-
-.c0 .c1:focus-within .c3 {
-  color: #5e6062;
-}
-
-@media screen and (max-width:75em) {
-  .c0 {
-    margin-left: 8rem;
-  }
-}
-
-@media screen and (max-width:50em) {
-  .c0 {
-    margin-left: 0;
-  }
-}
-
 <div
   aria-labelledby="display-note-undefined"
-  className="c0"
+  className="undefined display-note"
   data-highlight-card={true}
   role="dialog"
+  style={
+    Object {
+      "--highlight-color": "#fed200",
+    }
+  }
   tabIndex={-1}
 >
   <div
-    className="c1 c2"
+    className="c0"
   >
     <button
       aria-expanded={false}
@@ -81,7 +34,7 @@ exports[`DisplayNote matches snapshot 1`] = `
       >
         <svg
           aria-hidden="true"
-          className="dot-menu-icon c3 "
+          className="dot-menu-icon "
           data-menu-icon={true}
           viewBox="0 0 192 512"
         >
@@ -95,7 +48,7 @@ exports[`DisplayNote matches snapshot 1`] = `
   </div>
   <svg
     aria-hidden="true"
-    className="c4"
+    className="display-note-close-icon"
     focusable="false"
     height="15px"
     onClick={[MockFunction]}
@@ -136,87 +89,25 @@ exports[`DisplayNote matches snapshot 1`] = `
 `;
 
 exports[`DisplayNote matches snapshot when focused 1`] = `
-.c2 {
+.c0 {
   overflow: visible;
   position: relative;
 }
 
-.c4 {
-  color: #c5c5c5;
-  height: 4.2rem;
-  width: 4.2rem;
-  padding: 1.6rem;
-  display: none;
-  position: absolute;
-  top: 0;
-  right: 0;
-}
-
-.c5 .c1 {
-  position: absolute;
-  top: 0.8rem;
-  right: -0.2rem;
-}
-
-.c5 .c1 .focus-within .c3 {
-  color: #5e6062;
-}
-
-.c5 .c1:focus-within .c3 {
-  color: #5e6062;
-}
-
-.c0 {
-  width: 20rem;
-  overflow: visible;
-  background: #f5f5f5;
-  background: #fff;
-}
-
-.c0 > label {
-  display: none;
-  color: #424242;
-  color: #fed200;
-  font-size: 1.4rem;
-  line-height: 2rem;
-  margin: 1.2000000000000002rem 0 0 1.6rem;
-}
-
-.c0 .c1 {
-  position: absolute;
-  top: 0.8rem;
-  right: -0.2rem;
-}
-
-.c0 .c1 .focus-within .c3 {
-  color: #5e6062;
-}
-
-.c0 .c1:focus-within .c3 {
-  color: #5e6062;
-}
-
-@media screen and (max-width:75em) {
-  .c0 {
-    margin-left: 8rem;
-  }
-}
-
-@media screen and (max-width:50em) {
-  .c0 {
-    margin-left: 0;
-  }
-}
-
 <div
   aria-labelledby="display-note-undefined"
-  className="c0"
+  className="undefined display-note"
   data-highlight-card={true}
   role="dialog"
+  style={
+    Object {
+      "--highlight-color": "#fed200",
+    }
+  }
   tabIndex={-1}
 >
   <div
-    className="c1 c2"
+    className="c0"
   >
     <button
       aria-expanded={false}
@@ -231,7 +122,7 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
       >
         <svg
           aria-hidden="true"
-          className="dot-menu-icon c3 "
+          className="dot-menu-icon "
           data-menu-icon={true}
           viewBox="0 0 192 512"
         >
@@ -245,7 +136,7 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
   </div>
   <svg
     aria-hidden="true"
-    className="c4"
+    className="display-note-close-icon"
     focusable="false"
     height="15px"
     onClick={[MockFunction]}
@@ -286,87 +177,25 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
 `;
 
 exports[`DisplayNote matches snapshot when focused with opened dropdown 1`] = `
-.c2 {
+.c0 {
   overflow: visible;
   position: relative;
 }
 
-.c4 {
-  color: #c5c5c5;
-  height: 4.2rem;
-  width: 4.2rem;
-  padding: 1.6rem;
-  display: none;
-  position: absolute;
-  top: 0;
-  right: 0;
-}
-
-.c5 .c1 {
-  position: absolute;
-  top: 0.8rem;
-  right: -0.2rem;
-}
-
-.c5 .c1 .focus-within .c3 {
-  color: #5e6062;
-}
-
-.c5 .c1:focus-within .c3 {
-  color: #5e6062;
-}
-
-.c0 {
-  width: 20rem;
-  overflow: visible;
-  background: #f5f5f5;
-  background: #fff;
-}
-
-.c0 > label {
-  display: none;
-  color: #424242;
-  color: #fed200;
-  font-size: 1.4rem;
-  line-height: 2rem;
-  margin: 1.2000000000000002rem 0 0 1.6rem;
-}
-
-.c0 .c1 {
-  position: absolute;
-  top: 0.8rem;
-  right: -0.2rem;
-}
-
-.c0 .c1 .focus-within .c3 {
-  color: #5e6062;
-}
-
-.c0 .c1:focus-within .c3 {
-  color: #5e6062;
-}
-
-@media screen and (max-width:75em) {
-  .c0 {
-    margin-left: 8rem;
-  }
-}
-
-@media screen and (max-width:50em) {
-  .c0 {
-    margin-left: 0;
-  }
-}
-
 <div
   aria-labelledby="display-note-undefined"
-  className="c0"
+  className="undefined display-note"
   data-highlight-card={true}
   role="dialog"
+  style={
+    Object {
+      "--highlight-color": "#fed200",
+    }
+  }
   tabIndex={-1}
 >
   <div
-    className="c1 c2"
+    className="c0"
   >
     <button
       aria-expanded={true}
@@ -381,7 +210,7 @@ exports[`DisplayNote matches snapshot when focused with opened dropdown 1`] = `
       >
         <svg
           aria-hidden="true"
-          className="dot-menu-icon c3 "
+          className="dot-menu-icon "
           data-menu-icon={true}
           viewBox="0 0 192 512"
         >
@@ -423,7 +252,7 @@ exports[`DisplayNote matches snapshot when focused with opened dropdown 1`] = `
   </div>
   <svg
     aria-hidden="true"
-    className="c4"
+    className="display-note-close-icon"
     focusable="false"
     height="15px"
     onClick={[MockFunction]}

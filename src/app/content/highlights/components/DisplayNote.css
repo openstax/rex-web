@@ -69,6 +69,7 @@
 }
 
 /* === Touch Device Styles === */
+
 /* touchDeviceQuery from theme.ts: "not all and (pointer: fine), (hover: none)" */
 @media screen and (max-width: 75em) { /* mobileBreak */
   @media not all and (pointer: fine), (hover: none) {
