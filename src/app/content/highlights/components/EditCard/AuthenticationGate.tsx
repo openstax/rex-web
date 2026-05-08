@@ -26,7 +26,7 @@ interface LoginOrEditProps {
   'data-hidden'?: boolean;
   'data-toc-open'?: boolean;
   'data-has-query'?: boolean;
-  style?: React.CSSProperties;
+  cardStyle?: React.CSSProperties;
 }
 
 export function LoginOrEdit({

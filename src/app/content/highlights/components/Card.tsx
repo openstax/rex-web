@@ -257,7 +257,7 @@ function NoteOrCard({
     'data-hidden': props.isHidden,
     'data-toc-open': props.isTocOpen === null || props.isTocOpen,
     'data-has-query': props.hasQuery,
-    style: cardStyle,
+    cardStyle: cardStyle,
   };
 
   return (
