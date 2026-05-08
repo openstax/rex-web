@@ -111,6 +111,7 @@ const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
       {...restProps}
     >
       <Dropdown
+        className="dropdown"
         ref={dropdownRef}
         toggle={<MenuToggle isOpen={menuOpen} data-no-card-activate />}
         transparentTab={confirmingDelete}
