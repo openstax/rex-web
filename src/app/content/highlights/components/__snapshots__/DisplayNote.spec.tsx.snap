@@ -19,7 +19,7 @@ exports[`DisplayNote matches snapshot 1`] = `
   tabIndex={-1}
 >
   <div
-    className="c0"
+    className="c0 dropdown"
   >
     <button
       aria-expanded={false}
@@ -106,7 +106,7 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
   tabIndex={-1}
 >
   <div
-    className="c0"
+    className="c0 dropdown"
   >
     <button
       aria-expanded={false}
@@ -193,7 +193,7 @@ exports[`DisplayNote matches snapshot when focused with opened dropdown 1`] = `
   tabIndex={-1}
 >
   <div
-    className="c0"
+    className="c0 dropdown"
   >
     <button
       aria-expanded={true}
