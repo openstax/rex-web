@@ -1,5 +1,5 @@
 import { Highlight } from '@openstax/highlighter';
-import { Document, HTMLElement } from '@openstax/types/lib.dom';
+import { Document, HTMLElement, HTMLDivElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
@@ -8,7 +8,7 @@ import createMockHighlight from '../../../../test/mocks/highlight';
 import OnEsc from '../../../components/OnEsc';
 import { dispatchKeyDownEvent } from '../../../../test/reactutils';
 import { runHooks } from '../../../../test/utils';
-import { Store } from '../../../types';
+import { AppState, Store } from '../../../types';
 import { assertDocument, remsToPx } from '../../../utils';
 import { assertWindow } from '../../../utils/browser-assertions';
 import { focusHighlight, clearFocusedHighlight } from '../actions';
@@ -631,7 +631,7 @@ describe('CardWrapper', () => {
 
   describe('MaybeWrapper', () => {
     let wrapperStore: Store;
-    let wrapperContainer: HTMLElement;
+    let wrapperContainer: HTMLDivElement;
 
     beforeEach(() => {
       wrapperStore = createTestStore();
@@ -754,7 +754,7 @@ describe('CardWrapper', () => {
 
   describe('handleGlobalMouseUp', () => {
     let mockedStore: Store;
-    let mockedContainer: HTMLElement;
+    let mockedContainer: HTMLDivElement;
     let dispatchSpy: jest.Mock;
 
     beforeEach(() => {
@@ -1030,5 +1030,60 @@ describe('CardWrapper', () => {
       expect(card3.props.topOffset).toBe(500);
     });
 
+  });
+
+  describe('data attributes for CSS', () => {
+    it('sets data-toc-open attribute when isTocOpen is true', () => {
+      // Create a mock state with tocOpen = true
+      const stateWithTocOpen = {
+        ...store.getState(),
+        content: {
+          ...store.getState().content,
+          tocOpen: true,
+          search: { query: '' },
+        },
+      } as Partial<AppState>;
+
+      // Create a new store with the modified state
+      const storeWithTocOpen = createTestStore(stateWithTocOpen);
+
+      const component = renderer.create(<Provider store={storeWithTocOpen}>
+        <CardWrapper container={container} highlights={[createMockHighlight('id1')]} />
+      </Provider>);
+
+      const wrapper = component.root.findByProps({ className: 'highlight-card-wrapper' });
+      expect(wrapper.props['data-toc-open']).toBe(true);
+    });
+
+    it('sets data-toc-open attribute to true when tocOpen is null in state', () => {
+      // The default store state leaves tocOpen as null.
+      const component = renderer.create(<Provider store={store}>
+        <CardWrapper container={container} highlights={[createMockHighlight('id1')]} />
+      </Provider>);
+
+      const wrapper = component.root.findByProps({ className: 'highlight-card-wrapper' });
+      // When tocOpen is null, we treat it as true (ToC open) to preserve old styled-components behavior
+      expect(wrapper.props['data-toc-open']).toBe(true);
+    });
+
+    it('sets data-has-query attribute when hasQuery is true', () => {
+      // Create a mock state with a search query
+      const stateWithQuery = {
+        ...store.getState(),
+        content: {
+          ...store.getState().content,
+          search: { query: 'test query' },
+        },
+      } as Partial<AppState>;
+
+      const storeWithQuery = createTestStore(stateWithQuery);
+
+      const component = renderer.create(<Provider store={storeWithQuery}>
+        <CardWrapper container={container} highlights={[createMockHighlight('id1')]} />
+      </Provider>);
+
+      const wrapper = component.root.findByProps({ className: 'highlight-card-wrapper' });
+      expect(wrapper.props['data-has-query']).toBe(true);
+    });
   });
 });
