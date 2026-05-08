@@ -29,13 +29,17 @@ describe('DisplayNote', () => {
     store = createTestStore();
     displayNoteProps = {
       focus: jest.fn(),
-      highlight: { elements: [] } as any as Highlight,
+      highlight: { id: 'test-highlight-id', elements: [] } as any as Highlight,
       onBlur: jest.fn(),
       onEdit: doNothing,
       onHeightChange: jest.fn(),
       onRemove: jest.fn(),
       highlightStyle: highlightStyles[0],
-    } as unknown as DisplayNoteProps;
+      note: 'This is a test note',
+      className: 'highlight-card',
+      isActive: false,
+      shouldFocusCard: false,
+    };
   });
 
   afterEach(() => {
@@ -44,7 +48,7 @@ describe('DisplayNote', () => {
 
   it('matches snapshot', () => {
     const component = renderer.create(<TestContainer store={store}>
-      <DisplayNote {...displayNoteProps} isActive={false} />
+      <DisplayNote {...displayNoteProps} />
     </TestContainer>);
 
     const tree = component.toJSON();
