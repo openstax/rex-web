@@ -131,7 +131,6 @@ const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
         className="display-note-close-icon"
         onClick={onBlur}
         aria-hidden='true'
-        focusable='false'
       />
       <label>Note:</label>
       <TruncatedText id={noteId} text={note} isActive={isActive} onChange={() => setTextToggle((state) => !state)} />

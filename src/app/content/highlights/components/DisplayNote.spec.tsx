@@ -22,7 +22,7 @@ jest.useFakeTimers();
 const doNothing = () => null;
 
 describe('DisplayNote', () => {
-  let displayNoteProps: Partial<DisplayNoteProps>;
+  let displayNoteProps: DisplayNoteProps;
   let store: Store;
 
   beforeEach(() => {
@@ -35,7 +35,7 @@ describe('DisplayNote', () => {
       onHeightChange: jest.fn(),
       onRemove: jest.fn(),
       highlightStyle: highlightStyles[0],
-    };
+    } as unknown as DisplayNoteProps;
   });
 
   afterEach(() => {
