@@ -73,8 +73,8 @@
 /* Combined media query: mobileBreak AND touchDeviceQuery from theme.ts */
 
 /* touchDeviceQuery: "not all and (pointer: fine), (hover: none)" */
-@media screen and (max-width: 75em) and pointer: not fine,
-  screen and (max-width: 75em) and (hover: none) {
+@media (max-width: 75em) and (pointer: coarse),
+  (max-width: 75em) and (hover: none) {
   .display-note {
     width: unset;
   }
