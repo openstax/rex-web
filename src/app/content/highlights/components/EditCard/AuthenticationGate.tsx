@@ -9,7 +9,7 @@ import { cardWidth } from '../../constants';
 import Confirmation from '../Confirmation';
 import theme from '../../../../theme';
 import { HTMLElement } from '@openstax/types/lib.dom';
-import { mergeRefs, assertWindow } from '../../../../utils';
+import { assertWindow } from '../../../../utils';
 
 interface LoginOrEditProps {
   children: React.ReactNode;
@@ -20,6 +20,13 @@ interface LoginOrEditProps {
   onBlur: typeof clearFocusedHighlight;
   fref: React.ForwardedRef<HTMLElement>;
   elementRef: React.RefObject<HTMLElement>;
+  onClick?: () => void;
+  'data-testid'?: string;
+  'data-active'?: boolean;
+  'data-hidden'?: boolean;
+  'data-toc-open'?: boolean;
+  'data-has-query'?: boolean;
+  style?: React.CSSProperties;
 }
 
 export function LoginOrEdit({
@@ -31,6 +38,8 @@ export function LoginOrEdit({
   onBlur,
   fref,
   elementRef,
+  onClick,
+  ...restProps
 }: LoginOrEditProps) {
   const authenticated = !!useSelector(selectAuth.user);
   const { formatMessage } = useIntl();
@@ -44,15 +53,18 @@ export function LoginOrEdit({
 
   return (
     <div
+      ref={fref as React.Ref<HTMLDivElement>}
       className={className}
       role='dialog'
       aria-label={formatMessage({ id: 'i18n:highlighter:edit-note:label' })}
+      onClick={onClick}
+      {...restProps}
     >
       {authenticated ? (
         <HiddenOnMobile>
           {shouldFocusCard || hasAnnotation ? (
             <form
-              ref={mergeRefs(fref, elementRef)}
+              ref={elementRef}
               data-analytics-region='edit-note'
               data-highlight-card
             >
