@@ -6,7 +6,7 @@ import { highlightStyles } from '../../constants';
 import { cardPadding } from '../constants';
 import ColorIndicator, { TrashButton } from './ColorIndicator';
 import { HTMLDivElement, HTMLInputElement } from '@openstax/types/lib.dom';
-import './ColorPicker.css';
+/* CSS is imported in /index.tsx */
 
 interface SingleSelectProps {
   color?: HighlightColorEnum;
