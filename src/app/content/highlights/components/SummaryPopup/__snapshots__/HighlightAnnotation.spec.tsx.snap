@@ -1,38 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`HighlightDeleteWrapper match snapshot when editing is set to false 1`] = `
-.c0 {
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  padding-top: 1.2rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  gap: 1rem;
-  -webkit-flex-flow: wrap;
-  -ms-flex-flow: wrap;
-  flex-flow: wrap;
-  -webkit-align-items: start;
-  -webkit-box-align: start;
-  -ms-flex-align: start;
-  align-items: start;
-}
-
-.c0 span {
-  margin: 0 0.8rem 0 0;
-  overflow: visible;
-}
-
-.c1 {
-  white-space: pre-wrap;
-  word-break: break-word;
-  overflow-wrap: break-word;
-}
-
 <div
-  className="c0"
+  className="highlight-note"
 >
   <span
     className="highlight-note-text"
@@ -40,7 +10,7 @@ exports[`HighlightDeleteWrapper match snapshot when editing is set to false 1`] 
     Note:
   </span>
   <div
-    className="c1"
+    className="highlight-note-annotation"
   >
     Some annotation
   </div>
@@ -48,91 +18,22 @@ exports[`HighlightDeleteWrapper match snapshot when editing is set to false 1`] 
 `;
 
 exports[`HighlightDeleteWrapper match snapshot when editing is set to true 1`] = `
-.c3 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  overflow: visible;
-  gap: 1rem;
-  height: -webkit-min-content;
-  height: -moz-min-content;
-  height: min-content;
-}
-
-.c0 {
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  padding-top: 1.2rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  gap: 1rem;
-  -webkit-flex-flow: wrap;
-  -ms-flex-flow: wrap;
-  flex-flow: wrap;
-  -webkit-align-items: start;
-  -webkit-box-align: start;
-  -ms-flex-align: start;
-  align-items: start;
-}
-
-.c0 span {
-  margin: 0 0.8rem 0 0;
-  overflow: visible;
-}
-
-.c1 {
-  font-weight: bold;
-  width: 100%;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-}
-
-.c2 {
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  font-family: inherit;
-  width: 100%;
-  -webkit-letter-spacing: 0;
-  -moz-letter-spacing: 0;
-  -ms-letter-spacing: 0;
-  letter-spacing: 0;
-  line-height: 2rem;
-  min-height: 3.6rem;
-  max-height: calc(60vh - 20rem);
-  box-sizing: border-box;
-  color: #6f6f6f;
-  padding: 0.8rem;
-}
-
 <div
-  className="c0"
+  className="highlight-note"
 >
   <label
-    className="c1"
+    className="textarea-label"
   >
     Note:
     <textarea
       autoFocus={true}
-      className="c2"
+      className="highlight-annotation-textarea"
       onChange={[Function]}
       onInput={[Function]}
       placeholder="Add a note"
       style={
         Object {
+          "--note-text-color": "#6f6f6f",
           "height": "2px",
         }
       }
@@ -140,7 +41,7 @@ exports[`HighlightDeleteWrapper match snapshot when editing is set to true 1`] =
     />
   </label>
   <div
-    className="c3"
+    className="highlight-edit-buttons "
   >
     <button
       aria-label="Save"

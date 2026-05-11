@@ -1,0 +1,65 @@
+/* ContextMenu Component Styles */
+
+.styled-context-menu {
+  display: none;
+}
+
+@media print {
+  .styled-context-menu {
+    display: none !important;
+  }
+}
+
+.styled-context-menu [data-dropdown] {
+  position: absolute;
+  width: 150px;
+  top: 1.2rem;
+  right: 0;
+}
+
+.styled-context-menu [data-dropdown].focus-within [data-menu-icon] {
+  color: var(--secondary-lightgray-darkest);
+}
+
+.styled-context-menu [data-dropdown]:focus-within [data-menu-icon] {
+  color: var(--secondary-lightgray-darkest);
+}
+
+.styled-context-menu .color-picker {
+  margin: 0.6rem 0 0 0.6rem;
+}
+
+.styled-context-menu [data-menu-toggle] {
+  float: right;
+  margin-right: 0.2rem;
+}
+
+.styled-dropdown-list {
+  padding: 0;
+}
+
+.styled-dropdown-list li {
+  display: flex;
+}
+
+.styled-dropdown-list li button,
+.styled-dropdown-list li a {
+  border: 0;
+  width: 100%;
+}
+
+.styled-dropdown-list li button:focus,
+.styled-dropdown-list li a:focus,
+.styled-dropdown-list li button:hover,
+.styled-dropdown-list li a:hover {
+  outline-width: 0;
+}
+
+.styled-edit-icon,
+.styled-trash-alt-icon,
+.styled-link-icon {
+  width: 15px;
+  height: 15px;
+  margin-right: 10px;
+  color: var(--text-default);
+}

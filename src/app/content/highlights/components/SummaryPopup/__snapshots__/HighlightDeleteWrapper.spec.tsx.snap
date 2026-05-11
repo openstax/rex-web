@@ -1,22 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`HighlightDeleteWrapper match snapshot 1`] = `
-.c1 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  overflow: visible;
-  gap: 1rem;
-  height: -webkit-min-content;
-  height: -moz-min-content;
-  height: min-content;
-}
-
 .c0 {
   position: absolute;
   top: 0;
@@ -60,7 +44,7 @@ exports[`HighlightDeleteWrapper match snapshot 1`] = `
     Are you sure you want to delete this highlight?
   </span>
   <div
-    className="c1"
+    className="highlight-edit-buttons "
   >
     <button
       autoFocus={true}

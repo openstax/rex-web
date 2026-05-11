@@ -28,7 +28,7 @@ describe('ColorPicker', () => {
 
   it('checks selection (multiple)', () => {
     const component = renderer.create(<TestContainer>
-      <ColorPicker multiple selected={[highlightStyles[0].label]} onChange={jest.fn()} onRemove={jest.fn()} />
+      <ColorPicker multiple selected={[highlightStyles[0].label]} onChange={jest.fn()} />
     </TestContainer>);
 
     const [first, ...rest] = component.root.findAllByType('input');
@@ -54,17 +54,15 @@ describe('ColorPicker', () => {
 
   it('calls update when changing selection (multiple)', () => {
     const onChange = jest.fn();
-    const onRemove = jest.fn();
 
     const component = renderer.create(<TestContainer>
-      <ColorPicker multiple selected={[highlightStyles[0].label]} onChange={onChange} onRemove={onRemove} />
+      <ColorPicker multiple selected={[highlightStyles[0].label]} onChange={onChange} />
     </TestContainer>);
 
     const [, second] = component.root.findAllByType('input');
 
     second.props.onChange();
 
-    expect(onRemove).not.toHaveBeenCalled();
     expect(onChange).toHaveBeenCalledWith([highlightStyles[0].label, highlightStyles[1].label]);
   });
 
@@ -177,17 +175,15 @@ describe('ColorPicker', () => {
 
   it('calls remove when changing selection (multiple)', () => {
     const onChange = jest.fn();
-    const onRemove = jest.fn();
 
     const component = renderer.create(<TestContainer>
-      <ColorPicker multiple selected={[highlightStyles[0].label]} onChange={onChange} onRemove={onRemove} />
+      <ColorPicker multiple selected={[highlightStyles[0].label]} onChange={onChange} />
     </TestContainer>);
 
     const [first] = component.root.findAllByType('input');
 
     first.props.onChange();
 
-    expect(onRemove).not.toHaveBeenCalled();
     expect(onChange).toHaveBeenCalledWith([]);
   });
 

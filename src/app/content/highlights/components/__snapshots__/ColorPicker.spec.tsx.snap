@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ColorPicker matches snapshot no selection 1`] = `
-.c5 {
+.c2 {
   display: none;
 }
 
-.c7 {
+.c4 {
   display: none;
   position: absolute;
   height: 2.8rem;
@@ -20,7 +20,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   border-radius: 50%;
 }
 
-.c8 {
+.c5 {
   height: 2.1999999999999997rem;
   width: 2.1999999999999997rem;
   background-color: transparent;
@@ -34,7 +34,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   border: 1px solid #fed200;
 }
 
-.c10 {
+.c7 {
   height: 2.1999999999999997rem;
   width: 2.1999999999999997rem;
   background-color: transparent;
@@ -48,7 +48,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   border: 1px solid #92d101;
 }
 
-.c12 {
+.c9 {
   height: 2.1999999999999997rem;
   width: 2.1999999999999997rem;
   background-color: transparent;
@@ -62,7 +62,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   border: 1px solid #00c3ed;
 }
 
-.c14 {
+.c11 {
   height: 2.1999999999999997rem;
   width: 2.1999999999999997rem;
   background-color: transparent;
@@ -76,7 +76,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   border: 1px solid #545ec8;
 }
 
-.c16 {
+.c13 {
   height: 2.1999999999999997rem;
   width: 2.1999999999999997rem;
   background-color: transparent;
@@ -90,7 +90,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   border: 1px solid #de017e;
 }
 
-.c2 {
+.c0 {
   position: relative;
   background-color: #ffff8a;
   border: 1px solid #8f7700;
@@ -112,19 +112,19 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   overflow: visible;
 }
 
-.c2 .c4 {
+.c0 .c1 {
   height: 1.6rem;
   width: 1.6rem;
 }
 
-.c2 input:focus + .c6 {
+.c0 input:focus + .c3 {
   display: block;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
   z-index: 1;
 }
 
-.c9 {
+.c6 {
   position: relative;
   background-color: #def99f;
   border: 1px solid #4e6f01;
@@ -146,19 +146,19 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   overflow: visible;
 }
 
-.c9 .c4 {
+.c6 .c1 {
   height: 1.6rem;
   width: 1.6rem;
 }
 
-.c9 input:focus + .c6 {
+.c6 input:focus + .c3 {
   display: block;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
   z-index: 1;
 }
 
-.c11 {
+.c8 {
   position: relative;
   background-color: #c8f5ff;
   border: 1px solid #006880;
@@ -180,19 +180,19 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   overflow: visible;
 }
 
-.c11 .c4 {
+.c8 .c1 {
   height: 1.6rem;
   width: 1.6rem;
 }
 
-.c11 input:focus + .c6 {
+.c8 input:focus + .c3 {
   display: block;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
   z-index: 1;
 }
 
-.c13 {
+.c10 {
   position: relative;
   background-color: #cbcfff;
   border: 1px solid #141a3e;
@@ -214,19 +214,19 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   overflow: visible;
 }
 
-.c13 .c4 {
+.c10 .c1 {
   height: 1.6rem;
   width: 1.6rem;
 }
 
-.c13 input:focus + .c6 {
+.c10 input:focus + .c3 {
   display: block;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
   z-index: 1;
 }
 
-.c15 {
+.c12 {
   position: relative;
   background-color: #ffc5e1;
   border: 1px solid #560131;
@@ -248,84 +248,37 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   overflow: visible;
 }
 
-.c15 .c4 {
+.c12 .c1 {
   height: 1.6rem;
   width: 1.6rem;
 }
 
-.c15 input:focus + .c6 {
+.c12 input:focus + .c3 {
   display: block;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
   z-index: 1;
 }
 
-.c17 img {
+.c14 img {
   height: 1.9rem;
   width: 1.9rem;
 }
 
-.c3 {
-  cursor: pointer;
-  margin: 0;
-}
-
-.c3 input {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-  height: 0;
-  width: 0;
-}
-
-.c0 {
-  border: 0;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-}
-
-.c0 legend {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border: 0;
-}
-
-.c1 {
-  border: 0;
-  outline: none;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  overflow: visible;
-  gap: 0.8rem;
-  padding: 0 0.3rem 0.8rem;
-}
-
 <div
-  className="c0"
+  className="color-picker-wrapper"
 >
   <fieldset
-    className="c1"
+    className="color-picker "
     data-testid="highlight-colours-picker"
     onFocus={[Function]}
     onKeyDown={[Function]}
     role="radiogroup"
+    style={
+      Object {
+        "--card-padding": "0.8rem",
+      }
+    }
     tabIndex={0}
   >
     <legend>
@@ -334,7 +287,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
     <label
       aria-label="Apply yellow highlight"
       checked={false}
-      className="c2 c3"
+      className="c0 color-button "
       component={<label />}
       style={
         Object {
@@ -348,7 +301,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
     >
       <svg
         aria-hidden="true"
-        className="c4 c5"
+        className="c1 c2"
         viewBox="0 0 512 512"
       >
         <path
@@ -365,7 +318,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
         type="radio"
       />
       <span
-        className="c6 c7"
+        className="c3 c4"
         style={
           Object {
             "focusBorder": "#8f7700",
@@ -376,7 +329,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
         }
       />
       <span
-        className="c8"
+        className="c5"
         style={
           Object {
             "focusBorder": "#8f7700",
@@ -390,7 +343,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
     <label
       aria-label="Apply green highlight"
       checked={false}
-      className="c9 c3"
+      className="c6 color-button "
       component={<label />}
       style={
         Object {
@@ -404,7 +357,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
     >
       <svg
         aria-hidden="true"
-        className="c4 c5"
+        className="c1 c2"
         viewBox="0 0 512 512"
       >
         <path
@@ -421,7 +374,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
         type="radio"
       />
       <span
-        className="c6 c7"
+        className="c3 c4"
         style={
           Object {
             "focusBorder": "#4e6f01",
@@ -432,7 +385,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
         }
       />
       <span
-        className="c10"
+        className="c7"
         style={
           Object {
             "focusBorder": "#4e6f01",
@@ -446,7 +399,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
     <label
       aria-label="Apply blue highlight"
       checked={false}
-      className="c11 c3"
+      className="c8 color-button "
       component={<label />}
       style={
         Object {
@@ -460,7 +413,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
     >
       <svg
         aria-hidden="true"
-        className="c4 c5"
+        className="c1 c2"
         viewBox="0 0 512 512"
       >
         <path
@@ -477,7 +430,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
         type="radio"
       />
       <span
-        className="c6 c7"
+        className="c3 c4"
         style={
           Object {
             "focusBorder": "#006880",
@@ -488,7 +441,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
         }
       />
       <span
-        className="c12"
+        className="c9"
         style={
           Object {
             "focusBorder": "#006880",
@@ -502,7 +455,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
     <label
       aria-label="Apply purple highlight"
       checked={false}
-      className="c13 c3"
+      className="c10 color-button "
       component={<label />}
       style={
         Object {
@@ -516,7 +469,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
     >
       <svg
         aria-hidden="true"
-        className="c4 c5"
+        className="c1 c2"
         viewBox="0 0 512 512"
       >
         <path
@@ -533,7 +486,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
         type="radio"
       />
       <span
-        className="c6 c7"
+        className="c3 c4"
         style={
           Object {
             "focusBorder": "#141a3e",
@@ -544,7 +497,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
         }
       />
       <span
-        className="c14"
+        className="c11"
         style={
           Object {
             "focusBorder": "#141a3e",
@@ -558,7 +511,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
     <label
       aria-label="Apply pink highlight"
       checked={false}
-      className="c15 c3"
+      className="c12 color-button "
       component={<label />}
       style={
         Object {
@@ -572,7 +525,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
     >
       <svg
         aria-hidden="true"
-        className="c4 c5"
+        className="c1 c2"
         viewBox="0 0 512 512"
       >
         <path
@@ -589,7 +542,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
         type="radio"
       />
       <span
-        className="c6 c7"
+        className="c3 c4"
         style={
           Object {
             "focusBorder": "#560131",
@@ -600,7 +553,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
         }
       />
       <span
-        className="c16"
+        className="c13"
         style={
           Object {
             "focusBorder": "#560131",
@@ -614,7 +567,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   </fieldset>
   <button
     aria-label="Deselect current highlight color"
-    className="c17"
+    className="c14"
     onClick={[MockFunction]}
     type="button"
   >

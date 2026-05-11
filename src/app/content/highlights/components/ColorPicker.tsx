@@ -1,19 +1,18 @@
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
 import { useIntl } from 'react-intl';
-import { hiddenButAccessible } from '../../../theme';
-import styled from 'styled-components/macro';
 import { match, not } from '../../../fpUtils';
 import { highlightStyles } from '../../constants';
 import { cardPadding } from '../constants';
 import ColorIndicator, { TrashButton } from './ColorIndicator';
 import { HTMLDivElement, HTMLInputElement } from '@openstax/types/lib.dom';
+import './ColorPicker.css';
 
 interface SingleSelectProps {
   color?: HighlightColorEnum;
-  onRemove?: () => void;
+  onRemove?: (() => void) | null;
   onChange: (color: HighlightColorEnum) => void;
-  multiple: false | undefined;
+  multiple?: false;
 }
 
 interface MultipleSelectProps {
@@ -32,11 +31,12 @@ interface ColorButtonProps {
   checked: boolean;
   size: Props['size'];
   style: typeof highlightStyles[number];
-  onClick: () => void;
+  onChange: () => void;
   className?: string;
+  tabIndex?: number;
 }
 
-const ColorButton = styled(({className, size, style, ...props}: ColorButtonProps) => {
+const ColorButton = ({className, size, style, ...props}: ColorButtonProps) => {
   const color = useIntl().formatMessage({id: `i18n:highlighting:colors:${style.label}`});
 
   return <ColorIndicator
@@ -46,22 +46,11 @@ const ColorButton = styled(({className, size, style, ...props}: ColorButtonProps
     aria-label={useIntl().formatMessage({id: 'i18n:highlighting:change-color'}, {color})}
     checked={props.checked}
     component={<label />}
-    className={className}
+    className={`color-button ${className || ''}`}
   >
     <input type='radio' aria-checked={props.checked} {...props} />
   </ColorIndicator>;
-})`
-  cursor: pointer;
-  margin: 0;
-
-  input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
-  }
-`;
+};
 
 type NavKeys = 'Home' | 'End' | 'ArrowLeft' | 'ArrowRight' | ' ' | 'Enter';
 
@@ -82,15 +71,9 @@ function nextIdx(idx: number, itemCount: number, key: NavKeys) {
   return idx;
 }
 
-const FSWrapper = styled.div`
-  border: 0;
-  display: flex;
-  flex-direction: row;
-
-  legend {
-    ${hiddenButAccessible}
-  }
-`;
+const FSWrapper = ({children}: {children: React.ReactNode}) => (
+  <div className="color-picker-wrapper">{children}</div>
+);
 
 const ColorPicker = ({className, ...props}: Props) => {
   const ref = React.useRef<HTMLDivElement>(null);
@@ -129,7 +112,8 @@ const ColorPicker = ({className, ...props}: Props) => {
   return (
     <FSWrapper>
       <fieldset
-        className={className}
+        className={`color-picker ${className || ''}`}
+        style={{'--card-padding': `${cardPadding}rem`} as React.CSSProperties}
         tabIndex={0}
         ref={ref}
         onKeyDown={handleKeyNavigation}
@@ -164,12 +148,4 @@ const ColorPicker = ({className, ...props}: Props) => {
   );
 };
 
-export default styled(ColorPicker)`
-  border: 0;
-  outline: none;
-  display: flex;
-  flex-direction: row;
-  overflow: visible;
-  gap: ${cardPadding}rem;
-  padding: 0 0.3rem ${cardPadding}rem;
-`;
+export default ColorPicker;
