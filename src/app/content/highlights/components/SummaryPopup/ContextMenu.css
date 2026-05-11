@@ -1,9 +1,5 @@
 /* ContextMenu Component Styles */
 
-.styled-context-menu {
-  display: none;
-}
-
 @media print {
   .styled-context-menu {
     display: none !important;
