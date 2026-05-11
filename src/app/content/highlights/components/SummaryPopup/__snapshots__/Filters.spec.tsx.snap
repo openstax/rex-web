@@ -670,6 +670,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
   >
     <div
       className="c2 c3"
+      controlsId="summary-filter-chapter"
     >
       <button
         aria-controls="summary-filter-chapter"
@@ -752,6 +753,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
     </div>
     <div
       className="c2 c3"
+      controlsId="summary-filter-color"
     >
       <button
         aria-controls="summary-filter-color"

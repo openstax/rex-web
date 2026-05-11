@@ -17,11 +17,13 @@ exports[`ContextMenu match snapshot when closed 1`] = `
 >
   <div
     className="c0"
+    data-dropdown={true}
   >
     <button
       aria-expanded={false}
       aria-label="Edit this highlight"
       className="plain-button dot-menu-toggle dropdown-toggle "
+      data-menu-toggle={true}
       data-testid="highlight-dropdown-menu-toggle"
       onClick={[Function]}
     >
@@ -31,6 +33,7 @@ exports[`ContextMenu match snapshot when closed 1`] = `
         <svg
           aria-hidden="true"
           className="dot-menu-icon "
+          data-menu-icon={true}
           viewBox="0 0 192 512"
         >
           <path
@@ -324,11 +327,13 @@ exports[`ContextMenu match snapshot when open 1`] = `
 >
   <div
     className="c0"
+    data-dropdown={true}
   >
     <button
       aria-expanded={true}
       aria-label="Edit this highlight"
       className="plain-button dot-menu-toggle dropdown-toggle "
+      data-menu-toggle={true}
       data-testid="highlight-dropdown-menu-toggle"
       onClick={[Function]}
     >
@@ -338,6 +343,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
         <svg
           aria-hidden="true"
           className="dot-menu-icon "
+          data-menu-icon={true}
           viewBox="0 0 192 512"
         >
           <path

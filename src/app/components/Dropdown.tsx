@@ -102,7 +102,15 @@ const TabHiddenDropDown = React.forwardRef<HTMLElement, TabHiddenProps>((
     if (toggleElement.current) { toggleElement.current.focus(); }
   });
 
-  return <div className={className} ref={mergeRefs(ref, container)}>
+  // Extract open/setOpen from props so they don't get passed to the div
+  const restProps = {...props};
+
+  if ('open' in restProps) {
+    delete restProps.open;
+    delete restProps.setOpen;
+  }
+
+  return <div className={className} ref={mergeRefs(ref, container)} {...restProps}>
     <DropdownToggle
       ref={toggleElement}
       component={toggle}
@@ -118,7 +126,7 @@ const TabHiddenDropDown = React.forwardRef<HTMLElement, TabHiddenProps>((
 
 // Plain React component for TabTransparentDropdown
 const TabTransparentDropdown = React.forwardRef<HTMLElement, React.PropsWithChildren<Props>>((
-  {toggle, children, className, menuClassName}, ref
+  {toggle, children, className, menuClassName, ...props}, ref
 ) => {
   const [isFocusWithin, setIsFocusWithin] = React.useState(false);
 
@@ -134,7 +142,7 @@ const TabTransparentDropdown = React.forwardRef<HTMLElement, React.PropsWithChil
     }
   }, []);
 
-  return <div className={classNames('dropdown-transparent', className)} ref={ref}>
+  return <div className={classNames('dropdown-transparent', className)} ref={ref} {...props}>
     <DropdownFocusWrapper
       className={classNames({ 'focus-within': isFocusWithin })}
       onFocus={handleFocusIn}
