@@ -80,6 +80,17 @@ export function callOrRefocus(
   }
 }
 
+// Helper function for stripping out props that should not be included in spread props
+function stripControlledProps(props: {} | ControlledProps) {
+  const strippedProps = {...props};
+
+  if ('open' in strippedProps) {
+    delete strippedProps.open;
+    delete strippedProps.setOpen;
+  }
+  return strippedProps;
+}
+
 type TabHiddenProps = React.PropsWithChildren<Props | Props & ControlledProps>;
 
 // Plain React component for TabHiddenDropDown
@@ -103,12 +114,7 @@ const TabHiddenDropDown = React.forwardRef<HTMLElement, TabHiddenProps>((
   });
 
   // Extract open/setOpen from props so they don't get passed to the div
-  const restProps = {...props};
-
-  if ('open' in restProps) {
-    delete restProps.open;
-    delete restProps.setOpen;
-  }
+  const restProps = stripControlledProps(props);
 
   return <div className={className} ref={mergeRefs(ref, container)} {...restProps}>
     <DropdownToggle
@@ -125,8 +131,8 @@ const TabHiddenDropDown = React.forwardRef<HTMLElement, TabHiddenProps>((
 });
 
 // Plain React component for TabTransparentDropdown
-const TabTransparentDropdown = React.forwardRef<HTMLElement, React.PropsWithChildren<Props>>((
-  {toggle, children, className, menuClassName, ...props}, ref
+const TabTransparentDropdown = React.forwardRef<HTMLElement, React.PropsWithChildren<Props | Props & ControlledProps>>((
+  {toggle, children, className, menuClassName, onToggle, ...props}, ref
 ) => {
   const [isFocusWithin, setIsFocusWithin] = React.useState(false);
 
@@ -142,7 +148,10 @@ const TabTransparentDropdown = React.forwardRef<HTMLElement, React.PropsWithChil
     }
   }, []);
 
-  return <div className={classNames('dropdown-transparent', className)} ref={ref} {...props}>
+  // Extract open/setOpen from props so they don't get passed to the div
+  const restProps = stripControlledProps(props);
+
+  return <div className={classNames('dropdown-transparent', className)} ref={ref} {...restProps}>
     <DropdownFocusWrapper
       className={classNames({ 'focus-within': isFocusWithin })}
       onFocus={handleFocusIn}

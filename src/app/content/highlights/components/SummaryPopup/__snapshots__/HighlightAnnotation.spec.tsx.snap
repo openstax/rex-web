@@ -41,7 +41,7 @@ exports[`HighlightDeleteWrapper match snapshot when editing is set to true 1`] =
     />
   </label>
   <div
-    className="highlight-edit-buttons "
+    className="highlight-edit-buttons"
   >
     <button
       aria-label="Save"

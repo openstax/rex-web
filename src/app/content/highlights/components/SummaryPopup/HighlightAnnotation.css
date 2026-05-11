@@ -10,6 +10,7 @@
   gap: 1rem;
   flex-flow: wrap;
   align-items: start;
+  color: var(--color-text-default);
 }
 
 .highlight-note span {
@@ -21,6 +22,7 @@
   white-space: pre-wrap;
   word-break: break-word;
   overflow-wrap: break-word;
+  color: var(--color-text-default);
 }
 
 .textarea-label {
