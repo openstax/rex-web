@@ -13,10 +13,7 @@
   right: 0;
 }
 
-.styled-context-menu [data-dropdown].focus-within [data-menu-icon] {
-  color: var(--secondary-lightgray-darkest);
-}
-
+.styled-context-menu [data-dropdown].focus-within [data-menu-icon],
 .styled-context-menu [data-dropdown]:focus-within [data-menu-icon] {
   color: var(--secondary-lightgray-darkest);
 }

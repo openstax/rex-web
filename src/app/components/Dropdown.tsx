@@ -81,13 +81,11 @@ export function callOrRefocus(
 }
 
 // Helper function for stripping out props that should not be passed to native DOM elements.
-// Removes component-specific props (controlled props, callbacks) and whitelists only safe HTML attributes.
 // Only allows safe HTML attributes (data-*, aria-*, id, role, style, title, lang, dir) to pass through.
 function stripNonnativeProps(props: Record<string, unknown>) {
-  // Filter to only allow safe HTML attributes
   const safeProps: Record<string, unknown> = {};
+
   for (const [key, value] of Object.entries(props)) {
-    // Allow data-* and aria-* attributes, plus standard safe HTML attributes
     if (
       key.startsWith('data-') ||
       key.startsWith('aria-') ||
@@ -122,8 +120,7 @@ const TabHiddenDropDown = React.forwardRef<HTMLElement, TabHiddenProps>((
     if (toggleElement.current) { toggleElement.current.focus(); }
   });
 
-  // Extract controlled props and callbacks so they don't get passed to the div
-  const restProps = stripNonnativeProps(props as Record<string, unknown>);
+  const restProps = stripNonnativeProps(props);
 
   return <div className={className} ref={mergeRefs(ref, container)} {...restProps}>
     <DropdownToggle
@@ -158,7 +155,7 @@ const TabTransparentDropdown = React.forwardRef<HTMLElement, React.PropsWithChil
   }, []);
 
   // Extract controlled props and callbacks so they don't get passed to the div
-  const restProps = stripNonnativeProps(props as Record<string, unknown>);
+  const restProps = stripNonnativeProps(props);
 
   return <div className={classNames('dropdown-transparent', className)} ref={ref} {...restProps}>
     <DropdownFocusWrapper
