@@ -81,14 +81,35 @@ export function callOrRefocus(
 }
 
 // Helper function for stripping out props that should not be included in spread props
+// Only allows safe HTML attributes (data-*, aria-*, id, role, style, title) to pass through
 function stripControlledProps(props: {} | ControlledProps) {
   const strippedProps = {...props};
 
+  // Remove controlled props
   if ('open' in strippedProps) {
     delete strippedProps.open;
     delete strippedProps.setOpen;
   }
-  return strippedProps;
+
+  // Remove onToggle callback - it's not a valid DOM prop
+  if ('onToggle' in strippedProps) {
+    delete strippedProps.onToggle;
+  }
+
+  // Filter to only allow safe HTML attributes
+  const safeProps: Record<string, unknown> = {};
+  for (const [key, value] of Object.entries(strippedProps)) {
+    // Allow data-* and aria-* attributes, plus standard safe HTML attributes
+    if (
+      key.startsWith('data-') ||
+      key.startsWith('aria-') ||
+      ['id', 'role', 'style', 'title', 'lang', 'dir'].includes(key)
+    ) {
+      safeProps[key] = value;
+    }
+  }
+
+  return safeProps;
 }
 
 type TabHiddenProps = React.PropsWithChildren<Props | Props & ControlledProps>;

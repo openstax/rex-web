@@ -31,7 +31,7 @@ interface ColorButtonProps {
   checked: boolean;
   size: Props['size'];
   style: typeof highlightStyles[number];
-  onChange: () => void;
+  onClick: () => void;
   className?: string;
   tabIndex?: number;
 }
@@ -128,7 +128,7 @@ const ColorPicker = ({className, ...props}: Props) => {
           style={style}
           size={props.size}
           tabIndex={-1}
-          onChange={() => props.multiple
+          onClick={() => props.multiple
             ? props.selected.includes(style.label)
               ? props.onChange(props.selected.filter(not(match(style.label))))
               : props.onChange([...props.selected, style.label])

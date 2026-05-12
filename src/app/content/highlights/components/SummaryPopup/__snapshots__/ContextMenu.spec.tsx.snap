@@ -409,7 +409,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
                   aria-checked={false}
                   checked={false}
                   name="yellow"
-                  onChange={[Function]}
+                  onClick={[Function]}
                   tabIndex={-1}
                   type="radio"
                 />
@@ -468,7 +468,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
                   aria-checked={false}
                   checked={false}
                   name="green"
-                  onChange={[Function]}
+                  onClick={[Function]}
                   tabIndex={-1}
                   type="radio"
                 />
@@ -527,7 +527,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
                   aria-checked={true}
                   checked={true}
                   name="blue"
-                  onChange={[Function]}
+                  onClick={[Function]}
                   tabIndex={-1}
                   type="radio"
                 />
@@ -586,7 +586,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
                   aria-checked={false}
                   checked={false}
                   name="purple"
-                  onChange={[Function]}
+                  onClick={[Function]}
                   tabIndex={-1}
                   type="radio"
                 />
@@ -645,7 +645,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
                   aria-checked={false}
                   checked={false}
                   name="pink"
-                  onChange={[Function]}
+                  onClick={[Function]}
                   tabIndex={-1}
                   type="radio"
                 />

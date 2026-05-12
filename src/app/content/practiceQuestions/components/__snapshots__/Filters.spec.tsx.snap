@@ -128,7 +128,6 @@ exports[`Filters ChapterFilter matches snapshot when it is closed 1`] = `
   >
     <div
       className="c2 c3"
-      controlsId="practice-filter-chapter"
     >
       <button
         aria-controls="practice-filter-chapter"
@@ -490,7 +489,6 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
   >
     <div
       className="c2 c3"
-      controlsId="practice-filter-chapter"
     >
       <button
         aria-controls="practice-filter-chapter"
@@ -1002,7 +1000,6 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
   >
     <div
       className="c2 c3"
-      controlsId="practice-filter-chapter"
     >
       <button
         aria-controls="practice-filter-chapter"

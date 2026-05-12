@@ -100,13 +100,8 @@ exports[`AssignedTopBar renders 1`] = `
     }
   />
   <div
-    bookTheme="blue"
     className="c2 topbar-text-resizer-dropdown"
-    controlsId="text-resizer-menu"
     data-testid="text-resizer"
-    setTextSize={[Function]}
-    showAngleIcon={false}
-    textSize={0}
   >
     <button
       aria-controls="text-resizer-menu"

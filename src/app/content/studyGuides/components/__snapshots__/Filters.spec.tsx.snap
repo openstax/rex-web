@@ -677,7 +677,6 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
   >
     <div
       className="c2 c3"
-      controlsId="guide-filter-chapter"
     >
       <button
         aria-controls="guide-filter-chapter"
@@ -1020,7 +1019,6 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
     </div>
     <div
       className="c2 c3"
-      controlsId="guide-filter-color"
     >
       <button
         aria-controls="guide-filter-color"
