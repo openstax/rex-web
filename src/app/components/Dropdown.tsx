@@ -80,25 +80,13 @@ export function callOrRefocus(
   }
 }
 
-// Helper function for stripping out props that should not be included in spread props
-// Only allows safe HTML attributes (data-*, aria-*, id, role, style, title) to pass through
-function stripControlledProps(props: {} | ControlledProps) {
-  const strippedProps = {...props};
-
-  // Remove controlled props
-  if ('open' in strippedProps) {
-    delete strippedProps.open;
-    delete strippedProps.setOpen;
-  }
-
-  // Remove onToggle callback - it's not a valid DOM prop
-  if ('onToggle' in strippedProps) {
-    delete strippedProps.onToggle;
-  }
-
+// Helper function for stripping out props that should not be passed to native DOM elements.
+// Removes component-specific props (controlled props, callbacks) and whitelists only safe HTML attributes.
+// Only allows safe HTML attributes (data-*, aria-*, id, role, style, title, lang, dir) to pass through.
+function stripNonnativeProps(props: Record<string, unknown>) {
   // Filter to only allow safe HTML attributes
   const safeProps: Record<string, unknown> = {};
-  for (const [key, value] of Object.entries(strippedProps)) {
+  for (const [key, value] of Object.entries(props)) {
     // Allow data-* and aria-* attributes, plus standard safe HTML attributes
     if (
       key.startsWith('data-') ||
@@ -134,8 +122,8 @@ const TabHiddenDropDown = React.forwardRef<HTMLElement, TabHiddenProps>((
     if (toggleElement.current) { toggleElement.current.focus(); }
   });
 
-  // Extract open/setOpen from props so they don't get passed to the div
-  const restProps = stripControlledProps(props);
+  // Extract controlled props and callbacks so they don't get passed to the div
+  const restProps = stripNonnativeProps(props as Record<string, unknown>);
 
   return <div className={className} ref={mergeRefs(ref, container)} {...restProps}>
     <DropdownToggle
@@ -169,8 +157,8 @@ const TabTransparentDropdown = React.forwardRef<HTMLElement, React.PropsWithChil
     }
   }, []);
 
-  // Extract open/setOpen from props so they don't get passed to the div
-  const restProps = stripControlledProps(props);
+  // Extract controlled props and callbacks so they don't get passed to the div
+  const restProps = stripNonnativeProps(props as Record<string, unknown>);
 
   return <div className={classNames('dropdown-transparent', className)} ref={ref} {...restProps}>
     <DropdownFocusWrapper
