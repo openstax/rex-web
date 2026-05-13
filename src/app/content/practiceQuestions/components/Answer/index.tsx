@@ -112,19 +112,10 @@ const Answer = ({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showCorrect, isCorrect]);
 
-  // Determine which theme to apply based on answer state
-  const getAnswerTheme = () => {
-    if ((showCorrect && isCorrect) || (isSubmitted && isSelected)) {
-      return isCorrect ? answerThemes.correct : answerThemes.incorrect;
-    } else {
-      return isSelected ? answerThemes.selected : answerThemes.unselected;
-    }
-  };
-
-  const answerTheme = getAnswerTheme();
   const themeKey = (showCorrect && isCorrect) || (isSubmitted && isSelected)
     ? (isCorrect ? 'correct' : 'incorrect')
     : (isSelected ? 'selected' : 'unselected');
+  const answerTheme = answerThemes[themeKey];
   const {formatMessage} = useIntl();
 
   // Bind CSS variables for dynamic theme values
