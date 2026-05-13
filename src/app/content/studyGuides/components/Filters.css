@@ -1,0 +1,12 @@
+/* Study Guides Filters Styling */
+
+.study-guides-color-filter {
+  min-width: 29rem;
+}
+
+.study-guides-right-buttons {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  overflow: visible;
+}
