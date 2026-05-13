@@ -1,0 +1,4 @@
+/* Increased specificity to override styled-components padding */
+.practice-questions-chapter-filters.practice-questions-chapter-filters {
+  padding: 0;
+}
