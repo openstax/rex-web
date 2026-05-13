@@ -22,6 +22,7 @@ const HighlightListElement = ({ highlight }: HighlightListElementProps) => {
   // Find the highlight style for the dynamic border color
   const style = highlightStyles.find((search) => search.label === highlight.color);
   const highlightBorderColor = style?.passive || '';
+  const hasValidColor = !!style;
 
   return (
     <div
@@ -32,22 +33,20 @@ const HighlightListElement = ({ highlight }: HighlightListElementProps) => {
         '--border-color': theme.color.neutral.darker,
       } as React.CSSProperties}
     >
-      {highlight.annotation && (
-        <div
-          className="study-guides-list-element-annotation"
-          style={{
-            '--text-color-default': theme.color.text.default,
-            '--text-color-black': theme.color.text.black,
-          } as React.CSSProperties}
-        >
-          {highlight.annotation}
-        </div>
-      )}
       <div
-        className="study-guides-list-element-content"
+        className="study-guides-list-element-annotation"
         style={{
-          '--highlight-border-color': highlightBorderColor,
+          '--text-color-default': theme.color.text.default,
+          '--text-color-black': theme.color.text.black,
         } as React.CSSProperties}
+      >
+        {highlight.annotation}
+      </div>
+      <div
+        className={`study-guides-list-element-content${hasValidColor ? ' has-color-border' : ''}`}
+        style={hasValidColor ? {
+          '--highlight-border-color': highlightBorderColor,
+        } as React.CSSProperties : undefined}
       >
         <HighlightContentLabel color={highlight.color} />
         <ContentExcerpt

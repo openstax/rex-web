@@ -257,7 +257,7 @@ exports[`StudyGuides properly display summary highlights 1`] = `
           hl1
         </div>
         <div
-          className="study-guides-list-element-content"
+          className="study-guides-list-element-content has-color-border"
           style={
             Object {
               "--highlight-border-color": "#c8f5ff",
@@ -303,7 +303,7 @@ exports[`StudyGuides properly display summary highlights 1`] = `
           hl
         </div>
         <div
-          className="study-guides-list-element-content"
+          className="study-guides-list-element-content has-color-border"
           style={
             Object {
               "--highlight-border-color": "#def99f",
@@ -349,7 +349,7 @@ exports[`StudyGuides properly display summary highlights 1`] = `
           hl
         </div>
         <div
-          className="study-guides-list-element-content"
+          className="study-guides-list-element-content has-color-border"
           style={
             Object {
               "--highlight-border-color": "#ffc5e1",
@@ -395,7 +395,7 @@ exports[`StudyGuides properly display summary highlights 1`] = `
           hl
         </div>
         <div
-          className="study-guides-list-element-content"
+          className="study-guides-list-element-content has-color-border"
           style={
             Object {
               "--highlight-border-color": "#cbcfff",
@@ -430,12 +430,16 @@ exports[`StudyGuides properly display summary highlights 1`] = `
         }
       >
         <div
-          className="study-guides-list-element-content"
+          className="study-guides-list-element-annotation"
           style={
             Object {
-              "--highlight-border-color": "",
+              "--text-color-black": "#000",
+              "--text-color-default": "#424242",
             }
           }
+        />
+        <div
+          className="study-guides-list-element-content"
         >
           <div
             className="study-guides-list-element-hidden-label"
@@ -502,7 +506,7 @@ exports[`StudyGuides properly display summary highlights 1`] = `
           hl1
         </div>
         <div
-          className="study-guides-list-element-content"
+          className="study-guides-list-element-content has-color-border"
           style={
             Object {
               "--highlight-border-color": "#c8f5ff",
@@ -548,7 +552,7 @@ exports[`StudyGuides properly display summary highlights 1`] = `
           hl
         </div>
         <div
-          className="study-guides-list-element-content"
+          className="study-guides-list-element-content has-color-border"
           style={
             Object {
               "--highlight-border-color": "#def99f",

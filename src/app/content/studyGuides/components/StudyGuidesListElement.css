@@ -45,13 +45,17 @@
 
 .study-guides-list-element-content {
   padding-left: 0.4rem;
+}
+
+/* Only apply border and margin when a valid highlight color is found */
+.study-guides-list-element-content.has-color-border {
   border-left: solid 0.8rem var(--highlight-border-color);
   margin-left: 2.1rem;
 }
 
 /* max-width: 75em (1200px) */
 @media screen and (max-width: 75em) {
-  .study-guides-list-element-content {
+  .study-guides-list-element-content.has-color-border {
     margin-left: 2rem;
   }
 }
