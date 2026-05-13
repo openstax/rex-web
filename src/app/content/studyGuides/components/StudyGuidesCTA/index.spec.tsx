@@ -20,7 +20,6 @@ describe('StudyGuidesCTA', () => {
       <StudyGuidesCTA />
     </TestContainer>);
 
-    // After migration to plain CSS, check for the wrapper div by className
     expect(() => component.root.findByProps({ className: 'study-guides-cta-wrapper' })).toThrow();
   });
 

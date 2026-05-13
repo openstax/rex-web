@@ -14,10 +14,6 @@ import StudyGuidesCTA from './StudyGuidesCTA';
 import StudyGuidesToasts from './StudyGuidesToasts';
 import './ShowStudyGuides.css';
 
-// Export PopupBody as StudyGuidesBody for test compatibility
-// The actual styling is now in ShowStudyGuides.css
-export const StudyGuidesBody = PopupBody;
-
 const ShowStudyGuides = ({topElRef}: {topElRef: React.RefObject<HTMLElement>}) => {
   const ref = React.useRef<HTMLElement>(null);
   const [showGoToTop, setShowGoToTop] = React.useState(false);
