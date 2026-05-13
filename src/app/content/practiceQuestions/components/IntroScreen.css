@@ -1,0 +1,14 @@
+.intro-screen-wrapper {
+  text-align: center;
+}
+
+.intro-screen-wrapper .intro-screen-button {
+  display: block;
+  margin: 2rem auto;
+}
+
+.intro-screen-message {
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  margin: 4rem 0;
+}
