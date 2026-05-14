@@ -16,7 +16,7 @@ interface State {
 
 // CloseIcon component for the new button
 const CloseIcon = (props: React.SVGAttributes<SVGSVGElement>) => (
-  <Times {...props} className="close-icon" aria-hidden='true' focusable='false' />
+  <Times {...props} className="close-icon" aria-hidden='true' />
 );
 
 // Search in sidebar experiment

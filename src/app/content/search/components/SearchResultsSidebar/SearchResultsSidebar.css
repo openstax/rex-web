@@ -31,7 +31,6 @@
   /* toolbarIconStyles */
   overflow: visible;
   user-select: none;
-
   height: 4rem;
   color: var(--color-primary-gray-darker);
   margin-right: 0.7rem;
@@ -49,7 +48,6 @@
   /* toolbarIconStyles */
   overflow: visible;
   user-select: none;
-
   vertical-align: middle;
   color: #5e6062; /* toolbarIconColor.base */
 }
@@ -90,9 +88,6 @@
   height: calc(100vh - 8rem); /* navDesktopHeight(4rem) + bookBannerDesktopMiniHeight(4rem) */
   max-height: calc(100vh - 4rem); /* bookBannerDesktopMiniHeight */
   animation: sidebar-open-animation 300ms forwards; /* sidebarTransitionTime */
-  display: flex;
-  flex-direction: column;
-  /* disablePrint */
   display: flex;
   flex-direction: column;
 }
@@ -153,7 +148,7 @@
 /* Disable print for search results bar */
 @media print {
   .search-results-bar {
-    display: none !important;
+    display: none;
   }
 }
 
@@ -190,9 +185,7 @@
 .search-query {
   /* textRegularStyle */
   font-size: 1.8rem;
-  line-height: 3rem;
   font-weight: normal;
-
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
@@ -228,10 +221,7 @@
 .summary-title {
   /* labelStyle */
   font-size: 1.4rem;
-  line-height: 2.5rem;
-  font-weight: normal;
   letter-spacing: -0.1rem;
-
   font-weight: bold;
   padding-right: 1.6rem;
   line-height: 1.3;
@@ -275,10 +265,7 @@
 .search-results-link {
   /* labelStyle */
   font-size: 1.4rem;
-  line-height: 2.5rem;
-  font-weight: normal;
   letter-spacing: -0.1rem;
-
   width: 100%;
   font-weight: 700;
   line-height: 1.3;
@@ -289,10 +276,8 @@
 .section-content-preview {
   /* labelStyle */
   font-size: 1.4rem;
-  line-height: 2.5rem;
   font-weight: normal;
   letter-spacing: -0.1rem;
-
   cursor: pointer;
   min-height: 3.7rem;
   align-items: center;
@@ -419,18 +404,10 @@
   /* textStyle */
   font-size: 1.8rem;
   line-height: 3rem;
-  font-weight: normal;
-
-  font-size: 1.8rem;
   font-weight: bold;
   display: flex;
   margin: 0;
   padding: 1.2rem 3.2rem;
-}
-
-/* KeyTermContainer */
-.key-term-container {
-  /* Empty styled component */
 }
 
 /* RelatedKeyTerms */
@@ -465,11 +442,11 @@
 }
 
 .simple-result > div::before {
-  content: '... ';
+  content: "... ";
 }
 
 .simple-result > div::after {
-  content: ' ...';
+  content: " ...";
 }
 
 /* KeyTermResult */
@@ -489,11 +466,11 @@
 }
 
 .key-term-result > div::before {
-  content: '';
+  content: "";
 }
 
 .key-term-result > div::after {
-  content: '';
+  content: "";
 }
 
 /* BlankStateWrapper */

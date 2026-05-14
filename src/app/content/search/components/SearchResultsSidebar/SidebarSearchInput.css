@@ -25,7 +25,9 @@
 }
 
 /* StyledSearchCloseButton and StyledSearchCloseButtonNew */
+
 /* Base styles handled by Topbar component */
+
 /* Only additional conditional display logic needed */
 
 @media screen and (max-width: 75em) {
