@@ -1,8 +1,8 @@
 export const bottomText = `
 <div data-html="copyright">© 1999-{currentYear}, Rice University. Salvo que se indique lo contrario,
-los libros de texto de este sitio están autorizados conforme a la
+los libros de texto de este sitio están autorizados conforme a la licencia
   <a href="{copyrightLink}" target="_blank"
-  rel="noreferrer">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 (CC BY NC-SA) license</a>.
+  rel="noreferrer">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 (CC BY NC-SA)</a>.
 </div>
 <div data-html="apStatement">
   Advanced Placement<sup>®</sup> and AP<sup>®</sup> son marcas comerciales registradas o propiedad
