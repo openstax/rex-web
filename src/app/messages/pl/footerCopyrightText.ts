@@ -2,7 +2,7 @@ export const bottomText = `
   <div data-html="copyright">© 1999-{currentYear}, Rice University. Jeśli nie zaznaczono inaczej,
   podręczniki na tej stronie zostały opublikowane na licencji
   <a href="{copyrightLink}" target="_blank"
-  rel="noreferrer">Creative Commons Uznanie autorstwa 4.0 Międzynarodowa</a>.
+  rel="noreferrer">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 (CC BY NC-SA)</a>.
   </div>
   <div data-html="apStatement">
   Advanced Placement<sup>®</sup> i AP<sup>®</sup> są znakami towarowymi zarejestrowanymi i/lub
