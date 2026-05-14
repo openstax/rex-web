@@ -1,10 +1,13 @@
 import { SearchResultHit } from '@openstax/open-search-client';
 import { HTMLElement, HTMLDivElement } from '@openstax/types/lib.dom';
+import classNames from 'classnames';
 import React, { Component } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import searchIcon from '../../../../../assets/search-icon-v2.svg';
+import Times from '../../../../components/Times';
 import Loader from '../../../../components/Loader';
 import { assertDefined, assertNotNull } from '../../../../utils/assertions';
+import theme from '../../../../theme';
 import { Book, BookWithOSWebData } from '../../../types';
 import {
     fixSafariScrolling,
@@ -16,7 +19,9 @@ import { SearchResultContainer, SelectedResult } from '../../types';
 import RelatedKeyTerms from './RelatedKeyTerms';
 import SearchResultContainers from './SearchResultContainers';
 import { SidebarSearchInput } from './SidebarSearchInput';
-import * as Styled from './styled';
+import { Details as BaseDetails } from '../../../../components/Details';
+import { Summary } from '../../../../components/Details.legacy';
+import './SearchResultsSidebar.css';
 
 export interface ResultsSidebarProps {
   query: string | null;
@@ -42,24 +47,32 @@ type LabeledCloseButtonParameters = {
   onClose: () => void,
   testId?: string
 }
+
+// CloseIcon component - replaces Styled.CloseIcon
+const CloseIcon = (props: React.SVGAttributes<SVGSVGElement>) => (
+  <Times {...props} className="close-icon" aria-hidden='true' focusable='false' />
+);
+
 function LabeledCloseButton({onClose, testId}: LabeledCloseButtonParameters) {
-  return <Styled.CloseIconButton
+  return <button
+    className="close-icon-button"
     onClick={onClose}
     data-testid={testId}
     aria-label={useIntl().formatMessage({id: 'i18n:toolbar:search:toggle:close'})}
   >
-    <Styled.CloseIcon />
-  </Styled.CloseIconButton>;
+    <CloseIcon />
+  </button>;
 }
 
-const LoadingState = ({onClose}: LabeledCloseButtonParameters) => <Styled.LoadingWrapper
-aria-label={useIntl().formatMessage({id: 'i18n:search-results:bar:loading-state'})}
+const LoadingState = ({onClose}: LabeledCloseButtonParameters) => <div
+  className="loading-wrapper"
+  aria-label={useIntl().formatMessage({id: 'i18n:search-results:bar:loading-state'})}
 >
-  <Styled.CloseIconWrapper>
+  <div className="close-icon-wrapper">
       <LabeledCloseButton onClose={onClose} />
-  </Styled.CloseIconWrapper>
+  </div>
   <Loader />
-</Styled.LoadingWrapper>;
+</div>;
 
 /**
  * Header component with dynamic title and close button
@@ -69,26 +82,28 @@ const SearchResultsHeader = ({
   searchInSidebar,
   onClose,
   testId = 'close-search',
+  emptyHeaderStyle = false,
 }: {
   titleMessageId?: string;
   searchInSidebar: boolean;
   onClose: () => void;
   testId?: string;
+  emptyHeaderStyle?: boolean;
 }) => {
   const defaultTitle = `i18n:search-results:bar:header:title:${searchInSidebar ? 'plain' : 'results'}`;
 
   return (
-    <Styled.SearchResultsHeader>
-      <Styled.SearchResultsHeaderTitle id='search-results-title'>
+    <div className={classNames('search-results-header', { 'search-results-header--empty': emptyHeaderStyle })}>
+      <h2 className="search-results-header-title" id='search-results-title'>
         <FormattedMessage id={titleMessageId || defaultTitle}>
           {(msg) => msg}
         </FormattedMessage>
-      </Styled.SearchResultsHeaderTitle>
+      </h2>
       <LabeledCloseButton
         onClose={onClose}
         testId={testId}
       />
-    </Styled.SearchResultsHeader>
+    </div>
   );
 };
 
@@ -102,22 +117,22 @@ const BlankState = ({
   searchSidebarHeaderRef: React.RefObject<HTMLElement>;
   props: ResultsSidebarProps;
 }) => (
-  <Styled.BlankStateWrapper>
-    <Styled.SearchResultsTopBar ref={searchSidebarHeaderRef}>
+  <div className="blank-state-wrapper">
+    <div className="search-results-top-bar" ref={searchSidebarHeaderRef}>
       <SearchResultsHeader
         titleMessageId='i18n:search-results:bar:header:title:plain'
         searchInSidebar={props.searchInSidebar}
         onClose={props.onClose}
       />
-      <Styled.SearchQueryWrapper>
+      <div className="search-query-wrapper">
         <SidebarSearchInput {...props} />
-      </Styled.SearchQueryWrapper>
-    </Styled.SearchResultsTopBar>
+      </div>
+    </div>
 
-    <Styled.BlankStateMessage role='status'>
+    <div className="blank-state-message" role='status'>
       <FormattedMessage id='i18n:search-results:bar:blank-state' />
-    </Styled.BlankStateMessage>
-  </Styled.BlankStateWrapper>
+    </div>
+  </div>
 );
 
 /**
@@ -136,23 +151,22 @@ const NoResults = ({
         onClose={props.onClose}
       />
     ) : (
-      <Styled.SearchResultsHeader emptyHeaderStyle={true}>
-        <Styled.CloseIconWrapper>
-          <LabeledCloseButton
-            onClose={props.onClose}
-            testId='close-search-noresults'
-          />
-        </Styled.CloseIconWrapper>
-      </Styled.SearchResultsHeader>
+      <SearchResultsHeader
+        titleMessageId='i18n:search-results:bar:header:title:plain'
+        searchInSidebar={props.searchInSidebar}
+        onClose={props.onClose}
+        testId='close-search-noresults'
+        emptyHeaderStyle={true}
+      />
     )}
     <SidebarSearchInput {...props} />
     <FormattedMessage id='i18n:search-results:bar:query:no-results'>
       {(msg) => (
-        <Styled.SearchQuery role='status'>
-          <Styled.SearchQueryAlignment>
+        <div className="search-query" role='status'>
+          <div className="search-query-alignment">
             {msg} <strong> &lsquo;{props.query}&rsquo;</strong>
-          </Styled.SearchQueryAlignment>
-        </Styled.SearchQuery>
+          </div>
+        </div>
       )}
     </FormattedMessage>
   </div>
@@ -168,25 +182,25 @@ const ResultsSummary = ({
   searchSidebarHeaderRef: React.RefObject<HTMLElement>;
   props: ResultsSidebarProps;
 }) => (
-  <Styled.SearchResultsTopBar ref={searchSidebarHeaderRef}>
+  <div className="search-results-top-bar" ref={searchSidebarHeaderRef}>
     <SearchResultsHeader
       searchInSidebar={props.searchInSidebar}
       onClose={props.onClose}
     />
     <SidebarSearchInput {...props} />
-    <Styled.SearchQueryWrapper>
-      <Styled.SearchQuery>
-        <Styled.SearchIconInsideBar src={searchIcon} alt='' />
-        <Styled.HeaderQuery role='note' tabIndex='0'>
+    <div className="search-query-wrapper">
+      <div className="search-query">
+        <img className="search-icon-inside-bar" src={searchIcon} alt='' />
+        <div className="header-query" role='note' tabIndex={0}>
           <FormattedMessage
             id='i18n:search-results:bar:query:results'
             values={{search: props.totalHits, terms: props.totalHitsKeyTerms}}
           />
           <strong> &lsquo;{props.query}&rsquo;</strong>
-        </Styled.HeaderQuery>
-      </Styled.SearchQuery>
-    </Styled.SearchQueryWrapper>
-  </Styled.SearchResultsTopBar>
+        </div>
+      </div>
+    </div>
+  </div>
 );
 
 /**
@@ -213,18 +227,18 @@ const ResultsList = ({
     .localeCompare(assertDefined(b.highlight.title, 'highlight should have title')));
 
   return (
-    <Styled.NavWrapper aria-labelledby='search-results-title'>
+    <nav className="nav-wrapper" aria-labelledby='search-results-title'>
       {displayRelatedKeyTerms && <RelatedKeyTerms
         book={book}
         selectedResult={selectedResult}
         keyTermHits={assertNotNull(sortedKeyTermHits, 'displayRelatedKeyTerms is true')}
       />}
-      {displaySearchResultsSectionTitle && <Styled.SearchResultsSectionTitle tabIndex='0'>
+      {displaySearchResultsSectionTitle && <h3 className="search-results-section-title" tabIndex={0}>
         <FormattedMessage id='i18n:search-results:bar:title'>
           {(msg) => msg}
         </FormattedMessage>
-      </Styled.SearchResultsSectionTitle>}
-      <Styled.SearchResultsOl data-analytics-region='content-search-results'>
+      </h3>}
+      <ol className="search-results-ol" data-analytics-region='content-search-results'>
         {displaySearchResults && <SearchResultContainers
           activeSectionRef={activeSectionRef}
           selectedResult={selectedResult}
@@ -232,8 +246,8 @@ const ResultsList = ({
           book={book}
         />
         }
-      </Styled.SearchResultsOl>
-    </Styled.NavWrapper>
+      </ol>
+    </nav>
   );
 };
 
@@ -246,6 +260,8 @@ const SearchResultsBar = React.forwardRef<
   }
 >(
   (props, ref) => {
+    const { mobileToolbarOpen, searchResultsOpen, hasQuery, children, ...restProps } = props;
+
     const forwardFocus = React.useCallback(
       ({target, currentTarget}: FocusEvent) => {
         if (target !== currentTarget) {
@@ -259,17 +275,33 @@ const SearchResultsBar = React.forwardRef<
       [ref]
     );
 
+    // Determine when search is closed
+    const isClosed = !searchResultsOpen && !hasQuery;
+
+    // Determine when mobile toolbar is effectively closed
+    const isMobileToolbarClosed = !mobileToolbarOpen || (mobileToolbarOpen && !hasQuery);
+
     return (
-      <Styled.SearchResultsBar
+      <div
+        {...restProps}
         id='search-results-sidebar'
+        className={classNames('search-results-bar', {
+          'search-results-bar--closed': isClosed,
+          'search-results-bar--mobile-toolbar-closed': isMobileToolbarClosed,
+        })}
         aria-label={useIntl().formatMessage({id: 'i18n:search-results:bar'})}
         aria-live='polite'
         data-testid='search-results-sidebar'
         ref={ref}
         tabIndex={-1}
         onFocus={forwardFocus}
-        {...props}
-      />
+        style={{
+          '--search-results-bar-z-index': theme.zIndex.sidebar,
+          '--search-results-bar-z-index-mobile': theme.zIndex.sidebar,
+        } as React.CSSProperties}
+      >
+        {children}
+      </div>
     );
   }
 );

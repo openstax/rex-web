@@ -1,4 +1,5 @@
 import { SearchResultHit } from '@openstax/open-search-client';
+import classNames from 'classnames';
 import isEqual from 'lodash/fp/isEqual';
 import { OutputParams } from 'query-string';
 import React from 'react';
@@ -9,12 +10,13 @@ import { AppState } from '../../../../types';
 import { ArchiveTreeSection, Book } from '../../../types';
 import { loadPageContent } from '../../../utils';
 import { stripIdVersion } from '../../../utils/idUtils';
+import ContentLinkComponent from '../../../components/ContentLink';
 import { isKeyTermHit } from '../../guards';
 import { SearchScrollTarget, SelectedResult } from '../../types';
 import { getKeyTermPair } from '../../utils';
 import RelatedKeyTermContent from './RelatedKeyTermContent';
-import * as Styled from './styled';
 import { stripHtml } from '../../../../utils';
+import './SearchResultsSidebar.css';
 
 interface SearchResultHitsProps {
   activeSectionRef?: React.RefObject<HTMLAnchorElement>;
@@ -95,8 +97,8 @@ const OneSearchResultHit = ({
       const page = getPage(hit);
 
       return (
-        <Styled.SectionContentPreview
-          selectedResult={isSelected}
+        <ContentLinkComponent
+          className={classNames('section-content-preview', { 'section-content-preview--selected': isSelected })}
           aria-current={isSelected}
           data-testid={testId}
           key={index}
@@ -111,14 +113,14 @@ const OneSearchResultHit = ({
           {isKeyTermHit(hit) ? (
             <RelatedKeyTermContent keyTermHit={hit} />
           ) : (
-            <Styled.SimpleResult>
+            <div className="simple-result">
               <div
                 tabIndex={-1}
                 dangerouslySetInnerHTML={{ __html: highlight }}
               />
-            </Styled.SimpleResult>
+            </div>
           )}
-        </Styled.SectionContentPreview>
+        </ContentLinkComponent>
       );
     },
     [activeSectionRef, book, getPage, hit, onClick, queryParams, selectedResult, testId, pair?.term]
