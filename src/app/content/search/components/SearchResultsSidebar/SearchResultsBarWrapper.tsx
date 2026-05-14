@@ -19,8 +19,6 @@ import { SearchResultContainer, SelectedResult } from '../../types';
 import RelatedKeyTerms from './RelatedKeyTerms';
 import SearchResultContainers from './SearchResultContainers';
 import { SidebarSearchInput } from './SidebarSearchInput';
-import { Details as BaseDetails } from '../../../../components/Details';
-import { Summary } from '../../../../components/Details.legacy';
 import './SearchResultsSidebar.css';
 
 export interface ResultsSidebarProps {
@@ -50,7 +48,7 @@ type LabeledCloseButtonParameters = {
 
 // CloseIcon component - replaces Styled.CloseIcon
 const CloseIcon = (props: React.SVGAttributes<SVGSVGElement>) => (
-  <Times {...props} className="close-icon" aria-hidden='true' focusable='false' />
+  <Times {...props} className="close-icon" aria-hidden='true' />
 );
 
 function LabeledCloseButton({onClose, testId}: LabeledCloseButtonParameters) {
@@ -262,8 +260,8 @@ const SearchResultsBar = React.forwardRef<
   (props, ref) => {
     const { mobileToolbarOpen, searchResultsOpen, hasQuery, children, ...restProps } = props;
 
-    const forwardFocus = React.useCallback(
-      ({target, currentTarget}: FocusEvent) => {
+    const forwardFocus: React.FocusEventHandler<globalThis.HTMLDivElement> = React.useCallback(
+      ({target, currentTarget}) => {
         if (target !== currentTarget) {
           return;
         }
@@ -292,6 +290,7 @@ const SearchResultsBar = React.forwardRef<
         aria-label={useIntl().formatMessage({id: 'i18n:search-results:bar'})}
         aria-live='polite'
         data-testid='search-results-sidebar'
+        data-search-results-open={searchResultsOpen}
         ref={ref}
         tabIndex={-1}
         onFocus={forwardFocus}
