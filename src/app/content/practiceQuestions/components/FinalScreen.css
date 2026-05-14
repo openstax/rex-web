@@ -1,0 +1,22 @@
+.final-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin: 2rem auto;
+  flex: 1;
+  text-align: center;
+  color: var(--color-text-default);
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+}
+
+.final-screen-text {
+  margin-bottom: -1rem;
+  max-width: 38rem;
+  overflow: initial;
+}
+
+.final-screen .next-section-message-text {
+  display: block;
+}
