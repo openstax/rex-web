@@ -290,7 +290,7 @@ const SearchResultsBar = React.forwardRef<
       <div
         {...restProps}
         id='search-results-sidebar'
-        className={classNames('search-results-bar SearchResultsBar', {
+        className={classNames('search-results-bar', {
           'search-results-bar--closed-desktop': isClosedDesktop,
           'search-results-bar--closed-mobile': isClosedMobile,
           'search-results-bar--mobile-toolbar-closed': isMobileToolbarClosed,
