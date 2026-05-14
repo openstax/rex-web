@@ -5,16 +5,11 @@ exports[`SearchResultsSidebar matches snapshot for no search results 1`] = `
   aria-label="Search results sidebar"
   aria-live="polite"
   className="search-results-bar"
-  clearSearch={[Function]}
   data-analytics-region="search-results"
   data-search-results-open={true}
   data-testid="search-results-sidebar"
   id="search-results-sidebar"
-  keyTermHits={Array []}
   onFocus={[Function]}
-  search={[Function]}
-  searchButtonColor={null}
-  searchInSidebar={false}
   style={
     Object {
       "--search-results-bar-z-index": 50,
@@ -111,53 +106,11 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
   aria-label="Search results sidebar"
   aria-live="polite"
   className="search-results-bar"
-  clearSearch={[Function]}
   data-analytics-region="search-results"
   data-search-results-open={true}
   data-testid="search-results-sidebar"
   id="search-results-sidebar"
-  keyTermHits={
-    Array [
-      Object {
-        "highlight": Object {
-          "term": "test term",
-          "title": "term1 - selected",
-          "visibleContent": Array [
-            "test definition with …",
-          ],
-        },
-        "index": "codeversion__testbook1-uuid@1.0_i1",
-        "score": 2,
-        "source": Object {
-          "elementId": "test-pair-page1",
-          "elementType": "key_term",
-          "pageId": "testbook1-testpage1-uuid@1.0",
-          "pagePosition": 60,
-        },
-      },
-      Object {
-        "highlight": Object {
-          "term": "test term",
-          "title": "term2",
-          "visibleContent": Array [
-            "test definition",
-          ],
-        },
-        "index": "codeversion__testbook1-uuid@1.0_i1",
-        "score": 2,
-        "source": Object {
-          "elementId": "test-pair-page6",
-          "elementType": "key_term",
-          "pageId": "testbook1-testpage6-uuid@1.0",
-          "pagePosition": 60,
-        },
-      },
-    ]
-  }
   onFocus={[Function]}
-  search={[Function]}
-  searchButtonColor={null}
-  searchInSidebar={false}
   style={
     Object {
       "--search-results-bar-z-index": 50,
@@ -429,16 +382,11 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
   aria-label="Search results sidebar"
   aria-live="polite"
   className="search-results-bar"
-  clearSearch={[Function]}
   data-analytics-region="search-results"
   data-search-results-open={true}
   data-testid="search-results-sidebar"
   id="search-results-sidebar"
-  keyTermHits={Array []}
   onFocus={[Function]}
-  search={[Function]}
-  searchButtonColor={null}
-  searchInSidebar={false}
   style={
     Object {
       "--search-results-bar-z-index": 50,
@@ -825,16 +773,11 @@ exports[`SearchResultsSidebar shows sidebar with loading state if there is a sea
   aria-label="Search results sidebar"
   aria-live="polite"
   className="search-results-bar"
-  clearSearch={[Function]}
   data-analytics-region="search-results"
   data-search-results-open={true}
   data-testid="search-results-sidebar"
   id="search-results-sidebar"
-  keyTermHits={null}
   onFocus={[Function]}
-  search={[Function]}
-  searchButtonColor={null}
-  searchInSidebar={false}
   style={
     Object {
       "--search-results-bar-z-index": 50,

@@ -249,16 +249,20 @@ const ResultsList = ({
   );
 };
 
+interface SearchResultsBarProps {
+  mobileToolbarOpen: boolean;
+  searchResultsOpen: boolean;
+  hasQuery: boolean;
+  children: React.ReactNode;
+  keyTermHits?: SearchResultHit[] | null;
+}
+
 const SearchResultsBar = React.forwardRef<
-  HTMLElement, {
-    mobileToolbarOpen: boolean,
-    searchResultsOpen: boolean,
-    hasQuery: boolean,
-    children: React.ReactNode,
-  }
+  HTMLElement,
+  SearchResultsBarProps
 >(
   (props, ref) => {
-    const { mobileToolbarOpen, searchResultsOpen, hasQuery, children, ...restProps } = props;
+    const { mobileToolbarOpen, searchResultsOpen, hasQuery, children, keyTermHits, ...restProps } = props;
 
     const forwardFocus: React.FocusEventHandler<globalThis.HTMLDivElement> = React.useCallback(
       ({target, currentTarget}) => {
@@ -338,6 +342,10 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
       totalHitsKeyTerms,
       selectedResult,
       userSelectedResult,
+      clearSearch,
+      search,
+      searchInSidebar,
+      searchButtonColor,
       ...propsToForward
     } = this.props;
     return (
