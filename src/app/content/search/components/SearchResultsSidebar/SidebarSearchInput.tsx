@@ -86,6 +86,7 @@ export class SidebarSearchInput extends Component<ResultsSidebarProps> {
         {this.state.formSubmitted && !this.newButtonEnabled &&
           <TopbarStyled.CloseButton
             className={closeButtonClassName}
+            formSubmitted={this.state.formSubmitted}
             type='button'
             onClick={this.onSearchClear}
             data-testid='sidebar-clear-search'
@@ -94,6 +95,7 @@ export class SidebarSearchInput extends Component<ResultsSidebarProps> {
         {this.state.formSubmitted && this.newButtonEnabled &&
           <TopbarStyled.CloseButtonNew
             className={closeButtonNewClassName}
+            formSubmitted={this.state.formSubmitted}
             type='button'
             onClick={this.onSearchClear}
             data-testid='sidebar-clear-search'
