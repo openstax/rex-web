@@ -12,7 +12,7 @@
 }
 
 /* Note: TopbarStyled.SearchInputWrapper styles are handled in Topbar component */
-.styled-search-wrapper .search-input-wrapper {
+.styled-search-wrapper .topbar-search-input-wrapper {
   margin: 0;
   width: 100%;
   background: #fff;
