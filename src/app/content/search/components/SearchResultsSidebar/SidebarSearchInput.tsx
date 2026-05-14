@@ -62,11 +62,11 @@ export class SidebarSearchInput extends Component<ResultsSidebarProps> {
     });
 
     const closeButtonClassName = classNames({
-      'styled-search-close-button--show-on-mobile': !this.state.formSubmitted,
+      'styled-search-close-button--show-on-mobile': this.state.formSubmitted,
     });
 
     const closeButtonNewClassName = classNames({
-      'styled-search-close-button-new--show-on-mobile': !this.state.formSubmitted,
+      'styled-search-close-button-new--show-on-mobile': this.state.formSubmitted,
     });
 
     return <div className={wrapperClassName}>

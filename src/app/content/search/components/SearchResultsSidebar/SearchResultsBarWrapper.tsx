@@ -277,8 +277,11 @@ const SearchResultsBar = React.forwardRef<
       [ref]
     );
 
-    // Determine when search is closed
-    const isClosed = !searchResultsOpen && !hasQuery;
+    // Apply closed animation when search is closed
+    // On mobile: close when searchResultsOpen is false (even with query)
+    // On desktop: close only when both searchResultsOpen is false AND no query
+    const isClosedDesktop = !searchResultsOpen && !hasQuery;
+    const isClosedMobile = !searchResultsOpen;
 
     // Determine when mobile toolbar is effectively closed
     const isMobileToolbarClosed = !mobileToolbarOpen || (mobileToolbarOpen && !hasQuery);
@@ -287,8 +290,9 @@ const SearchResultsBar = React.forwardRef<
       <div
         {...restProps}
         id='search-results-sidebar'
-        className={classNames('search-results-bar', {
-          'search-results-bar--closed': isClosed,
+        className={classNames('search-results-bar SearchResultsBar', {
+          'search-results-bar--closed-desktop': isClosedDesktop,
+          'search-results-bar--closed-mobile': isClosedMobile,
           'search-results-bar--mobile-toolbar-closed': isMobileToolbarClosed,
         })}
         aria-label={useIntl().formatMessage({id: 'i18n:search-results:bar'})}
