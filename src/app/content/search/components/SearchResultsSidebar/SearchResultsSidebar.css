@@ -31,7 +31,9 @@
   /* toolbarIconStyles */
   overflow: visible;
   user-select: none;
-  height: 4rem;
+  height: 2.5rem;
+  width: 2.5rem;
+  padding: 0.4rem;
   color: var(--color-primary-gray-darker);
   margin-right: 0.7rem;
   margin-left: 1.6rem;
@@ -48,6 +50,9 @@
   /* toolbarIconStyles */
   overflow: visible;
   user-select: none;
+  height: 2.5rem;
+  width: 2.5rem;
+  padding: 0.4rem;
   vertical-align: middle;
   color: #5e6062; /* toolbarIconColor.base */
 }
@@ -119,7 +124,7 @@
     left: 0;
     width: 100%;
     margin-top: 0;
-    top: 6rem; /* searchSidebarTopOffset (equals bookBannerMobileMiniHeight) */
+    top: 16.6rem; /* searchSidebarTopOffset = bookBannerMobileMiniHeight(6) + toolbarMobileExpandedHeight(10.6) */
     max-height: calc(100vh - 11.3rem); /* bookBannerMobileMiniHeight(6rem) + topbarMobileHeight(5.3rem) */
   }
 
@@ -179,7 +184,7 @@
 /* SearchQuery */
 .search-query {
   /* textRegularStyle */
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   font-weight: normal;
   display: flex;
   align-items: flex-start;

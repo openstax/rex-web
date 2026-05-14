@@ -22,12 +22,6 @@ exports[`SearchResultsSidebar matches snapshot for no search results 1`] = `
     <div
       className="search-results-header search-results-header--empty"
     >
-      <h2
-        className="search-results-header-title"
-        id="search-results-title"
-      >
-        Search
-      </h2>
       <button
         aria-label="Close Search"
         className="close-icon-button"

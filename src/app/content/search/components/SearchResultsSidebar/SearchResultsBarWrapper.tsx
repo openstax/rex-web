@@ -92,11 +92,13 @@ const SearchResultsHeader = ({
 
   return (
     <div className={classNames('search-results-header', { 'search-results-header--empty': emptyHeaderStyle })}>
-      <h2 className="search-results-header-title" id='search-results-title'>
-        <FormattedMessage id={titleMessageId || defaultTitle}>
-          {(msg) => msg}
-        </FormattedMessage>
-      </h2>
+      {!emptyHeaderStyle && (
+        <h2 className="search-results-header-title" id='search-results-title'>
+          <FormattedMessage id={titleMessageId || defaultTitle}>
+            {(msg) => msg}
+          </FormattedMessage>
+        </h2>
+      )}
       <LabeledCloseButton
         onClose={onClose}
         testId={testId}
