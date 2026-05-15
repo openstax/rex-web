@@ -21,7 +21,7 @@ pytest-playwright>=0.4.0
 requests==2.33.0
 toml==0.10.2
 typing_extensions==4.12.2
-urllib3==2.6.3
+urllib3==2.7.0
 zipp==3.21.0
 diff-pdf-visually==1.8.1
 PyMuPDF==1.27.2.2
