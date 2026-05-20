@@ -12,7 +12,8 @@ import { assertWindow } from '../../../utils';
 import { loadMoreStudyGuides } from '../actions';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import * as selectors from '../selectors';
-import ShowStudyGuides, { StudyGuidesBody } from './ShowStudyGuides';
+import ShowStudyGuides from './ShowStudyGuides';
+import { PopupBody as StudyGuidesBody } from '../../styles/PopupStyles';
 
 describe('ShowStudyGuides', () => {
   let store: Store;
