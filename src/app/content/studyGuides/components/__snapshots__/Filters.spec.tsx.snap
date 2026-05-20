@@ -1414,7 +1414,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
     aria-atomic="true"
     aria-label="Applied filters"
     aria-live="polite"
-    className="c36 c37"
+    className="c36 c37 filters-list"
   >
     <li
       className="c38"
