@@ -139,6 +139,7 @@ export default () => {
       </RightButtonsWrapper>
     </FiltersTopBar>
     {!userLoggedOut && <ConnectedFilterList
+      className="filters-list"
       colorAriaLabelKey={() => 'i18n:studyguides:popup:filters:remove:color'}
       colorDataAnalyticsLabel={(color: HighlightColorEnum) => createColorDataAnalyticsLabel(color)}
       colorLabelKey={(color: HighlightColorEnum) => `i18n:studyguides:popup:filters:${color}`}
