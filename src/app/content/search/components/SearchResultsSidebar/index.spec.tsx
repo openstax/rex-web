@@ -101,7 +101,7 @@ describe('SearchResultsSidebar', () => {
 
     const findById = makeFindByTestId(component.root);
 
-    expect(findById('search-results-sidebar').props.searchResultsOpen).toBe(false);
+    expect(findById('search-results-sidebar').props['data-search-results-open']).toBe(false);
     component.unmount();
   });
 
@@ -307,7 +307,7 @@ describe('SearchResultsSidebar', () => {
     });
 
     const document = assertDocument();
-    const bar = document.querySelector<HTMLDivElement>('[class*="SearchResultsBar"]');
+    const bar = document.querySelector<HTMLDivElement>('.search-results-bar');
     const button = document.querySelector('button');
 
     ReactTestUtils.act(() => bar?.focus());
@@ -494,7 +494,7 @@ describe('SearchResultsSidebar', () => {
       const noteElement = component.root.findByProps({ role: 'note' });
 
       expect(noteElement).toBeTruthy();
-      expect(noteElement.props.tabIndex).toBe('0');
+      expect(noteElement.props.tabIndex).toBe(0);
 
       component.unmount();
     });

@@ -126,7 +126,7 @@ describe('search', () => {
         <Services.Provider value={services}>
           <MessageProvider>
             <Topbar />
-            <div className='SearchResultsBar' tabIndex={-1} />
+            <div className='search-results-bar' tabIndex={-1} />
             <main tabIndex={-1} />
           </MessageProvider>
         </Services.Provider>
@@ -140,7 +140,7 @@ describe('search', () => {
     expect(document?.activeElement?.tagName).toBe('INPUT');
     act(() => dispatchSearchShortcut(tb!));
     expect(
-      document?.activeElement?.classList.contains('SearchResultsBar')
+      document?.activeElement?.classList.contains('search-results-bar')
     ).toBe(true);
   });
 

@@ -8,19 +8,19 @@ import { findArchiveTreeNodeById } from '../../../utils/archiveTreeUtils';
 import { closeSearchResultsMobile } from '../../actions';
 import { SelectedResult } from '../../types';
 import SearchResultHits from './SearchResultHits';
-import * as Styled from './styled';
+import './SearchResultsSidebar.css';
 
 const RelatedKeyTerms = ({ book, keyTermHits, selectedResult }: {
   book: Book, keyTermHits: SearchResultHit[], selectedResult: SelectedResult | null
 }) => {
   const dispatch = useDispatch();
 
-  return <Styled.RelatedKeyTerms data-analytics-region='kt-search-results'>
-    <Styled.SearchResultsSectionTitle>
+  return <div className="related-key-terms" data-analytics-region='kt-search-results'>
+    <h3 className="search-results-section-title">
       <FormattedMessage id='i18n:search-results:related-key-term:title'>
         {(msg) => msg}
       </FormattedMessage>
-    </Styled.SearchResultsSectionTitle>
+    </h3>
     <SearchResultHits
       book={book}
       hits={keyTermHits}
@@ -31,7 +31,7 @@ const RelatedKeyTerms = ({ book, keyTermHits, selectedResult }: {
       }}
       selectedResult={selectedResult}
     />
-  </Styled.RelatedKeyTerms>;
+  </div>;
 };
 
 export default RelatedKeyTerms;
