@@ -26,7 +26,7 @@ interface LoginOrEditProps {
   'data-hidden'?: boolean;
   'data-toc-open'?: boolean;
   'data-has-query'?: boolean;
-  style?: React.CSSProperties;
+  cardStyle?: React.CSSProperties;
 }
 
 export function LoginOrEdit({
@@ -39,6 +39,7 @@ export function LoginOrEdit({
   fref,
   elementRef,
   onClick,
+  cardStyle,
   ...restProps
 }: LoginOrEditProps) {
   const authenticated = !!useSelector(selectAuth.user);
@@ -58,6 +59,7 @@ export function LoginOrEdit({
       role='dialog'
       aria-label={formatMessage({ id: 'i18n:highlighter:edit-note:label' })}
       onClick={onClick}
+      style={cardStyle}
       {...restProps}
     >
       {authenticated ? (
