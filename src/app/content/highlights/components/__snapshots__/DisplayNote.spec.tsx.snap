@@ -72,6 +72,7 @@ exports[`DisplayNote matches snapshot 1`] = `
       aria-expanded={false}
       aria-label="Actions"
       className="plain-button dot-menu-toggle dropdown-toggle "
+      data-menu-toggle={true}
       data-no-card-activate={true}
       onClick={[Function]}
     >
@@ -81,6 +82,7 @@ exports[`DisplayNote matches snapshot 1`] = `
         <svg
           aria-hidden="true"
           className="dot-menu-icon c3 "
+          data-menu-icon={true}
           viewBox="0 0 192 512"
         >
           <path
@@ -220,6 +222,7 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
       aria-expanded={false}
       aria-label="Actions"
       className="plain-button dot-menu-toggle dropdown-toggle "
+      data-menu-toggle={true}
       data-no-card-activate={true}
       onClick={[Function]}
     >
@@ -229,6 +232,7 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
         <svg
           aria-hidden="true"
           className="dot-menu-icon c3 "
+          data-menu-icon={true}
           viewBox="0 0 192 512"
         >
           <path
@@ -368,6 +372,7 @@ exports[`DisplayNote matches snapshot when focused with opened dropdown 1`] = `
       aria-expanded={true}
       aria-label="Actions"
       className="plain-button dot-menu-toggle dropdown-toggle "
+      data-menu-toggle={true}
       data-no-card-activate={true}
       onClick={[Function]}
     >
@@ -377,6 +382,7 @@ exports[`DisplayNote matches snapshot when focused with opened dropdown 1`] = `
         <svg
           aria-hidden="true"
           className="dot-menu-icon c3 "
+          data-menu-icon={true}
           viewBox="0 0 192 512"
         >
           <path

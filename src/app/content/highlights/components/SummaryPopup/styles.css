@@ -1,9 +1,9 @@
-import styled from 'styled-components/macro';
+/* SummaryPopup Shared Styles */
 
-export const HighlightEditButtons = styled.div`
+.highlight-edit-buttons {
   display: flex;
   align-items: center;
   overflow: visible;
   gap: 1rem;
   height: min-content;
-`;
+}

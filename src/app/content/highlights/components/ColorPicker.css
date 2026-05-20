@@ -1,0 +1,42 @@
+/* ColorPicker Component Styles */
+
+.color-picker-wrapper {
+  border: 0;
+  display: flex;
+  flex-direction: row;
+}
+
+.color-picker-wrapper legend {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.color-picker {
+  border: 0;
+  outline: none;
+  display: flex;
+  flex-direction: row;
+  overflow: visible;
+  gap: var(--card-padding);
+  padding: 0 0.3rem var(--card-padding);
+}
+
+.color-button {
+  cursor: pointer;
+  margin: 0;
+}
+
+.color-button input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
