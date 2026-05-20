@@ -13,8 +13,8 @@
 @media screen and (max-width: 50em) {
   .sidebar-control-button-text {
     /* textRegularSize from Typography */
-    font-size: 1.4rem;
-    line-height: 1.6rem;
+    font-size: 1.6rem;
+    line-height: 2.5rem;
     margin-left: 1.2rem;
   }
 }
@@ -134,10 +134,4 @@
   min-height: unset;
   flex-direction: row;
   justify-content: start;
-}
-
-.sidebar-control-styled-open-toc .sidebar-control-button-text {
-  /* textRegularSize from Typography */
-  font-size: 1.6rem;
-  line-height: 2.5rem;
 }
