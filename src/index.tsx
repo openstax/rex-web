@@ -190,7 +190,6 @@ app.services.userLoader.getCurrentUser().then((user) => {
       try {
         const schoolData = await app.services.osWebLoader.getSchoolDataFromPortalName(portalName);
 
-        console.info('** SCHOOL DATA', schoolData); // eslint-disable-line
         if (schoolData?.industry === 'K12') {
           return true;
         }
@@ -205,7 +204,6 @@ app.services.userLoader.getCurrentUser().then((user) => {
   (async() => {
     const skipGTM = await shouldSkipGTM();
 
-    console.info('** Skip GTM?', skipGTM); // eslint-disable-line
     if (!skipGTM) {
       /* eslint-disable no-var, @typescript-eslint/no-non-null-assertion */
       // GTM snippet slightly modified to assume f.parentNode is not null and with const types so ts doesn't complain
@@ -214,19 +212,20 @@ app.services.userLoader.getCurrentUser().then((user) => {
         j=d.createElement(s),dl=l!=='dataLayer'?'&l='+l:'';j.async=true;j.src=
         'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode!.insertBefore(j,f);
         })(window,document,'script' as const,'dataLayer' as const,'GTM-TFCS56G');
+
+        /* eslint-enable no-var, @typescript-eslint/no-non-null-assertion */
+
+      // The code below similar logic to the GTM script but to insert the CookieYes script instead
+      // Both scripts are async so they run in an unpredictable order and the position on the page does not matter
+      const cookieYesScript = document.createElement('script');
+      cookieYesScript.async = true;
+      cookieYesScript.src = 'https://cdn-cookieyes.com/client_data/7c03144a7ef8b7f646f1ce01/script.js';
+      const firstScriptTag = document.getElementsByTagName('script')[0];
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      firstScriptTag.parentNode!.insertBefore(cookieYesScript, firstScriptTag);
     }
   })();
 
-  /* eslint-enable no-var, @typescript-eslint/no-non-null-assertion */
-
-  // The code below similar logic to the GTM script but to insert the CookieYes script instead
-  // Both scripts are async so they run in an unpredictable order and the position on the page does not matter
-  const cookieYesScript = document.createElement('script');
-  cookieYesScript.async = true;
-  cookieYesScript.src = 'https://cdn-cookieyes.com/client_data/7c03144a7ef8b7f646f1ce01/script.js';
-  const firstScriptTag = document.getElementsByTagName('script')[0];
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  firstScriptTag.parentNode!.insertBefore(cookieYesScript, firstScriptTag);
 });
 
 // Learn more about service workers: http://bit.ly/CRA-PWA
