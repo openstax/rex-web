@@ -189,6 +189,8 @@ app.services.userLoader.getCurrentUser().then((user) => {
       const portalName = pathMatch[1];
       try {
         const schoolData = await app.services.osWebLoader.getSchoolDataFromPortalName(portalName);
+
+        console.info('** SCHOOL DATA', schoolData); // eslint-disable-line
         if (schoolData?.industry === 'K12') {
           return true;
         }
@@ -202,6 +204,8 @@ app.services.userLoader.getCurrentUser().then((user) => {
 
   (async() => {
     const skipGTM = await shouldSkipGTM();
+
+    console.info('** Skip GTM?', skipGTM); // eslint-disable-line
     if (!skipGTM) {
       /* eslint-disable no-var, @typescript-eslint/no-non-null-assertion */
       // GTM snippet slightly modified to assume f.parentNode is not null and with const types so ts doesn't complain
