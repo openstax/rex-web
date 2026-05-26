@@ -1,12 +1,11 @@
 import { Highlight, HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
 import { useIntl } from 'react-intl';
-import styled from 'styled-components/macro';
 import Dropdown, { DropdownItem, DropdownList } from '../../../../components/Dropdown';
 import theme from '../../../../theme';
-import { disablePrint } from '../../../components/utils/disablePrint';
 import ColorPicker from '../ColorPicker';
-import MenuToggle, { MenuIcon } from '../MenuToggle';
+import MenuToggle from '../MenuToggle';
+import './ContextMenu.css';
 
 interface IconProps extends React.SVGAttributes<SVGSVGElement> {
   className?: string;
@@ -15,13 +14,11 @@ interface IconProps extends React.SVGAttributes<SVGSVGElement> {
 /**
  * Edit icon component.
  * SVG path from Font Awesome Free (https://fontawesome.com - MIT License)
- *
- * Note: Wrapped with styled() to enable styled-components component selector references
  */
-function EditIconBase({ className, ...props }: IconProps) {
+function EditIcon({ className, ...props }: IconProps) {
   return (
     <svg
-      className={className}
+      className={`styled-edit-icon ${className || ''}`}
       viewBox="0 0 576 512"
       aria-hidden="true"
       {...props}
@@ -34,18 +31,14 @@ function EditIconBase({ className, ...props }: IconProps) {
   );
 }
 
-const EditIcon = styled(EditIconBase)``;
-
 /**
  * ExternalLinkAlt icon component.
  * SVG path from Font Awesome Free (https://fontawesome.com - MIT License)
- *
- * Note: Wrapped with styled() to enable styled-components component selector references
  */
-function LinkIconBase({ className, ...props }: IconProps) {
+function LinkIcon({ className, ...props }: IconProps) {
   return (
     <svg
-      className={className}
+      className={`styled-link-icon ${className || ''}`}
       viewBox="0 0 576 512"
       aria-hidden="true"
       {...props}
@@ -58,18 +51,14 @@ function LinkIconBase({ className, ...props }: IconProps) {
   );
 }
 
-const LinkIcon = styled(LinkIconBase)``;
-
 /**
  * TrashAlt icon component.
  * SVG path from Font Awesome Free (https://fontawesome.com - MIT License)
- *
- * Note: Wrapped with styled() to enable styled-components component selector references
  */
-function TrashAltIconBase({ className, ...props }: IconProps) {
+function TrashAltIcon({ className, ...props }: IconProps) {
   return (
     <svg
-      className={className}
+      className={`styled-trash-alt-icon ${className || ''}`}
       viewBox="0 0 448 512"
       aria-hidden="true"
       {...props}
@@ -82,75 +71,24 @@ function TrashAltIconBase({ className, ...props }: IconProps) {
   );
 }
 
-const TrashAltIcon = styled(TrashAltIconBase)``;
+const StyledContextMenu = ({children, ...props}: React.HTMLAttributes<HTMLDivElement>) => (
+  <div
+    className="styled-context-menu"
+    style={{
+      '--secondary-lightgray-darkest': theme.color.secondary.lightGray.darkest,
+      '--text-default': theme.color.text.default,
+    } as React.CSSProperties}
+    {...props}
+  >
+    {children}
+  </div>
+);
 
-export const StyledContextMenu = styled.div`
-  ${disablePrint}
-
-  ${Dropdown} {
-    position: absolute;
-    width: 150px;
-    top: 1.2rem;
-    right: 0;
-
-    .focus-within ${MenuIcon} {
-      color: ${theme.color.secondary.lightGray.darkest};
-    }
-
-    :focus-within ${MenuIcon} {
-      color: ${theme.color.secondary.lightGray.darkest};
-    }
-  }
-
-  ${ColorPicker} {
-    margin: 0.6rem 0 0 0.6rem;
-  }
-
-  ${MenuToggle} {
-    float: right;
-    margin-right: 0.2rem;
-  }
-`;
-
-const StyledDropdownList = styled(DropdownList)`
-  padding: 0;
-
-  li {
-    display: flex;
-
-    button,
-    a {
-      border: 0;
-      width: 100%;
-
-      :focus,
-      :hover {
-        outline-width: 0;
-      }
-    }
-  }
-`;
-
-const StyledEditIcon = styled(EditIcon)`
-  width: 15px;
-  height: 15px;
-  margin-right: 10px;
-  color: ${theme.color.text.default};
-`;
-
-const StyledTrashAltIcon = styled(TrashAltIcon)`
-  width: 15px;
-  height: 15px;
-  margin-right: 10px;
-  color: ${theme.color.text.default};
-`;
-
-const StyledLinkIcon = styled(LinkIcon)`
-  width: 15px;
-  height: 15px;
-  margin-right: 10px;
-  color: ${theme.color.text.default};
-`;
+const StyledDropdownList = ({children, ...props}: React.ComponentProps<typeof DropdownList>) => (
+  <DropdownList className="styled-dropdown-list" {...props}>
+    {children}
+  </DropdownList>
+);
 
 const HighlightDropdownMenu = React.forwardRef<HTMLButtonElement, { isOpen?: boolean }>((props, ref) => {
   return <MenuToggle
@@ -187,6 +125,7 @@ const ContextMenu = ({
       toggle={<HighlightDropdownMenu />}
       transparentTab={false}
       menuClassName='context-menu'
+      data-dropdown
     >
       <StyledDropdownList>
         <li>
@@ -201,21 +140,21 @@ const ContextMenu = ({
           data-testid='edit'
           ariaMessage={editMessage}
           message={editMessage}
-          prefix={<StyledEditIcon/>}
+          prefix={<EditIcon/>}
           onClick={() => onEdit()}
         />
         <DropdownItem
           data-testid='delete'
           ariaMessage={deleteMessage}
           message={deleteMessage}
-          prefix={<StyledTrashAltIcon/>}
+          prefix={<TrashAltIcon/>}
           onClick={() => onDelete()}
         />
         <DropdownItem
           data-testid='go-to-highlight'
           dataAnalyticsRegion='MH gotohighlight'
           message='i18n:highlighting:dropdown:go-to-highlight'
-          prefix={<StyledLinkIcon/>}
+          prefix={<LinkIcon/>}
           href={linkToHighlight}
           target='_blank'
         />

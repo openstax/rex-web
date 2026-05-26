@@ -334,4 +334,69 @@ describe('Dropdown', () => {
     )[0];
     expect(updatedFocusWrapper.props.className).toContain('focus-within');
   });
+
+  it('TabHiddenDropDown filters out non-native props from being passed to DOM', () => {
+    const onToggle = jest.fn();
+    const component = renderer.create(<TestContainer>
+      <Dropdown
+        transparentTab={false}
+        toggle={<button>show more</button>}
+        onToggle={onToggle}
+        data-testid="my-dropdown"
+        aria-label="My Dropdown"
+      >
+        <DropdownList>
+          <DropdownItem onClick={() => null} message='i18n:highlighting:dropdown:delete' />
+        </DropdownList>
+      </Dropdown>
+    </TestContainer>);
+
+    // Find the root div element
+    const rootDiv = component.root.findAll(
+      (el) => el.type === 'div' && el.props['data-testid'] === 'my-dropdown'
+    )[0];
+
+    // Verify that safe HTML attributes are passed through
+    expect(rootDiv.props['data-testid']).toBe('my-dropdown');
+    expect(rootDiv.props['aria-label']).toBe('My Dropdown');
+
+    // Verify that non-native props (onToggle, open, setOpen) are NOT passed to the DOM
+    expect(rootDiv.props.onToggle).toBeUndefined();
+    expect(rootDiv.props.open).toBeUndefined();
+    expect(rootDiv.props.setOpen).toBeUndefined();
+
+    // Verify onToggle is still called when toggle is clicked
+    renderer.act(() => {
+      component.root.findByType('button').props.onClick();
+    });
+    expect(onToggle).toHaveBeenCalledTimes(1);
+  });
+
+  it('TabTransparentDropdown filters out non-native props from being passed to DOM', () => {
+    const onToggle = jest.fn();
+    const component = renderer.create(<TestContainer>
+      <Dropdown
+        toggle={<button>show more</button>}
+        onToggle={onToggle}
+        data-testid="my-dropdown"
+        aria-label="My Dropdown"
+      >
+        <DropdownList>
+          <DropdownItem onClick={() => null} message='i18n:highlighting:dropdown:delete' />
+        </DropdownList>
+      </Dropdown>
+    </TestContainer>);
+
+    // Find the root div element
+    const rootDiv = component.root.findAll(
+      (el) => el.type === 'div' && el.props['data-testid'] === 'my-dropdown'
+    )[0];
+
+    // Verify that safe HTML attributes are passed through
+    expect(rootDiv.props['data-testid']).toBe('my-dropdown');
+    expect(rootDiv.props['aria-label']).toBe('My Dropdown');
+
+    // Verify that non-native props (onToggle) are NOT passed to the DOM
+    expect(rootDiv.props.onToggle).toBeUndefined();
+  });
 });
