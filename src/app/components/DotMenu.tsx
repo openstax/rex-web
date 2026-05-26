@@ -41,11 +41,12 @@ const DotMenuToggleBase = React.forwardRef<HTMLButtonElement, DotMenuToggleProps
         className={classNames('dot-menu-toggle', className)}
         aria-label="Actions"
         aria-expanded={isOpen}
+        data-menu-toggle
         {...props}
         ref={ref}
       >
         <div tabIndex={-1}>
-          <DotMenuIcon />
+          <DotMenuIcon data-menu-icon />
         </div>
       </PlainButton>
     );
