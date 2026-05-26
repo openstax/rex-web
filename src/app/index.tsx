@@ -37,6 +37,7 @@ import './content/components/ContentPane.css';
 import './content/components/Topbar/Topbar.css';
 import './errors/components/ErrorModal.css';
 import './notifications/components/ToastNotifications/ToastNotifications.css';
+import './content/highlights/components/ColorPicker.css';
 
 export const actions = {
   app: appAactions,
