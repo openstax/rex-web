@@ -1,51 +1,10 @@
-import { HTMLTextAreaElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import styled from 'styled-components/macro';
+import { HTMLTextAreaElement } from '@openstax/types/lib.dom';
 import Button from '../../../../components/Button';
-import { textRegularStyle } from '../../../../components/Typography';
 import theme from '../../../../theme';
 import { HighlightEditButtons } from './styles';
-
-const HighlightNote = styled.div`
-  ${textRegularStyle}
-  padding-top: 1.2rem;
-  display: flex;
-  gap: 1rem;
-  flex-flow: wrap;
-  align-items: start;
-
-  span {
-    margin: 0 0.8rem 0 0;
-    overflow: visible;
-  }
-`;
-
-const HighlightNoteAnnotation = styled.div`
-  white-space: pre-wrap;
-  word-break: break-word;
-  overflow-wrap: break-word;
-`;
-
-const TextareaLabel = styled.label`
-  font-weight: bold;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-`;
-
-const Textarea = styled.textarea`
-  ${textRegularStyle}
-  font-family: inherit;
-  width: 100%;
-  letter-spacing: 0;
-  line-height: 2rem;
-  min-height: 3.6rem;
-  max-height: calc(60vh - 20rem);
-  box-sizing: border-box;
-  color: ${theme.color.text.label};
-  padding: 0.8rem;
-`;
+import './HighlightAnnotation.css';
 
 interface HighlightAnnotationProps {
   annotation: string;
@@ -58,14 +17,14 @@ function DisplayHighlightAnnotation({
   annotation,
 }: Pick<HighlightAnnotationProps, 'annotation'>) {
   return (
-    <HighlightNote>
+    <div className="highlight-note">
       <span className='highlight-note-text'>
         <FormattedMessage id='i18n:toolbar:highlights:popup:body:note:text'>
           {msg => msg}
         </FormattedMessage>
       </span>
-      <HighlightNoteAnnotation>{annotation}</HighlightNoteAnnotation>
-    </HighlightNote>
+      <div className="highlight-note-annotation">{annotation}</div>
+    </div>
   );
 }
 
@@ -109,7 +68,7 @@ const EditHighlightAnnotation = ({
 }: Omit<HighlightAnnotationProps, 'isEditing'>) => {
   const [anno, setAnno] = React.useState(annotation);
   const intl = useIntl();
-  const ref = React.useRef<HTMLDivElement>();
+  const ref = React.useRef<HTMLTextAreaElement>(null);
   const { calculateHeight, taStyle } = useCalculatedHeight();
 
   React.useEffect(() => {
@@ -121,12 +80,13 @@ const EditHighlightAnnotation = ({
   }, [calculateHeight]);
 
   return (
-    <HighlightNote>
-      <TextareaLabel>
+    <div className="highlight-note">
+      <label className="textarea-label">
         <FormattedMessage id='i18n:toolbar:highlights:popup:body:note:text'>
           {msg => msg}
         </FormattedMessage>
-        <Textarea
+        <textarea
+          className="highlight-annotation-textarea"
           value={anno}
           placeholder={intl.formatMessage({
             id: 'i18n:highlighting:card:placeholder',
@@ -137,9 +97,12 @@ const EditHighlightAnnotation = ({
           }}
           ref={ref}
           onInput={calculateHeight}
-          style={taStyle}
+          style={{
+            ...taStyle,
+            '--note-text-color': theme.color.text.label,
+          } as React.CSSProperties}
         />
-      </TextareaLabel>
+      </label>
       <HighlightEditButtons>
         <Button
           data-testid='save'
@@ -168,7 +131,7 @@ const EditHighlightAnnotation = ({
           {intl.formatMessage({ id: 'i18n:highlighting:button:cancel' })}
         </Button>
       </HighlightEditButtons>
-    </HighlightNote>
+    </div>
   );
 };
 

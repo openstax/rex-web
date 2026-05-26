@@ -80,6 +80,24 @@ export function callOrRefocus(
   }
 }
 
+// Helper function for stripping out props that should not be passed to native DOM elements.
+// Only allows safe HTML attributes (data-*, aria-*, id, role, style, title, lang, dir) to pass through.
+function stripNonnativeProps(props: Record<string, unknown>) {
+  const safeProps: Record<string, unknown> = {};
+
+  for (const [key, value] of Object.entries(props)) {
+    if (
+      key.startsWith('data-') ||
+      key.startsWith('aria-') ||
+      ['id', 'role', 'style', 'title', 'lang', 'dir'].includes(key)
+    ) {
+      safeProps[key] = value;
+    }
+  }
+
+  return safeProps;
+}
+
 type TabHiddenProps = React.PropsWithChildren<Props | Props & ControlledProps>;
 
 // Plain React component for TabHiddenDropDown
@@ -102,7 +120,9 @@ const TabHiddenDropDown = React.forwardRef<HTMLElement, TabHiddenProps>((
     if (toggleElement.current) { toggleElement.current.focus(); }
   });
 
-  return <div className={className} ref={mergeRefs(ref, container)}>
+  const restProps = stripNonnativeProps(props);
+
+  return <div className={className} ref={mergeRefs(ref, container)} {...restProps}>
     <DropdownToggle
       ref={toggleElement}
       component={toggle}
@@ -117,8 +137,8 @@ const TabHiddenDropDown = React.forwardRef<HTMLElement, TabHiddenProps>((
 });
 
 // Plain React component for TabTransparentDropdown
-const TabTransparentDropdown = React.forwardRef<HTMLElement, React.PropsWithChildren<Props>>((
-  {toggle, children, className, menuClassName}, ref
+const TabTransparentDropdown = React.forwardRef<HTMLElement, React.PropsWithChildren<Props | Props & ControlledProps>>((
+  {toggle, children, className, menuClassName, onToggle, ...props}, ref
 ) => {
   const [isFocusWithin, setIsFocusWithin] = React.useState(false);
 
@@ -134,7 +154,10 @@ const TabTransparentDropdown = React.forwardRef<HTMLElement, React.PropsWithChil
     }
   }, []);
 
-  return <div className={classNames('dropdown-transparent', className)} ref={ref}>
+  // Extract controlled props and callbacks so they don't get passed to the div
+  const restProps = stripNonnativeProps(props);
+
+  return <div className={classNames('dropdown-transparent', className)} ref={ref} {...restProps}>
     <DropdownFocusWrapper
       className={classNames({ 'focus-within': isFocusWithin })}
       onFocus={handleFocusIn}

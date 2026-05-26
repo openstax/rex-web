@@ -101,6 +101,7 @@ exports[`AssignedTopBar renders 1`] = `
   />
   <div
     className="c2 topbar-text-resizer-dropdown"
+    data-testid="text-resizer"
   >
     <button
       aria-controls="text-resizer-menu"
