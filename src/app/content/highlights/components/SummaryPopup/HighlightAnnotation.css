@@ -1,0 +1,47 @@
+/* HighlightAnnotation Component Styles */
+
+.highlight-note {
+  font-size: 1.6rem;
+  font-weight: normal;
+  line-height: 2.5rem;
+  letter-spacing: -0.32px;
+  padding-top: 1.2rem;
+  display: flex;
+  gap: 1rem;
+  flex-flow: wrap;
+  align-items: start;
+  color: var(--color-text-default);
+}
+
+.highlight-note span {
+  margin: 0 0.8rem 0 0;
+  overflow: visible;
+}
+
+.highlight-note-annotation {
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  color: var(--color-text-default);
+}
+
+.textarea-label {
+  font-weight: bold;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.highlight-annotation-textarea {
+  font-size: 1.6rem;
+  font-weight: normal;
+  line-height: 2rem;
+  letter-spacing: 0;
+  font-family: inherit;
+  width: 100%;
+  min-height: 3.6rem;
+  max-height: calc(60vh - 20rem);
+  box-sizing: border-box;
+  color: var(--note-text-color);
+  padding: 0.8rem;
+}
