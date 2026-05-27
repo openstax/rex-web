@@ -10,7 +10,7 @@ import React from 'react';
  */
 
 const SvgComponent = (props: Omit<React.SVGProps<SVGElement>, 'ref'>) => (
-  <svg width='15px' height='15px' viewBox='0 0 15 15' version='1.1' {...props} >
+  <svg width='15px' height='15px' viewBox='0 0 15 15' version='1.1' {...props}>
     <g stroke='none' strokeWidth='1' fill='none' fillRule='evenodd'>
       <g transform='translate(-302.000000, -18.000000)' fill='currentColor'>
         <g transform='translate(302.000000, 18.000000)'>

@@ -10,7 +10,7 @@ import './SidebarSearchInput.css';
 
 interface State {
   query: string;
-  queryProp: string;
+  queryProp: string | null;
   formSubmitted: boolean;
 }
 
@@ -21,7 +21,7 @@ const CloseIcon = (props: React.SVGAttributes<SVGSVGElement>) => (
 
 // Search in sidebar experiment
 export class SidebarSearchInput extends Component<ResultsSidebarProps> {
-  public static getDerivedStateFromProps(newProps: ResultsSidebarProps, state: State) {
+  public static getDerivedStateFromProps(newProps: ResultsSidebarProps, state: State): State {
     if (newProps.query && newProps.query !== state.queryProp && newProps.query !== state.query) {
       return { ...state, query: newProps.query, queryProp: newProps.query };
     }

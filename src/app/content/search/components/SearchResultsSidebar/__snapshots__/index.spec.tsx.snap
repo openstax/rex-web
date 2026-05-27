@@ -31,6 +31,7 @@ exports[`SearchResultsSidebar matches snapshot for no search results 1`] = `
         <svg
           aria-hidden="true"
           className="close-icon"
+          focusable="false"
           height="15px"
           version="1.1"
           viewBox="0 0 15 15"
@@ -134,6 +135,7 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
         <svg
           aria-hidden="true"
           className="close-icon"
+          focusable="false"
           height="15px"
           version="1.1"
           viewBox="0 0 15 15"
@@ -410,6 +412,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
         <svg
           aria-hidden="true"
           className="close-icon"
+          focusable="false"
           height="15px"
           version="1.1"
           viewBox="0 0 15 15"
@@ -795,6 +798,7 @@ exports[`SearchResultsSidebar shows sidebar with loading state if there is a sea
         <svg
           aria-hidden="true"
           className="close-icon"
+          focusable="false"
           height="15px"
           version="1.1"
           viewBox="0 0 15 15"
