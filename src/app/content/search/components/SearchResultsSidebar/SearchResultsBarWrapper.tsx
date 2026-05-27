@@ -48,7 +48,7 @@ type LabeledCloseButtonParameters = {
 
 // CloseIcon component - replaces Styled.CloseIcon
 const CloseIcon = (props: React.SVGAttributes<SVGSVGElement>) => (
-  <Times {...props} className="close-icon" aria-hidden='true' />
+  <Times {...props} className="close-icon" aria-hidden='true' focusable='false' />
 );
 
 function LabeledCloseButton({onClose, testId}: LabeledCloseButtonParameters) {
