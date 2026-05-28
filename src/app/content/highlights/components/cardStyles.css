@@ -145,34 +145,38 @@
 
 /* touchDeviceQuery from theme.ts: "not all and (pointer: fine), (hover: none)" */
 
-/* Using nested @media rules to match the original theme.ts structure */
-@media screen and (max-width: 75em) { /* mobileBreak */
-  @media not all and (pointer: fine), (hover: none) { /* touchDeviceQuery */
-    .highlight-card {
-      animation: none;
-    }
+/* Flattened media query combining mobileBreak AND touchDeviceQuery conditions */
+@media (max-width: 75em) and (pointer: coarse),
+  (max-width: 75em) and (hover: none) {
+  .highlight-card {
+    animation: none;
+  }
 
-    .highlight-card[data-active="true"] {
-      left: 0;
-      right: 0;
-      bottom: 0;
-      top: unset;
-      position: fixed;
-      padding: 0;
-    }
+  /* Touch device positioning - needs to override overlap display rules */
 
-    .highlight-card:not([data-active="true"]) {
-      display: none;
-    }
+  /* Must have higher specificity than the data-toc-open/data-has-query rules */
+  .highlight-card[data-active="true"],
+  .highlight-card[data-toc-open="true"][data-active="true"],
+  .highlight-card[data-has-query="true"][data-active="true"] {
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: unset;
+    position: fixed;
+    padding: 0;
+  }
 
-    /* Mobile touch screen: border on top instead of left */
-    .highlight-card::before {
-      border-radius: 0.4rem 0.4rem 0 0;
-      right: 0;
-      bottom: unset;
-      width: unset;
-      height: 0.4rem; /* cardPadding / 2 */
-    }
+  .highlight-card:not([data-active="true"]) {
+    display: none;
+  }
+
+  /* Mobile touch screen: border on top instead of left */
+  .highlight-card::before {
+    border-radius: 0.4rem 0.4rem 0 0;
+    right: 0;
+    bottom: unset;
+    width: unset;
+    height: 0.4rem; /* cardPadding / 2 */
   }
 }
 

@@ -96,7 +96,7 @@ export interface EditCardProps {
   shouldFocusCard: boolean;
   minimize?: boolean;
   onClick?: () => void;
-  style?: React.CSSProperties;
+  cardStyle?: React.CSSProperties;
   'data-testid'?: string;
   'data-active'?: boolean;
   'data-hidden'?: boolean;
@@ -129,7 +129,7 @@ const EditCard = React.forwardRef<HTMLElement, EditCardProps>((props, ref) => {
       data-hidden={props['data-hidden']}
       data-toc-open={props['data-toc-open']}
       data-has-query={props['data-has-query']}
-      style={props.style}
+      style={props.cardStyle}
     >
       <ActiveEditCard props={props} element={element} />
     </LoginOrEdit>
