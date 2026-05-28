@@ -23,30 +23,17 @@ Array [
     aria-live="polite"
     className="c0 c1"
   />,
-  .c1 {
+  .c0 {
   min-width: 20rem;
-}
-
-.c0 {
-  background: #f5f5f5;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  overflow: visible;
-}
-
-.c0 .c2 {
-  margin-top: 0.8rem;
 }
 
 <div
     aria-label="Edit highlighted note"
-    className="c0"
+    className="edit-card "
     role="dialog"
   >
     <div
-      className="c1"
+      className="c0"
     >
       <form
         data-analytics-region="edit-note"
@@ -78,7 +65,7 @@ Array [
             mock-note="true"
           />
           <div
-            className="button-group c2 "
+            className="button-group"
           >
             <button
               className="button button-primary button-small"
@@ -151,22 +138,9 @@ Array [
 `;
 
 exports[`EditCard Snapshots and Rendering matches snapshot when focused 1`] = `
-.c0 {
-  background: #f5f5f5;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  overflow: visible;
-}
-
-.c0 .c1 {
-  margin-top: 0.8rem;
-}
-
 <div
   aria-label="Edit highlighted note"
-  className="c0"
+  className="edit-card "
   role="dialog"
 >
   <div
@@ -209,30 +183,17 @@ Array [
     aria-live="polite"
     className="c0 c1"
   />,
-  .c1 {
+  .c0 {
   min-width: 20rem;
-}
-
-.c0 {
-  background: #f5f5f5;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  overflow: visible;
-}
-
-.c0 .c2 {
-  margin-top: 0.8rem;
 }
 
 <div
     aria-label="Edit highlighted note"
-    className="c0"
+    className="edit-card "
     role="dialog"
   >
     <div
-      className="c1"
+      className="c0"
     >
       <form
         data-analytics-region="edit-note"
@@ -271,22 +232,9 @@ Array [
 `;
 
 exports[`EditCard Snapshots and Rendering matches snapshot without data 1`] = `
-.c0 {
-  background: #f5f5f5;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  overflow: visible;
-}
-
-.c0 .c1 {
-  margin-top: 0.8rem;
-}
-
 <div
   aria-label="Edit highlighted note"
-  className="c0"
+  className="edit-card "
   role="dialog"
 >
   <div

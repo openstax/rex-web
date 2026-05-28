@@ -1,9 +1,11 @@
 import React from 'react';
+import styled from 'styled-components/macro';
 import { isDefined } from '../../../guards';
 import { highlightStyles } from '../../constants';
 import { useIntl } from 'react-intl';
+import classNames from 'classnames';
 import trashIcon from '../../../../assets/trash-347.svg';
-import './ColorIndicator.css';
+// CSS is imported in src/app/index.tsx
 
 interface IconProps extends React.SVGAttributes<SVGSVGElement> {
   className?: string;
@@ -35,7 +37,8 @@ interface StyleProps {
   shape?: 'square' | 'circle';
 }
 
-interface Props<T extends React.ComponentType | undefined = React.ComponentType> extends StyleProps {
+interface Props<T extends React.ComponentType | undefined = React.ComponentType>
+extends StyleProps, Omit<React.HTMLAttributes<HTMLElement>, 'style'> {
   className?: string;
   checked?: boolean;
   component?: T extends undefined ? undefined :
@@ -45,14 +48,12 @@ interface Props<T extends React.ComponentType | undefined = React.ComponentType>
 
 function ColorIndicator<T extends React.ComponentType | undefined>(props: React.PropsWithChildren<Props<T>>) {
   const {children, style, checked, size, component, shape, className, ...otherProps} = props;
-
   const indicatorStyle = {
     '--passive-color': style.passive,
     '--focused-color': style.focused,
     '--focus-border-color': style.focusBorder,
     '--focus-outline-color': 'var(--focus-outline-color)',
   } as React.CSSProperties;
-
   const content = (
     <>
       <Check />
@@ -62,21 +63,19 @@ function ColorIndicator<T extends React.ComponentType | undefined>(props: React.
     </>
   );
 
-  const indicatorClasses = `color-indicator ${className || ''}`;
+  const indicatorClasses = classNames('color-indicator', className);
 
   if (isDefined(component)) {
-    return React.cloneElement(
-      component,
-      {
-        ...otherProps,
-        className: indicatorClasses,
-        style: indicatorStyle,
-        'data-size': size,
-        'data-shape': shape,
-        'data-checked': checked,
-      },
-      content
-    );
+    const extraProps: Record<string, unknown> = {
+      ...otherProps,
+      className: indicatorClasses,
+      style: indicatorStyle,
+      'data-size': size,
+      'data-shape': shape,
+      'data-checked': checked,
+    };
+
+    return React.cloneElement(component, extraProps, content);
   }
 
   return (
@@ -118,4 +117,7 @@ export function TrashButton({
   );
 }
 
-export default ColorIndicator;
+// Export a styled wrapper with no styles to maintain compatibility with styled-components selectors
+// This allows ColorIndicator to be used as a CSS selector (e.g., ${ColorIndicator}) in other
+// styled-components while the actual styling is handled by ColorIndicator.css
+export default styled(ColorIndicator)``;

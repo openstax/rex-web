@@ -1,45 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Confirmation matches snapshot no selection 1`] = `
-.c0 {
-  background: rgba(0,0,0,0.9);
-  outline: none;
-  border-radius: 0.4rem;
-  box-shadow: 0 0 2px 0 rgba(0,0,0,0.14),0 2px 2px 0 rgba(0,0,0,0.12),0 1px 3px 0 rgba(0,0,0,0.2);
-  -webkit-transition: background 200ms;
-  transition: background 200ms;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  padding: 1.6rem;
-  overflow: visible;
-  min-height: 100%;
-  min-width: 100%;
-  position: static;
-  width: -webkit-min-content;
-  width: -moz-min-content;
-  width: min-content;
-}
-
-.c0 label {
-  color: #424242;
-  font-size: 1.4rem;
-  line-height: 1.6rem;
-  font-weight: normal;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  color: #fff;
-  margin-bottom: 0.8rem;
-  overflow: visible;
-}
-
 <div
-  className="c0"
+  className="confirmation-overlay"
   data-analytics-region="region"
   role="alertdialog"
   tabIndex={-1}
@@ -117,45 +80,8 @@ exports[`Confirmation matches snapshot no selection 1`] = `
 `;
 
 exports[`Confirmation renders with data-analytics-label and ref 1`] = `
-.c0 {
-  background: rgba(0,0,0,0.9);
-  outline: none;
-  border-radius: 0.4rem;
-  box-shadow: 0 0 2px 0 rgba(0,0,0,0.14),0 2px 2px 0 rgba(0,0,0,0.12),0 1px 3px 0 rgba(0,0,0,0.2);
-  -webkit-transition: background 200ms;
-  transition: background 200ms;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  padding: 1.6rem;
-  overflow: visible;
-  min-height: 100%;
-  min-width: 100%;
-  position: static;
-  width: -webkit-min-content;
-  width: -moz-min-content;
-  width: min-content;
-}
-
-.c0 label {
-  color: #424242;
-  font-size: 1.4rem;
-  line-height: 1.6rem;
-  font-weight: normal;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  color: #fff;
-  margin-bottom: 0.8rem;
-  overflow: visible;
-}
-
 <div
-  className="c0"
+  className="confirmation-overlay"
   role="alertdialog"
   tabIndex={-1}
 >
@@ -232,45 +158,8 @@ exports[`Confirmation renders with data-analytics-label and ref 1`] = `
 `;
 
 exports[`Confirmation works without optional props and drawFocus={true} 1`] = `
-.c0 {
-  background: rgba(0,0,0,0.9);
-  outline: none;
-  border-radius: 0.4rem;
-  box-shadow: 0 0 2px 0 rgba(0,0,0,0.14),0 2px 2px 0 rgba(0,0,0,0.12),0 1px 3px 0 rgba(0,0,0,0.2);
-  -webkit-transition: background 200ms;
-  transition: background 200ms;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  padding: 1.6rem;
-  overflow: visible;
-  min-height: 100%;
-  min-width: 100%;
-  position: static;
-  width: -webkit-min-content;
-  width: -moz-min-content;
-  width: min-content;
-}
-
-.c0 label {
-  color: #424242;
-  font-size: 1.4rem;
-  line-height: 1.6rem;
-  font-weight: normal;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  color: #fff;
-  margin-bottom: 0.8rem;
-  overflow: visible;
-}
-
 <div
-  className="c0"
+  className="confirmation-overlay"
   role="alertdialog"
   tabIndex={-1}
 >
