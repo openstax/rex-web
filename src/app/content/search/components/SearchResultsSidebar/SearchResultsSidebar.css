@@ -220,6 +220,7 @@
 /* SummaryTitle */
 .summary-title {
   /* labelStyle */
+  color: var(--color-text-default);
   font-size: 1.4rem;
   font-weight: bold;
   padding-right: 1.6rem;
@@ -263,6 +264,7 @@
 /* SearchResultsLink */
 .search-results-link {
   /* labelStyle */
+  color: var(--color-text-default);
   font-size: 1.4rem;
   width: 100%;
   font-weight: 700;
@@ -273,7 +275,7 @@
 /* SectionContentPreview */
 .section-content-preview {
   /* labelStyle > textStyle */
-  color: #424242; /* theme.color.text.default */
+  color: var(--color-text-default);
   font-size: 1.4rem;
   font-weight: normal;
   cursor: pointer;
@@ -400,8 +402,8 @@
 /* SearchResultsSectionTitle */
 .search-results-section-title {
   /* textStyle */
+  color: var(--color-text-default);
   font-size: 1.8rem;
-  line-height: 3rem;
   font-weight: bold;
   display: flex;
   margin: 0;

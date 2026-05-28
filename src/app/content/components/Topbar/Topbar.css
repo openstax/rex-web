@@ -346,7 +346,7 @@
 }
 
 /* Search results text button */
-.topbar-search-results-text-button {
+.topbar-search-results-text-button.toolbar-plain-button {
   display: flex;
   overflow: visible;
   min-width: auto;
