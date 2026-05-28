@@ -28,7 +28,7 @@ export interface DisplayNoteProps {
   className: string;
   shouldFocusCard: boolean;
   onClick?: () => void;
-  cardStyle?: React.CSSProperties;
+  style?: React.CSSProperties;
   'data-testid'?: string;
   'data-active'?: boolean;
   'data-hidden'?: boolean;
@@ -38,7 +38,7 @@ export interface DisplayNoteProps {
 
 const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
   {note, isActive, highlight, onBlur, onEdit, onRemove,
-  onHeightChange, className, shouldFocusCard, onClick, highlightStyle, cardStyle, focus: _focus, ...restProps},
+  onHeightChange, className, shouldFocusCard, onClick, highlightStyle, style, focus: _focus, ...restProps},
   ref
 ) => {
   const [confirmingDelete, setConfirmingDelete] = React.useState<boolean>(false);
@@ -92,9 +92,9 @@ const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
     return () => el.removeEventListener('focusin', stopFocusPropagation);
   }, []);
 
-  // Combine cardStyle from Card.tsx with highlight color CSS custom property
+  // Combine style from Card.tsx with highlight color CSS custom property
   const combinedStyle: React.CSSProperties = {
-    ...cardStyle,
+    ...style,
     '--highlight-color': highlightStyle.focused,
   } as React.CSSProperties;
 

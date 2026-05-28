@@ -530,7 +530,7 @@ describe('Card', () => {
     </TestContainer>, {createNodeMock});
 
     const card = component.root.findByProps({ 'data-testid': 'card' });
-    expect(card.props.cardStyle['--card-top-offset']).toBe(`${topOffset}px`);
+    expect(card.props.style['--card-top-offset']).toBe(`${topOffset}px`);
   });
 
   it('calculates topOffset from highlight when not provided', () => {
@@ -573,7 +573,7 @@ describe('Card', () => {
 
     const card = component.root.findByProps({ 'data-testid': 'card' });
     // Should be calculated using getHighlightBottomOffset
-    expect(card.props.cardStyle['--card-top-offset']).toBeDefined();
+    expect(card.props.style['--card-top-offset']).toBeDefined();
   });
 
   it('omits --card-highlight-offset when getHighlightTopOffset returns undefined', () => {
@@ -603,7 +603,7 @@ describe('Card', () => {
     const card = component.root.findByProps({ 'data-testid': 'card' });
     // When getHighlightTopOffset returns undefined, --card-highlight-offset should be omitted
     // so the CSS can fall back to --card-top-offset or auto
-    expect(card.props.cardStyle['--card-highlight-offset']).toBeUndefined();
+    expect(card.props.style['--card-highlight-offset']).toBeUndefined();
   });
 
   it('uses 0px fallback for --card-top-offset when getHighlightBottomOffset returns undefined', () => {
@@ -632,7 +632,7 @@ describe('Card', () => {
     const card = component.root.findByProps({ 'data-testid': 'card' });
     // When getHighlightBottomOffset returns undefined, the ?? 0 fallback ensures
     // the CSS custom property is set to 0px to prevent cards from jumping to the top
-    expect(card.props.cardStyle['--card-top-offset']).toBe('0px');
+    expect(card.props.style['--card-top-offset']).toBe('0px');
   });
 
   it('sets --card-z-index CSS custom property when zIndex is provided', () => {
@@ -657,7 +657,7 @@ describe('Card', () => {
 
     const card = component.root.findByProps({ 'data-testid': 'card' });
     // When zIndex is provided, the --card-z-index CSS custom property should be set
-    expect(card.props.cardStyle['--card-z-index']).toBe(zIndex);
+    expect(card.props.style['--card-z-index']).toBe(zIndex);
   });
 
   it('calls onHeightChange with wrapper ref when inner component triggers callback', () => {
