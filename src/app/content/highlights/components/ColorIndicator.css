@@ -1,0 +1,113 @@
+/* ColorIndicator styles */
+
+/* Base color indicator */
+.color-indicator {
+  position: relative;
+  height: 2.4rem;
+  width: 2.4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2rem;
+  overflow: visible;
+  background-color: var(--passive-color);
+  border: 1px solid var(--focus-border-color);
+}
+
+.color-indicator[data-size="small"] {
+  height: 1.6rem;
+  width: 1.6rem;
+}
+
+.color-indicator[data-shape="square"] {
+  border-radius: 0;
+}
+
+/* Check icon */
+.color-indicator-check {
+  height: 1.6rem;
+  width: 1.6rem;
+  display: none;
+}
+
+.color-indicator[data-size="small"] .color-indicator-check {
+  height: 1rem;
+  width: 1rem;
+}
+
+.color-indicator[data-checked="true"] .color-indicator-check {
+  color: var(--focused-color);
+  stroke: var(--focus-border-color);
+  stroke-width: 5%;
+  display: block;
+}
+
+/* Focused style ring */
+.color-indicator-focus {
+  display: none;
+  position: absolute;
+  height: 2.8rem;
+  width: 2.8rem;
+  background-color: transparent;
+  z-index: -1;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+}
+
+.color-indicator[data-size="small"] .color-indicator-focus {
+  height: 2rem;
+  width: 2rem;
+}
+
+.color-indicator[data-shape="square"] .color-indicator-focus {
+  border-radius: 0;
+}
+
+.color-indicator input:focus + .color-indicator-focus {
+  display: block;
+  outline: 0.2rem solid var(--focus-outline-color);
+  outline-offset: 0.1rem;
+  z-index: 1;
+}
+
+/* Color ring */
+.color-indicator-ring {
+  height: 2.2rem;
+  width: 2.2rem;
+  background-color: transparent;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 1px solid var(--focused-color);
+}
+
+.color-indicator[data-size="small"] .color-indicator-ring {
+  height: 1.4rem;
+  width: 1.4rem;
+}
+
+.color-indicator[data-shape="square"] .color-indicator-ring {
+  border-radius: 0;
+}
+
+/* Trash button */
+.trash-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.trash-button img {
+  height: 1.9rem;
+  width: 1.9rem;
+}
+
+.trash-button[data-size="small"] img {
+  height: 1.1rem;
+  width: 1.1rem;
+}

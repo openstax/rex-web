@@ -1,38 +1,10 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
-import Color from 'color';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import styled from 'styled-components/macro';
 import Button, { ButtonGroup } from '../../../components/Button';
-import { labelStyle } from '../../../components/Typography';
 import { useDrawFocus, useTrapTabNavigation, useOnEsc } from '../../../reactUtils';
-import theme from '../../../theme';
 import { mergeRefs } from '../../../utils';
-import { cardPadding } from '../constants';
-import { cardBorder } from './style';
-
-export const Overlay = styled.div`
-  background: ${Color(theme.color.black).alpha(0.90).string()};
-  outline: none;
-  ${cardBorder}
-  transition: background 200ms;
-  display: flex;
-  flex-direction: column;
-  padding: 1.6rem;
-  overflow: visible;
-  min-height: 100%;
-  min-width: 100%;
-  position: static;
-  width: min-content;
-
-  label {
-    ${labelStyle}
-    flex: 1;
-    color: ${theme.color.text.white};
-    margin-bottom: ${cardPadding}rem;
-    overflow: visible;
-  }
-`;
+import './Confirmation.css';
 
 interface Props {
   message: string;
@@ -60,7 +32,8 @@ const Confirmation = React.forwardRef<HTMLElement, Props>((
   useTrapTabNavigation(trapRef, undefined, !drawFocus);
   useOnEsc(true, onCancel);
 
-  return <Overlay
+  return <div
+    className="confirmation-overlay"
     ref={mergeRefs(ref, drawFocus ? drawFocusRef : overlayRef)}
     tabIndex={-1}
     role='alertdialog'
@@ -112,7 +85,7 @@ const Confirmation = React.forwardRef<HTMLElement, Props>((
         >{msg}</Button>}
       </FormattedMessage>
     </ButtonGroup>
-  </Overlay>;
+  </div>;
 });
 
 export default Confirmation;

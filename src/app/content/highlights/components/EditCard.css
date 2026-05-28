@@ -1,0 +1,17 @@
+/* EditCard styles */
+.edit-card {
+  background: var(--neutral-form-background);
+  user-select: none;
+  overflow: visible;
+}
+
+.edit-card .button-group {
+  margin-top: 1rem;
+}
+
+/* Touch device query - hide edit card on touch devices */
+@media (max-width: 75em) and (pointer: coarse) {
+  .edit-card {
+    visibility: hidden;
+  }
+}
