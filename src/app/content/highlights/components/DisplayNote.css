@@ -1,0 +1,106 @@
+/**
+ * DisplayNote Component Styles
+ *
+ * This file contains styles for the read-only highlight card display component.
+ * It handles:
+ * - Card background and layout
+ * - Note label and content display
+ * - Dropdown menu positioning
+ * - Close button for touch devices
+ * - Responsive behavior for desktop vs mobile
+ */
+
+/* === Constants from constants.ts ===
+ * cardWidth: 20rem
+ * cardPadding: 0.8rem
+ * verticalNavbarMaxWidth: 7rem
+ * mobileBreak: 75em
+ * mobileMediumBreak: 50em
+ */
+
+/* === Base DisplayNote Styles === */
+.display-note {
+  width: 20rem; /* cardWidth */
+  overflow: visible;
+  background: #f1f1f1; /* theme.color.neutral.formBackground */
+}
+
+.display-note[data-active="true"] {
+  background: #fff; /* theme.color.white */
+}
+
+/* === Note Label === */
+.display-note > label {
+  display: none;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  color: var(--highlight-color, #000); /* Dynamic highlight color */
+  font-size: 1.4rem;
+  line-height: 2rem;
+  margin: 1.2rem 0 0 1.6rem; /* cardPadding * 1.5, 0, 0, cardPadding * 2 */
+}
+
+/* === Dropdown Menu Positioning === */
+.display-note .dropdown {
+  position: absolute;
+  top: 0.8rem;
+  right: -0.2rem;
+}
+
+/* Focus-within styling for menu icon */
+.display-note .dropdown.focus-within .menu-icon {
+  color: #424242; /* theme.color.primary.gray.base */
+}
+
+.display-note .dropdown:focus-within .menu-icon {
+  color: #424242; /* theme.color.primary.gray.base */
+}
+
+/* === Close Icon (Times button) === */
+.display-note-close-icon {
+  color: #c2c2c2; /* theme.color.primary.gray.lighter */
+  height: 4.2rem;
+  width: 4.2rem;
+  padding: 1.6rem;
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+/* === Touch Device Styles === */
+
+/* Combined media query: mobileBreak AND touchDeviceQuery from theme.ts */
+
+/* touchDeviceQuery: "not all and (pointer: fine), (hover: none)" */
+@media (max-width: 75em) and (pointer: coarse),
+  (max-width: 75em) and (hover: none) {
+  .display-note {
+    width: unset;
+  }
+
+  .display-note > label {
+    display: block;
+  }
+
+  .display-note .dropdown {
+    display: none;
+  }
+
+  .display-note-close-icon {
+    display: block;
+  }
+}
+
+/* === Mobile Responsive Styles === */
+@media (max-width: 75em) { /* mobile breakpoint */
+  .display-note {
+    margin-left: 7rem; /* verticalNavbarMaxWidth */
+  }
+}
+
+@media (max-width: 50em) { /* mobileMedium breakpoint */
+  .display-note {
+    margin-left: 0;
+  }
+}
