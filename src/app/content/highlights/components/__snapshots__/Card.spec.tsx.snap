@@ -2,13 +2,6 @@
 
 exports[`Card matches snapshot when focused without note 1`] = `
 <div
-  cardStyle={
-    Object {
-      "--card-highlight-offset": "-110px",
-      "--card-top-offset": "150px",
-      "--highlight-color": "#fed200",
-    }
-  }
   className="highlight-card"
   data={
     Object {
@@ -20,6 +13,13 @@ exports[`Card matches snapshot when focused without note 1`] = `
   data-has-query={false}
   data-testid="card"
   data-toc-open={true}
+  style={
+    Object {
+      "--card-highlight-offset": "-110px",
+      "--card-top-offset": "150px",
+      "--highlight-color": "#fed200",
+    }
+  }
   hasUnsavedHighlight={false}
   highlight={
     Object {
@@ -70,12 +70,6 @@ exports[`Card matches snapshot when focused without note 1`] = `
 
 exports[`Card matches snapshot when passed data without note 1`] = `
 <div
-  cardStyle={
-    Object {
-      "--card-highlight-offset": "-110px",
-      "--card-top-offset": "0px",
-    }
-  }
   className="highlight-card"
   data={
     Object {
@@ -86,6 +80,12 @@ exports[`Card matches snapshot when passed data without note 1`] = `
   data-has-query={true}
   data-testid="card"
   data-toc-open={false}
+  style={
+    Object {
+      "--card-highlight-offset": "-110px",
+      "--card-top-offset": "0px",
+    }
+  }
   hasUnsavedHighlight={false}
   highlight={
     Object {
@@ -123,17 +123,17 @@ exports[`Card matches snapshot when passed data without note 1`] = `
 
 exports[`Card matches snapshot without data and preferEnd 1`] = `
 <div
-  cardStyle={
-    Object {
-      "--card-highlight-offset": "200px",
-      "--card-top-offset": "200px",
-    }
-  }
   className="highlight-card"
   data-active={true}
   data-has-query={true}
   data-testid="card"
   data-toc-open={false}
+  style={
+    Object {
+      "--card-highlight-offset": "200px",
+      "--card-top-offset": "200px",
+    }
+  }
   hasUnsavedHighlight={false}
   highlight={
     Object {
@@ -192,17 +192,17 @@ exports[`Card matches snapshot without data and preferEnd 1`] = `
 
 exports[`Card matches snapshot without data and preferEnd as false 1`] = `
 <div
-  cardStyle={
-    Object {
-      "--card-highlight-offset": "100px",
-      "--card-top-offset": "200px",
-    }
-  }
   className="highlight-card"
   data-active={true}
   data-has-query={true}
   data-testid="card"
   data-toc-open={false}
+  style={
+    Object {
+      "--card-highlight-offset": "100px",
+      "--card-top-offset": "200px",
+    }
+  }
   hasUnsavedHighlight={false}
   highlight={
     Object {
