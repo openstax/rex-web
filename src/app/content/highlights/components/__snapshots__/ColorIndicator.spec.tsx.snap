@@ -7,7 +7,6 @@ exports[`ColorIndicator matches snapshot (checked) 1`] = `
   style={
     Object {
       "--focus-border-color": "#8f7700",
-      "--focus-outline-color": "var(--focus-outline-color)",
       "--focused-color": "#fed200",
       "--passive-color": "#ffff8a",
     }
@@ -38,7 +37,6 @@ exports[`ColorIndicator matches snapshot 1`] = `
   style={
     Object {
       "--focus-border-color": "#8f7700",
-      "--focus-outline-color": "var(--focus-outline-color)",
       "--focused-color": "#fed200",
       "--passive-color": "#ffff8a",
     }

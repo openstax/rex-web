@@ -67,7 +67,7 @@
 
 .color-indicator input:focus + .color-indicator-focus {
   display: block;
-  outline: 0.2rem solid var(--focus-outline-color);
+  outline: 0.2rem solid var(--focus-outline-color, #007297);
   outline-offset: 0.1rem;
   z-index: 1;
 }

@@ -913,7 +913,6 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
                 style={
                   Object {
                     "--focus-border-color": "#8f7700",
-                    "--focus-outline-color": "var(--focus-outline-color)",
                     "--focused-color": "#fed200",
                     "--passive-color": "#ffff8a",
                   }
@@ -972,7 +971,6 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
                 style={
                   Object {
                     "--focus-border-color": "#4e6f01",
-                    "--focus-outline-color": "var(--focus-outline-color)",
                     "--focused-color": "#92d101",
                     "--passive-color": "#def99f",
                   }
@@ -1031,7 +1029,6 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
                 style={
                   Object {
                     "--focus-border-color": "#006880",
-                    "--focus-outline-color": "var(--focus-outline-color)",
                     "--focused-color": "#00c3ed",
                     "--passive-color": "#c8f5ff",
                   }
@@ -1090,7 +1087,6 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
                 style={
                   Object {
                     "--focus-border-color": "#141a3e",
-                    "--focus-outline-color": "var(--focus-outline-color)",
                     "--focused-color": "#545ec8",
                     "--passive-color": "#cbcfff",
                   }

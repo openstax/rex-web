@@ -1,16 +1,16 @@
 /* EditCard styles */
 .edit-card {
-  background: var(--neutral-form-background);
+  background: var(--color-neutral-form-background);
   user-select: none;
   overflow: visible;
 }
 
 .edit-card .button-group {
-  margin-top: 1rem;
+  margin-top: 0.8rem;
 }
 
 /* Touch device query - hide edit card on touch devices */
-@media (max-width: 75em) and (pointer: coarse) {
+@media (max-width: 75em) and (pointer: coarse), (max-width: 75em) and (hover: none) {
   .edit-card {
     visibility: hidden;
   }

@@ -52,7 +52,6 @@ function ColorIndicator<T extends React.ComponentType | undefined>(props: React.
     '--passive-color': style.passive,
     '--focused-color': style.focused,
     '--focus-border-color': style.focusBorder,
-    '--focus-outline-color': 'var(--focus-outline-color)',
   } as React.CSSProperties;
   const content = (
     <>

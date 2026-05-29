@@ -3,7 +3,7 @@
   background: rgba(0, 0, 0, 0.9);
   outline: none;
   border-radius: 0.4rem;
-  box-shadow: 0 0.2rem 0.4rem rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.14), 0 2px 2px 0 rgba(0, 0, 0, 0.12), 0 1px 3px 0 rgba(0, 0, 0, 0.2);
   transition: background 200ms;
   display: flex;
   flex-direction: column;
@@ -17,11 +17,10 @@
 
 .confirmation-overlay label {
   font-size: 1.4rem;
-  line-height: 2rem;
-  letter-spacing: -0.056rem;
-  font-weight: 700;
+  line-height: 1.6rem;
+  font-weight: normal;
   flex: 1;
-  color: var(--text-white);
-  margin-bottom: 1rem;
+  color: var(--color-text-white);
+  margin-bottom: 0.8rem;
   overflow: visible;
 }
