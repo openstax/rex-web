@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components/macro';
-import { navDesktopHeight, navMobileHeight } from '../../../components/NavBar/styled';
+import { navDesktopHeight, navMobileHeight } from '../../../components/NavBar/constants';
 import theme from '../../../theme';
 import { desktopAttributionHeight, mobileAttributionHeight } from '../Attribution';
 import {

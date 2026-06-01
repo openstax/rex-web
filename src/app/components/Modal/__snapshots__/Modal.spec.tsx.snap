@@ -18,26 +18,14 @@ exports[`Modal matches snapshot 1`] = `
         Object {
           "--link-color": "#027EB5",
           "--link-hover-color": "#0064A0",
-          "--text-color": "#424242",
         }
       }
     >
       <header
         className="modal-header"
-        style={
-          Object {
-            "--header-bg": "#f1f1f1",
-            "--header-border": "#fafafa",
-          }
-        }
       >
         <h1
           className="modal-heading"
-          style={
-            Object {
-              "--text-color": "#424242",
-            }
-          }
         >
           Discard unsaved changes?
         </h1>
@@ -108,26 +96,14 @@ exports[`Modal matches snapshot with children 1`] = `
         Object {
           "--link-color": "#027EB5",
           "--link-hover-color": "#0064A0",
-          "--text-color": "#424242",
         }
       }
     >
       <header
         className="modal-header"
-        style={
-          Object {
-            "--header-bg": "#f1f1f1",
-            "--header-border": "#fafafa",
-          }
-        }
       >
         <h1
           className="modal-heading"
-          style={
-            Object {
-              "--text-color": "#424242",
-            }
-          }
         >
           Discard unsaved changes?
         </h1>

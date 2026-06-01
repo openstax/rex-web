@@ -1,10 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ErrorModal matches snapshot 1`] = `
-.c0 {
-  padding: 1.5rem 0;
-}
-
 <div
   className="modal-wrapper error-modal"
   style={
@@ -22,26 +18,14 @@ exports[`ErrorModal matches snapshot 1`] = `
         Object {
           "--link-color": "#027EB5",
           "--link-hover-color": "#0064A0",
-          "--text-color": "#424242",
         }
       }
     >
       <header
         className="modal-header"
-        style={
-          Object {
-            "--header-bg": "#f1f1f1",
-            "--header-border": "#fafafa",
-          }
-        }
       >
         <h1
           className="modal-heading"
-          style={
-            Object {
-              "--text-color": "#424242",
-            }
-          }
         >
           Error
         </h1>
@@ -92,16 +76,11 @@ exports[`ErrorModal matches snapshot 1`] = `
         <h3
           className="modal-body-heading "
           id="modal-title"
-          style={
-            Object {
-              "--text-color": "#424242",
-            }
-          }
         >
           Uh-oh, there's been a glitch
         </h3>
         <div
-          className="c0"
+          className="body-error-text"
           dangerouslySetInnerHTML={
             Object {
               "__html": "
@@ -155,20 +134,6 @@ exports[`ErrorModal matches snapshot 1`] = `
 `;
 
 exports[`ErrorModal matches snapshots with recorded error ids 1`] = `
-.c1 {
-  color: #424242;
-  font-size: 1.4rem;
-  line-height: 1.6rem;
-  font-weight: normal;
-  font-size: 0.9rem;
-  color: #424242;
-  opacity: 0.6;
-}
-
-.c0 {
-  padding: 1.5rem 0;
-}
-
 <div
   className="modal-wrapper error-modal"
   style={
@@ -186,26 +151,14 @@ exports[`ErrorModal matches snapshots with recorded error ids 1`] = `
         Object {
           "--link-color": "#027EB5",
           "--link-hover-color": "#0064A0",
-          "--text-color": "#424242",
         }
       }
     >
       <header
         className="modal-header"
-        style={
-          Object {
-            "--header-bg": "#f1f1f1",
-            "--header-border": "#fafafa",
-          }
-        }
       >
         <h1
           className="modal-heading"
-          style={
-            Object {
-              "--text-color": "#424242",
-            }
-          }
         >
           Error
         </h1>
@@ -256,16 +209,11 @@ exports[`ErrorModal matches snapshots with recorded error ids 1`] = `
         <h3
           className="modal-body-heading "
           id="modal-title"
-          style={
-            Object {
-              "--text-color": "#424242",
-            }
-          }
         >
           Uh-oh, there's been a glitch
         </h3>
         <div
-          className="c0"
+          className="body-error-text"
           dangerouslySetInnerHTML={
             Object {
               "__html": "
@@ -276,7 +224,7 @@ exports[`ErrorModal matches snapshots with recorded error ids 1`] = `
           }
         />
         <div
-          className="c1"
+          className="error-id-list"
         >
           some-error-id
         </div>

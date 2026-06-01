@@ -1,43 +1,24 @@
 import { Highlight } from '@openstax/highlighter';
-import { HTMLElement } from '@openstax/types/lib.dom';
+import { HTMLElement, FocusEvent } from '@openstax/types/lib.dom';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import styled, { css } from 'styled-components/macro';
 import Dropdown, { DropdownItem, DropdownList } from '../../../components/Dropdown';
 import Times from '../../../components/Times';
-import { textStyle } from '../../../components/Typography';
 import { useDebouncedWindowSize, useFocusElement } from '../../../reactUtils';
-import theme from '../../../theme';
 import { mergeRefs } from '../../../utils';
-import { highlightStyles } from '../../constants';
 import { query } from '../../search/selectors';
 import { tocOpen } from '../../selectors';
 import { focusHighlight } from '../actions';
-import { cardPadding, cardWidth } from '../constants';
-import { verticalNavbarMaxWidth } from '../../../content/components/constants';
 import Confirmation from './Confirmation';
-import MenuToggle, { MenuIcon } from './MenuToggle';
+import MenuToggle from './MenuToggle';
 import TruncatedText from './TruncatedText';
 import { isElementForOnClickOutside, useOnClickOutside } from './utils/onClickOutside';
-
-const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' focusable='false' />)`
-  color: ${theme.color.primary.gray.lighter};
-  height: 4.2rem;
-  width: 4.2rem;
-  padding: 1.6rem;
-  display: none;
-  position: absolute;
-  top: 0;
-  right: 0;
-  ${theme.breakpoints.touchDeviceQuery(css`
-    display: block;
- `)}
-`;
+import './DisplayNote.css';
 
 export interface DisplayNoteProps {
   highlight: Highlight;
   note: string;
-  style: typeof highlightStyles[number];
+  highlightStyle: { label: string; focused: string; passive: string };
   isActive: boolean;
   focus: typeof focusHighlight;
   onEdit: () => void;
@@ -46,10 +27,18 @@ export interface DisplayNoteProps {
   onHeightChange: (ref: React.RefObject<HTMLElement>) => void;
   className: string;
   shouldFocusCard: boolean;
+  onClick?: () => void;
+  style?: React.CSSProperties;
+  'data-testid'?: string;
+  'data-active'?: boolean;
+  'data-hidden'?: boolean;
+  'data-toc-open'?: boolean;
+  'data-has-query'?: boolean;
 }
 
 const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
-  {note, isActive, highlight, onBlur, onEdit, onRemove, onHeightChange, className, shouldFocusCard},
+  {note, isActive, highlight, onBlur, onEdit, onRemove,
+  onHeightChange, className, shouldFocusCard, onClick, highlightStyle, style, focus: _focus, ...restProps},
   ref
 ) => {
   const [confirmingDelete, setConfirmingDelete] = React.useState<boolean>(false);
@@ -98,21 +87,31 @@ const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
   React.useEffect(() => {
     const el = dropdownRef.current;
     if (!el) { return; }
-    const stopFocusPropagation = (e: Event) => e.stopPropagation();
+    const stopFocusPropagation = (e: FocusEvent) => e.stopPropagation();
     el.addEventListener('focusin', stopFocusPropagation);
     return () => el.removeEventListener('focusin', stopFocusPropagation);
   }, []);
 
+  // Combine style from Card.tsx with highlight color CSS custom property
+  const combinedStyle: React.CSSProperties = {
+    ...style,
+    '--highlight-color': highlightStyle.focused,
+  } as React.CSSProperties;
+
   return (
     <div
-      className={className}
+      className={`${className} display-note`}
       ref={mergeRefs(ref, element)}
       tabIndex={-1}
       data-highlight-card
       role='dialog'
       aria-labelledby={noteId}
+      onClick={onClick}
+      style={combinedStyle}
+      {...restProps}
     >
       <Dropdown
+        className="dropdown"
         ref={dropdownRef}
         toggle={<MenuToggle isOpen={menuOpen} data-no-card-activate />}
         transparentTab={confirmingDelete}
@@ -129,7 +128,11 @@ const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
           />
         </DropdownList>
       </Dropdown>
-      <CloseIcon onClick={onBlur} />
+      <Times
+        className="display-note-close-icon"
+        onClick={onBlur}
+        aria-hidden='true'
+      />
       <label>Note:</label>
       <TruncatedText id={noteId} text={note} isActive={isActive} onChange={() => setTextToggle((state) => !state)} />
       {confirmingDelete && <Confirmation
@@ -145,52 +148,4 @@ const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
   );
 });
 
-export default styled(DisplayNote)`
-  width: ${cardWidth}rem;
-  overflow: visible;
-  background: ${theme.color.neutral.formBackground};
-  ${(props: DisplayNoteProps) => props.isActive && css`
-    background: ${theme.color.white};
-  `}
-
-  > label {
-    display: none;
-    ${textStyle}
-    color: ${(props: DisplayNoteProps) => props.style.focused};
-    font-size: 1.4rem;
-    line-height: 2rem;
-    margin: ${cardPadding * 1.5}rem 0 0 ${cardPadding * 2}rem;
-  }
-
-  ${Dropdown} {
-    position: absolute;
-    top: 0.8rem;
-    right: -0.2rem;
-
-    .focus-within ${MenuIcon} {
-      color: ${theme.color.primary.gray.base};
-    }
-
-    :focus-within ${MenuIcon} {
-      color: ${theme.color.primary.gray.base};
-    }
-  }
-
-  ${theme.breakpoints.touchDeviceQuery(css`
-    width: unset;
-
-    > label {
-      display: block;
-    }
-
-    ${Dropdown} {
-      display: none;
-    }
- `)}
-  ${theme.breakpoints.mobile(css`
-    margin-left: ${verticalNavbarMaxWidth}rem;
-  `)}
-  ${theme.breakpoints.mobileMedium(css`
-    margin-left: 0;
-  `)}
-`;
+export default DisplayNote;

@@ -1,0 +1,127 @@
+/* Toast Notifications Styles
+ * Migrated from styled-components to plain CSS (Phase 2.5)
+ */
+
+.toasts-container {
+  width: 100%;
+  position: absolute;
+  overflow: visible;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+.banner-body-wrapper {
+  width: 100%;
+  margin: 0;
+  overflow: visible;
+  transition: transform 0.6s;
+}
+
+.banner-body-wrapper[data-fading-in="true"] {
+  transform: translateY(0);
+}
+
+.banner-body-wrapper[data-fading-in="false"] {
+  transform: translateY(-100%);
+}
+
+.banner-body-wrapper[data-fading-out="true"] {
+  animation: fadeOut 1s forwards;
+}
+
+/* Disable print for toast notifications */
+@media print {
+  .banner-body-wrapper {
+    display: none;
+  }
+}
+
+.banner-body {
+  width: 100%;
+  display: flex;
+  padding: 0.5rem 1rem;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid;
+}
+
+/* Error variant (default) */
+.banner-body-error {
+  background: #f8e8eb;
+  border-color: #e297a0;
+}
+
+.banner-body-error .toast-header {
+  background: inherit;
+  color: #c23834;
+  font-weight: normal;
+  line-height: 2.6rem;
+}
+
+/* Warning variant */
+.banner-body-warning {
+  background: #fff5e0;
+  border-color: #fdbd3e;
+}
+
+.banner-body-warning .toast-header {
+  background: inherit;
+  color: #976502;
+  font-weight: normal;
+  line-height: 2.6rem;
+}
+
+/* Mobile responsive styles - media query must be top-level
+ * Breakpoint: theme.breakpoints.mobileBreak (75em = 1200px)
+ */
+@media (max-width: 75em) {
+  .banner-body {
+    align-items: flex-start;
+    padding: 1.6rem 1.6rem;
+  }
+}
+
+.toast-close-button {
+  overflow: visible;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.toast-close-button-error {
+  color: #c22032;
+}
+
+.toast-close-button-error:hover {
+  color: #e297a0;
+}
+
+.toast-close-button-warning {
+  color: #976502;
+}
+
+.toast-close-button-warning:hover {
+  color: #fdbd3e;
+}
+
+.toast-close-icon {
+  width: 1.8rem;
+  height: 1.8rem;
+  cursor: pointer;
+}
+
+.toast-error-id {
+  margin-left: 1rem;
+  font-size: 1.2rem;
+  color: #c23834;
+  white-space: nowrap;
+}

@@ -39,7 +39,7 @@ exports[`PageToasts matches snapshot 1`] = `
 `;
 
 exports[`PageToasts matches snapshot with toasts when mobile toolbar is open 1`] = `
-.c5 {
+.c1 {
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
@@ -49,77 +49,15 @@ exports[`PageToasts matches snapshot with toasts when mobile toolbar is open 1`]
   line-height: 4rem;
 }
 
-.c5 a {
+.c1 a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c5 a:hover {
+.c1 a:hover {
   color: #0064A0;
-}
-
-.c1 {
-  width: 100%;
-  position: absolute;
-  overflow: visible;
-}
-
-.c2 {
-  width: 100%;
-  margin: 0;
-  overflow: visible;
-  -webkit-transition: -webkit-transform 0.6s;
-  -webkit-transition: transform 0.6s;
-  transition: transform 0.6s;
-  z-index: 1;
-  -webkit-transform: translateY(0%);
-  -ms-transform: translateY(0%);
-  transform: translateY(0%);
-  -webkit-animation: hSsjZP 1s forwards;
-  animation: hSsjZP 1s forwards;
-}
-
-.c3 {
-  width: 100%;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  padding: 0.5rem 1rem;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  background: #F8E8EB;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  border: 1px solid #E297A0;
-}
-
-.c3 .c4 {
-  background: inherit;
-  color: #C23834;
-  font-weight: normal;
-  line-height: 2.6rem;
-}
-
-.c7 {
-  width: 1.8rem;
-  height: 1.8rem;
-  cursor: pointer;
-}
-
-.c6 {
-  color: #C22032;
-  overflow: visible;
-}
-
-.c6:hover {
-  color: #E297A0;
 }
 
 .c0 {
@@ -131,26 +69,10 @@ exports[`PageToasts matches snapshot with toasts when mobile toolbar is open 1`]
 }
 
 @media (max-width:75em) {
-  .c5 {
+  .c1 {
     padding: 0;
     line-height: 2rem;
     background-color: initial;
-  }
-}
-
-@media print {
-  .c2 {
-    display: none;
-  }
-}
-
-@media (max-width:75em) {
-  .c3 {
-    -webkit-align-items: flex-start;
-    -webkit-box-align: flex-start;
-    -ms-flex-align: flex-start;
-    align-items: flex-start;
-    padding: 1.6rem 1.6rem;
   }
 }
 
@@ -182,31 +104,37 @@ exports[`PageToasts matches snapshot with toasts when mobile toolbar is open 1`]
   className="c0"
 >
   <div
-    className="c1"
+    className="toasts-container"
   >
     <div
-      className="c2"
+      className="banner-body-wrapper"
+      data-fading-in={true}
+      data-fading-out={true}
       data-testid="banner-body"
       onAnimationEnd={[Function]}
       role="alert"
+      style={
+        Object {
+          "zIndex": 1,
+        }
+      }
     >
       <div
-        className="c3"
+        className="banner-body banner-body-error"
       >
         <div
-          className="c4 c5"
+          className="c1 toast-header"
         >
           The highlight could not be saved. Please check your connection and try again.
         </div>
         <button
           aria-label="dismiss"
-          className="plain-button c6"
+          className="toast-close-button toast-close-button-error"
           onClick={[Function]}
         >
           <svg
             aria-hidden="true"
-            className="c7"
-            focusable="false"
+            className="toast-close-icon"
             height="15px"
             version="1.1"
             viewBox="0 0 15 15"
@@ -240,7 +168,7 @@ exports[`PageToasts matches snapshot with toasts when mobile toolbar is open 1`]
 `;
 
 exports[`PageToasts matches snapshots with toasts 1`] = `
-.c5 {
+.c1 {
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
@@ -250,77 +178,15 @@ exports[`PageToasts matches snapshots with toasts 1`] = `
   line-height: 4rem;
 }
 
-.c5 a {
+.c1 a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c5 a:hover {
+.c1 a:hover {
   color: #0064A0;
-}
-
-.c1 {
-  width: 100%;
-  position: absolute;
-  overflow: visible;
-}
-
-.c2 {
-  width: 100%;
-  margin: 0;
-  overflow: visible;
-  -webkit-transition: -webkit-transform 0.6s;
-  -webkit-transition: transform 0.6s;
-  transition: transform 0.6s;
-  z-index: 1;
-  -webkit-transform: translateY(0%);
-  -ms-transform: translateY(0%);
-  transform: translateY(0%);
-  -webkit-animation: hSsjZP 1s forwards;
-  animation: hSsjZP 1s forwards;
-}
-
-.c3 {
-  width: 100%;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  padding: 0.5rem 1rem;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  background: #F8E8EB;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  border: 1px solid #E297A0;
-}
-
-.c3 .c4 {
-  background: inherit;
-  color: #C23834;
-  font-weight: normal;
-  line-height: 2.6rem;
-}
-
-.c7 {
-  width: 1.8rem;
-  height: 1.8rem;
-  cursor: pointer;
-}
-
-.c6 {
-  color: #C22032;
-  overflow: visible;
-}
-
-.c6:hover {
-  color: #E297A0;
 }
 
 .c0 {
@@ -332,26 +198,10 @@ exports[`PageToasts matches snapshots with toasts 1`] = `
 }
 
 @media (max-width:75em) {
-  .c5 {
+  .c1 {
     padding: 0;
     line-height: 2rem;
     background-color: initial;
-  }
-}
-
-@media print {
-  .c2 {
-    display: none;
-  }
-}
-
-@media (max-width:75em) {
-  .c3 {
-    -webkit-align-items: flex-start;
-    -webkit-box-align: flex-start;
-    -ms-flex-align: flex-start;
-    align-items: flex-start;
-    padding: 1.6rem 1.6rem;
   }
 }
 
@@ -383,31 +233,37 @@ exports[`PageToasts matches snapshots with toasts 1`] = `
   className="c0"
 >
   <div
-    className="c1"
+    className="toasts-container"
   >
     <div
-      className="c2"
+      className="banner-body-wrapper"
+      data-fading-in={true}
+      data-fading-out={true}
       data-testid="banner-body"
       onAnimationEnd={[Function]}
       role="alert"
+      style={
+        Object {
+          "zIndex": 1,
+        }
+      }
     >
       <div
-        className="c3"
+        className="banner-body banner-body-error"
       >
         <div
-          className="c4 c5"
+          className="c1 toast-header"
         >
           The highlight could not be saved. Please check your connection and try again.
         </div>
         <button
           aria-label="dismiss"
-          className="plain-button c6"
+          className="toast-close-button toast-close-button-error"
           onClick={[Function]}
         >
           <svg
             aria-hidden="true"
-            className="c7"
-            focusable="false"
+            className="toast-close-icon"
             height="15px"
             version="1.1"
             viewBox="0 0 15 15"

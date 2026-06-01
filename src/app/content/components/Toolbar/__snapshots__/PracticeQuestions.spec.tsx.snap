@@ -4,17 +4,6 @@ exports[`practice questions button does not render if feature flag is not enable
 
 exports[`practice questions button renders if feature flag is enabled and there are practice questions 1`] = `
 .c0 {
-  cursor: pointer;
-  border: none;
-  padding: 0;
-  background: none;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  color: #5e6062;
-  height: 100%;
-  min-width: 45px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -33,11 +22,6 @@ exports[`practice questions button renders if feature flag is enabled and there 
   min-height: 77px;
   height: auto;
   padding: 0;
-}
-
-.c0:hover,
-.c0:focus {
-  color: #424242;
 }
 
 .c0 > svg {
@@ -85,8 +69,15 @@ exports[`practice questions button renders if feature flag is enabled and there 
 
 <button
   aria-label="Practice"
-  className="c0"
+  className="toolbar-plain-button c0"
   onClick={[Function]}
+  style={
+    Object {
+      "--button-min-width": "45px",
+      "--toolbar-icon-color": "#5e6062",
+      "--toolbar-icon-darker-color": "#424242",
+    }
+  }
 >
   <img
     aria-hidden="true"

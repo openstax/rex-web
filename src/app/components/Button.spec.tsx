@@ -356,6 +356,29 @@ describe('PlainButton', () => {
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
   });
+
+  it('filters out transient props (props starting with $)', () => {
+    // Transient props (starting with $) should not be forwarded to the DOM
+    // This is a styled-components convention for style-only props
+    const component = renderer.create(
+      <PlainButton
+        {...({ $isActive: true } as any)}
+        data-testid="test-button"
+      >
+        Click
+      </PlainButton>
+    );
+    const tree = component.toJSON();
+
+    // Verify the button was rendered
+    expect(tree).toBeTruthy();
+    if (tree && typeof tree === 'object' && 'props' in tree) {
+      // Verify standard props are present
+      expect(tree.props['data-testid']).toBe('test-button');
+      // Verify transient prop was filtered out
+      expect(tree.props['$isActive']).toBeUndefined();
+    }
+  });
 });
 
 describe('ButtonLink', () => {

@@ -20,6 +20,7 @@ describe('error reducer', () => {
     const newState = reducer(state, locationChange({location, action: 'PUSH'}));
 
     expect(newState.code).toEqual(404);
+    expect(newState.showDialog).toEqual(false);
   });
 
   it('reduces locationChange with notFound match', () => {
@@ -37,6 +38,7 @@ describe('error reducer', () => {
     const newState = reducer(state, locationChange({location, match, action: 'PUSH'}));
 
     expect(newState.code).toEqual(404);
+    expect(newState.showDialog).toEqual(false);
   });
 
   it('reduces locationChange with other match', () => {
@@ -57,6 +59,29 @@ describe('error reducer', () => {
     const newState = reducer(state, locationChange({location, match, action: 'POP'}));
 
     expect(newState.code).toEqual(200);
+    expect(newState.showDialog).toEqual(false);
+  });
+
+  it('reduces locationChange with modal=ERROR query parameter', () => {
+    const state = {
+      ...initialState,
+      code: 200,
+      showDialog: false,
+    };
+    const location = {
+      hash: '',
+      pathname: '',
+      search: '?modal=ERROR',
+      state: {},
+    };
+    const match = {
+      params: {book: 'book', page: 'page'},
+      route: content,
+    } as any;
+    const newState = reducer(state, locationChange({location, match, action: 'PUSH'}));
+
+    expect(newState.code).toEqual(200);
+    expect(newState.showDialog).toEqual(true);
   });
 
   it('returns state identity for unknown action', () => {

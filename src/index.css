@@ -209,3 +209,47 @@ noscript {
   font-weight: 900;
   font-style: italic;
 }
+
+/*
+ * Root-level CSS variables for static theme colors.
+ *
+ * Source of truth: src/app/theme.ts
+ *
+ * These variables intentionally mirror a static subset of the theme values so
+ * plain CSS can use them without dynamic property access. If any corresponding
+ * color value changes in src/app/theme.ts, this block must be updated in the
+ * same change to keep the duplicated values in sync.
+ *
+ * Dynamic colors (e.g., book themes) should continue using component-level
+ * bindings as per the hybrid approach documented in PLAIN_CSS_MIGRATION_GUIDE.md
+ */
+:root {
+  /* Text colors from theme.color.text */
+  --color-text-black: #000;
+  --color-text-default: #424242;
+  --color-text-label: #6f6f6f;
+  --color-text-white: #fff;
+
+  /* Neutral colors from theme.color.neutral */
+  --color-neutral-base: #fff;
+  --color-neutral-darker: #fafafa;
+  --color-neutral-darkest: #e5e5e5;
+  --color-neutral-foreground: #424242;
+  --color-neutral-form-background: #f5f5f5;
+  --color-neutral-form-border: #d5d5d5;
+  --color-neutral-page-background: #f1f1f1;
+
+  /* Disabled colors from theme.color.disabled */
+  --color-disabled-base: #f1f1f1;
+  --color-disabled-foreground: #c1c1c1;
+
+  /* Primary gray colors from theme.color.primary.gray */
+  --color-primary-gray-base: #5e6062;
+  --color-primary-gray-darker: #424242;
+  --color-primary-gray-foreground: #fff;
+  --color-primary-gray-foreground-hover: #424242;
+  --color-primary-gray-light: #767676;
+  --color-primary-gray-medium: #888;
+  --color-primary-gray-lighter: #c5c5c5;
+  --color-primary-gray-lightest: #ededed;
+}

@@ -1,15 +1,6 @@
 import React from 'react';
-import styled from 'styled-components/macro';
-import { labelStyle } from '../../components/Typography';
-import theme from '../../theme';
-
-const ErrorIdList = styled.div`
-  ${labelStyle}
-  font-size: 0.9rem;
-  color: ${theme.color.primary.gray.darker};
-  opacity: 0.6;
-`;
+import './ErrorIdList.css';
 
 export default ({ids}: {ids: string[]}) => ids.length > 0
-  ? <ErrorIdList>{ids.slice(0, 4).join(', ')}</ErrorIdList>
+  ? <div className="error-id-list">{ids.slice(0, 4).join(', ')}</div>
   : null;

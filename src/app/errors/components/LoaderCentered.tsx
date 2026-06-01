@@ -1,17 +1,9 @@
 import React from 'react';
-import styled from 'styled-components/macro';
 import Loader from '../../components/Loader';
+import './LoaderCentered.css';
 
-const Wrapper = styled.div`
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const LoaderCentered = () => <Wrapper>
+const LoaderCentered = () => <div className="loader-wrapper">
   <Loader />
-</Wrapper>;
+</div>;
 
 export default LoaderCentered;

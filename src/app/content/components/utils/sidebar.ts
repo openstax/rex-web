@@ -15,14 +15,14 @@ export const isVerticalNavOpenConnector = connect((state: AppState) => ({
 
 export const styleWhenTocClosed = (closedStyle: FlattenSimpleInterpolation) => css`
   ${(props: {isTocOpen: State['tocOpen']}) =>
-    props.isTocOpen === null && theme.breakpoints.mobile(closedStyle)}
+    props.isTocOpen === null ? theme.breakpoints.mobile(closedStyle) : undefined}
   ${(props: {isTocOpen: State['tocOpen']}) =>
-    props.isTocOpen === false && closedStyle}
+    props.isTocOpen === false ? closedStyle : undefined}
 `;
 
 export const styleWhenSidebarClosed = (closedStyle: FlattenSimpleInterpolation) => css`
   ${(props: {isVerticalNavOpen: State['tocOpen']}) =>
-    props.isVerticalNavOpen === null && theme.breakpoints.mobile(closedStyle)}
+    props.isVerticalNavOpen === null ? theme.breakpoints.mobile(closedStyle) : undefined}
   ${(props: {isDesktopSearchOpen: boolean; isVerticalNavOpen: State['tocOpen']}) =>
-    props.isDesktopSearchOpen === false && props.isVerticalNavOpen === false && closedStyle}
+    (props.isDesktopSearchOpen === false && props.isVerticalNavOpen === false) ? closedStyle : undefined}
 `;

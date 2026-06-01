@@ -1,18 +1,17 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
+import classNames from 'classnames';
 import { useOnDOMEvent, useTimeout } from '../../../reactUtils';
 import { assertWindow } from '../../../utils';
 import { ToastNotification } from '../../types';
 import { Header } from '../Card';
+import Times from '../../../components/Times';
 import { clearErrorAfter, shouldAutoDismissAfter, timeUntilFadeIn } from './constants';
-import {
-  BannerBody,
-  BannerBodyWrapper,
-  CloseButton,
-  CloseIcon,
-  ErrorId,
-  ToastVariant,
-} from './styles';
+
+// Note: ToastNotifications.css is imported globally from src/app/index.tsx to ensure
+// consistent CSS ordering across code-split chunks
+
+export type ToastVariant = 'error' | 'warning';
 
 export const initialState = {
   isFadingIn: false,
@@ -97,31 +96,46 @@ const Toast = ({ dismiss, notification, positionProps, variant}: ToastProps) => 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [notification.timestamp]);
 
+  const bannerBodyClass = classNames('banner-body', {
+    'banner-body-error': variant !== 'warning',
+    'banner-body-warning': variant === 'warning',
+  });
+
+  const closeButtonClass = classNames('toast-close-button', {
+    'toast-close-button-error': variant !== 'warning',
+    'toast-close-button-warning': variant === 'warning',
+  });
+
   return (
-    <BannerBodyWrapper
+    <div
+      className="banner-body-wrapper"
       onAnimationEnd={dismiss}
-      positionProps={positionProps}
-      isFadingIn={state.isFadingIn}
-      isFadingOut={state.isFadingOut}
+      style={{ zIndex: positionProps.totalToastCount - positionProps.index }}
+      data-fading-in={state.isFadingIn}
+      data-fading-out={state.isFadingOut}
       data-testid='banner-body'
       role='alert'
     >
-      <BannerBody variant={variant} >
+      <div className={bannerBodyClass}>
         <FormattedMessage id={notification.messageKey}>
-          {(txt) =>  <Header>
+          {(txt) =>  <Header className="toast-header">
             {txt}
             {
               notification.errorId
-                ? <ErrorId>(ID: {notification.errorId})</ErrorId>
+                ? <span className="toast-error-id">(ID: {notification.errorId})</span>
                 : null
             }
           </Header>}
         </FormattedMessage>
-        <CloseButton onClick={dismiss} aria-label='dismiss' $variant={variant}>
-          <CloseIcon />
-        </CloseButton>
-      </BannerBody>
-    </BannerBodyWrapper>
+        <button
+          className={closeButtonClass}
+          onClick={dismiss}
+          aria-label='dismiss'
+        >
+          <Times className="toast-close-icon" aria-hidden='true' />
+        </button>
+      </div>
+    </div>
   );
 };
 

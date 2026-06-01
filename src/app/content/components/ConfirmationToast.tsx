@@ -9,7 +9,7 @@ const HiddenLiveRegion = styled.div`
 
 const ElevatedToastContainer = styled(ToastContainer)`
   &&& {
-    z-index: ${theme.zIndex.navbar + 1};
+    z-index: ${theme.zIndex.nudgeOverlay + 1};
   }
 `;
 

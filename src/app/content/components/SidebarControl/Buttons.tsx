@@ -1,49 +1,65 @@
-import styled, { css } from 'styled-components/macro';
-import theme from '../../../theme';
+import React from 'react';
+import classNames from 'classnames';
 import { toolbarIconColor } from '../constants';
-import { toolbarIconStyles } from '../Toolbar/iconStyles';
-import { toolbarDefaultButton, toolbarDefaultText } from '../Toolbar/styled';
 import type { InnerProps } from './types';
+import './SidebarControl.css';
 
-export const ButtonText = styled.span`
-  ${toolbarDefaultText}
-  margin: 0;
-  padding: 0;
-`;
+interface ButtonTextProps {
+  children: React.ReactNode;
+  className?: string;
+}
 
-export const CloseButton = styled.button`
-  color: ${toolbarIconColor.base};
-  border: none;
-  padding: 0;
-  background: none;
-  overflow: visible;
-  cursor: pointer;
-  display: block;
+export const ButtonText: React.FC<ButtonTextProps> = ({ children, className }) => (
+  <span className={classNames('sidebar-control-button-text', className)}>
+    {children}
+  </span>
+);
 
-  :hover {
-    color: ${toolbarIconColor.darker};
-  }
+interface CloseButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  children?: React.ReactNode;
+}
 
-  ${theme.breakpoints.mobileMedium(css`
-    display: none;
-  `)}
-`;
+export const CloseButton = React.forwardRef<HTMLButtonElement, CloseButtonProps>(
+  ({ children, style, className, ...props }, ref) => (
+    <button
+      ref={ref}
+      className={classNames('sidebar-control-close-button', className)}
+      style={{
+        '--sidebar-control-icon-color-base': toolbarIconColor.base,
+        '--sidebar-control-icon-color-darker': toolbarIconColor.darker,
+        ...style,
+      } as React.CSSProperties}
+      {...props}
+    >
+      {children}
+    </button>
+  )
+);
 
-export const OpenButton = styled.button<{isOpen: InnerProps['isOpen'] }>`
-  background: none;
-  ${toolbarDefaultButton}
-  color: ${toolbarIconColor.base};
-  display: flex;
-  border: none;
-  padding: 0;
-  overflow: visible;
-  cursor: pointer;
+CloseButton.displayName = 'CloseButton';
 
-  :hover {
-    color: ${toolbarIconColor.darker};
-  }
+interface OpenButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  isOpen?: InnerProps['isOpen'];
+  isActive?: boolean;
+  children?: React.ReactNode;
+}
 
-  > svg {
-    ${toolbarIconStyles};
-  }
-`;
+export const OpenButton = React.forwardRef<HTMLButtonElement, OpenButtonProps>(
+  ({ isOpen, isActive, children, style, className, ...props }, ref) => (
+    <button
+      ref={ref}
+      {...props}
+      className={classNames('sidebar-control-open-button', className)}
+      data-active={isActive ?? isOpen ?? false}
+      style={{
+        '--sidebar-control-icon-color-base': toolbarIconColor.base,
+        '--sidebar-control-icon-color-darker': toolbarIconColor.darker,
+        ...style,
+      } as React.CSSProperties}
+    >
+      {children}
+    </button>
+  )
+);
+
+OpenButton.displayName = 'OpenButton';

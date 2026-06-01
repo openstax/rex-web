@@ -1,0 +1,116 @@
+/* TableOfContents Styles - Migrated from styled-components */
+
+/* Summary title for expandable sections */
+.toc-summary-title,
+.toc-content-link {
+  /* labelStyle from Typography.legacy.ts */
+  color: var(--color-text-default);
+  font-size: 1.4rem;
+  line-height: 1.6rem;
+  font-weight: normal;
+}
+
+.toc-summary-title {
+  /* Component-specific overrides */
+  font-size: 1.6rem;
+  line-height: 1.8rem;
+  display: flex;
+  flex: 1;
+}
+
+/* Content link for TOC items */
+.toc-content-link {
+  /* Component-specific overrides */
+  font-size: 1.6rem;
+  line-height: 1.8rem;
+  display: flex;
+  margin-left: var(--details-icon-size);
+  text-decoration: none;
+}
+
+.toc-content-link[aria-current="page"] {
+  font-weight: 600;
+}
+
+.toc-content-link:focus,
+.toc-content-link:hover {
+  outline: none;
+  color: var(--color-text-black);
+  text-decoration: underline;
+}
+
+/* Navigation item wrapper */
+.toc-nav-item {
+  list-style: none;
+  overflow: visible;
+  margin: 1.2rem 0 0 0;
+}
+
+@media screen and (max-width: 75em) {
+  .toc-nav-item {
+    margin-top: 1.7rem;
+  }
+}
+
+/* Summary wrapper for expandable sections */
+.toc-summary-wrapper {
+  display: flex;
+  list-style: none;
+  overflow: visible;
+}
+
+.toc-summary-wrapper:hover .toc-summary-title,
+.toc-summary-wrapper:focus-within .toc-summary-title {
+  color: var(--color-text-black);
+  text-decoration: underline;
+}
+
+@media screen and (max-width: 75em) {
+  .toc-summary-wrapper {
+    margin-top: 1.7rem;
+  }
+}
+
+/* Tree item with dynamic margins */
+.toc-tree-item {
+  margin: 0;
+  margin-top: 1.2rem;
+  margin-left: var(--toc-margin-left);
+}
+
+/* Child element positioning based on tree level */
+.toc-tree-item > div > div {
+  padding-left: calc((var(--tree-item-level) - 1) * 2rem);
+}
+
+.toc-tree-item > div > a {
+  padding-left: calc((var(--tree-item-level) - 1) * 2.6rem);
+}
+
+/* Expand/collapse icon visibility */
+
+/* Icons are wrapped in spans to allow CSS targeting independent of styled-components class names */
+.toc-tree-item[data-expanded] > div .toc-expand-icon {
+  display: none;
+}
+
+.toc-tree-item:not([data-expanded]) > div .toc-collapse-icon {
+  display: none;
+}
+
+/* Dynamic number width and text layout */
+.toc-tree-item .os-number {
+  width: var(--toc-number-width);
+  overflow: hidden;
+}
+
+.toc-tree-item .os-divider {
+  width: var(--toc-divider-width);
+  text-align: center;
+  overflow: hidden;
+}
+
+.toc-tree-item .os-text {
+  flex: 1;
+  overflow: hidden;
+}

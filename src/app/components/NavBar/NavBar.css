@@ -1,0 +1,232 @@
+/* NavBar Component Styles - Migrated from styled-components to plain CSS */
+
+/* Keyframe animations */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+/* BarWrapper - Main navbar container */
+.navbar-bar-wrapper {
+  overflow: visible;
+  z-index: var(--navbar-z-index, 30);
+  background: var(--navbar-bg, #fff);
+  position: relative;
+  padding: 0 var(--navbar-padding-desktop, 3.2rem);
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.1);
+}
+
+@media print {
+  .navbar-bar-wrapper {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 75em) {
+  .navbar-bar-wrapper {
+    padding: 0 var(--navbar-padding-mobile, 1.6rem);
+  }
+}
+
+/* TopBar - Inner navbar container with flex layout */
+.navbar-topbar {
+  overflow: visible;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: var(--navbar-desktop-height, 6rem);
+  max-width: var(--navbar-max-width, 128rem);
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 75em) {
+  .navbar-topbar {
+    height: var(--navbar-mobile-height, 5.2rem);
+  }
+}
+
+@media print {
+  .navbar-topbar {
+    display: none;
+  }
+}
+
+/* HeaderImage - Logo image */
+.navbar-header-image {
+  display: block;
+  width: auto;
+  height: 3.5rem;
+}
+
+@media screen and (max-width: 75em) {
+  .navbar-header-image {
+    height: 2.8rem;
+  }
+}
+
+/* Link - Login/nav links */
+.navbar-link {
+  display: block;
+  letter-spacing: -0.072rem;
+  font-size: 1.8rem;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 1rem 0 0.6rem 0;
+  color: var(--nav-text-color, #5e6062);
+  animation: 100ms fadeIn ease-out;
+  border-bottom: 0.4rem solid transparent;
+}
+
+.navbar-link:hover,
+.navbar-link:active,
+.navbar-link:focus {
+  color: var(--nav-text-hover, #424242);
+  border-bottom-color: var(--nav-border-color, #63a524);
+}
+
+@media screen and (max-width: 75em) {
+  .navbar-link {
+    font-size: 1.4rem;
+    letter-spacing: 0.02rem;
+    padding: 0.7rem 0;
+    border-bottom-color: transparent;
+  }
+
+  .navbar-link:hover,
+  .navbar-link:active,
+  .navbar-link:focus {
+    border-bottom-color: transparent;
+  }
+}
+
+/* DropdownContainer - User profile dropdown container */
+.navbar-dropdown-container {
+  animation: 100ms fadeIn ease-out;
+  overflow: visible;
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+@media screen and (max-width: 75em) {
+  .navbar-dropdown-container {
+    height: auto;
+  }
+}
+
+/* Mobile Menu Overlay */
+.navbar-mobile-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--mobile-overlay-bg, rgba(255, 255, 255, 0.98));
+  z-index: var(--mobile-overlay-z-index, 31);
+}
+
+/* Mobile Menu Modal */
+.navbar-mobile-menu-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  outline: none;
+}
+
+.navbar-mobile-menu-modal [role="dialog"] {
+  outline: none;
+}
+
+/* Dropdown Overlay - Mobile menu content */
+.navbar-dropdown-overlay {
+  padding-top: calc(20vh + 5vw);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: visible;
+}
+
+.navbar-dropdown-overlay > div {
+  width: min-content;
+  overflow: visible;
+}
+
+/* Overlay Logo */
+.navbar-overlay-logo {
+  width: auto;
+  height: 2.8rem;
+  position: absolute;
+  left: 1.6rem;
+  top: 1.2rem; /* (navMobileHeight - headerImageMobileHeight) / 2 = (5.2 - 2.8) / 2 = 1.2rem */
+}
+
+/* Overlay Heading */
+.navbar-overlay-heading {
+  font-size: 1.8rem;
+  font-weight: bold;
+  letter-spacing: -0.072rem;
+  line-height: 3rem;
+  color: var(--nav-text-color, #5f6163);
+  padding-bottom: 0;
+  margin: 0;
+}
+
+/* Dropdown List - Menu items */
+.navbar-dropdown-list {
+  margin: 0;
+  padding: 0.6rem 0;
+  background: none;
+}
+
+.navbar-dropdown-list > li {
+  overflow: visible;
+  display: block;
+}
+
+.navbar-dropdown-list > li a {
+  overflow: visible;
+  white-space: nowrap;
+  display: block;
+  padding: 0 1rem;
+  font-size: 1.6rem;
+  font-weight: normal;
+  letter-spacing: -0.032rem;
+  line-height: 2.4rem;
+  color: var(--nav-text-color, #5f6163);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.navbar-dropdown-list > li a:hover {
+  color: var(--link-hover, #0064a0);
+}
+
+.navbar-dropdown-list > li a:focus-visible {
+  outline: 0.2rem solid var(--focus-outline-color, #007297);
+  outline-offset: 0.2rem;
+}
+
+/* TimesIcon - Close button for mobile menu */
+.navbar-times-icon {
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  background: none;
+  position: absolute;
+  height: 5.2rem;
+  width: 5.2rem;
+  top: 0;
+  right: 0;
+  color: var(--nav-text-color, #5f6163);
+}
