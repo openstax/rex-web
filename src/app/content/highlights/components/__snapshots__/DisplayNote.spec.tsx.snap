@@ -75,9 +75,6 @@ exports[`DisplayNote matches snapshot 1`] = `
       </g>
     </g>
   </svg>
-  <label>
-    Note:
-  </label>
   <div
     id="display-note-test-highlight-id"
     isActive={false}
@@ -163,9 +160,6 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
       </g>
     </g>
   </svg>
-  <label>
-    Note:
-  </label>
   <div
     id="display-note-test-highlight-id"
     isActive={true}
@@ -279,9 +273,6 @@ exports[`DisplayNote matches snapshot when focused with opened dropdown 1`] = `
       </g>
     </g>
   </svg>
-  <label>
-    Note:
-  </label>
   <div
     id="display-note-test-highlight-id"
     isActive={true}
