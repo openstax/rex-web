@@ -11,8 +11,10 @@
 
 /* Touch device query - hide edit card on touch devices
  * Equivalent to theme.breakpoints.touchDeviceQuery */
-@media screen and (max-width: 75em) and (not (pointer: fine)), screen and (max-width: 75em) and (hover: none) {
-  .edit-card {
-    visibility: hidden;
+@media screen and (max-width: 75em) {
+  @media not all and (pointer: fine), (hover: none) {
+    .edit-card {
+      visibility: hidden;
+    }
   }
 }
