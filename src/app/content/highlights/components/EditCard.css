@@ -9,8 +9,9 @@
   margin-top: 0.8rem;
 }
 
-/* Touch device query - hide edit card on touch devices */
-@media (max-width: 75em) and (pointer: coarse), (max-width: 75em) and (hover: none) {
+/* Touch device query - hide edit card on touch devices
+ * Equivalent to theme.breakpoints.touchDeviceQuery */
+@media screen and (max-width: 75em) and (not (pointer: fine)), screen and (max-width: 75em) and (hover: none) {
   .edit-card {
     visibility: hidden;
   }

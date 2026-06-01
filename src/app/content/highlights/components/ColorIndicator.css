@@ -67,8 +67,10 @@
 
 .color-indicator input:focus + .color-indicator-focus {
   display: block;
-  outline: 0.2rem solid var(--focus-outline-color, #007297);
-  outline-offset: 0.1rem;
+
+  /* Browser default outline for focus items (from theme.ts defaultFocusOutline) */
+  outline: 0.2rem auto Highlight;
+  outline: 0.2rem auto -webkit-focus-ring-color;
   z-index: 1;
 }
 
