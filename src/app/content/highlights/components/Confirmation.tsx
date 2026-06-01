@@ -19,7 +19,7 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const Confirmation = React.forwardRef<HTMLElement, Props>((
-  { message, confirmMessage, confirmLink, always, onCancel, onConfirm, drawFocus = true, ...props }: Props,
+  { message, confirmMessage, confirmLink, always, onCancel, onConfirm, drawFocus = true, 'data-analytics-label': analyticsLabel, ...props }: Props,
   ref
 ) => {
   const drawFocusRef = useDrawFocus();
@@ -27,7 +27,7 @@ const Confirmation = React.forwardRef<HTMLElement, Props>((
 
   // Use drawFocusRef if drawFocus is true, otherwise use overlayRef for trap navigation
   const trapRef = drawFocus ? drawFocusRef : overlayRef;
-  
+
   // Auto-focus first element when drawFocus=false (overlay case)
   useTrapTabNavigation(trapRef, undefined, !drawFocus);
   useOnEsc(true, onCancel);
@@ -46,7 +46,7 @@ const Confirmation = React.forwardRef<HTMLElement, Props>((
       <FormattedMessage id={confirmMessage}>
         {(msg) => <Button
           size='small'
-          data-analytics-label={props['data-analytics-label'] ? props['data-analytics-label'] : 'confirm'}
+          data-analytics-label={analyticsLabel ? analyticsLabel : 'confirm'}
           data-testid='confirm'
           variant='primary'
           onClick={(e: React.FormEvent) => {
