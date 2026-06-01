@@ -82,6 +82,7 @@ exports[`Confirmation matches snapshot no selection 1`] = `
 exports[`Confirmation renders with data-analytics-label and ref 1`] = `
 <div
   className="confirmation-overlay"
+  data-analytics-label="custom-label"
   role="alertdialog"
   tabIndex={-1}
 >

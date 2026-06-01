@@ -6,7 +6,7 @@ import { useDrawFocus, useTrapTabNavigation, useOnEsc } from '../../../reactUtil
 import { mergeRefs } from '../../../utils';
 import './Confirmation.css';
 
-interface Props {
+interface Props extends React.HTMLAttributes<HTMLDivElement> {
   message: string;
   'data-analytics-region'?: string;
   'data-analytics-label'?: string;
@@ -33,14 +33,11 @@ const Confirmation = React.forwardRef<HTMLElement, Props>((
   useOnEsc(true, onCancel);
 
   return <div
+    {...props}
     className="confirmation-overlay"
     ref={mergeRefs(ref, drawFocus ? drawFocusRef : overlayRef)}
     tabIndex={-1}
     role='alertdialog'
-    {...props['data-analytics-region']
-      ? { 'data-analytics-region': props['data-analytics-region'] }
-      : {}
-    }
   >
     <FormattedMessage id={message}>
       {(msg) => <label>{msg}</label>}
