@@ -39,13 +39,13 @@
 
 /* Link styling within the help info */
 .highlights-help-info a {
-  color: #007297; /* linkColor */
+  color: var(--link-color, #027eb5);
   cursor: pointer;
   text-decoration: underline;
 }
 
 .highlights-help-info a:hover {
-  color: #004e69; /* linkHover */
+  color: var(--link-hover, #0064a0);
 }
 
 /* Close icon */

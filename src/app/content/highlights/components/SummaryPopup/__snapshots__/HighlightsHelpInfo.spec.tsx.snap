@@ -12,6 +12,7 @@ exports[`HighlightsHelpInfo matches snapshot when showed 1`] = `
       "--help-info-bg": "#f5f5f5",
       "--help-info-border": "#d5d5d5",
       "--help-info-color": "#424242",
+      "zIndex": 120,
     }
   }
 >
