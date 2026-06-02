@@ -3,66 +3,17 @@
 exports[`HighlightsHelpInfo matches snapshot when hidden 1`] = `null`;
 
 exports[`HighlightsHelpInfo matches snapshot when showed 1`] = `
-.c0 {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  z-index: 120;
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  width: 100%;
-  height: 6rem;
-  padding: 0 2rem;
-  background-color: #f5f5f5;
-  border: 1px solid #d5d5d5;
-  -webkit-animation: 800ms bNiYjl ease-out;
-  animation: 800ms bNiYjl ease-out;
-}
-
-.c0 a {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c0 a:hover {
-  color: #0064A0;
-}
-
-.c1 {
-  color: #818181;
-  width: 1.4rem;
-}
-
-@media screen and (min-width:75em) {
-  .c0 {
-    display: none;
-  }
-}
-
-@media print {
-  .c0 {
-    display: none;
-  }
-}
-
 <div
-  className="c0"
+  className="highlights-help-info"
   data-analytics-region="Mobile MH help info"
+  style={
+    Object {
+      "--close-icon-color": "#818181",
+      "--help-info-bg": "#f5f5f5",
+      "--help-info-border": "#d5d5d5",
+      "--help-info-color": "#424242",
+    }
+  }
 >
   <span
     dangerouslySetInnerHTML={
@@ -79,7 +30,7 @@ exports[`HighlightsHelpInfo matches snapshot when showed 1`] = `
   >
     <svg
       aria-hidden="true"
-      className="c1"
+      className="highlights-help-info__close-icon"
       viewBox="0 0 352 512"
     >
       <path
