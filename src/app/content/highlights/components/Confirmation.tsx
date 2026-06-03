@@ -4,6 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import Button, { ButtonGroup } from '../../../components/Button';
 import { useDrawFocus, useTrapTabNavigation, useOnEsc } from '../../../reactUtils';
 import { mergeRefs } from '../../../utils';
+import classNames from 'classnames';
 import './Confirmation.css';
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
@@ -34,7 +35,7 @@ const Confirmation = React.forwardRef<HTMLElement, Props>((
 
   return <div
     {...props}
-    className="confirmation-overlay"
+    className={classNames('confirmation-overlay', props.className)}
     ref={mergeRefs(ref, drawFocus ? drawFocusRef : overlayRef)}
     tabIndex={-1}
     role='alertdialog'
