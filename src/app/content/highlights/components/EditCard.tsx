@@ -55,11 +55,9 @@
 import { Highlight } from '@openstax/highlighter';
 import { FocusEvent, HTMLElement, HTMLTextAreaElement } from '@openstax/types/lib.dom';
 import React from 'react';
-import styled, { css } from 'styled-components/macro';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
-import { ButtonGroup as ButtonGroupBase } from '../../../components/Button';
+import { ButtonGroup } from '../../../components/Button';
 import { useTrapTabNavigation } from '../../../reactUtils';
-import theme from '../../../theme';
 import { MAIN_CONTENT_ID } from '../../../context/constants';
 import { useIntl } from 'react-intl';
 import {
@@ -67,7 +65,6 @@ import {
   setAnnotationChangesPending as setAnnotationChangesPendingAction,
 } from '../actions';
 import { useConfirmationToastContext } from '../../components/ConfirmationToast';
-import { cardPadding } from '../constants';
 import { HighlightData } from '../types';
 import ColorPicker from './ColorPicker';
 import Confirmation from './Confirmation';
@@ -75,9 +72,7 @@ import { LoginOrEdit } from './EditCard/AuthenticationGate';
 import { SaveButton, CancelButton } from './EditCard/ActionButtons';
 import { AnnotationEditor } from './EditCard/AnnotationEditor';
 import { useOnRemove, useOnColorChange, useSaveAnnotation } from './EditCard/hooks';
-
-// Wrap ButtonGroup with styled() to make it compatible with component selectors
-const ButtonGroup = styled(ButtonGroupBase)``;
+import './EditCard.css';
 
 export interface EditCardProps {
   isActive: boolean;
@@ -96,7 +91,7 @@ export interface EditCardProps {
   shouldFocusCard: boolean;
   minimize?: boolean;
   onClick?: () => void;
-  cardStyle?: React.CSSProperties;
+  style?: React.CSSProperties;
   'data-testid'?: string;
   'data-active'?: boolean;
   'data-hidden'?: boolean;
@@ -116,7 +111,7 @@ const EditCard = React.forwardRef<HTMLElement, EditCardProps>((props, ref) => {
 
   return (
     <LoginOrEdit
-      className={props.className}
+      className={`edit-card ${props.className || ''}`}
       isNewSelection={isNewSelection}
       shouldFocusCard={props.shouldFocusCard}
       hasAnnotation={Boolean(props.data?.annotation)}
@@ -129,7 +124,7 @@ const EditCard = React.forwardRef<HTMLElement, EditCardProps>((props, ref) => {
       data-hidden={props['data-hidden']}
       data-toc-open={props['data-toc-open']}
       data-has-query={props['data-has-query']}
-      style={props.cardStyle}
+      style={props.style}
     >
       <ActiveEditCard props={props} element={element} />
     </LoginOrEdit>
@@ -321,16 +316,4 @@ function ActiveEditCard({
 }
 
 // tslint:disable-next-line
-export default styled(EditCard)`
-  background: ${theme.color.neutral.formBackground};
-  user-select: none;
-  overflow: visible;
-
-  ${ButtonGroup} {
-    margin-top: ${cardPadding}rem;
-  }
-
-  ${theme.breakpoints.touchDeviceQuery(css`
-    visibility: hidden;
-  `)}
-`;
+export default EditCard;

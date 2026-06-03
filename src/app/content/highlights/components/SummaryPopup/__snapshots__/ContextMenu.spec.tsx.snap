@@ -48,269 +48,6 @@ exports[`ContextMenu match snapshot when closed 1`] = `
 `;
 
 exports[`ContextMenu match snapshot when open 1`] = `
-.c3 {
-  display: none;
-}
-
-.c5 {
-  display: none;
-  position: absolute;
-  height: 2rem;
-  width: 2rem;
-  background-color: transparent;
-  z-index: -1;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%,-50%);
-  -ms-transform: translate(-50%,-50%);
-  transform: translate(-50%,-50%);
-  border-radius: 50%;
-}
-
-.c6 {
-  height: 1.4000000000000001rem;
-  width: 1.4000000000000001rem;
-  background-color: transparent;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%,-50%);
-  -ms-transform: translate(-50%,-50%);
-  transform: translate(-50%,-50%);
-  border-radius: 50%;
-  border: 1px solid #fed200;
-}
-
-.c8 {
-  height: 1.4000000000000001rem;
-  width: 1.4000000000000001rem;
-  background-color: transparent;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%,-50%);
-  -ms-transform: translate(-50%,-50%);
-  transform: translate(-50%,-50%);
-  border-radius: 50%;
-  border: 1px solid #92d101;
-}
-
-.c10 {
-  height: 1.4000000000000001rem;
-  width: 1.4000000000000001rem;
-  background-color: transparent;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%,-50%);
-  -ms-transform: translate(-50%,-50%);
-  transform: translate(-50%,-50%);
-  border-radius: 50%;
-  border: 1px solid #00c3ed;
-}
-
-.c12 {
-  height: 1.4000000000000001rem;
-  width: 1.4000000000000001rem;
-  background-color: transparent;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%,-50%);
-  -ms-transform: translate(-50%,-50%);
-  transform: translate(-50%,-50%);
-  border-radius: 50%;
-  border: 1px solid #545ec8;
-}
-
-.c14 {
-  height: 1.4000000000000001rem;
-  width: 1.4000000000000001rem;
-  background-color: transparent;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%,-50%);
-  -ms-transform: translate(-50%,-50%);
-  transform: translate(-50%,-50%);
-  border-radius: 50%;
-  border: 1px solid #de017e;
-}
-
-.c1 {
-  position: relative;
-  background-color: #ffff8a;
-  border: 1px solid #8f7700;
-  height: 1.6rem;
-  width: 1.6rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 2rem;
-  overflow: visible;
-}
-
-.c1 .c2 {
-  height: 1rem;
-  width: 1rem;
-}
-
-.c1 input:focus + .c4 {
-  display: block;
-  outline: 0.2rem auto Highlight;
-  outline: 0.2rem auto -webkit-focus-ring-color;
-  z-index: 1;
-}
-
-.c7 {
-  position: relative;
-  background-color: #def99f;
-  border: 1px solid #4e6f01;
-  height: 1.6rem;
-  width: 1.6rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 2rem;
-  overflow: visible;
-}
-
-.c7 .c2 {
-  height: 1rem;
-  width: 1rem;
-}
-
-.c7 input:focus + .c4 {
-  display: block;
-  outline: 0.2rem auto Highlight;
-  outline: 0.2rem auto -webkit-focus-ring-color;
-  z-index: 1;
-}
-
-.c9 {
-  position: relative;
-  background-color: #c8f5ff;
-  border: 1px solid #006880;
-  height: 1.6rem;
-  width: 1.6rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 2rem;
-  overflow: visible;
-}
-
-.c9 .c2 {
-  height: 1rem;
-  width: 1rem;
-  color: #00c3ed;
-  stroke: #006880;
-  stroke-width: 5%;
-  display: block;
-}
-
-.c9 input:focus + .c4 {
-  display: block;
-  outline: 0.2rem auto Highlight;
-  outline: 0.2rem auto -webkit-focus-ring-color;
-  z-index: 1;
-}
-
-.c11 {
-  position: relative;
-  background-color: #cbcfff;
-  border: 1px solid #141a3e;
-  height: 1.6rem;
-  width: 1.6rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 2rem;
-  overflow: visible;
-}
-
-.c11 .c2 {
-  height: 1rem;
-  width: 1rem;
-}
-
-.c11 input:focus + .c4 {
-  display: block;
-  outline: 0.2rem auto Highlight;
-  outline: 0.2rem auto -webkit-focus-ring-color;
-  z-index: 1;
-}
-
-.c13 {
-  position: relative;
-  background-color: #ffc5e1;
-  border: 1px solid #560131;
-  height: 1.6rem;
-  width: 1.6rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 2rem;
-  overflow: visible;
-}
-
-.c13 .c2 {
-  height: 1rem;
-  width: 1rem;
-}
-
-.c13 input:focus + .c4 {
-  display: block;
-  outline: 0.2rem auto Highlight;
-  outline: 0.2rem auto -webkit-focus-ring-color;
-  z-index: 1;
-}
-
 .c0 {
   overflow: visible;
   position: relative;
@@ -381,23 +118,21 @@ exports[`ContextMenu match snapshot when open 1`] = `
               </legend>
               <label
                 aria-label="Apply yellow highlight"
-                checked={false}
-                className="c1 color-button "
-                component={<label />}
-                size="small"
+                className="color-indicator color-button "
+                data-checked={false}
+                data-size="small"
                 style={
                   Object {
-                    "focusBorder": "#8f7700",
-                    "focused": "#fed200",
-                    "label": "yellow",
-                    "passive": "#ffff8a",
+                    "--focus-border-color": "#8f7700",
+                    "--focused-color": "#fed200",
+                    "--passive-color": "#ffff8a",
                   }
                 }
                 title="yellow"
               >
                 <svg
                   aria-hidden="true"
-                  className="c2 c3"
+                  className="color-indicator-check "
                   viewBox="0 0 512 512"
                 >
                   <path
@@ -414,49 +149,29 @@ exports[`ContextMenu match snapshot when open 1`] = `
                   type="radio"
                 />
                 <span
-                  className="c4 c5"
-                  size="small"
-                  style={
-                    Object {
-                      "focusBorder": "#8f7700",
-                      "focused": "#fed200",
-                      "label": "yellow",
-                      "passive": "#ffff8a",
-                    }
-                  }
+                  className="color-indicator-focus"
                 />
                 <span
-                  className="c6"
-                  size="small"
-                  style={
-                    Object {
-                      "focusBorder": "#8f7700",
-                      "focused": "#fed200",
-                      "label": "yellow",
-                      "passive": "#ffff8a",
-                    }
-                  }
+                  className="color-indicator-ring"
                 />
               </label>
               <label
                 aria-label="Apply green highlight"
-                checked={false}
-                className="c7 color-button "
-                component={<label />}
-                size="small"
+                className="color-indicator color-button "
+                data-checked={false}
+                data-size="small"
                 style={
                   Object {
-                    "focusBorder": "#4e6f01",
-                    "focused": "#92d101",
-                    "label": "green",
-                    "passive": "#def99f",
+                    "--focus-border-color": "#4e6f01",
+                    "--focused-color": "#92d101",
+                    "--passive-color": "#def99f",
                   }
                 }
                 title="green"
               >
                 <svg
                   aria-hidden="true"
-                  className="c2 c3"
+                  className="color-indicator-check "
                   viewBox="0 0 512 512"
                 >
                   <path
@@ -473,49 +188,29 @@ exports[`ContextMenu match snapshot when open 1`] = `
                   type="radio"
                 />
                 <span
-                  className="c4 c5"
-                  size="small"
-                  style={
-                    Object {
-                      "focusBorder": "#4e6f01",
-                      "focused": "#92d101",
-                      "label": "green",
-                      "passive": "#def99f",
-                    }
-                  }
+                  className="color-indicator-focus"
                 />
                 <span
-                  className="c8"
-                  size="small"
-                  style={
-                    Object {
-                      "focusBorder": "#4e6f01",
-                      "focused": "#92d101",
-                      "label": "green",
-                      "passive": "#def99f",
-                    }
-                  }
+                  className="color-indicator-ring"
                 />
               </label>
               <label
                 aria-label="Apply blue highlight"
-                checked={true}
-                className="c9 color-button "
-                component={<label />}
-                size="small"
+                className="color-indicator color-button "
+                data-checked={true}
+                data-size="small"
                 style={
                   Object {
-                    "focusBorder": "#006880",
-                    "focused": "#00c3ed",
-                    "label": "blue",
-                    "passive": "#c8f5ff",
+                    "--focus-border-color": "#006880",
+                    "--focused-color": "#00c3ed",
+                    "--passive-color": "#c8f5ff",
                   }
                 }
                 title="blue"
               >
                 <svg
                   aria-hidden="true"
-                  className="c2 c3"
+                  className="color-indicator-check "
                   viewBox="0 0 512 512"
                 >
                   <path
@@ -532,49 +227,29 @@ exports[`ContextMenu match snapshot when open 1`] = `
                   type="radio"
                 />
                 <span
-                  className="c4 c5"
-                  size="small"
-                  style={
-                    Object {
-                      "focusBorder": "#006880",
-                      "focused": "#00c3ed",
-                      "label": "blue",
-                      "passive": "#c8f5ff",
-                    }
-                  }
+                  className="color-indicator-focus"
                 />
                 <span
-                  className="c10"
-                  size="small"
-                  style={
-                    Object {
-                      "focusBorder": "#006880",
-                      "focused": "#00c3ed",
-                      "label": "blue",
-                      "passive": "#c8f5ff",
-                    }
-                  }
+                  className="color-indicator-ring"
                 />
               </label>
               <label
                 aria-label="Apply purple highlight"
-                checked={false}
-                className="c11 color-button "
-                component={<label />}
-                size="small"
+                className="color-indicator color-button "
+                data-checked={false}
+                data-size="small"
                 style={
                   Object {
-                    "focusBorder": "#141a3e",
-                    "focused": "#545ec8",
-                    "label": "purple",
-                    "passive": "#cbcfff",
+                    "--focus-border-color": "#141a3e",
+                    "--focused-color": "#545ec8",
+                    "--passive-color": "#cbcfff",
                   }
                 }
                 title="purple"
               >
                 <svg
                   aria-hidden="true"
-                  className="c2 c3"
+                  className="color-indicator-check "
                   viewBox="0 0 512 512"
                 >
                   <path
@@ -591,49 +266,29 @@ exports[`ContextMenu match snapshot when open 1`] = `
                   type="radio"
                 />
                 <span
-                  className="c4 c5"
-                  size="small"
-                  style={
-                    Object {
-                      "focusBorder": "#141a3e",
-                      "focused": "#545ec8",
-                      "label": "purple",
-                      "passive": "#cbcfff",
-                    }
-                  }
+                  className="color-indicator-focus"
                 />
                 <span
-                  className="c12"
-                  size="small"
-                  style={
-                    Object {
-                      "focusBorder": "#141a3e",
-                      "focused": "#545ec8",
-                      "label": "purple",
-                      "passive": "#cbcfff",
-                    }
-                  }
+                  className="color-indicator-ring"
                 />
               </label>
               <label
                 aria-label="Apply pink highlight"
-                checked={false}
-                className="c13 color-button "
-                component={<label />}
-                size="small"
+                className="color-indicator color-button "
+                data-checked={false}
+                data-size="small"
                 style={
                   Object {
-                    "focusBorder": "#560131",
-                    "focused": "#de017e",
-                    "label": "pink",
-                    "passive": "#ffc5e1",
+                    "--focus-border-color": "#560131",
+                    "--focused-color": "#de017e",
+                    "--passive-color": "#ffc5e1",
                   }
                 }
                 title="pink"
               >
                 <svg
                   aria-hidden="true"
-                  className="c2 c3"
+                  className="color-indicator-check "
                   viewBox="0 0 512 512"
                 >
                   <path
@@ -650,28 +305,10 @@ exports[`ContextMenu match snapshot when open 1`] = `
                   type="radio"
                 />
                 <span
-                  className="c4 c5"
-                  size="small"
-                  style={
-                    Object {
-                      "focusBorder": "#560131",
-                      "focused": "#de017e",
-                      "label": "pink",
-                      "passive": "#ffc5e1",
-                    }
-                  }
+                  className="color-indicator-focus"
                 />
                 <span
-                  className="c14"
-                  size="small"
-                  style={
-                    Object {
-                      "focusBorder": "#560131",
-                      "focused": "#de017e",
-                      "label": "pink",
-                      "passive": "#ffc5e1",
-                    }
-                  }
+                  className="color-indicator-ring"
                 />
               </label>
             </fieldset>

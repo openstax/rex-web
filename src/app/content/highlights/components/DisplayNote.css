@@ -30,14 +30,8 @@
 }
 
 /* === Note Label === */
-.display-note > label {
+.display-note > .note-label {
   display: none;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-weight: 400;
-  color: var(--highlight-color, #000); /* Dynamic highlight color */
-  font-size: 1.4rem;
-  line-height: 2rem;
-  margin: 1.2rem 0 0 1.6rem; /* cardPadding * 1.5, 0, 0, cardPadding * 2 */
 }
 
 /* === Dropdown Menu Positioning === */
@@ -79,8 +73,14 @@
     width: unset;
   }
 
-  .display-note > label {
+  .display-note > .note-label {
     display: block;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    color: var(--highlight-color, #000); /* Dynamic highlight color */
+    font-size: 1.4rem;
+    line-height: 2rem;
+    margin: 1.2rem 0 0 1.6rem; /* cardPadding * 1.5, 0, 0, cardPadding * 2 */
   }
 
   .display-note .dropdown {
