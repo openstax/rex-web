@@ -76,6 +76,11 @@ exports[`DisplayNote matches snapshot 1`] = `
     </g>
   </svg>
   <div
+    className="note-label"
+  >
+    Note:
+  </div>
+  <div
     id="display-note-test-highlight-id"
     isActive={false}
     mock-truncated-text={true}
@@ -160,6 +165,11 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
       </g>
     </g>
   </svg>
+  <div
+    className="note-label"
+  >
+    Note:
+  </div>
   <div
     id="display-note-test-highlight-id"
     isActive={true}
@@ -273,6 +283,11 @@ exports[`DisplayNote matches snapshot when focused with opened dropdown 1`] = `
       </g>
     </g>
   </svg>
+  <div
+    className="note-label"
+  >
+    Note:
+  </div>
   <div
     id="display-note-test-highlight-id"
     isActive={true}

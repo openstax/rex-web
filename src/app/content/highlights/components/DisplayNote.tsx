@@ -133,6 +133,7 @@ const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
         onClick={onBlur}
         aria-hidden='true'
       />
+      <div className='note-label'>Note:</div>
       <TruncatedText id={noteId} text={note} isActive={isActive} onChange={() => setTextToggle((state) => !state)} />
       {confirmingDelete && <Confirmation
         ref={confirmationRef}
