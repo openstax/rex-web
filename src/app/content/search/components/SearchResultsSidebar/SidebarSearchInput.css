@@ -1,0 +1,38 @@
+/* SidebarSearchInput.css - Migrated from SidebarSearchInput.tsx */
+
+/* StyledSearchWrapper */
+.styled-search-wrapper {
+  flex: 1;
+  padding: 1.6rem;
+}
+
+.styled-search-wrapper--with-background {
+  background: #fff;
+  border-bottom: 0.1rem solid var(--color-neutral-form-border);
+}
+
+/* Note: TopbarStyled.SearchInputWrapper styles are handled in Topbar component */
+.styled-search-wrapper .topbar-search-input-wrapper {
+  margin: 0;
+  width: 100%;
+  background: #fff;
+}
+
+@media screen and (max-width: 50em) {
+  .styled-search-wrapper {
+    display: none;
+  }
+}
+
+/* StyledSearchCloseButton and StyledSearchCloseButtonNew */
+
+/* Base styles handled by Topbar component */
+
+/* Only additional conditional display logic needed */
+
+@media screen and (max-width: 75em) {
+  .styled-search-close-button--show-on-mobile,
+  .styled-search-close-button-new--show-on-mobile {
+    display: block;
+  }
+}

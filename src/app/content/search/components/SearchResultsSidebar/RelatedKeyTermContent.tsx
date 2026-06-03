@@ -1,10 +1,10 @@
 import React from 'react';
 import { KeyTermHit } from '../../types';
-import * as Styled from './styled';
+import './SearchResultsSidebar.css';
 
-const RelatedKeyTermContent = ({ keyTermHit }: { keyTermHit: KeyTermHit }) => <Styled.KeyTermResult>
-  <Styled.KeyTerm>{keyTermHit.highlight.term}</Styled.KeyTerm>
+const RelatedKeyTermContent = ({ keyTermHit }: { keyTermHit: KeyTermHit }) => <div className="key-term-result">
+  <span className="key-term">{keyTermHit.highlight.term}</span>
   <div dangerouslySetInnerHTML={{ __html: keyTermHit.highlight.visibleContent[0] }} />
-</Styled.KeyTermResult>;
+</div>;
 
 export default RelatedKeyTermContent;
