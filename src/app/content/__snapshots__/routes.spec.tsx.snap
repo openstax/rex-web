@@ -416,6 +416,8 @@ exports[`assigned route route renders renders a component 1`] = `
         style={
           Object {
             "--content-text-width": "82.5rem",
+            "--highlight-pink-text": "var(--color-text-white)",
+            "--highlight-purple-text": "var(--color-text-white)",
             "--page-margin-top-desktop": "3.2rem",
             "--page-margin-top-mobile": "1.6rem",
           }
