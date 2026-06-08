@@ -3,105 +3,7 @@
 exports[`KeyboardShortcuts doesn't render keyboard shortcuts modal if it is closed 1`] = `null`;
 
 exports[`KeyboardShortcuts renders keyboard shortcuts modal if it is open 1`] = `
-.c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-}
-
-.c3 {
-  color: #424242;
-  font-size: 2.4rem;
-  line-height: 3rem;
-  -webkit-letter-spacing: -0.02rem;
-  -moz-letter-spacing: -0.02rem;
-  -ms-letter-spacing: -0.02rem;
-  letter-spacing: -0.02rem;
-  padding: 1.5rem 0 1rem 0;
-  margin: 0;
-  color: #fff;
-  background: #002468;
-  padding: 3.2rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  height: 7.2rem;
-  overflow: hidden;
-  z-index: 5;
-}
-
-.c3 h1 {
-  font-size: inherit;
-  -webkit-letter-spacing: inherit;
-  -moz-letter-spacing: inherit;
-  -ms-letter-spacing: inherit;
-  letter-spacing: inherit;
-  -webkit-order: 1;
-  -ms-flex-order: 1;
-  order: 1;
-}
-
 .c1 {
-  top: 0;
-  z-index: 110;
-  position: fixed;
-  background: #fff;
-  border-radius: 0.5rem;
-  height: calc(100% - 9.6rem);
-  outline: none;
-  overflow: hidden;
-  margin: 7.2rem auto 2.4rem;
-  max-width: 128rem;
-  width: calc(100% - 2.4rem * 2);
-}
-
-.c4 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-order: 2;
-  -ms-flex-order: 2;
-  order: 2;
-}
-
-.c5 {
-  color: #fff;
-  cursor: pointer;
-}
-
-.c5:hover {
-  color: #888888;
-}
-
-.c6 {
-  -webkit-overflow-scrolling: touch;
-  height: calc(100% - 7.2rem);
-  background: #fff;
-  z-index: 4;
-  overflow: auto;
   background-color: #fafafa;
   color: #424242;
   font-size: 1.6rem;
@@ -109,13 +11,13 @@ exports[`KeyboardShortcuts renders keyboard shortcuts modal if it is open 1`] = 
   padding: 2rem 3.2rem 3.2rem 3.2rem;
 }
 
-.c7 {
+.c2 {
   font-size: 1.8rem;
   font-weight: bold;
   line-height: 3rem;
 }
 
-.c8 {
+.c3 {
   background-color: #fff;
   border: 1px solid #e5e5e5;
   margin: 2rem 0;
@@ -123,23 +25,23 @@ exports[`KeyboardShortcuts renders keyboard shortcuts modal if it is open 1`] = 
   width: 100%;
 }
 
-.c9 {
+.c4 {
   border-collapse: separate;
   border-spacing: 3.2rem 1.6rem;
   display: table;
 }
 
-.c10 {
+.c5 {
   display: table-row;
 }
 
-.c11 {
+.c6 {
   display: table-cell;
   min-width: 16rem;
   vertical-align: middle;
 }
 
-.c12 {
+.c7 {
   background-color: #fafafa;
   border: 1px solid #d5d5d5;
   border-radius: 3px;
@@ -149,113 +51,45 @@ exports[`KeyboardShortcuts renders keyboard shortcuts modal if it is open 1`] = 
   vertical-align: middle;
 }
 
-.c2 {
+.c0 {
   max-width: 92.8rem;
 }
 
-@media print {
-  .c0 {
-    display: block;
-  }
-
-  .c0 ~ div {
-    display: none;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c3 {
-    font-size: 1.6rem;
-    line-height: 2rem;
-  }
-}
-
-@media print {
-  .c3 {
-    display: none;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c3 {
-    padding: 1.6rem;
-  }
-}
-
 @media screen and (max-width:75em) {
   .c1 {
-    margin: 2rem 0;
-    width: calc(100% - 1.6rem);
-    height: calc(100% - 4rem);
-  }
-}
-
-@media print {
-  .c1 {
-    position: relative;
-    width: 100%;
-    margin: 0;
-    border-radius: 0;
-  }
-}
-
-@media print {
-  .c5 {
-    display: none;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c6 {
-    text-align: center;
-    padding: 8rem 3.2rem;
-  }
-}
-
-@media print {
-  .c6 {
-    height: -webkit-max-content;
-    height: -moz-max-content;
-    height: max-content;
-    overflow: auto;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c6 {
     padding: 1.6rem;
     text-align: left;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c7 {
+  .c2 {
     font-size: 1.6rem;
     line-height: 2.5rem;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c8 {
+  .c3 {
     margin: 1.6rem 0;
     padding: 0.8rem;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c9 {
+  .c4 {
     display: block;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c10 {
+  .c5 {
     display: block;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c11 {
+  .c6 {
     display: block;
     margin: 0.8rem;
   }
@@ -264,7 +98,7 @@ exports[`KeyboardShortcuts renders keyboard shortcuts modal if it is open 1`] = 
 <div
   aria-labelledby="modal-title"
   aria-modal="true"
-  className="c0"
+  className="popup-wrapper"
   role="dialog"
 >
   <div
@@ -280,12 +114,23 @@ exports[`KeyboardShortcuts renders keyboard shortcuts modal if it is open 1`] = 
     }
   />
   <div
-    className="c1 c2"
+    className="popup-modal c0"
     data-testid="keyboard-shortcuts-popup-wrapper"
+    style={
+      Object {
+        "--popup-modal-background": "#fff",
+      }
+    }
     tabIndex="-1"
   >
     <div
-      className="c3"
+      className="popup-header disable-print"
+      style={
+        Object {
+          "--popup-background-color": "#002468",
+          "color": "#fff",
+        }
+      }
     >
       <h1
         id="modal-title"
@@ -294,16 +139,22 @@ exports[`KeyboardShortcuts renders keyboard shortcuts modal if it is open 1`] = 
       </h1>
       <button
         aria-label="Close Keyboard Shortcuts menu"
-        className="plain-button c4"
+        className="plain-button popup-close-icon-wrapper"
         data-analytics-label="Click to close Keyboard Shortcuts modal"
         data-testid="close-keyboard-shortcuts-popup"
         onClick={[Function]}
       >
         <svg
           aria-hidden="true"
-          className="c5"
+          className="popup-close-icon disable-print"
           focusable="true"
           height="15px"
+          style={
+            Object {
+              "--popup-close-icon-color": "#fff",
+              "--popup-close-icon-hover-color": "#888888",
+            }
+          }
           version="1.1"
           viewBox="0 0 15 15"
           width="15px"
@@ -331,162 +182,167 @@ exports[`KeyboardShortcuts renders keyboard shortcuts modal if it is open 1`] = 
       </button>
     </div>
     <div
-      className="c6"
+      className="popup-body c1"
       data-analytics-region="KS popup"
       data-testid="show-keyboard-shortcuts-body"
+      style={
+        Object {
+          "--popup-body-background": "#fff",
+        }
+      }
       tabIndex={-1}
     >
       <div
-        className="c7"
+        className="c2"
       >
         Using a Keyboard for Navigation
       </div>
       <div
-        className="c8"
+        className="c3"
       >
         <div
-          className="c9"
+          className="c4"
         >
           <div
-            className="c10"
+            className="c5"
           >
             <div
-              className="c11"
+              className="c6"
             >
               <span
-                className="c12"
+                className="c7"
               >
                 Shift
               </span>
                + 
               <span
-                className="c12"
+                className="c7"
               >
                 ?
               </span>
             </div>
             <div
-              className="c11"
+              className="c6"
             >
               Pull up keyboard shortcuts menu
             </div>
           </div>
           <div
-            className="c10"
+            className="c5"
           >
             <div
-              className="c11"
+              className="c6"
             >
               <span
-                className="c12"
+                className="c7"
               >
                 Tab
               </span>
             </div>
             <div
-              className="c11"
+              className="c6"
             >
               Move forward through book page elements, highlights and notes
             </div>
           </div>
           <div
-            className="c10"
+            className="c5"
           >
             <div
-              className="c11"
+              className="c6"
             >
               <span
-                className="c12"
+                className="c7"
               >
                 Shift
               </span>
                + 
               <span
-                className="c12"
+                className="c7"
               >
                 Tab
               </span>
             </div>
             <div
-              className="c11"
+              className="c6"
             >
               Move backward through book page elements, highlights and notes
             </div>
           </div>
           <div
-            className="c10"
+            className="c5"
           >
             <div
-              className="c11"
+              className="c6"
             >
               <span
-                className="c12"
+                className="c7"
               >
                 Option (Mac) or Alt (other)
               </span>
                + 
               <span
-                className="c12"
+                className="c7"
               >
                 h
               </span>
             </div>
             <div
-              className="c11"
+              className="c6"
             >
               Move focus into and out of a note
             </div>
           </div>
           <div
-            className="c10"
+            className="c5"
           >
             <div
-              className="c11"
+              className="c6"
             >
               <span
-                className="c12"
+                className="c7"
               >
                 Tab
               </span>
             </div>
             <div
-              className="c11"
+              className="c6"
             >
               Move through note editing options
             </div>
           </div>
           <div
-            className="c10"
+            className="c5"
           >
             <div
-              className="c11"
+              className="c6"
             >
               <span
-                className="c12"
+                className="c7"
               >
                 Arrows
               </span>
             </div>
             <div
-              className="c11"
+              className="c6"
             >
               Select a different highlight color
             </div>
           </div>
           <div
-            className="c10"
+            className="c5"
           >
             <div
-              className="c11"
+              className="c6"
             >
               <span
-                className="c12"
+                className="c7"
               >
                 Enter
               </span>
             </div>
             <div
-              className="c11"
+              className="c6"
             >
               Save or Cancel note edits
             </div>
@@ -494,7 +350,7 @@ exports[`KeyboardShortcuts renders keyboard shortcuts modal if it is open 1`] = 
         </div>
       </div>
       <div
-        className="c7"
+        className="c2"
       >
         Creating Highlights and Notes with a Keyboard
       </div>
@@ -507,97 +363,97 @@ exports[`KeyboardShortcuts renders keyboard shortcuts modal if it is open 1`] = 
         }
       />
       <div
-        className="c8"
+        className="c3"
       >
         <div
-          className="c9"
+          className="c4"
         >
           <div
-            className="c10"
+            className="c5"
           >
             <div
-              className="c11"
+              className="c6"
             >
               <span
-                className="c12"
+                className="c7"
               >
                 Arrows
               </span>
             </div>
             <div
-              className="c11"
+              className="c6"
             >
               Move focus through each line of text
             </div>
           </div>
           <div
-            className="c10"
+            className="c5"
           >
             <div
-              className="c11"
+              className="c6"
             >
               <span
-                className="c12"
+                className="c7"
               >
                 Shift
               </span>
                + 
               <span
-                className="c12"
+                className="c7"
               >
                 Arrows
               </span>
             </div>
             <div
-              className="c11"
+              className="c6"
             >
               Select text
             </div>
           </div>
           <div
-            className="c10"
+            className="c5"
           >
             <div
-              className="c11"
+              className="c6"
             >
               <span
-                className="c12"
+                className="c7"
               >
                 Option (Mac) or Alt (other)
               </span>
                + 
               <span
-                className="c12"
+                className="c7"
               >
                 h
               </span>
             </div>
             <div
-              className="c11"
+              className="c6"
             >
               Create a highlight or note after selecting text
             </div>
           </div>
           <div
-            className="c10"
+            className="c5"
           >
             <div
-              className="c11"
+              className="c6"
             >
               <span
-                className="c12"
+                className="c7"
               >
                 Option (Mac) or Alt (other)
               </span>
                + 
               <span
-                className="c12"
+                className="c7"
               >
                 s
               </span>
             </div>
             <div
-              className="c11"
+              className="c6"
             >
               Navigate among search bar, search results, and main content region
             </div>
@@ -605,126 +461,126 @@ exports[`KeyboardShortcuts renders keyboard shortcuts modal if it is open 1`] = 
         </div>
       </div>
       <div
-        className="c7"
+        className="c2"
       >
         Interacting with Math Equations
       </div>
       <div
-        className="c8"
+        className="c3"
       >
         <div
-          className="c9"
+          className="c4"
         >
           <div
-            className="c10"
+            className="c5"
           >
             <div
-              className="c11"
+              className="c6"
             >
               <span
-                className="c12"
+                className="c7"
               >
                 Tab
               </span>
             </div>
             <div
-              className="c11"
+              className="c6"
             >
               Move focus to math equation
             </div>
           </div>
           <div
-            className="c10"
+            className="c5"
           >
             <div
-              className="c11"
+              className="c6"
             >
               <span
-                className="c12"
+                className="c7"
               >
                 Shift
               </span>
                + 
               <span
-                className="c12"
+                className="c7"
               >
                 Tab
               </span>
             </div>
             <div
-              className="c11"
+              className="c6"
             >
               Move focus backward to math equation
             </div>
           </div>
           <div
-            className="c10"
+            className="c5"
           >
             <div
-              className="c11"
+              className="c6"
             >
               <span
-                className="c12"
+                className="c7"
               >
                 Space
               </span>
                or 
               <span
-                className="c12"
+                className="c7"
               >
                 Enter
               </span>
             </div>
             <div
-              className="c11"
+              className="c6"
             >
               Open MathJax context menu (after focusing equation)
             </div>
           </div>
           <div
-            className="c10"
+            className="c5"
           >
             <div
-              className="c11"
+              className="c6"
             >
               <span
-                className="c12"
+                className="c7"
               >
                 Shift
               </span>
                + 
               <span
-                className="c12"
+                className="c7"
               >
                 F10
               </span>
             </div>
             <div
-              className="c11"
+              className="c6"
             >
               (Windows) – Alternative: open context menu
             </div>
           </div>
           <div
-            className="c10"
+            className="c5"
           >
             <div
-              className="c11"
+              className="c6"
             >
               <span
-                className="c12"
+                className="c7"
               >
                 Ctrl
               </span>
                + 
               <span
-                className="c12"
+                className="c7"
               >
                 Enter
               </span>
             </div>
             <div
-              className="c11"
+              className="c6"
             >
               (Mac) – Alternative: open context menu
             </div>

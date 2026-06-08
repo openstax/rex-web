@@ -1,4 +1,3 @@
-import { HTMLDivElement } from '@openstax/types/lib.dom';
 import classNames from 'classnames';
 import React from 'react';
 import './HighlightsWrapper.css';

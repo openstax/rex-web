@@ -2,11 +2,6 @@
 
 exports[`ShowKeyboardShortcuts renders the keyboard shortcuts menu 1`] = `
 .c0 {
-  -webkit-overflow-scrolling: touch;
-  height: calc(100% - 7.2rem);
-  background: #fff;
-  z-index: 4;
-  overflow: auto;
   background-color: #fafafa;
   color: #424242;
   font-size: 1.6rem;
@@ -56,22 +51,6 @@ exports[`ShowKeyboardShortcuts renders the keyboard shortcuts menu 1`] = `
 
 @media screen and (max-width:75em) {
   .c0 {
-    text-align: center;
-    padding: 8rem 3.2rem;
-  }
-}
-
-@media print {
-  .c0 {
-    height: -webkit-max-content;
-    height: -moz-max-content;
-    height: max-content;
-    overflow: auto;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c0 {
     padding: 1.6rem;
     text-align: left;
   }
@@ -111,9 +90,14 @@ exports[`ShowKeyboardShortcuts renders the keyboard shortcuts menu 1`] = `
 }
 
 <div
-  className="c0"
+  className="popup-body c0"
   data-analytics-region="KS popup"
   data-testid="show-keyboard-shortcuts-body"
+  style={
+    Object {
+      "--popup-body-background": "#fff",
+    }
+  }
   tabIndex={-1}
 >
   <div

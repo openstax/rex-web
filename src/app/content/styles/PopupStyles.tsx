@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
-import Times from '../../../components/Times';
-import { PlainButton } from '../components/Button';
+import Times from '../../components/Times';
+import { PlainButton } from '../../components/Button';
 import theme from '../../theme';
 import { disablePrintClass } from '../components/utils/disablePrint';
 import { BookWithOSWebData } from '../types';
@@ -56,40 +56,46 @@ interface PopupBodyProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 /**
- * PopupBody component - plain CSS version
+ * PopupBody component - plain CSS version with forwardRef support
  */
-export function PopupBody({ className, style, theme: _theme, ...domProps }: PopupBodyProps) {
-  return (
-    <div
-      {...domProps}
-      className={classNames('popup-body', className)}
-      style={{
-        '--popup-body-background': theme.color.neutral.base,
-        ...style,
-      } as React.CSSProperties}
-    />
-  );
-}
+export const PopupBody = React.forwardRef<HTMLDivElement, PopupBodyProps>(
+  function PopupBody({ className, style, theme: _theme, ...domProps }, ref) {
+    return (
+        <div
+        ref={ref}
+        {...domProps}
+        className={classNames('popup-body', className)}
+        style={{
+            '--popup-body-background': theme.color.neutral.base,
+            ...style,
+        } as React.CSSProperties}
+        />
+    );
+  }
+);
 
 interface ModalProps extends React.HTMLAttributes<HTMLDivElement> {
   theme?: unknown;
 }
 
 /**
- * Modal component - plain CSS version
+ * Modal component - plain CSS version with forwardRef support
  */
-export function Modal({ className, style, theme: _theme, ...domProps }: ModalProps) {
-  return (
-    <div
-      {...domProps}
-      className={classNames('popup-modal', className)}
-      style={{
-        '--popup-modal-background': theme.color.neutral.base,
-        ...style,
-      } as React.CSSProperties}
-    />
-  );
-}
+export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
+  function Modal({ className, style, theme: _theme, ...domProps }, ref) {
+    return (
+      <div
+        ref={ref}
+        {...domProps}
+        className={classNames('popup-modal', className)}
+        style={{
+          '--popup-modal-background': theme.color.neutral.base,
+          ...style,
+        } as React.CSSProperties}
+      />
+    );
+  }
+);
 
 interface CloseIconWrapperProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   theme?: unknown;
@@ -129,24 +135,21 @@ interface CloseIconProps extends React.SVGAttributes<SVGSVGElement> {
 /**
  * CloseIcon component - plain CSS version with dynamic theming
  */
-export const CloseIcon = React.forwardRef<SVGSVGElement, CloseIconProps>(
-  function CloseIcon({ colorSchema, className, style, theme: _theme, ...domProps }, ref) {
-    const iconColor = theme.color.primary[colorSchema].foreground;
-    const iconHoverColor = theme.color.primary[colorSchema].foregroundHover;
+export function CloseIcon({ colorSchema, className, style, theme: _theme, ...domProps }: CloseIconProps) {
+  const iconColor = theme.color.primary[colorSchema].foreground;
+  const iconHoverColor = theme.color.primary[colorSchema].foregroundHover;
 
-    return (
-      <Times
-        ref={ref as React.Ref<SVGSVGElement>}
-        {...domProps}
-        aria-hidden='true'
-        focusable='true'
-        className={classNames('popup-close-icon', disablePrintClass, className)}
-        style={{
-          '--popup-close-icon-color': iconColor,
-          '--popup-close-icon-hover-color': iconHoverColor,
-          ...style,
-        } as React.CSSProperties}
-      />
-    );
-  }
-);
+  return (
+    <Times
+      {...domProps}
+      aria-hidden='true'
+      focusable='true'
+      className={classNames('popup-close-icon', disablePrintClass, className)}
+      style={{
+        '--popup-close-icon-color': iconColor,
+        '--popup-close-icon-hover-color': iconHoverColor,
+        ...style,
+      } as React.CSSProperties}
+    />
+  );
+}
