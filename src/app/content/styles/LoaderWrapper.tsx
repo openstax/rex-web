@@ -1,6 +1,21 @@
+import classNames from 'classnames';
+import React from 'react';
+import './LoaderWrapper.css';
+
 /**
- * LoaderWrapper - Plain CSS implementation
+ * LoaderWrapper component - plain CSS version
  *
- * Migrated from styled-components to plain CSS.
+ * Note: Filters out theme prop to prevent DOM attribute leakage
  */
-export { default } from './LoaderWrapper.impl';
+export function LoaderWrapper(
+  { className, theme: _theme, ...domProps }: React.HTMLAttributes<HTMLDivElement> & { theme?: unknown }
+) {
+  return (
+    <div
+      {...domProps}
+      className={classNames('loader-wrapper', className)}
+    />
+  );
+}
+
+export default LoaderWrapper;
