@@ -26,8 +26,7 @@
 
   /* h3Style equivalent */
   font-size: 2.4rem;
-  font-weight: bold;
-  letter-spacing: -0.096rem;
+  letter-spacing: -0.02rem;
   line-height: 3rem;
 
   /* Layout */
@@ -79,7 +78,7 @@
 
 .popup-modal {
   top: 0;
-  z-index: 100; /* theme.zIndex.highlightSummaryPopup */
+  z-index: 110; /* theme.zIndex.highlightSummaryPopup */
   position: fixed;
   background: var(--popup-modal-background, #f1f1f1);
   border-radius: 0.5rem;

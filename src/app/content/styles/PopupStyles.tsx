@@ -103,24 +103,16 @@ interface CloseIconWrapperProps extends React.ButtonHTMLAttributes<HTMLButtonEle
 
 /**
  * CloseIconWrapper component - plain CSS version
+ *
+ * Note: PlainButton already filters transient props (starting with $),
+ * so we can safely pass props directly without additional filtering.
  */
 export const CloseIconWrapper = React.forwardRef<HTMLButtonElement, CloseIconWrapperProps>(
   function CloseIconWrapper({ className, theme: _theme, ...props }, ref) {
-    // Filter out transient props (starting with $) to prevent them from being forwarded to the DOM
-    const safeProps = Object.keys(props).reduce<React.ButtonHTMLAttributes<HTMLButtonElement>>(
-      (acc, key) => {
-        if (!key.startsWith('$')) {
-          acc[key as keyof React.ButtonHTMLAttributes<HTMLButtonElement>] = props[key as keyof typeof props];
-        }
-        return acc;
-      },
-      {}
-    );
-
     return (
       <PlainButton
         ref={ref}
-        {...safeProps}
+        {...props}
         className={classNames('popup-close-icon-wrapper', className)}
       />
     );
