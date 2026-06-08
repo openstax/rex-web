@@ -1,11 +1,8 @@
-import styled from 'styled-components/macro';
-
-const HighlightsWrapper = styled.div`
-  overflow: visible;
-
-  .os-divider {
-    width: 0.8rem;
-  }
-`;
-
-export default HighlightsWrapper;
+/**
+ * HighlightsWrapper - Backward compatibility export
+ *
+ * This file maintains the original export path for backward compatibility.
+ * The actual implementation has been migrated to plain CSS (HighlightsWrapper.new.tsx).
+ * Legacy styled-components usage is in HighlightsWrapper.legacy.tsx.
+ */
+export { default } from './HighlightsWrapper.legacy';
