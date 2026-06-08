@@ -45,6 +45,8 @@
 @media screen and (max-width: 75em) {
   .popup-header {
     padding: 1.6rem; /* mobilePaddingSides */
+    font-size: 1.6rem;
+    line-height: 2rem;
   }
 }
 
