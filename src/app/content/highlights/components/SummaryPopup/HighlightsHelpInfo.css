@@ -60,10 +60,3 @@
     display: none;
   }
 }
-
-/* Hidden in print */
-@media print {
-  .highlights-help-info {
-    display: none !important;
-  }
-}

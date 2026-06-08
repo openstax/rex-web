@@ -42,7 +42,7 @@ const HighlightsHelpInfo = () => {
   if (!show || !user) { return null; }
 
   return <div
-    className="highlights-help-info"
+    className="highlights-help-info disable-print"
     data-analytics-region='Mobile MH help info'
     style={{
       zIndex: theme.zIndex.highlightsHelpInfoMobile,

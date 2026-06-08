@@ -4,7 +4,7 @@ exports[`HighlightsHelpInfo matches snapshot when hidden 1`] = `null`;
 
 exports[`HighlightsHelpInfo matches snapshot when showed 1`] = `
 <div
-  className="highlights-help-info"
+  className="highlights-help-info disable-print"
   data-analytics-region="Mobile MH help info"
   style={
     Object {
