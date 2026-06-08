@@ -2,6 +2,38 @@
 
 .page-content {
   overflow: visible;
+
+  /* CSS variables for highlight colors */
+
+  /* Yellow highlight colors */
+  --highlight-yellow-passive: #ffff8a;
+  --highlight-yellow-focused: #fed200;
+  --highlight-yellow-focus-border: #8f7700;
+  --highlight-yellow-text: inherit;
+
+  /* Green highlight colors */
+  --highlight-green-passive: #def99f;
+  --highlight-green-focused: #92d101;
+  --highlight-green-focus-border: #4e6f01;
+  --highlight-green-text: inherit;
+
+  /* Blue highlight colors */
+  --highlight-blue-passive: #c8f5ff;
+  --highlight-blue-focused: #00c3ed;
+  --highlight-blue-focus-border: #006880;
+  --highlight-blue-text: inherit;
+
+  /* Purple highlight colors */
+  --highlight-purple-passive: #cbcfff;
+  --highlight-purple-focused: #545ec8;
+  --highlight-purple-focus-border: #141a3e;
+  --highlight-purple-text: inherit;
+
+  /* Pink highlight colors */
+  --highlight-pink-passive: #ffc5e1;
+  --highlight-pink-focused: #de017e;
+  --highlight-pink-focus-border: #560131;
+  --highlight-pink-text: inherit;
 }
 
 .page-content:focus-visible {
@@ -49,6 +81,208 @@
   position: relative;
   z-index: 1;
   user-select: none;
+}
+
+/* Generic block highlight layout styles (shared across all colors) */
+.page-content .highlight.block {
+  display: block;
+}
+
+.page-content .highlight.block::after {
+  position: absolute;
+  z-index: -1;
+  content: "";
+  display: block;
+  top: -1rem;
+  bottom: -1rem;
+  left: -1rem;
+  right: -1rem;
+}
+
+/* Note indicator triangle for block highlights */
+.page-content .highlight.block.first.has-note::before {
+  position: absolute;
+  top: -1rem;
+  left: -1rem;
+  content: "";
+  width: 0;
+  height: 0;
+  opacity: 0.8;
+  border-left: 1.2em solid;
+  border-bottom: 1.2em solid transparent;
+}
+
+/* Note indicator triangle for text highlights */
+.page-content .highlight.first.text.has-note::after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: "";
+  width: 0;
+  height: 0;
+  opacity: 0.8;
+  border-left: 0.9em solid;
+  border-top: 0.9em solid transparent;
+  transform: rotate(90deg);
+}
+
+/* Focused highlight layout styles */
+@media screen {
+  .page-content .highlight[aria-current] {
+    border-bottom: 0.2rem solid;
+    padding: 0.2rem 0 0;
+  }
+
+  .page-content .highlight[aria-current].first.text.has-note::after {
+    display: none;
+  }
+}
+
+/* Color-specific highlight styles using CSS variables */
+
+/* Yellow highlight */
+.page-content .highlight.yellow {
+  background-color: var(--highlight-yellow-passive);
+}
+
+.page-content .highlight.yellow.block::after {
+  background-color: var(--highlight-yellow-passive);
+}
+
+.page-content .highlight.yellow.block.first.has-note::before {
+  border-left-color: var(--highlight-yellow-focused);
+}
+
+.page-content .highlight.yellow.first.text.has-note::after {
+  border-left-color: var(--highlight-yellow-focused);
+}
+
+@media screen {
+  .page-content .highlight.yellow[aria-current] {
+    background-color: var(--highlight-yellow-focused);
+    border-bottom-color: var(--highlight-yellow-focus-border);
+    color: var(--highlight-yellow-text);
+  }
+
+  .page-content .highlight.yellow[aria-current].block::after {
+    background-color: var(--highlight-yellow-focused);
+  }
+}
+
+/* Green highlight */
+.page-content .highlight.green {
+  background-color: var(--highlight-green-passive);
+}
+
+.page-content .highlight.green.block::after {
+  background-color: var(--highlight-green-passive);
+}
+
+.page-content .highlight.green.block.first.has-note::before {
+  border-left-color: var(--highlight-green-focused);
+}
+
+.page-content .highlight.green.first.text.has-note::after {
+  border-left-color: var(--highlight-green-focused);
+}
+
+@media screen {
+  .page-content .highlight.green[aria-current] {
+    background-color: var(--highlight-green-focused);
+    border-bottom-color: var(--highlight-green-focus-border);
+    color: var(--highlight-green-text);
+  }
+
+  .page-content .highlight.green[aria-current].block::after {
+    background-color: var(--highlight-green-focused);
+  }
+}
+
+/* Blue highlight */
+.page-content .highlight.blue {
+  background-color: var(--highlight-blue-passive);
+}
+
+.page-content .highlight.blue.block::after {
+  background-color: var(--highlight-blue-passive);
+}
+
+.page-content .highlight.blue.block.first.has-note::before {
+  border-left-color: var(--highlight-blue-focused);
+}
+
+.page-content .highlight.blue.first.text.has-note::after {
+  border-left-color: var(--highlight-blue-focused);
+}
+
+@media screen {
+  .page-content .highlight.blue[aria-current] {
+    background-color: var(--highlight-blue-focused);
+    border-bottom-color: var(--highlight-blue-focus-border);
+    color: var(--highlight-blue-text);
+  }
+
+  .page-content .highlight.blue[aria-current].block::after {
+    background-color: var(--highlight-blue-focused);
+  }
+}
+
+/* Purple highlight */
+.page-content .highlight.purple {
+  background-color: var(--highlight-purple-passive);
+}
+
+.page-content .highlight.purple.block::after {
+  background-color: var(--highlight-purple-passive);
+}
+
+.page-content .highlight.purple.block.first.has-note::before {
+  border-left-color: var(--highlight-purple-focused);
+}
+
+.page-content .highlight.purple.first.text.has-note::after {
+  border-left-color: var(--highlight-purple-focused);
+}
+
+@media screen {
+  .page-content .highlight.purple[aria-current] {
+    background-color: var(--highlight-purple-focused);
+    border-bottom-color: var(--highlight-purple-focus-border);
+    color: var(--highlight-purple-text);
+  }
+
+  .page-content .highlight.purple[aria-current].block::after {
+    background-color: var(--highlight-purple-focused);
+  }
+}
+
+/* Pink highlight */
+.page-content .highlight.pink {
+  background-color: var(--highlight-pink-passive);
+}
+
+.page-content .highlight.pink.block::after {
+  background-color: var(--highlight-pink-passive);
+}
+
+.page-content .highlight.pink.block.first.has-note::before {
+  border-left-color: var(--highlight-pink-focused);
+}
+
+.page-content .highlight.pink.first.text.has-note::after {
+  border-left-color: var(--highlight-pink-focused);
+}
+
+@media screen {
+  .page-content .highlight.pink[aria-current] {
+    background-color: var(--highlight-pink-focused);
+    border-bottom-color: var(--highlight-pink-focus-border);
+    color: var(--highlight-pink-text);
+  }
+
+  .page-content .highlight.pink[aria-current].block::after {
+    background-color: var(--highlight-pink-focused);
+  }
 }
 
 /* fixes to keep MathJax 4 highlighted equations centered and
