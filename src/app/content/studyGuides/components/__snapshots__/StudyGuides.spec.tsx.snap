@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`StudyGuides properly display summary highlights 1`] = `
-.c3 {
+.c1 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -14,7 +14,7 @@ exports[`StudyGuides properly display summary highlights 1`] = `
   padding: 0 3.2rem;
 }
 
-.c4 {
+.c2 {
   color: #424242;
   font-size: 1.8rem;
   line-height: 2.5rem;
@@ -36,21 +36,21 @@ exports[`StudyGuides properly display summary highlights 1`] = `
   width: 100%;
 }
 
-.c4 .os-number {
+.c2 .os-number {
   overflow: visible;
 }
 
-.c4 > .os-text {
+.c2 > .os-text {
   white-space: break-spaces;
 }
 
-.c6 {
+.c3 {
   margin: 1.6rem 3.2rem;
   border: solid 0.1rem #e5e5e5;
   overflow: visible;
 }
 
-.c8 {
+.c4 {
   color: #424242;
   font-size: 1.4rem;
   line-height: 1.6rem;
@@ -69,33 +69,33 @@ exports[`StudyGuides properly display summary highlights 1`] = `
   font-weight: bold;
 }
 
-.c8 > .os-number,
-.c8 > .os-divider,
-.c8 > .os-text {
+.c4 > .os-number,
+.c4 > .os-divider,
+.c4 > .os-text {
   overflow: hidden;
 }
 
-.c8 > .os-number,
-.c8 > .os-divider {
+.c4 > .os-number,
+.c4 > .os-divider {
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
 }
 
-.c8 > .os-text {
+.c4 > .os-text {
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
-.c1 {
+.c0 {
   overflow: visible;
 }
 
-.c1 .os-divider {
+.c0 .os-divider {
   width: 0.8rem;
 }
 
-.c9 {
+.c5 {
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
@@ -103,33 +103,29 @@ exports[`StudyGuides properly display summary highlights 1`] = `
   padding: 0.8rem 0;
 }
 
-.c9 a {
+.c5 a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c9 a:hover {
+.c5 a:hover {
   color: #0064A0;
 }
 
-.c9 * {
+.c5 * {
   overflow: initial;
 }
 
-.c0 {
-  display: contents;
-}
-
 @media screen and (max-width:75em) {
-  .c3 {
+  .c1 {
     padding: 0 1.6rem;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c4 {
+  .c2 {
     color: #424242;
     font-size: 1.6rem;
     line-height: 2rem;
@@ -143,26 +139,26 @@ exports[`StudyGuides properly display summary highlights 1`] = `
 }
 
 @media print {
-  .c4 {
+  .c2 {
     padding: 0;
     background: white;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c6 {
+  .c3 {
     margin: 0 0 1.6rem 0;
   }
 }
 
 @media print {
-  .c6 {
+  .c3 {
     border-width: 0;
   }
 }
 
 @media print {
-  .c8 {
+  .c4 {
     -webkit-break-after: avoid;
     break-after: avoid;
     -webkit-break-inside: avoid;
@@ -171,50 +167,22 @@ exports[`StudyGuides properly display summary highlights 1`] = `
   }
 }
 
-@media screen and (max-width:75em) {
-  .c0 .c2 {
-    max-width: 90%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c0 .c7 {
-    padding-left: 2rem;
-  }
-}
-
-@media print {
-  .c0 .c2 {
-    padding-left: 0;
-  }
-
-  .c0 .c2 + .c5 {
-    margin-top: 0;
-  }
-
-  .c0 .c5 {
-    margin-left: 0;
-  }
-
-  .c0 .c7 {
-    background: #e5e5e5;
-  }
-}
-
 <div
-  className="c0"
+  className="study-guides-wrapper"
+  style={
+    Object {
+      "--section-bg": "#e5e5e5",
+    }
+  }
 >
   <div
-    className="c1"
+    className="c0"
   >
     <div
-      className="c2 c3"
+      className="c1"
     >
       <h2
-        className="c4"
+        className="c2"
         dangerouslySetInnerHTML={
           Object {
             "__html": "<span class=\\"os-number\\">10</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 5</span>",
@@ -224,10 +192,10 @@ exports[`StudyGuides properly display summary highlights 1`] = `
       />
     </div>
     <div
-      className="c5 c6"
+      className="c3"
     >
       <h3
-        className="c7 c8"
+        className="c4"
         dangerouslySetInnerHTML={
           Object {
             "__html": "<span class=\\"os-text\\">Test Page 6 with special characters in url</span>",
@@ -270,7 +238,7 @@ exports[`StudyGuides properly display summary highlights 1`] = `
             Important Concepts
           </div>
           <div
-            className="content-excerpt c9"
+            className="content-excerpt c5"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "<a href=\\"/books/book-slug-1/pages/link\\" target=\\"_blank\\">Link</a>",
@@ -316,7 +284,7 @@ exports[`StudyGuides properly display summary highlights 1`] = `
             Connections & Relationships
           </div>
           <div
-            className="content-excerpt c9"
+            className="content-excerpt c5"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "content",
@@ -362,7 +330,7 @@ exports[`StudyGuides properly display summary highlights 1`] = `
             Key Terms
           </div>
           <div
-            className="content-excerpt c9"
+            className="content-excerpt c5"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "content",
@@ -408,7 +376,7 @@ exports[`StudyGuides properly display summary highlights 1`] = `
             Enrichment
           </div>
           <div
-            className="content-excerpt c9"
+            className="content-excerpt c5"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "content",
@@ -447,7 +415,7 @@ exports[`StudyGuides properly display summary highlights 1`] = `
             Key Terms
           </div>
           <div
-            className="content-excerpt c9"
+            className="content-excerpt c5"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "content",
@@ -460,10 +428,10 @@ exports[`StudyGuides properly display summary highlights 1`] = `
       </div>
     </div>
     <div
-      className="c2 c3"
+      className="c1"
     >
       <h2
-        className="c4"
+        className="c2"
         dangerouslySetInnerHTML={
           Object {
             "__html": "<span class=\\"os-number\\">12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 6</span>",
@@ -473,10 +441,10 @@ exports[`StudyGuides properly display summary highlights 1`] = `
       />
     </div>
     <div
-      className="c5 c6"
+      className="c3"
     >
       <h3
-        className="c7 c8"
+        className="c4"
         dangerouslySetInnerHTML={
           Object {
             "__html": "<span class=\\"os-text\\">Test Page 7</span>",
@@ -519,7 +487,7 @@ exports[`StudyGuides properly display summary highlights 1`] = `
             Important Concepts
           </div>
           <div
-            className="content-excerpt c9"
+            className="content-excerpt c5"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "content",
@@ -565,7 +533,7 @@ exports[`StudyGuides properly display summary highlights 1`] = `
             Connections & Relationships
           </div>
           <div
-            className="content-excerpt c9"
+            className="content-excerpt c5"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "content",
