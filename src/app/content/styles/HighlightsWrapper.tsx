@@ -1,8 +1,6 @@
 /**
- * HighlightsWrapper - Backward compatibility export
+ * HighlightsWrapper - Plain CSS implementation
  *
- * This file maintains the original export path for backward compatibility.
- * The actual implementation has been migrated to plain CSS (HighlightsWrapper.new.tsx).
- * Legacy styled-components usage is in HighlightsWrapper.legacy.tsx.
+ * Migrated from styled-components to plain CSS.
  */
-export { default } from './HighlightsWrapper.legacy';
+export { default } from './HighlightsWrapper.impl';
