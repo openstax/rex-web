@@ -6,22 +6,6 @@
 .popup-print-button {
   /* Wrapper div styles */
   margin: 0 0 0 auto;
-  padding-right: 2.4rem; /* filters.dropdownToggle.sides.desktop */
-}
-
-.popup-print-button[data-loading="true"] {
-  cursor: wait;
-}
-
-.popup-print-button[data-loading="false"] {
-  cursor: pointer;
-}
-
-/* Media query: theme.breakpoints.mobile() = max-width: 75em */
-@media screen and (max-width: 75em) {
-  .popup-print-button {
-    padding-right: 1.6rem; /* filters.dropdownToggle.sides.mobile */
-  }
 }
 
 /* Style the PrintButton child inside the wrapper */
@@ -29,6 +13,22 @@
   flex-direction: row;
   height: max-content;
   min-height: unset;
+  padding-right: 2.4rem; /* filters.dropdownToggle.sides.desktop */
+}
+
+.popup-print-button[data-loading="true"] > .toolbar-print-opt-wrapper {
+  cursor: wait;
+}
+
+.popup-print-button[data-loading="false"] > .toolbar-print-opt-wrapper {
+  cursor: pointer;
+}
+
+/* Media query: theme.breakpoints.mobile() = max-width: 75em */
+@media screen and (max-width: 75em) {
+  .popup-print-button > .toolbar-print-opt-wrapper {
+    padding-right: 1.6rem; /* filters.dropdownToggle.sides.mobile */
+  }
 }
 
 /* PrintOptions child styling
