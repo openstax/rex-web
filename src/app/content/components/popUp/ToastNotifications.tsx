@@ -1,20 +1,8 @@
-import React from 'react';
-import styled from 'styled-components/macro';
-import ToastNotifications from '../../../notifications/components/ToastNotifications';
-import { ToastNotification } from '../../../notifications/types';
-
-const PopUpToastNotificationsWrapper = styled.div`
-  position: sticky;
-  top: 0;
-  overflow: visible;
-  z-index: 3;
-  width: 100%;
-`;
-
-const PopUpToastNotifications = (props: {toasts?: ToastNotification[]}) => props.toasts
-  ? <PopUpToastNotificationsWrapper>
-      <ToastNotifications toasts={props.toasts} />
-    </PopUpToastNotificationsWrapper>
-  : null;
-
-export default PopUpToastNotifications;
+/**
+ * PopUpToastNotifications - Backward compatibility export
+ *
+ * This file maintains the original export path for backward compatibility.
+ * The actual implementation has been migrated to plain CSS (ToastNotifications.new.tsx).
+ * Legacy styled-components usage is in ToastNotifications.legacy.tsx.
+ */
+export { default, PopUpToastNotificationsWrapper } from './ToastNotifications.legacy';
