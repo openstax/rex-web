@@ -1,0 +1,49 @@
+/* PopUpPrintButton styles - Plain CSS version
+ *
+ * This wraps the Toolbar PrintButton component with popup-specific styles
+ */
+
+.popup-print-button {
+  /* Wrapper div styles */
+  margin: 0 0 0 auto;
+}
+
+/* Style the PrintButton child inside the wrapper */
+.popup-print-button > .toolbar-print-opt-wrapper {
+  flex-direction: row;
+  height: max-content;
+  min-height: unset;
+  padding-right: 2.4rem; /* filters.dropdownToggle.sides.desktop */
+}
+
+.popup-print-button[data-loading="true"] > .toolbar-print-opt-wrapper {
+  cursor: wait;
+}
+
+.popup-print-button[data-loading="false"] > .toolbar-print-opt-wrapper {
+  cursor: pointer;
+}
+
+/* Media query: theme.breakpoints.mobile() = max-width: 75em */
+@media screen and (max-width: 75em) {
+  .popup-print-button > .toolbar-print-opt-wrapper {
+    padding-right: 1.6rem; /* filters.dropdownToggle.sides.mobile */
+  }
+}
+
+/* PrintOptions child styling
+ * Note: PrintOptions is a styled component from Toolbar/styled that uses the class .toolbar-print-options
+ * We target it via its class selector instead of component selector
+ */
+.popup-print-button .toolbar-print-options {
+  /* textRegularSize equivalent */
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  margin: 0 0 0 0.5rem;
+}
+
+@media screen and (max-width: 75em) {
+  .popup-print-button .toolbar-print-options {
+    display: none;
+  }
+}
