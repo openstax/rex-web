@@ -13,12 +13,12 @@ interface PopUpPrintButtonProps extends React.ComponentProps<typeof PrintButton>
  *
  * Wraps the base Toolbar PrintButton with popup-specific styles
  */
-export function PopUpPrintButton({ className, loading, ...props }: PopUpPrintButtonProps) {
-  const { theme: _theme, ...domProps } = props as any;
+export function PopUpPrintButton({ className, loading, theme: _theme, ...props }: PopUpPrintButtonProps) {
+  // Destructure theme to remove it, preventing it from being passed to the DOM
 
   return (
     <PrintButton
-      {...domProps}
+      {...props}
       className={classNames('popup-print-button', className)}
       data-loading={loading ? 'true' : 'false'}
     />

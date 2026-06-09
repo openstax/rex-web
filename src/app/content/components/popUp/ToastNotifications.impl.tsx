@@ -12,13 +12,13 @@ interface PopUpToastNotificationsWrapperProps extends React.HTMLAttributes<HTMLD
  * PopUpToastNotificationsWrapper component - plain CSS version
  */
 export function PopUpToastNotificationsWrapper(
-  { className, ...props }: PopUpToastNotificationsWrapperProps
+  { className, theme: _theme, ...props }: PopUpToastNotificationsWrapperProps
 ) {
-  const { theme: _theme, ...domProps } = props as any;
+  // Destructure theme to remove it, preventing it from being passed to the DOM
 
   return (
     <div
-      {...domProps}
+      {...props}
       className={classNames('popup-toast-notifications-wrapper', className)}
     />
   );

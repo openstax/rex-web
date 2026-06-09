@@ -3,7 +3,7 @@
 exports[`ToastNotifications matches snapshot 1`] = `null`;
 
 exports[`ToastNotifications matches snapshots with toasts 1`] = `
-.c1 {
+.c0 {
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
@@ -13,28 +13,19 @@ exports[`ToastNotifications matches snapshots with toasts 1`] = `
   line-height: 4rem;
 }
 
-.c1 a {
+.c0 a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c1 a:hover {
+.c0 a:hover {
   color: #0064A0;
 }
 
-.c0 {
-  position: -webkit-sticky;
-  position: sticky;
-  top: 0;
-  overflow: visible;
-  z-index: 3;
-  width: 100%;
-}
-
 @media (max-width:75em) {
-  .c1 {
+  .c0 {
     padding: 0;
     line-height: 2rem;
     background-color: initial;
@@ -42,7 +33,7 @@ exports[`ToastNotifications matches snapshots with toasts 1`] = `
 }
 
 <div
-  className="c0"
+  className="popup-toast-notifications-wrapper"
 >
   <div
     className="toasts-container"
@@ -64,7 +55,7 @@ exports[`ToastNotifications matches snapshots with toasts 1`] = `
         className="banner-body banner-body-error"
       >
         <div
-          className="c1 toast-header"
+          className="c0 toast-header"
         >
           The highlight could not be deleted. Please check your connection and try again.
         </div>
@@ -121,7 +112,7 @@ exports[`ToastNotifications matches snapshots with toasts 1`] = `
         className="banner-body banner-body-warning"
       >
         <div
-          className="c1 toast-header"
+          className="c0 toast-header"
         >
           The note could not be saved. Please check your connection and try again.
           <span

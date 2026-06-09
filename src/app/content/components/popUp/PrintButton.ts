@@ -1,8 +1,6 @@
 /**
- * PopUpPrintButton - Backward compatibility export
+ * PopUpPrintButton - Plain CSS implementation
  *
- * This file maintains the original export path for backward compatibility.
- * The actual implementation has been migrated to plain CSS (PrintButton.new.tsx).
- * Legacy styled-components usage is in PrintButton.legacy.ts.
+ * Migrated from styled-components to plain CSS.
  */
-export { default } from './PrintButton.legacy';
+export { default } from './PrintButton.impl';

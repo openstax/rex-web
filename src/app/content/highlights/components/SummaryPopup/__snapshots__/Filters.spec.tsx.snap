@@ -31,18 +31,18 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
   padding: 0 1rem;
 }
 
-.c24 {
+.c22 {
   height: 1.7rem;
   margin-right: 0.4rem;
 }
 
-.c24 svg {
+.c22 svg {
   height: 0.8rem;
   width: 0.8rem;
   color: #5e6062;
 }
 
-.c25 {
+.c23 {
   color: #424242;
   font-weight: 300;
   color: #5e6062;
@@ -54,7 +54,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
   line-height: 1.5rem;
 }
 
-.c23 {
+.c21 {
   margin-right: 3.2rem;
   display: -webkit-box;
   display: -webkit-flex;
@@ -68,7 +68,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
   height: 4rem;
 }
 
-.c20 {
+.c18 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -81,7 +81,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
   border: 0;
 }
 
-.c22 {
+.c20 {
   color: #424242;
   font-size: 1.4rem;
   display: -webkit-box;
@@ -241,7 +241,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
   margin: 0 1.6rem 0 1.6rem;
 }
 
-.c7 .c26:last-child {
+.c7 .c24:last-child {
   border-bottom: none;
 }
 
@@ -284,39 +284,20 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
   margin: 0 1.6rem 0 1.6rem;
 }
 
-.c18 {
+.c17 {
   height: 2.5rem;
   width: 2.5rem;
   padding: 0.4rem;
 }
 
-.c17 {
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  cursor: pointer;
-  height: -webkit-max-content;
-  height: -moz-max-content;
-  height: max-content;
-  min-height: unset;
-  margin: 0 0 0 auto;
-  padding-right: 2.4rem;
-}
-
-.c17 .c19 {
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  margin: 0px 0px 0px 0.5rem;
-}
-
 @media print {
-  .c24 {
+  .c22 {
     display: none;
   }
 }
 
 @media print {
-  .c25 {
+  .c23 {
     max-width: -webkit-max-content;
     max-width: -moz-max-content;
     max-width: max-content;
@@ -324,13 +305,13 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
 }
 
 @media screen and (max-width:75em) {
-  .c22 {
+  .c20 {
     padding: 0 2.4rem 0.4rem 2.4rem;
   }
 }
 
 @media print {
-  .c22 {
+  .c20 {
     margin: 0;
   }
 }
@@ -365,7 +346,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
 }
 
 @media print {
-  .c0 > *:not(.c21) {
+  .c0 > *:not(.c19) {
     display: none;
   }
 }
@@ -388,18 +369,6 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
 @media screen and (max-width:30em) {
   .c13 {
     width: calc(100vw - 1.6rem);
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c17 {
-    padding-right: 1.6rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c17 .c19 {
-    display: none;
   }
 }
 
@@ -862,7 +831,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
     </div>
     <button
       aria-label="print"
-      className="toolbar-plain-button toolbar-print-opt-wrapper c17"
+      className="toolbar-plain-button toolbar-print-opt-wrapper popup-print-button"
       data-analytics-label="print"
       data-testid="print"
       disabled={false}
@@ -877,7 +846,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
     >
       <svg
         aria-hidden="true"
-        className="c18"
+        className="c17"
         viewBox="0 0 512 512"
       >
         <path
@@ -886,28 +855,28 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
         />
       </svg>
       <span
-        className="toolbar-print-options c19 "
+        className="toolbar-print-options "
       >
         Print
       </span>
     </button>
   </div>
   <div
-    className="c20"
+    className="c18"
     role="status"
   />
   <ul
     aria-atomic="true"
     aria-label="Applied filters"
     aria-live="polite"
-    className="c21 c22"
+    className="c19 c20"
   >
     <li
-      className="c23"
+      className="c21"
     >
       <button
         aria-label="Remove color blue"
-        className="plain-button c24"
+        className="plain-button c22"
         data-analytics-label="Remove breadcrumb for color blue"
         onClick={[Function]}
       >
@@ -939,17 +908,17 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
         </svg>
       </button>
       <span
-        className="c25"
+        className="c23"
       >
         blue
       </span>
     </li>
     <li
-      className="c23"
+      className="c21"
     >
       <button
         aria-label="Remove color green"
-        className="plain-button c24"
+        className="plain-button c22"
         data-analytics-label="Remove breadcrumb for color green"
         onClick={[Function]}
       >
@@ -981,17 +950,17 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
         </svg>
       </button>
       <span
-        className="c25"
+        className="c23"
       >
         green
       </span>
     </li>
     <li
-      className="c23"
+      className="c21"
     >
       <button
         aria-label="Remove color pink"
-        className="plain-button c24"
+        className="plain-button c22"
         data-analytics-label="Remove breadcrumb for color pink"
         onClick={[Function]}
       >
@@ -1023,17 +992,17 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
         </svg>
       </button>
       <span
-        className="c25"
+        className="c23"
       >
         pink
       </span>
     </li>
     <li
-      className="c23"
+      className="c21"
     >
       <button
         aria-label="Remove color purple"
-        className="plain-button c24"
+        className="plain-button c22"
         data-analytics-label="Remove breadcrumb for color purple"
         onClick={[Function]}
       >
@@ -1065,17 +1034,17 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
         </svg>
       </button>
       <span
-        className="c25"
+        className="c23"
       >
         purple
       </span>
     </li>
     <li
-      className="c23"
+      className="c21"
     >
       <button
         aria-label="Remove color yellow"
-        className="plain-button c24"
+        className="plain-button c22"
         data-analytics-label="Remove breadcrumb for color yellow"
         onClick={[Function]}
       >
@@ -1107,7 +1076,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
         </svg>
       </button>
       <span
-        className="c25"
+        className="c23"
       >
         yellow
       </span>
