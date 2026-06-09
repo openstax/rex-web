@@ -34,7 +34,7 @@
   /* textRegularSize equivalent */
   font-size: 1.6rem;
   line-height: 2.5rem;
-  margin: 0px 0px 0px 0.5rem;
+  margin: 0 0 0 0.5rem;
 }
 
 @media screen and (max-width: 75em) {
