@@ -29,14 +29,14 @@
   letter-spacing: -0.02rem;
   line-height: 3rem;
 
-  /* Layout */
-  padding: 3.2rem; /* popupPadding */
+  /* Layout - uses CSS variables bound from PopupConstants */
+  padding: var(--popup-padding, 3.2rem);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 7.2rem; /* headerHeight */
+  height: var(--header-height, 7.2rem);
   overflow: hidden;
-  z-index: 5; /* popupHeaderZIndex */
+  z-index: var(--popup-header-z-index, 5);
 }
 
 /* Mobile breakpoint: max-width: 75em (1200px)
@@ -44,7 +44,7 @@
  */
 @media screen and (max-width: 75em) {
   .popup-header {
-    padding: 1.6rem; /* mobilePaddingSides */
+    padding: var(--mobile-padding-sides, 1.6rem);
     font-size: 1.6rem;
     line-height: 2rem;
   }
@@ -58,9 +58,9 @@
 
 .popup-body {
   -webkit-overflow-scrolling: touch;
-  height: calc(100% - 7.2rem); /* headerHeight */
+  height: calc(100% - var(--header-height, 7.2rem));
   background: var(--popup-body-background, #fff);
-  z-index: 4; /* popupHeaderZIndex - 1 */
+  z-index: var(--popup-body-z-index, 4);
   overflow: auto;
 }
 
@@ -80,23 +80,23 @@
 
 .popup-modal {
   top: 0;
-  z-index: 110; /* theme.zIndex.highlightSummaryPopup */
+  z-index: var(--popup-modal-z-index, 110);
   position: fixed;
   background: var(--popup-modal-background, #fff);
   border-radius: 0.5rem;
-  height: calc(100% - 9.6rem); /* topBottomMargin = headerHeight + popupBodyPadding = 7.2 + 2.4 */
+  height: calc(100% - var(--top-bottom-margin, 9.6rem));
   outline: none;
   overflow: hidden;
-  margin: 7.2rem auto 2.4rem; /* headerHeight, popupBodyPadding */
+  margin: var(--header-height, 7.2rem) auto var(--popup-body-padding, 2.4rem);
   max-width: 128rem; /* contentWrapperMaxWidth */
-  width: calc(100% - 4.8rem); /* popupBodyPadding * 2 = 2.4 * 2 */
+  width: calc(100% - calc(var(--popup-body-padding, 2.4rem) * 2));
 }
 
 @media screen and (max-width: 75em) {
   .popup-modal {
-    margin: 2rem 0;
-    width: calc(100% - 1.6rem); /* mobileMarginSides * 2 = 0.8 * 2 */
-    height: calc(100% - 4rem); /* mobileMarginTopBottom * 2 = 2 * 2 */
+    margin: var(--mobile-margin-top-bottom, 2rem) 0;
+    width: calc(100% - calc(var(--mobile-margin-sides, 0.8rem) * 2));
+    height: calc(100% - calc(var(--mobile-margin-top-bottom, 2rem) * 2));
   }
 }
 

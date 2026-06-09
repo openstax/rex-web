@@ -5,6 +5,7 @@ import { PlainButton } from '../../components/Button';
 import theme from '../../theme';
 import { disablePrintClass } from '../components/utils/disablePrint';
 import { BookWithOSWebData } from '../types';
+import * as PopupConstants from './PopupConstants';
 import './PopupStyles.css';
 
 // Re-export constants from PopupConstants
@@ -44,6 +45,10 @@ export function Header({ colorSchema, className, style, theme: _theme, ...domPro
       className={classNames('popup-header', disablePrintClass, className)}
       style={{
         '--popup-background-color': backgroundColor,
+        '--popup-padding': `${PopupConstants.popupPadding}rem`,
+        '--header-height': `${PopupConstants.headerHeight}rem`,
+        '--popup-header-z-index': PopupConstants.popupHeaderZIndex,
+        '--mobile-padding-sides': `${PopupConstants.mobilePaddingSides}rem`,
         color: textColor,
         ...style,
       } as React.CSSProperties}
@@ -67,6 +72,8 @@ export const PopupBody = React.forwardRef<HTMLDivElement, PopupBodyProps>(
         className={classNames('popup-body', className)}
         style={{
             '--popup-body-background': theme.color.neutral.base,
+            '--header-height': `${PopupConstants.headerHeight}rem`,
+            '--popup-body-z-index': PopupConstants.popupHeaderZIndex - 1,
             ...style,
         } as React.CSSProperties}
         />
@@ -90,6 +97,12 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
         className={classNames('popup-modal', className)}
         style={{
           '--popup-modal-background': theme.color.neutral.base,
+          '--popup-modal-z-index': theme.zIndex.highlightSummaryPopup,
+          '--header-height': `${PopupConstants.headerHeight}rem`,
+          '--popup-body-padding': `${PopupConstants.popupBodyPadding}rem`,
+          '--top-bottom-margin': `${PopupConstants.topBottomMargin}rem`,
+          '--mobile-margin-sides': `${PopupConstants.mobileMarginSides}rem`,
+          '--mobile-margin-top-bottom': `${PopupConstants.mobileMarginTopBottom}rem`,
           ...style,
         } as React.CSSProperties}
       />
