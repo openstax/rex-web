@@ -15,13 +15,15 @@ interface PopUpPrintButtonProps extends React.ComponentProps<typeof PrintButton>
  */
 export function PopUpPrintButton({ className, loading, theme: _theme, ...props }: PopUpPrintButtonProps) {
   // Destructure theme to remove it, preventing it from being passed to the DOM
+  // Wrap PrintButton in a div to apply data-loading attribute, since PrintButton only forwards specific props
 
   return (
-    <PrintButton
-      {...props}
+    <div
       className={classNames('popup-print-button', className)}
       data-loading={loading ? 'true' : 'false'}
-    />
+    >
+      <PrintButton {...props} />
+    </div>
   );
 }
 

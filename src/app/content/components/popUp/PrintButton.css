@@ -4,9 +4,7 @@
  */
 
 .popup-print-button {
-  flex-direction: row;
-  height: max-content;
-  min-height: unset;
+  /* Wrapper div styles */
   margin: 0 0 0 auto;
   padding-right: 2.4rem; /* filters.dropdownToggle.sides.desktop */
 }
@@ -24,6 +22,13 @@
   .popup-print-button {
     padding-right: 1.6rem; /* filters.dropdownToggle.sides.mobile */
   }
+}
+
+/* Style the PrintButton child inside the wrapper */
+.popup-print-button > .toolbar-print-opt-wrapper {
+  flex-direction: row;
+  height: max-content;
+  min-height: unset;
 }
 
 /* PrintOptions child styling
