@@ -59,7 +59,7 @@
 .popup-body {
   -webkit-overflow-scrolling: touch;
   height: calc(100% - 7.2rem); /* headerHeight */
-  background: var(--popup-body-background, #f1f1f1);
+  background: var(--popup-body-background, #fff);
   z-index: 4; /* popupHeaderZIndex - 1 */
   overflow: auto;
 }
@@ -82,7 +82,7 @@
   top: 0;
   z-index: 110; /* theme.zIndex.highlightSummaryPopup */
   position: fixed;
-  background: var(--popup-modal-background, #f1f1f1);
+  background: var(--popup-modal-background, #fff);
   border-radius: 0.5rem;
   height: calc(100% - 9.6rem); /* topBottomMargin = headerHeight + popupBodyPadding = 7.2 + 2.4 */
   outline: none;
