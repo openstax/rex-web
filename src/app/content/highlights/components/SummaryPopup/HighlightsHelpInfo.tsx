@@ -11,7 +11,7 @@ import { assertWindow } from '../../../../utils';
 import './HighlightsHelpInfo.css';
 
 // Media query constant from theme.ts
-const mobileQuery = '(max-width: 75em)';
+const mobileQuery = theme.breakpoints.mobileQuery;
 
 export const cookieId = 'highlights_help_info_dissmised';
 export const timeBeforeShow = 1000;

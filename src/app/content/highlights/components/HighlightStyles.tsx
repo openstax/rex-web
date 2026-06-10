@@ -121,8 +121,8 @@ export const StickyNoteLi = styled.li`
 `;
 
 // Migrated to plain CSS - see HighlightStyles.css
-export const GridWrapper = (props: React.HTMLAttributes<HTMLDivElement>) => (
-  <div {...props} className="grid-wrapper" />
+export const GridWrapper = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
+  <div {...props} className={['grid-wrapper', className].filter(Boolean).join(' ')} />
 );
 
 export const ImagesGrid = styled.div`
@@ -150,8 +150,8 @@ export const GeneralTextWrapper = styled.div`
 export const LoginText = htmlMessage('i18n:toolbar:highlights:popup:login-text', GeneralTextWrapper);
 
 // Migrated to plain CSS - see HighlightStyles.css
-export const MyHighlightsWrapper = (props: React.HTMLAttributes<HTMLDivElement>) => (
-  <div {...props} className="my-highlights-wrapper" />
+export const MyHighlightsWrapper = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
+  <div {...props} className={['my-highlights-wrapper', className].filter(Boolean).join(' ')} />
 );
 
 export const GeneralLeftText = styled(GeneralTextWrapper)`
