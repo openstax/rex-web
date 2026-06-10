@@ -10,6 +10,9 @@ import theme from '../../../../theme';
 import { assertWindow } from '../../../../utils';
 import './HighlightsHelpInfo.css';
 
+// Media query constant from theme.ts
+const mobileQuery = '(max-width: 75em)';
+
 export const cookieId = 'highlights_help_info_dissmised';
 export const timeBeforeShow = 1000;
 
@@ -31,7 +34,7 @@ const HighlightsHelpInfo = () => {
     setTimeout(() => {
       if (
         Boolean(Cookies.get(cookieId))
-        || !assertWindow().matchMedia(theme.breakpoints.mobileQuery).matches
+        || !assertWindow().matchMedia(mobileQuery).matches
       ) { return; }
       setShow(true);
       trackShowHelpInfo();
