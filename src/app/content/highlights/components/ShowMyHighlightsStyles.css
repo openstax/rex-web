@@ -1,0 +1,18 @@
+.show-my-highlights-body {
+  background: var(--show-my-highlights-background, #dedede);
+  text-align: center;
+  padding: 8rem 3.2rem;
+}
+
+@media screen and (max-width: 75em) {
+  .show-my-highlights-body {
+    text-align: left;
+    padding: 0;
+  }
+}
+
+@media print {
+  .show-my-highlights-body {
+    background: white;
+  }
+}
