@@ -23,17 +23,13 @@ Array [
     aria-live="polite"
     className="c0 c1"
   />,
-  .c0 {
-  min-width: 20rem;
-}
-
-<div
+  <div
     aria-label="Edit highlighted note"
     className="edit-card "
     role="dialog"
   >
     <div
-      className="c0"
+      className="hidden-on-mobile"
     >
       <form
         data-analytics-region="edit-note"
@@ -183,17 +179,13 @@ Array [
     aria-live="polite"
     className="c0 c1"
   />,
-  .c0 {
-  min-width: 20rem;
-}
-
-<div
+  <div
     aria-label="Edit highlighted note"
     className="edit-card "
     role="dialog"
   >
     <div
-      className="c0"
+      className="hidden-on-mobile"
     >
       <form
         data-analytics-region="edit-note"

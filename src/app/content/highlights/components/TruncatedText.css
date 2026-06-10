@@ -4,9 +4,10 @@
 
 .truncated-text-link {
   /* textStyle base */
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+
   /* linkStyle */
-  color: var(--link-color, #027EB5);
+  color: var(--link-color, #027eb5);
   text-decoration: none;
   text-align: left;
   cursor: pointer;
@@ -19,12 +20,12 @@
 }
 
 .truncated-text-link:hover {
-  color: var(--link-hover-color, #0064A0);
+  color: var(--link-hover-color, #0064a0);
 }
 
 .truncated-text-note {
   /* textStyle base */
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   overflow: hidden;
   white-space: pre-wrap;
   word-break: break-word;
@@ -39,7 +40,7 @@
   text-overflow: ellipsis;
   overflow: hidden;
   max-height: 5.4rem; /* lineHeight * 3 = 1.8 * 3 = 5.4 */
-  display: -webkit-box;
+  display: box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
 }
