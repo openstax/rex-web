@@ -106,7 +106,9 @@ exports[`KeyboardShortcuts renders keyboard shortcuts modal if it is open 1`] = 
       style={
         Object {
           "--keyboard-shortcuts-body-bg": "#fafafa",
+          "--keyboard-shortcuts-header-height": "7.2rem",
           "--keyboard-shortcuts-text-color": "#424242",
+          "--keyboard-shortcuts-z-index": 4,
           "--shortcut-key-bg": "#fafafa",
           "--shortcut-key-border": "#d5d5d5",
           "--shortcuts-card-bg": "#fff",

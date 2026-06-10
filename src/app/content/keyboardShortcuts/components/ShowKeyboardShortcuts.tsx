@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import { FormattedMessage } from 'react-intl';
 import { htmlMessage } from '../../../components/htmlMessage';
 import theme from '../../../theme';
+import { headerHeight, popupHeaderZIndex } from '../../styles/PopupConstants';
 import './ShowKeyboardShortcuts.css';
 
 interface ShowKeyboardShortcutsBodyProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -26,6 +27,8 @@ export function ShowKeyboardShortcutsBody({ className, style, ...props }: ShowKe
         '--shortcuts-card-border': theme.color.neutral.darkest,
         '--shortcut-key-bg': theme.color.neutral.darker,
         '--shortcut-key-border': theme.color.neutral.formBorder,
+        '--keyboard-shortcuts-header-height': `${headerHeight}rem`,
+        '--keyboard-shortcuts-z-index': popupHeaderZIndex - 1,
         ...style,
       } as React.CSSProperties}
     />

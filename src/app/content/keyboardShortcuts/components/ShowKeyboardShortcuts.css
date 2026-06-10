@@ -9,8 +9,8 @@
   line-height: 2.5rem;
   padding: 2rem 3.2rem 3.2rem 3.2rem;
   -webkit-overflow-scrolling: touch;
-  height: calc(100% - 7.2rem); /* headerHeight from PopupStyles */
-  z-index: 4; /* popupHeaderZIndex - 1 */
+  height: calc(100% - var(--keyboard-shortcuts-header-height, 7.2rem));
+  z-index: var(--keyboard-shortcuts-z-index, 4);
   overflow: auto;
 }
 
