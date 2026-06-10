@@ -20,8 +20,8 @@
  * Converted to: (pointer: coarse) OR (hover: none)
  * Combined with mobileBreak: (max-width: 75em)
  */
-@media (max-width: 75em) and (pointer: coarse),
-  (max-width: 75em) and (hover: none) {
+@media screen and (max-width: 75em) and not all and (pointer: fine),
+  screen and (max-width: 75em) and (hover: none) {
   .hidden-on-mobile {
     display: none;
   }
