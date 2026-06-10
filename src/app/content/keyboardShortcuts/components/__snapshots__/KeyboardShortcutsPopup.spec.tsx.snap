@@ -123,151 +123,151 @@ exports[`KeyboardShortcuts renders keyboard shortcuts modal if it is open 1`] = 
         Using a Keyboard for Navigation
       </div>
       <div
-        className="shortcuts-card"
+        className="keyboard-shortcuts-card"
       >
         <div
-          className="shortcuts-table"
+          className="keyboard-shortcuts-table"
         >
           <div
-            className="shortcut-row"
+            className="keyboard-shortcut-row"
           >
             <div
-              className="shortcut-block"
+              className="keyboard-shortcut-block"
             >
               <span
-                className="shortcut-key"
+                className="keyboard-shortcut-key"
               >
                 Shift
               </span>
                + 
               <span
-                className="shortcut-key"
+                className="keyboard-shortcut-key"
               >
                 ?
               </span>
             </div>
             <div
-              className="shortcut-block"
+              className="keyboard-shortcut-block"
             >
               Pull up keyboard shortcuts menu
             </div>
           </div>
           <div
-            className="shortcut-row"
+            className="keyboard-shortcut-row"
           >
             <div
-              className="shortcut-block"
+              className="keyboard-shortcut-block"
             >
               <span
-                className="shortcut-key"
+                className="keyboard-shortcut-key"
               >
                 Tab
               </span>
             </div>
             <div
-              className="shortcut-block"
+              className="keyboard-shortcut-block"
             >
               Move forward through book page elements, highlights and notes
             </div>
           </div>
           <div
-            className="shortcut-row"
+            className="keyboard-shortcut-row"
           >
             <div
-              className="shortcut-block"
+              className="keyboard-shortcut-block"
             >
               <span
-                className="shortcut-key"
+                className="keyboard-shortcut-key"
               >
                 Shift
               </span>
                + 
               <span
-                className="shortcut-key"
+                className="keyboard-shortcut-key"
               >
                 Tab
               </span>
             </div>
             <div
-              className="shortcut-block"
+              className="keyboard-shortcut-block"
             >
               Move backward through book page elements, highlights and notes
             </div>
           </div>
           <div
-            className="shortcut-row"
+            className="keyboard-shortcut-row"
           >
             <div
-              className="shortcut-block"
+              className="keyboard-shortcut-block"
             >
               <span
-                className="shortcut-key"
+                className="keyboard-shortcut-key"
               >
                 Option (Mac) or Alt (other)
               </span>
                + 
               <span
-                className="shortcut-key"
+                className="keyboard-shortcut-key"
               >
                 h
               </span>
             </div>
             <div
-              className="shortcut-block"
+              className="keyboard-shortcut-block"
             >
               Move focus into and out of a note
             </div>
           </div>
           <div
-            className="shortcut-row"
+            className="keyboard-shortcut-row"
           >
             <div
-              className="shortcut-block"
+              className="keyboard-shortcut-block"
             >
               <span
-                className="shortcut-key"
+                className="keyboard-shortcut-key"
               >
                 Tab
               </span>
             </div>
             <div
-              className="shortcut-block"
+              className="keyboard-shortcut-block"
             >
               Move through note editing options
             </div>
           </div>
           <div
-            className="shortcut-row"
+            className="keyboard-shortcut-row"
           >
             <div
-              className="shortcut-block"
+              className="keyboard-shortcut-block"
             >
               <span
-                className="shortcut-key"
+                className="keyboard-shortcut-key"
               >
                 Arrows
               </span>
             </div>
             <div
-              className="shortcut-block"
+              className="keyboard-shortcut-block"
             >
               Select a different highlight color
             </div>
           </div>
           <div
-            className="shortcut-row"
+            className="keyboard-shortcut-row"
           >
             <div
-              className="shortcut-block"
+              className="keyboard-shortcut-block"
             >
               <span
-                className="shortcut-key"
+                className="keyboard-shortcut-key"
               >
                 Enter
               </span>
             </div>
             <div
-              className="shortcut-block"
+              className="keyboard-shortcut-block"
             >
               Save or Cancel note edits
             </div>
@@ -280,7 +280,7 @@ exports[`KeyboardShortcuts renders keyboard shortcuts modal if it is open 1`] = 
         Creating Highlights and Notes with a Keyboard
       </div>
       <div
-        className="caret-message"
+        className="keyboard-shortcuts-caret-message"
         dangerouslySetInnerHTML={
           Object {
             "__html": "To select text for highlighting or note-taking, enable caret browsing by pressing F7 (or Fn+F7). This works in Chrome, Firefox, and Edge, allowing you to browse and select text using the arrow keys. Safari does not support caret browsing; Safari users can use VoiceOver (Cmd+F5) for keyboard-based text selection.",
@@ -288,97 +288,97 @@ exports[`KeyboardShortcuts renders keyboard shortcuts modal if it is open 1`] = 
         }
       />
       <div
-        className="shortcuts-card"
+        className="keyboard-shortcuts-card"
       >
         <div
-          className="shortcuts-table"
+          className="keyboard-shortcuts-table"
         >
           <div
-            className="shortcut-row"
+            className="keyboard-shortcut-row"
           >
             <div
-              className="shortcut-block"
+              className="keyboard-shortcut-block"
             >
               <span
-                className="shortcut-key"
+                className="keyboard-shortcut-key"
               >
                 Arrows
               </span>
             </div>
             <div
-              className="shortcut-block"
+              className="keyboard-shortcut-block"
             >
               Move focus through each line of text
             </div>
           </div>
           <div
-            className="shortcut-row"
+            className="keyboard-shortcut-row"
           >
             <div
-              className="shortcut-block"
+              className="keyboard-shortcut-block"
             >
               <span
-                className="shortcut-key"
+                className="keyboard-shortcut-key"
               >
                 Shift
               </span>
                + 
               <span
-                className="shortcut-key"
+                className="keyboard-shortcut-key"
               >
                 Arrows
               </span>
             </div>
             <div
-              className="shortcut-block"
+              className="keyboard-shortcut-block"
             >
               Select text
             </div>
           </div>
           <div
-            className="shortcut-row"
+            className="keyboard-shortcut-row"
           >
             <div
-              className="shortcut-block"
+              className="keyboard-shortcut-block"
             >
               <span
-                className="shortcut-key"
+                className="keyboard-shortcut-key"
               >
                 Option (Mac) or Alt (other)
               </span>
                + 
               <span
-                className="shortcut-key"
+                className="keyboard-shortcut-key"
               >
                 h
               </span>
             </div>
             <div
-              className="shortcut-block"
+              className="keyboard-shortcut-block"
             >
               Create a highlight or note after selecting text
             </div>
           </div>
           <div
-            className="shortcut-row"
+            className="keyboard-shortcut-row"
           >
             <div
-              className="shortcut-block"
+              className="keyboard-shortcut-block"
             >
               <span
-                className="shortcut-key"
+                className="keyboard-shortcut-key"
               >
                 Option (Mac) or Alt (other)
               </span>
                + 
               <span
-                className="shortcut-key"
+                className="keyboard-shortcut-key"
               >
                 s
               </span>
             </div>
             <div
-              className="shortcut-block"
+              className="keyboard-shortcut-block"
             >
               Navigate among search bar, search results, and main content region
             </div>
@@ -391,121 +391,121 @@ exports[`KeyboardShortcuts renders keyboard shortcuts modal if it is open 1`] = 
         Interacting with Math Equations
       </div>
       <div
-        className="shortcuts-card"
+        className="keyboard-shortcuts-card"
       >
         <div
-          className="shortcuts-table"
+          className="keyboard-shortcuts-table"
         >
           <div
-            className="shortcut-row"
+            className="keyboard-shortcut-row"
           >
             <div
-              className="shortcut-block"
+              className="keyboard-shortcut-block"
             >
               <span
-                className="shortcut-key"
+                className="keyboard-shortcut-key"
               >
                 Tab
               </span>
             </div>
             <div
-              className="shortcut-block"
+              className="keyboard-shortcut-block"
             >
               Move focus to math equation
             </div>
           </div>
           <div
-            className="shortcut-row"
+            className="keyboard-shortcut-row"
           >
             <div
-              className="shortcut-block"
+              className="keyboard-shortcut-block"
             >
               <span
-                className="shortcut-key"
+                className="keyboard-shortcut-key"
               >
                 Shift
               </span>
                + 
               <span
-                className="shortcut-key"
+                className="keyboard-shortcut-key"
               >
                 Tab
               </span>
             </div>
             <div
-              className="shortcut-block"
+              className="keyboard-shortcut-block"
             >
               Move focus backward to math equation
             </div>
           </div>
           <div
-            className="shortcut-row"
+            className="keyboard-shortcut-row"
           >
             <div
-              className="shortcut-block"
+              className="keyboard-shortcut-block"
             >
               <span
-                className="shortcut-key"
+                className="keyboard-shortcut-key"
               >
                 Space
               </span>
                or 
               <span
-                className="shortcut-key"
+                className="keyboard-shortcut-key"
               >
                 Enter
               </span>
             </div>
             <div
-              className="shortcut-block"
+              className="keyboard-shortcut-block"
             >
               Open MathJax context menu (after focusing equation)
             </div>
           </div>
           <div
-            className="shortcut-row"
+            className="keyboard-shortcut-row"
           >
             <div
-              className="shortcut-block"
+              className="keyboard-shortcut-block"
             >
               <span
-                className="shortcut-key"
+                className="keyboard-shortcut-key"
               >
                 Shift
               </span>
                + 
               <span
-                className="shortcut-key"
+                className="keyboard-shortcut-key"
               >
                 F10
               </span>
             </div>
             <div
-              className="shortcut-block"
+              className="keyboard-shortcut-block"
             >
               (Windows) – Alternative: open context menu
             </div>
           </div>
           <div
-            className="shortcut-row"
+            className="keyboard-shortcut-row"
           >
             <div
-              className="shortcut-block"
+              className="keyboard-shortcut-block"
             >
               <span
-                className="shortcut-key"
+                className="keyboard-shortcut-key"
               >
                 Ctrl
               </span>
                + 
               <span
-                className="shortcut-key"
+                className="keyboard-shortcut-key"
               >
                 Enter
               </span>
             </div>
             <div
-              className="shortcut-block"
+              className="keyboard-shortcut-block"
             >
               (Mac) – Alternative: open context menu
             </div>

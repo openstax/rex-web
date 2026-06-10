@@ -41,7 +41,7 @@
   }
 }
 
-.shortcuts-card {
+.keyboard-shortcuts-card {
   background-color: var(--shortcuts-card-bg, #fff);
   border: 1px solid var(--shortcuts-card-border, #5e6366);
   margin: 2rem 0;
@@ -50,48 +50,48 @@
 }
 
 @media screen and (max-width: 75em) {
-  .shortcuts-card {
+  .keyboard-shortcuts-card {
     margin: 1.6rem 0;
     padding: 0.8rem;
   }
 }
 
-.shortcuts-table {
+.keyboard-shortcuts-table {
   border-collapse: separate;
   border-spacing: 3.2rem 1.6rem;
   display: table;
 }
 
 @media screen and (max-width: 75em) {
-  .shortcuts-table {
+  .keyboard-shortcuts-table {
     display: block;
   }
 }
 
-.shortcut-row {
+.keyboard-shortcut-row {
   display: table-row;
 }
 
 @media screen and (max-width: 75em) {
-  .shortcut-row {
+  .keyboard-shortcut-row {
     display: block;
   }
 }
 
-.shortcut-block {
+.keyboard-shortcut-block {
   display: table-cell;
   min-width: 16rem;
   vertical-align: middle;
 }
 
 @media screen and (max-width: 75em) {
-  .shortcut-block {
+  .keyboard-shortcut-block {
     display: block;
     margin: 0.8rem;
   }
 }
 
-.shortcut-key {
+.keyboard-shortcut-key {
   background-color: var(--shortcut-key-bg, #e8e8e8);
   border: 1px solid var(--shortcut-key-border, #d5d5d5);
   border-radius: 3px;
@@ -101,6 +101,6 @@
   vertical-align: middle;
 }
 
-.caret-message {
+.keyboard-shortcuts-caret-message {
   /* Empty for now - placeholder for potential future styles */
 }
