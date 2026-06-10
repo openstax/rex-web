@@ -1,0 +1,106 @@
+/**
+ * Keyboard Shortcuts - Plain CSS version
+ */
+
+.keyboard-shortcuts-body {
+  background-color: var(--keyboard-shortcuts-body-bg, #e8e8e8);
+  color: var(--keyboard-shortcuts-text-color, #424242);
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  padding: 2rem 3.2rem 3.2rem 3.2rem;
+  -webkit-overflow-scrolling: touch;
+  height: calc(100% - var(--keyboard-shortcuts-header-height, 7.2rem));
+  z-index: var(--keyboard-shortcuts-z-index, 4);
+  overflow: auto;
+}
+
+@media screen and (max-width: 75em) {
+  .keyboard-shortcuts-body {
+    padding: 1.6rem;
+    text-align: left;
+  }
+}
+
+@media print {
+  .keyboard-shortcuts-body {
+    height: max-content;
+    overflow: auto;
+  }
+}
+
+.keyboard-shortcuts-heading {
+  font-size: 1.8rem;
+  font-weight: bold;
+  line-height: 3rem;
+}
+
+@media screen and (max-width: 75em) {
+  .keyboard-shortcuts-heading {
+    font-size: 1.6rem;
+    line-height: 2.5rem;
+  }
+}
+
+.keyboard-shortcuts-card {
+  background-color: var(--shortcuts-card-bg, #fff);
+  border: 1px solid var(--shortcuts-card-border, #5e6366);
+  margin: 2rem 0;
+  padding: 1.6rem 0;
+  width: 100%;
+}
+
+@media screen and (max-width: 75em) {
+  .keyboard-shortcuts-card {
+    margin: 1.6rem 0;
+    padding: 0.8rem;
+  }
+}
+
+.keyboard-shortcuts-table {
+  border-collapse: separate;
+  border-spacing: 3.2rem 1.6rem;
+  display: table;
+}
+
+@media screen and (max-width: 75em) {
+  .keyboard-shortcuts-table {
+    display: block;
+  }
+}
+
+.keyboard-shortcut-row {
+  display: table-row;
+}
+
+@media screen and (max-width: 75em) {
+  .keyboard-shortcut-row {
+    display: block;
+  }
+}
+
+.keyboard-shortcut-block {
+  display: table-cell;
+  min-width: 16rem;
+  vertical-align: middle;
+}
+
+@media screen and (max-width: 75em) {
+  .keyboard-shortcut-block {
+    display: block;
+    margin: 0.8rem;
+  }
+}
+
+.keyboard-shortcut-key {
+  background-color: var(--shortcut-key-bg, #e8e8e8);
+  border: 1px solid var(--shortcut-key-border, #d5d5d5);
+  border-radius: 3px;
+  display: inline-block;
+  font-weight: bold;
+  padding: 0.4rem 1.2rem 0.3rem;
+  vertical-align: middle;
+}
+
+.keyboard-shortcuts-caret-message {
+  /* Empty for now - placeholder for potential future styles */
+}
