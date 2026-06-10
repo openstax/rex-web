@@ -13,7 +13,7 @@ interface ShowMyHighlightsBodyProps extends React.HTMLAttributes<HTMLDivElement>
  * Extends PopupBody with custom background color
  */
 export function ShowMyHighlightsBody({ className, style, ...props }: ShowMyHighlightsBodyProps) {
-  const { theme: _theme, ...domProps } = props as any;
+  const { theme: _theme, ...domProps } = props;
 
   return (
     <PopupBody
