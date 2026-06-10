@@ -74,7 +74,7 @@ export function ShortcutsCard({ className, ...props }: ShortcutsCardProps) {
   return (
     <div
       {...domProps}
-      className={classNames('shortcuts-card', className)}
+      className={classNames('keyboard-shortcuts-card', className)}
     />
   );
 }
@@ -92,7 +92,7 @@ export function ShortcutsTable({ className, ...props }: ShortcutsTableProps) {
   return (
     <div
       {...domProps}
-      className={classNames('shortcuts-table', className)}
+      className={classNames('keyboard-shortcuts-table', className)}
     />
   );
 }
@@ -110,7 +110,7 @@ export function ShortcutRow({ className, ...props }: ShortcutRowProps) {
   return (
     <div
       {...domProps}
-      className={classNames('shortcut-row', className)}
+      className={classNames('keyboard-shortcut-row', className)}
     />
   );
 }
@@ -128,7 +128,7 @@ export function ShortcutBlock({ className, ...props }: ShortcutBlockProps) {
   return (
     <div
       {...domProps}
-      className={classNames('shortcut-block', className)}
+      className={classNames('keyboard-shortcut-block', className)}
     />
   );
 }
@@ -146,7 +146,7 @@ export function ShortcutKey({ className, ...props }: ShortcutKeyProps) {
   return (
     <span
       {...domProps}
-      className={classNames('shortcut-key', className)}
+      className={classNames('keyboard-shortcut-key', className)}
     />
   );
 }
@@ -178,7 +178,7 @@ export function CaretMessageDiv({ className, ...props }: React.HTMLAttributes<HT
   return (
     <div
       {...props}
-      className={classNames('caret-message', className)}
+      className={classNames('keyboard-shortcuts-caret-message', className)}
     />
   );
 }
