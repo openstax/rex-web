@@ -1,9 +1,11 @@
+import React from 'react';
 import styled, { css } from 'styled-components/macro';
 import htmlMessage from '../../../components/htmlMessage';
 import { bodyCopyRegularStyle } from '../../../components/Typography';
 import { H3, h4Style } from '../../../components/Typography';
 import theme from '../../../theme';
 import { desktopPopupWidth, popupBodyPadding, popupPadding } from '../../styles/PopupStyles';
+import './HighlightStyles.css';
 
 export const myHighlightsImageWidth = 72.8;
 export const myHighlightsImageHeight = 23.2;
@@ -118,14 +120,10 @@ export const StickyNoteLi = styled.li`
   }
 `;
 
-export const GridWrapper = styled.div`
-  margin: 3.6rem auto 0;
-  overflow: visible;
-  width: ${desktopPopupWidth}rem;
-  ${theme.breakpoints.mobile(css`
-    display: none;
-  `)}
-`;
+// Migrated to plain CSS - see HighlightStyles.css
+export const GridWrapper = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
+  <div {...props} className={['grid-wrapper', className].filter(Boolean).join(' ')} />
+);
 
 export const ImagesGrid = styled.div`
   display: flex;
@@ -151,14 +149,10 @@ export const GeneralTextWrapper = styled.div`
 
 export const LoginText = htmlMessage('i18n:toolbar:highlights:popup:login-text', GeneralTextWrapper);
 
-export const MyHighlightsWrapper = styled.div`
-  margin: 3.6rem auto 0;
-  width: ${desktopPopupWidth}rem;
-  text-align: center;
-  ${theme.breakpoints.mobile(css`
-    display: none;
-  `)}
-`;
+// Migrated to plain CSS - see HighlightStyles.css
+export const MyHighlightsWrapper = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
+  <div {...props} className={['my-highlights-wrapper', className].filter(Boolean).join(' ')} />
+);
 
 export const GeneralLeftText = styled(GeneralTextWrapper)`
   display: flex;
