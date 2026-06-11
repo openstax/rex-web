@@ -1,0 +1,85 @@
+/**
+ * HighlightListElement Component Styles
+ *
+ * This file contains styles for the highlight list elements in the summary popup.
+ * It handles:
+ * - Outer wrapper with borders between elements
+ * - Content wrapper with dynamic color-based left border
+ * - Print-specific styles
+ * - Hidden accessibility labels
+ */
+
+/* === Constants ===
+ * popupBodyPadding: 3.2rem (from PopupStyles)
+ * theme.color.neutral.darker: #fafafa
+ * theme.color.neutral.base: #fff
+ * theme.color.neutral.foreground: #424242
+ */
+
+/* === HighlightOuterWrapper === */
+.highlight-outer-wrapper {
+  position: relative;
+  overflow: visible;
+  background: #fff; /* theme.color.neutral.base */
+}
+
+.highlight-outer-wrapper:not(:last-child) {
+  border-bottom: solid 0.2rem #fafafa; /* theme.color.neutral.darker */
+}
+
+@media print {
+  .highlight-outer-wrapper {
+    border-width: 0;
+    position: relative;
+    page-break-inside: avoid;
+    background: white;
+  }
+}
+
+/* === HighlightContentWrapper === */
+.highlight-content-wrapper {
+  padding: 1.2rem 3.2rem; /* popupBodyPadding */
+}
+
+/* Color-specific left borders - set via CSS variables */
+.highlight-content-wrapper {
+  border-left: solid 0.8rem var(--highlight-focused-color, transparent);
+}
+
+/* ContentExcerpt background - set via CSS variables */
+.highlight-content-wrapper .content-excerpt {
+  background-color: var(--highlight-passive-color, transparent);
+}
+
+.highlight-content-wrapper .content-excerpt a {
+  color: inherit;
+}
+
+/* Note text styling */
+.highlight-content-wrapper .highlight-note-text {
+  color: #424242; /* theme.color.neutral.foreground */
+  font-weight: bold;
+}
+
+@media print {
+  .highlight-content-wrapper {
+    break-inside: avoid-page;
+  }
+
+  .highlight-content-wrapper .content-excerpt {
+    background-color: white;
+  }
+}
+
+/* === HiddenLabel === */
+.hidden-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
