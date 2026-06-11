@@ -8,7 +8,8 @@ import React from 'react';
  *
  * For content components that were migrated from styled-icons, use components/icons/Times.tsx (TimesIcon) instead.
  */
-const SvgComponent = (props: React.HTMLAttributes<SVGElement>) => (
+
+const SvgComponent = (props: Omit<React.SVGProps<SVGElement>, 'ref'>) => (
   <svg width='15px' height='15px' viewBox='0 0 15 15' version='1.1' {...props}>
     <g stroke='none' strokeWidth='1' fill='none' fillRule='evenodd'>
       <g transform='translate(-302.000000, -18.000000)' fill='currentColor'>

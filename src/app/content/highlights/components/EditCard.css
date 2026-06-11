@@ -1,0 +1,20 @@
+/* EditCard styles */
+.edit-card {
+  background: var(--color-neutral-form-background);
+  user-select: none;
+  overflow: visible;
+}
+
+.edit-card .button-group {
+  margin-top: 0.8rem;
+}
+
+/* Touch device query - hide edit card on touch devices
+ * Equivalent to theme.breakpoints.touchDeviceQuery */
+@media screen and (max-width: 75em) {
+  @media not all and (pointer: fine), (hover: none) {
+    .edit-card {
+      visibility: hidden;
+    }
+  }
+}

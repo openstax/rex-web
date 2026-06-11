@@ -35,6 +35,21 @@ exports[`assigned route route renders renders a component 1`] = `
   justify-content: flex-end;
 }
 
+.c1 {
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.14);
+  background-color: #fff;
+  color: #424242;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  height: 5rem;
+}
+
+.c1.c1 {
+  top: 0;
+}
+
 .c15 {
   height: 1.7rem;
   width: 1.7rem;
@@ -60,21 +75,6 @@ exports[`assigned route route renders renders a component 1`] = `
 
 .c11::-webkit-details-marker {
   display: none;
-}
-
-.c1 {
-  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.14);
-  background-color: #fff;
-  color: #424242;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  height: 5rem;
-}
-
-.c1.c1 {
-  top: 0;
 }
 
 .c2 {
@@ -379,6 +379,7 @@ exports[`assigned route route renders renders a component 1`] = `
     />
     <div
       className="c3 topbar-text-resizer-dropdown"
+      data-testid="text-resizer"
     >
       <button
         aria-controls="text-resizer-menu"
@@ -415,6 +416,8 @@ exports[`assigned route route renders renders a component 1`] = `
         style={
           Object {
             "--content-text-width": "82.5rem",
+            "--highlight-pink-text": "var(--color-text-white)",
+            "--highlight-purple-text": "var(--color-text-white)",
             "--page-margin-top-desktop": "3.2rem",
             "--page-margin-top-mobile": "1.6rem",
           }

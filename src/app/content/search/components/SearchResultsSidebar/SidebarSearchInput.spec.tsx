@@ -17,7 +17,7 @@ import {
 } from '../../../search/actions';
 import * as searchSelectors from '../../../search/selectors';
 import { mockBook } from '../../../utils/seoUtils.spec.data';
-import { StyledSearchCloseButtonNew } from './SidebarSearchInput';
+import * as TopbarStyled from '../../../components/Topbar/styled';
 
 describe('search', () => {
   let store: Store;
@@ -164,7 +164,7 @@ describe('search', () => {
       store.dispatch(receiveSearchResults(makeSearchResults()));
     });
 
-    const [closeButton] = component.root.findAllByType(StyledSearchCloseButtonNew);
+    const [closeButton] = component.root.findAllByType(TopbarStyled.CloseButtonNew);
 
     expect(closeButton).toBeTruthy();
   });

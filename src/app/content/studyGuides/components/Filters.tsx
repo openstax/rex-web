@@ -2,7 +2,6 @@ import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import flow from 'lodash/fp/flow';
 import React from 'react';
 import { connect, useSelector } from 'react-redux';
-import styled from 'styled-components/macro';
 import { loggedOut } from '../../../auth/selectors';
 import { useServices } from '../../../context/Services';
 import { AppState, Dispatch } from '../../../types';
@@ -18,6 +17,7 @@ import { printStudyGuides } from '../actions';
 import { highlightStyles } from '../constants';
 import * as selectors from '../selectors';
 import { updateQueryFromFilterChange } from '../utils';
+import './Filters.css';
 
 // converting color to a label is based on "i18n:studyguides:popup:filters:remove:color" from messages.json
 const createColorDataAnalyticsLabel = (color: HighlightColorEnum): string => {
@@ -48,23 +48,12 @@ const ConnectedChapterFilter = connect(
   })
 )(ChapterFilter);
 
-const StyledColorFilter = styled(ColorFilter)`
-  min-width: 29rem;
-`;
-
-const RightButtonsWrapper = styled.div`
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-  overflow: visible;
-`;
-
 const ConnectedColorFilter = connect(
   (state: AppState) => ({
     colorFiltersWithContent: selectors.highlightColorFiltersWithContent(state),
     selectedColorFilters: selectors.summaryColorFilters(state),
   })
-)(StyledColorFilter);
+)(ColorFilter);
 
 const ConnectedFilterList = connect(
   (state: AppState) => ({
@@ -126,6 +115,7 @@ export default () => {
         controlsId='guide-filter-color'
       >
         <ConnectedColorFilter
+          className="study-guides-color-filter"
           id='guide-filter-color'
           disabled={userLoggedOut}
           styles={highlightStyles}
@@ -134,9 +124,9 @@ export default () => {
             updateQueryFromFilterChange(dispatch, state, { colors: change })}
         />
       </FilterDropdown>
-      <RightButtonsWrapper>
+      <div className="study-guides-right-buttons">
         <ConnectedPrintButton studyGuidesButton />
-      </RightButtonsWrapper>
+      </div>
     </FiltersTopBar>
     {!userLoggedOut && <ConnectedFilterList
       className="filters-list"

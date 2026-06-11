@@ -2,6 +2,8 @@ import React from 'react';
 import { useIntl } from 'react-intl';
 import { connect } from 'react-redux';
 import { CollapseIcon, ExpandIcon } from '../../../../components/Details';
+import { Details as BaseDetails } from '../../../../components/Details';
+import { Summary } from '../../../../components/Details.legacy';
 import { AppState, Dispatch, FirstArgumentType } from '../../../../types';
 import * as select from '../../../selectors';
 import { Book, Page } from '../../../types';
@@ -11,7 +13,7 @@ import { isSearchResultChapter } from '../../guards';
 import * as selectSearch from '../../selectors';
 import { SearchResultChapter, SearchResultContainer, SearchResultPage, SelectedResult } from '../../types';
 import SearchResultHits from './SearchResultHits';
-import * as Styled from './styled';
+import './SearchResultsSidebar.css';
 
 interface SearchResultContainersProps {
   currentPage: Page | undefined;
@@ -71,14 +73,14 @@ const SearchResult = (props: {
     [props]
   );
 
-  return <Styled.NavItem>
-    <Styled.LinkWrapper {...(active ? {
+  return <li className="nav-item">
+    <div className="link-wrapper" {...(active ? {
       'aria-label': formatMessage({id: 'i18n:search-results:bar:current-page'}),
     } : {})}>
-      <Styled.SearchResultsLink
+      <h4 className="search-results-link"
         dangerouslySetInnerHTML={{ __html: props.page.title }}
       />
-    </Styled.LinkWrapper>
+    </div>
     <SearchResultHits
       activeSectionRef={props.activeSectionRef}
       book={props.book}
@@ -88,7 +90,7 @@ const SearchResult = (props: {
       onClick={selectResultAndFocus}
       selectedResult={props.selectedResult}
     />
-  </Styled.NavItem>;
+  </li>;
 };
 
 const SearchResultsDropdown = (props: {
@@ -100,18 +102,18 @@ const SearchResultsDropdown = (props: {
   selectedResult: SelectedResult | null;
   activeSectionRef: React.RefObject<HTMLAnchorElement>;
 }) => {
-  return <Styled.ListItem>
-    <Styled.Details open>
-      <Styled.SearchBarSummary tabIndex={0}>
-        <Styled.SearchBarSummaryContainer tabIndex={-1}>
+  return <li className="list-item">
+    <BaseDetails className="details" open>
+      <Summary className="search-bar-summary" tabIndex={0}>
+        <div className="search-bar-summary-container" tabIndex={-1}>
           <ExpandIcon />
           <CollapseIcon />
-          <Styled.SummaryTitle
+          <h3 className="summary-title"
             dangerouslySetInnerHTML={{ __html: props.chapter.title }}
           />
-        </Styled.SearchBarSummaryContainer>
-      </Styled.SearchBarSummary>
-      <Styled.DetailsOl>
+        </div>
+      </Summary>
+      <ol className="details-ol">
         <SearchResultContainers
           currentPage={props.currentPage}
           currentQuery={props.currentQuery}
@@ -121,9 +123,9 @@ const SearchResultsDropdown = (props: {
           selectedResult={props.selectedResult}
           activeSectionRef={props.activeSectionRef}
         />
-      </Styled.DetailsOl>
-    </Styled.Details>
-  </Styled.ListItem>;
+      </ol>
+    </BaseDetails>
+  </li>;
 };
 
 export default connect(

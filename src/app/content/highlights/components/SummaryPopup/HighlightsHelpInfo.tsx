@@ -1,60 +1,14 @@
 import * as Cookies from 'js-cookie';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import styled, { css, keyframes } from 'styled-components';
 import { useAnalyticsEvent } from '../../../../../helpers/analytics';
 import { user as userSelector } from '../../../../auth/selectors';
 import { PlainButton } from '../../../../components/Button';
 import htmlMessage from '../../../../components/htmlMessage';
 import { TimesIcon } from '../../../../components/icons/Times';
-import { bodyCopyRegularStyle } from '../../../../components/Typography';
 import theme from '../../../../theme';
 import { assertWindow } from '../../../../utils';
-import { disablePrint } from '../../../components/utils/disablePrint';
-
-// This is copied from CallToActionPopup > styles.tsx
-// Where should we store this kind of function?
-const slideInFromBottom = keyframes`
-  0% {
-    bottom: -100%;
-  }
-
-  100% {
-    bottom: 0;
-  }
-`;
-
-const slideInAnimation = css`
-  animation: ${800}ms ${slideInFromBottom} ease-out;
-`;
-
-const Wrapper = styled.div`
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  z-index: ${theme.zIndex.highlightsHelpInfoMobile};
-  ${bodyCopyRegularStyle}
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  height: 6rem;
-  padding: 0 2rem;
-  background-color: ${theme.color.neutral.formBackground};
-  border: 1px solid ${theme.color.neutral.formBorder};
-  ${slideInAnimation}
-
-  @media screen and (min-width: ${theme.breakpoints.mobileBreak}em) {
-    display: none;
-  }
-
-  ${disablePrint}
-`;
-
-export const CloseIcon = styled(TimesIcon)`
-  color: ${theme.color.secondary.lightGray.darkest};
-  width: 1.4rem;
-`;
+import './HighlightsHelpInfo.css';
 
 export const cookieId = 'highlights_help_info_dissmised';
 export const timeBeforeShow = 1000;
@@ -87,12 +41,22 @@ const HighlightsHelpInfo = () => {
 
   if (!show || !user) { return null; }
 
-  return <Wrapper data-analytics-region='Mobile MH help info'>
+  return <div
+    className="highlights-help-info disable-print"
+    data-analytics-region='Mobile MH help info'
+    style={{
+      zIndex: theme.zIndex.highlightsHelpInfoMobile,
+      '--help-info-bg': theme.color.neutral.formBackground,
+      '--help-info-border': theme.color.neutral.formBorder,
+      '--help-info-color': theme.color.text.default,
+      '--close-icon-color': theme.color.secondary.lightGray.darkest,
+    } as React.CSSProperties}
+  >
     <Message />
     <PlainButton onClick={dismiss} data-analytics-label='close' aria-label='dismiss'>
-      <CloseIcon />
+      <TimesIcon className="highlights-help-info__close-icon" />
     </PlainButton>
-  </Wrapper>;
+  </div>;
 };
 
 export default HighlightsHelpInfo;

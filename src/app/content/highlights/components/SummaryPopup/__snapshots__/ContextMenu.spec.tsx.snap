@@ -1,51 +1,29 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ContextMenu match snapshot when closed 1`] = `
-.c2 {
+.c0 {
   overflow: visible;
   position: relative;
 }
 
-.c0 .c1 {
-  position: absolute;
-  width: 150px;
-  top: 1.2rem;
-  right: 0;
-}
-
-.c0 .c1 .focus-within .c4 {
-  color: #818181;
-}
-
-.c0 .c1:focus-within .c4 {
-  color: #818181;
-}
-
-.c0 .c5 {
-  margin: 0.6rem 0 0 0.6rem;
-}
-
-.c0 .c3 {
-  float: right;
-  margin-right: 0.2rem;
-}
-
-@media print {
-  .c0 {
-    display: none;
-  }
-}
-
 <div
-  className="c0"
+  className="styled-context-menu"
+  style={
+    Object {
+      "--secondary-lightgray-darkest": "#818181",
+      "--text-default": "#424242",
+    }
+  }
 >
   <div
-    className="c1 c2"
+    className="c0"
+    data-dropdown={true}
   >
     <button
       aria-expanded={false}
       aria-label="Edit this highlight"
-      className="plain-button dot-menu-toggle c3 dropdown-toggle "
+      className="plain-button dot-menu-toggle dropdown-toggle "
+      data-menu-toggle={true}
       data-testid="highlight-dropdown-menu-toggle"
       onClick={[Function]}
     >
@@ -54,7 +32,8 @@ exports[`ContextMenu match snapshot when closed 1`] = `
       >
         <svg
           aria-hidden="true"
-          className="dot-menu-icon c4 "
+          className="dot-menu-icon "
+          data-menu-icon={true}
           viewBox="0 0 192 512"
         >
           <path
@@ -69,411 +48,29 @@ exports[`ContextMenu match snapshot when closed 1`] = `
 `;
 
 exports[`ContextMenu match snapshot when open 1`] = `
-.c12 {
-  display: none;
-}
-
-.c14 {
-  display: none;
-  position: absolute;
-  height: 2rem;
-  width: 2rem;
-  background-color: transparent;
-  z-index: -1;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%,-50%);
-  -ms-transform: translate(-50%,-50%);
-  transform: translate(-50%,-50%);
-  border-radius: 50%;
-}
-
-.c15 {
-  height: 1.4000000000000001rem;
-  width: 1.4000000000000001rem;
-  background-color: transparent;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%,-50%);
-  -ms-transform: translate(-50%,-50%);
-  transform: translate(-50%,-50%);
-  border-radius: 50%;
-  border: 1px solid #fed200;
-}
-
-.c17 {
-  height: 1.4000000000000001rem;
-  width: 1.4000000000000001rem;
-  background-color: transparent;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%,-50%);
-  -ms-transform: translate(-50%,-50%);
-  transform: translate(-50%,-50%);
-  border-radius: 50%;
-  border: 1px solid #92d101;
-}
-
-.c19 {
-  height: 1.4000000000000001rem;
-  width: 1.4000000000000001rem;
-  background-color: transparent;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%,-50%);
-  -ms-transform: translate(-50%,-50%);
-  transform: translate(-50%,-50%);
-  border-radius: 50%;
-  border: 1px solid #00c3ed;
-}
-
-.c21 {
-  height: 1.4000000000000001rem;
-  width: 1.4000000000000001rem;
-  background-color: transparent;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%,-50%);
-  -ms-transform: translate(-50%,-50%);
-  transform: translate(-50%,-50%);
-  border-radius: 50%;
-  border: 1px solid #545ec8;
-}
-
-.c23 {
-  height: 1.4000000000000001rem;
-  width: 1.4000000000000001rem;
-  background-color: transparent;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%,-50%);
-  -ms-transform: translate(-50%,-50%);
-  transform: translate(-50%,-50%);
-  border-radius: 50%;
-  border: 1px solid #de017e;
-}
-
-.c9 {
-  position: relative;
-  background-color: #ffff8a;
-  border: 1px solid #8f7700;
-  height: 1.6rem;
-  width: 1.6rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 2rem;
-  overflow: visible;
-}
-
-.c9 .c11 {
-  height: 1rem;
-  width: 1rem;
-}
-
-.c9 input:focus + .c13 {
-  display: block;
-  outline: 0.2rem auto Highlight;
-  outline: 0.2rem auto -webkit-focus-ring-color;
-  z-index: 1;
-}
-
-.c16 {
-  position: relative;
-  background-color: #def99f;
-  border: 1px solid #4e6f01;
-  height: 1.6rem;
-  width: 1.6rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 2rem;
-  overflow: visible;
-}
-
-.c16 .c11 {
-  height: 1rem;
-  width: 1rem;
-}
-
-.c16 input:focus + .c13 {
-  display: block;
-  outline: 0.2rem auto Highlight;
-  outline: 0.2rem auto -webkit-focus-ring-color;
-  z-index: 1;
-}
-
-.c18 {
-  position: relative;
-  background-color: #c8f5ff;
-  border: 1px solid #006880;
-  height: 1.6rem;
-  width: 1.6rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 2rem;
-  overflow: visible;
-}
-
-.c18 .c11 {
-  height: 1rem;
-  width: 1rem;
-  color: #00c3ed;
-  stroke: #006880;
-  stroke-width: 5%;
-  display: block;
-}
-
-.c18 input:focus + .c13 {
-  display: block;
-  outline: 0.2rem auto Highlight;
-  outline: 0.2rem auto -webkit-focus-ring-color;
-  z-index: 1;
-}
-
-.c20 {
-  position: relative;
-  background-color: #cbcfff;
-  border: 1px solid #141a3e;
-  height: 1.6rem;
-  width: 1.6rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 2rem;
-  overflow: visible;
-}
-
-.c20 .c11 {
-  height: 1rem;
-  width: 1rem;
-}
-
-.c20 input:focus + .c13 {
-  display: block;
-  outline: 0.2rem auto Highlight;
-  outline: 0.2rem auto -webkit-focus-ring-color;
-  z-index: 1;
-}
-
-.c22 {
-  position: relative;
-  background-color: #ffc5e1;
-  border: 1px solid #560131;
-  height: 1.6rem;
-  width: 1.6rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 2rem;
-  overflow: visible;
-}
-
-.c22 .c11 {
-  height: 1rem;
-  width: 1rem;
-}
-
-.c22 input:focus + .c13 {
-  display: block;
-  outline: 0.2rem auto Highlight;
-  outline: 0.2rem auto -webkit-focus-ring-color;
-  z-index: 1;
-}
-
-.c10 {
-  cursor: pointer;
-  margin: 0;
-}
-
-.c10 input {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-  height: 0;
-  width: 0;
-}
-
-.c6 {
-  border: 0;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-}
-
-.c6 legend {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border: 0;
-}
-
-.c8 {
-  border: 0;
-  outline: none;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  overflow: visible;
-  gap: 0.8rem;
-  padding: 0 0.3rem 0.8rem;
-}
-
-.c2 {
+.c0 {
   overflow: visible;
   position: relative;
-}
-
-.c0 .c1 {
-  position: absolute;
-  width: 150px;
-  top: 1.2rem;
-  right: 0;
-}
-
-.c0 .c1 .focus-within .c4 {
-  color: #818181;
-}
-
-.c0 .c1:focus-within .c4 {
-  color: #818181;
-}
-
-.c0 .c7 {
-  margin: 0.6rem 0 0 0.6rem;
-}
-
-.c0 .c3 {
-  float: right;
-  margin-right: 0.2rem;
-}
-
-.c5 {
-  padding: 0;
-}
-
-.c5 li {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.c5 li button,
-.c5 li a {
-  border: 0;
-  width: 100%;
-}
-
-.c5 li button:focus,
-.c5 li a:focus,
-.c5 li button:hover,
-.c5 li a:hover {
-  outline-width: 0;
-}
-
-.c24 {
-  width: 15px;
-  height: 15px;
-  margin-right: 10px;
-  color: #424242;
-}
-
-.c25 {
-  width: 15px;
-  height: 15px;
-  margin-right: 10px;
-  color: #424242;
-}
-
-.c26 {
-  width: 15px;
-  height: 15px;
-  margin-right: 10px;
-  color: #424242;
-}
-
-@media print {
-  .c0 {
-    display: none;
-  }
 }
 
 <div
-  className="c0"
+  className="styled-context-menu"
+  style={
+    Object {
+      "--secondary-lightgray-darkest": "#818181",
+      "--text-default": "#424242",
+    }
+  }
 >
   <div
-    className="c1 c2"
+    className="c0"
+    data-dropdown={true}
   >
     <button
       aria-expanded={true}
       aria-label="Edit this highlight"
-      className="plain-button dot-menu-toggle c3 dropdown-toggle "
+      className="plain-button dot-menu-toggle dropdown-toggle "
+      data-menu-toggle={true}
       data-testid="highlight-dropdown-menu-toggle"
       onClick={[Function]}
     >
@@ -482,7 +79,8 @@ exports[`ContextMenu match snapshot when open 1`] = `
       >
         <svg
           aria-hidden="true"
-          className="dot-menu-icon c4 "
+          className="dot-menu-icon "
+          data-menu-icon={true}
           viewBox="0 0 192 512"
         >
           <path
@@ -496,18 +94,23 @@ exports[`ContextMenu match snapshot when open 1`] = `
       className="dropdown-menu context-menu"
     >
       <menu
-        className="dropdown-list c5"
+        className="dropdown-list styled-dropdown-list"
       >
         <li>
           <div
-            className="c6"
+            className="color-picker-wrapper"
           >
             <fieldset
-              className="c7 c8"
+              className="color-picker "
               data-testid="highlight-colours-picker"
               onFocus={[Function]}
               onKeyDown={[Function]}
               role="radiogroup"
+              style={
+                Object {
+                  "--card-padding": "0.8rem",
+                }
+              }
               tabIndex={0}
             >
               <legend>
@@ -515,23 +118,21 @@ exports[`ContextMenu match snapshot when open 1`] = `
               </legend>
               <label
                 aria-label="Apply yellow highlight"
-                checked={false}
-                className="c9 c10"
-                component={<label />}
-                size="small"
+                className="color-indicator color-button "
+                data-checked={false}
+                data-size="small"
                 style={
                   Object {
-                    "focusBorder": "#8f7700",
-                    "focused": "#fed200",
-                    "label": "yellow",
-                    "passive": "#ffff8a",
+                    "--focus-border-color": "#8f7700",
+                    "--focused-color": "#fed200",
+                    "--passive-color": "#ffff8a",
                   }
                 }
                 title="yellow"
               >
                 <svg
                   aria-hidden="true"
-                  className="c11 c12"
+                  className="color-indicator-check "
                   viewBox="0 0 512 512"
                 >
                   <path
@@ -543,54 +144,34 @@ exports[`ContextMenu match snapshot when open 1`] = `
                   aria-checked={false}
                   checked={false}
                   name="yellow"
-                  onChange={[Function]}
+                  onClick={[Function]}
                   tabIndex={-1}
                   type="radio"
                 />
                 <span
-                  className="c13 c14"
-                  size="small"
-                  style={
-                    Object {
-                      "focusBorder": "#8f7700",
-                      "focused": "#fed200",
-                      "label": "yellow",
-                      "passive": "#ffff8a",
-                    }
-                  }
+                  className="color-indicator-focus"
                 />
                 <span
-                  className="c15"
-                  size="small"
-                  style={
-                    Object {
-                      "focusBorder": "#8f7700",
-                      "focused": "#fed200",
-                      "label": "yellow",
-                      "passive": "#ffff8a",
-                    }
-                  }
+                  className="color-indicator-ring"
                 />
               </label>
               <label
                 aria-label="Apply green highlight"
-                checked={false}
-                className="c16 c10"
-                component={<label />}
-                size="small"
+                className="color-indicator color-button "
+                data-checked={false}
+                data-size="small"
                 style={
                   Object {
-                    "focusBorder": "#4e6f01",
-                    "focused": "#92d101",
-                    "label": "green",
-                    "passive": "#def99f",
+                    "--focus-border-color": "#4e6f01",
+                    "--focused-color": "#92d101",
+                    "--passive-color": "#def99f",
                   }
                 }
                 title="green"
               >
                 <svg
                   aria-hidden="true"
-                  className="c11 c12"
+                  className="color-indicator-check "
                   viewBox="0 0 512 512"
                 >
                   <path
@@ -602,54 +183,34 @@ exports[`ContextMenu match snapshot when open 1`] = `
                   aria-checked={false}
                   checked={false}
                   name="green"
-                  onChange={[Function]}
+                  onClick={[Function]}
                   tabIndex={-1}
                   type="radio"
                 />
                 <span
-                  className="c13 c14"
-                  size="small"
-                  style={
-                    Object {
-                      "focusBorder": "#4e6f01",
-                      "focused": "#92d101",
-                      "label": "green",
-                      "passive": "#def99f",
-                    }
-                  }
+                  className="color-indicator-focus"
                 />
                 <span
-                  className="c17"
-                  size="small"
-                  style={
-                    Object {
-                      "focusBorder": "#4e6f01",
-                      "focused": "#92d101",
-                      "label": "green",
-                      "passive": "#def99f",
-                    }
-                  }
+                  className="color-indicator-ring"
                 />
               </label>
               <label
                 aria-label="Apply blue highlight"
-                checked={true}
-                className="c18 c10"
-                component={<label />}
-                size="small"
+                className="color-indicator color-button "
+                data-checked={true}
+                data-size="small"
                 style={
                   Object {
-                    "focusBorder": "#006880",
-                    "focused": "#00c3ed",
-                    "label": "blue",
-                    "passive": "#c8f5ff",
+                    "--focus-border-color": "#006880",
+                    "--focused-color": "#00c3ed",
+                    "--passive-color": "#c8f5ff",
                   }
                 }
                 title="blue"
               >
                 <svg
                   aria-hidden="true"
-                  className="c11 c12"
+                  className="color-indicator-check "
                   viewBox="0 0 512 512"
                 >
                   <path
@@ -661,54 +222,34 @@ exports[`ContextMenu match snapshot when open 1`] = `
                   aria-checked={true}
                   checked={true}
                   name="blue"
-                  onChange={[Function]}
+                  onClick={[Function]}
                   tabIndex={-1}
                   type="radio"
                 />
                 <span
-                  className="c13 c14"
-                  size="small"
-                  style={
-                    Object {
-                      "focusBorder": "#006880",
-                      "focused": "#00c3ed",
-                      "label": "blue",
-                      "passive": "#c8f5ff",
-                    }
-                  }
+                  className="color-indicator-focus"
                 />
                 <span
-                  className="c19"
-                  size="small"
-                  style={
-                    Object {
-                      "focusBorder": "#006880",
-                      "focused": "#00c3ed",
-                      "label": "blue",
-                      "passive": "#c8f5ff",
-                    }
-                  }
+                  className="color-indicator-ring"
                 />
               </label>
               <label
                 aria-label="Apply purple highlight"
-                checked={false}
-                className="c20 c10"
-                component={<label />}
-                size="small"
+                className="color-indicator color-button "
+                data-checked={false}
+                data-size="small"
                 style={
                   Object {
-                    "focusBorder": "#141a3e",
-                    "focused": "#545ec8",
-                    "label": "purple",
-                    "passive": "#cbcfff",
+                    "--focus-border-color": "#141a3e",
+                    "--focused-color": "#545ec8",
+                    "--passive-color": "#cbcfff",
                   }
                 }
                 title="purple"
               >
                 <svg
                   aria-hidden="true"
-                  className="c11 c12"
+                  className="color-indicator-check "
                   viewBox="0 0 512 512"
                 >
                   <path
@@ -720,54 +261,34 @@ exports[`ContextMenu match snapshot when open 1`] = `
                   aria-checked={false}
                   checked={false}
                   name="purple"
-                  onChange={[Function]}
+                  onClick={[Function]}
                   tabIndex={-1}
                   type="radio"
                 />
                 <span
-                  className="c13 c14"
-                  size="small"
-                  style={
-                    Object {
-                      "focusBorder": "#141a3e",
-                      "focused": "#545ec8",
-                      "label": "purple",
-                      "passive": "#cbcfff",
-                    }
-                  }
+                  className="color-indicator-focus"
                 />
                 <span
-                  className="c21"
-                  size="small"
-                  style={
-                    Object {
-                      "focusBorder": "#141a3e",
-                      "focused": "#545ec8",
-                      "label": "purple",
-                      "passive": "#cbcfff",
-                    }
-                  }
+                  className="color-indicator-ring"
                 />
               </label>
               <label
                 aria-label="Apply pink highlight"
-                checked={false}
-                className="c22 c10"
-                component={<label />}
-                size="small"
+                className="color-indicator color-button "
+                data-checked={false}
+                data-size="small"
                 style={
                   Object {
-                    "focusBorder": "#560131",
-                    "focused": "#de017e",
-                    "label": "pink",
-                    "passive": "#ffc5e1",
+                    "--focus-border-color": "#560131",
+                    "--focused-color": "#de017e",
+                    "--passive-color": "#ffc5e1",
                   }
                 }
                 title="pink"
               >
                 <svg
                   aria-hidden="true"
-                  className="c11 c12"
+                  className="color-indicator-check "
                   viewBox="0 0 512 512"
                 >
                   <path
@@ -779,33 +300,15 @@ exports[`ContextMenu match snapshot when open 1`] = `
                   aria-checked={false}
                   checked={false}
                   name="pink"
-                  onChange={[Function]}
+                  onClick={[Function]}
                   tabIndex={-1}
                   type="radio"
                 />
                 <span
-                  className="c13 c14"
-                  size="small"
-                  style={
-                    Object {
-                      "focusBorder": "#560131",
-                      "focused": "#de017e",
-                      "label": "pink",
-                      "passive": "#ffc5e1",
-                    }
-                  }
+                  className="color-indicator-focus"
                 />
                 <span
-                  className="c23"
-                  size="small"
-                  style={
-                    Object {
-                      "focusBorder": "#560131",
-                      "focused": "#de017e",
-                      "label": "pink",
-                      "passive": "#ffc5e1",
-                    }
-                  }
+                  className="color-indicator-ring"
                 />
               </label>
             </fieldset>
@@ -822,7 +325,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
           >
             <svg
               aria-hidden="true"
-              className="c24"
+              className="styled-edit-icon "
               viewBox="0 0 576 512"
             >
               <path
@@ -844,7 +347,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
           >
             <svg
               aria-hidden="true"
-              className="c25"
+              className="styled-trash-alt-icon "
               viewBox="0 0 448 512"
             >
               <path
@@ -866,7 +369,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
           >
             <svg
               aria-hidden="true"
-              className="c26"
+              className="styled-link-icon "
               viewBox="0 0 576 512"
             >
               <path

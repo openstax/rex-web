@@ -36,7 +36,7 @@ describe('EditCard', () => {
     dispatch: store.dispatch,
     getState: store.getState,
   };
-  let editCardProps: Partial<EditCardProps>;
+  let editCardProps: EditCardProps;
 
   // Test Helper Functions
   const setupAuthenticatedUser = () => {
@@ -45,7 +45,9 @@ describe('EditCard', () => {
     return () => mockSpyUser.mockClear();
   };
 
-  const renderEditCard = (props: Partial<EditCardProps> & Pick<EditCardProps, 'highlight'>) => {
+  const renderEditCard = (
+    props: EditCardProps
+  ) => {
     return renderer.create(
       <TestContainer services={services} store={store}>
         <ConfirmationToastProvider>
@@ -87,15 +89,22 @@ describe('EditCard', () => {
       onCreate: jest.fn(),
       onRemove: jest.fn(),
       setAnnotationChangesPending: jest.fn(),
+      hasUnsavedHighlight: false,
+      locationFilterId: 'lfi',
+      pageId: 'pid',
+      onHeightChange: jest.fn(),
+      className: '',
+      shouldFocusCard: false
     };
   });
 
   describe('Snapshots and Rendering', () => {
     it('matches snapshot when focused', () => {
       const data = {
+        ...highlight,
         color: highlightStyles[0].label,
-        ...highlightData,
-      };
+        scopeId: 'test-scope',
+      } as any;
       const component = renderer.create(
         <TestContainer services={services} store={store}>
           <EditCard {...editCardProps} data={data} isActive={true} shouldFocusCard={true} />
@@ -652,9 +661,10 @@ describe('EditCard', () => {
       const cleanup = setupAuthenticatedUser();
       const onHeightChange = jest.fn();
       const data = {
+        ...highlight,
         color: highlightStyles[0].label,
-        ...highlightData,
-      };
+        scopeId: 'test-scope',
+      } as any;
 
       const component = renderToDom(
         <div id={MAIN_CONTENT_ID} tabIndex={-1}>
