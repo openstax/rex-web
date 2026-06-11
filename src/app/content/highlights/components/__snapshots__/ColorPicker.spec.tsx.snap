@@ -1,331 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ColorPicker matches snapshot no selection 1`] = `
-.c5 {
-  display: none;
-}
-
-.c7 {
-  display: none;
-  position: absolute;
-  height: 2.8rem;
-  width: 2.8rem;
-  background-color: transparent;
-  z-index: -1;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%,-50%);
-  -ms-transform: translate(-50%,-50%);
-  transform: translate(-50%,-50%);
-  border-radius: 50%;
-}
-
-.c8 {
-  height: 2.1999999999999997rem;
-  width: 2.1999999999999997rem;
-  background-color: transparent;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%,-50%);
-  -ms-transform: translate(-50%,-50%);
-  transform: translate(-50%,-50%);
-  border-radius: 50%;
-  border: 1px solid #fed200;
-}
-
-.c10 {
-  height: 2.1999999999999997rem;
-  width: 2.1999999999999997rem;
-  background-color: transparent;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%,-50%);
-  -ms-transform: translate(-50%,-50%);
-  transform: translate(-50%,-50%);
-  border-radius: 50%;
-  border: 1px solid #92d101;
-}
-
-.c12 {
-  height: 2.1999999999999997rem;
-  width: 2.1999999999999997rem;
-  background-color: transparent;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%,-50%);
-  -ms-transform: translate(-50%,-50%);
-  transform: translate(-50%,-50%);
-  border-radius: 50%;
-  border: 1px solid #00c3ed;
-}
-
-.c14 {
-  height: 2.1999999999999997rem;
-  width: 2.1999999999999997rem;
-  background-color: transparent;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%,-50%);
-  -ms-transform: translate(-50%,-50%);
-  transform: translate(-50%,-50%);
-  border-radius: 50%;
-  border: 1px solid #545ec8;
-}
-
-.c16 {
-  height: 2.1999999999999997rem;
-  width: 2.1999999999999997rem;
-  background-color: transparent;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%,-50%);
-  -ms-transform: translate(-50%,-50%);
-  transform: translate(-50%,-50%);
-  border-radius: 50%;
-  border: 1px solid #de017e;
-}
-
-.c2 {
-  position: relative;
-  background-color: #ffff8a;
-  border: 1px solid #8f7700;
-  height: 2.4rem;
-  width: 2.4rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 2rem;
-  overflow: visible;
-}
-
-.c2 .c4 {
-  height: 1.6rem;
-  width: 1.6rem;
-}
-
-.c2 input:focus + .c6 {
-  display: block;
-  outline: 0.2rem auto Highlight;
-  outline: 0.2rem auto -webkit-focus-ring-color;
-  z-index: 1;
-}
-
-.c9 {
-  position: relative;
-  background-color: #def99f;
-  border: 1px solid #4e6f01;
-  height: 2.4rem;
-  width: 2.4rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 2rem;
-  overflow: visible;
-}
-
-.c9 .c4 {
-  height: 1.6rem;
-  width: 1.6rem;
-}
-
-.c9 input:focus + .c6 {
-  display: block;
-  outline: 0.2rem auto Highlight;
-  outline: 0.2rem auto -webkit-focus-ring-color;
-  z-index: 1;
-}
-
-.c11 {
-  position: relative;
-  background-color: #c8f5ff;
-  border: 1px solid #006880;
-  height: 2.4rem;
-  width: 2.4rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 2rem;
-  overflow: visible;
-}
-
-.c11 .c4 {
-  height: 1.6rem;
-  width: 1.6rem;
-}
-
-.c11 input:focus + .c6 {
-  display: block;
-  outline: 0.2rem auto Highlight;
-  outline: 0.2rem auto -webkit-focus-ring-color;
-  z-index: 1;
-}
-
-.c13 {
-  position: relative;
-  background-color: #cbcfff;
-  border: 1px solid #141a3e;
-  height: 2.4rem;
-  width: 2.4rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 2rem;
-  overflow: visible;
-}
-
-.c13 .c4 {
-  height: 1.6rem;
-  width: 1.6rem;
-}
-
-.c13 input:focus + .c6 {
-  display: block;
-  outline: 0.2rem auto Highlight;
-  outline: 0.2rem auto -webkit-focus-ring-color;
-  z-index: 1;
-}
-
-.c15 {
-  position: relative;
-  background-color: #ffc5e1;
-  border: 1px solid #560131;
-  height: 2.4rem;
-  width: 2.4rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 2rem;
-  overflow: visible;
-}
-
-.c15 .c4 {
-  height: 1.6rem;
-  width: 1.6rem;
-}
-
-.c15 input:focus + .c6 {
-  display: block;
-  outline: 0.2rem auto Highlight;
-  outline: 0.2rem auto -webkit-focus-ring-color;
-  z-index: 1;
-}
-
-.c17 img {
-  height: 1.9rem;
-  width: 1.9rem;
-}
-
-.c3 {
-  cursor: pointer;
-  margin: 0;
-}
-
-.c3 input {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-  height: 0;
-  width: 0;
-}
-
-.c0 {
-  border: 0;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-}
-
-.c0 legend {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border: 0;
-}
-
-.c1 {
-  border: 0;
-  outline: none;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  overflow: visible;
-  gap: 0.8rem;
-  padding: 0 0.3rem 0.8rem;
-}
-
 <div
-  className="c0"
+  className="color-picker-wrapper"
 >
   <fieldset
-    className="c1"
+    className="color-picker "
     data-testid="highlight-colours-picker"
     onFocus={[Function]}
     onKeyDown={[Function]}
     role="radiogroup"
+    style={
+      Object {
+        "--card-padding": "0.8rem",
+      }
+    }
     tabIndex={0}
   >
     <legend>
@@ -333,22 +22,20 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
     </legend>
     <label
       aria-label="Apply yellow highlight"
-      checked={false}
-      className="c2 c3"
-      component={<label />}
+      className="color-indicator color-button "
+      data-checked={false}
       style={
         Object {
-          "focusBorder": "#8f7700",
-          "focused": "#fed200",
-          "label": "yellow",
-          "passive": "#ffff8a",
+          "--focus-border-color": "#8f7700",
+          "--focused-color": "#fed200",
+          "--passive-color": "#ffff8a",
         }
       }
       title="yellow"
     >
       <svg
         aria-hidden="true"
-        className="c4 c5"
+        className="color-indicator-check "
         viewBox="0 0 512 512"
       >
         <path
@@ -360,51 +47,33 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
         aria-checked={false}
         checked={false}
         name="yellow"
-        onChange={[Function]}
+        onClick={[Function]}
         tabIndex={-1}
         type="radio"
       />
       <span
-        className="c6 c7"
-        style={
-          Object {
-            "focusBorder": "#8f7700",
-            "focused": "#fed200",
-            "label": "yellow",
-            "passive": "#ffff8a",
-          }
-        }
+        className="color-indicator-focus"
       />
       <span
-        className="c8"
-        style={
-          Object {
-            "focusBorder": "#8f7700",
-            "focused": "#fed200",
-            "label": "yellow",
-            "passive": "#ffff8a",
-          }
-        }
+        className="color-indicator-ring"
       />
     </label>
     <label
       aria-label="Apply green highlight"
-      checked={false}
-      className="c9 c3"
-      component={<label />}
+      className="color-indicator color-button "
+      data-checked={false}
       style={
         Object {
-          "focusBorder": "#4e6f01",
-          "focused": "#92d101",
-          "label": "green",
-          "passive": "#def99f",
+          "--focus-border-color": "#4e6f01",
+          "--focused-color": "#92d101",
+          "--passive-color": "#def99f",
         }
       }
       title="green"
     >
       <svg
         aria-hidden="true"
-        className="c4 c5"
+        className="color-indicator-check "
         viewBox="0 0 512 512"
       >
         <path
@@ -416,51 +85,33 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
         aria-checked={false}
         checked={false}
         name="green"
-        onChange={[Function]}
+        onClick={[Function]}
         tabIndex={-1}
         type="radio"
       />
       <span
-        className="c6 c7"
-        style={
-          Object {
-            "focusBorder": "#4e6f01",
-            "focused": "#92d101",
-            "label": "green",
-            "passive": "#def99f",
-          }
-        }
+        className="color-indicator-focus"
       />
       <span
-        className="c10"
-        style={
-          Object {
-            "focusBorder": "#4e6f01",
-            "focused": "#92d101",
-            "label": "green",
-            "passive": "#def99f",
-          }
-        }
+        className="color-indicator-ring"
       />
     </label>
     <label
       aria-label="Apply blue highlight"
-      checked={false}
-      className="c11 c3"
-      component={<label />}
+      className="color-indicator color-button "
+      data-checked={false}
       style={
         Object {
-          "focusBorder": "#006880",
-          "focused": "#00c3ed",
-          "label": "blue",
-          "passive": "#c8f5ff",
+          "--focus-border-color": "#006880",
+          "--focused-color": "#00c3ed",
+          "--passive-color": "#c8f5ff",
         }
       }
       title="blue"
     >
       <svg
         aria-hidden="true"
-        className="c4 c5"
+        className="color-indicator-check "
         viewBox="0 0 512 512"
       >
         <path
@@ -472,51 +123,33 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
         aria-checked={false}
         checked={false}
         name="blue"
-        onChange={[Function]}
+        onClick={[Function]}
         tabIndex={-1}
         type="radio"
       />
       <span
-        className="c6 c7"
-        style={
-          Object {
-            "focusBorder": "#006880",
-            "focused": "#00c3ed",
-            "label": "blue",
-            "passive": "#c8f5ff",
-          }
-        }
+        className="color-indicator-focus"
       />
       <span
-        className="c12"
-        style={
-          Object {
-            "focusBorder": "#006880",
-            "focused": "#00c3ed",
-            "label": "blue",
-            "passive": "#c8f5ff",
-          }
-        }
+        className="color-indicator-ring"
       />
     </label>
     <label
       aria-label="Apply purple highlight"
-      checked={false}
-      className="c13 c3"
-      component={<label />}
+      className="color-indicator color-button "
+      data-checked={false}
       style={
         Object {
-          "focusBorder": "#141a3e",
-          "focused": "#545ec8",
-          "label": "purple",
-          "passive": "#cbcfff",
+          "--focus-border-color": "#141a3e",
+          "--focused-color": "#545ec8",
+          "--passive-color": "#cbcfff",
         }
       }
       title="purple"
     >
       <svg
         aria-hidden="true"
-        className="c4 c5"
+        className="color-indicator-check "
         viewBox="0 0 512 512"
       >
         <path
@@ -528,51 +161,33 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
         aria-checked={false}
         checked={false}
         name="purple"
-        onChange={[Function]}
+        onClick={[Function]}
         tabIndex={-1}
         type="radio"
       />
       <span
-        className="c6 c7"
-        style={
-          Object {
-            "focusBorder": "#141a3e",
-            "focused": "#545ec8",
-            "label": "purple",
-            "passive": "#cbcfff",
-          }
-        }
+        className="color-indicator-focus"
       />
       <span
-        className="c14"
-        style={
-          Object {
-            "focusBorder": "#141a3e",
-            "focused": "#545ec8",
-            "label": "purple",
-            "passive": "#cbcfff",
-          }
-        }
+        className="color-indicator-ring"
       />
     </label>
     <label
       aria-label="Apply pink highlight"
-      checked={false}
-      className="c15 c3"
-      component={<label />}
+      className="color-indicator color-button "
+      data-checked={false}
       style={
         Object {
-          "focusBorder": "#560131",
-          "focused": "#de017e",
-          "label": "pink",
-          "passive": "#ffc5e1",
+          "--focus-border-color": "#560131",
+          "--focused-color": "#de017e",
+          "--passive-color": "#ffc5e1",
         }
       }
       title="pink"
     >
       <svg
         aria-hidden="true"
-        className="c4 c5"
+        className="color-indicator-check "
         viewBox="0 0 512 512"
       >
         <path
@@ -584,37 +199,22 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
         aria-checked={false}
         checked={false}
         name="pink"
-        onChange={[Function]}
+        onClick={[Function]}
         tabIndex={-1}
         type="radio"
       />
       <span
-        className="c6 c7"
-        style={
-          Object {
-            "focusBorder": "#560131",
-            "focused": "#de017e",
-            "label": "pink",
-            "passive": "#ffc5e1",
-          }
-        }
+        className="color-indicator-focus"
       />
       <span
-        className="c16"
-        style={
-          Object {
-            "focusBorder": "#560131",
-            "focused": "#de017e",
-            "label": "pink",
-            "passive": "#ffc5e1",
-          }
-        }
+        className="color-indicator-ring"
       />
     </label>
   </fieldset>
   <button
     aria-label="Deselect current highlight color"
-    className="c17"
+    className="trash-button "
+    data-testid="editcard-trash-icon"
     onClick={[MockFunction]}
     type="button"
   >

@@ -257,7 +257,11 @@ class HomeRex:
 
     @pytest.mark.asyncio
     async def small_highlighted_note_box_is_visible(self):
-        return await self.page.get_by_test_id("card").get_by_role("dialog").is_visible()
+        return (
+            await self.page.get_by_role("dialog")
+            .filter(has=self.page.get_by_label("Actions"))
+            .is_visible()
+        )
 
     @pytest.mark.asyncio
     async def click_small_highlight_box_dropdown(self):

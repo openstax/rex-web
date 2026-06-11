@@ -1,787 +1,36 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SearchResultsSidebar matches snapshot for no search results 1`] = `
-.c6 {
-  height: 2.5rem;
-  width: 2.5rem;
-  padding: 0.4rem;
-  vertical-align: middle;
-  color: #5e6062;
-}
-
-.c6:hover {
-  color: #424242;
-}
-
-.c0 {
-  -webkit-overflow-scrolling: touch;
-  overflow-x: visible;
-  grid-area: 1 / 2 / auto / 3;
-  position: -webkit-sticky;
-  position: sticky;
-  top: 7rem;
-  width: 37.5rem;
-  background-color: #fafafa;
-  box-shadow: 0.2rem 0 0.2rem 0 rgba(0,0,0,0.1);
-  -webkit-transform-origin: left;
-  -ms-transform-origin: left;
-  transform-origin: left;
-  -webkit-transform: scaleX(0);
-  -ms-transform: scaleX(0);
-  transform: scaleX(0);
-  z-index: 50;
-  height: calc(100vh - 13rem);
-  max-height: calc(100vh - 7rem);
-  -webkit-animation: kqOaZP 300ms forwards;
-  animation: kqOaZP 300ms forwards;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-}
-
-.c0 > .c12 {
-  position: relative;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  margin: 0;
-  padding: 0;
-}
-
-.c0 > .c12::before {
-  display: none;
-}
-
-.c1 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-bottom: 1px solid #d5d5d5;
-  height: 5rem;
-  margin: 0;
-  border-bottom: 0;
-  -webkit-box-pack: end;
-  -webkit-justify-content: flex-end;
-  -ms-flex-pack: end;
-  justify-content: flex-end;
-}
-
-.c8 {
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: flex-start;
-  -webkit-box-align: flex-start;
-  -ms-flex-align: flex-start;
-  align-items: flex-start;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  width: 100%;
-  line-height: 1.3;
-}
-
-.c8 strong {
-  padding-left: 0.4rem;
-}
-
-.c10 .c7 {
-  border-bottom: 1px solid #d5d5d5;
-}
-
-.c9 {
-  max-width: 26.5rem;
-  text-align: center;
-  margin-top: 7rem;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.c5 {
-  cursor: pointer;
-  border: none;
-  padding: 0;
-  margin: 0.3rem;
-  background: transparent;
-  overflow: visible;
-  height: 3.7rem;
-  width: 3.7rem;
-}
-
-.c3 {
-  overflow: visible;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: end;
-  -webkit-justify-content: flex-end;
-  -ms-flex-pack: end;
-  justify-content: flex-end;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-}
-
-.c3 .c4 {
-  margin: 0.3rem;
-}
-
-.c11 .c2 {
-  height: 5rem;
-}
-
-@media screen and (max-width:75em) {
-  .c0 {
-    width: 33.8rem;
-    top: 6rem;
-    left: 8rem;
-    height: calc(100vh - 11.2rem);
-    max-height: calc(100vh - 6rem);
-  }
-}
-
-@media screen and (max-width:50em) {
-  .c0 {
-    grid-column: 1 / -1;
-    z-index: 50;
-    left: 0;
-    width: 100%;
-    margin-top: 0;
-    top: 16.6rem;
-    max-height: calc(100vh - 11.3rem);
-  }
-}
-
-@media print {
-  .c0 {
-    display: none;
-  }
-}
-
-@media screen and (max-width:50em) {
-  .c1 {
-    height: unset;
-  }
-}
-
-@media screen and (max-width:50em) {
-  .c5 {
-    display: none;
-  }
-}
-
-@media screen and (max-width:50em) {
-  .c3 {
-    display: none;
-  }
-}
-
 <div
   aria-label="Search results sidebar"
   aria-live="polite"
-  className="c0"
+  className="search-results-bar"
   data-analytics-region="search-results"
+  data-search-results-open={true}
   data-testid="search-results-sidebar"
   id="search-results-sidebar"
   onFocus={[Function]}
+  style={
+    Object {
+      "--search-results-bar-z-index": 50,
+      "--search-results-bar-z-index-mobile": 50,
+    }
+  }
   tabIndex={-1}
 >
   <div>
     <div
-      className="c1"
+      className="search-results-header search-results-header--empty"
     >
-      <div
-        className="c2 c3"
-      >
-        <button
-          aria-label="Close Search"
-          className="c4 c5"
-          data-testid="close-search-noresults"
-          onClick={[Function]}
-        >
-          <svg
-            aria-hidden="true"
-            className="c6"
-            focusable="false"
-            height="15px"
-            version="1.1"
-            viewBox="0 0 15 15"
-            width="15px"
-          >
-            <g
-              fill="none"
-              fillRule="evenodd"
-              stroke="none"
-              strokeWidth="1"
-            >
-              <g
-                fill="currentColor"
-                transform="translate(-302.000000, -18.000000)"
-              >
-                <g
-                  transform="translate(302.000000, 18.000000)"
-                >
-                  <path
-                    d="M7.5,5.41522791 L12.0331524,0.579865364 C12.3077536,0.286957429 12.7165503,0.24816296 12.946282,0.493210121 L13.9861449,1.60239723 C14.2158766,1.84744439 14.1795068,2.28349422 13.9049056,2.57640216 L9.37175324,7.41176471 L13.9049056,12.2471273 C14.1795068,12.5400352 14.2158766,12.976085 13.9861449,13.2211322 L12.946282,14.3303193 C12.7165503,14.5753665 12.3077536,14.536572 12.0331524,14.243664 L7.5,9.4083015 L2.96684761,14.243664 C2.69224642,14.536572 2.2834497,14.5753665 2.05371799,14.3303193 L1.01385508,13.2211322 C0.784123363,12.976085 0.820493178,12.5400352 1.09509437,12.2471273 L5.62824676,7.41176471 L1.09509437,2.57640216 C0.820493178,2.28349422 0.784123363,1.84744439 1.01385508,1.60239723 L2.05371799,0.493210121 C2.2834497,0.24816296 2.69224642,0.286957429 2.96684761,0.579865364 L7.5,5.41522791 Z"
-                  />
-                </g>
-              </g>
-            </g>
-          </svg>
-        </button>
-      </div>
-    </div>
-    <div
-      className="c7 c8"
-      role="status"
-    >
-      <div
-        className="c9"
-      >
-        Sorry, no results found for 
-         
-        <strong>
-           ‘
-          cool search
-          ’
-        </strong>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
-.c10 {
-  height: 2.5rem;
-  width: 2.5rem;
-  padding: 0.4rem;
-  height: 4rem;
-  color: #424242;
-  margin-right: 0.7rem;
-  margin-left: 1.6rem;
-}
-
-.c6 {
-  height: 2.5rem;
-  width: 2.5rem;
-  padding: 0.4rem;
-  vertical-align: middle;
-  color: #5e6062;
-}
-
-.c6:hover {
-  color: #424242;
-}
-
-.c20 {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.c20 .os-divider {
-  width: 0.4rem;
-}
-
-.c0 {
-  -webkit-overflow-scrolling: touch;
-  overflow-x: visible;
-  grid-area: 1 / 2 / auto / 3;
-  position: -webkit-sticky;
-  position: sticky;
-  top: 7rem;
-  width: 37.5rem;
-  background-color: #fafafa;
-  box-shadow: 0.2rem 0 0.2rem 0 rgba(0,0,0,0.1);
-  -webkit-transform-origin: left;
-  -ms-transform-origin: left;
-  transform-origin: left;
-  -webkit-transform: scaleX(0);
-  -ms-transform: scaleX(0);
-  transform: scaleX(0);
-  z-index: 50;
-  height: calc(100vh - 13rem);
-  max-height: calc(100vh - 7rem);
-  -webkit-animation: kqOaZP 300ms forwards;
-  animation: kqOaZP 300ms forwards;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-}
-
-.c0 > .c12 {
-  position: relative;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  margin: 0;
-  padding: 0;
-}
-
-.c0 > .c12::before {
-  display: none;
-}
-
-.c33 > .c12 {
-  position: relative;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  margin: 0;
-  padding: 0;
-}
-
-.c33 > .c12::before {
-  display: none;
-}
-
-.c2 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-bottom: 1px solid #d5d5d5;
-  height: 5rem;
-  margin: 0;
-}
-
-.c3 {
-  font-size: 1.8rem;
-  margin-left: 16px;
-  color: #5e6062;
-  font-weight: bold;
-}
-
-.c9 {
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: flex-start;
-  -webkit-box-align: flex-start;
-  -ms-flex-align: flex-start;
-  align-items: flex-start;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  width: 100%;
-  line-height: 1.3;
-}
-
-.c9 strong {
-  padding-left: 0.4rem;
-}
-
-.c7 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  -webkit-align-items: baseline;
-  -webkit-box-align: baseline;
-  -ms-flex-align: baseline;
-  align-items: baseline;
-  background: #fafafa;
-  min-height: 4rem;
-  overflow: visible;
-}
-
-.c1 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-}
-
-.c1 .c8 {
-  border-bottom: 1px solid #d5d5d5;
-}
-
-.c26 {
-  color: #424242;
-  font-size: 1.4rem;
-  line-height: 1.6rem;
-  font-weight: normal;
-  font-weight: bold;
-  padding-right: 1.6rem;
-  line-height: 1.3;
-  margin: 0;
-}
-
-.c22 {
-  overflow: visible;
-}
-
-.c24 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: normal;
-  -webkit-box-align: normal;
-  -ms-flex-align: normal;
-  align-items: normal;
-  background: rgba(0,0,0,0.17);
-  padding: 1rem 0 1rem 1.6rem;
-  border-top: solid 0.1rem rgba(0,0,0,0.06);
-}
-
-.c23 {
-  list-style: none;
-  cursor: pointer;
-  min-height: 3.8rem;
-}
-
-.c23::before {
-  display: none;
-}
-
-.c23::-moz-list-bullet {
-  list-style-type: none;
-}
-
-.c23::-webkit-details-marker {
-  display: none;
-}
-
-.c23 > * {
-  outline: none;
-}
-
-.c31 {
-  color: #424242;
-  font-size: 1.4rem;
-  line-height: 1.6rem;
-  font-weight: normal;
-  width: 100%;
-  font-weight: 700;
-  line-height: 1.3;
-  margin: 0;
-}
-
-.c19 {
-  color: #424242;
-  font-size: 1.4rem;
-  line-height: 1.6rem;
-  font-weight: normal;
-  cursor: pointer;
-  min-height: 3.7rem;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  display: block;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  line-height: 1.3;
-}
-
-.c19 > * {
-  outline: none;
-}
-
-.c16 {
-  color: #424242;
-  font-size: 1.4rem;
-  line-height: 1.6rem;
-  font-weight: normal;
-  cursor: pointer;
-  min-height: 3.7rem;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  display: block;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  line-height: 1.3;
-  background: rgba(0,0,0,0.06);
-}
-
-.c16 > * {
-  outline: none;
-}
-
-.c30 {
-  min-height: 3.4rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  padding: 1.2rem 1.6rem 0.8rem 1.6rem;
-  border-top: solid 0.2rem rgba(0,0,0,0.06);
-}
-
-.c27 {
-  overflow: visible;
-  padding: 0;
-}
-
-.c27 .c29 {
-  padding-left: 2.5rem;
-}
-
-.c28 {
-  overflow: visible;
-  background: #fafafa;
-}
-
-.c5 {
-  cursor: pointer;
-  border: none;
-  padding: 0;
-  margin: 0.3rem;
-  background: transparent;
-  overflow: visible;
-  height: 3.7rem;
-  width: 3.7rem;
-}
-
-.c34 .c4 {
-  margin: 0.3rem;
-}
-
-.c11 {
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  padding: 1rem 0;
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-}
-
-.c21 {
-  overflow: visible;
-  display: block;
-}
-
-.c14 {
-  color: #424242;
-  font-size: 1.8rem;
-  font-weight: bold;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  margin: 0;
-  padding: 1.2rem 3.2rem;
-}
-
-.c13 {
-  background-color: #fff;
-}
-
-.c13 .c15 {
-  padding-right: 2.4rem;
-}
-
-.c18 {
-  display: block;
-  font-weight: bold;
-}
-
-.c32 {
-  margin: 0 0 0 3.2rem;
-  padding: 1.2rem 1.6rem 1.2rem 0;
-}
-
-.c15:not(:last-child) > .c32 {
-  border-bottom: solid 0.1rem rgba(0,0,0,0.06);
-}
-
-.c32 > div::before {
-  content: '... ';
-}
-
-.c32 > div::after {
-  content: ' ...';
-}
-
-.c17 {
-  margin: 0 0 0 3.2rem;
-  padding: 1.2rem 1.6rem 1.2rem 0;
-}
-
-.c15:not(:last-child) > .c17 {
-  border-bottom: solid 0.1rem rgba(0,0,0,0.06);
-}
-
-.c17 > div::before {
-  content: '... ';
-}
-
-.c17 > div::after {
-  content: ' ...';
-}
-
-.c17 > div::before {
-  content: '';
-}
-
-.c17 > div::after {
-  content: '';
-}
-
-@media screen and (max-width:50em) {
-  .c10 {
-    margin-left: 1.6rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c0 {
-    width: 33.8rem;
-    top: 6rem;
-    left: 8rem;
-    height: calc(100vh - 11.2rem);
-    max-height: calc(100vh - 6rem);
-  }
-}
-
-@media screen and (max-width:50em) {
-  .c0 {
-    grid-column: 1 / -1;
-    z-index: 50;
-    left: 0;
-    width: 100%;
-    margin-top: 0;
-    top: 16.6rem;
-    max-height: calc(100vh - 11.3rem);
-  }
-}
-
-@media print {
-  .c0 {
-    display: none;
-  }
-}
-
-@media screen and (max-width:50em) {
-  .c2 {
-    height: unset;
-  }
-}
-
-@media screen and (max-width:50em) {
-  .c24 {
-    padding-left: 1.6rem;
-  }
-
-  .c24 .c25 {
-    padding-right: 1.6rem;
-  }
-}
-
-@media screen and (max-width:50em) {
-  .c30 {
-    padding-left: 3.3rem;
-  }
-}
-
-@media screen and (max-width:50em) {
-  .c5 {
-    display: none;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c32 {
-    margin-left: 5rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c17 {
-    margin-left: 5rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c17 {
-    margin-left: 3.2rem;
-  }
-}
-
-<div
-  aria-label="Search results sidebar"
-  aria-live="polite"
-  className="c0"
-  data-analytics-region="search-results"
-  data-testid="search-results-sidebar"
-  id="search-results-sidebar"
-  onFocus={[Function]}
-  tabIndex={-1}
->
-  <div
-    className="c1"
-  >
-    <div
-      className="c2"
-    >
-      <h2
-        className="c3"
-        id="search-results-title"
-      >
-        Search results
-      </h2>
       <button
         aria-label="Close Search"
-        className="c4 c5"
-        data-testid="close-search"
+        className="close-icon-button"
+        data-testid="close-search-noresults"
         onClick={[Function]}
       >
         <svg
           aria-hidden="true"
-          className="c6"
+          className="close-icon"
           focusable="false"
           height="15px"
           version="1.1"
@@ -811,20 +60,124 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
       </button>
     </div>
     <div
-      className="c7"
+      className="search-query"
+      role="status"
     >
       <div
-        className="c8 c9"
+        className="search-query-alignment"
+      >
+        Sorry, no results found for 
+         
+        <strong>
+           ‘
+          cool search
+          ’
+        </strong>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
+.c0 {
+  list-style: none;
+  cursor: pointer;
+}
+
+.c0::before {
+  display: none;
+}
+
+.c0::-moz-list-bullet {
+  list-style-type: none;
+}
+
+.c0::-webkit-details-marker {
+  display: none;
+}
+
+<div
+  aria-label="Search results sidebar"
+  aria-live="polite"
+  className="search-results-bar"
+  data-analytics-region="search-results"
+  data-search-results-open={true}
+  data-testid="search-results-sidebar"
+  id="search-results-sidebar"
+  onFocus={[Function]}
+  style={
+    Object {
+      "--search-results-bar-z-index": 50,
+      "--search-results-bar-z-index-mobile": 50,
+    }
+  }
+  tabIndex={-1}
+>
+  <div
+    className="search-results-top-bar"
+  >
+    <div
+      className="search-results-header"
+    >
+      <h2
+        className="search-results-header-title"
+        id="search-results-title"
+      >
+        Search results
+      </h2>
+      <button
+        aria-label="Close Search"
+        className="close-icon-button"
+        data-testid="close-search"
+        onClick={[Function]}
+      >
+        <svg
+          aria-hidden="true"
+          className="close-icon"
+          focusable="false"
+          height="15px"
+          version="1.1"
+          viewBox="0 0 15 15"
+          width="15px"
+        >
+          <g
+            fill="none"
+            fillRule="evenodd"
+            stroke="none"
+            strokeWidth="1"
+          >
+            <g
+              fill="currentColor"
+              transform="translate(-302.000000, -18.000000)"
+            >
+              <g
+                transform="translate(302.000000, 18.000000)"
+              >
+                <path
+                  d="M7.5,5.41522791 L12.0331524,0.579865364 C12.3077536,0.286957429 12.7165503,0.24816296 12.946282,0.493210121 L13.9861449,1.60239723 C14.2158766,1.84744439 14.1795068,2.28349422 13.9049056,2.57640216 L9.37175324,7.41176471 L13.9049056,12.2471273 C14.1795068,12.5400352 14.2158766,12.976085 13.9861449,13.2211322 L12.946282,14.3303193 C12.7165503,14.5753665 12.3077536,14.536572 12.0331524,14.243664 L7.5,9.4083015 L2.96684761,14.243664 C2.69224642,14.536572 2.2834497,14.5753665 2.05371799,14.3303193 L1.01385508,13.2211322 C0.784123363,12.976085 0.820493178,12.5400352 1.09509437,12.2471273 L5.62824676,7.41176471 L1.09509437,2.57640216 C0.820493178,2.28349422 0.784123363,1.84744439 1.01385508,1.60239723 L2.05371799,0.493210121 C2.2834497,0.24816296 2.69224642,0.286957429 2.96684761,0.579865364 L7.5,5.41522791 Z"
+                />
+              </g>
+            </g>
+          </g>
+        </svg>
+      </button>
+    </div>
+    <div
+      className="search-query-wrapper"
+    >
+      <div
+        className="search-query"
       >
         <img
           alt=""
-          className="c10"
+          className="search-icon-inside-bar"
           src="search-icon-v2.svg"
         />
         <div
-          className="c11"
+          className="header-query"
           role="note"
-          tabIndex="0"
+          tabIndex={0}
         >
           2 key term results and 1 search result for 
           <strong>
@@ -838,30 +191,30 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
   </div>
   <nav
     aria-labelledby="search-results-title"
-    className="c12 "
+    className="nav-wrapper"
   >
     <div
-      className="c13"
+      className="related-key-terms"
       data-analytics-region="kt-search-results"
     >
       <h3
-        className="c14"
+        className="search-results-section-title"
       >
         Related key terms
       </h3>
       <a
         aria-current={true}
         aria-label="test term: test definition with … (Result 1 in Test Page 1)"
-        className="c15 c16"
+        className="section-content-preview section-content-preview--selected"
         data-testid="related-key-term-result"
         href="books/book-slug-1/pages/test-page-1?target=%7B%22index%22%3A0%2C%22type%22%3A%22search%22%7D#test-pair-page1"
         onClick={[Function]}
       >
         <div
-          className="c17"
+          className="key-term-result"
         >
           <span
-            className="c18"
+            className="key-term"
           >
             test term
           </span>
@@ -877,16 +230,16 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
       <a
         aria-current={false}
         aria-label="test term: test definition (Result 1 in Test Page 6 with special characters in url)"
-        className="c15 c19"
+        className="section-content-preview"
         data-testid="related-key-term-result"
         href="books/book-slug-1/pages/10-test-page-6-f%C3%ADsica?target=%7B%22index%22%3A0%2C%22type%22%3A%22search%22%7D#test-pair-page6"
         onClick={[Function]}
       >
         <div
-          className="c17"
+          className="key-term-result"
         >
           <span
-            className="c18"
+            className="key-term"
           >
             test term
           </span>
@@ -901,28 +254,28 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
       </a>
     </div>
     <h3
-      className="c14"
-      tabIndex="0"
+      className="search-results-section-title"
+      tabIndex={0}
     >
       Chapter results
     </h3>
     <ol
-      className="c20"
+      className="search-results-ol"
       data-analytics-region="content-search-results"
     >
       <li
-        className="c21"
+        className="list-item"
       >
         <details
-          className="c22"
+          className="details"
           open={true}
         >
           <summary
-            className="c23"
+            className="c0 search-bar-summary"
             tabIndex={0}
           >
             <div
-              className="c24"
+              className="search-bar-summary-container"
               tabIndex={-1}
             >
               <svg
@@ -946,7 +299,7 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
                 />
               </svg>
               <h3
-                className="c25 c26"
+                className="summary-title"
                 dangerouslySetInnerHTML={
                   Object {
                     "__html": "<span class=\\"os-number\\">12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 6</span>",
@@ -956,16 +309,16 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
             </div>
           </summary>
           <ol
-            className="c27"
+            className="details-ol"
           >
             <li
-              className="c28"
+              className="nav-item"
             >
               <div
-                className="c29 c30"
+                className="link-wrapper"
               >
                 <h4
-                  className="c31"
+                  className="search-results-link"
                   dangerouslySetInnerHTML={
                     Object {
                       "__html": "<span class=\\"os-text\\">Test Page 7</span>",
@@ -976,13 +329,13 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
               <a
                 aria-current={false}
                 aria-label="cool highlight bruh (Result 1 in Test Page 7)"
-                className="c15 c19"
+                className="section-content-preview"
                 data-testid="search-result"
                 href="books/book-slug-1/pages/12-test-page-7?target=%7B%22index%22%3A0%2C%22type%22%3A%22search%22%7D#fs-id1544727"
                 onClick={[Function]}
               >
                 <div
-                  className="c32"
+                  className="simple-result"
                 >
                   <div
                     dangerouslySetInnerHTML={
@@ -1004,454 +357,61 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
 `;
 
 exports[`SearchResultsSidebar matches snapshot with results 1`] = `
-.c10 {
-  height: 2.5rem;
-  width: 2.5rem;
-  padding: 0.4rem;
-  height: 4rem;
-  color: #424242;
-  margin-right: 0.7rem;
-  margin-left: 1.6rem;
-}
-
-.c6 {
-  height: 2.5rem;
-  width: 2.5rem;
-  padding: 0.4rem;
-  vertical-align: middle;
-  color: #5e6062;
-}
-
-.c6:hover {
-  color: #424242;
-}
-
-.c13 {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.c13 .os-divider {
-  width: 0.4rem;
-}
-
 .c0 {
-  -webkit-overflow-scrolling: touch;
-  overflow-x: visible;
-  grid-area: 1 / 2 / auto / 3;
-  position: -webkit-sticky;
-  position: sticky;
-  top: 7rem;
-  width: 37.5rem;
-  background-color: #fafafa;
-  box-shadow: 0.2rem 0 0.2rem 0 rgba(0,0,0,0.1);
-  -webkit-transform-origin: left;
-  -ms-transform-origin: left;
-  transform-origin: left;
-  -webkit-transform: scaleX(0);
-  -ms-transform: scaleX(0);
-  transform: scaleX(0);
-  z-index: 50;
-  height: calc(100vh - 13rem);
-  max-height: calc(100vh - 7rem);
-  -webkit-animation: kqOaZP 300ms forwards;
-  animation: kqOaZP 300ms forwards;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-}
-
-.c0 > .c12 {
-  position: relative;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  margin: 0;
-  padding: 0;
-}
-
-.c0 > .c12::before {
-  display: none;
-}
-
-.c29 > .c12 {
-  position: relative;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  margin: 0;
-  padding: 0;
-}
-
-.c29 > .c12::before {
-  display: none;
-}
-
-.c2 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-bottom: 1px solid #d5d5d5;
-  height: 5rem;
-  margin: 0;
-}
-
-.c3 {
-  font-size: 1.8rem;
-  margin-left: 16px;
-  color: #5e6062;
-  font-weight: bold;
-}
-
-.c9 {
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: flex-start;
-  -webkit-box-align: flex-start;
-  -ms-flex-align: flex-start;
-  align-items: flex-start;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  width: 100%;
-  line-height: 1.3;
-}
-
-.c9 strong {
-  padding-left: 0.4rem;
-}
-
-.c7 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  -webkit-align-items: baseline;
-  -webkit-box-align: baseline;
-  -ms-flex-align: baseline;
-  align-items: baseline;
-  background: #fafafa;
-  min-height: 4rem;
-  overflow: visible;
-}
-
-.c1 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-}
-
-.c1 .c8 {
-  border-bottom: 1px solid #d5d5d5;
-}
-
-.c26 {
-  color: #424242;
-  font-size: 1.4rem;
-  line-height: 1.6rem;
-  font-weight: normal;
-  font-weight: bold;
-  padding-right: 1.6rem;
-  line-height: 1.3;
-  margin: 0;
-}
-
-.c22 {
-  overflow: visible;
-}
-
-.c24 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: normal;
-  -webkit-box-align: normal;
-  -ms-flex-align: normal;
-  align-items: normal;
-  background: rgba(0,0,0,0.17);
-  padding: 1rem 0 1rem 1.6rem;
-  border-top: solid 0.1rem rgba(0,0,0,0.06);
-}
-
-.c23 {
   list-style: none;
   cursor: pointer;
-  min-height: 3.8rem;
 }
 
-.c23::before {
+.c0::before {
   display: none;
 }
 
-.c23::-moz-list-bullet {
+.c0::-moz-list-bullet {
   list-style-type: none;
 }
 
-.c23::-webkit-details-marker {
+.c0::-webkit-details-marker {
   display: none;
-}
-
-.c23 > * {
-  outline: none;
-}
-
-.c17 {
-  color: #424242;
-  font-size: 1.4rem;
-  line-height: 1.6rem;
-  font-weight: normal;
-  width: 100%;
-  font-weight: 700;
-  line-height: 1.3;
-  margin: 0;
-}
-
-.c28 {
-  color: #424242;
-  font-size: 1.4rem;
-  line-height: 1.6rem;
-  font-weight: normal;
-  cursor: pointer;
-  min-height: 3.7rem;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  display: block;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  line-height: 1.3;
-}
-
-.c28 > * {
-  outline: none;
-}
-
-.c19 {
-  color: #424242;
-  font-size: 1.4rem;
-  line-height: 1.6rem;
-  font-weight: normal;
-  cursor: pointer;
-  min-height: 3.7rem;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  display: block;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  line-height: 1.3;
-  background: rgba(0,0,0,0.06);
-}
-
-.c19 > * {
-  outline: none;
-}
-
-.c16 {
-  min-height: 3.4rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  padding: 1.2rem 1.6rem 0.8rem 1.6rem;
-  border-top: solid 0.2rem rgba(0,0,0,0.06);
-}
-
-.c27 {
-  overflow: visible;
-  padding: 0;
-}
-
-.c27 .c15 {
-  padding-left: 2.5rem;
-}
-
-.c14 {
-  overflow: visible;
-  background: #fafafa;
-}
-
-.c5 {
-  cursor: pointer;
-  border: none;
-  padding: 0;
-  margin: 0.3rem;
-  background: transparent;
-  overflow: visible;
-  height: 3.7rem;
-  width: 3.7rem;
-}
-
-.c30 .c4 {
-  margin: 0.3rem;
-}
-
-.c11 {
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  padding: 1rem 0;
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-}
-
-.c21 {
-  overflow: visible;
-  display: block;
-}
-
-.c20 {
-  margin: 0 0 0 3.2rem;
-  padding: 1.2rem 1.6rem 1.2rem 0;
-}
-
-.c18:not(:last-child) > .c20 {
-  border-bottom: solid 0.1rem rgba(0,0,0,0.06);
-}
-
-.c20 > div::before {
-  content: '... ';
-}
-
-.c20 > div::after {
-  content: ' ...';
-}
-
-@media screen and (max-width:50em) {
-  .c10 {
-    margin-left: 1.6rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c0 {
-    width: 33.8rem;
-    top: 6rem;
-    left: 8rem;
-    height: calc(100vh - 11.2rem);
-    max-height: calc(100vh - 6rem);
-  }
-}
-
-@media screen and (max-width:50em) {
-  .c0 {
-    grid-column: 1 / -1;
-    z-index: 50;
-    left: 0;
-    width: 100%;
-    margin-top: 0;
-    top: 16.6rem;
-    max-height: calc(100vh - 11.3rem);
-  }
-}
-
-@media print {
-  .c0 {
-    display: none;
-  }
-}
-
-@media screen and (max-width:50em) {
-  .c2 {
-    height: unset;
-  }
-}
-
-@media screen and (max-width:50em) {
-  .c24 {
-    padding-left: 1.6rem;
-  }
-
-  .c24 .c25 {
-    padding-right: 1.6rem;
-  }
-}
-
-@media screen and (max-width:50em) {
-  .c16 {
-    padding-left: 3.3rem;
-  }
-}
-
-@media screen and (max-width:50em) {
-  .c5 {
-    display: none;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c20 {
-    margin-left: 5rem;
-  }
 }
 
 <div
   aria-label="Search results sidebar"
   aria-live="polite"
-  className="c0"
+  className="search-results-bar"
   data-analytics-region="search-results"
+  data-search-results-open={true}
   data-testid="search-results-sidebar"
   id="search-results-sidebar"
   onFocus={[Function]}
+  style={
+    Object {
+      "--search-results-bar-z-index": 50,
+      "--search-results-bar-z-index-mobile": 50,
+    }
+  }
   tabIndex={-1}
 >
   <div
-    className="c1"
+    className="search-results-top-bar"
   >
     <div
-      className="c2"
+      className="search-results-header"
     >
       <h2
-        className="c3"
+        className="search-results-header-title"
         id="search-results-title"
       >
         Search results
       </h2>
       <button
         aria-label="Close Search"
-        className="c4 c5"
+        className="close-icon-button"
         data-testid="close-search"
         onClick={[Function]}
       >
         <svg
           aria-hidden="true"
-          className="c6"
+          className="close-icon"
           focusable="false"
           height="15px"
           version="1.1"
@@ -1481,20 +441,20 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
       </button>
     </div>
     <div
-      className="c7"
+      className="search-query-wrapper"
     >
       <div
-        className="c8 c9"
+        className="search-query"
       >
         <img
           alt=""
-          className="c10"
+          className="search-icon-inside-bar"
           src="search-icon-v2.svg"
         />
         <div
-          className="c11"
+          className="header-query"
           role="note"
-          tabIndex="0"
+          tabIndex={0}
         >
           3 search results for 
           <strong>
@@ -1508,20 +468,20 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
   </div>
   <nav
     aria-labelledby="search-results-title"
-    className="c12 "
+    className="nav-wrapper"
   >
     <ol
-      className="c13"
+      className="search-results-ol"
       data-analytics-region="content-search-results"
     >
       <li
-        className="c14"
+        className="nav-item"
       >
         <div
-          className="c15 c16"
+          className="link-wrapper"
         >
           <h4
-            className="c17"
+            className="search-results-link"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "<span class=\\"os-text\\">Test Page 1</span>",
@@ -1532,13 +492,13 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
         <a
           aria-current={true}
           aria-label="cool highlight bruh (Result 1 in Test Page 1)"
-          className="c18 c19"
+          className="section-content-preview section-content-preview--selected"
           data-testid="search-result"
           href="books/book-slug-1/pages/test-page-1?query=cool%20search&target=%7B%22index%22%3A0%2C%22type%22%3A%22search%22%7D#fs-id1544727"
           onClick={[Function]}
         >
           <div
-            className="c20"
+            className="simple-result"
           >
             <div
               dangerouslySetInnerHTML={
@@ -1552,18 +512,18 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
         </a>
       </li>
       <li
-        className="c21"
+        className="list-item"
       >
         <details
-          className="c22"
+          className="details"
           open={true}
         >
           <summary
-            className="c23"
+            className="c0 search-bar-summary"
             tabIndex={0}
           >
             <div
-              className="c24"
+              className="search-bar-summary-container"
               tabIndex={-1}
             >
               <svg
@@ -1587,7 +547,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
                 />
               </svg>
               <h3
-                className="c25 c26"
+                className="summary-title"
                 dangerouslySetInnerHTML={
                   Object {
                     "__html": "<span class=\\"os-number\\">10</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 5</span>",
@@ -1597,17 +557,17 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
             </div>
           </summary>
           <ol
-            className="c27"
+            className="details-ol"
           >
             <li
-              className="c14"
+              className="nav-item"
             >
               <div
                 aria-label="Current Page"
-                className="c15 c16"
+                className="link-wrapper"
               >
                 <h4
-                  className="c17"
+                  className="search-results-link"
                   dangerouslySetInnerHTML={
                     Object {
                       "__html": "<span class=\\"os-text\\">Test Page 6 with special characters in url</span>",
@@ -1618,13 +578,13 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
               <a
                 aria-current={false}
                 aria-label="cool highlight bruh (Result 1 in Test Page 6 with special characters in url)"
-                className="c18 c28"
+                className="section-content-preview"
                 data-testid="search-result"
                 href="books/book-slug-1/pages/10-test-page-6-f%C3%ADsica?query=cool%20search&target=%7B%22index%22%3A0%2C%22type%22%3A%22search%22%7D#fs-id1544727"
                 onClick={[Function]}
               >
                 <div
-                  className="c20"
+                  className="simple-result"
                 >
                   <div
                     dangerouslySetInnerHTML={
@@ -1641,18 +601,18 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
         </details>
       </li>
       <li
-        className="c21"
+        className="list-item"
       >
         <details
-          className="c22"
+          className="details"
           open={true}
         >
           <summary
-            className="c23"
+            className="c0 search-bar-summary"
             tabIndex={0}
           >
             <div
-              className="c24"
+              className="search-bar-summary-container"
               tabIndex={-1}
             >
               <svg
@@ -1676,7 +636,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
                 />
               </svg>
               <h3
-                className="c25 c26"
+                className="summary-title"
                 dangerouslySetInnerHTML={
                   Object {
                     "__html": "<span class=\\"os-number\\">12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 6</span>",
@@ -1686,16 +646,16 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
             </div>
           </summary>
           <ol
-            className="c27"
+            className="details-ol"
           >
             <li
-              className="c14"
+              className="nav-item"
             >
               <div
-                className="c15 c16"
+                className="link-wrapper"
               >
                 <h4
-                  className="c17"
+                  className="search-results-link"
                   dangerouslySetInnerHTML={
                     Object {
                       "__html": "<span class=\\"os-text\\">Test Page 7</span>",
@@ -1706,13 +666,13 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
               <a
                 aria-current={false}
                 aria-label="cool highlight bruh (Result 1 in Test Page 7)"
-                className="c18 c28"
+                className="section-content-preview"
                 data-testid="search-result"
                 href="books/book-slug-1/pages/12-test-page-7?query=cool%20search&target=%7B%22index%22%3A0%2C%22type%22%3A%22search%22%7D#fs-id1544727"
                 onClick={[Function]}
               >
                 <div
-                  className="c20"
+                  className="simple-result"
                 >
                   <div
                     dangerouslySetInnerHTML={
@@ -1734,7 +694,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
 `;
 
 exports[`SearchResultsSidebar shows sidebar with loading state if there is a search 1`] = `
-.c7 {
+.c0 {
   enable-background: new 0 0 57.6 39.1;
   -webkit-animation: iuEIAH 0.3s forwards 300ms;
   animation: iuEIAH 0.3s forwards 300ms;
@@ -1752,21 +712,21 @@ exports[`SearchResultsSidebar shows sidebar with loading state if there is a sea
   width: 5rem;
 }
 
-.c7 * {
+.c0 * {
   -webkit-animation: fadeIn 0.3s forwards;
   animation: fadeIn 0.3s forwards;
 }
 
-.c7 .os-green,
-.c7 .os-orange,
-.c7 .os-gray,
-.c7 .os-yellow,
-.c7 .os-blue {
+.c0 .os-green,
+.c0 .os-orange,
+.c0 .os-gray,
+.c0 .os-yellow,
+.c0 .os-blue {
   -webkit-animation-delay: 0.5s;
   animation-delay: 0.5s;
 }
 
-.c7 .os-green {
+.c0 .os-green {
   -webkit-animation: hkCfKg 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
   animation: hkCfKg 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
   -webkit-transform-origin: center left;
@@ -1774,7 +734,7 @@ exports[`SearchResultsSidebar shows sidebar with loading state if there is a sea
   transform-origin: center left;
 }
 
-.c7 .os-orange {
+.c0 .os-orange {
   -webkit-animation: kSacDd 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
   animation: kSacDd 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
   -webkit-transform-origin: center right;
@@ -1782,7 +742,7 @@ exports[`SearchResultsSidebar shows sidebar with loading state if there is a sea
   transform-origin: center right;
 }
 
-.c7 .os-gray {
+.c0 .os-gray {
   -webkit-animation: fXlVAV 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
   animation: fXlVAV 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
   -webkit-transform-origin: center right;
@@ -1790,7 +750,7 @@ exports[`SearchResultsSidebar shows sidebar with loading state if there is a sea
   transform-origin: center right;
 }
 
-.c7 .os-yellow {
+.c0 .os-yellow {
   -webkit-animation: hbytGi 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.6s infinite alternate;
   animation: hbytGi 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.6s infinite alternate;
   -webkit-transform-origin: center right;
@@ -1798,7 +758,7 @@ exports[`SearchResultsSidebar shows sidebar with loading state if there is a sea
   transform-origin: center right;
 }
 
-.c7 .os-blue {
+.c0 .os-blue {
   -webkit-animation: jfsUaa 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
   animation: jfsUaa 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
   -webkit-transform-origin: center;
@@ -1806,174 +766,38 @@ exports[`SearchResultsSidebar shows sidebar with loading state if there is a sea
   transform-origin: center;
 }
 
-.c6 {
-  height: 2.5rem;
-  width: 2.5rem;
-  padding: 0.4rem;
-  vertical-align: middle;
-  color: #5e6062;
-}
-
-.c6:hover {
-  color: #424242;
-}
-
-.c0 {
-  -webkit-overflow-scrolling: touch;
-  overflow-x: visible;
-  grid-area: 1 / 2 / auto / 3;
-  position: -webkit-sticky;
-  position: sticky;
-  top: 7rem;
-  width: 37.5rem;
-  background-color: #fafafa;
-  box-shadow: 0.2rem 0 0.2rem 0 rgba(0,0,0,0.1);
-  -webkit-transform-origin: left;
-  -ms-transform-origin: left;
-  transform-origin: left;
-  -webkit-transform: scaleX(0);
-  -ms-transform: scaleX(0);
-  transform: scaleX(0);
-  z-index: 50;
-  height: calc(100vh - 13rem);
-  max-height: calc(100vh - 7rem);
-  -webkit-animation: kqOaZP 300ms forwards;
-  animation: kqOaZP 300ms forwards;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-}
-
-.c0 > .c8 {
-  position: relative;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  margin: 0;
-  padding: 0;
-}
-
-.c0 > .c8::before {
-  display: none;
-}
-
-.c5 {
-  cursor: pointer;
-  border: none;
-  padding: 0;
-  margin: 0.3rem;
-  background: transparent;
-  overflow: visible;
-  height: 3.7rem;
-  width: 3.7rem;
-}
-
-.c3 {
-  overflow: visible;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: end;
-  -webkit-justify-content: flex-end;
-  -ms-flex-pack: end;
-  justify-content: flex-end;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-}
-
-.c3 .c4 {
-  margin: 0.3rem;
-}
-
-.c1 {
-  overflow: hidden;
-  right: 0;
-  top: 0;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-color: #fafafa;
-  -webkit-transition: opacity 0.5s 0.3s,-webkit-transform 0.2s 0.2s;
-  -webkit-transition: opacity 0.5s 0.3s,transform 0.2s 0.2s;
-  transition: opacity 0.5s 0.3s,transform 0.2s 0.2s;
-}
-
-.c1 .c2 {
-  height: 5rem;
-}
-
-@media screen and (max-width:75em) {
-  .c0 {
-    width: 33.8rem;
-    top: 6rem;
-    left: 8rem;
-    height: calc(100vh - 11.2rem);
-    max-height: calc(100vh - 6rem);
-  }
-}
-
-@media screen and (max-width:50em) {
-  .c0 {
-    grid-column: 1 / -1;
-    z-index: 50;
-    left: 0;
-    width: 100%;
-    margin-top: 0;
-    top: 16.6rem;
-    max-height: calc(100vh - 11.3rem);
-  }
-}
-
-@media print {
-  .c0 {
-    display: none;
-  }
-}
-
-@media screen and (max-width:50em) {
-  .c5 {
-    display: none;
-  }
-}
-
-@media screen and (max-width:50em) {
-  .c3 {
-    display: none;
-  }
-}
-
 <div
   aria-label="Search results sidebar"
   aria-live="polite"
-  className="c0"
+  className="search-results-bar"
   data-analytics-region="search-results"
+  data-search-results-open={true}
   data-testid="search-results-sidebar"
   id="search-results-sidebar"
   onFocus={[Function]}
+  style={
+    Object {
+      "--search-results-bar-z-index": 50,
+      "--search-results-bar-z-index-mobile": 50,
+    }
+  }
   tabIndex={-1}
 >
   <div
     aria-label="Loading results"
-    className="c1"
+    className="loading-wrapper"
   >
     <div
-      className="c2 c3"
+      className="close-icon-wrapper"
     >
       <button
         aria-label="Close Search"
-        className="c4 c5"
+        className="close-icon-button"
         onClick={[Function]}
       >
         <svg
           aria-hidden="true"
-          className="c6"
+          className="close-icon"
           focusable="false"
           height="15px"
           version="1.1"
@@ -2003,7 +827,7 @@ exports[`SearchResultsSidebar shows sidebar with loading state if there is a sea
       </button>
     </div>
     <svg
-      className="c7"
+      className="c0"
       data-testid="loader"
       id="Layer_1"
       version="1.1"

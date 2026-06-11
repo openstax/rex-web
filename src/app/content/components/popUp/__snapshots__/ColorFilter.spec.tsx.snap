@@ -26,265 +26,6 @@ exports[`ColorFilter matches snapshot 1`] = `
   padding: 0 1rem;
 }
 
-.c9 {
-  display: none;
-}
-
-.c11 {
-  display: none;
-  position: absolute;
-  height: 2rem;
-  width: 2rem;
-  background-color: transparent;
-  z-index: -1;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%,-50%);
-  -ms-transform: translate(-50%,-50%);
-  transform: translate(-50%,-50%);
-  border-radius: 50%;
-}
-
-.c12 {
-  height: 1.4000000000000001rem;
-  width: 1.4000000000000001rem;
-  background-color: transparent;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%,-50%);
-  -ms-transform: translate(-50%,-50%);
-  transform: translate(-50%,-50%);
-  border-radius: 50%;
-  border: 1px solid #fed200;
-}
-
-.c15 {
-  height: 1.4000000000000001rem;
-  width: 1.4000000000000001rem;
-  background-color: transparent;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%,-50%);
-  -ms-transform: translate(-50%,-50%);
-  transform: translate(-50%,-50%);
-  border-radius: 50%;
-  border: 1px solid #92d101;
-}
-
-.c17 {
-  height: 1.4000000000000001rem;
-  width: 1.4000000000000001rem;
-  background-color: transparent;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%,-50%);
-  -ms-transform: translate(-50%,-50%);
-  transform: translate(-50%,-50%);
-  border-radius: 50%;
-  border: 1px solid #00c3ed;
-}
-
-.c19 {
-  height: 1.4000000000000001rem;
-  width: 1.4000000000000001rem;
-  background-color: transparent;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%,-50%);
-  -ms-transform: translate(-50%,-50%);
-  transform: translate(-50%,-50%);
-  border-radius: 50%;
-  border: 1px solid #545ec8;
-}
-
-.c21 {
-  height: 1.4000000000000001rem;
-  width: 1.4000000000000001rem;
-  background-color: transparent;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%,-50%);
-  -ms-transform: translate(-50%,-50%);
-  transform: translate(-50%,-50%);
-  border-radius: 50%;
-  border: 1px solid #de017e;
-}
-
-.c7 {
-  position: relative;
-  background-color: #ffff8a;
-  border: 1px solid #8f7700;
-  height: 1.6rem;
-  width: 1.6rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 2rem;
-  overflow: visible;
-}
-
-.c7 .c8 {
-  height: 1rem;
-  width: 1rem;
-}
-
-.c7 input:focus + .c10 {
-  display: block;
-  outline: 0.2rem auto Highlight;
-  outline: 0.2rem auto -webkit-focus-ring-color;
-  z-index: 1;
-}
-
-.c14 {
-  position: relative;
-  background-color: #def99f;
-  border: 1px solid #4e6f01;
-  height: 1.6rem;
-  width: 1.6rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 2rem;
-  overflow: visible;
-}
-
-.c14 .c8 {
-  height: 1rem;
-  width: 1rem;
-}
-
-.c14 input:focus + .c10 {
-  display: block;
-  outline: 0.2rem auto Highlight;
-  outline: 0.2rem auto -webkit-focus-ring-color;
-  z-index: 1;
-}
-
-.c16 {
-  position: relative;
-  background-color: #c8f5ff;
-  border: 1px solid #006880;
-  height: 1.6rem;
-  width: 1.6rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 2rem;
-  overflow: visible;
-}
-
-.c16 .c8 {
-  height: 1rem;
-  width: 1rem;
-}
-
-.c16 input:focus + .c10 {
-  display: block;
-  outline: 0.2rem auto Highlight;
-  outline: 0.2rem auto -webkit-focus-ring-color;
-  z-index: 1;
-}
-
-.c18 {
-  position: relative;
-  background-color: #cbcfff;
-  border: 1px solid #141a3e;
-  height: 1.6rem;
-  width: 1.6rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 2rem;
-  overflow: visible;
-}
-
-.c18 .c8 {
-  height: 1rem;
-  width: 1rem;
-}
-
-.c18 input:focus + .c10 {
-  display: block;
-  outline: 0.2rem auto Highlight;
-  outline: 0.2rem auto -webkit-focus-ring-color;
-  z-index: 1;
-}
-
-.c20 {
-  position: relative;
-  background-color: #ffc5e1;
-  border: 1px solid #560131;
-  height: 1.6rem;
-  width: 1.6rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 2rem;
-  overflow: visible;
-}
-
-.c20 .c8 {
-  height: 1rem;
-  width: 1rem;
-}
-
-.c20 input:focus + .c10 {
-  display: block;
-  outline: 0.2rem auto Highlight;
-  outline: 0.2rem auto -webkit-focus-ring-color;
-  z-index: 1;
-}
-
 .c4 {
   padding: 0;
   border: none;
@@ -304,7 +45,7 @@ exports[`ColorFilter matches snapshot 1`] = `
   border: 0;
 }
 
-.c13 {
+.c7 {
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
@@ -418,11 +159,19 @@ exports[`ColorFilter matches snapshot 1`] = `
         </svg>
       </span>
       <div
-        className="c6 c7"
+        className="color-indicator c6 "
+        data-size="small"
+        style={
+          Object {
+            "--focus-border-color": "#8f7700",
+            "--focused-color": "#fed200",
+            "--passive-color": "#ffff8a",
+          }
+        }
       >
         <svg
           aria-hidden="true"
-          className="c8 c9"
+          className="color-indicator-check "
           viewBox="0 0 512 512"
         >
           <path
@@ -431,32 +180,14 @@ exports[`ColorFilter matches snapshot 1`] = `
           />
         </svg>
         <span
-          className="c10 c11"
-          size="small"
-          style={
-            Object {
-              "focusBorder": "#8f7700",
-              "focused": "#fed200",
-              "label": "yellow",
-              "passive": "#ffff8a",
-            }
-          }
+          className="color-indicator-focus"
         />
         <span
-          className="c12"
-          size="small"
-          style={
-            Object {
-              "focusBorder": "#8f7700",
-              "focused": "#fed200",
-              "label": "yellow",
-              "passive": "#ffff8a",
-            }
-          }
+          className="color-indicator-ring"
         />
       </div>
       <span
-        className="c13"
+        className="c7"
       >
         yellow
       </span>
@@ -486,11 +217,19 @@ exports[`ColorFilter matches snapshot 1`] = `
         </svg>
       </span>
       <div
-        className="c6 c14"
+        className="color-indicator c6 "
+        data-size="small"
+        style={
+          Object {
+            "--focus-border-color": "#4e6f01",
+            "--focused-color": "#92d101",
+            "--passive-color": "#def99f",
+          }
+        }
       >
         <svg
           aria-hidden="true"
-          className="c8 c9"
+          className="color-indicator-check "
           viewBox="0 0 512 512"
         >
           <path
@@ -499,32 +238,14 @@ exports[`ColorFilter matches snapshot 1`] = `
           />
         </svg>
         <span
-          className="c10 c11"
-          size="small"
-          style={
-            Object {
-              "focusBorder": "#4e6f01",
-              "focused": "#92d101",
-              "label": "green",
-              "passive": "#def99f",
-            }
-          }
+          className="color-indicator-focus"
         />
         <span
-          className="c15"
-          size="small"
-          style={
-            Object {
-              "focusBorder": "#4e6f01",
-              "focused": "#92d101",
-              "label": "green",
-              "passive": "#def99f",
-            }
-          }
+          className="color-indicator-ring"
         />
       </div>
       <span
-        className="c13"
+        className="c7"
       >
         green
       </span>
@@ -554,11 +275,19 @@ exports[`ColorFilter matches snapshot 1`] = `
         </svg>
       </span>
       <div
-        className="c6 c16"
+        className="color-indicator c6 "
+        data-size="small"
+        style={
+          Object {
+            "--focus-border-color": "#006880",
+            "--focused-color": "#00c3ed",
+            "--passive-color": "#c8f5ff",
+          }
+        }
       >
         <svg
           aria-hidden="true"
-          className="c8 c9"
+          className="color-indicator-check "
           viewBox="0 0 512 512"
         >
           <path
@@ -567,32 +296,14 @@ exports[`ColorFilter matches snapshot 1`] = `
           />
         </svg>
         <span
-          className="c10 c11"
-          size="small"
-          style={
-            Object {
-              "focusBorder": "#006880",
-              "focused": "#00c3ed",
-              "label": "blue",
-              "passive": "#c8f5ff",
-            }
-          }
+          className="color-indicator-focus"
         />
         <span
-          className="c17"
-          size="small"
-          style={
-            Object {
-              "focusBorder": "#006880",
-              "focused": "#00c3ed",
-              "label": "blue",
-              "passive": "#c8f5ff",
-            }
-          }
+          className="color-indicator-ring"
         />
       </div>
       <span
-        className="c13"
+        className="c7"
       >
         blue
       </span>
@@ -622,11 +333,19 @@ exports[`ColorFilter matches snapshot 1`] = `
         </svg>
       </span>
       <div
-        className="c6 c18"
+        className="color-indicator c6 "
+        data-size="small"
+        style={
+          Object {
+            "--focus-border-color": "#141a3e",
+            "--focused-color": "#545ec8",
+            "--passive-color": "#cbcfff",
+          }
+        }
       >
         <svg
           aria-hidden="true"
-          className="c8 c9"
+          className="color-indicator-check "
           viewBox="0 0 512 512"
         >
           <path
@@ -635,32 +354,14 @@ exports[`ColorFilter matches snapshot 1`] = `
           />
         </svg>
         <span
-          className="c10 c11"
-          size="small"
-          style={
-            Object {
-              "focusBorder": "#141a3e",
-              "focused": "#545ec8",
-              "label": "purple",
-              "passive": "#cbcfff",
-            }
-          }
+          className="color-indicator-focus"
         />
         <span
-          className="c19"
-          size="small"
-          style={
-            Object {
-              "focusBorder": "#141a3e",
-              "focused": "#545ec8",
-              "label": "purple",
-              "passive": "#cbcfff",
-            }
-          }
+          className="color-indicator-ring"
         />
       </div>
       <span
-        className="c13"
+        className="c7"
       >
         purple
       </span>
@@ -690,11 +391,19 @@ exports[`ColorFilter matches snapshot 1`] = `
         </svg>
       </span>
       <div
-        className="c6 c20"
+        className="color-indicator c6 "
+        data-size="small"
+        style={
+          Object {
+            "--focus-border-color": "#560131",
+            "--focused-color": "#de017e",
+            "--passive-color": "#ffc5e1",
+          }
+        }
       >
         <svg
           aria-hidden="true"
-          className="c8 c9"
+          className="color-indicator-check "
           viewBox="0 0 512 512"
         >
           <path
@@ -703,32 +412,14 @@ exports[`ColorFilter matches snapshot 1`] = `
           />
         </svg>
         <span
-          className="c10 c11"
-          size="small"
-          style={
-            Object {
-              "focusBorder": "#560131",
-              "focused": "#de017e",
-              "label": "pink",
-              "passive": "#ffc5e1",
-            }
-          }
+          className="color-indicator-focus"
         />
         <span
-          className="c21"
-          size="small"
-          style={
-            Object {
-              "focusBorder": "#560131",
-              "focused": "#de017e",
-              "label": "pink",
-              "passive": "#ffc5e1",
-            }
-          }
+          className="color-indicator-ring"
         />
       </div>
       <span
-        className="c13"
+        className="c7"
       >
         pink
       </span>

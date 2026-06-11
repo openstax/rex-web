@@ -1,0 +1,75 @@
+/* Study Guides Main Component Styling */
+
+/*
+ * Note: This component styles nested components from SectionHighlights.tsx
+ * (HighlightsChapterWrapper, HighlightSection, HighlightWrapper) which are
+ * styled-components. We target them using descendant selectors based on
+ * their structure and test-ids.
+ */
+
+.study-guides-wrapper {
+  display: contents;
+}
+
+/*
+ * Mobile styles for HighlightsChapterWrapper
+ * Target: div containing h2[data-testid="chapter-title"] as direct child
+ * Note: .study-guides-wrapper has display:contents, so HighlightsChapterWrapper
+ * is inside HighlightsWrapper, which is the direct child
+ */
+@media screen and (max-width: 75em) {
+  .study-guides-wrapper div:has(> h2[data-testid="chapter-title"]) {
+    max-width: 90%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+/*
+ * Mobile styles for HighlightSection
+ * Target: h3 elements with data-testid="section-title"
+ */
+@media screen and (max-width: 75em) {
+  .study-guides-wrapper h3[data-testid="section-title"] {
+    padding-left: 2rem;
+  }
+}
+
+/* Print styles */
+@media print {
+  /*
+   * HighlightsChapterWrapper padding
+   * Target: div containing h2[data-testid="chapter-title"] as direct child
+   */
+  .study-guides-wrapper div:has(> h2[data-testid="chapter-title"]) {
+    padding-left: 0;
+  }
+
+  /*
+   * HighlightWrapper margin
+   * Target: divs that contain h3[data-testid="section-title"] (HighlightWrapper)
+   * These are descendants of HighlightsWrapper, not direct children of .study-guides-wrapper
+   */
+  .study-guides-wrapper div:has(> h3[data-testid="section-title"]) {
+    margin-left: 0;
+  }
+
+  /*
+   * HighlightsChapterWrapper + HighlightWrapper margin
+   * Target: Any div immediately following a div that contains h2[data-testid="chapter-title"]
+   * These are siblings inside HighlightsWrapper
+   */
+  .study-guides-wrapper div:has(> h2[data-testid="chapter-title"]) + div {
+    margin-top: 0;
+  }
+
+  /*
+   * HighlightSection background
+   * Target: h3 elements with data-testid="section-title"
+   * Uses CSS variable bound from theme in component
+   */
+  .study-guides-wrapper h3[data-testid="section-title"] {
+    background: var(--section-bg);
+  }
+}
