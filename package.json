@@ -108,7 +108,7 @@
     "@aws-sdk/client-s3": "<3.567.0",
     "@aws-sdk/client-sqs": "<3.567.0",
     "@aws-sdk/credential-providers": "<3.567.0",
-    "@babel/core": "^7.22.5",
+    "@babel/core": "^7.29.6",
     "@babel/plugin-transform-runtime": "^7.22.5",
     "@babel/preset-env": "^7.22.5",
     "@babel/preset-react": "7.22.5",
