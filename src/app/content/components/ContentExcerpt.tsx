@@ -67,14 +67,4 @@ export default styled(React.forwardRef<HTMLElement, Props>(
   * {
     overflow: initial;
   }
-
-  /* Fix for orphaned figure captions in highlights (CORE-2373)
-   * When a highlight includes a caption but not the wrapping .os-figure container,
-   * the caption needs explicit styling to display properly with full width.
-   */
-  figcaption.os-caption-container.os-caption-container {
-    display: block;
-    text-align: left;
-    padding: 1rem 2rem 0;
-  }
 `;
