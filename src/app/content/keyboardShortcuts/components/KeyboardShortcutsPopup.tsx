@@ -16,12 +16,10 @@ import * as ksSelectors from '../selectors';
 import ShowKeyboardShortcuts from './ShowKeyboardShortcuts';
 import './KeyboardShortcutsPopup.css';
 
-interface StyledModalProps extends React.ComponentProps<typeof Modal> {}
-
 /**
  * StyledModal component - plain CSS version
  */
-const StyledModal = React.forwardRef<HTMLElement, StyledModalProps>(
+const StyledModal = React.forwardRef<HTMLElement, React.ComponentProps<typeof Modal>>(
   function StyledModal({ className, ...domProps }, ref) {
 
     return (

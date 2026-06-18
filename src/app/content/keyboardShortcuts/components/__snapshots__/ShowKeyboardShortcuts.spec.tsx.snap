@@ -2,7 +2,7 @@
 
 exports[`ShowKeyboardShortcuts renders the keyboard shortcuts menu 1`] = `
 <div
-  className="keyboard-shortcuts-body"
+  className="popup-body keyboard-shortcuts-body"
   data-analytics-region="KS popup"
   data-testid="show-keyboard-shortcuts-body"
   style={

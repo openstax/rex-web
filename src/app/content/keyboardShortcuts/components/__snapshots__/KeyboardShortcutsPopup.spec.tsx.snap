@@ -100,7 +100,7 @@ exports[`KeyboardShortcuts renders keyboard shortcuts modal if it is open 1`] = 
       </button>
     </div>
     <div
-      className="keyboard-shortcuts-body"
+      className="popup-body keyboard-shortcuts-body"
       data-analytics-region="KS popup"
       data-testid="show-keyboard-shortcuts-body"
       style={
