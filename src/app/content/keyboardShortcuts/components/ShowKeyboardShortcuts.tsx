@@ -6,20 +6,17 @@ import theme from '../../../theme';
 import { headerHeight, popupHeaderZIndex } from '../../styles/PopupConstants';
 import './ShowKeyboardShortcuts.css';
 
-interface ShowKeyboardShortcutsBodyProps extends React.HTMLAttributes<HTMLDivElement> {
-  theme?: unknown;
-}
+interface ShowKeyboardShortcutsBodyProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 /**
  * ShowKeyboardShortcutsBody component - plain CSS version
  */
-export function ShowKeyboardShortcutsBody({ className, style, ...props }: ShowKeyboardShortcutsBodyProps) {
-  const { theme: _theme, ...domProps } = props as Omit<ShowKeyboardShortcutsBodyProps, 'className' | 'style'>;
+export function ShowKeyboardShortcutsBody({ className, style, ...domProps }: ShowKeyboardShortcutsBodyProps) {
 
   return (
     <div
       {...domProps}
-      className={classNames('keyboard-shortcuts-body', className)}
+      className={classNames('popup-body', 'keyboard-shortcuts-body', className)}
       style={{
         '--keyboard-shortcuts-body-bg': theme.color.neutral.darker,
         '--keyboard-shortcuts-text-color': theme.color.text.default,
@@ -35,15 +32,12 @@ export function ShowKeyboardShortcutsBody({ className, style, ...props }: ShowKe
   );
 }
 
-interface ShortcutsHeadingDivProps extends React.HTMLAttributes<HTMLDivElement> {
-  theme?: unknown;
-}
+interface ShortcutsHeadingDivProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 /**
  * ShortcutsHeadingDiv component - plain CSS version
  */
-export function ShortcutsHeadingDiv({ className, ...props }: ShortcutsHeadingDivProps) {
-  const { theme: _theme, ...domProps } = props as Omit<ShortcutsHeadingDivProps, 'className'>;
+export function ShortcutsHeadingDiv({ className, ...domProps }: ShortcutsHeadingDivProps) {
 
   return (
     <div
@@ -61,15 +55,12 @@ export const ShortcutsHeading = ({ msgKey }: { msgKey: string }) => (
   </ShortcutsHeadingDiv>
 );
 
-interface ShortcutsCardProps extends React.HTMLAttributes<HTMLDivElement> {
-  theme?: unknown;
-}
+interface ShortcutsCardProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 /**
  * ShortcutsCard component - plain CSS version
  */
-export function ShortcutsCard({ className, ...props }: ShortcutsCardProps) {
-  const { theme: _theme, ...domProps } = props as Omit<ShortcutsCardProps, 'className'>;
+export function ShortcutsCard({ className, ...domProps }: ShortcutsCardProps) {
 
   return (
     <div
@@ -79,15 +70,12 @@ export function ShortcutsCard({ className, ...props }: ShortcutsCardProps) {
   );
 }
 
-interface ShortcutsTableProps extends React.HTMLAttributes<HTMLDivElement> {
-  theme?: unknown;
-}
+interface ShortcutsTableProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 /**
  * ShortcutsTable component - plain CSS version
  */
-export function ShortcutsTable({ className, ...props }: ShortcutsTableProps) {
-  const { theme: _theme, ...domProps } = props as Omit<ShortcutsTableProps, 'className'>;
+export function ShortcutsTable({ className, ...domProps }: ShortcutsTableProps) {
 
   return (
     <div
@@ -97,15 +85,12 @@ export function ShortcutsTable({ className, ...props }: ShortcutsTableProps) {
   );
 }
 
-interface ShortcutRowProps extends React.HTMLAttributes<HTMLDivElement> {
-  theme?: unknown;
-}
+interface ShortcutRowProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 /**
  * ShortcutRow component - plain CSS version
  */
-export function ShortcutRow({ className, ...props }: ShortcutRowProps) {
-  const { theme: _theme, ...domProps } = props as Omit<ShortcutRowProps, 'className'>;
+export function ShortcutRow({ className, ...domProps }: ShortcutRowProps) {
 
   return (
     <div
@@ -115,15 +100,12 @@ export function ShortcutRow({ className, ...props }: ShortcutRowProps) {
   );
 }
 
-interface ShortcutBlockProps extends React.HTMLAttributes<HTMLDivElement> {
-  theme?: unknown;
-}
+interface ShortcutBlockProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 /**
  * ShortcutBlock component - plain CSS version
  */
-export function ShortcutBlock({ className, ...props }: ShortcutBlockProps) {
-  const { theme: _theme, ...domProps } = props as Omit<ShortcutBlockProps, 'className'>;
+export function ShortcutBlock({ className, ...domProps }: ShortcutBlockProps) {
 
   return (
     <div
@@ -133,15 +115,12 @@ export function ShortcutBlock({ className, ...props }: ShortcutBlockProps) {
   );
 }
 
-interface ShortcutKeyProps extends React.HTMLAttributes<HTMLSpanElement> {
-  theme?: unknown;
-}
+interface ShortcutKeyProps extends React.HTMLAttributes<HTMLSpanElement> {}
 
 /**
  * ShortcutKey component - plain CSS version
  */
-export function ShortcutKey({ className, ...props }: ShortcutKeyProps) {
-  const { theme: _theme, ...domProps } = props as Omit<ShortcutKeyProps, 'className'>;
+export function ShortcutKey({ className, ...domProps }: ShortcutKeyProps) {
 
   return (
     <span
