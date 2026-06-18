@@ -2,8 +2,8 @@
  * Keyboard Shortcuts - Plain CSS version
  */
 
-.keyboard-shortcuts-body {
-  background-color: var(--keyboard-shortcuts-body-bg, #fafafa);
+.popup-body.keyboard-shortcuts-body {
+  background: var(--keyboard-shortcuts-body-bg, #fafafa);
   color: var(--keyboard-shortcuts-text-color, #424242);
   font-size: 1.6rem;
   line-height: 2.5rem;
@@ -15,14 +15,14 @@
 }
 
 @media screen and (max-width: 75em) {
-  .keyboard-shortcuts-body {
+  .popup-body.keyboard-shortcuts-body {
     padding: 1.6rem;
     text-align: left;
   }
 }
 
 @media print {
-  .keyboard-shortcuts-body {
+  .popup-body.keyboard-shortcuts-body {
     height: max-content;
     overflow: auto;
   }

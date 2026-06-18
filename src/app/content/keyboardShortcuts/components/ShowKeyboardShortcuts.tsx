@@ -16,6 +16,11 @@ export function ShowKeyboardShortcutsBody({ className, style, ...domProps }: Rea
       {...domProps}
       className={classNames('popup-body', 'keyboard-shortcuts-body', className)}
       style={{
+        // PopupStyles CSS variables (for .popup-body base styles)
+        '--popup-body-background': theme.color.neutral.darker,
+        '--header-height': `${headerHeight}rem`,
+        '--popup-body-z-index': popupHeaderZIndex - 1,
+        // Keyboard shortcuts specific CSS variables
         '--keyboard-shortcuts-body-bg': theme.color.neutral.darker,
         '--keyboard-shortcuts-text-color': theme.color.text.default,
         '--shortcuts-card-bg': theme.color.white,
