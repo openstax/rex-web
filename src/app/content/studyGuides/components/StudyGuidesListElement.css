@@ -70,6 +70,19 @@
   }
 }
 
+/* Fix for orphaned figure captions in study guides (CORE-2373)
+ * When content includes a caption but not the wrapping .os-figure container,
+ * the caption needs explicit styling to display properly with full width.
+ */
+.study-guides-list-element-content .content-excerpt .os-caption-container,
+.study-guides-list-element-content .content-excerpt figcaption.os-caption-container {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding-top: 1rem;
+  margin-bottom: 0;
+}
+
 .study-guides-list-element-hidden-label {
   /* hiddenButAccessible */
   position: absolute;
