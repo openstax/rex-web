@@ -1,121 +1,160 @@
 import React from 'react';
-import styled, { css } from 'styled-components/macro';
-import Times from '../../../../src/app/components/Times';
+import classNames from 'classnames';
+import Times from '../../components/Times';
 import { PlainButton } from '../../components/Button';
-import { h3Style } from '../../components/Typography';
 import theme from '../../theme';
-import { contentWrapperMaxWidth } from '../components/constants';
-import { applyBookTextColor } from '../components/utils/applyBookTextColor';
-import { disablePrint } from '../components/utils/disablePrint';
+import { disablePrintClass } from '../components/utils/disablePrint';
 import { BookWithOSWebData } from '../types';
-import {
-  headerHeight, mobileMarginSides,
-  mobileMarginTopBottom,
-  mobilePaddingSides, popupBodyPadding, popupHeaderZIndex, popupPadding, topBottomMargin,
-} from './PopupConstants';
+import * as PopupConstants from './PopupConstants';
+import './PopupStyles.css';
 
+// Re-export constants from PopupConstants
 export * from './PopupConstants';
 
-const swapColors = ({colorSchema}: {colorSchema: BookWithOSWebData['theme']}) => {
-  const color = theme.color.primary[colorSchema];
-  return css`
-    color: ${color.foreground};
+interface PopupWrapperProps extends React.HTMLAttributes<HTMLDivElement> {
+  theme?: unknown;
+}
 
-    &:hover {
-      color: ${color.foregroundHover};
-    }
-  `;
-};
+/**
+ * PopupWrapper component - plain CSS version
+ */
+export function PopupWrapper({ className, theme: _theme, ...domProps }: PopupWrapperProps) {
+  return (
+    <div
+      {...domProps}
+      className={classNames('popup-wrapper', className)}
+    />
+  );
+}
 
-export const PopupWrapper = styled.div`
-  display: flex;
-  justify-content: center;
+interface HeaderProps extends React.HTMLAttributes<HTMLDivElement> {
+  colorSchema: BookWithOSWebData['theme'];
+  theme?: unknown;
+}
 
-  @media print {
-    display: block;
+/**
+ * Header component - plain CSS version with dynamic theming
+ */
+export function Header({ colorSchema, className, style, theme: _theme, ...domProps }: HeaderProps) {
+  const backgroundColor = theme.color.primary[colorSchema].base;
+  const textColor = theme.color.primary[colorSchema].foreground;
 
-    & ~ div {
-      display: none;
-    }
+  return (
+    <div
+      {...domProps}
+      className={classNames('popup-header', disablePrintClass, className)}
+      style={{
+        '--popup-background-color': backgroundColor,
+        '--popup-padding': `${PopupConstants.popupPadding}rem`,
+        '--header-height': `${PopupConstants.headerHeight}rem`,
+        '--popup-header-z-index': PopupConstants.popupHeaderZIndex,
+        '--mobile-padding-sides': `${PopupConstants.mobilePaddingSides}rem`,
+        color: textColor,
+        ...style,
+      } as React.CSSProperties}
+    />
+  );
+}
+
+interface PopupBodyProps extends React.HTMLAttributes<HTMLDivElement> {
+  theme?: unknown;
+}
+
+/**
+ * PopupBody component - plain CSS version with forwardRef support
+ */
+export const PopupBody = React.forwardRef<HTMLDivElement, PopupBodyProps>(
+  function PopupBody({ className, style, theme: _theme, ...domProps }, ref) {
+    return (
+        <div
+        ref={ref}
+        {...domProps}
+        className={classNames('popup-body', className)}
+        style={{
+            '--popup-body-background': theme.color.neutral.base,
+            '--header-height': `${PopupConstants.headerHeight}rem`,
+            '--popup-body-z-index': PopupConstants.popupHeaderZIndex - 1,
+            ...style,
+        } as React.CSSProperties}
+        />
+    );
   }
-`;
+);
 
-export const Header = styled.div`
-  ${h3Style}
-  ${disablePrint}
-  ${applyBookTextColor}
-  background: ${({colorSchema}: {colorSchema: BookWithOSWebData['theme']}) => theme.color.primary[colorSchema].base};
-  padding: ${popupPadding}rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: ${headerHeight}rem;
-  overflow: hidden;
-  z-index: ${popupHeaderZIndex};
-  ${theme.breakpoints.mobile(css`
-    padding: ${mobilePaddingSides}rem;
-  `)}
+interface ModalProps extends React.HTMLAttributes<HTMLDivElement> {
+  theme?: unknown;
+}
 
-  h1 {
-    font-size: inherit;
-    letter-spacing: inherit;
-    order: 1;
+/**
+ * Modal component - plain CSS version with forwardRef support
+ */
+export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
+  function Modal({ className, style, theme: _theme, ...domProps }, ref) {
+    return (
+      <div
+        ref={ref}
+        {...domProps}
+        className={classNames('popup-modal', className)}
+        style={{
+          '--popup-modal-background': theme.color.neutral.base,
+          '--popup-modal-z-index': theme.zIndex.highlightSummaryPopup,
+          '--header-height': `${PopupConstants.headerHeight}rem`,
+          '--popup-body-padding': `${PopupConstants.popupBodyPadding}rem`,
+          '--top-bottom-margin': `${PopupConstants.topBottomMargin}rem`,
+          '--mobile-margin-sides': `${PopupConstants.mobileMarginSides}rem`,
+          '--mobile-margin-top-bottom': `${PopupConstants.mobileMarginTopBottom}rem`,
+          ...style,
+        } as React.CSSProperties}
+      />
+    );
   }
-`;
+);
 
-export const PopupBody = styled.div`
-  -webkit-overflow-scrolling: touch;
-  height: calc(100% - ${headerHeight}rem);
-  background: ${theme.color.neutral.base};
-  z-index: ${popupHeaderZIndex - 1};
-  overflow: auto;
-  ${theme.breakpoints.mobile(css`
-    text-align: center;
-    padding: 8rem 3.2rem;
-  `)}
+interface CloseIconWrapperProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  theme?: unknown;
+}
 
-  @media print {
-    height: max-content;
-    overflow: auto;
+/**
+ * CloseIconWrapper component - plain CSS version
+ *
+ * Note: PlainButton already filters transient props (starting with $),
+ * so we can safely pass props directly without additional filtering.
+ */
+export const CloseIconWrapper = React.forwardRef<HTMLButtonElement, CloseIconWrapperProps>(
+  function CloseIconWrapper({ className, theme: _theme, ...props }, ref) {
+    return (
+      <PlainButton
+        ref={ref}
+        {...props}
+        className={classNames('popup-close-icon-wrapper', className)}
+      />
+    );
   }
-`;
+);
 
-export const Modal = styled.div`
-  top: 0;
-  z-index: ${theme.zIndex.highlightSummaryPopup};
-  position: fixed;
-  background: ${theme.color.neutral.base};
-  border-radius: 0.5rem;
-  height: calc(100% - ${topBottomMargin}rem);
-  outline: none;
-  overflow: hidden;
-  margin: ${headerHeight}rem auto ${popupBodyPadding}rem;
-  max-width: ${contentWrapperMaxWidth}rem;
-  width: calc(100% - ${popupBodyPadding}rem * 2);
-  ${theme.breakpoints.mobile(css`
-    margin: 2rem 0;
-    width: calc(100% - ${mobileMarginSides * 2}rem);
-    height: calc(100% - ${mobileMarginTopBottom * 2}rem);
-  `)}
+interface CloseIconProps extends React.SVGAttributes<SVGSVGElement> {
+  colorSchema: BookWithOSWebData['theme'];
+  theme?: unknown;
+}
 
-  @media print {
-    position: relative;
-    width: 100%;
-    margin: 0;
-    border-radius: 0;
-  }
-`;
+/**
+ * CloseIcon component - plain CSS version with dynamic theming
+ */
+export function CloseIcon({ colorSchema, className, style, theme: _theme, ...domProps }: CloseIconProps) {
+  const iconColor = theme.color.primary[colorSchema].foreground;
+  const iconHoverColor = theme.color.primary[colorSchema].foregroundHover;
 
-export const CloseIconWrapper = styled(PlainButton)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  order: 2;
-`;
-
-export const CloseIcon = styled(({colorSchema: _, ...props}) =>
-  <Times {...props} aria-hidden='true' focusable='true' />)`
-    ${swapColors}
-    cursor: pointer;
-    ${disablePrint}
-  `;
+  return (
+    <Times
+      {...domProps}
+      aria-hidden='true'
+      focusable='true'
+      className={classNames('popup-close-icon', disablePrintClass, className)}
+      style={{
+        '--popup-close-icon-color': iconColor,
+        '--popup-close-icon-hover-color': iconHoverColor,
+        ...style,
+      } as React.CSSProperties}
+    />
+  );
+}

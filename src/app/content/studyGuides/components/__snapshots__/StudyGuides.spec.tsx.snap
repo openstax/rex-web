@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`StudyGuides properly display summary highlights 1`] = `
-.c1 {
+.c0 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -14,7 +14,7 @@ exports[`StudyGuides properly display summary highlights 1`] = `
   padding: 0 3.2rem;
 }
 
-.c2 {
+.c1 {
   color: #424242;
   font-size: 1.8rem;
   line-height: 2.5rem;
@@ -36,21 +36,21 @@ exports[`StudyGuides properly display summary highlights 1`] = `
   width: 100%;
 }
 
-.c2 .os-number {
+.c1 .os-number {
   overflow: visible;
 }
 
-.c2 > .os-text {
+.c1 > .os-text {
   white-space: break-spaces;
 }
 
-.c3 {
+.c2 {
   margin: 1.6rem 3.2rem;
   border: solid 0.1rem #e5e5e5;
   overflow: visible;
 }
 
-.c4 {
+.c3 {
   color: #424242;
   font-size: 1.4rem;
   line-height: 1.6rem;
@@ -69,33 +69,25 @@ exports[`StudyGuides properly display summary highlights 1`] = `
   font-weight: bold;
 }
 
-.c4 > .os-number,
-.c4 > .os-divider,
-.c4 > .os-text {
+.c3 > .os-number,
+.c3 > .os-divider,
+.c3 > .os-text {
   overflow: hidden;
 }
 
-.c4 > .os-number,
-.c4 > .os-divider {
+.c3 > .os-number,
+.c3 > .os-divider {
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
 }
 
-.c4 > .os-text {
+.c3 > .os-text {
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
-.c0 {
-  overflow: visible;
-}
-
-.c0 .os-divider {
-  width: 0.8rem;
-}
-
-.c5 {
+.c4 {
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
@@ -103,29 +95,29 @@ exports[`StudyGuides properly display summary highlights 1`] = `
   padding: 0.8rem 0;
 }
 
-.c5 a {
+.c4 a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c5 a:hover {
+.c4 a:hover {
   color: #0064A0;
 }
 
-.c5 * {
+.c4 * {
   overflow: initial;
 }
 
 @media screen and (max-width:75em) {
-  .c1 {
+  .c0 {
     padding: 0 1.6rem;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c2 {
+  .c1 {
     color: #424242;
     font-size: 1.6rem;
     line-height: 2rem;
@@ -139,26 +131,26 @@ exports[`StudyGuides properly display summary highlights 1`] = `
 }
 
 @media print {
-  .c2 {
+  .c1 {
     padding: 0;
     background: white;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c3 {
+  .c2 {
     margin: 0 0 1.6rem 0;
   }
 }
 
 @media print {
-  .c3 {
+  .c2 {
     border-width: 0;
   }
 }
 
 @media print {
-  .c4 {
+  .c3 {
     -webkit-break-after: avoid;
     break-after: avoid;
     -webkit-break-inside: avoid;
@@ -176,13 +168,13 @@ exports[`StudyGuides properly display summary highlights 1`] = `
   }
 >
   <div
-    className="c0"
+    className="highlights-wrapper"
   >
     <div
-      className="c1"
+      className="c0"
     >
       <h2
-        className="c2"
+        className="c1"
         dangerouslySetInnerHTML={
           Object {
             "__html": "<span class=\\"os-number\\">10</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 5</span>",
@@ -192,10 +184,10 @@ exports[`StudyGuides properly display summary highlights 1`] = `
       />
     </div>
     <div
-      className="c3"
+      className="c2"
     >
       <h3
-        className="c4"
+        className="c3"
         dangerouslySetInnerHTML={
           Object {
             "__html": "<span class=\\"os-text\\">Test Page 6 with special characters in url</span>",
@@ -238,7 +230,7 @@ exports[`StudyGuides properly display summary highlights 1`] = `
             Important Concepts
           </div>
           <div
-            className="content-excerpt c5"
+            className="content-excerpt c4"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "<a href=\\"/books/book-slug-1/pages/link\\" target=\\"_blank\\">Link</a>",
@@ -284,7 +276,7 @@ exports[`StudyGuides properly display summary highlights 1`] = `
             Connections & Relationships
           </div>
           <div
-            className="content-excerpt c5"
+            className="content-excerpt c4"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "content",
@@ -330,7 +322,7 @@ exports[`StudyGuides properly display summary highlights 1`] = `
             Key Terms
           </div>
           <div
-            className="content-excerpt c5"
+            className="content-excerpt c4"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "content",
@@ -376,7 +368,7 @@ exports[`StudyGuides properly display summary highlights 1`] = `
             Enrichment
           </div>
           <div
-            className="content-excerpt c5"
+            className="content-excerpt c4"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "content",
@@ -415,7 +407,7 @@ exports[`StudyGuides properly display summary highlights 1`] = `
             Key Terms
           </div>
           <div
-            className="content-excerpt c5"
+            className="content-excerpt c4"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "content",
@@ -428,10 +420,10 @@ exports[`StudyGuides properly display summary highlights 1`] = `
       </div>
     </div>
     <div
-      className="c1"
+      className="c0"
     >
       <h2
-        className="c2"
+        className="c1"
         dangerouslySetInnerHTML={
           Object {
             "__html": "<span class=\\"os-number\\">12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 6</span>",
@@ -441,10 +433,10 @@ exports[`StudyGuides properly display summary highlights 1`] = `
       />
     </div>
     <div
-      className="c3"
+      className="c2"
     >
       <h3
-        className="c4"
+        className="c3"
         dangerouslySetInnerHTML={
           Object {
             "__html": "<span class=\\"os-text\\">Test Page 7</span>",
@@ -487,7 +479,7 @@ exports[`StudyGuides properly display summary highlights 1`] = `
             Important Concepts
           </div>
           <div
-            className="content-excerpt c5"
+            className="content-excerpt c4"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "content",
@@ -533,7 +525,7 @@ exports[`StudyGuides properly display summary highlights 1`] = `
             Connections & Relationships
           </div>
           <div
-            className="content-excerpt c5"
+            className="content-excerpt c4"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "content",
