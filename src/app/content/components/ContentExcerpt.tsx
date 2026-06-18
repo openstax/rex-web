@@ -72,12 +72,9 @@ export default styled(React.forwardRef<HTMLElement, Props>(
    * When a highlight includes a caption but not the wrapping .os-figure container,
    * the caption needs explicit styling to display properly with full width.
    */
-  .os-caption-container,
-  figcaption.os-caption-container {
+  figcaption.os-caption-container.os-caption-container {
     display: block;
-    width: 100%;
     text-align: left;
-    padding-top: 1rem;
-    margin-bottom: 0;
+    padding: 1rem 2rem 0;
   }
 `;

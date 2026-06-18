@@ -49,19 +49,6 @@
   overflow: initial;
 }
 
-/* Fix for orphaned figure captions in practice questions (CORE-2373)
- * When content includes a caption but not the wrapping .os-figure container,
- * the caption needs explicit styling to display properly with full width.
- */
-.question-content .content-excerpt .os-caption-container,
-.question-content .content-excerpt figcaption.os-caption-container {
-  display: block;
-  width: 100%;
-  text-align: left;
-  padding-top: 1rem;
-  margin-bottom: 0;
-}
-
 /* H4 mobile styles */
 @media screen and (max-width: 75em) {
   .question-content {
