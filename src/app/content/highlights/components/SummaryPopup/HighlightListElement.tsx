@@ -16,13 +16,14 @@ import { useConfirmationToastContext } from '../../../components/ConfirmationToa
 import './HighlightListElement.css';
 
 export const HighlightOuterWrapper = (
-  { className, theme: _theme, ...props }: React.HTMLAttributes<HTMLDivElement> & { theme?: any }
+  { className, theme: _theme, ...props }: React.HTMLAttributes<HTMLDivElement> & { theme?: unknown }
 ) => (
   <div {...props} className={['highlight-outer-wrapper', className].filter(Boolean).join(' ')} />
 );
 
 export const HighlightContentWrapper = (
-  { color, className, theme: _theme, ...props }: React.HTMLAttributes<HTMLDivElement> & { color: string; theme?: any }
+  { color, className, theme: _theme, ...props }: React.HTMLAttributes<HTMLDivElement> &
+  { color: string; theme?: unknown }
 ) => {
   const style = highlightStyles.find((search) => search.label === color);
 
@@ -41,7 +42,7 @@ export const HighlightContentWrapper = (
 };
 
 export const HiddenLabel = (
-  { className, theme: _theme, ...props }: React.HTMLAttributes<HTMLDivElement> & { theme?: any }
+  { className, theme: _theme, ...props }: React.HTMLAttributes<HTMLDivElement> & { theme?: unknown }
 ) => (
   <div {...props} className={['hidden-label', className].filter(Boolean).join(' ')} />
 );
