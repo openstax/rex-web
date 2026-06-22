@@ -2,7 +2,8 @@
 
 exports[`TruncatedText matches snapshot 1`] = `
 <p
-  className="truncated-text-note inactive "
+  className="truncated-text-note inactive"
+  id="1"
 >
   asdf
 </p>
@@ -10,7 +11,8 @@ exports[`TruncatedText matches snapshot 1`] = `
 
 exports[`TruncatedText matches snapshot when focused 1`] = `
 <p
-  className="truncated-text-note active "
+  className="truncated-text-note active"
+  id="1"
 >
   asdf
 </p>

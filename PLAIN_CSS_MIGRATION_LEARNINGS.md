@@ -29,7 +29,7 @@ This document captures key learnings from the styled-components to plain CSS mig
 - Call sites to be migrated gradually in future phases
 - Legacy code to be clearly isolated and eventually removed
 
-### Separate Legacy Code into `.legacy.ts` Files
+### ~~Separate Legacy Code into `.legacy.ts` Files~~ **[DEPRECATED - See Update Below]**
 
 **Issue**: Initially mixed legacy styled-components exports with new plain CSS components in the same files, forcing all consumers to pull in styled-components dependencies.
 
@@ -44,7 +44,38 @@ This document captures key learnings from the styled-components to plain CSS mig
 - ✅ Creates clear boundary for legacy code removal in future phases
 - ✅ Reduces module side effects
 
-**For Future Phases**: Always separate legacy exports into dedicated `.legacy.ts` files when migrating components with existing styled-components usage.
+**⚠️ DEPRECATED**: This approach is no longer needed. See "Simplified Migration Strategy" below.
+
+### Simplified Migration Strategy (Updated June 2026)
+
+**Issue**: The `.legacy.tsx` / `.new.tsx` / re-export shim pattern added unnecessary complexity. Since styled-components is being removed entirely, there's no need to maintain backward compatibility with styled-components wrappers.
+
+**Updated Resolution**: Migrate components directly in place:
+1. Replace styled-component content with plain CSS/React implementation directly in the main `.tsx` file
+2. Create accompanying `.css` file with styles
+3. No need for `.legacy.tsx` or `.new.tsx` files
+4. No need for re-export shims
+
+**Example**:
+```typescript
+// ❌ Old approach (deprecated):
+// - TruncatedText.tsx (re-export shim)
+// - TruncatedText.new.tsx (plain CSS implementation)
+// - TruncatedText.legacy.tsx (styled-components wrapper)
+
+// ✅ New approach (current):
+// - TruncatedText.tsx (plain CSS implementation directly)
+// - TruncatedText.css (styles)
+```
+
+**Benefits of Simplified Approach**:
+- ✅ Fewer files to manage (1 .tsx + 1 .css instead of 3 .tsx files)
+- ✅ No indirection through re-export shims
+- ✅ Clearer migration path - just replace the content
+- ✅ Easier to review and understand changes
+- ✅ Matches the project's end goal of removing styled-components entirely
+
+**For Future Phases**: Use the simplified approach - put plain CSS/React implementations directly in the main component file, with styles in an accompanying `.css` file. Only use `.legacy.ts` files for style utilities (like `textStyle`, `linkStyle`) that are still needed for backward compatibility during transition.
 
 ---
 
@@ -1072,12 +1103,12 @@ Use this checklist when migrating additional components from styled-components t
 - [ ] Identify all components to migrate
 - [ ] Identify all existing styled-components exports (css fragments, style utilities)
 - [ ] Identify all call sites that use these exports
-- [ ] Plan hybrid approach: new implementations + legacy exports
+- [ ] ~~Plan hybrid approach: new implementations + legacy exports~~ **[Use simplified in-place migration]**
 
 ### Implementation
-- [ ] Create plain CSS files for component styles
+- [ ] Create plain CSS files for component styles (`.css` files)
 - [ ] Ensure all `@media` queries are at the top level, not nested inside class selectors
-- [ ] Create React components that use plain CSS classes
+- [ ] Replace styled-component content directly in main `.tsx` file with plain CSS/React implementation
 - [ ] Use `classnames` package for all className composition (no string concatenation)
 - [ ] Use normal function declarations instead of `React.FC` for all components
 - [ ] Use `React.forwardRef` for components that receive refs (check for `ref={...}` usage in codebase)
@@ -1088,7 +1119,7 @@ Use this checklist when migrating additional components from styled-components t
 - [ ] Avoid duplicate CSS imports across multiple modules
 - [ ] When migrating `createGlobalStyle`, implement reference counting if multiple instances can coexist
 - [ ] Extract shared constants into `.constants.ts` files (no side effects)
-- [ ] Create `.legacy.ts` files for backward-compatible styled-components exports
+- [ ] ~~Create `.legacy.ts` files for backward-compatible styled-components exports~~ **[Only for style utilities, not components]**
 - [ ] Use selective exports in index files to avoid conflicts
 - [ ] Upgrade Redux `connect()` to hooks (`useSelector`, `useDispatch`) when editing connected components
 - [ ] Remove unused state variables and effects after converting from class components

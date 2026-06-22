@@ -2,7 +2,7 @@
 
 exports[`HighlightDeleteWrapper match snapshot 1`] = `
 <div
-  className="highlight-delete-wrapper "
+  className="highlight-delete-wrapper"
   data-analytics-region="MH delete"
   tabIndex={0}
 >

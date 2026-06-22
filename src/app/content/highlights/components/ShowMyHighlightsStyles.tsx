@@ -1,8 +1,29 @@
+import classNames from 'classnames';
+import React from 'react';
+import theme from '../../../theme';
+import { PopupBody } from '../../styles/PopupStyles';
+import './ShowMyHighlightsStyles.css';
+
+interface ShowMyHighlightsBodyProps extends React.HTMLAttributes<HTMLDivElement> {
+  theme?: unknown;
+}
+
 /**
- * ShowMyHighlightsStyles - Backward compatibility exports
- *
- * This file maintains the original export paths for backward compatibility.
- * The actual implementation has been migrated to plain CSS (ShowMyHighlightsStyles.new.tsx).
- * Legacy styled-components usage is in ShowMyHighlightsStyles.legacy.tsx.
+ * ShowMyHighlightsBody component - plain CSS version with forwardRef support
+ * Extends PopupBody with custom background color
  */
-export * from './ShowMyHighlightsStyles.legacy';
+export const ShowMyHighlightsBody = React.forwardRef<HTMLDivElement, ShowMyHighlightsBodyProps>(
+  function ShowMyHighlightsBody({ className, style, theme: _theme, ...domProps }, ref) {
+    return (
+      <PopupBody
+        ref={ref}
+        {...domProps}
+        className={classNames('show-my-highlights-body', className)}
+        style={{
+          '--show-my-highlights-background': theme.color.neutral.darker,
+          ...style,
+        } as React.CSSProperties}
+      />
+    );
+  }
+);
