@@ -5,7 +5,7 @@ import styled from 'styled-components/macro';
 import trashIcon from '../../../../assets/trash-347.svg';
 import { isDefined } from '../../../guards';
 import { highlightStyles } from '../../constants';
-import './ColorIndicator.css';
+// Note: ColorIndicator.css is imported globally in src/app/index.tsx
 
 interface IconProps extends React.SVGAttributes<SVGSVGElement> {
   className?: string;

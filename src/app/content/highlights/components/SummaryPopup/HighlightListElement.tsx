@@ -15,12 +15,14 @@ import { useCreateHighlightLink } from './utils';
 import { useConfirmationToastContext } from '../../../components/ConfirmationToast';
 import './HighlightListElement.css';
 
-export const HighlightOuterWrapper = (props: React.HTMLAttributes<HTMLDivElement>) => (
-  <div {...props} className="highlight-outer-wrapper" />
+export const HighlightOuterWrapper = (
+  { className, theme: _theme, ...props }: React.HTMLAttributes<HTMLDivElement> & { theme?: any }
+) => (
+  <div {...props} className={['highlight-outer-wrapper', className].filter(Boolean).join(' ')} />
 );
 
 export const HighlightContentWrapper = (
-  { color, ...props }: React.HTMLAttributes<HTMLDivElement> & { color: string }
+  { color, className, theme: _theme, ...props }: React.HTMLAttributes<HTMLDivElement> & { color: string; theme?: any }
 ) => {
   const style = highlightStyles.find((search) => search.label === color);
 
@@ -32,14 +34,16 @@ export const HighlightContentWrapper = (
   return (
     <div
       {...props}
-      className="highlight-content-wrapper"
+      className={['highlight-content-wrapper', className].filter(Boolean).join(' ')}
       style={{ ...cssVariables, ...props.style }}
     />
   );
 };
 
-export const HiddenLabel = (props: React.HTMLAttributes<HTMLDivElement>) => (
-  <div {...props} className="hidden-label" />
+export const HiddenLabel = (
+  { className, theme: _theme, ...props }: React.HTMLAttributes<HTMLDivElement> & { theme?: any }
+) => (
+  <div {...props} className={['hidden-label', className].filter(Boolean).join(' ')} />
 );
 
 function HighlightContentLabel({ color }: { color: string }) {
