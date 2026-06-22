@@ -1,8 +1,8 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
+import classNames from 'classnames';
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components/macro';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import { useOnEsc, useOnKey, useTrapTabNavigation } from '../../../reactUtils';
 import theme from '../../../theme';
@@ -14,10 +14,23 @@ import { CloseIcon, CloseIconWrapper, Header } from '../../styles/PopupStyles';
 import { closeKeyboardShortcutsMenu, openKeyboardShortcutsMenu } from '../actions';
 import * as ksSelectors from '../selectors';
 import ShowKeyboardShortcuts from './ShowKeyboardShortcuts';
+import './KeyboardShortcutsPopup.css';
 
-const StyledModal = styled(Modal)`
-  max-width: 92.8rem;
-`;
+/**
+ * StyledModal component - plain CSS version
+ */
+const StyledModal = React.forwardRef<HTMLElement, React.ComponentProps<typeof Modal>>(
+  function StyledModal({ className, ...domProps }, ref) {
+
+    return (
+      <Modal
+        ref={ref}
+        {...domProps}
+        className={classNames('keyboard-shortcuts-popup-modal', className)}
+      />
+    );
+  }
+);
 
 const KeyboardShortcutsPopup = () => {
   const dispatch = useDispatch();
