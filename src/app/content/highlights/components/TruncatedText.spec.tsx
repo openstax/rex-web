@@ -3,7 +3,7 @@ import renderer from 'react-test-renderer';
 import TestContainer from '../../../../test/TestContainer';
 import TruncatedText from './TruncatedText';
 
-function Component({isActive, onChange = () => null}: {isActive: boolean; onChange?: () => null }) {
+function Component({isActive, onChange = () => undefined}: {isActive: boolean; onChange?: () => void }) {
   return <TestContainer>
       <TruncatedText id='1' text='asdf' isActive={isActive} onChange={onChange} />
     </TestContainer>

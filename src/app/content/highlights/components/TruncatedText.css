@@ -30,6 +30,7 @@
   overflow: hidden;
   white-space: pre-wrap;
   overflow-wrap: break-word;
+  word-break: break-word; /* Ensures long unbroken strings wrap consistently across browsers */
   font-size: 1.4rem;
   line-height: 1.8rem;
   margin: 0 0.4rem 0 0; /* cardPadding / 2 = 0.4 */
@@ -52,8 +53,10 @@
 /**
  * Touch device query: (max-width: 75em) and (not all and (pointer: fine), (hover: none))
  * This combines mobile breakpoint with touch device detection
+ *
+ * Note: Using (pointer: coarse) instead of "not (pointer: fine)" for better browser compatibility
  */
-@media screen and (max-width: 75em) and not all and (pointer: fine),
+@media screen and (max-width: 75em) and (pointer: coarse),
   screen and (max-width: 75em) and (hover: none) {
   .truncated-text-note {
     padding: 0.8rem 1.6rem; /* cardPadding, cardPadding * 2 */

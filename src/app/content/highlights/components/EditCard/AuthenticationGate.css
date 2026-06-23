@@ -19,8 +19,10 @@
  * touchDeviceQuery: "not all and (pointer: fine), (hover: none)"
  * Converted to: (pointer: coarse) OR (hover: none)
  * Combined with mobileBreak: (max-width: 75em)
+ *
+ * Note: Using (pointer: coarse) instead of "not (pointer: fine)" for better browser compatibility
  */
-@media screen and (max-width: 75em) and not all and (pointer: fine),
+@media screen and (max-width: 75em) and (pointer: coarse),
   screen and (max-width: 75em) and (hover: none) {
   .hidden-on-mobile {
     display: none;
