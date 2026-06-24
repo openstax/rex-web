@@ -1,0 +1,7 @@
+/**
+ * KeyboardShortcutsPopup - Plain CSS version
+ */
+
+.popup-modal.keyboard-shortcuts-popup-modal {
+  max-width: 92.8rem;
+}
