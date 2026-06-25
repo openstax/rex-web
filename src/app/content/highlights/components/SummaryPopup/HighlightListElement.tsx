@@ -45,7 +45,7 @@ export const HighlightContentWrapper = (
 export const HiddenLabel = (
   { className, theme: _theme, ...props }: React.HTMLAttributes<HTMLDivElement> & { theme?: unknown }
 ) => (
-  <div {...props} className={classNames('hidden-label', className)} />
+  <div {...props} className={classNames('hidden-but-accessible', className)} />
 );
 
 function HighlightContentLabel({ color }: { color: string }) {
