@@ -26,7 +26,7 @@ async function run() {
             if (!fs.existsSync(sourcePath)) {
                 if (!mapSource.sourcesContent[index]) {
                     console.error(`Unable to find source='${toRelPath(sourcePath)}' from '${toRelPath(mapPath)}' from '${toRelPath(filename)}`)
-                    console.error(`Here are the relative paths: '${sourceFilenameRel}' from '${mapFilename}' from '${filename}'`)
+                    console.error(`Here are the relative paths: '${sourceFilename}' from '${mapFilename}' from '${filename}'`)
                     throw new Error(`BUG: Could not find source file`)
                 }
             }
