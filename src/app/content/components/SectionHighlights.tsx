@@ -58,6 +58,7 @@ export const HighlightWrapper = styled.div`
   overflow: visible;
 
   @media print {
+    margin: 0;
     border-width: 0;
   }
 `;
