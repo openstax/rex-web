@@ -13,12 +13,13 @@ import HighlightAnnotation from './HighlightAnnotation';
 import HighlightDeleteWrapper from './HighlightDeleteWrapper';
 import { useCreateHighlightLink } from './utils';
 import { useConfirmationToastContext } from '../../../components/ConfirmationToast';
+import classNames from 'classnames';
 import './HighlightListElement.css';
 
 export const HighlightOuterWrapper = (
   { className, theme: _theme, ...props }: React.HTMLAttributes<HTMLDivElement> & { theme?: unknown }
 ) => (
-  <div {...props} className={['highlight-outer-wrapper', className].filter(Boolean).join(' ')} />
+  <div {...props} className={classNames('highlight-outer-wrapper', className)} />
 );
 
 export const HighlightContentWrapper = (
@@ -35,7 +36,7 @@ export const HighlightContentWrapper = (
   return (
     <div
       {...props}
-      className={['highlight-content-wrapper', className].filter(Boolean).join(' ')}
+      className={classNames('highlight-content-wrapper', className)}
       style={{ ...cssVariables, ...props.style }}
     />
   );
@@ -44,7 +45,7 @@ export const HighlightContentWrapper = (
 export const HiddenLabel = (
   { className, theme: _theme, ...props }: React.HTMLAttributes<HTMLDivElement> & { theme?: unknown }
 ) => (
-  <div {...props} className={['hidden-label', className].filter(Boolean).join(' ')} />
+  <div {...props} className={classNames('hidden-label', className)} />
 );
 
 function HighlightContentLabel({ color }: { color: string }) {

@@ -10,7 +10,7 @@
  */
 
 /* === Constants from various files ===
- * desktopPopupWidth: 60rem (from PopupStyles)
+ * desktopPopupWidth: 74.4rem (from PopupStyles/PopupConstants)
  * mobileBreak: 75em (1200px) from theme.ts
  */
 
@@ -18,7 +18,7 @@
 .grid-wrapper {
   margin: 3.6rem auto 0;
   overflow: visible;
-  width: 60rem; /* desktopPopupWidth */
+  width: 74.4rem; /* desktopPopupWidth */
 }
 
 /* Hide grid on mobile screens */
@@ -31,7 +31,7 @@
 /* === MyHighlightsWrapper === */
 .my-highlights-wrapper {
   margin: 3.6rem auto 0;
-  width: 60rem; /* desktopPopupWidth */
+  width: 74.4rem; /* desktopPopupWidth */
   text-align: center;
 }
 

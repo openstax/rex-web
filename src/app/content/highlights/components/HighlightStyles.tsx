@@ -1,10 +1,16 @@
 import React from 'react';
+// NOTE: This file is partially migrated to plain CSS. Two wrapper components (GridWrapper and
+// MyHighlightsWrapper) have been migrated and use HighlightStyles.css. The remaining ~15 styled
+// components (image components, sticky note components, text wrappers, etc.) will be migrated in
+// future work. They remain here using styled-components due to their complexity (component
+// selectors, nested pseudo-elements, calculated values, and component inheritance patterns).
 import styled, { css } from 'styled-components/macro';
 import htmlMessage from '../../../components/htmlMessage';
 import { bodyCopyRegularStyle } from '../../../components/Typography';
 import { H3, h4Style } from '../../../components/Typography';
 import theme from '../../../theme';
 import { desktopPopupWidth, popupBodyPadding, popupPadding } from '../../styles/PopupStyles';
+import classNames from 'classnames';
 import './HighlightStyles.css';
 
 export const myHighlightsImageWidth = 72.8;
@@ -124,7 +130,7 @@ export const StickyNoteLi = styled.li`
 export const GridWrapper = (
   { className, theme: _theme, ...props }: React.HTMLAttributes<HTMLDivElement> & { theme?: unknown }
 ) => (
-  <div {...props} className={['grid-wrapper', className].filter(Boolean).join(' ')} />
+  <div {...props} className={classNames('grid-wrapper', className)} />
 );
 
 export const ImagesGrid = styled.div`
@@ -155,7 +161,7 @@ export const LoginText = htmlMessage('i18n:toolbar:highlights:popup:login-text',
 export const MyHighlightsWrapper = (
   { className, theme: _theme, ...props }: React.HTMLAttributes<HTMLDivElement> & { theme?: unknown }
 ) => (
-  <div {...props} className={['my-highlights-wrapper', className].filter(Boolean).join(' ')} />
+  <div {...props} className={classNames('my-highlights-wrapper', className)} />
 );
 
 export const GeneralLeftText = styled(GeneralTextWrapper)`
