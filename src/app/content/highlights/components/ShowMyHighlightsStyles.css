@@ -1,0 +1,18 @@
+.show-my-highlights-body {
+  background: var(--show-my-highlights-background, #dedede);
+}
+
+/* On mobile, PopupBody applies text-align: center and padding: 8rem 3.2rem
+ * Override those back to left/0 for this specific popup */
+@media screen and (max-width: 75em) {
+  .show-my-highlights-body {
+    text-align: left;
+    padding: 0;
+  }
+}
+
+@media print {
+  .show-my-highlights-body {
+    background: white;
+  }
+}

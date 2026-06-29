@@ -1,9 +1,17 @@
+import React from 'react';
+// NOTE: This file is partially migrated to plain CSS. Two wrapper components (GridWrapper and
+// MyHighlightsWrapper) have been migrated and use HighlightStyles.css. The remaining ~15 styled
+// components (image components, sticky note components, text wrappers, etc.) will be migrated in
+// future work. They remain here using styled-components due to their complexity (component
+// selectors, nested pseudo-elements, calculated values, and component inheritance patterns).
 import styled, { css } from 'styled-components/macro';
 import htmlMessage from '../../../components/htmlMessage';
 import { bodyCopyRegularStyle } from '../../../components/Typography';
 import { H3, h4Style } from '../../../components/Typography';
 import theme from '../../../theme';
 import { desktopPopupWidth, popupBodyPadding, popupPadding } from '../../styles/PopupStyles';
+import classNames from 'classnames';
+import './HighlightStyles.css';
 
 export const myHighlightsImageWidth = 72.8;
 export const myHighlightsImageHeight = 23.2;
@@ -118,14 +126,12 @@ export const StickyNoteLi = styled.li`
   }
 `;
 
-export const GridWrapper = styled.div`
-  margin: 3.6rem auto 0;
-  overflow: visible;
-  width: ${desktopPopupWidth}rem;
-  ${theme.breakpoints.mobile(css`
-    display: none;
-  `)}
-`;
+// Migrated to plain CSS - see HighlightStyles.css
+export const GridWrapper = (
+  { className, theme: _theme, ...props }: React.HTMLAttributes<HTMLDivElement> & { theme?: unknown }
+) => (
+  <div {...props} className={classNames('grid-wrapper', className)} />
+);
 
 export const ImagesGrid = styled.div`
   display: flex;
@@ -151,14 +157,12 @@ export const GeneralTextWrapper = styled.div`
 
 export const LoginText = htmlMessage('i18n:toolbar:highlights:popup:login-text', GeneralTextWrapper);
 
-export const MyHighlightsWrapper = styled.div`
-  margin: 3.6rem auto 0;
-  width: ${desktopPopupWidth}rem;
-  text-align: center;
-  ${theme.breakpoints.mobile(css`
-    display: none;
-  `)}
-`;
+// Migrated to plain CSS - see HighlightStyles.css
+export const MyHighlightsWrapper = (
+  { className, theme: _theme, ...props }: React.HTMLAttributes<HTMLDivElement> & { theme?: unknown }
+) => (
+  <div {...props} className={classNames('my-highlights-wrapper', className)} />
+);
 
 export const GeneralLeftText = styled(GeneralTextWrapper)`
   display: flex;

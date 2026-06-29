@@ -1,0 +1,43 @@
+/**
+ * HighlightStyles Component Styles
+ *
+ * This file contains styles for components that have been migrated from
+ * styled-components to plain CSS. Currently includes:
+ * - GridWrapper: Container for image grid in help popup
+ * - MyHighlightsWrapper: Container for "My Highlights" section
+ *
+ * Both components use mobile breakpoint for responsive hiding.
+ */
+
+/* === Constants from various files ===
+ * desktopPopupWidth: 74.4rem (from PopupStyles/PopupConstants)
+ * mobileBreak: 75em (1200px) from theme.ts
+ */
+
+/* === GridWrapper === */
+.grid-wrapper {
+  margin: 3.6rem auto 0;
+  overflow: visible;
+  width: 74.4rem; /* desktopPopupWidth */
+}
+
+/* Hide grid on mobile screens */
+@media screen and (max-width: 75em) {
+  .grid-wrapper {
+    display: none;
+  }
+}
+
+/* === MyHighlightsWrapper === */
+.my-highlights-wrapper {
+  margin: 3.6rem auto 0;
+  width: 74.4rem; /* desktopPopupWidth */
+  text-align: center;
+}
+
+/* Hide on mobile screens */
+@media screen and (max-width: 75em) {
+  .my-highlights-wrapper {
+    display: none;
+  }
+}

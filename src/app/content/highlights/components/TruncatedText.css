@@ -1,0 +1,66 @@
+/**
+ * TruncatedText Styles - Plain CSS version
+ */
+
+.truncated-text-link {
+  /* textStyle base */
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+  /* linkStyle */
+  color: var(--link-color, #027eb5);
+  text-decoration: underline;
+  text-align: left;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  margin: 0.4rem 0 0 0; /* cardPadding / 2 = 0.8 / 2 = 0.4 */
+  background: none;
+  font-size: 1.2rem;
+  line-height: 1.6rem;
+}
+
+.truncated-text-link:hover {
+  color: var(--link-hover-color, #0064a0);
+}
+
+.truncated-text-note {
+  /* textStyle base */
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #424242;
+  overflow: hidden;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  word-break: break-word; /* Ensures long unbroken strings wrap consistently across browsers */
+  font-size: 1.4rem;
+  line-height: 1.8rem;
+  margin: 0 0.4rem 0 0; /* cardPadding / 2 = 0.4 */
+  padding: 0;
+}
+
+.truncated-text-note.inactive {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-height: 5.4rem; /* lineHeight * 3 = 1.8 * 3 = 5.4 */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.truncated-text-note.active + .truncated-text-link {
+  display: none;
+}
+
+/**
+ * Touch device query: (max-width: 75em) and (not all and (pointer: fine), (hover: none))
+ * This combines mobile breakpoint with touch device detection
+ *
+ * Note: Using (pointer: coarse) instead of "not (pointer: fine)" for better browser compatibility
+ */
+@media screen and (max-width: 75em) and (pointer: coarse),
+  screen and (max-width: 75em) and (hover: none) {
+  .truncated-text-note {
+    padding: 0.8rem 1.6rem; /* cardPadding, cardPadding * 2 */
+    height: 15.2rem;
+    overflow: auto;
+  }
+}

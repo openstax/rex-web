@@ -1,11 +1,9 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
+import classNames from 'classnames';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import styled, { css } from 'styled-components/macro';
-import { linkStyle } from '../../../components/Typography';
-import { textStyle } from '../../../components/Typography';
-import theme from '../../../theme';
-import { cardPadding } from '../constants';
+import { linkColor, linkHover } from '../../../components/Typography';
+import './TruncatedText.css';
 
 interface Props {
   id: string;
@@ -15,20 +13,29 @@ interface Props {
   onChange: () => void;
 }
 
-const Link = styled.span`
-  ${textStyle}
-  ${linkStyle}
-  text-align: left;
-  cursor: pointer;
-  border: none;
-  padding: 0;
-  margin: ${cardPadding / 2}rem 0 0 0;
-  background: none;
-  font-size: 1.2rem;
-  line-height: 1.6rem;
-`;
+/**
+ * Link component for "show more" functionality
+ */
+export function Link(
+  { className, style, theme: _theme, ...props }: React.HTMLAttributes<HTMLSpanElement> & { theme?: unknown }
+) {
+  return (
+    <span
+      {...props}
+      className={classNames('truncated-text-link', className)}
+      style={{
+        '--link-color': linkColor,
+        '--link-hover-color': linkHover,
+        ...style,
+      } as React.CSSProperties}
+    />
+  );
+}
 
-const NoteText = ({id, text, isActive, className, onChange }: Props) => {
+/**
+ * TruncatedText component - shows note text with expand/collapse functionality
+ */
+export function TruncatedText({ id, text, isActive, className, onChange }: Props) {
   const noteTextRef = React.useRef<HTMLElement>(null);
   const [showLink, setShowLink] = React.useState<boolean>(false);
 
@@ -42,42 +49,26 @@ const NoteText = ({id, text, isActive, className, onChange }: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isActive]);
 
-  return <React.Fragment>
-    <p id={id} ref={noteTextRef} className={className}>{text}</p>
-    {showLink && <FormattedMessage id='i18n:highlighting:card:show-more'>
-      {(msg) => <Link>{msg}</Link>}
-    </FormattedMessage>}
-  </React.Fragment>;
-};
+  return (
+    <React.Fragment>
+      <p
+        id={id}
+        ref={noteTextRef}
+        className={classNames(
+          'truncated-text-note',
+          isActive ? 'active' : 'inactive',
+          className
+        )}
+      >
+        {text}
+      </p>
+      {showLink && (
+        <FormattedMessage id='i18n:highlighting:card:show-more'>
+          {(msg) => <Link>{msg}</Link>}
+        </FormattedMessage>
+      )}
+    </React.Fragment>
+  );
+}
 
-const lineHeight = 1.8;
-export default styled(NoteText)`
-  ${textStyle}
-  overflow: hidden;
-  white-space: pre-wrap;
-  word-break: break-word;
-  overflow-wrap: break-word;
-  font-size: 1.4rem;
-  line-height: ${lineHeight}rem;
-  margin: 0 ${cardPadding / 2}rem 0 0;
-  padding: 0;
-  ${(props: Props) => props.isActive && css`
-    + ${Link} {
-      display: none;
-    }
-  `}
-  ${(props: Props) => !props.isActive && css`
-    text-overflow: ellipsis;
-    overflow: hidden;
-    max-height: ${lineHeight * 3}rem;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
-  `}
-
-  ${theme.breakpoints.touchDeviceQuery(css`
-    padding: ${cardPadding}rem ${cardPadding * 2}rem;
-    height: 15.2rem;
-    overflow: auto;
-  `)}
-`;
+export default TruncatedText;

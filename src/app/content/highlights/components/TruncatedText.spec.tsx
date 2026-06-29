@@ -3,20 +3,22 @@ import renderer from 'react-test-renderer';
 import TestContainer from '../../../../test/TestContainer';
 import TruncatedText from './TruncatedText';
 
+function Component({isActive, onChange = () => undefined}: {isActive: boolean; onChange?: () => void }) {
+  return <TestContainer>
+      <TruncatedText id='1' text='asdf' isActive={isActive} onChange={onChange} />
+    </TestContainer>
+}
+
 describe('TruncatedText', () => {
   it('matches snapshot', () => {
-    const component = renderer.create(<TestContainer>
-      <TruncatedText text='asdf' isActive={false} onChange={() => null} />
-    </TestContainer>);
+    const component = renderer.create(<Component isActive={false} />);
 
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
   });
 
   it('matches snapshot when focused', () => {
-    const component = renderer.create(<TestContainer>
-      <TruncatedText text='asdf' isActive={true} onChange={() => null} />
-    </TestContainer>);
+    const component = renderer.create(<Component isActive={true} />);
 
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
@@ -28,13 +30,9 @@ describe('TruncatedText', () => {
       scrollHeight: 100,
     });
 
-    const component = renderer.create(<TestContainer>
-      <TruncatedText text='asdf' isActive={true} onChange={() => null} />
-    </TestContainer>, {createNodeMock});
+    const component = renderer.create(<Component isActive={true} />, {createNodeMock});
 
-    component.update(<TestContainer>
-      <TruncatedText text='asdf' isActive={true} onChange={() => null} />
-    </TestContainer>);
+    component.update(<Component isActive={true} />);
 
     expect(() => component.root.findByType('span')).not.toThrow();
   });
@@ -42,13 +40,9 @@ describe('TruncatedText', () => {
   it('calls onChange when state changes', () => {
     const onChange = jest.fn();
 
-    renderer.create(<TestContainer>
-      <TruncatedText text='asdf' isActive={false} onChange={onChange} />
-    </TestContainer>);
+    renderer.create(<Component isActive={false} onChange={onChange} />);
 
-    renderer.create(<TestContainer>
-      <TruncatedText text='asdf' isActive={true} onChange={onChange} />
-    </TestContainer>);
+    renderer.create(<Component isActive={true} onChange={onChange} />);
 
     expect(onChange).toHaveBeenCalledTimes(1);
   });

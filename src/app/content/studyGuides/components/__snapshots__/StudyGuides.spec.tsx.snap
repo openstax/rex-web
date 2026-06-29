@@ -145,6 +145,7 @@ exports[`StudyGuides properly display summary highlights 1`] = `
 
 @media print {
   .c2 {
+    margin: 0;
     border-width: 0;
   }
 }
