@@ -1,15 +1,18 @@
 import React from 'react';
-// NOTE: This file is partially migrated to plain CSS. Two wrapper components (GridWrapper and
-// MyHighlightsWrapper) have been migrated and use HighlightStyles.css. The remaining ~15 styled
-// components (image components, sticky note components, text wrappers, etc.) will be migrated in
-// future work. They remain here using styled-components due to their complexity (component
-// selectors, nested pseudo-elements, calculated values, and component inheritance patterns).
-import styled, { css } from 'styled-components/macro';
+// NOTE: This file is partially migrated to plain CSS. The following components have been migrated
+// and use HighlightStyles.css:
+// - GridWrapper, MyHighlightsWrapper (wrapper components)
+// - FirstImage, SecondImage, ImageWrapper, ImagesGrid (image components)
+//
+// The remaining ~11 styled components (sticky note components, text wrappers, etc.) will be
+// migrated in future work. They remain here using styled-components due to their complexity
+// (component selectors, nested pseudo-elements, calculated values, and component inheritance patterns).
+import styled from 'styled-components/macro';
 import htmlMessage from '../../../components/htmlMessage';
 import { bodyCopyRegularStyle } from '../../../components/Typography';
 import { H3, h4Style } from '../../../components/Typography';
 import theme from '../../../theme';
-import { desktopPopupWidth, popupBodyPadding, popupPadding } from '../../styles/PopupStyles';
+import { popupBodyPadding, popupPadding } from '../../styles/PopupStyles';
 import classNames from 'classnames';
 import './HighlightStyles.css';
 
@@ -26,24 +29,24 @@ export const stickyNoteMeasures = {
   width: 29.8, /* to allow text to fit in one line with tooltip */
 };
 
-export const imageStyles = css`
-  height: 25.6rem;
-  width: 36rem;
-  box-shadow: 0.1rem 0.1rem 0.4rem 0 rgba(0, 0, 0, 20);
-`;
+// Migrated to plain CSS - see HighlightStyles.css
+export const FirstImage = (
+  { className, theme: _theme, ...props }: React.ImgHTMLAttributes<HTMLImageElement> & { theme?: unknown }
+) => (
+  <img alt="" {...props} className={classNames('first-image', className)} />
+);
 
-export const FirstImage = styled.img`
-  ${imageStyles}
-`;
+export const SecondImage = (
+  { className, theme: _theme, ...props }: React.ImgHTMLAttributes<HTMLImageElement> & { theme?: unknown }
+) => (
+  <img alt="" {...props} className={classNames('second-image', className)} />
+);
 
-export const SecondImage = styled.img`
-  ${imageStyles}
-  margin-top: 17.6rem;
-`;
-
-export const ImageWrapper = styled.div`
-  width: ${(desktopPopupWidth - popupBodyPadding) / 2}rem;
-`;
+export const ImageWrapper = (
+  { className, theme: _theme, ...props }: React.HTMLAttributes<HTMLDivElement> & { theme?: unknown }
+) => (
+  <div {...props} className={classNames('image-wrapper', className)} />
+);
 
 export const StickyNoteBullet = styled.div`
   position: absolute;
@@ -133,12 +136,12 @@ export const GridWrapper = (
   <div {...props} className={classNames('grid-wrapper', className)} />
 );
 
-export const ImagesGrid = styled.div`
-  display: flex;
-  position: relative;
-  justify-content: space-between;
-  overflow: visible;
-`;
+// Migrated to plain CSS - see HighlightStyles.css
+export const ImagesGrid = (
+  { className, theme: _theme, ...props }: React.HTMLAttributes<HTMLDivElement> & { theme?: unknown }
+) => (
+  <div {...props} className={classNames('images-grid', className)} />
+);
 
 export const GeneralText = styled(H3)`
   width: 100%;

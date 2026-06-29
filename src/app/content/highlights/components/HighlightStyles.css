@@ -5,12 +5,17 @@
  * styled-components to plain CSS. Currently includes:
  * - GridWrapper: Container for image grid in help popup
  * - MyHighlightsWrapper: Container for "My Highlights" section
+ * - ImagesGrid: Flex container for image layout
+ * - ImageWrapper: Wrapper for individual images
+ * - FirstImage: First help popup image
+ * - SecondImage: Second help popup image (with top margin)
  *
- * Both components use mobile breakpoint for responsive hiding.
+ * GridWrapper and MyHighlightsWrapper use mobile breakpoint for responsive hiding.
  */
 
 /* === Constants from various files ===
  * desktopPopupWidth: 74.4rem (from PopupStyles/PopupConstants)
+ * popupBodyPadding: 2.4rem (from PopupStyles/PopupConstants)
  * mobileBreak: 75em (1200px) from theme.ts
  */
 
@@ -40,4 +45,29 @@
   .my-highlights-wrapper {
     display: none;
   }
+}
+
+/* === ImagesGrid === */
+.images-grid {
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+  overflow: visible;
+}
+
+/* === ImageWrapper === */
+.image-wrapper {
+  width: 36rem; /* (desktopPopupWidth - popupBodyPadding) / 2 = (74.4 - 2.4) / 2 = 36 */
+}
+
+/* === Image Components === */
+.first-image,
+.second-image {
+  height: 25.6rem;
+  width: 36rem;
+  box-shadow: 0.1rem 0.1rem 0.4rem 0 rgba(0, 0, 0, 0.2);
+}
+
+.second-image {
+  margin-top: 17.6rem;
 }
