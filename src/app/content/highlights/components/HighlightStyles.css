@@ -9,6 +9,12 @@
  * - ImageWrapper: Wrapper for individual images
  * - FirstImage: First help popup image
  * - SecondImage: Second help popup image (with top margin)
+ * - StickyNoteBullet: Bullet decoration for sticky notes
+ * - StickyNote: Base sticky note (used by blue and green variants)
+ * - BlueStickyNote: Blue sticky note variant
+ * - GreenStickyNote: Green sticky note variant
+ * - StickyNoteUl: Unordered list within sticky notes
+ * - StickyNoteLi: List items within sticky notes
  *
  * GridWrapper and MyHighlightsWrapper use mobile breakpoint for responsive hiding.
  */
@@ -17,6 +23,22 @@
  * desktopPopupWidth: 74.4rem (from PopupStyles/PopupConstants)
  * popupBodyPadding: 2.4rem (from PopupStyles/PopupConstants)
  * mobileBreak: 75em (1200px) from theme.ts
+ *
+ * stickyNoteMeasures (from HighlightStyles.tsx):
+ * - blue: rgb(13, 192, 220)
+ * - green: rgb(99, 165, 36)
+ * - bulletSize: 1.6rem
+ * - defaultOffset: 3.2rem
+ * - left: 32.8rem
+ * - opacity: 0.85
+ * - width: 29.8rem
+ *
+ * h4Style (from Typography/Headings.legacy.ts):
+ * - Desktop: font-size 1.8rem, line-height 2.5rem
+ * - Mobile: font-size 1.6rem, line-height 2rem
+ * - color: theme.color.text.default (#424242)
+ *
+ * theme.color.neutral.base: #fff
  */
 
 /* === GridWrapper === */
@@ -70,4 +92,104 @@
 
 .second-image {
   margin-top: 17.6rem;
+}
+
+/* === Sticky Note Components === */
+
+/* StickyNoteBullet - Base bullet decoration */
+.sticky-note-bullet {
+  position: absolute;
+  height: 3.2rem; /* bulletSize * 2 = 1.6 * 2 */
+  width: 1.6rem; /* bulletSize */
+  top: 50%;
+  overflow: hidden;
+}
+
+.sticky-note-bullet::after {
+  content: "";
+  position: absolute;
+  width: 1.6rem; /* bulletSize */
+  height: 1.6rem; /* bulletSize */
+  transform: rotate(45deg);
+  top: 0.8rem; /* bulletSize / 2 */
+  box-shadow: 0.1rem 0.1rem 0.4rem 0 rgba(0, 0, 0, 0.3);
+}
+
+/* StickyNote - Base sticky note styles */
+.sticky-note {
+  width: 29.8rem;
+  position: absolute;
+  padding: 1.6rem 2.4rem; /* bulletSize, popupBodyPadding */
+  overflow: visible;
+  box-shadow: 0.1rem 0.1rem 0.4rem 0 rgba(0, 0, 0, 0.3);
+  opacity: 0.85;
+}
+
+/* BlueStickyNote - Blue variant positioning and bullet styling */
+.blue-sticky-note {
+  background: rgb(13, 192, 220);
+  top: 3.2rem; /* defaultOffset */
+  left: 33.6rem; /* left + (bulletSize / 2) = 32.8 + 0.8 */
+}
+
+.blue-sticky-note .sticky-note-bullet {
+  transform: translate(-100%, -50%);
+  left: 0%;
+}
+
+.blue-sticky-note .sticky-note-bullet::after {
+  transform: rotate(45deg);
+  left: 0.8rem; /* bulletSize / 2 */
+  background: rgb(13, 192, 220);
+}
+
+/* GreenStickyNote - Green variant positioning and bullet styling */
+.green-sticky-note {
+  background: rgb(99, 165, 36);
+  bottom: 3.2rem; /* defaultOffset */
+  right: 33.6rem; /* left + (bulletSize / 2) = 32.8 + 0.8 */
+}
+
+.green-sticky-note .sticky-note-bullet {
+  transform: translate(100%, -50%);
+  right: 0%;
+}
+
+.green-sticky-note .sticky-note-bullet::after {
+  transform: rotate(-45deg);
+  right: 0.8rem; /* bulletSize / 2 */
+  background: rgb(99, 165, 36);
+}
+
+/* StickyNoteUl - List container within sticky notes */
+.sticky-note-ul {
+  padding: 0;
+  overflow: visible;
+  margin: 0;
+  list-style: none;
+}
+
+/* StickyNoteLi - List items with h4Style typography */
+.sticky-note-li {
+  /* h4Style desktop typography */
+  font-size: 1.8rem;
+  font-weight: 700;
+  line-height: 2.5rem;
+  overflow: visible;
+  padding: 0;
+  display: flex;
+  color: #fff; /* theme.color.neutral.base */
+}
+
+.sticky-note-li::before {
+  content: "\2022";
+  padding-right: 0.5rem;
+}
+
+/* Mobile breakpoint for h4Style */
+@media screen and (max-width: 75em) {
+  .sticky-note-li {
+    font-size: 1.6rem;
+    line-height: 2rem;
+  }
 }
