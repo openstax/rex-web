@@ -15,6 +15,12 @@
  * - GreenStickyNote: Green sticky note variant
  * - StickyNoteUl: Unordered list within sticky notes
  * - StickyNoteLi: List items within sticky notes
+ * - GeneralText: H3 heading with full width and padding
+ * - GeneralTextWrapper: Base text wrapper with body copy typography
+ * - GeneralLeftText: Left-aligned text wrapper (extends GeneralTextWrapper)
+ * - GeneralCenterText: Center-aligned text wrapper (extends GeneralTextWrapper)
+ * - MyHighlightsImage: Help popup image for "My Highlights" section
+ * - StyledHiddenLiveRegion: Screen reader only element
  *
  * GridWrapper and MyHighlightsWrapper use mobile breakpoint for responsive hiding.
  */
@@ -192,4 +198,74 @@
     font-size: 1.6rem;
     line-height: 2rem;
   }
+}
+
+/* === Text Wrapper Components === */
+
+/* GeneralText - H3 heading with full width and vertical padding */
+.general-text {
+  width: 100%;
+  padding: 0.8rem 0;
+}
+
+/* GeneralTextWrapper - Base text wrapper with bodyCopyRegularStyle typography */
+.general-text-wrapper {
+  /* bodyCopyRegularStyle: textRegularStyle + link styles
+   * textRegularStyle: textStyle + textRegularSize */
+  color: #424242; /* theme.color.text.default */
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  padding: 2.4rem 3.2rem 0; /* popupBodyPadding, popupPadding */
+}
+
+/* Link styles within GeneralTextWrapper */
+.general-text-wrapper a {
+  color: #0dc0dc; /* linkColor */
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.general-text-wrapper a:hover {
+  color: #63a524; /* linkHover */
+}
+
+/* Print behavior for GeneralTextWrapper */
+@media print {
+  .general-text-wrapper {
+    height: max-content;
+    overflow: auto;
+  }
+}
+
+/* GeneralLeftText - Left-aligned text wrapper (extends GeneralTextWrapper) */
+.general-left-text {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 3.2rem; /* popupPadding */
+}
+
+/* GeneralCenterText - Center-aligned text wrapper (extends GeneralTextWrapper) */
+.general-center-text {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 5rem 3.2rem; /* popupPadding */
+  text-align: center;
+}
+
+/* === MyHighlightsImage === */
+.my-highlights-image {
+  width: 72.8rem; /* myHighlightsImageWidth */
+  height: 23.2rem; /* myHighlightsImageHeight */
+  margin-top: 2.4rem; /* popupBodyPadding */
+}
+
+/* === StyledHiddenLiveRegion === */
+.styled-hidden-live-region {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap;
 }
