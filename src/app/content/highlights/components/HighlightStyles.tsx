@@ -62,15 +62,15 @@ export const StickyNote = (
 );
 
 export const BlueStickyNote = (
-  { className, theme: _theme, ...props }: React.HTMLAttributes<HTMLDivElement> & { theme?: unknown }
+  { className, ...props }: React.HTMLAttributes<HTMLDivElement> & { theme?: unknown }
 ) => (
-  <div {...props} className={classNames('sticky-note', 'blue-sticky-note', className)} />
+  <StickyNote {...props} className={classNames('blue-sticky-note', className)} />
 );
 
 export const GreenStickyNote = (
-  { className, theme: _theme, ...props }: React.HTMLAttributes<HTMLDivElement> & { theme?: unknown }
+  { className, ...props }: React.HTMLAttributes<HTMLDivElement> & { theme?: unknown }
 ) => (
-  <div {...props} className={classNames('sticky-note', 'green-sticky-note', className)} />
+  <StickyNote {...props} className={classNames('green-sticky-note', className)} />
 );
 
 export const StickyNoteUl = (
