@@ -26,7 +26,7 @@
 /* Mobile responsive styles
  * Breakpoint: theme.breakpoints.mobileBreak (75em = 1200px)
  */
-@media (max-width: 75em) {
+@media screen and (max-width: 75em) {
   .page-not-found-wrapper {
     margin: 4rem 0 0 0;
   }

@@ -13,7 +13,7 @@
 .page-toast-container {
   position: sticky;
   overflow: visible;
-  z-index: var(--toast-z-index-desktop, 199);
+  z-index: var(--toast-z-index-desktop, 19);
   top: var(--desktop-search-failure-top);
 }
 
@@ -50,11 +50,11 @@
 /* Mobile responsive styles
  * Breakpoint: theme.breakpoints.mobileBreak (75em = 1200px)
  */
-@media (max-width: 75em) {
+@media screen and (max-width: 75em) {
   .page-toast-container {
     max-width: 100%;
     left: 0;
-    z-index: var(--toast-z-index-mobile, 201);
+    z-index: var(--toast-z-index-mobile, 21);
     top: var(--mobile-search-failure-top);
   }
 }

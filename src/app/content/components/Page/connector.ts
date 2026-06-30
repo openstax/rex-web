@@ -1,7 +1,7 @@
 import flow from 'lodash/fp/flow';
 import { IntlShape } from 'react-intl';
 import { connect } from 'react-redux';
-import React from 'react';
+import type React from 'react';
 import * as selectNavigation from '../../../navigation/selectors';
 import { addToast } from '../../../notifications/actions';
 import { AppServices, AppState, MiddlewareAPI } from '../../../types';
@@ -33,7 +33,7 @@ export interface PagePropTypes {
   systemQueryParams: SystemQueryParams;
   textSize: TextResizerValue;
   lockNavigation: boolean;
-  ToastOverride?: React.ComponentType<unknown>;
+  ToastOverride?: React.ComponentType<React.HTMLAttributes<HTMLDivElement>>;
   topHeadingLevel?: number;
 }
 
