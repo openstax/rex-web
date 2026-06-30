@@ -27,119 +27,109 @@ export const stickyNoteMeasures = {
   width: 29.8, /* to allow text to fit in one line with tooltip */
 };
 
+type SimpleWrapper = React.PropsWithChildren<{}>
+
 // Migrated to plain CSS - see HighlightStyles.css
 export const FirstImage = (
-  { className, theme: _theme, ...props }: React.ImgHTMLAttributes<HTMLImageElement> & { theme?: unknown }
+  { ...props }: Omit<React.ImgHTMLAttributes<HTMLImageElement>, 'className'>
 ) => (
-  <img alt="" {...props} className={classNames('first-image', className)} />
+  <img alt="" {...props} className="first-image" />
 );
 
 export const SecondImage = (
-  { className, theme: _theme, ...props }: React.ImgHTMLAttributes<HTMLImageElement> & { theme?: unknown }
+  { ...props }: Omit<React.ImgHTMLAttributes<HTMLImageElement>, 'className'>
 ) => (
-  <img alt="" {...props} className={classNames('second-image', className)} />
+  <img alt="" {...props} className="second-image" />
 );
 
-export const ImageWrapper = (
-  { className, theme: _theme, ...props }: React.HTMLAttributes<HTMLDivElement> & { theme?: unknown }
-) => (
-  <div {...props} className={classNames('image-wrapper', className)} />
-);
-
-// Migrated to plain CSS - see HighlightStyles.css
-export const StickyNoteBullet = (
-  { className, theme: _theme, ...props }: React.HTMLAttributes<HTMLDivElement> & { theme?: unknown }
-) => (
-  <div {...props} className={classNames('sticky-note-bullet', className)} />
-);
-
-export const StickyNote = (
-  { className, theme: _theme, ...props }: React.HTMLAttributes<HTMLDivElement> & { theme?: unknown }
-) => (
-  <div {...props} className={classNames('sticky-note', className)} />
-);
-
-export const BlueStickyNote = (
-  { className, ...props }: React.HTMLAttributes<HTMLDivElement> & { theme?: unknown }
-) => (
-  <StickyNote {...props} className={classNames('blue-sticky-note', className)} />
-);
-
-export const GreenStickyNote = (
-  { className, ...props }: React.HTMLAttributes<HTMLDivElement> & { theme?: unknown }
-) => (
-  <StickyNote {...props} className={classNames('green-sticky-note', className)} />
-);
-
-export const StickyNoteUl = (
-  { className, theme: _theme, ...props }: React.HTMLAttributes<HTMLUListElement> & { theme?: unknown }
-) => (
-  <ul {...props} className={classNames('sticky-note-ul', className)} />
-);
-
-export const StickyNoteLi = (
-  { className, theme: _theme, ...props }: React.HTMLAttributes<HTMLLIElement> & { theme?: unknown }
-) => (
-  <li {...props} className={classNames('sticky-note-li', className)} />
+export const ImageWrapper = ({children}: SimpleWrapper) => (
+  <div className="image-wrapper">
+    {children}
+  </div>
 );
 
 // Migrated to plain CSS - see HighlightStyles.css
-export const GridWrapper = (
-  { className, theme: _theme, ...props }: React.HTMLAttributes<HTMLDivElement> & { theme?: unknown }
-) => (
-  <div {...props} className={classNames('grid-wrapper', className)} />
+export const StickyNoteBullet = () => (
+  <div className="sticky-note-bullet" />
 );
 
-// Migrated to plain CSS - see HighlightStyles.css
-export const ImagesGrid = (
-  { className, theme: _theme, ...props }: React.HTMLAttributes<HTMLDivElement> & { theme?: unknown }
-) => (
-  <div {...props} className={classNames('images-grid', className)} />
+export const BlueStickyNote = ({children}: SimpleWrapper) => (
+  <div className="blue-sticky-note">
+    {children}
+  </div>
 );
 
-// Migrated to plain CSS - see HighlightStyles.css
-export function GeneralText(props: React.ComponentProps<typeof H3>) {
-  const { className, ...rest } = props;
-  return <H3 {...rest} className={classNames('general-text', className)} />;
-}
+export const GreenStickyNote = ({children}: SimpleWrapper) => (
+  <div className="green-sticky-note">
+    {children}
+  </div>
+);
 
-export const GeneralTextWrapper = (
-  { className, theme: _theme, ...props }: React.HTMLAttributes<HTMLDivElement> & { theme?: unknown }
-) => (
-  <div {...props} className={classNames('general-text-wrapper', className)} />
+export const StickyNoteUl = ({children}: SimpleWrapper) => (
+  <ul className="sticky-note-ul">
+    {children}
+  </ul>
+);
+
+export const StickyNoteLi = ({children}: SimpleWrapper) => (
+  <li className="sticky-note-li">
+    {children}
+  </li>
+);
+
+export const GridWrapper = ({children}: SimpleWrapper) => (
+  <div className="grid-wrapper">
+    {children}
+  </div>
+);
+
+export const ImagesGrid = ({children}: SimpleWrapper) => (
+  <div className="images-grid">
+    {children}
+  </div>
+);
+
+export const GeneralText = ({children}: SimpleWrapper) => (
+  <H3 className="general-text">
+    {children}
+  </H3>
+);
+
+export const GeneralTextWrapper = ({className, children}: SimpleWrapper & {className?: string} ) => (
+  <div className={classNames('general-text-wrapper', className)} >
+    {children}
+  </div>
 );
 
 export const LoginText = htmlMessage('i18n:toolbar:highlights:popup:login-text', GeneralTextWrapper);
 
-// Migrated to plain CSS - see HighlightStyles.css
-export const MyHighlightsWrapper = (
-  { className, theme: _theme, ...props }: React.HTMLAttributes<HTMLDivElement> & { theme?: unknown }
-) => (
-  <div {...props} className={classNames('my-highlights-wrapper', className)} />
+export const MyHighlightsWrapper = ({children}: SimpleWrapper) => (
+  <div className="my-highlights-wrapper">
+    {children}
+  </div>
 );
 
-// Migrated to plain CSS - see HighlightStyles.css
-export const GeneralLeftText = (
-  { className, ...props }: React.HTMLAttributes<HTMLDivElement> & { theme?: unknown }
-) => (
-  <GeneralTextWrapper {...props} className={classNames('general-left-text', className)} />
+export const GeneralLeftText = ({children}: SimpleWrapper) => (
+  <GeneralTextWrapper className="general-left-text">
+    {children}
+  </GeneralTextWrapper>
 );
 
-export const GeneralCenterText = (
-  { className, ...props }: React.HTMLAttributes<HTMLDivElement> & { theme?: unknown }
-) => (
-  <GeneralTextWrapper {...props} className={classNames('general-center-text', className)} />
+export const GeneralCenterText = ({children}: SimpleWrapper) => (
+  <GeneralTextWrapper className="general-center-text">
+    {children}
+  </GeneralTextWrapper>
 );
 
 // Migrated to plain CSS - see HighlightStyles.css
 export const MyHighlightsImage = (
-  { className, theme: _theme, ...props }: React.ImgHTMLAttributes<HTMLImageElement> & { theme?: unknown }
+  { className, ...props }: React.ImgHTMLAttributes<HTMLImageElement>
 ) => (
   <img alt="" {...props} className={classNames('my-highlights-image', className)} />
 );
 
 export const StyledHiddenLiveRegion = (
-  { className, theme: _theme, ...props }: React.HTMLAttributes<HTMLDivElement> & { theme?: unknown }
+  { className, ...props }: React.HTMLAttributes<HTMLDivElement>
 ) => (
   <div {...props} className={classNames('styled-hidden-live-region', className)} />
 );
