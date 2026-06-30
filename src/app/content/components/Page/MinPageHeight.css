@@ -1,0 +1,31 @@
+/* Min Page Height Styles */
+
+/*
+ * Ensures minimum page height calculation accounts for:
+ * - Navigation bar height
+ * - Book banner height
+ * - Topbar height
+ * - Attribution height
+ *
+ * Desktop min height: 100vh - (navDesktopHeight + bookBannerDesktopBigHeight + topbarDesktopHeight + desktopAttributionHeight)rem
+ * Mobile min height: 100vh - (navMobileHeight + bookBannerMobileBigHeight + topbarMobileHeight + mobileAttributionHeight)rem
+ */
+
+@media screen {
+  .min-page-height {
+    overflow: visible;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - var(--min-desktop-content-size));
+  }
+}
+
+/* Mobile responsive styles
+ * Breakpoint: theme.breakpoints.mobileBreak (75em = 1200px)
+ */
+@media screen and (max-width: 75em) {
+  .min-page-height {
+    min-height: calc(100vh - var(--min-mobile-content-size));
+  }
+}
