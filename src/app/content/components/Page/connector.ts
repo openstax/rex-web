@@ -33,7 +33,7 @@ export interface PagePropTypes {
   systemQueryParams: SystemQueryParams;
   textSize: TextResizerValue;
   lockNavigation: boolean;
-  ToastOverride?: React.ComponentType<any>;
+  ToastOverride?: React.ComponentType<unknown>;
   topHeadingLevel?: number;
 }
 
