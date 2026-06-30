@@ -50,30 +50,30 @@ exports[`assigned route route renders renders a component 1`] = `
   top: 0;
 }
 
-.c11 {
+.c12 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c14 {
+.c15 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c8 {
   list-style: none;
   cursor: pointer;
 }
 
-.c7::before {
+.c8::before {
   display: none;
 }
 
-.c7::-moz-list-bullet {
+.c8::-moz-list-bullet {
   list-style-type: none;
 }
 
-.c7::-webkit-details-marker {
+.c8::-webkit-details-marker {
   display: none;
 }
 
@@ -87,21 +87,21 @@ exports[`assigned route route renders renders a component 1`] = `
   margin-left: 1.6rem;
 }
 
-.c12 {
+.c13 {
   margin-left: -0.3rem;
 }
 
-.c15 {
+.c16 {
   margin-left: -0.3rem;
 }
 
-.c9 {
+.c10 {
   font-weight: 500;
   list-style: none;
 }
 
-.c9,
-.c9 span {
+.c10,
+.c10 span {
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
@@ -111,33 +111,33 @@ exports[`assigned route route renders renders a component 1`] = `
   text-decoration: none;
 }
 
-.c9 a,
-.c9 span a {
+.c10 a,
+.c10 span a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c9 a:hover,
-.c9 span a:hover {
+.c10 a:hover,
+.c10 span a:hover {
   color: #0064A0;
 }
 
-.c9:hover,
-.c9 span:hover,
-.c9:focus,
-.c9 span:focus {
+.c10:hover,
+.c10 span:hover,
+.c10:focus,
+.c10 span:focus {
   -webkit-text-decoration: underline;
   text-decoration: underline;
   color: #0064A0;
 }
 
-.c16 blockquote {
+.c17 blockquote {
   margin-left: 0;
 }
 
-.c5 {
+.c6 {
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
@@ -148,32 +148,38 @@ exports[`assigned route route renders renders a component 1`] = `
   padding-top: 1.8rem;
 }
 
-.c5[open] > summary .c10 {
+.c6[open] > summary .c11 {
   display: none;
 }
 
-.c5:not([open]) > summary .c13 {
+.c6:not([open]) > summary .c14 {
   display: none;
 }
 
-.c5 a {
+.c6 a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c5 a:hover {
+.c6 a:hover {
   color: #0064A0;
 }
 
-.c5 > .c8 {
+.c6 > .c9 {
   margin-bottom: 1.8rem;
 }
 
-.c5 li {
+.c6 li {
   margin-bottom: 1rem;
   overflow: visible;
+}
+
+.c5 {
+  top: 5rem;
+  left: 0;
+  max-width: 100%;
 }
 
 .c0 [data-platform-hidden="assignable"] {
@@ -201,39 +207,45 @@ exports[`assigned route route renders renders a component 1`] = `
 }
 
 @media screen {
-  .c9 {
+  .c10 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c16 {
+  .c17 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c5 {
+  .c6 {
     padding: 0 1.6rem;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c5 {
+  .c6 {
     min-height: 4rem;
     padding-top: 0.8rem;
   }
 
-  .c5 > .c6 {
+  .c6 > .c7 {
     margin-bottom: 0.8rem;
   }
 }
 
 @media print {
-  .c5 {
+  .c6 {
     display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c5 {
+    top: 5.300000000000001rem;
   }
 }
 
@@ -332,7 +344,7 @@ exports[`assigned route route renders renders a component 1`] = `
   >
     <div
       aria-live="polite"
-      className="page-toast-container"
+      className="page-toast-container c5"
       style={
         Object {
           "--content-wrapper-max-width": "128rem",
@@ -386,17 +398,17 @@ exports[`assigned route route renders renders a component 1`] = `
     </div>
   </div>
   <details
-    className="c5"
+    className="c6"
     data-analytics-region="attribution"
     data-testid="attribution-details"
   >
     <summary
       aria-label="Citation/Attribution"
-      className="c6 c7 c8 c9"
+      className="c7 c8 c9 c10"
     >
       <svg
         aria-hidden="true"
-        className="details-expand-icon c10 c11 c12"
+        className="details-expand-icon c11 c12 c13"
         viewBox="0 0 192 512"
       >
         <path
@@ -406,7 +418,7 @@ exports[`assigned route route renders renders a component 1`] = `
       </svg>
       <svg
         aria-hidden="true"
-        className="details-collapse-icon c13 c14 c15"
+        className="details-collapse-icon c14 c15 c16"
         viewBox="0 0 320 512"
       >
         <path
@@ -422,7 +434,7 @@ exports[`assigned route route renders renders a component 1`] = `
       </span>
     </summary>
     <div
-      className="c16"
+      className="c17"
       dangerouslySetInnerHTML={
         Object {
           "__html": "
