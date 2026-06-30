@@ -1,9 +1,9 @@
 import React from 'react';
 // NOTE: This file has been fully migrated from styled-components to plain CSS.
-// All 18 components now use HighlightStyles.css for styling:
+// All styling is now handled by HighlightStyles.css for:
 // - Wrapper components (2): GridWrapper, MyHighlightsWrapper
 // - Image components (4): FirstImage, SecondImage, ImageWrapper, ImagesGrid
-// - Sticky note components (6): StickyNoteBullet, StickyNote, BlueStickyNote, GreenStickyNote, StickyNoteUl, StickyNoteLi
+// - Sticky note components (5): StickyNoteBullet, BlueStickyNote, GreenStickyNote, StickyNoteUl, StickyNoteLi (plus base `.sticky-note` CSS class)
 // - Text wrapper components (4): GeneralText, GeneralTextWrapper, GeneralLeftText, GeneralCenterText
 // - Other components (2): MyHighlightsImage, StyledHiddenLiveRegion
 //
@@ -53,16 +53,22 @@ export const StickyNoteBullet = () => (
   <div className="sticky-note-bullet" />
 );
 
-export const BlueStickyNote = ({children}: SimpleWrapper) => (
-  <div className="blue-sticky-note">
+const StickyNote = ({ className, children, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
+  <div {...props} className={classNames('sticky-note', className)}>
     {children}
   </div>
 );
 
-export const GreenStickyNote = ({children}: SimpleWrapper) => (
-  <div className="green-sticky-note">
+export const BlueStickyNote = ({children}: SimpleWrapper) => (
+  <StickyNote className="blue-sticky-note">
     {children}
-  </div>
+  </StickyNote>
+);
+
+export const GreenStickyNote = ({children}: SimpleWrapper) => (
+  <StickyNote className="green-sticky-note">
+    {children}
+  </StickyNote>
 );
 
 export const StickyNoteUl = ({children}: SimpleWrapper) => (
@@ -95,8 +101,8 @@ export const GeneralText = ({children}: SimpleWrapper) => (
   </H3>
 );
 
-export const GeneralTextWrapper = ({className, children}: SimpleWrapper & {className?: string} ) => (
-  <div className={classNames('general-text-wrapper', className)} >
+export const GeneralTextWrapper = ({ className, children, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
+  <div {...props} className={classNames('general-text-wrapper', className)}>
     {children}
   </div>
 );

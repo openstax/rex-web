@@ -93,7 +93,7 @@
 .second-image {
   height: 25.6rem;
   width: 36rem;
-  box-shadow: 0.1rem 0.1rem 0.4rem 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0.1rem 0.1rem 0.4rem 0 rgba(0, 0, 0, 1);
 }
 
 .second-image {
@@ -118,7 +118,7 @@
   height: 1.6rem; /* bulletSize */
   transform: rotate(45deg);
   top: 0.8rem; /* bulletSize / 2 */
-  box-shadow: 0.1rem 0.1rem 0.4rem 0 rgba(0, 0, 0, 0.3);
+  box-shadow: 0.1rem 0.1rem 0.4rem 0 rgba(0, 0, 0, 1);
 }
 
 /* StickyNote - Base sticky note styles */
@@ -127,7 +127,7 @@
   position: absolute;
   padding: 1.6rem 2.4rem; /* bulletSize, popupBodyPadding */
   overflow: visible;
-  box-shadow: 0.1rem 0.1rem 0.4rem 0 rgba(0, 0, 0, 0.3);
+  box-shadow: 0.1rem 0.1rem 0.4rem 0 rgba(0, 0, 0, 1);
   opacity: 0.85;
 }
 
@@ -177,14 +177,14 @@
 
 /* StickyNoteLi - List items with h4Style typography */
 .sticky-note-li {
-  /* h4Style desktop typography */
   font-size: 1.8rem;
-  font-weight: 700;
   line-height: 2.5rem;
+  letter-spacing: -0.02rem;
+  margin: 0;
   overflow: visible;
   padding: 0;
   display: flex;
-  color: #fff; /* theme.color.neutral.base */
+  color: var(--color-neutral-base);
 }
 
 .sticky-note-li::before {
@@ -212,7 +212,7 @@
 .general-text-wrapper {
   /* bodyCopyRegularStyle: textRegularStyle + link styles
    * textRegularStyle: textStyle + textRegularSize */
-  color: #424242; /* theme.color.text.default */
+  color: var(--color-text-default);
   font-size: 1.6rem;
   line-height: 2.5rem;
   padding: 2.4rem 3.2rem 0; /* popupBodyPadding, popupPadding */
@@ -220,13 +220,13 @@
 
 /* Link styles within GeneralTextWrapper */
 .general-text-wrapper a {
-  color: #0dc0dc; /* linkColor */
+  color: var(--link-color, #027eb5);
   cursor: pointer;
   text-decoration: underline;
 }
 
 .general-text-wrapper a:hover {
-  color: #63a524; /* linkHover */
+  color: var(--link-hover-color, #0064a0);
 }
 
 /* Print behavior for GeneralTextWrapper */
