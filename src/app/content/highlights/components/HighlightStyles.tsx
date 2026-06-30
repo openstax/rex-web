@@ -27,7 +27,7 @@ export const stickyNoteMeasures = {
   width: 29.8, /* to allow text to fit in one line with tooltip */
 };
 
-type SimpleWrapper = React.PropsWithChildren<{}>
+type SimpleWrapper = React.PropsWithChildren<{}>;
 
 // Migrated to plain CSS - see HighlightStyles.css
 export const FirstImage = (
