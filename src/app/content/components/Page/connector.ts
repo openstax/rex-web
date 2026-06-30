@@ -1,6 +1,7 @@
 import flow from 'lodash/fp/flow';
 import { IntlShape } from 'react-intl';
 import { connect } from 'react-redux';
+import React from 'react';
 import * as selectNavigation from '../../../navigation/selectors';
 import { addToast } from '../../../notifications/actions';
 import { AppServices, AppState, MiddlewareAPI } from '../../../types';
@@ -13,7 +14,6 @@ import { ContentLinkProp, mapDispatchToContentLinkProp, mapStateToContentLinkPro
 import { HighlightProp, mapDispatchToHighlightProp, mapStateToHighlightProp } from './highlightManager';
 import { mapStateToScrollToTopOrHashProp } from './scrollToTopOrHashManager';
 import { mapStateToSearchHighlightProp } from './searchHighlightManager';
-import { StyledComponent } from 'styled-components';
 
 export interface PagePropTypes {
   intl: IntlShape;
@@ -33,7 +33,7 @@ export interface PagePropTypes {
   systemQueryParams: SystemQueryParams;
   textSize: TextResizerValue;
   lockNavigation: boolean;
-  ToastOverride: StyledComponent<'div', object, {}, never>;
+  ToastOverride?: React.ComponentType<any>;
   topHeadingLevel?: number;
 }
 

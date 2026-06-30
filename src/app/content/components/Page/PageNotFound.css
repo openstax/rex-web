@@ -1,0 +1,33 @@
+/* Page Not Found Styles */
+
+.page-not-found-wrapper {
+  margin: 10rem;
+  text-align: center;
+  color: var(--text-color, #6f6f6f);
+}
+
+.page-not-found-title {
+  font-weight: bold;
+  padding: 1rem 0;
+  line-height: 1;
+}
+
+.page-not-found-text {
+  display: flex;
+  justify-content: center;
+  font-size: 1.6rem;
+  line-height: 1.8;
+}
+
+.page-not-found-text span {
+  margin-right: 0.5rem;
+}
+
+/* Mobile responsive styles
+ * Breakpoint: theme.breakpoints.mobileBreak (75em = 1200px)
+ */
+@media (max-width: 75em) {
+  .page-not-found-wrapper {
+    margin: 4rem 0 0 0;
+  }
+}
