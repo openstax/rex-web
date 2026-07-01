@@ -35,6 +35,7 @@ const StudyGuidesIcon = function StudyGuidesIcon({
 }: React.ImgHTMLAttributes<HTMLImageElement>) {
   return (
     <img
+      alt=""
       {...props}
       className={classNames('toolbar-default-icon', 'study-guides-icon', className)}
     />

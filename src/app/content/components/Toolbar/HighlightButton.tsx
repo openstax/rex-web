@@ -77,7 +77,7 @@ const HighlightButton = ({ openMyHighlights, myHighlightsOpen }: Props) => {
     data-analytics-label='My highlights'
     practiceQuestionsEnabled={practiceQuestionsEnabled}
   >
-    <HighlightsIcon className="toolbar-default-icon" />
+    <HighlightsIcon />
     <MyHighlightsText>{text}</MyHighlightsText>
   </MyHighlightsWrapper>;
 };
