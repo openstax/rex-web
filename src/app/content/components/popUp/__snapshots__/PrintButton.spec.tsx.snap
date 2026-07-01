@@ -1,12 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`HighlightsPrintButton matches snapshot 1`] = `
-.c0 {
-  height: 2.5rem;
-  width: 2.5rem;
-  padding: 0.4rem;
-}
-
 <div
   className="popup-print-button"
   data-loading="false"
@@ -28,7 +22,7 @@ exports[`HighlightsPrintButton matches snapshot 1`] = `
   >
     <svg
       aria-hidden="true"
-      className="c0"
+      className="toolbar-print-icon"
       viewBox="0 0 512 512"
     >
       <path
