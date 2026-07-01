@@ -3,8 +3,8 @@ import { textRegularLineHeight } from '../../../components/Typography';
 
 /**
  * Toolbar icon styles as a styled-components css fragment.
- * Used by legacy styled-components that interpolate this value.
- * @deprecated Use toolbarIconStylesObject for plain CSS implementations
+ * Used by legacy styled-components consumers; this keeps the styled-components dependency until all callers migrate.
+ * @deprecated Use toolbarIconStylesObject for plain CSS implementations.
  */
 export const toolbarIconStyles = css`
   height: ${textRegularLineHeight}rem;
