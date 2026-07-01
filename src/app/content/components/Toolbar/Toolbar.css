@@ -255,3 +255,8 @@
   width: 2.5rem;
   padding: 0.4rem;
 }
+
+/* Study guides icon - override padding */
+.study-guides-icon {
+  padding: 0.2rem;
+}

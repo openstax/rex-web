@@ -1,30 +1,57 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components/macro';
+import classNames from 'classnames';
 import studyGuidesIcon from '../../../../assets/studyGuidesIcon.svg';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import { openStudyGuides as openStudyGuidesAction } from '../../studyGuides/actions';
 import { hasStudyGuides, studyGuidesEnabled, studyGuidesOpen } from '../../studyGuides/selectors';
-import { toolbarIconStyles } from './iconStyles';
 import { PlainButton } from './styled';
-import { toolbarDefaultButton, toolbarDefaultText } from './Toolbar.legacy';
 import { captureOpeningElement } from '../../utils/focusManager';
+import './Toolbar.css';
 
-export const StudyGuidesWrapper = styled(PlainButton)`
-  ${toolbarDefaultButton}
-  height: auto;
-  padding: 0;
-`;
+export const StudyGuidesWrapper = function StudyGuidesWrapper({
+  isActive,
+  className,
+  ...props
+}: React.ButtonHTMLAttributes<HTMLButtonElement> & {
+  isActive?: boolean;
+}) {
+  return (
+    <PlainButton
+      {...props}
+      className={classNames(
+        'toolbar-default-button',
+        { 'is-active': isActive },
+        className
+      )}
+    />
+  );
+};
 
-const StudyGuidesIcon = styled.img`
-  ${toolbarIconStyles}
-  padding: 0.2rem;
-`;
+const StudyGuidesIcon = function StudyGuidesIcon({
+  className,
+  ...props
+}: React.ImgHTMLAttributes<HTMLImageElement>) {
+  return (
+    <img
+      {...props}
+      className={classNames('toolbar-default-icon', 'study-guides-icon', className)}
+    />
+  );
+};
 
-const StudyGuidesText = styled.span`
-  ${toolbarDefaultText}
-`;
+const StudyGuidesText = function StudyGuidesText({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLSpanElement>) {
+  return (
+    <span
+      {...props}
+      className={classNames('toolbar-default-text', className)}
+    />
+  );
+};
 
 const StudyGuidesButton = () => {
   const dispatch = useDispatch();
