@@ -40,8 +40,9 @@ const PracticeQuestionsIcon = function PracticeQuestionsIcon({
 }: React.ImgHTMLAttributes<HTMLImageElement>) {
   return (
     <img
-      alt=""
       {...props}
+      alt=""
+      aria-hidden="true"
       className={classNames('toolbar-default-icon', className)}
     />
   );
