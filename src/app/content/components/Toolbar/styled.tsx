@@ -71,12 +71,10 @@ export const PlainButton = React.forwardRef<
   React.ButtonHTMLAttributes<HTMLButtonElement> & {
     theme?: unknown;
     isActive?: boolean;
-    practiceQuestionsEnabled?: boolean;
   }
 >(function PlainButton(
   {
-    className, style, theme: _theme, isActive: _isActive,
-    practiceQuestionsEnabled: _practiceQuestionsEnabled, ...domProps
+    className, style, theme: _theme, isActive: _isActive, ...domProps
   },
   ref
 ) {

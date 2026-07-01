@@ -7,7 +7,6 @@ import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import { AppState, Dispatch } from '../../../types';
 import { openMyHighlights as openMyHighlightsAction } from '../../highlights/actions';
 import * as selectors from '../../highlights/selectors';
-import { practiceQuestionsEnabled as practiceQuestionsEnabledSelector } from '../../practiceQuestions/selectors';
 import { PlainButton } from './styled';
 import showConfirmation from '../../highlights/components/utils/showConfirmation';
 import { useServices } from '../../../context/Services';
@@ -26,7 +25,6 @@ const MyHighlightsWrapper = function MyHighlightsWrapper({
   ...props
 }: React.ButtonHTMLAttributes<HTMLButtonElement> & {
   isActive?: boolean;
-  practiceQuestionsEnabled?: boolean;
 }) {
   return (
     <PlainButton
@@ -53,7 +51,6 @@ const MyHighlightsText = function MyHighlightsText({
 };
 
 const HighlightButton = ({ openMyHighlights, myHighlightsOpen }: Props) => {
-  const practiceQuestionsEnabled = useSelector(practiceQuestionsEnabledSelector);
   const hasUnsavedHighlight = useSelector(hasUnsavedHighlightSelector);
   const services = useServices();
   const trackOpenCloseMH = useAnalyticsEvent('openCloseMH');
@@ -75,7 +72,6 @@ const HighlightButton = ({ openMyHighlights, myHighlightsOpen }: Props) => {
     onClick={openHighlightsSummary}
     aria-label={text}
     data-analytics-label='My highlights'
-    practiceQuestionsEnabled={practiceQuestionsEnabled}
   >
     <HighlightsIcon />
     <MyHighlightsText>{text}</MyHighlightsText>
