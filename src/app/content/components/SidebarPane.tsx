@@ -1,4 +1,6 @@
-import styled, { css } from 'styled-components/macro';
+import React from 'react';
+import classNames from 'classnames';
+import { HTMLDivElement, HTMLElement } from '@openstax/types/lib.dom';
 import { navDesktopHeight, navMobileHeight } from '../../components/NavBar';
 import theme from '../../theme';
 import {
@@ -11,114 +13,106 @@ import {
   topbarDesktopHeight,
   topbarMobileHeight,
 } from './constants';
-import { disablePrint } from './utils/disablePrint';
-import { styleWhenTocClosed } from './utils/sidebar';
+import './SidebarPane.css';
 
 const sidebarPadding = 1.8;
 
-const sidebarClosedStyle = css`
-  overflow-y: hidden;
-  transform: translateX(-100%);
-  box-shadow: none;
-  pointer-events: none;
-  visibility: hidden;
-  opacity: 0;
+interface SidebarPaneBodyProps extends React.HTMLAttributes<HTMLElement> {
+  isTocOpen: boolean | null;
+}
 
-  > * {
-    opacity: 0;
+/**
+ * SidebarPaneBody component - Main sidebar navigation container
+ *
+ * Migrated from styled-components to plain CSS.
+ */
+export const SidebarPaneBody = React.forwardRef<HTMLElement, SidebarPaneBodyProps>(
+  function SidebarPaneBody({ isTocOpen, className, style, children, ...props }, ref) {
+    // Determine sidebar closed state
+    // - If isTocOpen is null, sidebar is closed on mobile only
+    // - If isTocOpen is false, sidebar is closed on all breakpoints
+    const isClosed = isTocOpen === false;
+    const isClosedMobile = isTocOpen === null;
+
+    return (
+      <nav
+        {...props}
+        ref={ref}
+        className={classNames('sidebar-pane-body', className)}
+        data-sidebar-closed={isClosed}
+        data-sidebar-closed-mobile={isClosedMobile}
+        style={{
+          '--sidebar-top-desktop': `${bookBannerDesktopMiniHeight}rem`,
+          '--sidebar-top-mobile': `${bookBannerMobileMiniHeight}rem`,
+          '--sidebar-height-desktop': `calc(100vh - ${navDesktopHeight + bookBannerDesktopMiniHeight}rem)`,
+          '--sidebar-height-mobile': `calc(100vh - ${navMobileHeight + bookBannerMobileMiniHeight}rem)`,
+          '--sidebar-max-height-desktop': `calc(100vh - ${bookBannerDesktopMiniHeight}rem)`,
+          '--sidebar-max-height-mobile': `calc(100vh - ${bookBannerMobileMiniHeight}rem)`,
+          '--sidebar-transition-time': `${sidebarTransitionTime}ms`,
+          '--sidebar-bg-color': theme.color.neutral.darker,
+          '--sidebar-z-index': theme.zIndex.sidebar,
+          '--sidebar-z-index-mobile-medium': theme.zIndex.sidebarMobileMedium,
+          '--sidebar-width-desktop': `${sidebarDesktopWidth}rem`,
+          '--sidebar-width-mobile': `${sidebarMobileWidth}rem`,
+          '--sidebar-padding': `${sidebarPadding}rem`,
+          ...style,
+        } as React.CSSProperties}
+      >
+        {children}
+      </nav>
+    );
   }
-`;
+);
 
-export const SidebarPaneBody = styled.nav`
-  grid-area: 1 / 2 / auto / 3;
-  position: sticky;
-  top: ${bookBannerDesktopMiniHeight}rem;
-  overflow-y: auto;
-  height: calc(100vh - ${navDesktopHeight + bookBannerDesktopMiniHeight}rem);
-  max-height: calc(100vh - ${bookBannerDesktopMiniHeight}rem);
-  transform-origin: left;
-  transition:
-    transform ${sidebarTransitionTime}ms ease-in-out,
-    opacity ${sidebarTransitionTime}ms ease-in-out,
-    box-shadow ${sidebarTransitionTime}ms ease-in-out;
-  background-color: ${theme.color.neutral.darker};
-  z-index: ${theme.zIndex.sidebar};
-  width: ${sidebarDesktopWidth}rem;
-  box-shadow: 0.2rem 0 0.2rem 0 rgba(0, 0, 0, 0.1);
-  ${theme.breakpoints.mobile(css`
-    width: ${sidebarMobileWidth}rem;
-    top: ${bookBannerMobileMiniHeight}rem;
-    height: calc(100vh - ${navMobileHeight + bookBannerMobileMiniHeight}rem);
-    max-height: calc(100vh - ${bookBannerMobileMiniHeight}rem);
-  `)}
+interface HeaderProps extends React.HTMLAttributes<HTMLDivElement> {}
 
-  ${theme.breakpoints.mobileMedium(css`
-    z-index: ${theme.zIndex.sidebarMobileMedium};
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    min-width: 100%;
-    max-height: 100%;
-    margin: 0;
-    padding: 0;
-  `)}
-
-  display: flex;
-  flex-direction: column;
-
-  > ol {
-    -webkit-overflow-scrolling: touch;
-    position: relative;
-    padding: ${sidebarPadding}rem ${sidebarPadding}rem ${sidebarPadding}rem 1.6rem;
-    flex: 1;
-
-    > li:first-child {
-      margin-top: 0;
-    }
-
-    ::before {
-      content: "";
-      background: ${theme.color.neutral.darker};
-      display: block;
-      height: ${sidebarPadding}rem;
-      margin: -${sidebarPadding}rem -${sidebarPadding}rem 0 -${sidebarPadding}rem;
-    }
+/**
+ * Header component - Sidebar header container
+ *
+ * Migrated from styled-components to plain CSS.
+ */
+export const Header = React.forwardRef<HTMLDivElement, HeaderProps>(
+  function Header({ className, style, children, ...props }, ref) {
+    return (
+      <div
+        {...props}
+        ref={ref}
+        className={classNames('sidebar-header', className)}
+        style={{
+          '--topbar-height-desktop': `${topbarDesktopHeight}rem`,
+          '--topbar-height-mobile': `${topbarMobileHeight}rem`,
+          '--sidebar-padding': `${sidebarPadding}rem`,
+          '--form-border-color': theme.color.neutral.formBorder,
+          ...style,
+        } as React.CSSProperties}
+      >
+        {children}
+      </div>
+    );
   }
+);
 
-  > * {
-    transition: all ${sidebarTransitionTime}ms;
-    opacity: 1;
+interface HeaderTextProps extends React.HTMLAttributes<HTMLHeadingElement> {}
+
+/**
+ * HeaderText component - Sidebar header text/title
+ *
+ * Migrated from styled-components to plain CSS.
+ */
+export const HeaderText = React.forwardRef<HTMLHeadingElement, HeaderTextProps>(
+  function HeaderText({ className, style, children, ...props }, ref) {
+    return (
+      <h2
+        {...props}
+        ref={ref}
+        className={classNames('sidebar-header-text', className)}
+        style={{
+          '--toolbar-icon-color': toolbarIconColor.base,
+          ...style,
+        } as React.CSSProperties}
+      >
+        {children}
+      </h2>
+    );
   }
-
-  ${styleWhenTocClosed(sidebarClosedStyle)}
-  ${disablePrint}
-`;
-
-export const Header = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: ${topbarDesktopHeight}rem;
-  padding: 0 ${sidebarPadding}rem;
-  overflow: visible;
-  border-bottom: 1px solid ${theme.color.neutral.formBorder};
-  box-shadow: 0 1rem 1rem -1rem rgba(0, 0, 0, 0.14);
-  ${theme.breakpoints.mobile(css`
-    height: ${topbarMobileHeight}rem;
-  `)}
-`;
-
-export const HeaderText = styled.h2`
-  font-size: 1.8rem;
-  line-height: 2.9rem;
-  font-weight: 600;
-  margin: 0;
-  padding: 1rem 0;
-  color: ${toolbarIconColor.base};
-  flex: 1 1 0%;
-  text-align: left;
-  ${theme.breakpoints.mobileMedium(css`
-    text-align: center;
-  `)}
-`;
+);
