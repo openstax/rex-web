@@ -138,11 +138,20 @@
     transform: translateY(calc(-1 * var(--banner-mobile-mini-height)));
   }
 
+  .book-banner-title {
+    /* Mobile uses h4 mobile style */
+    font-size: 1.6rem;
+    line-height: 2rem;
+  }
+
   .book-banner-title.variant-mini {
     display: none;
   }
 
   .book-banner-chapter {
+    /* Mobile uses same font size for both big and mini variants */
+    font-size: 1.6rem;
+    line-height: 2rem;
     white-space: normal;
     display: -webkit-box;
     -webkit-box-orient: vertical;
