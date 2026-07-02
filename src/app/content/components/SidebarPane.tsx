@@ -64,7 +64,7 @@ export const SidebarPaneBody = React.forwardRef<HTMLElement, SidebarPaneBodyProp
   }
 );
 
-interface HeaderProps extends React.HTMLAttributes<HTMLDivElement> {}
+type HeaderProps = React.HTMLAttributes<HTMLDivElement>;
 
 /**
  * Header component - Sidebar header container
@@ -92,7 +92,7 @@ export const Header = React.forwardRef<HTMLDivElement, HeaderProps>(
   }
 );
 
-interface HeaderTextProps extends React.HTMLAttributes<HTMLHeadingElement> {}
+type HeaderTextProps = React.HTMLAttributes<HTMLHeadingElement>;
 
 /**
  * HeaderText component - Sidebar header text/title

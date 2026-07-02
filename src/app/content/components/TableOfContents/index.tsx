@@ -96,7 +96,7 @@ const SidebarBody = React.forwardRef<
       {!isSSR() && (
         <TabTrapper
           mRef={mRef}
-          isTocOpen={props.isTocOpen}
+          isTocOpen={props.isTocOpen ?? false}
         />
       )}
       <SidebarPaneBody
