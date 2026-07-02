@@ -5,7 +5,6 @@ import SearchIcon from '../../../../assets/SearchIcon';
 import Times from '../../../components/Times';
 import theme from '../../../theme';
 import { textResizerMaxValue, textResizerMinValue } from '../../constants';
-import { textRegularLineHeight } from '../../../components/Typography';
 import { BookWithOSWebData } from '../../types';
 import { HTMLInputElement } from '@openstax/types/lib.dom';
 import {
@@ -37,7 +36,7 @@ export const shadowClassName = 'topbar-shadow';
 
 // Keep legacy css export for backward compatibility with AssignedTopBar
 // TODO: Remove this once AssignedTopBar is migrated to plain CSS
-import { css } from 'styled-components/macro';
+import { css } from 'styled-components/macro'; // eslint-disable-line import/first
 export const shadow = css`
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.14);
 `;
@@ -105,10 +104,6 @@ export function HamburgerIcon({ className, ...props }: IconProps) {
     />
   );
 }
-
-const HamburgerIconComponent = function HamburgerIconComponent({ className, ...props }: IconProps) {
-  return <HamburgerIconComponentBase {...props} className={className} />;
-};
 
 /**
  * TimesCircle icon for Topbar component.
