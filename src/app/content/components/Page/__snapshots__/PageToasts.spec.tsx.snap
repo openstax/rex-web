@@ -1,45 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`PageToasts matches snapshot 1`] = `
-.c0 {
-  position: -webkit-sticky;
-  position: sticky;
-  overflow: visible;
-  z-index: 19;
-  top: 12rem;
-}
-
-@media screen and (max-width:90em) {
-  .c0 {
-    max-width: calc(100vw - ((100vw - 128rem) / 2) - 8rem);
-    left: calc(100vw - (100vw - ((100vw - 128rem) / 2) - 8rem));
-  }
-}
-
-@media screen and (max-width:80em) {
-  .c0 {
-    max-width: calc(100vw - 8rem);
-    left: 8rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c0 {
-    max-width: 100%;
-    left: 0;
-    z-index: 21;
-    top: 11.3rem;
-  }
-}
-
 <div
   aria-live="polite"
-  className="c0"
+  className="page-toast-container"
+  style={
+    Object {
+      "--content-wrapper-max-width": "128rem",
+      "--desktop-search-failure-top": "12rem",
+      "--mobile-search-failure-top": "11.3rem",
+      "--toast-z-index-desktop": 19,
+      "--toast-z-index-mobile": 21,
+      "--vertical-navbar-max-width": "8rem",
+    }
+  }
 />
 `;
 
 exports[`PageToasts matches snapshot with toasts when mobile toolbar is open 1`] = `
-.c1 {
+.c0 {
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
@@ -49,59 +28,38 @@ exports[`PageToasts matches snapshot with toasts when mobile toolbar is open 1`]
   line-height: 4rem;
 }
 
-.c1 a {
+.c0 a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c1 a:hover {
+.c0 a:hover {
   color: #0064A0;
 }
 
-.c0 {
-  position: -webkit-sticky;
-  position: sticky;
-  overflow: visible;
-  z-index: 19;
-  top: 12rem;
-}
-
 @media (max-width:75em) {
-  .c1 {
+  .c0 {
     padding: 0;
     line-height: 2rem;
     background-color: initial;
   }
 }
 
-@media screen and (max-width:90em) {
-  .c0 {
-    max-width: calc(100vw - ((100vw - 128rem) / 2) - 8rem);
-    left: calc(100vw - (100vw - ((100vw - 128rem) / 2) - 8rem));
-  }
-}
-
-@media screen and (max-width:80em) {
-  .c0 {
-    max-width: calc(100vw - 8rem);
-    left: 8rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c0 {
-    max-width: 100%;
-    left: 0;
-    z-index: 21;
-    top: 16.6rem;
-  }
-}
-
 <div
   aria-live="polite"
-  className="c0"
+  className="page-toast-container"
+  style={
+    Object {
+      "--content-wrapper-max-width": "128rem",
+      "--desktop-search-failure-top": "12rem",
+      "--mobile-search-failure-top": "16.6rem",
+      "--toast-z-index-desktop": 19,
+      "--toast-z-index-mobile": 21,
+      "--vertical-navbar-max-width": "8rem",
+    }
+  }
 >
   <div
     className="toasts-container"
@@ -123,7 +81,7 @@ exports[`PageToasts matches snapshot with toasts when mobile toolbar is open 1`]
         className="banner-body banner-body-error"
       >
         <div
-          className="c1 toast-header"
+          className="c0 toast-header"
         >
           The highlight could not be saved. Please check your connection and try again.
         </div>
@@ -168,7 +126,7 @@ exports[`PageToasts matches snapshot with toasts when mobile toolbar is open 1`]
 `;
 
 exports[`PageToasts matches snapshots with toasts 1`] = `
-.c1 {
+.c0 {
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
@@ -178,59 +136,38 @@ exports[`PageToasts matches snapshots with toasts 1`] = `
   line-height: 4rem;
 }
 
-.c1 a {
+.c0 a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c1 a:hover {
+.c0 a:hover {
   color: #0064A0;
 }
 
-.c0 {
-  position: -webkit-sticky;
-  position: sticky;
-  overflow: visible;
-  z-index: 19;
-  top: 12rem;
-}
-
 @media (max-width:75em) {
-  .c1 {
+  .c0 {
     padding: 0;
     line-height: 2rem;
     background-color: initial;
   }
 }
 
-@media screen and (max-width:90em) {
-  .c0 {
-    max-width: calc(100vw - ((100vw - 128rem) / 2) - 8rem);
-    left: calc(100vw - (100vw - ((100vw - 128rem) / 2) - 8rem));
-  }
-}
-
-@media screen and (max-width:80em) {
-  .c0 {
-    max-width: calc(100vw - 8rem);
-    left: 8rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c0 {
-    max-width: 100%;
-    left: 0;
-    z-index: 21;
-    top: 11.3rem;
-  }
-}
-
 <div
   aria-live="polite"
-  className="c0"
+  className="page-toast-container"
+  style={
+    Object {
+      "--content-wrapper-max-width": "128rem",
+      "--desktop-search-failure-top": "12rem",
+      "--mobile-search-failure-top": "11.3rem",
+      "--toast-z-index-desktop": 19,
+      "--toast-z-index-mobile": 21,
+      "--vertical-navbar-max-width": "8rem",
+    }
+  }
 >
   <div
     className="toasts-container"
@@ -252,7 +189,7 @@ exports[`PageToasts matches snapshots with toasts 1`] = `
         className="banner-body banner-body-error"
       >
         <div
-          className="c1 toast-header"
+          className="c0 toast-header"
         >
           The highlight could not be saved. Please check your connection and try again.
         </div>
