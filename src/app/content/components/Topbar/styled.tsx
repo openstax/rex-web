@@ -1,11 +1,11 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
-import styled, { css } from 'styled-components/macro';
 import classNames from 'classnames';
 import SearchIcon from '../../../../assets/SearchIcon';
 import Times from '../../../components/Times';
 import theme from '../../../theme';
 import { textResizerMaxValue, textResizerMinValue } from '../../constants';
+import { textRegularLineHeight } from '../../../components/Typography';
 import { BookWithOSWebData } from '../../types';
 import { HTMLInputElement } from '@openstax/types/lib.dom';
 import {
@@ -23,15 +23,21 @@ import {
   topbarMobileHeight,
 } from '../constants';
 import { FilterDropdown } from '../popUp/Filters';
-import { toolbarIconStyles } from '../Toolbar/iconStyles';
 import { buttonMinWidth, PlainButton as PlainButtonBase } from '../Toolbar/styled';
 import { isVerticalNavOpenConnector } from '../utils/sidebar';
 import Color from 'color';
+import './Topbar.css';
 
 /**
- * Shadow style for Topbar wrapper
+ * Shadow CSS class for Topbar wrapper
  * Used by AssignedTopBar component
+ * @deprecated Use 'topbar-shadow' className directly instead
  */
+export const shadowClassName = 'topbar-shadow';
+
+// Keep legacy css export for backward compatibility with AssignedTopBar
+// TODO: Remove this once AssignedTopBar is migrated to plain CSS
+import { css } from 'styled-components/macro';
 export const shadow = css`
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.14);
 `;
@@ -62,7 +68,9 @@ function AngleLeftIconBase({ className, ...props }: IconProps) {
   );
 }
 
-export const AngleLeftIcon = styled(AngleLeftIconBase)``;
+export const AngleLeftIcon = function AngleLeftIcon({ className, ...props }: IconProps) {
+  return <AngleLeftIconBase {...props} className={className} />;
+};
 
 /**
  * Hamburger icon for Topbar component.
@@ -86,7 +94,21 @@ function HamburgerIconComponentBase({ className, ...props }: IconProps) {
   );
 }
 
-const HamburgerIconComponent = styled(HamburgerIconComponentBase)``;
+/**
+ * HamburgerIcon component with icon styles applied
+ */
+export function HamburgerIcon({ className, ...props }: IconProps) {
+  return (
+    <HamburgerIconComponentBase
+      {...props}
+      className={classNames('topbar-hamburger-icon', className)}
+    />
+  );
+}
+
+const HamburgerIconComponent = function HamburgerIconComponent({ className, ...props }: IconProps) {
+  return <HamburgerIconComponentBase {...props} className={className} />;
+};
 
 /**
  * TimesCircle icon for Topbar component.
@@ -110,7 +132,9 @@ function TimesCircleIconBase({ className, ...props }: IconProps) {
   );
 }
 
-const TimesCircleIcon = styled(TimesCircleIconBase)``;
+const TimesCircleIcon = function TimesCircleIcon({ className, ...props }: IconProps) {
+  return <TimesCircleIconBase {...props} className={className} />;
+};
 
 // Filter out theme prop before spreading to DOM
 function PlainButton({
@@ -144,10 +168,6 @@ export const TopBarWrapper = function TopBarWrapper({
     />
   );
 };
-
-export const HamburgerIcon = styled(HamburgerIconComponent)`
-  ${toolbarIconStyles}
-`;
 
 export const MenuButton = function MenuButton({
   className,
@@ -299,7 +319,7 @@ export const CloseButtonNew = function CloseButtonNew({
   );
 };
 
-export const SearchInputWrapper = styled(function SearchInputWrapper({
+export function SearchInputWrapper({
   active,
   colorSchema,
   searchInSidebar,
@@ -343,7 +363,7 @@ export const SearchInputWrapper = styled(function SearchInputWrapper({
       }
     />
   );
-})``;
+}
 
 export const SearchInput = function SearchInput({
   desktop,
@@ -512,10 +532,17 @@ export const Hr = function Hr({
   );
 };
 
-export const LeftArrow = styled(AngleLeftIcon)`
-  width: 2.5rem;
-  height: 2.5rem;
-`;
+/**
+ * LeftArrow component with specific sizing
+ */
+export function LeftArrow({ className, ...props }: IconProps) {
+  return (
+    <AngleLeftIcon
+      {...props}
+      className={classNames('topbar-left-arrow', className)}
+    />
+  );
+}
 
 export const InnerText = function InnerText({
   className,
