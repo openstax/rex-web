@@ -5,13 +5,46 @@
  * styled-components to plain CSS. Currently includes:
  * - GridWrapper: Container for image grid in help popup
  * - MyHighlightsWrapper: Container for "My Highlights" section
+ * - ImagesGrid: Flex container for image layout
+ * - ImageWrapper: Wrapper for individual images
+ * - FirstImage: First help popup image
+ * - SecondImage: Second help popup image (with top margin)
+ * - StickyNoteBullet: Bullet decoration for sticky notes
+ * - StickyNote: Base sticky note (used by blue and green variants)
+ * - BlueStickyNote: Blue sticky note variant
+ * - GreenStickyNote: Green sticky note variant
+ * - StickyNoteUl: Unordered list within sticky notes
+ * - StickyNoteLi: List items within sticky notes
+ * - GeneralText: H3 heading with full width and padding
+ * - GeneralTextWrapper: Base text wrapper with body copy typography
+ * - GeneralLeftText: Left-aligned text wrapper (extends GeneralTextWrapper)
+ * - GeneralCenterText: Center-aligned text wrapper (extends GeneralTextWrapper)
+ * - MyHighlightsImage: Help popup image for "My Highlights" section
+ * - StyledHiddenLiveRegion: Screen reader only element
  *
- * Both components use mobile breakpoint for responsive hiding.
+ * GridWrapper and MyHighlightsWrapper use mobile breakpoint for responsive hiding.
  */
 
 /* === Constants from various files ===
  * desktopPopupWidth: 74.4rem (from PopupStyles/PopupConstants)
+ * popupBodyPadding: 2.4rem (from PopupStyles/PopupConstants)
  * mobileBreak: 75em (1200px) from theme.ts
+ *
+ * stickyNoteMeasures (from HighlightStyles.tsx):
+ * - blue: rgb(13, 192, 220)
+ * - green: rgb(99, 165, 36)
+ * - bulletSize: 1.6rem
+ * - defaultOffset: 3.2rem
+ * - left: 32.8rem
+ * - opacity: 0.85
+ * - width: 29.8rem
+ *
+ * h4Style (from Typography/Headings.legacy.ts):
+ * - Desktop: font-size 1.8rem, line-height 2.5rem
+ * - Mobile: font-size 1.6rem, line-height 2rem
+ * - color: theme.color.text.default (#424242)
+ *
+ * theme.color.neutral.base: #fff
  */
 
 /* === GridWrapper === */
@@ -40,4 +73,199 @@
   .my-highlights-wrapper {
     display: none;
   }
+}
+
+/* === ImagesGrid === */
+.images-grid {
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+  overflow: visible;
+}
+
+/* === ImageWrapper === */
+.image-wrapper {
+  width: 36rem; /* (desktopPopupWidth - popupBodyPadding) / 2 = (74.4 - 2.4) / 2 = 36 */
+}
+
+/* === Image Components === */
+.first-image,
+.second-image {
+  height: 25.6rem;
+  width: 36rem;
+  box-shadow: 0.1rem 0.1rem 0.4rem 0 rgba(0, 0, 0, 1);
+}
+
+.second-image {
+  margin-top: 17.6rem;
+}
+
+/* === Sticky Note Components === */
+
+/* StickyNoteBullet - Base bullet decoration */
+.sticky-note-bullet {
+  position: absolute;
+  height: 3.2rem; /* bulletSize * 2 = 1.6 * 2 */
+  width: 1.6rem; /* bulletSize */
+  top: 50%;
+  overflow: hidden;
+}
+
+.sticky-note-bullet::after {
+  content: "";
+  position: absolute;
+  width: 1.6rem; /* bulletSize */
+  height: 1.6rem; /* bulletSize */
+  transform: rotate(45deg);
+  top: 0.8rem; /* bulletSize / 2 */
+  box-shadow: 0.1rem 0.1rem 0.4rem 0 rgba(0, 0, 0, 1);
+}
+
+/* StickyNote - Base sticky note styles */
+.sticky-note {
+  width: 29.8rem;
+  position: absolute;
+  padding: 1.6rem 2.4rem; /* bulletSize, popupBodyPadding */
+  overflow: visible;
+  box-shadow: 0.1rem 0.1rem 0.4rem 0 rgba(0, 0, 0, 1);
+  opacity: 0.85;
+}
+
+/* BlueStickyNote - Blue variant positioning and bullet styling */
+.blue-sticky-note {
+  background: rgb(13, 192, 220);
+  top: 3.2rem; /* defaultOffset */
+  left: 33.6rem; /* left + (bulletSize / 2) = 32.8 + 0.8 */
+}
+
+.blue-sticky-note .sticky-note-bullet {
+  transform: translate(-100%, -50%);
+  left: 0%;
+}
+
+.blue-sticky-note .sticky-note-bullet::after {
+  transform: rotate(45deg);
+  left: 0.8rem; /* bulletSize / 2 */
+  background: rgb(13, 192, 220);
+}
+
+/* GreenStickyNote - Green variant positioning and bullet styling */
+.green-sticky-note {
+  background: rgb(99, 165, 36);
+  bottom: 3.2rem; /* defaultOffset */
+  right: 33.6rem; /* left + (bulletSize / 2) = 32.8 + 0.8 */
+}
+
+.green-sticky-note .sticky-note-bullet {
+  transform: translate(100%, -50%);
+  right: 0%;
+}
+
+.green-sticky-note .sticky-note-bullet::after {
+  transform: rotate(-45deg);
+  right: 0.8rem; /* bulletSize / 2 */
+  background: rgb(99, 165, 36);
+}
+
+/* StickyNoteUl - List container within sticky notes */
+.sticky-note-ul {
+  padding: 0;
+  overflow: visible;
+  margin: 0;
+  list-style: none;
+}
+
+/* StickyNoteLi - List items with h4Style typography */
+.sticky-note-li {
+  font-size: 1.8rem;
+  line-height: 2.5rem;
+  letter-spacing: -0.02rem;
+  margin: 0;
+  overflow: visible;
+  padding: 0;
+  display: flex;
+  color: var(--color-neutral-base);
+}
+
+.sticky-note-li::before {
+  content: "\2022";
+  padding-right: 0.5rem;
+}
+
+/* Mobile breakpoint for h4Style */
+@media screen and (max-width: 75em) {
+  .sticky-note-li {
+    font-size: 1.6rem;
+    line-height: 2rem;
+  }
+}
+
+/* === Text Wrapper Components === */
+
+/* GeneralText - H3 heading with full width and vertical padding */
+.general-text {
+  width: 100%;
+  padding: 0.8rem 0;
+}
+
+/* GeneralTextWrapper - Base text wrapper with bodyCopyRegularStyle typography */
+.general-text-wrapper {
+  /* bodyCopyRegularStyle: textRegularStyle + link styles
+   * textRegularStyle: textStyle + textRegularSize */
+  color: var(--color-text-default);
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  padding: 2.4rem 3.2rem 0; /* popupBodyPadding, popupPadding */
+}
+
+/* Link styles within GeneralTextWrapper */
+.general-text-wrapper a {
+  color: var(--link-color, #027eb5);
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.general-text-wrapper a:hover {
+  color: var(--link-hover-color, #0064a0);
+}
+
+/* Print behavior for GeneralTextWrapper */
+@media print {
+  .general-text-wrapper {
+    height: max-content;
+    overflow: auto;
+  }
+}
+
+/* GeneralLeftText - Left-aligned text wrapper (extends GeneralTextWrapper) */
+.general-left-text {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 3.2rem; /* popupPadding */
+}
+
+/* GeneralCenterText - Center-aligned text wrapper (extends GeneralTextWrapper) */
+.general-center-text {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 5rem 3.2rem; /* popupPadding */
+  text-align: center;
+}
+
+/* === MyHighlightsImage === */
+.my-highlights-image {
+  width: 72.8rem; /* myHighlightsImageWidth */
+  height: 23.2rem; /* myHighlightsImageHeight */
+  margin-top: 2.4rem; /* popupBodyPadding */
+}
+
+/* === StyledHiddenLiveRegion === */
+.styled-hidden-live-region {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap;
 }
