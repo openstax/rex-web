@@ -1,44 +1,56 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
 import { connect, useSelector } from 'react-redux';
-import styled from 'styled-components/macro';
+import classNames from 'classnames';
 import HighlightsIcon from '../../../../assets/HighlightsIcon';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import { AppState, Dispatch } from '../../../types';
 import { openMyHighlights as openMyHighlightsAction } from '../../highlights/actions';
 import * as selectors from '../../highlights/selectors';
-import { practiceQuestionsEnabled as practiceQuestionsEnabledSelector } from '../../practiceQuestions/selectors';
-import { toolbarIconStyles } from './iconStyles';
 import { PlainButton } from './styled';
-import { toolbarDefaultButton, toolbarDefaultText } from './Toolbar.legacy';
 import showConfirmation from '../../highlights/components/utils/showConfirmation';
 import { useServices } from '../../../context/Services';
 import { hasUnsavedHighlight as hasUnsavedHighlightSelector } from '../../highlights/selectors';
 import { captureOpeningElement } from '../../utils/focusManager';
+import './Toolbar.css';
 
 interface Props {
   openMyHighlights: () => void;
   myHighlightsOpen?: boolean;
 }
 
-const MyHighlightsWrapper = styled(PlainButton)`
-  ${toolbarDefaultButton}
-  height: auto;
-  padding: 0;
+const MyHighlightsWrapper = function MyHighlightsWrapper({
+  isActive,
+  className,
+  ...props
+}: React.ButtonHTMLAttributes<HTMLButtonElement> & {
+  isActive?: boolean;
+}) {
+  return (
+    <PlainButton
+      {...props}
+      className={classNames(
+        'toolbar-default-button',
+        { 'is-active': isActive },
+        className
+      )}
+    />
+  );
+};
 
-  > svg {
-    ${toolbarIconStyles}
-  }
-`;
-
-const MyHighlightsText = styled.span`
-  ${toolbarDefaultText}
-  font-size: 1.2rem;
-  line-height: 1.5rem;
-`;
+const MyHighlightsText = function MyHighlightsText({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLSpanElement>) {
+  return (
+    <span
+      {...props}
+      className={classNames('toolbar-default-text', className)}
+    />
+  );
+};
 
 const HighlightButton = ({ openMyHighlights, myHighlightsOpen }: Props) => {
-  const practiceQuestionsEnabled = useSelector(practiceQuestionsEnabledSelector);
   const hasUnsavedHighlight = useSelector(hasUnsavedHighlightSelector);
   const services = useServices();
   const trackOpenCloseMH = useAnalyticsEvent('openCloseMH');
@@ -60,7 +72,6 @@ const HighlightButton = ({ openMyHighlights, myHighlightsOpen }: Props) => {
     onClick={openHighlightsSummary}
     aria-label={text}
     data-analytics-label='My highlights'
-    practiceQuestionsEnabled={practiceQuestionsEnabled}
   >
     <HighlightsIcon />
     <MyHighlightsText>{text}</MyHighlightsText>

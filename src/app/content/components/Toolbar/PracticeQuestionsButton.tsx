@@ -1,7 +1,7 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components/macro';
+import classNames from 'classnames';
 import practiceQuestionsIcon from '../../../../assets/practiceQuestionsIcon.svg';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import { openPracticeQuestions } from '../../practiceQuestions/actions';
@@ -11,30 +11,54 @@ import {
   practiceQuestionsEnabled,
 } from '../../practiceQuestions/selectors';
 import { bookAndPage } from '../../selectors';
-import { toolbarIconStyles } from './iconStyles';
 import { PlainButton } from './styled';
-import { toolbarDefaultButton, toolbarDefaultText } from './Toolbar.legacy';
 import { captureOpeningElement } from '../../utils/focusManager';
+import './Toolbar.css';
 
-export const StyledPracticeQuestionsButton = styled(PlainButton)`
-  ${toolbarDefaultButton}
-  height: auto;
-  padding: 0;
+export const StyledPracticeQuestionsButton = function StyledPracticeQuestionsButton({
+  isActive,
+  className,
+  ...props
+}: React.ButtonHTMLAttributes<HTMLButtonElement> & {
+  isActive?: boolean;
+}) {
+  return (
+    <PlainButton
+      {...props}
+      className={classNames(
+        'toolbar-default-button',
+        { 'is-active': isActive },
+        className
+      )}
+    />
+  );
+};
 
-  > svg {
-    ${toolbarIconStyles}
-  }
-`;
+const PracticeQuestionsIcon = function PracticeQuestionsIcon({
+  className,
+  ...props
+}: React.ImgHTMLAttributes<HTMLImageElement>) {
+  return (
+    <img
+      {...props}
+      alt=""
+      aria-hidden="true"
+      className={classNames('toolbar-default-icon', className)}
+    />
+  );
+};
 
-const PracticeQuestionsIcon = styled.img`
-  ${toolbarIconStyles}
-`;
-
-const PracticeQuestionsText = styled.span`
-  ${toolbarDefaultText}
-  font-size: 1.2rem;
-  line-height: 1.5rem;
-`;
+const PracticeQuestionsText = function PracticeQuestionsText({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLSpanElement>) {
+  return (
+    <span
+      {...props}
+      className={classNames('toolbar-default-text', className)}
+    />
+  );
+};
 
 const PracticeQuestionsButton = () => {
   const dispatch = useDispatch();

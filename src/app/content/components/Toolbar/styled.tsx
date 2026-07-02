@@ -10,7 +10,6 @@ import {
   toolbarIconColor,
   verticalNavbarMaxWidth,
 } from '../constants';
-import { toolbarIconStyles } from './iconStyles';
 import './Toolbar.css';
 
 interface IconProps extends React.SVGAttributes<SVGSVGElement> {
@@ -72,12 +71,10 @@ export const PlainButton = React.forwardRef<
   React.ButtonHTMLAttributes<HTMLButtonElement> & {
     theme?: unknown;
     isActive?: boolean;
-    practiceQuestionsEnabled?: boolean;
   }
 >(function PlainButton(
   {
-    className, style, theme: _theme, isActive: _isActive,
-    practiceQuestionsEnabled: _practiceQuestionsEnabled, ...domProps
+    className, style, theme: _theme, isActive: _isActive, ...domProps
   },
   ref
 ) {
@@ -133,9 +130,21 @@ export const PrintOptions = styled(function PrintOptions({
   );
 })``;
 
-export const PrintIcon = styled(PrintIconComponent)`
-  ${toolbarIconStyles}
-`;
+export const PrintIcon = function PrintIcon({
+  className,
+  style,
+  ...props
+}: React.SVGAttributes<SVGSVGElement> & { theme?: unknown }) {
+  const { theme: _theme, ...domProps } = props as Record<string, unknown>;
+
+  return (
+    <PrintIconComponent
+      {...domProps}
+      className={classNames('toolbar-print-icon', className)}
+      style={style}
+    />
+  );
+};
 
 export const ToolbarWrapper = React.forwardRef<
   HTMLDivElement,
@@ -228,16 +237,27 @@ export const TimesIcon = function TimesIcon({
   );
 };
 
-export const LeftArrow = styled(ChevronLeftIcon)`
-  width: 4rem;
-  height: 4rem;
-  color: ${toolbarIconColor.base};
-  margin: 0 -1rem;
+export const LeftArrow = function LeftArrow({
+  className,
+  style,
+  ...props
+}: React.SVGAttributes<SVGSVGElement> & { theme?: unknown }) {
+  const { theme: _theme, ...domProps } = props as Record<string, unknown>;
 
-  :hover {
-    color: ${toolbarIconColor.darker};
-  }
-`;
+  return (
+    <ChevronLeftIcon
+      {...domProps}
+      className={classNames('toolbar-left-arrow', className)}
+      style={
+        {
+          '--toolbar-icon-color': toolbarIconColor.base,
+          '--toolbar-icon-darker-color': toolbarIconColor.darker,
+          ...style,
+        } as React.CSSProperties
+      }
+    />
+  );
+};
 
 export const ToolbarElements = function ToolbarElements({
   className,
