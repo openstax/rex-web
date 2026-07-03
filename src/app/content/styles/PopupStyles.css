@@ -1,0 +1,135 @@
+/**
+ * Popup Styles - Plain CSS version
+ *
+ * Note: These styles use CSS variables for theming which are set by the React components.
+ * The CSS variables are bound from theme values in the component props.
+ */
+
+.popup-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+@media print {
+  .popup-wrapper {
+    display: block;
+  }
+
+  .popup-wrapper ~ div {
+    display: none;
+  }
+}
+
+.popup-header {
+  /* Theme CSS variables (set by component) */
+  background: var(--popup-background-color, #405c7d);
+
+  /* h3Style equivalent */
+  font-size: 2.4rem;
+  letter-spacing: -0.02rem;
+  line-height: 3rem;
+
+  /* Layout - uses CSS variables bound from PopupConstants */
+  padding: var(--popup-padding, 3.2rem);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: var(--header-height, 7.2rem);
+  overflow: hidden;
+  z-index: var(--popup-header-z-index, 5);
+}
+
+/* Mobile breakpoint: max-width: 75em (1200px)
+ * This corresponds to theme.breakpoints.mobile()
+ */
+@media screen and (max-width: 75em) {
+  .popup-header {
+    padding: var(--mobile-padding-sides, 1.6rem);
+    font-size: 1.6rem;
+    line-height: 2rem;
+  }
+}
+
+.popup-header h1 {
+  font-size: inherit;
+  letter-spacing: inherit;
+  order: 1;
+}
+
+.popup-body {
+  -webkit-overflow-scrolling: touch;
+  height: calc(100% - var(--header-height, 7.2rem));
+  background: var(--popup-body-background, #fff);
+  z-index: var(--popup-body-z-index, 4);
+  overflow: auto;
+}
+
+@media screen and (max-width: 75em) {
+  .popup-body {
+    text-align: center;
+    padding: 8rem 3.2rem;
+  }
+}
+
+@media print {
+  .popup-body {
+    height: max-content;
+    overflow: auto;
+  }
+}
+
+.popup-modal {
+  top: 0;
+  z-index: var(--popup-modal-z-index, 110);
+  position: fixed;
+  background: var(--popup-modal-background, #fff);
+  border-radius: 0.5rem;
+  height: calc(100% - var(--top-bottom-margin, 9.6rem));
+  outline: none;
+  overflow: hidden;
+  margin: var(--header-height, 7.2rem) auto var(--popup-body-padding, 2.4rem);
+  max-width: 128rem; /* contentWrapperMaxWidth */
+  width: calc(100% - calc(var(--popup-body-padding, 2.4rem) * 2));
+}
+
+@media screen and (max-width: 75em) {
+  .popup-modal {
+    margin: var(--mobile-margin-top-bottom, 2rem) 0;
+    width: calc(100% - calc(var(--mobile-margin-sides, 0.8rem) * 2));
+    height: calc(100% - calc(var(--mobile-margin-top-bottom, 2rem) * 2));
+  }
+}
+
+@media print {
+  .popup-modal {
+    position: relative;
+    width: 100%;
+    margin: 0;
+    border-radius: 0;
+  }
+}
+
+.popup-close-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  order: 2;
+}
+
+.popup-close-icon {
+  /* Dynamic colors set via CSS variables */
+  color: var(--popup-close-icon-color, #fff);
+  cursor: pointer;
+}
+
+.popup-close-icon:hover {
+  color: var(--popup-close-icon-hover-color, #e8e8e8);
+}
+
+@media print {
+  .popup-header,
+  .popup-close-icon-wrapper,
+  .popup-close-icon {
+    display: none;
+  }
+}

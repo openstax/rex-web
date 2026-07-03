@@ -1,15 +1,13 @@
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import styled, { css } from 'styled-components/macro';
 import * as selectAuth from '../../../../auth/selectors';
 import { useAnalyticsEvent } from '../../../../../helpers/analytics';
 import { clearFocusedHighlight } from '../../actions';
-import { cardWidth } from '../../constants';
 import Confirmation from '../Confirmation';
-import theme from '../../../../theme';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import { assertWindow } from '../../../../utils';
+import './AuthenticationGate.css';
 
 interface LoginOrEditProps {
   children: React.ReactNode;
@@ -63,7 +61,7 @@ export function LoginOrEdit({
       {...restProps}
     >
       {authenticated ? (
-        <HiddenOnMobile>
+        <div className="hidden-on-mobile">
           {shouldFocusCard || hasAnnotation ? (
             <form
               ref={elementRef}
@@ -83,7 +81,7 @@ export function LoginOrEdit({
               />
             </button>
           )}
-        </HiddenOnMobile>
+        </div>
       ) : (
         <LoginConfirmation onBlur={onBlur} />
       )}
@@ -119,11 +117,3 @@ export function LoginConfirmation({
     />
   );
 }
-
-// tslint:disable-next-line:variable-name
-export const HiddenOnMobile = styled.div`
-  min-width: ${cardWidth}rem;
-  ${theme.breakpoints.touchDeviceQuery(css`
-    display: none;
-  `)}
-`;

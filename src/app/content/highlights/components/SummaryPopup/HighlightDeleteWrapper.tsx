@@ -1,50 +1,34 @@
+import classNames from 'classnames';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import styled from 'styled-components/macro';
 import Button from '../../../../components/Button';
-import { textStyle } from '../../../../components/Typography';
 import { useDrawFocus, useTrapTabNavigation } from '../../../../reactUtils';
 import { HighlightEditButtons } from './styles';
-
-const StyledHighlightDeleteWrapper = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(0, 0, 0, 0.9);
-
-  span {
-    ${textStyle}
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 25px;
-    letter-spacing: -0.2;
-    color: #fff;
-    margin-right: 8px;
-  }
-`;
+import './HighlightDeleteWrapper.css';
 
 interface HighlightDeleteWrapperProps {
   deletingWhat?: 'note' | 'highlight' | 'both';
   onCancel: () => void;
   onDelete: () => void;
+  className?: string;
 }
 
-function HighlightDeleteWrapper({
+/**
+ * HighlightDeleteWrapper - Confirmation dialog for deleting highlights/notes
+ */
+export function HighlightDeleteWrapper({
   deletingWhat = 'highlight',
   onDelete,
   onCancel,
+  className,
 }: HighlightDeleteWrapperProps) {
   const ref = useDrawFocus();
 
   useTrapTabNavigation(ref);
 
   return (
-    <StyledHighlightDeleteWrapper
+    <div
+      className={classNames('highlight-delete-wrapper', className)}
       data-analytics-region='MH delete'
       tabIndex={0}
       ref={ref}
@@ -87,7 +71,7 @@ function HighlightDeleteWrapper({
           )}
         </FormattedMessage>
       </HighlightEditButtons>
-    </StyledHighlightDeleteWrapper>
+    </div>
   );
 }
 

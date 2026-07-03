@@ -1,94 +1,68 @@
 import { HighlightColorEnum, HighlightUpdateColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
-import styled, { css } from 'styled-components/macro';
 import { useAnalyticsEvent } from '../../../../../helpers/analytics';
-import theme, { hiddenButAccessible } from '../../../../theme';
 import ContentExcerpt from '../../../components/ContentExcerpt';
 import { highlightStyles } from '../../../constants';
 import { book as bookSelector } from '../../../selectors';
-import { popupBodyPadding } from '../../../styles/PopupStyles';
 import { requestDeleteHighlight, updateHighlight } from '../../actions';
 import { HighlightData } from '../../types';
 import ContextMenu from './ContextMenu';
 import HighlightAnnotation from './HighlightAnnotation';
 import HighlightDeleteWrapper from './HighlightDeleteWrapper';
 import { useCreateHighlightLink } from './utils';
-import { FormattedMessage, useIntl } from 'react-intl';
 import { useConfirmationToastContext } from '../../../components/ConfirmationToast';
+import classNames from 'classnames';
+import './HighlightListElement.css';
 
-const HighlightOuterWrapper = styled.div`
-  position: relative;
-  overflow: visible;
+export const HighlightOuterWrapper = (
+  { className, theme: _theme, ...props }: React.HTMLAttributes<HTMLDivElement> & { theme?: unknown }
+) => (
+  <div {...props} className={classNames('highlight-outer-wrapper', className)} />
+);
 
-  :not(:last-child) {
-    border-bottom: solid 0.2rem ${theme.color.neutral.darker};
-  }
+export const HighlightContentWrapper = (
+  { color, className, theme: _theme, ...props }: React.HTMLAttributes<HTMLDivElement> &
+  { color: string; theme?: unknown }
+) => {
+  const style = highlightStyles.find((search) => search.label === color);
 
-  background: ${theme.color.neutral.base};
+  const cssVariables = style ? {
+    '--highlight-focused-color': style.focused,
+    '--highlight-passive-color': style.passive,
+  } as React.CSSProperties : undefined;
 
-  @media print {
-    border-width: 0;
-    position: relative;
-    page-break-inside: avoid;
-    background: white;
-  }
-`;
+  return (
+    <div
+      {...props}
+      className={classNames('highlight-content-wrapper', className)}
+      style={{ ...cssVariables, ...props.style }}
+    />
+  );
+};
 
-export const HighlightContentWrapper = styled.div`
-  padding: 1.2rem ${popupBodyPadding}rem;
-  ${(props: {color: string}) => {
-    const style = highlightStyles.find((search) => search.label === props.color);
+export const HiddenLabel = (
+  { className, theme: _theme, ...props }: React.HTMLAttributes<HTMLDivElement> & { theme?: unknown }
+) => (
+  <div {...props} className={classNames('hidden-but-accessible', className)} />
+);
 
-    if (!style) {
-      return null;
-    }
-
-    return css`
-      border-left: solid 0.8rem ${style.focused};
-
-      ${ContentExcerpt} {
-        background-color: ${style.passive};
-
-        a {
-          color: inherit;
-        }
-      }
-
-      .highlight-note-text {
-        color: ${theme.color.neutral.foreground};
-        font-weight: bold;
-      }
-    `;
-  }}
-
-  @media print {
-    break-inside: avoid-page;
-
-    ${ContentExcerpt} {
-      background-color: white;
-    }
-  }
-`;
+function HighlightContentLabel({ color }: { color: string }) {
+  const assertedColor = ['blue', 'green', 'pink', 'purple'].includes(color) ? color : 'yellow';
+  return (
+    <HiddenLabel>
+      <FormattedMessage id="i18n:highlighter:display-note:label" />
+      <FormattedMessage id={`i18n:highlighting:colors:${assertedColor}`} />
+    </HiddenLabel>
+  );
+}
 
 interface HighlightListElementProps {
   highlight: HighlightData;
   locationFilterId: string;
   pageId: string;
 }
-
-const HiddenLabel = styled.div`
-  ${hiddenButAccessible}
-`;
-
-function HighlightContentLabel({color}: {color: string}) {
-  const assertedColor = ['blue', 'green', 'pink', 'purple'].includes(color) ? color : 'yellow';
-  return <HiddenLabel>
-    <FormattedMessage id='i18n:highlighter:display-note:label' />
-    <FormattedMessage id={`i18n:highlighting:colors:${assertedColor}`} />
-  </HiddenLabel>;
-}
-
 
 const HighlightListElement = ({ highlight, locationFilterId, pageId }: HighlightListElementProps) => {
   const [isEditing, setIsEditing] = React.useState(false);
@@ -105,38 +79,39 @@ const HighlightListElement = ({ highlight, locationFilterId, pageId }: Highlight
   const intl = useIntl();
 
   const updateAnnotation = React.useCallback(
-    (
-      annotation: string
-    ) => {
-      const addedNote = (highlight.annotation === undefined);
+    (annotation: string) => {
+      const addedNote = highlight.annotation === undefined;
 
       if (annotation === '' && !addedNote && confirming === false) {
         setConfirming(true);
         return;
       }
-      dispatch(updateHighlight({
-        highlight: {annotation},
-        id: highlight.id,
-      }, {
-        locationFilterId,
-        pageId,
-        preUpdateData: {
-          highlight: {
-            annotation: highlight.annotation,
-            color: highlight.color as string as HighlightUpdateColorEnum,
+      dispatch(
+        updateHighlight(
+          {
+            highlight: { annotation },
+            id: highlight.id,
           },
-          id: highlight.id,
-        },
-      }));
+          {
+            locationFilterId,
+            pageId,
+            preUpdateData: {
+              highlight: {
+                annotation: highlight.annotation,
+                color: highlight.color as string as HighlightUpdateColorEnum,
+              },
+              id: highlight.id,
+            },
+          }
+        )
+      );
       trackEditAnnotation(addedNote, highlight.color, true);
       setIsEditing(false);
       const removedNote = annotation === '' && !addedNote;
       setConfirming(false);
       showToast({
         message: intl.formatMessage({
-          id: removedNote
-            ? 'i18n:highlighting:toast:note-delete'
-            : 'i18n:highlighting:toast:save-success',
+          id: removedNote ? 'i18n:highlighting:toast:note-delete' : 'i18n:highlighting:toast:save-success',
         }),
       });
     },
@@ -144,73 +119,85 @@ const HighlightListElement = ({ highlight, locationFilterId, pageId }: Highlight
   );
 
   const updateColor = (color: HighlightColorEnum) => {
-    dispatch(updateHighlight({
-      highlight: {color: color as string as HighlightUpdateColorEnum},
-      id: highlight.id,
-    }, {
-      locationFilterId,
-      pageId,
-      preUpdateData: {
-        highlight: {
-          annotation: highlight.annotation,
-          color: highlight.color as string as HighlightUpdateColorEnum,
+    dispatch(
+      updateHighlight(
+        {
+          highlight: { color: color as string as HighlightUpdateColorEnum },
+          id: highlight.id,
         },
-        id: highlight.id,
-      },
-    }));
+        {
+          locationFilterId,
+          pageId,
+          preUpdateData: {
+            highlight: {
+              annotation: highlight.annotation,
+              color: highlight.color as string as HighlightUpdateColorEnum,
+            },
+            id: highlight.id,
+          },
+        }
+      )
+    );
     trackEditNoteColor(color, true);
   };
 
   const confirmDelete = () => {
-    dispatch(requestDeleteHighlight(highlight, {
-      locationFilterId,
-      pageId,
-    }));
+    dispatch(
+      requestDeleteHighlight(highlight, {
+        locationFilterId,
+        pageId,
+      })
+    );
     trackDeleteHighlight(highlight.color, true);
     showToast({
       message: intl.formatMessage({ id: 'i18n:highlighting:toast:highlight-delete' }),
     });
   };
 
-  return <HighlightOuterWrapper>
-    {(!isEditing && !isDeleting) && <ContextMenu
-      highlight={highlight}
-      linkToHighlight={linkToHighlight}
-      onDelete={() => setIsDeleting(true)}
-      onEdit={() => setIsEditing(true)}
-      onColorChange={updateColor}
-    />}
-    <HighlightContentWrapper color={highlight.color}>
-      <HighlightContentLabel color={highlight.color} />
-      <ContentExcerpt
-        data-highlight-id={highlight.id}
-        content={highlight.highlightedContent}
-        source={highlight.sourceId}
-      />
-      <HighlightAnnotation
-        annotation={highlight.annotation || ''}
-        isEditing={isEditing}
-        onSave={updateAnnotation}
-        onCancel={() => setIsEditing(false)}
-      />
-      {
-        confirming === true &&
+  return (
+    <HighlightOuterWrapper>
+      {!isEditing && !isDeleting && (
+        <ContextMenu
+          highlight={highlight}
+          linkToHighlight={linkToHighlight}
+          onDelete={() => setIsDeleting(true)}
+          onEdit={() => setIsEditing(true)}
+          onColorChange={updateColor}
+        />
+      )}
+      <HighlightContentWrapper color={highlight.color}>
+        <HighlightContentLabel color={highlight.color} />
+        <ContentExcerpt
+          data-highlight-id={highlight.id}
+          content={highlight.highlightedContent}
+          source={highlight.sourceId}
+        />
+        <HighlightAnnotation
+          annotation={highlight.annotation || ''}
+          isEditing={isEditing}
+          onSave={updateAnnotation}
+          onCancel={() => setIsEditing(false)}
+        />
+        {confirming === true && (
+          <HighlightDeleteWrapper
+            deletingWhat="note"
+            onCancel={() => {
+              setConfirming(false);
+              setIsEditing(false);
+            }}
+            onDelete={() => updateAnnotation('')}
+          />
+        )}
+      </HighlightContentWrapper>
+      {isDeleting && (
         <HighlightDeleteWrapper
-        deletingWhat='note'
-        onCancel={() => {
-          setConfirming(false);
-          setIsEditing(false);
-        }}
-        onDelete={() => updateAnnotation('')}
-      />
-      }
-    </HighlightContentWrapper>
-    {isDeleting && <HighlightDeleteWrapper
-      deletingWhat={highlight.annotation ? 'both' : 'highlight'}
-      onCancel={() => setIsDeleting(false)}
-      onDelete={confirmDelete}
-    />}
-  </HighlightOuterWrapper>;
+          deletingWhat={highlight.annotation ? 'both' : 'highlight'}
+          onCancel={() => setIsDeleting(false)}
+          onDelete={confirmDelete}
+        />
+      )}
+    </HighlightOuterWrapper>
+  );
 };
 
 export default HighlightListElement;

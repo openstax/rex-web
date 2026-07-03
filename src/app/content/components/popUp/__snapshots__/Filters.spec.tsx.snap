@@ -6,18 +6,18 @@ exports[`Filters matches snapshot 1`] = `
   position: relative;
 }
 
-.c14 {
+.c12 {
   height: 1.7rem;
   margin-right: 0.4rem;
 }
 
-.c14 svg {
+.c12 svg {
   height: 0.8rem;
   width: 0.8rem;
   color: #5e6062;
 }
 
-.c15 {
+.c13 {
   color: #424242;
   font-weight: 300;
   color: #5e6062;
@@ -29,7 +29,7 @@ exports[`Filters matches snapshot 1`] = `
   line-height: 1.5rem;
 }
 
-.c13 {
+.c11 {
   margin-right: 3.2rem;
   display: -webkit-box;
   display: -webkit-flex;
@@ -43,7 +43,7 @@ exports[`Filters matches snapshot 1`] = `
   height: 4rem;
 }
 
-.c10 {
+.c8 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -56,7 +56,7 @@ exports[`Filters matches snapshot 1`] = `
   border: 0;
 }
 
-.c12 {
+.c10 {
   color: #424242;
   font-size: 1.4rem;
   display: -webkit-box;
@@ -153,39 +153,20 @@ exports[`Filters matches snapshot 1`] = `
   max-height: calc(100vh - 26rem);
 }
 
-.c8 {
+.c7 {
   height: 2.5rem;
   width: 2.5rem;
   padding: 0.4rem;
 }
 
-.c7 {
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  cursor: pointer;
-  height: -webkit-max-content;
-  height: -moz-max-content;
-  height: max-content;
-  min-height: unset;
-  margin: 0 0 0 auto;
-  padding-right: 2.4rem;
-}
-
-.c7 .c9 {
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  margin: 0px 0px 0px 0.5rem;
-}
-
 @media print {
-  .c14 {
+  .c12 {
     display: none;
   }
 }
 
 @media print {
-  .c15 {
+  .c13 {
     max-width: -webkit-max-content;
     max-width: -moz-max-content;
     max-width: max-content;
@@ -193,13 +174,13 @@ exports[`Filters matches snapshot 1`] = `
 }
 
 @media screen and (max-width:75em) {
-  .c12 {
+  .c10 {
     padding: 0 2.4rem 0.4rem 2.4rem;
   }
 }
 
 @media print {
-  .c12 {
+  .c10 {
     margin: 0;
   }
 }
@@ -234,19 +215,7 @@ exports[`Filters matches snapshot 1`] = `
 }
 
 @media print {
-  .c0 > *:not(.c11) {
-    display: none;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c7 {
-    padding-right: 1.6rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c7 .c9 {
+  .c0 > *:not(.c9) {
     display: none;
   }
 }
@@ -315,54 +284,59 @@ exports[`Filters matches snapshot 1`] = `
         </div>
       </button>
     </div>
-    <button
-      aria-label="print"
-      className="toolbar-plain-button toolbar-print-opt-wrapper c7"
-      data-analytics-label="print"
-      data-testid="print"
-      disabled={false}
-      onClick={[Function]}
-      style={
-        Object {
-          "--button-min-width": "45px",
-          "--toolbar-icon-color": "#5e6062",
-          "--toolbar-icon-darker-color": "#424242",
-        }
-      }
+    <div
+      className="popup-print-button"
+      data-loading="false"
     >
-      <svg
-        aria-hidden="true"
-        className="c8"
-        viewBox="0 0 512 512"
+      <button
+        aria-label="print"
+        className="toolbar-plain-button toolbar-print-opt-wrapper"
+        data-analytics-label="print"
+        data-testid="print"
+        disabled={false}
+        onClick={[Function]}
+        style={
+          Object {
+            "--button-min-width": "45px",
+            "--toolbar-icon-color": "#5e6062",
+            "--toolbar-icon-darker-color": "#424242",
+          }
+        }
       >
-        <path
-          d="M448 192V77.25c0-8.49-3.37-16.62-9.37-22.63L393.37 9.37c-6-6-14.14-9.37-22.63-9.37H96C78.33 0 64 14.33 64 32v160c-35.35 0-64 28.65-64 64v112c0 8.84 7.16 16 16 16h48v96c0 17.67 14.33 32 32 32h320c17.67 0 32-14.33 32-32v-96h48c8.84 0 16-7.16 16-16V256c0-35.35-28.65-64-64-64zm-64 256H128v-96h256v96zm0-224H128V64h192v48c0 8.84 7.16 16 16 16h48v96zm48 72c-13.25 0-24-10.75-24-24 0-13.26 10.75-24 24-24s24 10.74 24 24c0 13.25-10.75 24-24 24z"
-          fill="currentColor"
-        />
-      </svg>
-      <span
-        className="toolbar-print-options c9 "
-      >
-        Print
-      </span>
-    </button>
+        <svg
+          aria-hidden="true"
+          className="c7"
+          viewBox="0 0 512 512"
+        >
+          <path
+            d="M448 192V77.25c0-8.49-3.37-16.62-9.37-22.63L393.37 9.37c-6-6-14.14-9.37-22.63-9.37H96C78.33 0 64 14.33 64 32v160c-35.35 0-64 28.65-64 64v112c0 8.84 7.16 16 16 16h48v96c0 17.67 14.33 32 32 32h320c17.67 0 32-14.33 32-32v-96h48c8.84 0 16-7.16 16-16V256c0-35.35-28.65-64-64-64zm-64 256H128v-96h256v96zm0-224H128V64h192v48c0 8.84 7.16 16 16 16h48v96zm48 72c-13.25 0-24-10.75-24-24 0-13.26 10.75-24 24-24s24 10.74 24 24c0 13.25-10.75 24-24 24z"
+            fill="currentColor"
+          />
+        </svg>
+        <span
+          className="toolbar-print-options "
+        >
+          Print
+        </span>
+      </button>
+    </div>
   </div>
   <div
-    className="c10"
+    className="c8"
     role="status"
   />
   <ul
     aria-atomic="true"
     aria-label="Applied filters"
     aria-live="polite"
-    className="c11 c12"
+    className="c9 c10"
   >
     <li
-      className="c13"
+      className="c11"
     >
       <button
         aria-label="Remove color blue"
-        className="plain-button c14"
+        className="plain-button c12"
         data-analytics-label="Remove breadcrumb for color blue"
         onClick={[Function]}
       >
@@ -394,17 +368,17 @@ exports[`Filters matches snapshot 1`] = `
         </svg>
       </button>
       <span
-        className="c15"
+        className="c13"
       >
         blue
       </span>
     </li>
     <li
-      className="c13"
+      className="c11"
     >
       <button
         aria-label="Remove color green"
-        className="plain-button c14"
+        className="plain-button c12"
         data-analytics-label="Remove breadcrumb for color green"
         onClick={[Function]}
       >
@@ -436,17 +410,17 @@ exports[`Filters matches snapshot 1`] = `
         </svg>
       </button>
       <span
-        className="c15"
+        className="c13"
       >
         green
       </span>
     </li>
     <li
-      className="c13"
+      className="c11"
     >
       <button
         aria-label="Remove color pink"
-        className="plain-button c14"
+        className="plain-button c12"
         data-analytics-label="Remove breadcrumb for color pink"
         onClick={[Function]}
       >
@@ -478,17 +452,17 @@ exports[`Filters matches snapshot 1`] = `
         </svg>
       </button>
       <span
-        className="c15"
+        className="c13"
       >
         pink
       </span>
     </li>
     <li
-      className="c13"
+      className="c11"
     >
       <button
         aria-label="Remove color purple"
-        className="plain-button c14"
+        className="plain-button c12"
         data-analytics-label="Remove breadcrumb for color purple"
         onClick={[Function]}
       >
@@ -520,17 +494,17 @@ exports[`Filters matches snapshot 1`] = `
         </svg>
       </button>
       <span
-        className="c15"
+        className="c13"
       >
         purple
       </span>
     </li>
     <li
-      className="c13"
+      className="c11"
     >
       <button
         aria-label="Remove color yellow"
-        className="plain-button c14"
+        className="plain-button c12"
         data-analytics-label="Remove breadcrumb for color yellow"
         onClick={[Function]}
       >
@@ -562,7 +536,7 @@ exports[`Filters matches snapshot 1`] = `
         </svg>
       </button>
       <span
-        className="c15"
+        className="c13"
       >
         yellow
       </span>
@@ -577,7 +551,7 @@ exports[`Filters matches snapshot when open color filters 1`] = `
   position: relative;
 }
 
-.c12 {
+.c10 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -590,7 +564,7 @@ exports[`Filters matches snapshot when open color filters 1`] = `
   border: 0;
 }
 
-.c14 {
+.c12 {
   color: #424242;
   font-size: 1.4rem;
   display: -webkit-box;
@@ -736,39 +710,20 @@ exports[`Filters matches snapshot when open color filters 1`] = `
   max-height: calc(100vh - 26rem);
 }
 
-.c10 {
+.c9 {
   height: 2.5rem;
   width: 2.5rem;
   padding: 0.4rem;
 }
 
-.c9 {
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  cursor: pointer;
-  height: -webkit-max-content;
-  height: -moz-max-content;
-  height: max-content;
-  min-height: unset;
-  margin: 0 0 0 auto;
-  padding-right: 2.4rem;
-}
-
-.c9 .c11 {
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  margin: 0px 0px 0px 0.5rem;
-}
-
 @media screen and (max-width:75em) {
-  .c14 {
+  .c12 {
     padding: 0 2.4rem 0.4rem 2.4rem;
   }
 }
 
 @media print {
-  .c14 {
+  .c12 {
     margin: 0;
   }
 }
@@ -809,19 +764,7 @@ exports[`Filters matches snapshot when open color filters 1`] = `
 }
 
 @media print {
-  .c0 > *:not(.c13) {
-    display: none;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c9 {
-    padding-right: 1.6rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c9 .c11 {
+  .c0 > *:not(.c11) {
     display: none;
   }
 }
@@ -936,47 +879,52 @@ exports[`Filters matches snapshot when open color filters 1`] = `
         />
       </div>
     </div>
-    <button
-      aria-label="print"
-      className="toolbar-plain-button toolbar-print-opt-wrapper c9"
-      data-analytics-label="print"
-      data-testid="print"
-      disabled={false}
-      onClick={[Function]}
-      style={
-        Object {
-          "--button-min-width": "45px",
-          "--toolbar-icon-color": "#5e6062",
-          "--toolbar-icon-darker-color": "#424242",
-        }
-      }
+    <div
+      className="popup-print-button"
+      data-loading="false"
     >
-      <svg
-        aria-hidden="true"
-        className="c10"
-        viewBox="0 0 512 512"
+      <button
+        aria-label="print"
+        className="toolbar-plain-button toolbar-print-opt-wrapper"
+        data-analytics-label="print"
+        data-testid="print"
+        disabled={false}
+        onClick={[Function]}
+        style={
+          Object {
+            "--button-min-width": "45px",
+            "--toolbar-icon-color": "#5e6062",
+            "--toolbar-icon-darker-color": "#424242",
+          }
+        }
       >
-        <path
-          d="M448 192V77.25c0-8.49-3.37-16.62-9.37-22.63L393.37 9.37c-6-6-14.14-9.37-22.63-9.37H96C78.33 0 64 14.33 64 32v160c-35.35 0-64 28.65-64 64v112c0 8.84 7.16 16 16 16h48v96c0 17.67 14.33 32 32 32h320c17.67 0 32-14.33 32-32v-96h48c8.84 0 16-7.16 16-16V256c0-35.35-28.65-64-64-64zm-64 256H128v-96h256v96zm0-224H128V64h192v48c0 8.84 7.16 16 16 16h48v96zm48 72c-13.25 0-24-10.75-24-24 0-13.26 10.75-24 24-24s24 10.74 24 24c0 13.25-10.75 24-24 24z"
-          fill="currentColor"
-        />
-      </svg>
-      <span
-        className="toolbar-print-options c11 "
-      >
-        Print
-      </span>
-    </button>
+        <svg
+          aria-hidden="true"
+          className="c9"
+          viewBox="0 0 512 512"
+        >
+          <path
+            d="M448 192V77.25c0-8.49-3.37-16.62-9.37-22.63L393.37 9.37c-6-6-14.14-9.37-22.63-9.37H96C78.33 0 64 14.33 64 32v160c-35.35 0-64 28.65-64 64v112c0 8.84 7.16 16 16 16h48v96c0 17.67 14.33 32 32 32h320c17.67 0 32-14.33 32-32v-96h48c8.84 0 16-7.16 16-16V256c0-35.35-28.65-64-64-64zm-64 256H128v-96h256v96zm0-224H128V64h192v48c0 8.84 7.16 16 16 16h48v96zm48 72c-13.25 0-24-10.75-24-24 0-13.26 10.75-24 24-24s24 10.74 24 24c0 13.25-10.75 24-24 24z"
+            fill="currentColor"
+          />
+        </svg>
+        <span
+          className="toolbar-print-options "
+        >
+          Print
+        </span>
+      </button>
+    </div>
   </div>
   <div
-    className="c12"
+    className="c10"
     role="status"
   />
   <ul
     aria-atomic="true"
     aria-label="Applied filters"
     aria-live="polite"
-    className="c13 c14"
+    className="c11 c12"
   />
 </div>
 `;

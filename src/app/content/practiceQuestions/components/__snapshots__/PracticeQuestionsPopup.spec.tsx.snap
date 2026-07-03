@@ -3,113 +3,12 @@
 exports[`PracticeQuestions doesn't render practice questions modal if it is closed 1`] = `null`;
 
 exports[`PracticeQuestions renders practice questions modal if it is open 1`] = `
-.c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-}
-
-.c2 {
-  color: #424242;
-  font-size: 2.4rem;
-  line-height: 3rem;
-  -webkit-letter-spacing: -0.02rem;
-  -moz-letter-spacing: -0.02rem;
-  -ms-letter-spacing: -0.02rem;
-  letter-spacing: -0.02rem;
-  padding: 1.5rem 0 1rem 0;
-  margin: 0;
-  color: #fff;
-  background: #002468;
-  padding: 3.2rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  height: 7.2rem;
-  overflow: hidden;
-  z-index: 5;
-}
-
-.c2 h1 {
-  font-size: inherit;
-  -webkit-letter-spacing: inherit;
-  -moz-letter-spacing: inherit;
-  -ms-letter-spacing: inherit;
-  letter-spacing: inherit;
-  -webkit-order: 1;
-  -ms-flex-order: 1;
-  order: 1;
-}
-
-.c5 {
-  -webkit-overflow-scrolling: touch;
-  height: calc(100% - 7.2rem);
-  background: #fff;
-  z-index: 4;
-  overflow: auto;
-}
-
-.c1 {
-  top: 0;
-  z-index: 110;
-  position: fixed;
-  background: #fff;
-  border-radius: 0.5rem;
-  height: calc(100% - 9.6rem);
-  outline: none;
-  overflow: hidden;
-  margin: 7.2rem auto 2.4rem;
-  max-width: 128rem;
-  width: calc(100% - 2.4rem * 2);
-}
-
 .c3 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-order: 2;
-  -ms-flex-order: 2;
-  order: 2;
-}
-
-.c4 {
-  color: #fff;
-  cursor: pointer;
-}
-
-.c4:hover {
-  color: #888888;
-}
-
-.c9 {
   overflow: visible;
   position: relative;
 }
 
-.c12 {
+.c6 {
   color: #5e6062;
   width: 1rem;
   height: 2rem;
@@ -117,13 +16,13 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
   padding-top: 0.2rem;
 }
 
-.c10 {
+.c4 {
   position: relative;
   border-left: 0.1rem solid transparent;
   border-right: 0.1rem solid transparent;
 }
 
-.c10 > div {
+.c4 > div {
   padding: 2rem 2.4rem;
   outline: none;
   color: #424242;
@@ -146,7 +45,7 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
   justify-content: flex-end;
 }
 
-.c7 {
+.c1 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -159,7 +58,7 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
   width: 100%;
 }
 
-.c6 {
+.c0 {
   position: relative;
   z-index: 2;
   overflow: visible;
@@ -178,115 +77,47 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
   border-bottom: 0.1rem solid #d5d5d5;
 }
 
-.c6 .c11 {
+.c0 .c5 {
   font-weight: bold;
 }
 
-.c6 .c8 > *:not(.c11) {
+.c0 .c2 > *:not(.c5) {
   top: calc(100% - 0.1rem);
   box-shadow: 0 0 0.6rem 0 rgba(0,0,0,0.2);
   max-height: calc(100vh - 26rem);
 }
 
-@media print {
-  .c0 {
-    display: block;
-  }
-
-  .c0 ~ div {
-    display: none;
-  }
-}
-
 @media screen and (max-width:75em) {
-  .c2 {
-    font-size: 1.6rem;
-    line-height: 2rem;
-  }
-}
-
-@media print {
-  .c2 {
-    display: none;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c2 {
-    padding: 1.6rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c5 {
-    text-align: center;
-    padding: 8rem 3.2rem;
-  }
-}
-
-@media print {
-  .c5 {
-    height: -webkit-max-content;
-    height: -moz-max-content;
-    height: max-content;
-    overflow: auto;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c1 {
-    margin: 2rem 0;
-    width: calc(100% - 1.6rem);
-    height: calc(100% - 4rem);
-  }
-}
-
-@media print {
-  .c1 {
-    position: relative;
-    width: 100%;
-    margin: 0;
-    border-radius: 0;
-  }
-}
-
-@media print {
-  .c4 {
-    display: none;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c10 > div {
+  .c4 > div {
     padding: 1rem 1.6rem;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c6 .c8 > *:not(.c11) {
+  .c0 .c2 > *:not(.c5) {
     max-height: calc(100vh - 18.4rem);
   }
 }
 
 @media screen and (max-width:30em) {
-  .c6 .c8 {
+  .c0 .c2 {
     position: initial;
   }
 
-  .c6 .c8 > *:not(.c11) {
+  .c0 .c2 > *:not(.c5) {
     top: auto;
     margin-top: -0.1rem;
   }
 }
 
 @media print {
-  .c6 {
+  .c0 {
     padding-left: 0;
   }
 }
 
 @media print {
-  .c6 > *:not(.FiltersList-sc-1sdnk9e-4) {
+  .c0 > *:not(.FiltersList-sc-1sdnk9e-4) {
     display: none;
   }
 }
@@ -294,7 +125,7 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
 <div
   aria-labelledby="modal-title"
   aria-modal="true"
-  className="c0"
+  className="popup-wrapper"
   role="dialog"
 >
   <div
@@ -310,25 +141,52 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
     }
   />
   <div
-    className="c1"
+    className="popup-modal"
     data-testid="practice-questions-popup-wrapper"
+    style={
+      Object {
+        "--header-height": "7.2rem",
+        "--mobile-margin-sides": "0.8rem",
+        "--mobile-margin-top-bottom": "2rem",
+        "--popup-body-padding": "2.4rem",
+        "--popup-modal-background": "#fff",
+        "--popup-modal-z-index": 110,
+        "--top-bottom-margin": "9.6rem",
+      }
+    }
     tabIndex="-1"
   >
     <div
-      className="c2"
+      className="popup-header disable-print"
+      style={
+        Object {
+          "--header-height": "7.2rem",
+          "--mobile-padding-sides": "1.6rem",
+          "--popup-background-color": "#002468",
+          "--popup-header-z-index": 5,
+          "--popup-padding": "3.2rem",
+          "color": "#fff",
+        }
+      }
     >
       <button
         aria-label="Close Practice Questions modal"
-        className="plain-button c3"
+        className="plain-button popup-close-icon-wrapper"
         data-analytics-label="Click to close Practice Questions modal"
         data-testid="close-practice-questions-popup"
         onClick={[Function]}
       >
         <svg
           aria-hidden="true"
-          className="c4"
+          className="popup-close-icon disable-print"
           focusable="true"
           height="15px"
+          style={
+            Object {
+              "--popup-close-icon-color": "#fff",
+              "--popup-close-icon-hover-color": "#888888",
+            }
+          }
           version="1.1"
           viewBox="0 0 15 15"
           width="15px"
@@ -361,25 +219,32 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
       </h1>
     </div>
     <div
-      className="c5 show-practice-questions-body"
+      className="popup-body show-practice-questions-body"
       data-analytics-location="section not loaded"
       data-analytics-region="PQ popup"
       data-testid="show-practice-questions-body"
+      style={
+        Object {
+          "--header-height": "7.2rem",
+          "--popup-body-background": "#fff",
+          "--popup-body-z-index": 4,
+        }
+      }
     >
       <div
-        className="c6"
+        className="c0"
       >
         <div
-          className="c7"
+          className="c1"
         >
           <div
-            className="c8 c9"
+            className="c2 c3"
           >
             <button
               aria-controls="practice-filter-chapter"
               aria-expanded={false}
               aria-label="Select Practice Questions by Chapter & Section"
-              className="plain-button c10 dropdown-toggle c11 "
+              className="plain-button c4 dropdown-toggle c5 "
               data-analytics-label="Filter PQ by Chapter & Section"
               onClick={[Function]}
             >
@@ -389,7 +254,7 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
                 Chapter & Section
                 <svg
                   aria-hidden="true"
-                  className="c12"
+                  className="c6"
                   direction="down"
                   viewBox="0 0 320 512"
                 >

@@ -1,11 +1,11 @@
+import classNames from 'classnames';
 import React from 'react';
+import { useIntl } from 'react-intl';
 import styled from 'styled-components/macro';
+import trashIcon from '../../../../assets/trash-347.svg';
 import { isDefined } from '../../../guards';
 import { highlightStyles } from '../../constants';
-import { useIntl } from 'react-intl';
-import classNames from 'classnames';
-import trashIcon from '../../../../assets/trash-347.svg';
-// CSS is imported in src/app/index.tsx
+// Note: ColorIndicator.css is imported globally in src/app/index.tsx
 
 interface IconProps extends React.SVGAttributes<SVGSVGElement> {
   className?: string;
@@ -46,8 +46,10 @@ extends StyleProps, Omit<React.HTMLAttributes<HTMLElement>, 'style'> {
     never;
 }
 
-function ColorIndicator<T extends React.ComponentType | undefined>(props: React.PropsWithChildren<Props<T>>) {
-  const {children, style, checked, size, component, shape, className, ...otherProps} = props;
+function ColorIndicator<T extends React.ComponentType | undefined>(
+  props: React.PropsWithChildren<Props<T> & { theme?: unknown }>
+) {
+  const { theme: _theme, children, style, checked, size, component, shape, className, ...otherProps } = props;
   const indicatorStyle = {
     '--passive-color': style.passive,
     '--focused-color': style.focused,
@@ -95,12 +97,14 @@ export function TrashButton({
   onClick,
   size,
   className,
+  theme: _theme,
   ...props
 }: {
   onClick: React.MouseEventHandler<HTMLButtonElement>;
   size?: 'small';
   className?: string;
   'data-testid'?: string;
+  theme?: unknown;
 }) {
   return (
     <button
@@ -116,7 +120,11 @@ export function TrashButton({
   );
 }
 
-// Export a styled wrapper with no styles to maintain compatibility with styled-components selectors
-// This allows ColorIndicator to be used as a CSS selector (e.g., ${ColorIndicator}) in other
-// styled-components while the actual styling is handled by ColorIndicator.css
+/**
+ * ColorIndicator - Plain CSS/React implementation
+ *
+ * This component uses plain CSS for styling (ColorIndicator.css).
+ * The default export is wrapped with styled() for backward compatibility with
+ * styled-components component selectors (used in ColorFilter.tsx and other files).
+ */
 export default styled(ColorIndicator)``;

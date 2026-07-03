@@ -1,20 +1,38 @@
+import classNames from 'classnames';
 import React from 'react';
-import styled from 'styled-components/macro';
 import ToastNotifications from '../../../notifications/components/ToastNotifications';
 import { ToastNotification } from '../../../notifications/types';
+import './ToastNotifications.css';
 
-const PopUpToastNotificationsWrapper = styled.div`
-  position: sticky;
-  top: 0;
-  overflow: visible;
-  z-index: 3;
-  width: 100%;
-`;
+interface PopUpToastNotificationsWrapperProps extends React.HTMLAttributes<HTMLDivElement> {
+  theme?: unknown;
+}
 
-const PopUpToastNotifications = (props: {toasts?: ToastNotification[]}) => props.toasts
-  ? <PopUpToastNotificationsWrapper>
+/**
+ * PopUpToastNotificationsWrapper component - plain CSS version
+ */
+export function PopUpToastNotificationsWrapper(
+  { className, theme: _theme, ...props }: PopUpToastNotificationsWrapperProps
+) {
+  // Destructure theme to remove it, preventing it from being passed to the DOM
+
+  return (
+    <div
+      {...props}
+      className={classNames('popup-toast-notifications-wrapper', className)}
+    />
+  );
+}
+
+/**
+ * PopUpToastNotifications - Popup-specific wrapper for toast notifications
+ */
+export function PopUpToastNotifications(props: {toasts?: ToastNotification[]}) {
+  return props.toasts ? (
+    <PopUpToastNotificationsWrapper>
       <ToastNotifications toasts={props.toasts} />
     </PopUpToastNotificationsWrapper>
-  : null;
+  ) : null;
+}
 
 export default PopUpToastNotifications;

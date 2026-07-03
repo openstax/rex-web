@@ -1,31 +1,52 @@
 import React from 'react';
+import classNames from 'classnames';
 import { FormattedMessage } from 'react-intl';
-import styled, { css } from 'styled-components/macro';
 import { htmlMessage } from '../../../components/htmlMessage';
 import theme from '../../../theme';
-import { PopupBody } from '../../styles/PopupStyles';
+import { headerHeight, popupHeaderZIndex } from '../../styles/PopupConstants';
+import './ShowKeyboardShortcuts.css';
 
-const ShowKeyboardShortcutsBody = styled(PopupBody)`
-  background-color: ${theme.color.neutral.darker};
-  color: ${theme.color.text.default};
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  padding: 2rem 3.2rem 3.2rem 3.2rem;
-  ${theme.breakpoints.mobile(css`
-    padding: 1.6rem;
-    text-align: left;
-  `)}
-`;
+/**
+ * ShowKeyboardShortcutsBody component - plain CSS version
+ */
+export function ShowKeyboardShortcutsBody({ className, style, ...domProps }: React.HTMLAttributes<HTMLDivElement>) {
 
-const ShortcutsHeadingDiv = styled.div`
-  font-size: 1.8rem;
-  font-weight: bold;
-  line-height: 3rem;
-  ${theme.breakpoints.mobile(css`
-    font-size: 1.6rem;
-    line-height: 2.5rem;
-  `)}
-`;
+  return (
+    <div
+      {...domProps}
+      className={classNames('popup-body', 'keyboard-shortcuts-body', className)}
+      style={{
+        // PopupStyles CSS variables (for .popup-body base styles)
+        '--popup-body-background': theme.color.neutral.darker,
+        '--header-height': `${headerHeight}rem`,
+        '--popup-body-z-index': popupHeaderZIndex - 1,
+        // Keyboard shortcuts specific CSS variables
+        '--keyboard-shortcuts-body-bg': theme.color.neutral.darker,
+        '--keyboard-shortcuts-text-color': theme.color.text.default,
+        '--shortcuts-card-bg': theme.color.white,
+        '--shortcuts-card-border': theme.color.neutral.darkest,
+        '--shortcut-key-bg': theme.color.neutral.darker,
+        '--shortcut-key-border': theme.color.neutral.formBorder,
+        '--keyboard-shortcuts-header-height': `${headerHeight}rem`,
+        '--keyboard-shortcuts-z-index': popupHeaderZIndex - 1,
+        ...style,
+      } as React.CSSProperties}
+    />
+  );
+}
+
+/**
+ * ShortcutsHeadingDiv component - plain CSS version
+ */
+export function ShortcutsHeadingDiv({ className, ...domProps }: React.HTMLAttributes<HTMLDivElement>) {
+
+  return (
+    <div
+      {...domProps}
+      className={classNames('keyboard-shortcuts-heading', className)}
+    />
+  );
+}
 
 export const ShortcutsHeading = ({ msgKey }: { msgKey: string }) => (
   <ShortcutsHeadingDiv>
@@ -35,53 +56,70 @@ export const ShortcutsHeading = ({ msgKey }: { msgKey: string }) => (
   </ShortcutsHeadingDiv>
 );
 
-const ShortcutsCard = styled.div`
-  background-color: ${theme.color.white};
-  border: 1px solid ${theme.color.neutral.darkest};
-  margin: 2rem 0;
-  padding: 1.6rem 0;
-  width: 100%;
-  ${theme.breakpoints.mobile(css`
-    margin: 1.6rem 0;
-    padding: 0.8rem;
-  `)}
-`;
+/**
+ * ShortcutsCard component - plain CSS version
+ */
+export function ShortcutsCard({ className, ...domProps }: React.HTMLAttributes<HTMLDivElement>) {
 
-const ShortcutsTable = styled.div`
-  border-collapse: separate;
-  border-spacing: 3.2rem 1.6rem;
-  display: table;
-  ${theme.breakpoints.mobile(css`
-    display: block;
-  `)}
-`;
+  return (
+    <div
+      {...domProps}
+      className={classNames('keyboard-shortcuts-card', className)}
+    />
+  );
+}
 
-const ShortcutRow = styled.div`
-  display: table-row;
-  ${theme.breakpoints.mobile(css`
-    display: block;
-  `)}
-`;
+/**
+ * ShortcutsTable component - plain CSS version
+ */
+export function ShortcutsTable({ className, ...domProps }: React.HTMLAttributes<HTMLDivElement>) {
 
-const ShortcutBlock = styled.div`
-  display: table-cell;
-  min-width: 16rem;
-  vertical-align: middle;
-  ${theme.breakpoints.mobile(css`
-    display: block;
-    margin: 0.8rem;
-  `)}
-`;
+  return (
+    <div
+      {...domProps}
+      className={classNames('keyboard-shortcuts-table', className)}
+    />
+  );
+}
 
-export const ShortcutKey = styled.span`
-  background-color: ${theme.color.neutral.darker};
-  border: 1px solid ${theme.color.neutral.formBorder};
-  border-radius: 3px;
-  display: inline-block;
-  font-weight: bold;
-  padding: 0.4rem 1.2rem 0.3rem;
-  vertical-align: middle;
-`;
+/**
+ * ShortcutRow component - plain CSS version
+ */
+export function ShortcutRow({ className, ...domProps }: React.HTMLAttributes<HTMLDivElement>) {
+
+  return (
+    <div
+      {...domProps}
+      className={classNames('keyboard-shortcut-row', className)}
+    />
+  );
+}
+
+/**
+ * ShortcutBlock component - plain CSS version
+ */
+export function ShortcutBlock({ className, ...domProps }: React.HTMLAttributes<HTMLDivElement>) {
+
+  return (
+    <div
+      {...domProps}
+      className={classNames('keyboard-shortcut-block', className)}
+    />
+  );
+}
+
+/**
+ * ShortcutKey component - plain CSS version
+ */
+export function ShortcutKey({ className, ...domProps }: React.HTMLAttributes<HTMLSpanElement>) {
+
+  return (
+    <span
+      {...domProps}
+      className={classNames('keyboard-shortcut-key', className)}
+    />
+  );
+}
 
 export const Shortcut = ({ keys, msgKey, separator = ' + ' }: { keys: string[], msgKey: string, separator?: string }) => (
   <ShortcutRow>
@@ -103,9 +141,17 @@ export const Shortcut = ({ keys, msgKey, separator = ' + ' }: { keys: string[], 
   </ShortcutRow>
 );
 
-const CaretMessageDiv = styled.div`
-  /* Nothing here at the moment */
-`;
+/**
+ * CaretMessageDiv component - plain CSS version
+ */
+export function CaretMessageDiv({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
+  return (
+    <div
+      {...props}
+      className={classNames('keyboard-shortcuts-caret-message', className)}
+    />
+  );
+}
 
 export const CaretMessage = htmlMessage(
   'i18n:a11y:keyboard-shortcuts:caret-browsing', CaretMessageDiv
