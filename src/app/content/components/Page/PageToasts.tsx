@@ -35,9 +35,11 @@ function PageToasts({style, theme: _theme, ...props}: React.HTMLAttributes<HTMLD
   // timeout so that screenreaders will pick up the toasts populating the live region
   // https://tetralogical.com/blog/2024/05/01/why-are-my-live-regions-not-working/
   React.useEffect(() => {
-    const t = setTimeout(() => setToastsHidden(false), 1000);
+    if (toastsHidden) {
+      const t = setTimeout(() => setToastsHidden(false), 1000);
 
-    return () => clearTimeout(t);
+      return () => clearTimeout(t);
+    }
   }, [setToastsHidden, toastsHidden]);
 
   const mobileSearchFailureTop = getMobileSearchFailureTop({ mobileToolbarOpen });
