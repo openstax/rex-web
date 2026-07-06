@@ -40,6 +40,36 @@ describe('sidebar utilities', () => {
       const openResult = closedStateFn({ isTocOpen: true });
       expect(openResult).toBeUndefined();
     });
+
+    it('applies mobile breakpoint styles when isTocOpen is null', () => {
+      const result = styleWhenTocClosed(closedStyle);
+
+      // Find the interpolation functions
+      const interpolationFns = result.filter((item: any) => typeof item === 'function');
+
+      // Find the function that checks isTocOpen === null (the mobile breakpoint check)
+      // This is the first interpolation that returns theme.breakpoints.mobile(closedStyle)
+      const mobileBreakpointFn = interpolationFns.find((fn: any) => {
+        // Test with isTocOpen: null to see if it returns something (not undefined)
+        const testResult = fn({ isTocOpen: null });
+        return testResult !== undefined && testResult !== closedStyle;
+      }) as Function;
+
+      expect(mobileBreakpointFn).toBeDefined();
+
+      // Verify the mobile breakpoint function returns a result when isTocOpen is null
+      const nullResult = mobileBreakpointFn({ isTocOpen: null });
+      expect(nullResult).toBeDefined();
+      // theme.breakpoints.mobile returns a css template, which is an array
+      expect(Array.isArray(nullResult)).toBe(true);
+
+      // Verify it returns undefined when isTocOpen is false or true
+      const falseResult = mobileBreakpointFn({ isTocOpen: false });
+      expect(falseResult).toBeUndefined();
+
+      const trueResult = mobileBreakpointFn({ isTocOpen: true });
+      expect(trueResult).toBeUndefined();
+    });
   });
 
   describe('styleWhenSidebarClosed', () => {
@@ -99,6 +129,41 @@ describe('sidebar utilities', () => {
         isVerticalNavOpen: true
       });
       expect(navOpenResult).toBeUndefined();
+    });
+
+    it('applies mobile breakpoint styles when isVerticalNavOpen is null', () => {
+      const result = styleWhenSidebarClosed(closedStyle);
+
+      // Find the interpolation functions
+      const interpolationFns = result.filter((item: any) => typeof item === 'function');
+
+      // Find the function that checks isVerticalNavOpen === null (the mobile breakpoint check)
+      // This is the first interpolation that returns theme.breakpoints.mobile(closedStyle)
+      const mobileBreakpointFn = interpolationFns.find((fn: any) => {
+        // Test with isVerticalNavOpen: null to see if it returns something (not undefined or closedStyle)
+        try {
+          const testResult = fn({ isVerticalNavOpen: null });
+          return testResult !== undefined && testResult !== closedStyle;
+        } catch {
+          // If the function doesn't accept these props, it's not the one we're looking for
+          return false;
+        }
+      }) as Function;
+
+      expect(mobileBreakpointFn).toBeDefined();
+
+      // Verify the mobile breakpoint function returns a result when isVerticalNavOpen is null
+      const nullResult = mobileBreakpointFn({ isVerticalNavOpen: null });
+      expect(nullResult).toBeDefined();
+      // theme.breakpoints.mobile returns a css template, which is an array
+      expect(Array.isArray(nullResult)).toBe(true);
+
+      // Verify it returns undefined when isVerticalNavOpen is false or true
+      const falseResult = mobileBreakpointFn({ isVerticalNavOpen: false });
+      expect(falseResult).toBeUndefined();
+
+      const trueResult = mobileBreakpointFn({ isVerticalNavOpen: true });
+      expect(trueResult).toBeUndefined();
     });
   });
 });
