@@ -1,9 +1,8 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
-import { connect, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import HighlightsIcon from '../../../../assets/HighlightsIcon';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
-import { AppState, Dispatch } from '../../../types';
 import { openMyHighlights as openMyHighlightsAction } from '../../highlights/actions';
 import * as selectors from '../../highlights/selectors';
 import showConfirmation from '../../highlights/components/utils/showConfirmation';
@@ -12,12 +11,9 @@ import { hasUnsavedHighlight as hasUnsavedHighlightSelector } from '../../highli
 import { captureOpeningElement } from '../../utils/focusManager';
 import { ToolbarDefaultButton, ToolbarDefaultText } from './ToolbarDefaults';
 
-interface Props {
-  openMyHighlights: () => void;
-  myHighlightsOpen?: boolean;
-}
-
-const HighlightButton = ({ openMyHighlights, myHighlightsOpen }: Props) => {
+const HighlightButton = () => {
+  const dispatch = useDispatch();
+  const myHighlightsOpen = useSelector(selectors.myHighlightsOpen);
   const hasUnsavedHighlight = useSelector(hasUnsavedHighlightSelector);
   const services = useServices();
   const trackOpenCloseMH = useAnalyticsEvent('openCloseMH');
@@ -28,7 +24,7 @@ const HighlightButton = ({ openMyHighlights, myHighlightsOpen }: Props) => {
       if (!confirmed) return;
     }
     captureOpeningElement('highlights');
-    openMyHighlights();
+    dispatch(openMyHighlightsAction());
     trackOpenCloseMH();
   };
 
@@ -45,11 +41,4 @@ const HighlightButton = ({ openMyHighlights, myHighlightsOpen }: Props) => {
   </ToolbarDefaultButton>;
 };
 
-export default connect(
-  (state: AppState) => ({
-    myHighlightsOpen: selectors.myHighlightsOpen(state),
-  }),
-  (dispatch: Dispatch) => ({
-    openMyHighlights: () => dispatch(openMyHighlightsAction()),
-  })
-)(HighlightButton);
+export default HighlightButton;
