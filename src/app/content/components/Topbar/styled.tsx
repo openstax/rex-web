@@ -5,7 +5,6 @@ import SearchIcon from '../../../../assets/SearchIcon';
 import Times from '../../../components/Times';
 import theme from '../../../theme';
 import { textResizerMaxValue, textResizerMinValue } from '../../constants';
-import { textRegularLineHeight } from '../../../components/Typography';
 import { BookWithOSWebData } from '../../types';
 import { HTMLInputElement } from '@openstax/types/lib.dom';
 import {
@@ -26,7 +25,7 @@ import { FilterDropdown } from '../popUp/Filters';
 import { buttonMinWidth, PlainButton as PlainButtonBase } from '../Toolbar/styled';
 import { isVerticalNavOpenConnector } from '../utils/sidebar';
 import Color from 'color';
-import './Topbar.css';
+/* CSS is imported in src/app/index.tsx */
 
 /**
  * Shadow CSS class for Topbar wrapper
@@ -37,7 +36,7 @@ export const shadowClassName = 'topbar-shadow';
 
 // Keep legacy css export for backward compatibility with AssignedTopBar
 // TODO: Remove this once AssignedTopBar is migrated to plain CSS
-import { css } from 'styled-components/macro';
+import { css } from 'styled-components/macro'; // eslint-disable-line import/first
 export const shadow = css`
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.14);
 `;
@@ -49,8 +48,6 @@ interface IconProps extends React.SVGAttributes<SVGSVGElement> {
 /**
  * AngleLeft icon for Topbar component.
  * SVG path from Font Awesome (https://fontawesome.com - MIT License)
- *
- * Note: Wrapped with styled() to enable styled-components component selector references
  */
 function AngleLeftIconBase({ className, ...props }: IconProps) {
   return (
@@ -68,15 +65,13 @@ function AngleLeftIconBase({ className, ...props }: IconProps) {
   );
 }
 
-export const AngleLeftIcon = function AngleLeftIcon({ className, ...props }: IconProps) {
+export function AngleLeftIcon({ className, ...props }: IconProps) {
   return <AngleLeftIconBase {...props} className={className} />;
-};
+}
 
 /**
  * Hamburger icon for Topbar component.
  * SVG path from Font Awesome (https://fontawesome.com - MIT License)
- *
- * Note: Wrapped with styled() to enable styled-components component selector references
  */
 function HamburgerIconComponentBase({ className, ...props }: IconProps) {
   return (
@@ -106,15 +101,9 @@ export function HamburgerIcon({ className, ...props }: IconProps) {
   );
 }
 
-const HamburgerIconComponent = function HamburgerIconComponent({ className, ...props }: IconProps) {
-  return <HamburgerIconComponentBase {...props} className={className} />;
-};
-
 /**
  * TimesCircle icon for Topbar component.
  * SVG path from Font Awesome (https://fontawesome.com - MIT License)
- *
- * Note: Wrapped with styled() to enable styled-components component selector references
  */
 function TimesCircleIconBase({ className, ...props }: IconProps) {
   return (
@@ -132,9 +121,9 @@ function TimesCircleIconBase({ className, ...props }: IconProps) {
   );
 }
 
-const TimesCircleIcon = function TimesCircleIcon({ className, ...props }: IconProps) {
+function TimesCircleIcon({ className, ...props }: IconProps) {
   return <TimesCircleIconBase {...props} className={className} />;
-};
+}
 
 // Filter out theme prop before spreading to DOM
 function PlainButton({
@@ -146,7 +135,7 @@ function PlainButton({
   return <PlainButtonBase {...domProps} className={className} style={style} />;
 }
 
-export const TopBarWrapper = function TopBarWrapper({
+export function TopBarWrapper({
   className,
   style,
   ...props
@@ -167,9 +156,9 @@ export const TopBarWrapper = function TopBarWrapper({
       }
     />
   );
-};
+}
 
-export const MenuButton = function MenuButton({
+export function MenuButton({
   className,
   style,
   ...props
@@ -187,9 +176,9 @@ export const MenuButton = function MenuButton({
       <HamburgerIcon />
     </PlainButton>
   );
-};
+}
 
-export const SearchButton = function SearchButton({
+export function SearchButton({
   desktop,
   mobile,
   ariaLabelId,
@@ -241,9 +230,9 @@ export const SearchButton = function SearchButton({
       <SearchIcon />
     </PlainButton>
   );
-};
+}
 
-export const CloseButton = function CloseButton({
+export function CloseButton({
   desktop,
   formSubmitted,
   className,
@@ -269,9 +258,9 @@ export const CloseButton = function CloseButton({
       <TimesCircleIcon />
     </PlainButton>
   );
-};
+}
 
-export const CloseIcon = function CloseIcon({
+export function CloseIcon({
   className,
   style,
   ...props
@@ -291,9 +280,9 @@ export const CloseIcon = function CloseIcon({
       }
     />
   );
-};
+}
 
-export const CloseButtonNew = function CloseButtonNew({
+export function CloseButtonNew({
   desktop,
   formSubmitted,
   className,
@@ -317,7 +306,7 @@ export const CloseButtonNew = function CloseButtonNew({
       style={style}
     />
   );
-};
+}
 
 export function SearchInputWrapper({
   active,
@@ -365,7 +354,7 @@ export function SearchInputWrapper({
   );
 }
 
-export const SearchInput = function SearchInput({
+export function SearchInput({
   desktop,
   mobile,
   autoFocus,
@@ -405,7 +394,7 @@ export const SearchInput = function SearchInput({
       }
     />
   );
-};
+}
 
 export const SearchPrintWrapper = isVerticalNavOpenConnector(
   function SearchPrintWrapper({
@@ -457,7 +446,7 @@ export const SearchPrintWrapper = isVerticalNavOpenConnector(
   }
 );
 
-export const MobileSearchContainer = function MobileSearchContainer({
+export function MobileSearchContainer({
   className,
   style,
   ...props
@@ -480,9 +469,9 @@ export const MobileSearchContainer = function MobileSearchContainer({
       }
     />
   );
-};
+}
 
-export const MobileSearchWrapper = function MobileSearchWrapper({
+export function MobileSearchWrapper({
   mobileToolbarOpen,
   className,
   style,
@@ -509,9 +498,9 @@ export const MobileSearchWrapper = function MobileSearchWrapper({
       }
     />
   );
-};
+}
 
-export const Hr = function Hr({
+export function Hr({
   className,
   style,
   ...props
@@ -530,7 +519,7 @@ export const Hr = function Hr({
       }
     />
   );
-};
+}
 
 /**
  * LeftArrow component with specific sizing
@@ -544,7 +533,7 @@ export function LeftArrow({ className, ...props }: IconProps) {
   );
 }
 
-export const InnerText = function InnerText({
+export function InnerText({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement> & { theme?: unknown }) {
@@ -553,9 +542,9 @@ export const InnerText = function InnerText({
   return (
     <div {...domProps} className={classNames('topbar-inner-text', className)} />
   );
-};
+}
 
-export const SearchResultsTextButton = function SearchResultsTextButton({
+export function SearchResultsTextButton({
   className,
   style,
   ...props
@@ -569,9 +558,9 @@ export const SearchResultsTextButton = function SearchResultsTextButton({
       style={style}
     />
   );
-};
+}
 
-export const TextResizerDropdown = function TextResizerDropdown({
+export function TextResizerDropdown({
   mobileVariant,
   mobileToolbarOpen,
   className,
@@ -598,9 +587,9 @@ export const TextResizerDropdown = function TextResizerDropdown({
       )}
     />
   );
-};
+}
 
-export const TextResizerMenu = function TextResizerMenu({
+export function TextResizerMenu({
   bookTheme,
   textSize,
   className,
@@ -637,9 +626,9 @@ export const TextResizerMenu = function TextResizerMenu({
       }
     />
   );
-};
+}
 
-export const TextResizerChangeButton = function TextResizerChangeButton({
+export function TextResizerChangeButton({
   ariaLabelId,
   children,
   className,
@@ -664,24 +653,23 @@ export const TextResizerChangeButton = function TextResizerChangeButton({
       {children}
     </PlainButton>
   );
-};
+}
 
-export const CloseSearchResultsTextButton =
-  function CloseSearchResultsTextButton({
-    className,
-    style,
-    ...props
-  }: React.ButtonHTMLAttributes<HTMLButtonElement> & { theme?: unknown }) {
-    const { theme: _theme, ...domProps } = props as Record<string, unknown>;
+export function CloseSearchResultsTextButton({
+  className,
+  style,
+  ...props
+}: React.ButtonHTMLAttributes<HTMLButtonElement> & { theme?: unknown }) {
+  const { theme: _theme, ...domProps } = props as Record<string, unknown>;
 
-    return (
-      <SearchResultsTextButton
-        {...domProps}
-        className={classNames(
-          'topbar-close-search-results-text-button',
-          className
-        )}
-        style={style}
-      />
-    );
-  };
+  return (
+    <SearchResultsTextButton
+      {...domProps}
+      className={classNames(
+        'topbar-close-search-results-text-button',
+        className
+      )}
+      style={style}
+    />
+  );
+}

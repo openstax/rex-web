@@ -26,23 +26,19 @@ import './BookBanner.css';
 
 interface IconProps extends React.SVGAttributes<SVGSVGElement> {
   className?: string;
-  colorSchema?: BookWithOSWebData['theme'];
 }
 
 /**
  * ChevronLeft icon for BookBanner component.
  * SVG path from Boxicons (https://boxicons.com - MIT License)
  */
-export function ChevronLeftIcon({ className, colorSchema, ...props }: IconProps) {
-  // Filter out colorSchema prop before spreading to DOM
-  const {colorSchema: _colorSchema, ...domProps } = props as any;
-
+function ChevronLeftIcon({ className, ...props }: IconProps) {
   return (
     <svg
       className={className}
       viewBox="0 0 24 24"
       aria-hidden="true"
-      {...domProps}
+      {...props}
     >
       <path
         fill="currentColor"
@@ -68,14 +64,14 @@ const gradients: {[key in BookWithOSWebData['theme']]: string} = {
 const bookTitleMiniNavDesktopWidth = 27;
 
 interface BookTitleProps {
-  colorSchema: BookWithOSWebData['theme'] | undefined;
+  colorSchema: BookWithOSWebData['theme'];
   variant?: 'mini' | 'big';
   children: React.ReactNode;
   'data-testid'?: string;
 }
 
 function BookTitle({ colorSchema, variant = 'big', children, ...props }: BookTitleProps) {
-  const textColor = colorSchema ? theme.color.primary[colorSchema].foreground : undefined;
+  const textColor = theme.color.primary[colorSchema].foreground;
   const bannerTextMaxWidth = maxNavWidth - (maxNavWidth - contentTextWidth) / 2;
 
   return (
@@ -101,7 +97,7 @@ interface BookTitleLinkProps extends BookTitleProps {
 }
 
 function BookTitleLink({ colorSchema, variant = 'big', children, href, onClick, tabIndex, ...props }: BookTitleLinkProps) {
-  const textColor = colorSchema ? theme.color.primary[colorSchema].foreground : undefined;
+  const textColor = theme.color.primary[colorSchema].foreground;
   const bannerTextMaxWidth = maxNavWidth - (maxNavWidth - contentTextWidth) / 2;
 
   return (
@@ -118,25 +114,23 @@ function BookTitleLink({ colorSchema, variant = 'big', children, href, onClick, 
         '--book-title-mini-nav-desktop-width': `${bookTitleMiniNavDesktopWidth}rem`,
       } as React.CSSProperties}
     >
-      {variant === 'big' && (
-        <ChevronLeftIcon
-          className={classNames('book-banner-left-arrow')}
-          style={{ '--book-text-color': textColor } as React.CSSProperties}
-        />
-      )}
+      <ChevronLeftIcon
+        className="book-banner-left-arrow"
+        style={{ '--book-text-color': textColor } as React.CSSProperties}
+      />
       {children}
     </a>
   );
 }
 
 interface BookChapterProps {
-  colorSchema: BookWithOSWebData['theme'] | undefined;
+  colorSchema: BookWithOSWebData['theme'];
   variant?: 'mini' | 'big';
   dangerouslySetInnerHTML: { __html: string };
 }
 
 function BookChapter({ colorSchema, variant = 'big', dangerouslySetInnerHTML }: BookChapterProps) {
-  const textColor = colorSchema ? theme.color.primary[colorSchema].foreground : undefined;
+  const textColor = theme.color.primary[colorSchema].foreground;
   const bannerTextMaxWidth = maxNavWidth - (maxNavWidth - contentTextWidth) / 2;
   const bookChapterMiniMaxWidth = maxNavWidth - bookTitleMiniNavDesktopWidth - (maxNavWidth - contentTextWidth) / 2;
   const Tag = variant === 'mini' ? 'span' : 'h1';
@@ -159,7 +153,7 @@ interface BarWrapperProps {
   colorSchema: BookWithOSWebData['theme'] | undefined;
   up?: boolean;
   variant?: 'mini' | 'big';
-  children: React.ReactNode;
+  children?: React.ReactNode;
   'data-testid'?: string;
   'data-analytics-region'?: string;
 }

@@ -62,14 +62,16 @@
 
 .book-banner-chapter.variant-big {
   display: block;
+
   /* h3Style equivalent */
   font-size: 2.4rem;
   line-height: 3rem;
-  letter-spacing: -0.144rem;
+  letter-spacing: -0.02rem;
 }
 
 .book-banner-chapter.variant-mini {
   display: inline-block;
+
   /* h4Style equivalent */
   font-size: 1.8rem;
   line-height: 2.5rem;
@@ -79,9 +81,6 @@
 
 /* Bar Wrapper - Main Container */
 .book-banner-bar-wrapper {
-  /* Disable printing */
-  display: none;
-
   top: 0;
   padding: 0 var(--page-padding-desktop);
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.1);
@@ -92,9 +91,9 @@
   background: var(--book-banner-gradient);
 }
 
-@media screen {
+@media print {
   .book-banner-bar-wrapper {
-    display: flex;
+    display: none;
   }
 }
 
@@ -139,11 +138,20 @@
     transform: translateY(calc(-1 * var(--banner-mobile-mini-height)));
   }
 
+  .book-banner-title {
+    /* Mobile uses h4 mobile style */
+    font-size: 1.6rem;
+    line-height: 2rem;
+  }
+
   .book-banner-title.variant-mini {
     display: none;
   }
 
-  .book-banner-chapter {
+  .book-banner-bar-wrapper .book-banner-chapter {
+    /* Mobile uses same font size for both big and mini variants */
+    font-size: 1.6rem;
+    line-height: 2rem;
     white-space: normal;
     display: -webkit-box;
     -webkit-box-orient: vertical;

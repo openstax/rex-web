@@ -372,12 +372,12 @@
 }
 
 /* Close search results text button */
-.topbar-close-search-results-text-button {
+.topbar-mobile-search-container .topbar-close-search-results-text-button {
   display: none;
 }
 
 @media screen and (max-width: 50em) {
-  .topbar-close-search-results-text-button {
+  .topbar-mobile-search-container .topbar-close-search-results-text-button {
     display: block;
   }
 }
@@ -512,8 +512,8 @@
 
 /* === Icon Components === */
 .topbar-hamburger-icon {
-  height: 2.4rem;
-  width: 2.4rem;
+  height: 2.5rem;
+  width: 2.5rem;
   padding: 0.4rem;
 }
 
