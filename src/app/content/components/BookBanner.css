@@ -1,0 +1,166 @@
+/* Book Banner Styles */
+
+/* ChevronLeft Icon Styles */
+.book-banner-left-arrow {
+  display: inline-block;
+  vertical-align: middle;
+  overflow: hidden;
+  margin-top: -0.25rem;
+  margin-left: -0.8rem;
+  height: 3rem;
+  width: 3rem;
+  color: var(--book-text-color);
+}
+
+/* Top Bar Container */
+.book-banner-top-bar {
+  width: 100%;
+  max-width: var(--max-nav-width);
+  margin: 0 auto;
+}
+
+/* Common Book Banner Text Styles */
+.book-banner-text {
+  max-width: var(--banner-text-max-width);
+  padding: 0;
+  color: var(--book-text-color);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+/* Book Title Styles (both link and span versions) */
+.book-banner-title {
+  /* h4Style equivalent */
+  font-size: 1.8rem;
+  line-height: 2.5rem;
+  letter-spacing: -0.02rem;
+  font-weight: normal;
+  text-decoration: none;
+  margin: 0;
+  height: var(--text-regular-line-height);
+}
+
+.book-banner-title.variant-big {
+  display: block;
+}
+
+.book-banner-title.variant-mini {
+  display: inline-block;
+  width: var(--book-title-mini-nav-desktop-width);
+}
+
+.book-banner-title-link:hover {
+  text-decoration: underline;
+}
+
+/* Book Chapter Styles */
+.book-banner-chapter {
+  font-weight: 600;
+  margin: 1rem 0 0 0;
+}
+
+.book-banner-chapter.variant-big {
+  display: block;
+
+  /* h3Style equivalent */
+  font-size: 2.4rem;
+  line-height: 3rem;
+  letter-spacing: -0.02rem;
+}
+
+.book-banner-chapter.variant-mini {
+  display: inline-block;
+
+  /* h4Style equivalent */
+  font-size: 1.8rem;
+  line-height: 2.5rem;
+  letter-spacing: -0.02rem;
+  max-width: var(--book-chapter-mini-max-width);
+}
+
+/* Bar Wrapper - Main Container */
+.book-banner-bar-wrapper {
+  top: 0;
+  padding: 0 var(--page-padding-desktop);
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  transition: transform 200ms;
+  overflow: hidden;
+  background: var(--book-banner-gradient);
+}
+
+@media print {
+  .book-banner-bar-wrapper {
+    display: none;
+  }
+}
+
+/* Big variant styles */
+.book-banner-bar-wrapper.variant-big {
+  height: var(--banner-desktop-big-height);
+  position: relative;
+  z-index: var(--z-index-big);
+}
+
+/* Mini variant styles */
+.book-banner-bar-wrapper.variant-mini {
+  height: var(--banner-desktop-mini-height);
+  position: sticky;
+  z-index: var(--z-index-mini);
+  margin-top: calc(-1 * var(--banner-desktop-mini-height));
+}
+
+/* Scroll transition - move banner up when scrolled */
+.book-banner-bar-wrapper.up {
+  transform: translateY(calc(-1 * var(--banner-desktop-mini-height)));
+}
+
+/* Mobile responsive styles
+ * Breakpoint: theme.breakpoints.mobileBreak (75em = 1200px)
+ */
+@media (max-width: 75em) {
+  .book-banner-bar-wrapper {
+    padding: var(--page-padding-mobile);
+  }
+
+  .book-banner-bar-wrapper.variant-big {
+    height: var(--banner-mobile-big-height);
+  }
+
+  .book-banner-bar-wrapper.variant-mini {
+    height: var(--banner-mobile-mini-height);
+    margin-top: calc(-1 * var(--banner-mobile-mini-height));
+  }
+
+  .book-banner-bar-wrapper.up {
+    transform: translateY(calc(-1 * var(--banner-mobile-mini-height)));
+  }
+
+  .book-banner-title {
+    /* Mobile uses h4 mobile style */
+    font-size: 1.6rem;
+    line-height: 2rem;
+  }
+
+  .book-banner-title.variant-mini {
+    display: none;
+  }
+
+  .book-banner-bar-wrapper .book-banner-chapter {
+    /* Mobile uses same font size for both big and mini variants */
+    font-size: 1.6rem;
+    line-height: 2rem;
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    max-height: var(--h3-mobile-line-height-doubled);
+    margin-top: 0.3rem;
+  }
+
+  .book-banner-chapter.variant-mini {
+    max-width: none;
+  }
+}

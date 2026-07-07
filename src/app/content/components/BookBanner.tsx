@@ -1,10 +1,9 @@
 import { HTMLAnchorElement, HTMLDivElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { FlattenSimpleInterpolation } from 'styled-components';
-import styled, { css } from 'styled-components/macro';
+import classNames from 'classnames';
 import { maxNavWidth } from '../../components/NavBar';
-import { h3MobileLineHeight, h3Style, h4Style, textRegularLineHeight } from '../../components/Typography';
+import { h3MobileLineHeight, textRegularLineHeight } from '../../components/Typography';
 import { useServices } from '../../context/Services';
 import theme from '../../theme';
 import { assertDefined, assertWindow } from '../../utils';
@@ -23,22 +22,17 @@ import {
   bookBannerMobileMiniHeight,
   contentTextWidth,
 } from './constants';
-import { applyBookTextColor } from './utils/applyBookTextColor';
-import { disablePrint } from './utils/disablePrint';
+import './BookBanner.css';
 
 interface IconProps extends React.SVGAttributes<SVGSVGElement> {
   className?: string;
-  // Styling prop used by styled-components; should not be forwarded to the SVG element
-  colorSchema?: BookWithOSWebData['theme'];
 }
 
 /**
  * ChevronLeft icon for BookBanner component.
  * SVG path from Boxicons (https://boxicons.com - MIT License)
- *
- * Note: Wrapped with styled() to enable styled-components component selector references
  */
-function ChevronLeftIconBase({ className, colorSchema: _colorSchema, ...props }: IconProps) {
+function ChevronLeftIcon({ className, ...props }: IconProps) {
   return (
     <svg
       className={className}
@@ -54,8 +48,6 @@ function ChevronLeftIconBase({ className, colorSchema: _colorSchema, ...props }:
   );
 }
 
-export const ChevronLeftIcon = styled(ChevronLeftIconBase)``;
-
 const gradients: {[key in BookWithOSWebData['theme']]: string} = {
   'blue': '#004aa2',
   'deep-green': '#12A28C',
@@ -69,148 +61,160 @@ const gradients: {[key in BookWithOSWebData['theme']]: string} = {
   'yellow': '#faea36',
 };
 
-const LeftArrow = styled(ChevronLeftIcon)`
-  display: inline-block;
-  vertical-align: middle;
-  overflow: hidden;
-  margin-top: -0.25rem;
-  margin-left: -0.8rem;
-  height: 3rem;
-  width: 3rem;
-  ${applyBookTextColor}
-`;
+const bookTitleMiniNavDesktopWidth = 27;
 
-const TopBar = styled.div`
-  width: 100%;
-  max-width: ${maxNavWidth}rem;
-  margin: 0 auto;
-`;
-
-const bookBannerTextStyle = css`
-  max-width: ${maxNavWidth - (maxNavWidth - contentTextWidth) / 2}rem;
-  padding: 0;
-  ${applyBookTextColor}
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-`;
-
-type Style = string | number | FlattenSimpleInterpolation;
-const ifMiniNav = (miniStyle: Style, bigStyle?: Style) =>
-  (props: {variant: 'mini' | 'big'}) =>
-    props.variant === 'mini' ? miniStyle : bigStyle;
-
-const bookTitleMiniNavDestkopWidth = 27;
-
-const bookTitleStyles = css`
-  ${h4Style}
-  ${bookBannerTextStyle}
-  display: ${ifMiniNav('inline-block', 'block')};
-  height: ${textRegularLineHeight}rem;
-  font-weight: normal;
-  text-decoration: none;
-  margin: 0;
-
-  ${theme.breakpoints.mobile(css`
-    ${bookBannerTextStyle}
-  `)}
-
-  ${ifMiniNav(css`
-    width: ${bookTitleMiniNavDestkopWidth}rem;
-
-    ${theme.breakpoints.mobile(css`
-      display: none;
-    `)}
-  `)}
-`;
-
-const BookTitle = styled.span`
-  ${bookTitleStyles}
-`;
-
-const BookTitleLink = styled.a`
-  ${bookTitleStyles}
-  :hover {
-    text-decoration: underline;
-  }
-`;
-
-const BookChapter = styled(({colorSchema: _, variant, children, ...props}) => variant === 'mini' ?
-  <span {...props}>{children}</span> : <h1 {...props}>{children}</h1>)`
-  ${ifMiniNav(h4Style, h3Style)}
-  ${bookBannerTextStyle}
-  font-weight: 600;
-  display: ${ifMiniNav('inline-block', 'block')};
-  margin: 1rem 0 0 0;
-  ${theme.breakpoints.mobile(css`
-    ${bookBannerTextStyle}
-    white-space: normal;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-
-    max-height: ${h3MobileLineHeight * 2}rem;
-    margin-top: 0.3rem;
-  `)}
-  ${ifMiniNav(css`
-    max-width: ${maxNavWidth - bookTitleMiniNavDestkopWidth - (maxNavWidth - contentTextWidth) / 2}rem;
-
-    ${theme.breakpoints.mobile(css`
-      max-width: none;
-    `)}
-  `)}
-`;
-
-interface BarWrapperProps {
-  colorSchema: BookWithOSWebData['theme'] | undefined;
-  up: boolean;
-  variant: 'mini' | 'big';
+interface BookTitleProps {
+  colorSchema: BookWithOSWebData['theme'];
+  variant?: 'mini' | 'big';
+  children: React.ReactNode;
+  'data-testid'?: string;
 }
-export const BarWrapper = styled.div<BarWrapperProps>`
-  ${disablePrint}
 
-  top: 0;
-  padding: 0 ${theme.padding.page.desktop}rem;
-  box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.1);
-  display: flex;
-  align-items: center;
-  height: ${ifMiniNav(bookBannerDesktopMiniHeight, bookBannerDesktopBigHeight)}rem;
-  transition: transform 200ms;
-  position: ${ifMiniNav('sticky', 'relative' /* stay above mini nav */)};
-  z-index: ${ifMiniNav(theme.zIndex.navbar - 2, theme.zIndex.navbar - 1)};
-  overflow: hidden;
-  ${(props: {colorSchema: BookWithOSWebData['theme'] | undefined }) => props.colorSchema && css`
-    background: linear-gradient(to right,
-      ${assertDefined(
-        theme.color.primary[props.colorSchema], `Could not find values for theme named "${props.colorSchema}"`
-      ).base},
-      ${assertDefined(
-        gradients[props.colorSchema], `theme ${props.colorSchema} needs gradient defined in BookBanner.tsx`
-      )});
-  `}
+function BookTitle({ colorSchema, variant = 'big', children, ...props }: BookTitleProps) {
+  const textColor = theme.color.primary[colorSchema].foreground;
+  const bannerTextMaxWidth = maxNavWidth - (maxNavWidth - contentTextWidth) / 2;
 
-  ${(props) => props.up && css`
-    transform: translateY(-${bookBannerDesktopMiniHeight}rem);
-    ${theme.breakpoints.mobile(css`
-      transform: translateY(-${bookBannerMobileMiniHeight}rem);
-    `)}
-  `}
+  return (
+    <span
+      {...props}
+      className={classNames('book-banner-title', 'book-banner-text', `variant-${variant}`)}
+      style={{
+        '--book-text-color': textColor,
+        '--banner-text-max-width': `${bannerTextMaxWidth}rem`,
+        '--text-regular-line-height': `${textRegularLineHeight}rem`,
+        '--book-title-mini-nav-desktop-width': `${bookTitleMiniNavDesktopWidth}rem`,
+      } as React.CSSProperties}
+    >
+      {children}
+    </span>
+  );
+}
 
-  ${theme.breakpoints.mobile(css`
-    padding: ${theme.padding.page.mobile}rem;
-    height: ${ifMiniNav(bookBannerMobileMiniHeight, bookBannerMobileBigHeight)}rem;
-    ${ifMiniNav(`margin-top: -${bookBannerMobileMiniHeight}rem`)}
-  `)}
+interface BookTitleLinkProps extends BookTitleProps {
+  href: string;
+  onClick: (e: React.MouseEvent<HTMLAnchorElement>) => void;
+  tabIndex?: number;
+}
 
-  ${ifMiniNav(`margin-top: -${bookBannerDesktopMiniHeight}rem`)}
-`;
+function BookTitleLink({ colorSchema, variant = 'big', children, href, onClick, tabIndex, ...props }: BookTitleLinkProps) {
+  const textColor = theme.color.primary[colorSchema].foreground;
+  const bannerTextMaxWidth = maxNavWidth - (maxNavWidth - contentTextWidth) / 2;
+
+  return (
+    <a
+      {...props}
+      href={href}
+      onClick={onClick}
+      tabIndex={tabIndex}
+      className={classNames('book-banner-title', 'book-banner-title-link', 'book-banner-text', `variant-${variant}`)}
+      style={{
+        '--book-text-color': textColor,
+        '--banner-text-max-width': `${bannerTextMaxWidth}rem`,
+        '--text-regular-line-height': `${textRegularLineHeight}rem`,
+        '--book-title-mini-nav-desktop-width': `${bookTitleMiniNavDesktopWidth}rem`,
+      } as React.CSSProperties}
+    >
+      <ChevronLeftIcon
+        className="book-banner-left-arrow"
+        style={{ '--book-text-color': textColor } as React.CSSProperties}
+      />
+      {children}
+    </a>
+  );
+}
+
+interface BookChapterProps {
+  colorSchema: BookWithOSWebData['theme'];
+  variant?: 'mini' | 'big';
+  dangerouslySetInnerHTML: { __html: string };
+}
+
+function BookChapter({ colorSchema, variant = 'big', dangerouslySetInnerHTML }: BookChapterProps) {
+  const textColor = theme.color.primary[colorSchema].foreground;
+  const bannerTextMaxWidth = maxNavWidth - (maxNavWidth - contentTextWidth) / 2;
+  const bookChapterMiniMaxWidth = maxNavWidth - bookTitleMiniNavDesktopWidth - (maxNavWidth - contentTextWidth) / 2;
+  const Tag = variant === 'mini' ? 'span' : 'h1';
+
+  return (
+    <Tag
+      className={classNames('book-banner-chapter', 'book-banner-text', `variant-${variant}`)}
+      dangerouslySetInnerHTML={dangerouslySetInnerHTML}
+      style={{
+        '--book-text-color': textColor,
+        '--banner-text-max-width': `${bannerTextMaxWidth}rem`,
+        '--book-chapter-mini-max-width': `${bookChapterMiniMaxWidth}rem`,
+        '--h3-mobile-line-height-doubled': `${h3MobileLineHeight * 2}rem`,
+      } as React.CSSProperties}
+    />
+  );
+}
+
+interface BarWrapperProps extends React.HTMLAttributes<HTMLDivElement> {
+  colorSchema: BookWithOSWebData['theme'] | undefined;
+  up?: boolean;
+  variant?: 'mini' | 'big';
+  children?: React.ReactNode;
+  'data-testid'?: string;
+  'data-analytics-region'?: string;
+}
+
+export const BarWrapper = React.forwardRef<HTMLDivElement, BarWrapperProps>(
+  function BarWrapper({ colorSchema, up = false, variant = 'big', children, className, style, ...props }, ref) {
+    // Compute gradient background
+    const gradient = colorSchema
+      ? `linear-gradient(to right, ${assertDefined(
+          theme.color.primary[colorSchema],
+          `Could not find values for theme named "${colorSchema}"`
+        ).base}, ${assertDefined(
+          gradients[colorSchema],
+          `theme ${colorSchema} needs gradient defined in BookBanner.tsx`
+        )})`
+      : undefined;
+
+    const zIndexBig = theme.zIndex.navbar - 1;
+    const zIndexMini = theme.zIndex.navbar - 2;
+
+    return (
+      <div
+        {...props}
+        ref={ref}
+        className={classNames(
+          'book-banner-bar-wrapper',
+          `variant-${variant}`,
+          { up },
+          className
+        )}
+        style={{
+          '--book-banner-gradient': gradient,
+          '--page-padding-desktop': `${theme.padding.page.desktop}rem`,
+          '--page-padding-mobile': `${theme.padding.page.mobile}rem`,
+          '--banner-desktop-big-height': `${bookBannerDesktopBigHeight}rem`,
+          '--banner-desktop-mini-height': `${bookBannerDesktopMiniHeight}rem`,
+          '--banner-mobile-big-height': `${bookBannerMobileBigHeight}rem`,
+          '--banner-mobile-mini-height': `${bookBannerMobileMiniHeight}rem`,
+          '--z-index-big': zIndexBig,
+          '--z-index-mini': zIndexMini,
+          '--max-nav-width': `${maxNavWidth}rem`,
+          ...style,
+        } as React.CSSProperties}
+      >
+        {children}
+      </div>
+    );
+  }
+);
 
 interface BookBannerState {
   scrollTransition: boolean;
   tabbableBanner: 'mini' | 'big';
 }
 
-const BookBanner = () => {
+/**
+ * BookBanner component - Displays book title and chapter information with scroll behavior
+ *
+ * Migrated from styled-components to plain CSS.
+ */
+function BookBanner() {
   const [bookBannerState, setBookBannerState] = React.useState<BookBannerState>({
     scrollTransition: false,
     tabbableBanner: 'big',
@@ -220,8 +224,8 @@ const BookBanner = () => {
   const bookTheme = useSelector(select.bookTheme);
   const params = useSelector(select.contentParams);
   const hasUnsavedHighlight = useSelector(hasUnsavedHighlightSelector);
-  const miniBanner = React.useRef<HTMLDivElement>();
-  const bigBanner = React.useRef<HTMLDivElement>();
+  const miniBanner = React.useRef<HTMLDivElement>(null);
+  const bigBanner = React.useRef<HTMLDivElement>(null);
   const services = useServices();
 
   const handleScroll = () => {
@@ -273,13 +277,14 @@ const BookBanner = () => {
   return <>
     <BarWrapper
       colorSchema={bookTheme}
+      variant='big'
       key='expanded-nav'
       up={bookBannerState.scrollTransition}
       ref={bigBanner}
       data-testid='bookbanner'
       data-analytics-region='book-banner-expanded'
     >
-      <TopBar>
+      <div className={classNames('book-banner-top-bar')} style={{ '--max-nav-width': `${maxNavWidth}rem` } as React.CSSProperties}>
         {
           bookUrl === undefined
             ? <BookTitle data-testid='book-title-expanded' colorSchema={bookTheme}>
@@ -294,7 +299,7 @@ const BookBanner = () => {
               }}
               tabIndex={bookBannerState.tabbableBanner === 'big' ? undefined : -1}
             >
-              <LeftArrow colorSchema={bookTheme} />{book.tree.title}
+              {book.tree.title}
             </BookTitleLink>
         }
         {treeSection
@@ -303,7 +308,7 @@ const BookBanner = () => {
             dangerouslySetInnerHTML={{ __html: treeSection.title }}
           />
           : null}
-      </TopBar>
+      </div>
     </BarWrapper>
     <BarWrapper
       colorSchema={bookTheme}
@@ -313,7 +318,7 @@ const BookBanner = () => {
       data-testid='bookbanner-collapsed'
       data-analytics-region='book-banner-collapsed'
     >
-      <TopBar>
+      <div className={classNames('book-banner-top-bar')} style={{ '--max-nav-width': `${maxNavWidth}rem` } as React.CSSProperties}>
         {
           bookUrl === undefined
             ? <BookTitle data-testid='book-title-collapsed' colorSchema={bookTheme} variant='mini'>
@@ -329,7 +334,7 @@ const BookBanner = () => {
               }}
               tabIndex={bookBannerState.tabbableBanner === 'mini' ? undefined : -1}
             >
-              <LeftArrow colorSchema={bookTheme} />{book.tree.title}
+              {book.tree.title}
             </BookTitleLink>
         }
         {treeSection
@@ -340,9 +345,9 @@ const BookBanner = () => {
           />
           : null
         }
-      </TopBar>
+      </div>
     </BarWrapper>
   </>;
-};
+}
 
 export default BookBanner;
