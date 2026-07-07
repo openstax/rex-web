@@ -50,30 +50,30 @@ exports[`assigned route route renders renders a component 1`] = `
   top: 0;
 }
 
+.c12 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
 .c15 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c18 {
-  height: 1.7rem;
-  width: 1.7rem;
-}
-
-.c11 {
+.c8 {
   list-style: none;
   cursor: pointer;
 }
 
-.c11::before {
+.c8::before {
   display: none;
 }
 
-.c11::-moz-list-bullet {
+.c8::-moz-list-bullet {
   list-style-type: none;
 }
 
-.c11::-webkit-details-marker {
+.c8::-webkit-details-marker {
   display: none;
 }
 
@@ -87,21 +87,21 @@ exports[`assigned route route renders renders a component 1`] = `
   margin-left: 1.6rem;
 }
 
+.c13 {
+  margin-left: -0.3rem;
+}
+
 .c16 {
   margin-left: -0.3rem;
 }
 
-.c19 {
-  margin-left: -0.3rem;
-}
-
-.c13 {
+.c10 {
   font-weight: 500;
   list-style: none;
 }
 
-.c13,
-.c13 span {
+.c10,
+.c10 span {
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
@@ -111,33 +111,33 @@ exports[`assigned route route renders renders a component 1`] = `
   text-decoration: none;
 }
 
-.c13 a,
-.c13 span a {
+.c10 a,
+.c10 span a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c13 a:hover,
-.c13 span a:hover {
+.c10 a:hover,
+.c10 span a:hover {
   color: #0064A0;
 }
 
-.c13:hover,
-.c13 span:hover,
-.c13:focus,
-.c13 span:focus {
+.c10:hover,
+.c10 span:hover,
+.c10:focus,
+.c10 span:focus {
   -webkit-text-decoration: underline;
   text-decoration: underline;
   color: #0064A0;
 }
 
-.c20 blockquote {
+.c17 blockquote {
   margin-left: 0;
 }
 
-.c9 {
+.c6 {
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
@@ -148,47 +148,35 @@ exports[`assigned route route renders renders a component 1`] = `
   padding-top: 1.8rem;
 }
 
-.c9[open] > summary .c14 {
+.c6[open] > summary .c11 {
   display: none;
 }
 
-.c9:not([open]) > summary .c17 {
+.c6:not([open]) > summary .c14 {
   display: none;
 }
 
-.c9 a {
+.c6 a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c9 a:hover {
+.c6 a:hover {
   color: #0064A0;
 }
 
-.c9 > .c12 {
+.c6 > .c9 {
   margin-bottom: 1.8rem;
 }
 
-.c9 li {
+.c6 li {
   margin-bottom: 1rem;
   overflow: visible;
 }
 
-.c6 {
-  position: -webkit-sticky;
-  position: sticky;
-  overflow: visible;
-  z-index: 19;
-  top: 12rem;
-}
-
-.c8:focus-within {
-  overflow: visible;
-}
-
-.c7 {
+.c5 {
   top: 5rem;
   left: 0;
   max-width: 100%;
@@ -219,100 +207,44 @@ exports[`assigned route route renders renders a component 1`] = `
 }
 
 @media screen {
-  .c13 {
+  .c10 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c20 {
+  .c17 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c9 {
+  .c6 {
     padding: 0 1.6rem;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c9 {
+  .c6 {
     min-height: 4rem;
     padding-top: 0.8rem;
   }
 
-  .c9 > .c10 {
+  .c6 > .c7 {
     margin-bottom: 0.8rem;
   }
 }
 
 @media print {
-  .c9 {
+  .c6 {
     display: none;
   }
 }
 
-@media screen and (max-width:90em) {
-  .c6 {
-    max-width: calc(100vw - ((100vw - 128rem) / 2) - 8rem);
-    left: calc(100vw - (100vw - ((100vw - 128rem) / 2) - 8rem));
-  }
-}
-
-@media screen and (max-width:80em) {
-  .c6 {
-    max-width: calc(100vw - 8rem);
-    left: 8rem;
-  }
-}
-
 @media screen and (max-width:75em) {
-  .c6 {
-    max-width: 100%;
-    left: 0;
-    z-index: 21;
-    top: 11.3rem;
-  }
-}
-
-@media screen {
   .c5 {
-    overflow: visible;
-    -webkit-flex: 1;
-    -ms-flex: 1;
-    flex: 1;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-flex-direction: column;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    min-height: calc(100vh - 33.1rem);
-  }
-}
-
-@media screen {
-  .c8 {
-    padding: 0 3.2rem;
-    -webkit-flex: 1;
-    -ms-flex: 1;
-    flex: 1;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-flex-direction: column;
-    -ms-flex-direction: column;
-    flex-direction: column;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c7 {
     top: 5.300000000000001rem;
   }
 }
@@ -402,14 +334,36 @@ exports[`assigned route route renders renders a component 1`] = `
     </div>
   </div>
   <div
-    className="c5"
+    className="min-page-height"
+    style={
+      Object {
+        "--min-desktop-content-size": "33.1rem",
+        "--min-mobile-content-size": "28rem",
+      }
+    }
   >
     <div
       aria-live="polite"
-      className="c6 c7"
+      className="page-toast-container c5"
+      style={
+        Object {
+          "--content-wrapper-max-width": "128rem",
+          "--desktop-search-failure-top": "12rem",
+          "--mobile-search-failure-top": "11.3rem",
+          "--toast-z-index-desktop": 19,
+          "--toast-z-index-mobile": 21,
+          "--vertical-navbar-max-width": "8rem",
+        }
+      }
     />
     <div
-      className="c8"
+      className="redo-padding"
+      style={
+        Object {
+          "--layout-padding-desktop": "3.2rem",
+          "--layout-padding-mobile": "1.6rem",
+        }
+      }
     >
       <main
         className="page-content"
@@ -444,17 +398,17 @@ exports[`assigned route route renders renders a component 1`] = `
     </div>
   </div>
   <details
-    className="c9"
+    className="c6"
     data-analytics-region="attribution"
     data-testid="attribution-details"
   >
     <summary
       aria-label="Citation/Attribution"
-      className="c10 c11 c12 c13"
+      className="c7 c8 c9 c10"
     >
       <svg
         aria-hidden="true"
-        className="details-expand-icon c14 c15 c16"
+        className="details-expand-icon c11 c12 c13"
         viewBox="0 0 192 512"
       >
         <path
@@ -464,7 +418,7 @@ exports[`assigned route route renders renders a component 1`] = `
       </svg>
       <svg
         aria-hidden="true"
-        className="details-collapse-icon c17 c18 c19"
+        className="details-collapse-icon c14 c15 c16"
         viewBox="0 0 320 512"
       >
         <path
@@ -480,7 +434,7 @@ exports[`assigned route route renders renders a component 1`] = `
       </span>
     </summary>
     <div
-      className="c20"
+      className="c17"
       dangerouslySetInnerHTML={
         Object {
           "__html": "
