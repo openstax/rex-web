@@ -1,7 +1,6 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
-import classNames from 'classnames';
 import practiceQuestionsIcon from '../../../../assets/practiceQuestionsIcon.svg';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import { openPracticeQuestions } from '../../practiceQuestions/actions';
@@ -11,54 +10,8 @@ import {
   practiceQuestionsEnabled,
 } from '../../practiceQuestions/selectors';
 import { bookAndPage } from '../../selectors';
-import { PlainButton } from './styled';
 import { captureOpeningElement } from '../../utils/focusManager';
-import './Toolbar.css';
-
-export const StyledPracticeQuestionsButton = function StyledPracticeQuestionsButton({
-  isActive,
-  className,
-  ...props
-}: React.ButtonHTMLAttributes<HTMLButtonElement> & {
-  isActive?: boolean;
-}) {
-  return (
-    <PlainButton
-      {...props}
-      className={classNames(
-        'toolbar-default-button',
-        { 'is-active': isActive },
-        className
-      )}
-    />
-  );
-};
-
-const PracticeQuestionsIcon = function PracticeQuestionsIcon({
-  className,
-  ...props
-}: React.ImgHTMLAttributes<HTMLImageElement>) {
-  return (
-    <img
-      {...props}
-      alt=""
-      aria-hidden="true"
-      className={classNames('toolbar-default-icon', className)}
-    />
-  );
-};
-
-const PracticeQuestionsText = function PracticeQuestionsText({
-  className,
-  ...props
-}: React.HTMLAttributes<HTMLSpanElement>) {
-  return (
-    <span
-      {...props}
-      className={classNames('toolbar-default-text', className)}
-    />
-  );
-};
+import { ToolbarDefaultButton, ToolbarDefaultIcon, ToolbarDefaultText } from './ToolbarDefaults';
 
 const PracticeQuestionsButton = () => {
   const dispatch = useDispatch();
@@ -79,13 +32,13 @@ const PracticeQuestionsButton = () => {
 
   const text = intl.formatMessage({id: 'i18n:toolbar:practice-questions:button:text'});
 
-  return <StyledPracticeQuestionsButton
+  return <ToolbarDefaultButton
     onClick={showPracticeQuestions}
     aria-label={text}
     isActive={isPracticeQOpen}>
-    <PracticeQuestionsIcon aria-hidden='true' src={practiceQuestionsIcon} />
-    <PracticeQuestionsText>{text}</PracticeQuestionsText>
-  </StyledPracticeQuestionsButton>;
+    <ToolbarDefaultIcon src={practiceQuestionsIcon} />
+    <ToolbarDefaultText>{text}</ToolbarDefaultText>
+  </ToolbarDefaultButton>;
 };
 
 export default PracticeQuestionsButton;

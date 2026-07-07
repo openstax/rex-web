@@ -3,6 +3,7 @@ import styled from 'styled-components/macro';
 import classNames from 'classnames';
 import Times from '../../../components/Times';
 import theme from '../../../theme';
+import './styled.css';
 import {
   bookBannerDesktopMiniHeight,
   bookBannerMobileMiniHeight,
@@ -10,7 +11,6 @@ import {
   toolbarIconColor,
   verticalNavbarMaxWidth,
 } from '../constants';
-import './Toolbar.css';
 
 interface IconProps extends React.SVGAttributes<SVGSVGElement> {
   className?: string;
@@ -131,12 +131,11 @@ export const PrintOptions = styled(function PrintOptions({
 })``;
 
 export const PrintIcon = function PrintIcon({
+  theme: _theme,
   className,
   style,
-  ...props
+  ...domProps
 }: React.SVGAttributes<SVGSVGElement> & { theme?: unknown }) {
-  const { theme: _theme, ...domProps } = props as Record<string, unknown>;
-
   return (
     <PrintIconComponent
       {...domProps}
