@@ -149,7 +149,7 @@ function BookChapter({ colorSchema, variant = 'big', dangerouslySetInnerHTML }: 
   );
 }
 
-interface BarWrapperProps {
+interface BarWrapperProps extends React.HTMLAttributes<HTMLDivElement> {
   colorSchema: BookWithOSWebData['theme'] | undefined;
   up?: boolean;
   variant?: 'mini' | 'big';
@@ -159,7 +159,7 @@ interface BarWrapperProps {
 }
 
 export const BarWrapper = React.forwardRef<HTMLDivElement, BarWrapperProps>(
-  function BarWrapper({ colorSchema, up = false, variant = 'big', children, ...props }, ref) {
+  function BarWrapper({ colorSchema, up = false, variant = 'big', children, className, style, ...props }, ref) {
     // Compute gradient background
     const gradient = colorSchema
       ? `linear-gradient(to right, ${assertDefined(
@@ -181,7 +181,8 @@ export const BarWrapper = React.forwardRef<HTMLDivElement, BarWrapperProps>(
         className={classNames(
           'book-banner-bar-wrapper',
           `variant-${variant}`,
-          { up }
+          { up },
+          className
         )}
         style={{
           '--book-banner-gradient': gradient,
@@ -194,6 +195,7 @@ export const BarWrapper = React.forwardRef<HTMLDivElement, BarWrapperProps>(
           '--z-index-big': zIndexBig,
           '--z-index-mini': zIndexMini,
           '--max-nav-width': `${maxNavWidth}rem`,
+          ...style,
         } as React.CSSProperties}
       >
         {children}
