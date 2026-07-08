@@ -53,7 +53,7 @@ const ContentExcerpt = React.forwardRef<HTMLElement, Props>(
       addTargetBlankToLinks,
       (newContent) => rebaseRelativeContentLinks(newContent, excerptSource.url),
       (newContent) => resolveRelativeResources(newContent, excerptSource.url)
-    )(props.content), [props.content, excerptSource.url]);
+)(content), [content, excerptSource.url]);
 
     return <DynamicContentStyles
       book={currentBook}

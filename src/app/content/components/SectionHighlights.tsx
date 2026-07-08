@@ -25,12 +25,13 @@ import './SectionHighlights.css';
 export function HighlightsChapterWrapper({
   children,
   style,
+  className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) {
   return (
     <div
       {...props}
-      className="highlights-chapter-wrapper"
+      className={['highlights-chapter-wrapper', className].filter(Boolean).join(' ')}
       style={{
         '--popup-padding': `${popupPadding}rem`,
         '--mobile-padding-sides': `${mobilePaddingSides}rem`,
@@ -49,12 +50,13 @@ export function HighlightsChapterWrapper({
 export function HighlightWrapper({
   children,
   style,
+  className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) {
   return (
     <div
       {...props}
-      className="highlight-wrapper"
+      className={['highlight-wrapper', className].filter(Boolean).join(' ')}
       style={{
         '--desktop-vertical-margin': `${desktopVerticalMargin}rem`,
         '--desktop-horizontal-margin': `${desktopHorizontalMargin}rem`,
@@ -75,12 +77,13 @@ export function HighlightWrapper({
 export function HighlightSection({
   children,
   style,
+  className,
   ...props
 }: React.HTMLAttributes<HTMLHeadingElement>) {
   return (
     <h3
       {...props}
-      className="highlight-section"
+      className={['highlight-section', className].filter(Boolean).join(' ')}
       style={{
         '--text-color': theme.color.text.default,
         '--popup-body-padding': `${popupBodyPadding}rem`,

@@ -22,11 +22,11 @@
 
 /* Link styles within excerpt content (from bodyCopyRegularStyle) */
 .content-excerpt a {
-  color: var(--link-color, #027EB5);
+  color: var(--link-color, #027eb5);
   cursor: pointer;
   text-decoration: underline;
 }
 
 .content-excerpt a:hover {
-  color: var(--link-hover, #0064A0);
+  color: var(--link-hover, #0064a0);
 }

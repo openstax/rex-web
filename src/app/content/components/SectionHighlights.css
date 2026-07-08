@@ -56,7 +56,7 @@
 
 .highlight-wrapper {
   margin: var(--desktop-vertical-margin, 1.6rem) var(--desktop-horizontal-margin, 3.2rem);
-  border: solid 0.1rem var(--neutral-darkest, #424242);
+  border: solid 0.1rem var(--neutral-darkest, #e5e5e5);
   overflow: visible;
 }
 
@@ -79,9 +79,8 @@
   font-size: 1.4rem;
   line-height: 1.6rem;
   font-weight: bold;
-
   padding: 0 var(--popup-body-padding, 2.4rem) 0 var(--popup-padding, 3.2rem);
-  background: var(--neutral-darkest, #424242);
+  background: var(--neutral-darkest, #e5e5e5);
   height: 3.2rem;
   display: flex;
   align-items: center;
