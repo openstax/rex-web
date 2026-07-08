@@ -89,8 +89,6 @@
   }
 }
 
-/* Duplicate @media overrides removed (identical rules already defined above). */
-
 /* Mobile closed state - applies when isVerticalNavOpen is null (mobile breakpoint only) */
 @media screen and (max-width: 75em) {
   .labs-call-header[data-sidebar-closed-mobile="true"] .labs-call-column:last-child {

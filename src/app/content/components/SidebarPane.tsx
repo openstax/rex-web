@@ -23,8 +23,6 @@ interface SidebarPaneBodyProps extends React.HTMLAttributes<HTMLElement> {
 
 /**
  * SidebarPaneBody component - Main sidebar navigation container
- *
- * Migrated from styled-components to plain CSS.
  */
 export const SidebarPaneBody = React.forwardRef<HTMLElement, SidebarPaneBodyProps>(
   function SidebarPaneBody({ isTocOpen, className, style, children, ...props }, ref) {
@@ -68,8 +66,6 @@ type HeaderProps = React.HTMLAttributes<HTMLDivElement>;
 
 /**
  * Header component - Sidebar header container
- *
- * Migrated from styled-components to plain CSS.
  */
 export const Header = React.forwardRef<HTMLDivElement, HeaderProps>(
   function Header({ className, style, children, ...props }, ref) {
@@ -96,8 +92,6 @@ type HeaderTextProps = React.HTMLAttributes<HTMLHeadingElement>;
 
 /**
  * HeaderText component - Sidebar header text/title
- *
- * Migrated from styled-components to plain CSS.
  */
 export const HeaderText = React.forwardRef<HTMLHeadingElement, HeaderTextProps>(
   function HeaderText({ className, style, children, ...props }, ref) {

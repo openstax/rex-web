@@ -42,13 +42,10 @@ describe('sidebar utilities', () => {
     });
 
     it('applies mobile breakpoint styles when isTocOpen is null', () => {
-      const result = styleWhenTocClosed(closedStyle);
-
-      // Find the interpolation functions
-      const interpolationFns = result.filter((item: any) => typeof item === 'function');
-
       // Find the function that checks isTocOpen === null (the mobile breakpoint check)
       // This is the first interpolation that returns theme.breakpoints.mobile(closedStyle)
+      const result = styleWhenTocClosed(closedStyle);
+      const interpolationFns = result.filter((item: any) => typeof item === 'function');
       const mobileBreakpointFn = interpolationFns.find((fn: any) => {
         // Test with isTocOpen: null to see if it returns something (not undefined)
         const testResult = fn({ isTocOpen: null });
@@ -132,13 +129,10 @@ describe('sidebar utilities', () => {
     });
 
     it('applies mobile breakpoint styles when isVerticalNavOpen is null', () => {
-      const result = styleWhenSidebarClosed(closedStyle);
-
-      // Find the interpolation functions
-      const interpolationFns = result.filter((item: any) => typeof item === 'function');
-
       // Find the function that checks isVerticalNavOpen === null (the mobile breakpoint check)
       // This is the first interpolation that returns theme.breakpoints.mobile(closedStyle)
+      const result = styleWhenSidebarClosed(closedStyle);
+      const interpolationFns = result.filter((item: any) => typeof item === 'function');
       const mobileBreakpointFn = interpolationFns.find((fn: any) => {
         // Test with isVerticalNavOpen: null to see if it returns something (not undefined or closedStyle)
         try {

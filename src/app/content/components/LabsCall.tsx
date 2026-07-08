@@ -20,8 +20,6 @@ interface LabsCallHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
 
 /**
  * LabsCallHeader component - Header section for Kinetic banner
- *
- * Migrated from styled-components to plain CSS.
  * Connected to Redux via isVerticalNavOpenConnector for sidebar state.
  */
 const LabsCallHeaderComponent = React.forwardRef<HTMLDivElement, LabsCallHeaderProps>(
@@ -61,8 +59,6 @@ const LabsCallHeader = isVerticalNavOpenConnector(LabsCallHeaderComponent);
 
 /**
  * LabsCTA component - Kinetic banner call-to-action
- *
- * Migrated from styled-components to plain CSS.
  * Displays a promotional banner for the Kinetic research program.
  */
 function LabsCTA() {
