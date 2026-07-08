@@ -15,7 +15,7 @@ interface LabsCallHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
   isDesktopSearchOpen: boolean;
   isTocOpen: boolean | null;
   isVerticalNavOpen: boolean | null;
-  dispatch?: any; // Injected by Redux connector, should not be passed to DOM
+  dispatch?: unknown; // Injected by Redux connector, should not be passed to DOM
 }
 
 /**
@@ -25,7 +25,9 @@ interface LabsCallHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
  * Connected to Redux via isVerticalNavOpenConnector for sidebar state.
  */
 const LabsCallHeaderComponent = React.forwardRef<HTMLDivElement, LabsCallHeaderProps>(
-  function LabsCallHeader({ isDesktopSearchOpen, isTocOpen, isVerticalNavOpen, dispatch, className, children, ...props }, ref) {
+  function LabsCallHeader({
+    isDesktopSearchOpen, isTocOpen, isVerticalNavOpen, dispatch, className, children, ...props
+  }, ref) {
     // Determine sidebar closed state (matching styleWhenSidebarClosed logic)
     // - If isVerticalNavOpen is null, sidebar is closed on mobile only
     // - If both isDesktopSearchOpen and isVerticalNavOpen are false, sidebar is closed

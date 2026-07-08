@@ -89,11 +89,6 @@
   }
 }
 
-/* Sidebar closed state - applies when both isDesktopSearchOpen and isVerticalNavOpen are false */
-.labs-call-header[data-sidebar-closed="true"] .labs-call-column:last-child {
-  margin-right: 16rem;
-}
-
 @media screen and (min-width: 79em) and (max-width: 85em) {
   .labs-call-header[data-sidebar-closed="true"] .labs-call-column:last-child {
     margin-right: 16rem;
