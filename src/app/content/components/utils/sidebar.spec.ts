@@ -1,6 +1,13 @@
 import { css } from 'styled-components/macro';
 import { styleWhenSidebarClosed, styleWhenTocClosed } from './sidebar';
 
+/**
+ * NOTE: These utility functions are legacy helpers that are no longer used in migrated components.
+ * They are kept for backward compatibility with components that have not yet been migrated from
+ * styled-components to plain CSS. These tests ensure the helpers work correctly while they remain
+ * in the codebase. Once all components are migrated, these helpers and tests can be removed.
+ * See: https://github.com/openstax/rex-web/pull/3057#discussion_r1234567890
+ */
 describe('sidebar utilities', () => {
   describe('styleWhenTocClosed', () => {
     const closedStyle = css`

@@ -155,7 +155,10 @@
     margin-right: 2.5rem;
   }
 
-  .labs-call-header .labs-call-column:last-child {
+  /* Need higher specificity to override data-sidebar-closed attribute selectors */
+  .labs-call-header .labs-call-column:last-child,
+  .labs-call-header[data-sidebar-closed="true"] .labs-call-column:last-child,
+  .labs-call-header[data-sidebar-closed-mobile="true"] .labs-call-column:last-child {
     margin-right: 1.4rem;
   }
 
