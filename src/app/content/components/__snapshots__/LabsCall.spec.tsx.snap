@@ -18,7 +18,6 @@ exports[`LabsCTA renders cta when selector is true 1`] = `
     className="labs-call-header"
     data-sidebar-closed={false}
     data-sidebar-closed-mobile={true}
-    dispatch={[Function]}
   >
     <div
       className="labs-call-column"
