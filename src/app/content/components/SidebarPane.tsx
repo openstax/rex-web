@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { HTMLDivElement, HTMLElement } from '@openstax/types/lib.dom';
+import type { HTMLDivElement, HTMLElement } from '@openstax/types/lib.dom';
 import { navDesktopHeight, navMobileHeight } from '../../components/NavBar';
 import theme from '../../theme';
 import {

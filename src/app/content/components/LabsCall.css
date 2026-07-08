@@ -89,40 +89,24 @@
   }
 }
 
-@media screen and (min-width: 79em) and (max-width: 85em) {
-  .labs-call-header[data-sidebar-closed="true"] .labs-call-column:last-child {
-    margin-right: 16rem;
-  }
-}
-
-@media screen and (min-width: 54em) and (max-width: 58em) {
-  .labs-call-header[data-sidebar-closed="true"] .labs-call-column:last-child {
-    margin-right: 21rem;
-  }
-}
-
-@media screen and (min-width: 50em) and (max-width: 52em) {
-  .labs-call-header[data-sidebar-closed="true"] .labs-call-column:last-child {
-    margin-right: 14rem;
-  }
-}
+/* Duplicate @media overrides removed (identical rules already defined above). */
 
 /* Mobile closed state - applies when isVerticalNavOpen is null (mobile breakpoint only) */
 @media screen and (max-width: 75em) {
   .labs-call-header[data-sidebar-closed-mobile="true"] .labs-call-column:last-child {
     margin-right: 16rem;
   }
+}
 
-  @media screen and (min-width: 54em) and (max-width: 58em) {
-    .labs-call-header[data-sidebar-closed-mobile="true"] .labs-call-column:last-child {
-      margin-right: 21rem;
-    }
+@media screen and (min-width: 54em) and (max-width: 58em) {
+  .labs-call-header[data-sidebar-closed-mobile="true"] .labs-call-column:last-child {
+    margin-right: 21rem;
   }
+}
 
-  @media screen and (min-width: 50em) and (max-width: 52em) {
-    .labs-call-header[data-sidebar-closed-mobile="true"] .labs-call-column:last-child {
-      margin-right: 14rem;
-    }
+@media screen and (min-width: 50em) and (max-width: 52em) {
+  .labs-call-header[data-sidebar-closed-mobile="true"] .labs-call-column:last-child {
+    margin-right: 14rem;
   }
 }
 
@@ -187,15 +171,18 @@
   }
 }
 
-/* Mobile Small responsive styles
- * Breakpoint: theme.breakpoints.mobileSmallBreak (35em = 560px)
- */
+/* Mobile Small responsive styles */
+
+/* LabsCallWrapper uses a hard-coded 35em breakpoint (matches the original component). */
 @media screen and (max-width: 35em) {
   .labs-call-wrapper {
     background-image: var(--kinetic-cta-mobile-bg);
     padding: 2rem 1.2rem 2.8rem;
   }
+}
 
+/* LabsText uses theme.breakpoints.mobileSmallBreak (30em = 480px). */
+@media screen and (max-width: 30em) {
   .labs-text {
     max-width: 20rem;
     font-size: 1.7rem;
