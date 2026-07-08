@@ -1,0 +1,77 @@
+/**
+ * PrevNextBar component styles
+ *
+ * Migrated from styled-components to plain CSS following patterns in
+ * PLAIN_CSS_MIGRATION_LEARNINGS.md
+ */
+
+.prev-next-bar-wrapper {
+  /* Text regular style */
+  color: var(--text-color, #424242);
+  font-size: 1.6rem;
+  line-height: var(--text-regular-line-height, 2.5rem);
+
+  /* Layout */
+  overflow: visible;
+  width: 100%;
+  max-width: var(--content-text-width, 96rem);
+  justify-content: space-between;
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  margin: 5rem auto 3rem auto;
+  border-top: solid 0.1rem var(--neutral-darkest, #424242);
+  border-bottom: solid 0.1rem var(--neutral-darkest, #424242);
+}
+
+.prev-next-bar-wrapper a {
+  border: none;
+  display: flex;
+}
+
+@media screen and (max-width: 75em) {
+  .prev-next-bar-wrapper {
+    margin: 3.5rem auto 3rem auto;
+    border: 0;
+  }
+}
+
+@media print {
+  .prev-next-bar-wrapper {
+    display: none;
+  }
+}
+
+/* HidingContentLink styles */
+.prev-next-link {
+  /* Decorated link style */
+  color: var(--link-color, #027EB5);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.prev-next-link:hover,
+.prev-next-link:focus {
+  text-decoration: underline;
+  color: var(--link-hover, #0064A0);
+}
+
+@media screen and (max-width: 75em) {
+  .prev-next-link.side-left {
+    margin-left: -0.8rem;
+  }
+
+  .prev-next-link.side-right {
+    margin-right: -0.8rem;
+  }
+}
+
+/* Icon styles */
+.prev-next-icon {
+  height: var(--text-regular-line-height, 2.5rem);
+  width: var(--text-regular-line-height, 2.5rem);
+}
+
+.prev-next-icon.right-arrow {
+  margin-top: 0.1rem;
+}
