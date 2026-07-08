@@ -90,7 +90,10 @@
 }
 
 /* Mobile closed state - applies when isVerticalNavOpen is null (mobile breakpoint only) */
-@media screen and (max-width: 75em) {
+
+/* Note: These styles only apply above the mobileMedium breakpoint (50em+)
+ * Below 50em, the mobileMedium layout takes over with its own margin-right: 1.4rem */
+@media screen and (min-width: 50em) and (max-width: 75em) {
   .labs-call-header[data-sidebar-closed-mobile="true"] .labs-call-column:last-child {
     margin-right: 16rem;
   }
