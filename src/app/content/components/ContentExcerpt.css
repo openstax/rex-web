@@ -1,0 +1,32 @@
+/**
+ * ContentExcerpt component styles
+ *
+ * Migrated from styled-components to plain CSS following patterns in
+ * PLAIN_CSS_MIGRATION_LEARNINGS.md
+ */
+
+.content-excerpt {
+  /* Text styles from textRegularStyle */
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: var(--text-color, #424242);
+
+  /* ContentExcerpt-specific styles */
+  overflow: auto;
+  padding: 0.8rem 0;
+}
+
+.content-excerpt * {
+  overflow: initial;
+}
+
+/* Link styles within excerpt content (from bodyCopyRegularStyle) */
+.content-excerpt a {
+  color: var(--link-color, #027EB5);
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.content-excerpt a:hover {
+  color: var(--link-hover, #0064A0);
+}
