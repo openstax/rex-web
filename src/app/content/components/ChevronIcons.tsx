@@ -5,7 +5,7 @@ interface IconProps extends React.SVGAttributes<SVGSVGElement> {
 }
 
 /**
- * ChevronLeft icon for PrevNextBar component.
+ * ChevronLeft icon shared across content components.
  * SVG path from Boxicons (https://boxicons.com - MIT License)
  */
 export function ChevronLeftIcon({ className, ...props }: IconProps) {
@@ -25,7 +25,7 @@ export function ChevronLeftIcon({ className, ...props }: IconProps) {
 }
 
 /**
- * ChevronRight icon for PrevNextBar component.
+ * ChevronRight icon shared across content components.
  * SVG path from Boxicons (https://boxicons.com - MIT License)
  */
 export function ChevronRightIcon({ className, ...props }: IconProps) {
