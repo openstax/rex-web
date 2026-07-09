@@ -1,7 +1,6 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components/macro';
 import practiceQuestionsIcon from '../../../../assets/practiceQuestionsIcon.svg';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import { openPracticeQuestions } from '../../practiceQuestions/actions';
@@ -11,30 +10,8 @@ import {
   practiceQuestionsEnabled,
 } from '../../practiceQuestions/selectors';
 import { bookAndPage } from '../../selectors';
-import { toolbarIconStyles } from './iconStyles';
-import { PlainButton } from './styled';
-import { toolbarDefaultButton, toolbarDefaultText } from './Toolbar.legacy';
 import { captureOpeningElement } from '../../utils/focusManager';
-
-export const StyledPracticeQuestionsButton = styled(PlainButton)`
-  ${toolbarDefaultButton}
-  height: auto;
-  padding: 0;
-
-  > svg {
-    ${toolbarIconStyles}
-  }
-`;
-
-const PracticeQuestionsIcon = styled.img`
-  ${toolbarIconStyles}
-`;
-
-const PracticeQuestionsText = styled.span`
-  ${toolbarDefaultText}
-  font-size: 1.2rem;
-  line-height: 1.5rem;
-`;
+import { ToolbarDefaultButton, ToolbarDefaultIcon, ToolbarDefaultText } from './ToolbarDefaults';
 
 const PracticeQuestionsButton = () => {
   const dispatch = useDispatch();
@@ -55,13 +32,13 @@ const PracticeQuestionsButton = () => {
 
   const text = intl.formatMessage({id: 'i18n:toolbar:practice-questions:button:text'});
 
-  return <StyledPracticeQuestionsButton
+  return <ToolbarDefaultButton
     onClick={showPracticeQuestions}
     aria-label={text}
     isActive={isPracticeQOpen}>
-    <PracticeQuestionsIcon aria-hidden='true' src={practiceQuestionsIcon} />
-    <PracticeQuestionsText>{text}</PracticeQuestionsText>
-  </StyledPracticeQuestionsButton>;
+    <ToolbarDefaultIcon src={practiceQuestionsIcon} />
+    <ToolbarDefaultText>{text}</ToolbarDefaultText>
+  </ToolbarDefaultButton>;
 };
 
 export default PracticeQuestionsButton;

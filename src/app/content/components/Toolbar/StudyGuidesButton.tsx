@@ -1,30 +1,12 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components/macro';
 import studyGuidesIcon from '../../../../assets/studyGuidesIcon.svg';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import { openStudyGuides as openStudyGuidesAction } from '../../studyGuides/actions';
 import { hasStudyGuides, studyGuidesEnabled, studyGuidesOpen } from '../../studyGuides/selectors';
-import { toolbarIconStyles } from './iconStyles';
-import { PlainButton } from './styled';
-import { toolbarDefaultButton, toolbarDefaultText } from './Toolbar.legacy';
 import { captureOpeningElement } from '../../utils/focusManager';
-
-export const StudyGuidesWrapper = styled(PlainButton)`
-  ${toolbarDefaultButton}
-  height: auto;
-  padding: 0;
-`;
-
-const StudyGuidesIcon = styled.img`
-  ${toolbarIconStyles}
-  padding: 0.2rem;
-`;
-
-const StudyGuidesText = styled.span`
-  ${toolbarDefaultText}
-`;
+import { ToolbarDefaultButton, ToolbarDefaultIcon, ToolbarDefaultText } from './ToolbarDefaults';
 
 const StudyGuidesButton = () => {
   const dispatch = useDispatch();
@@ -45,15 +27,15 @@ const StudyGuidesButton = () => {
 
   const text = intl.formatMessage({id: 'i18n:toolbar:studyguides:button:text'});
 
-  return <StudyGuidesWrapper
+  return <ToolbarDefaultButton
     isActive={isStudyGuidesOpen}
     onClick={openStudyGuidesSummary}
     aria-label={text}
     data-analytics-label='Study guides'
   >
-    <StudyGuidesIcon aria-hidden='true' src={studyGuidesIcon} />
-    <StudyGuidesText>{text}</StudyGuidesText>
-  </StudyGuidesWrapper>;
+    <ToolbarDefaultIcon className='study-guides-icon' src={studyGuidesIcon} />
+    <ToolbarDefaultText>{text}</ToolbarDefaultText>
+  </ToolbarDefaultButton>;
 };
 
 export default StudyGuidesButton;

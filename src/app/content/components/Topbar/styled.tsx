@@ -27,13 +27,6 @@ import { isVerticalNavOpenConnector } from '../utils/sidebar';
 import Color from 'color';
 /* CSS is imported in src/app/index.tsx */
 
-/**
- * Shadow CSS class for Topbar wrapper
- * Used by AssignedTopBar component
- * @deprecated Use 'topbar-shadow' className directly instead
- */
-export const shadowClassName = 'topbar-shadow';
-
 // Keep legacy css export for backward compatibility with AssignedTopBar
 // TODO: Remove this once AssignedTopBar is migrated to plain CSS
 import { css } from 'styled-components/macro'; // eslint-disable-line import/first

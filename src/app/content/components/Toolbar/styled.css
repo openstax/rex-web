@@ -1,4 +1,4 @@
-/* Toolbar styles */
+/* Toolbar styled.tsx component styles */
 
 /* Mobile menu animations */
 @keyframes show-mobile-menu {
@@ -184,4 +184,23 @@
 
 .toolbar-times-icon:hover {
   color: var(--toolbar-icon-darker-color);
+}
+
+/* Left arrow icon */
+.toolbar-left-arrow {
+  width: 4rem;
+  height: 4rem;
+  color: var(--toolbar-icon-color, #5e6062);
+  margin: 0 -1rem;
+}
+
+.toolbar-left-arrow:hover {
+  color: var(--toolbar-icon-darker-color, #424242);
+}
+
+/* Print icon */
+.toolbar-print-icon {
+  height: 2.5rem;
+  width: 2.5rem;
+  padding: 0.4rem;
 }
