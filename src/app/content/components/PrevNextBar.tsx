@@ -1,7 +1,6 @@
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import styled from 'styled-components/macro';
 import classNames from 'classnames';
 import { linkColor, linkHover } from '../../components/Typography/Links.constants';
 import { textRegularLineHeight } from '../../components/Typography';
@@ -22,10 +21,8 @@ interface IconProps extends React.SVGAttributes<SVGSVGElement> {
 /**
  * ChevronLeft icon for PrevNextBar component.
  * SVG path from Boxicons (https://boxicons.com - MIT License)
- *
- * Note: Wrapped with styled() to enable styled-components component selector references
  */
-function ChevronLeftIconBase({ className, ...props }: IconProps) {
+function ChevronLeftIcon({ className, ...props }: IconProps) {
   return (
     <svg
       className={className}
@@ -41,15 +38,11 @@ function ChevronLeftIconBase({ className, ...props }: IconProps) {
   );
 }
 
-export const ChevronLeftIcon = styled(ChevronLeftIconBase)``;
-
 /**
  * ChevronRight icon for PrevNextBar component.
  * SVG path from Boxicons (https://boxicons.com - MIT License)
- *
- * Note: Wrapped with styled() to enable styled-components component selector references
  */
-function ChevronRightIconBase({ className, ...props }: IconProps) {
+function ChevronRightIcon({ className, ...props }: IconProps) {
   return (
     <svg
       className={className}
@@ -64,8 +57,6 @@ function ChevronRightIconBase({ className, ...props }: IconProps) {
     </svg>
   );
 }
-
-export const ChevronRightIcon = styled(ChevronRightIconBase)``;
 
 interface HidingContentLinkProps {
   book?: Book;
@@ -110,9 +101,6 @@ interface PropTypes {
 
 /**
  * PrevNextBar component - Navigation bar for previous/next page links
- *
- * Migrated from styled-components to plain CSS.
- * Upgraded from Redux connect() HOC to useSelector hooks.
  */
 export const PrevNextBar = ({book, prevNext, queryParams, ...props}: PropTypes) => {
   const { formatMessage } = useIntl();
@@ -165,9 +153,6 @@ export const PrevNextBar = ({book, prevNext, queryParams, ...props}: PropTypes) 
   );
 };
 
-/**
- * Connected PrevNextBar component using Redux hooks
- */
 export default function ConnectedPrevNextBar() {
   const book = useSelector((state: AppState) => select.book(state));
   const prevNext = useSelector((state: AppState) => select.prevNextPage(state));
