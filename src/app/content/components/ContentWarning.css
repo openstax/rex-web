@@ -1,0 +1,18 @@
+/* ContentWarning component styles */
+
+.content-warning-div {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.8rem;
+  padding: 2rem;
+  min-height: 50vh;
+  top: 25vh;
+  z-index: 4;
+}
+
+.content-warning-text {
+  max-width: 80rem;
+}

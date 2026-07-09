@@ -91,20 +91,9 @@ Array [
   >
     
   </div>,
-  .c7 {
+  .c6 {
   overflow: visible;
   position: relative;
-}
-
-.c6 {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c6:hover {
-  color: #0064A0;
 }
 
 .c4 {
@@ -544,10 +533,16 @@ Array [
                       }
                     >
                       <a
-                        className="c6"
+                        className="content-link"
                         data-testid="content-link-test"
                         href="books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units"
                         onClick={[Function]}
+                        style={
+                          Object {
+                            "--link-color": "#027EB5",
+                            "--link-hover": "#0064A0",
+                          }
+                        }
                       >
                         booktitle
                       </a>
@@ -557,7 +552,7 @@ Array [
                     </small>
                   </div>
                   <div
-                    className="c7 dot-menu-dropdown"
+                    className="c6 dot-menu-dropdown"
                   >
                     <button
                       aria-expanded={false}
@@ -597,10 +592,16 @@ Array [
                       }
                     >
                       <a
-                        className="c6"
+                        className="content-link"
                         data-testid="content-link-test"
                         href="books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units"
                         onClick={[Function]}
+                        style={
+                          Object {
+                            "--link-color": "#027EB5",
+                            "--link-hover": "#0064A0",
+                          }
+                        }
                       >
                         booktitle2
                       </a>
@@ -610,7 +611,7 @@ Array [
                     </small>
                   </div>
                   <div
-                    className="c7 dot-menu-dropdown"
+                    className="c6 dot-menu-dropdown"
                   >
                     <button
                       aria-expanded={false}

@@ -15,14 +15,18 @@ Array [
   gap: 1vh;
 }
 
-.c1.c1.c1 {
-  z-index: 131;
-}
-
 <div
-    aria-live="polite"
-    className="c0 c1"
-  />,
+    style={
+      Object {
+        "--elevated-toast-z-index": 131,
+      }
+    }
+  >
+    <div
+      aria-live="polite"
+      className="c0 elevated-toast-container"
+    />
+  </div>,
   <div
     aria-label="Edit highlighted note"
     className="edit-card "
@@ -171,14 +175,18 @@ Array [
   gap: 1vh;
 }
 
-.c1.c1.c1 {
-  z-index: 131;
-}
-
 <div
-    aria-live="polite"
-    className="c0 c1"
-  />,
+    style={
+      Object {
+        "--elevated-toast-z-index": 131,
+      }
+    }
+  >
+    <div
+      aria-live="polite"
+      className="c0 elevated-toast-container"
+    />
+  </div>,
   <div
     aria-label="Edit highlighted note"
     className="edit-card "

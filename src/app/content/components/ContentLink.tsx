@@ -2,8 +2,8 @@ import flow from 'lodash/fp/flow';
 import { OutputParams } from 'query-string';
 import React from 'react';
 import { connect } from 'react-redux';
-import styled from 'styled-components/macro';
-import { linkStyle } from '../../components/Typography';
+import classNames from 'classnames';
+import { linkColor, linkHover } from '../../components/Typography/Links.constants';
 import { useServices } from '../../context/Services';
 import { push } from '../../navigation/actions';
 import * as selectNavigation from '../../navigation/selectors';
@@ -19,6 +19,7 @@ import { Book, Params, SystemQueryParams } from '../types';
 import { getBookPageUrlAndParams, stripIdVersion, toRelativeUrl } from '../utils';
 import { isClickWithModifierKeys } from '../utils/domUtils';
 import { createNavigationMatch } from '../utils/navigationUtils';
+import './ContentLink.css';
 
 interface Props {
   book: Book;
@@ -36,6 +37,7 @@ interface Props {
   queryParams?: OutputParams;
   scrollTarget?: ScrollTarget;
   className?: string;
+  style?: React.CSSProperties;
   target?: string;
   myForwardedRef: React.Ref<HTMLAnchorElement>;
   systemQueryParams?: SystemQueryParams;
@@ -58,6 +60,8 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
     myForwardedRef,
     hasUnsavedHighlight,
     systemQueryParams,
+    className,
+    style,
     ...anchorProps
   } = props;
 
@@ -98,6 +102,12 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
     }}
     data-testid='content-link-test'
     href={URL}
+    className={classNames('content-link', className)}
+    style={{
+      '--link-color': linkColor,
+      '--link-hover': linkHover,
+      ...style,
+    } as React.CSSProperties}
     {...anchorProps}
   >{children}</a>;
 };
@@ -118,9 +128,9 @@ export const ConnectedContentLink = connect(
   })
 )(ContentLink);
 
-export const StyledContentLink = styled(ConnectedContentLink)`
-  ${linkStyle}
-`;
+// Re-export ConnectedContentLink as StyledContentLink for backward compatibility
+// The component now uses plain CSS instead of styled-components
+export const StyledContentLink = ConnectedContentLink;
 
 export default React.forwardRef<
   HTMLAnchorElement,

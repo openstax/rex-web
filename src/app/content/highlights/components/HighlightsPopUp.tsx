@@ -113,7 +113,7 @@ const HighlightsPopUp = ({ closeMyHighlights, ...props }: Omit<Props, 'myHighlig
 
   return <Modal
     ref={popUpRef}
-    tabIndex='-1'
+    tabIndex={-1}
     data-testid='highlights-popup-wrapper'
     scrollLockProps={{
       mediumScreensOnly: false,

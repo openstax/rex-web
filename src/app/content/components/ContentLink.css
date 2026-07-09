@@ -1,0 +1,16 @@
+/**
+ * ContentLink CSS
+ *
+ * Styles for ContentLink component.
+ * Migrated from styled-components to plain CSS.
+ */
+
+.content-link {
+  color: var(--link-color, #027eb5);
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.content-link:hover {
+  color: var(--link-hover, #0064a0);
+}

@@ -1,0 +1,41 @@
+/**
+ * LoginGate styles
+ * Migrated from styled-components to plain CSS
+ */
+
+.login-gate-modal {
+  width: 100vw;
+}
+
+.login-gate-modal > div:first-child > div {
+  width: auto;
+}
+
+.login-gate-modal header {
+  padding: 0.5rem 3rem;
+}
+
+.login-gate-modal header > svg {
+  display: none;
+}
+
+.login-gate-modal > :last-child {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.login-gate-centered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 70vw;
+  height: 70vh;
+}
+
+.login-gate-message {
+  padding: 0.5rem 3rem;
+  max-width: 60rem;
+}
+
+.login-gate-message a {
+  place-self: center;
+}
