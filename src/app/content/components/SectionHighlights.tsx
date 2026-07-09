@@ -20,7 +20,6 @@ import './SectionHighlights.css';
 
 /**
  * HighlightsChapterWrapper component
- * Migrated from styled-components to plain CSS
  */
 export function HighlightsChapterWrapper({
   children,
@@ -45,9 +44,8 @@ export function HighlightsChapterWrapper({
 
 /**
  * HighlightWrapper component
- * Migrated from styled-components to plain CSS
  */
-export function HighlightWrapper({
+function HighlightWrapper({
   children,
   style,
   className,
@@ -71,8 +69,7 @@ export function HighlightWrapper({
 }
 
 /**
- * HighlightSection component
- * Migrated from styled-components to plain CSS
+ * HighlightSection component - exported only for test reference
  */
 export function HighlightSection({
   children,
@@ -104,7 +101,6 @@ interface SectionHighlightsProps {
 
 /**
  * SectionHighlights component
- * Migrated from styled-components to plain CSS
  */
 const SectionHighlights = (
   { highlightDataInSection: {pages, location}, highlightRenderer }: SectionHighlightsProps
