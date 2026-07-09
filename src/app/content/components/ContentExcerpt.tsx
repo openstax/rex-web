@@ -26,49 +26,45 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
 
 /**
  * ContentExcerpt component - Displays content excerpts with proper link handling
- *
- * Migrated from styled-components to plain CSS.
  */
-const ContentExcerpt = React.forwardRef<HTMLElement, Props>(
-  function ContentExcerpt(props, ref) {
-    const {
-      content,
-      className,
-      source,
-      style,
-      ...excerptProps
-    } = props;
+function ContentExcerpt(props: Props, ref?: React.Ref<HTMLElement>) {
+  const {
+    content,
+    className,
+    source,
+    style,
+    ...excerptProps
+  } = props;
 
-    const currentBook = assertDefined(useSelector(book), 'book not loaded');
-    const sourcePage = typeof source === 'string'
-      ? assertDefined(findArchiveTreeNodeById(currentBook.tree, source), 'page not found in book')
-      : source;
+  const currentBook = assertDefined(useSelector(book), 'book not loaded');
+  const sourcePage = typeof source === 'string'
+    ? assertDefined(findArchiveTreeNodeById(currentBook.tree, source), 'page not found in book')
+    : source;
 
-    const excerptSource = getBookPageUrlAndParams(
-      currentBook,
-      sourcePage
-    );
+  const excerptSource = getBookPageUrlAndParams(
+    currentBook,
+    sourcePage
+  );
 
-    const fixedContent = React.useMemo(() => flow(
-      addTargetBlankToLinks,
-      (newContent) => rebaseRelativeContentLinks(newContent, excerptSource.url),
-      (newContent) => resolveRelativeResources(newContent, excerptSource.url)
+  const fixedContent = React.useMemo(() => flow(
+    addTargetBlankToLinks,
+    (newContent) => rebaseRelativeContentLinks(newContent, excerptSource.url),
+    (newContent) => resolveRelativeResources(newContent, excerptSource.url)
 )(content), [content, excerptSource.url]);
 
-    return <DynamicContentStyles
-      book={currentBook}
-      ref={ref}
-      dangerouslySetInnerHTML={{ __html: fixedContent }}
-      className={classNames('content-excerpt', className)}
-      style={{
-        '--text-color': theme.color.text.default,
-        '--link-color': linkColor,
-        '--link-hover': linkHover,
-        ...style,
-      } as React.CSSProperties}
-      {...excerptProps}
-    />;
-  }
-);
+  return <DynamicContentStyles
+    book={currentBook}
+    ref={ref}
+    dangerouslySetInnerHTML={{ __html: fixedContent }}
+    className={classNames('content-excerpt', className)}
+    style={{
+      '--text-color': theme.color.text.default,
+      '--link-color': linkColor,
+      '--link-hover': linkHover,
+      ...style,
+    } as React.CSSProperties}
+    {...excerptProps}
+  />;
+}
 
-export default ContentExcerpt;
+export default React.forwardRef<HTMLElement, Props>(ContentExcerpt);
