@@ -1,19 +1,11 @@
 /* Content component styles */
 
-.content-background {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  overflow: visible; /* so sidebar position: sticky works */
-  background-color: var(--color-neutral-darker, #fafafa);
-}
-
 @media screen {
   .content-background {
     display: flex;
     flex: 1;
     flex-direction: column;
-    overflow: visible;
+    overflow: visible; /* so sidebar position: sticky works */
     background-color: var(--color-neutral-darker, #fafafa);
   }
 }
@@ -28,21 +20,16 @@
   /* z-index: contentNotifications is at index 1 in the zIndex array, so (1 + 1) * 10 = 20 */
   z-index: 20;
 
-  /* Desktop top position: bookBannerDesktopMiniHeight (8.2rem) + topbarDesktopHeight (7rem) = 15.2rem */
-  top: 15.2rem;
+  /* Desktop top position: bookBannerDesktopMiniHeight (7rem) + topbarDesktopHeight (5rem) = 12rem */
+  top: 12rem;
 }
 
 /* Mobile-specific top positioning uses CSS variable set dynamically in the wrapper */
 @media screen and (max-width: 75em) {
   .content-notifications-wrapper .content-notifications {
-    top: var(--content-notifications-top-mobile, 11.2rem);
+    /* Fallback: bookBannerMobileMiniHeight (6rem) + topbarMobileHeight (5.3rem) = 11.3rem */
+    top: var(--content-notifications-top-mobile, 11.3rem);
   }
-}
-
-.content-outer-wrapper {
-  display: flex;
-  flex-direction: column;
-  overflow: visible;
 }
 
 @media screen {
