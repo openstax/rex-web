@@ -4,7 +4,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import * as Styled from './Modal';
 
 interface PropTypes {
-  onModalClose: () => void;
+  onModalClose?: () => void;
   heading: string;
   className?: string;
   closeButtonRef?: React.Ref<HTMLButtonElement>;

@@ -23,7 +23,6 @@ export default function LoginGate({
       <ModalWithScrollLock
         className="login-gate-modal"
         heading='i18n:content-warning:heading:aria-label'
-        onModalClose={() => undefined}
       >
         <div className="login-gate-centered">
           <div className="login-gate-message">
