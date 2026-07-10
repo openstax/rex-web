@@ -1,148 +1,67 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useSelector } from 'react-redux';
-import styled, { css } from 'styled-components/macro';
+import classNames from 'classnames';
 import KineticCTAMobile from '../../../assets/kinetic-cta-mobile.svg';
 import KineticCTA from '../../../assets/kinetic-cta.svg';
 import icon from '../../../assets/kinetic-logo.png';
 import Button from '../../components/Button';
 import { kineticBannerEnabled } from '../../featureFlags/selectors';
 import theme from '../../theme';
-import { disablePrint } from './utils/disablePrint';
-import { isVerticalNavOpenConnector, styleWhenSidebarClosed } from './utils/sidebar';
+import { isVerticalNavOpenConnector } from './utils/sidebar';
+import './LabsCall.css';
 
-const LabsLogo = styled.img`
-  width: 10.7rem;
-`;
+interface LabsCallHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
+  isDesktopSearchOpen: boolean;
+  isTocOpen: boolean | null;
+  isVerticalNavOpen: boolean | null;
+  dispatch?: unknown; // Injected by Redux connector, should not be passed to DOM
+}
 
-const LabsCallWrapper = styled.div`
-  width: 100%;
-  max-width: 82.5rem;
-  min-height: 12rem;
-  margin: 0 auto 1.6rem;
-  padding: 2rem;
-  display: flex;
-  align-items: center;
-  background-repeat: no-repeat;
-  background-image: url(${KineticCTA});
-  background-position: top right;
-  background-size: cover;
-  box-shadow: inset 0 0 0 1px #cacaca;
-  ${theme.breakpoints.mobileMedium(css`
-    background-position: center center;
-    padding: 4.5rem 2.3rem 3.5rem;
-    align-items: flex-start;
-    flex-direction: column;
-  `)}
-  @media screen and (max-width: 35em) {
-    background-image: url(${KineticCTAMobile});
-    padding: 2rem 1.2rem 2.8rem;
+/**
+ * LabsCallHeader component - Header section for Kinetic banner
+ * Connected to Redux via isVerticalNavOpenConnector for sidebar state.
+ */
+const LabsCallHeaderComponent = React.forwardRef<HTMLDivElement, LabsCallHeaderProps>(
+  function LabsCallHeader(
+    {
+      isDesktopSearchOpen,
+      isTocOpen: _isTocOpen,
+      isVerticalNavOpen,
+      dispatch: _dispatch,
+      className,
+      children,
+      ...props
+    },
+    ref
+  ) {
+    // Determine sidebar closed state (matching styleWhenSidebarClosed logic)
+    // - If isVerticalNavOpen is null, sidebar is closed on mobile only
+    // - If both isDesktopSearchOpen and isVerticalNavOpen are false, sidebar is closed
+    const isSidebarClosed = isDesktopSearchOpen === false && isVerticalNavOpen === false;
+    const isSidebarClosedMobile = isVerticalNavOpen === null;
+
+    return (
+      <div
+        {...props}
+        ref={ref}
+        className={classNames('labs-call-header', className)}
+        data-sidebar-closed={isSidebarClosed}
+        data-sidebar-closed-mobile={isSidebarClosedMobile}
+      >
+        {children}
+      </div>
+    );
   }
+);
 
-  ${disablePrint}
-`;
+const LabsCallHeader = isVerticalNavOpenConnector(LabsCallHeaderComponent);
 
-/* stylelint-disable block-opening-brace-newline-after, block-closing-brace-newline-before */
-/* stylelint-disable block-opening-brace-space-after, block-closing-brace-space-before */
-const Column = styled.div`
-  display: flex;
-  flex-direction: column;
-  color: ${theme.color.primary.gray.darker};
-  overflow: hidden;
-  ${(props) => props.maxWidth ? css`max-width: ${props.maxWidth}rem;` : null}
-  ${(props) => props.noShrink ? css`flex-shrink: 0;` : null}
-  ${(props) => !props.last ? css`
-    margin-right: 2.5rem;
-
-    ${theme.breakpoints.mobileMedium(css`
-      margin-right: 0;
-      margin-bottom: 2.4rem;
-    `)}
-    ${theme.breakpoints.mobile(css`
-      margin-right: 0;
-    `)}
-  ` : null}
-
-  ${theme.breakpoints.mobileMedium(css`
-    margin-right: 0;
-    max-width: unset;
-  `)}
-`;
-
-const LabsCallHeader = isVerticalNavOpenConnector(styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  flex: 1;
-
-  ${Column} {
-    margin-right: 1.4rem;
-
-    &:last-child {
-      margin-right: 14rem;
-
-      @media screen and (min-width: 77em) and (max-width: 79em) {
-        margin-right: 15rem;
-      }
-
-      @media screen and (min-width: 79em) and (max-width: 85em) {
-        margin-right: 20rem;
-      }
-
-      ${styleWhenSidebarClosed(css`
-        margin-right: 16rem;
-
-        @media screen and (min-width: 79em) and (max-width: 85em) {
-          margin-right: 16rem;
-        }
-
-        @media screen and (min-width: 54em) and (max-width: 58em) {
-          margin-right: 21rem;
-        }
-
-        @media screen and (min-width: 50em) and (max-width: 52em) {
-          margin-right: 14rem;
-        }
-      `)}
-    }
-  }
-
-  ${theme.breakpoints.mobileMedium(css`
-    align-items: initial;
-    flex-direction: column;
-
-    ${LabsLogo} {
-      margin-right: 2.5rem;
-    }
-    ${Column}:last-child {
-      margin-right: 1.4rem;
-    }
-  `)}
-`);
-
-const LabsText = styled.div`
-  font-size: 1.8rem;
-  font-weight: 500;
-  line-height: 2.6rem;
-  ${theme.breakpoints.mobileMedium(css`
-    margin-right: 10rem;
-    max-width: 31rem;
-    margin-right: rem;
-  `)}
-  ${theme.breakpoints.mobileSmall(css`
-    max-width: 20rem;
-    font-size: 1.7rem;
-    line-height: 2.2rem;
-  `)}
-`;
-
-const LabsCallLink = styled(Button)`
-  background-color: #6922ea;
-  border-radius: 4px;
-  height: 4rem;
-`;
-
-const LabsCTA = () => {
+/**
+ * LabsCTA component - Kinetic banner call-to-action
+ * Displays a promotional banner for the Kinetic research program.
+ */
+function LabsCTA() {
   const enabled = useSelector(kineticBannerEnabled);
 
   if (!enabled) {
@@ -150,33 +69,51 @@ const LabsCTA = () => {
   }
 
   return (
-    <LabsCallWrapper data-async-content>
+    <div
+      className={classNames('labs-call-wrapper')}
+      data-async-content
+      style={{
+        '--kinetic-cta-bg': `url(${KineticCTA})`,
+        '--kinetic-cta-mobile-bg': `url(${KineticCTAMobile})`,
+        '--primary-gray-darker': theme.color.primary.gray.darker,
+      } as React.CSSProperties}
+    >
       <LabsCallHeader>
-        <Column noShrink>
-          <LabsLogo src={icon} alt='' />
-        </Column>
-        <Column maxWidth={35.4}>
-          <LabsText>
+        <div className={classNames('labs-call-column')} data-no-shrink="true">
+          <img src={icon} alt='' className={classNames('labs-logo')} />
+        </div>
+        <div
+          className={classNames('labs-call-column')}
+          data-max-width="true"
+          style={{ '--column-max-width': '35.4rem' } as React.CSSProperties}
+        >
+          <div className={classNames('labs-text')}>
             Earn badges by participating in research and discover more insights about yourself!
-          </LabsText>
-        </Column>
+          </div>
+        </div>
       </LabsCallHeader>
-      <Column last maxWidth={13.6}>
-        <LabsCallLink
+      <div
+        className={classNames('labs-call-column')}
+        data-last="true"
+        data-max-width="true"
+        style={{ '--column-max-width': '13.6rem' } as React.CSSProperties}
+      >
+        <Button
           component={<a href='/kinetic/'>
             <FormattedMessage id='i18n:toolbar:labs-cta:link'>
               {(msg) => msg}
             </FormattedMessage>
           </a>}
+          className={classNames('labs-call-link')}
           data-analytics-label='kinetic-banner'
           variant='primary'
           size='large'
           target='_blank'
           rel='noopener'
         />
-      </Column>
-    </LabsCallWrapper>
+      </div>
+    </div>
   );
-};
+}
 
 export default LabsCTA;

@@ -1,0 +1,204 @@
+/* Labs Call (Kinetic Banner) Styles */
+
+.labs-logo {
+  width: 10.7rem;
+}
+
+.labs-call-wrapper {
+  width: 100%;
+  max-width: 82.5rem;
+  min-height: 12rem;
+  margin: 0 auto 1.6rem;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  background-repeat: no-repeat;
+  background-image: var(--kinetic-cta-bg);
+  background-position: top right;
+  background-size: cover;
+  box-shadow: inset 0 0 0 1px #cacaca;
+}
+
+.labs-call-column {
+  display: flex;
+  flex-direction: column;
+  color: var(--primary-gray-darker);
+  overflow: hidden;
+}
+
+.labs-call-column[data-max-width] {
+  max-width: var(--column-max-width);
+}
+
+.labs-call-column[data-no-shrink="true"] {
+  flex-shrink: 0;
+}
+
+.labs-call-column:not([data-last="true"]) {
+  margin-right: 2.5rem;
+}
+
+.labs-call-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex: 1;
+}
+
+.labs-call-header .labs-call-column {
+  margin-right: 1.4rem;
+}
+
+.labs-call-header .labs-call-column:last-child {
+  margin-right: 14rem;
+}
+
+/* Responsive margin adjustments when sidebar is open - various viewport ranges */
+@media screen and (min-width: 77em) and (max-width: 79em) {
+  .labs-call-header .labs-call-column:last-child {
+    margin-right: 15rem;
+  }
+}
+
+@media screen and (min-width: 79em) and (max-width: 85em) {
+  .labs-call-header .labs-call-column:last-child {
+    margin-right: 20rem;
+  }
+}
+
+/* When sidebar is closed (controlled by data attributes) */
+.labs-call-header[data-sidebar-closed="true"] .labs-call-column:last-child {
+  margin-right: 16rem;
+}
+
+@media screen and (min-width: 79em) and (max-width: 85em) {
+  .labs-call-header[data-sidebar-closed="true"] .labs-call-column:last-child {
+    margin-right: 16rem;
+  }
+}
+
+@media screen and (min-width: 54em) and (max-width: 58em) {
+  .labs-call-header[data-sidebar-closed="true"] .labs-call-column:last-child {
+    margin-right: 21rem;
+  }
+}
+
+@media screen and (min-width: 50em) and (max-width: 52em) {
+  .labs-call-header[data-sidebar-closed="true"] .labs-call-column:last-child {
+    margin-right: 14rem;
+  }
+}
+
+/* Mobile closed state - applies when isVerticalNavOpen is null (mobile breakpoint only) */
+
+/* Note: These styles only apply above the mobileMedium breakpoint (50em+)
+ * Below 50em, the mobileMedium layout takes over with its own margin-right: 1.4rem */
+@media screen and (min-width: 50em) and (max-width: 75em) {
+  .labs-call-header[data-sidebar-closed-mobile="true"] .labs-call-column:last-child {
+    margin-right: 16rem;
+  }
+}
+
+@media screen and (min-width: 54em) and (max-width: 58em) {
+  .labs-call-header[data-sidebar-closed-mobile="true"] .labs-call-column:last-child {
+    margin-right: 21rem;
+  }
+}
+
+@media screen and (min-width: 50em) and (max-width: 52em) {
+  .labs-call-header[data-sidebar-closed-mobile="true"] .labs-call-column:last-child {
+    margin-right: 14rem;
+  }
+}
+
+.labs-text {
+  font-size: 1.8rem;
+  font-weight: 500;
+  line-height: 2.6rem;
+}
+
+.labs-call-link {
+  background-color: #6922ea;
+  border-radius: 4px;
+  height: 4rem;
+}
+
+/* Mobile Medium responsive styles
+ * Breakpoint: theme.breakpoints.mobileMediumBreak (50em = 800px)
+ */
+@media screen and (max-width: 50em) {
+  .labs-call-wrapper {
+    background-position: center center;
+    padding: 4.5rem 2.3rem 3.5rem;
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  /* Need higher specificity to override .labs-call-column[data-max-width] */
+  .labs-call-column,
+  .labs-call-column[data-max-width] {
+    margin-right: 0;
+    max-width: unset;
+  }
+
+  .labs-call-column:not([data-last="true"]) {
+    margin-right: 0;
+    margin-bottom: 2.4rem;
+  }
+
+  .labs-call-header {
+    align-items: initial;
+    flex-direction: column;
+  }
+
+  .labs-call-header .labs-logo {
+    margin-right: 2.5rem;
+  }
+
+  /* Need higher specificity to override data-sidebar-closed attribute selectors */
+  .labs-call-header .labs-call-column:last-child,
+  .labs-call-header[data-sidebar-closed="true"] .labs-call-column:last-child,
+  .labs-call-header[data-sidebar-closed-mobile="true"] .labs-call-column:last-child {
+    margin-right: 1.4rem;
+  }
+
+  .labs-text {
+    margin-right: 10rem;
+    max-width: 31rem;
+  }
+}
+
+/* Mobile responsive styles
+ * Breakpoint: theme.breakpoints.mobileBreak (75em = 1200px)
+ */
+@media screen and (max-width: 75em) {
+  .labs-call-column:not([data-last="true"]) {
+    margin-right: 0;
+  }
+}
+
+/* Mobile Small responsive styles */
+
+/* LabsCallWrapper uses a hard-coded 35em breakpoint (matches the original component). */
+@media screen and (max-width: 35em) {
+  .labs-call-wrapper {
+    background-image: var(--kinetic-cta-mobile-bg);
+    padding: 2rem 1.2rem 2.8rem;
+  }
+}
+
+/* LabsText uses theme.breakpoints.mobileSmallBreak (30em = 480px). */
+@media screen and (max-width: 30em) {
+  .labs-text {
+    max-width: 20rem;
+    font-size: 1.7rem;
+    line-height: 2.2rem;
+  }
+}
+
+/* Hide labs call in print media */
+@media print {
+  .labs-call-wrapper {
+    display: none;
+  }
+}
