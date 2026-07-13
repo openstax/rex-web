@@ -1,13 +1,12 @@
 /* Content component styles */
 
-@media screen {
-  .content-background {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    overflow: visible; /* so sidebar position: sticky works */
-    background-color: var(--color-neutral-darker, #fafafa);
-  }
+/* Base styles for .content-background to ensure layout works in all contexts */
+.content-background {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  overflow: visible; /* so sidebar position: sticky works */
+  background-color: var(--color-neutral-darker, #fafafa);
 }
 
 /* ContentNotifications wrapper manages dynamic CSS variables */
@@ -17,25 +16,23 @@
 
 /* ContentNotifications has custom top positioning based on viewport size and mobile expanded state */
 .content-notifications-wrapper .content-notifications {
-  /* z-index: contentNotifications is at index 1 in the zIndex array, so (1 + 1) * 10 = 20 */
-  z-index: 20;
+  /* z-index bound from theme.zIndex.contentNotifications in JS */
+  z-index: var(--content-notifications-z-index, 20);
 
-  /* Desktop top position: bookBannerDesktopMiniHeight (7rem) + topbarDesktopHeight (5rem) = 12rem */
-  top: 12rem;
+  /* Desktop top bound from constants in JS: bookBannerDesktopMiniHeight + topbarDesktopHeight */
+  top: var(--content-notifications-top-desktop, 12rem);
 }
 
-/* Mobile-specific top positioning uses CSS variable set dynamically in the wrapper */
+/* Mobile-specific top positioning uses CSS variable set dynamically based on mobileExpanded state */
 @media screen and (max-width: 75em) {
   .content-notifications-wrapper .content-notifications {
-    /* Fallback: bookBannerMobileMiniHeight (6rem) + topbarMobileHeight (5.3rem) = 11.3rem */
+    /* Mobile top bound from JS: bookBannerMobileMiniHeight + (toolbarMobileExpandedHeight OR topbarMobileHeight) */
     top: var(--content-notifications-top-mobile, 11.3rem);
   }
 }
 
-@media screen {
-  .content-outer-wrapper {
-    display: flex;
-    flex-direction: column;
-    overflow: visible;
-  }
+.content-outer-wrapper {
+  display: flex;
+  flex-direction: column;
+  overflow: visible;
 }
