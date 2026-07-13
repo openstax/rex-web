@@ -1,0 +1,28 @@
+/* BuyBook component styles - Plain CSS version */
+
+.buy-book-alignment {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  max-width: var(--buy-book-max-width, 82.5rem); /* contentTextWidth */
+  overflow: visible;
+}
+
+.buy-book-link {
+  /* textRegularSize equivalent */
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+
+  /* Additional link styles */
+  font-size: 1.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  height: 5rem;
+  width: 19rem;
+  color: var(--buy-book-color, #d4450c); /* theme.color.primary.orange.base */
+  border: solid 0.1rem;
+  font-weight: 700;
+}
