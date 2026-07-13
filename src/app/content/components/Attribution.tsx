@@ -1,11 +1,8 @@
 import { HTMLDetailsElement } from '@openstax/types/lib.dom';
-import React, { Component } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useIntl } from 'react-intl';
-import { connect } from 'react-redux';
-import styled, { css } from 'styled-components/macro';
-import { CollapseIcon, Details, ExpandIcon, Summary } from '../../components/Details.legacy';
-import { htmlMessage } from '../../components/htmlMessage';
-import { bodyCopyRegularStyle, decoratedLinkStyle, textRegularLineHeight } from '../../components/Typography';
+import { useSelector } from 'react-redux';
+import classNames from 'classnames';
 import { scrollTo } from '../../domUtils';
 import theme from '../../theme';
 import { AppState } from '../../types';
@@ -15,180 +12,187 @@ import * as select from '../selectors';
 import { Book, BookWithOSWebData, Page } from '../types';
 import { findDefaultBookPage, getBookPageUrlAndParams } from '../utils';
 import { splitTitleParts } from '../utils/archiveTreeUtils';
-import { contentTextStyle } from './Page/PageContent.legacy';
 import { bookIdsWithSpecialAttributionText, compensateForUTC, getAuthors, getPublishDate } from './utils/attributionValues';
-import { disablePrint } from './utils/disablePrint';
-import { wrapperPadding } from './Wrapper';
+import { ExpandIcon, CollapseIcon } from '../../components/Details';
+import { linkColor, linkHover } from '../../components/Typography/Links.constants';
+import { contentTextWidth } from './constants';
+import './Attribution.css';
 
-const detailsMarginTop = 3;
+export const detailsMarginTop = 3;
 const desktopSpacing = 1.8;
 const mobileSpacing = 0.8;
+export const textRegularLineHeight = 2.5;
 export const desktopAttributionHeight = detailsMarginTop + textRegularLineHeight + desktopSpacing * 2;
 export const mobileAttributionHeight = detailsMarginTop + textRegularLineHeight + mobileSpacing * 2;
 
-const summaryIconStyle = css`
-  margin-left: -0.3rem;
-`;
+interface AttributionSummaryProps extends React.HTMLAttributes<HTMLElement> {}
 
-const SummaryClosedIcon = styled((props) => <ExpandIcon {...props} />)`
-  ${summaryIconStyle}
-`;
-const SummaryOpenIcon = styled((props) => <CollapseIcon {...props} />)`
-  ${summaryIconStyle}
-`;
-
-const AttributionSummary = styled((props) => {
+function AttributionSummary({ className, style, ...props }: AttributionSummaryProps) {
   const message = useIntl().formatMessage({id: 'i18n:attribution:toggle'});
 
-  return <Summary {...props} aria-label={message}>
-    <SummaryClosedIcon />
-    <SummaryOpenIcon />
-    <span role="heading" aria-level={2}>{message}</span>
-  </Summary>;
-})`
-  ${contentTextStyle}
-  font-weight: 500;
-  list-style: none;
+  return (
+    <summary
+      {...props}
+      className={classNames('attribution-summary', className)}
+      aria-label={message}
+      style={{
+        '--attribution-text-color': theme.color.text.default,
+        '--link-color': linkColor,
+        '--link-hover': linkHover,
+        ...style,
+      } as React.CSSProperties}
+    >
+      <ExpandIcon className={classNames('attribution-summary-icon', 'attribution-expand-icon')} />
+      <CollapseIcon className={classNames('attribution-summary-icon', 'attribution-collapse-icon')} />
+      <span role="heading" aria-level={2}>{message}</span>
+    </summary>
+  );
+}
 
-  &,
-  span {
-    ${bodyCopyRegularStyle}
-    ${decoratedLinkStyle}
-  }
-`;
+interface ContentProps extends React.HTMLAttributes<HTMLDivElement> {
+  values?: Record<string, Date | string | number | null>;
+}
 
-const Content = styled.div`
-  ${contentTextStyle}
+function Content({ values, className, style, ...props }: ContentProps) {
+  const html = useIntl().formatMessage({id: 'i18n:attribution:text'}, values, {ignoreTag: true});
 
-  blockquote {
-    margin-left: 0;
-  }
-`;
+  return (
+    <div
+      {...props}
+      className={classNames('attribution-content', className)}
+      style={{
+        '--content-text-width': `${contentTextWidth}rem`,
+        ...style,
+      } as React.CSSProperties}
+      dangerouslySetInnerHTML={{__html: html}}
+    />
+  );
+}
 
-const AttributionDetails = styled(Details)`
-  ${bodyCopyRegularStyle}
-  box-shadow: 0 -1rem 1rem -1rem rgba(0, 0, 0, 0.1);
-  margin: ${detailsMarginTop}rem 0 0 0;
-  min-height: 6rem;
-  ${wrapperPadding}
-  padding-top: ${desktopSpacing}rem;
+function CodeRunnerNote({ className, style, ...props }: React.HTMLAttributes<HTMLDivElement>) {
+  const html = useIntl().formatMessage({id: 'i18n:attribution:code-runner'}, undefined, {ignoreTag: true});
 
-  > ${AttributionSummary} {
-    margin-bottom: ${desktopSpacing}rem;
-  }
+  return (
+    <div
+      {...props}
+      className={classNames('attribution-content', className)}
+      style={{
+        '--content-text-width': `${contentTextWidth}rem`,
+        ...style,
+      } as React.CSSProperties}
+      dangerouslySetInnerHTML={{__html: html}}
+    />
+  );
+}
 
-  ${theme.breakpoints.mobile(css`
-    min-height: 4rem;
-    padding-top: ${mobileSpacing}rem;
-
-    > ${Summary} {
-      margin-bottom: ${mobileSpacing}rem;
-    }
-  `)}
-
-  li {
-    margin-bottom: 1rem;
-    overflow: visible;
-  }
-
-  ${disablePrint}
-`;
-
-const AttributionContent = htmlMessage('i18n:attribution:text', Content);
-const CodeRunnerNote = htmlMessage('i18n:attribution:code-runner', Content);
-
-interface Props {
+interface AttributionProps {
   book: Book | undefined;
   page: Page | undefined;
 }
 
-class Attribution extends Component<Props> {
-  public container = React.createRef<HTMLDetailsElement>();
-  private toggleHandler: undefined | (() => void);
+function getAttributionValues(book: BookWithOSWebData, page: Page) {
+  const introPage = findDefaultBookPage(book);
+  const bookWithoutExplicitVersions = {
+    ...book,
+    loadOptions: {booksConfig: book.loadOptions.booksConfig},
+  };
 
-  public componentDidMount() {
-    const container = this.container.current;
+  const [, introTitlePart] = splitTitleParts(introPage.title);
+  const [, currentTitlePart] = splitTitleParts(page.title);
+  const introPageTitle = `${introTitlePart} - ${book.title} | OpenStax`;
+  const introPageUrl = getBookPageUrlAndParams(bookWithoutExplicitVersions, introPage).url;
+  const currentPageUrl = getBookPageUrlAndParams(bookWithoutExplicitVersions, page).url;
+  const currentPageTitle = `${currentTitlePart} - ${book.title} | OpenStax`;
+
+  assertNotNull(book.publish_date, `BUG: Could not find publication date`);
+  const bookPublishDate = getPublishDate(book);
+  const bookLatestRevision = new Date(book.revised);
+
+  compensateForUTC(bookLatestRevision);
+
+  const authorsToDisplay = getAuthors(book);
+
+  return {
+    bookAuthors: authorsToDisplay.map(({value: {name}}) => name).join(', '),
+    bookLatestRevision,
+    bookLicenseName: book.license.name,
+    bookLicenseUrl: book.license.url,
+    bookLicenseVersion: book.license.version,
+    bookPublishDate,
+    bookTitle: book.title,
+    copyrightHolder: 'OpenStax',
+    currentPath: currentPageUrl,
+    currentPageTitle,
+    introPageTitle,
+    introPageUrl,
+    originalMaterialLink: null,
+    ...bookIdsWithSpecialAttributionText[book.id] || {},
+  };
+}
+
+export function Attribution({ book, page }: AttributionProps) {
+  const containerRef = useRef<HTMLDetailsElement>(null);
+  const previousPageRef = useRef<Page | undefined>(page);
+
+  useEffect(() => {
+    const container = containerRef.current;
 
     if (!container) {
       return;
     }
 
-    this.toggleHandler = () => container.getAttribute('open') !== null && scrollTo(container);
-    container.addEventListener('toggle', this.toggleHandler);
-  }
+    const toggleHandler = () => {
+      if (container.getAttribute('open') !== null) {
+        scrollTo(container);
+      }
+    };
 
-  public componentWillUnmount() {
-    if (!this.container.current || !this.toggleHandler) {
-      return;
+    container.addEventListener('toggle', toggleHandler);
+
+    return () => {
+      container.removeEventListener('toggle', toggleHandler);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (containerRef.current && previousPageRef.current && previousPageRef.current !== page) {
+      containerRef.current.removeAttribute('open');
     }
-    this.container.current.removeEventListener('toggle', this.toggleHandler);
+    previousPageRef.current = page;
+  }, [page]);
+
+  if (!hasOSWebData(book) || !page) {
+    return null;
   }
 
-  public componentDidUpdate(prevProps: Props) {
-    if (this.container.current && prevProps.page && prevProps.page !== this.props.page) {
-      this.container.current.removeAttribute('open');
-    }
-  }
+  const values = getAttributionValues(book, page);
 
-  public render() {
-    const {book, page} = this.props;
-
-    return hasOSWebData(book) && !!page && <AttributionDetails
-      ref={this.container}
-      data-testid='attribution-details'
-      data-analytics-region='attribution'
+  return (
+    <details
+      ref={containerRef}
+      className="attribution-details"
+      data-testid="attribution-details"
+      data-analytics-region="attribution"
+      style={{
+        '--attribution-text-color': theme.color.text.default,
+        '--link-color': linkColor,
+        '--link-hover': linkHover,
+        '--content-text-width': `${contentTextWidth}rem`,
+      } as React.CSSProperties}
     >
       <AttributionSummary />
-      <AttributionContent values={this.getValues(book, page)} />
-      {
-        book.slug.includes('python') && <strong><CodeRunnerNote /></strong>
-      }
-    </AttributionDetails>;
-  }
-
-  private getValues = (book: BookWithOSWebData, page: Page) => {
-    const introPage = findDefaultBookPage(book);
-    const bookWithoutExplicitVersions = {
-      ...book,
-      loadOptions: {booksConfig: book.loadOptions.booksConfig},
-    };
-
-    const [, introTitlePart] = splitTitleParts(introPage.title);
-    const [, currentTitlePart] = splitTitleParts(page.title);
-    const introPageTitle = `${introTitlePart} - ${book.title} | OpenStax`;
-    const introPageUrl = getBookPageUrlAndParams(bookWithoutExplicitVersions, introPage).url;
-    const currentPageUrl = getBookPageUrlAndParams(bookWithoutExplicitVersions, page).url;
-    const currentPageTitle = `${currentTitlePart} - ${book.title} | OpenStax`;
-
-    assertNotNull(book.publish_date, `BUG: Could not find publication date`);
-    const bookPublishDate = getPublishDate(book);
-    const bookLatestRevision = new Date(book.revised);
-
-    compensateForUTC(bookLatestRevision);
-
-    const authorsToDisplay = getAuthors(book);
-
-    return {
-      bookAuthors: authorsToDisplay.map(({value: {name}}) => name).join(', '),
-      bookLatestRevision,
-      bookLicenseName: book.license.name,
-      bookLicenseUrl: book.license.url,
-      bookLicenseVersion: book.license.version,
-      bookPublishDate,
-      bookTitle: book.title,
-      copyrightHolder: 'OpenStax',
-      currentPath: currentPageUrl,
-      currentPageTitle,
-      introPageTitle,
-      introPageUrl,
-      originalMaterialLink: null,
-      ...bookIdsWithSpecialAttributionText[book.id] || {},
-    };
-  };
+      <Content values={values} />
+      {book.slug.includes('python') && (
+        <strong>
+          <CodeRunnerNote />
+        </strong>
+      )}
+    </details>
+  );
 }
 
-export default connect(
-  (state: AppState) => ({
-    ...select.bookAndPage(state),
-  })
-)(Attribution);
+export default function AttributionConnected() {
+  const { book, page } = useSelector((state: AppState) => select.bookAndPage(state));
+
+  return <Attribution book={book} page={page} />;
+}
