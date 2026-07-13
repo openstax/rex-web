@@ -1,0 +1,145 @@
+/**
+ * Attribution Component Styles
+ *
+ * Styles for the attribution details section that appears at the bottom of each page.
+ * Uses CSS variables bound from theme.ts and constants.
+ */
+
+/* Details container */
+.attribution-details {
+  /* Typography - matches bodyCopyRegularStyle */
+  color: var(--attribution-text-color, #424242);
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+
+  /* Box styling */
+  box-shadow: 0 -1rem 1rem -1rem rgba(0, 0, 0, 0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+
+  /* Padding - matches wrapperPadding from Layout */
+  padding-left: 4rem;
+  padding-right: 4rem;
+  padding-top: 1.8rem;
+}
+
+/* Mobile breakpoint - 75em = 1200px (theme.breakpoints.mobile) */
+@media screen and (max-width: 75em) {
+  .attribution-details {
+    min-height: 4rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    padding-top: 0.8rem;
+  }
+}
+
+/* Print media - hide attribution */
+@media print {
+  .attribution-details {
+    display: none;
+  }
+}
+
+/* Summary styles */
+.attribution-summary {
+  /* Content text width constraint - from contentTextStyle */
+  max-width: var(--content-text-width, 80rem);
+  margin: 0 auto;
+
+  font-weight: 500;
+  list-style: none;
+
+  /* Spacing */
+  margin-bottom: 1.8rem;
+
+  /* Text styling - bodyCopyRegularStyle + decoratedLinkStyle */
+  color: var(--attribution-text-color, #424242);
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+}
+
+/* Mobile summary spacing */
+@media screen and (max-width: 75em) {
+  .attribution-summary {
+    margin-bottom: 0.8rem;
+  }
+}
+
+/* Remove default summary styling */
+.attribution-summary::before {
+  display: none;
+}
+
+.attribution-summary::-moz-list-bullet {
+  list-style-type: none;
+}
+
+.attribution-summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Summary is clickable */
+.attribution-summary {
+  cursor: pointer;
+  color: var(--link-color, #027EB5);
+  text-decoration: none;
+}
+
+.attribution-summary:hover,
+.attribution-summary:focus {
+  text-decoration: underline;
+  color: var(--link-hover, #0064A0);
+}
+
+/* Icon styles */
+.attribution-summary-icon {
+  margin-left: -0.3rem;
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+/* Icon visibility based on open state */
+.attribution-details[open] .attribution-expand-icon {
+  display: none;
+}
+
+.attribution-details:not([open]) .attribution-collapse-icon {
+  display: none;
+}
+
+/* Content container */
+.attribution-content {
+  /* Content text width constraint */
+  max-width: var(--content-text-width, 80rem);
+  margin: 0 auto;
+}
+
+/* Full page width in print */
+@media screen {
+  .attribution-content {
+    max-width: var(--content-text-width, 80rem);
+    margin: 0 auto;
+  }
+}
+
+/* Content blockquote styling */
+.attribution-content blockquote {
+  margin-left: 0;
+}
+
+/* List item styling */
+.attribution-details li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+/* Link styling within attribution content */
+.attribution-content a {
+  color: var(--link-color, #027EB5);
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.attribution-content a:hover {
+  color: var(--link-hover, #0064A0);
+}
