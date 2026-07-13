@@ -35,23 +35,44 @@ import Navigation from './Navigation';
 import Topbar from './Topbar';
 import { ConfirmationToastProvider } from './ConfirmationToast';
 import Wrapper from './Wrapper';
+import { assertDefined } from '../../utils';
 import theme from '../../theme';
 import './Content.css';
 
-function Content() {
-  const mobileExpanded = useSelector((state: AppState) => mobileToolbarOpen(state));
-  const book = useSelector((state: AppState) => bookSelector(state));
-
-  // If book hasn't loaded yet, render empty layout to avoid crashing before ErrorBoundary mounts
-  if (!book) {
-    return <Layout />;
-  }
-
+function GatedContent() {
+  const book = assertDefined(useSelector((state: AppState) => bookSelector(state)), 'Book not found');
   // Calculate positioning values
+  const mobileExpanded = useSelector((state: AppState) => mobileToolbarOpen(state));
   const mobileTop = mobileExpanded
     ? bookBannerMobileMiniHeight + toolbarMobileExpandedHeight
     : bookBannerMobileMiniHeight + topbarMobileHeight;
   const desktopTop = bookBannerDesktopMiniHeight + topbarDesktopHeight;
+
+  return (
+    <LoginGate book={book}>
+      <Topbar />
+      <div
+        className="content-notifications-wrapper"
+        style={{
+          '--content-notifications-z-index': theme.zIndex.contentNotifications,
+          '--content-notifications-top-desktop': `${desktopTop}rem`,
+          '--content-notifications-top-mobile': `${mobileTop}rem`,
+        } as React.CSSProperties}
+      >
+        <Notifications className="content-notifications" />
+      </div>
+      <ContentWarning book={book} />
+      <Page>
+        <PrevNextBar />
+        <LabsCTA />
+        <BuyBook book={book} />
+      </Page>
+    </LoginGate>
+  );
+}
+
+function Content() {
+  const mobileExpanded = useSelector((state: AppState) => mobileToolbarOpen(state));
 
   return (
     <Layout>
@@ -80,25 +101,7 @@ function Content() {
               <Wrapper>
                 <Navigation />
                 <ContentPane>
-                  <LoginGate book={book}>
-                    <Topbar />
-                    <div
-                      className="content-notifications-wrapper"
-                      style={{
-                        '--content-notifications-z-index': theme.zIndex.contentNotifications,
-                        '--content-notifications-top-desktop': `${desktopTop}rem`,
-                        '--content-notifications-top-mobile': `${mobileTop}rem`,
-                      } as React.CSSProperties}
-                    >
-                      <Notifications className="content-notifications" />
-                    </div>
-                    <ContentWarning book={book} />
-                    <Page>
-                      <PrevNextBar />
-                      <LabsCTA />
-                      <BuyBook book={book} />
-                    </Page>
-                  </LoginGate>
+                  <GatedContent />
                   <Attribution />
                   <Footer />
                 </ContentPane>
