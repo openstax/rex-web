@@ -1,0 +1,33 @@
+/* AssignedTopBar styles */
+
+.assigned-topbar-wrapper {
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.14);
+  top: 0;
+  background-color: var(--assigned-topbar-bg-color, #f1f1f1);
+  color: var(--assigned-topbar-text-color, #424242);
+  display: flex;
+  height: var(--assigned-topbar-height-desktop, 5rem);
+}
+
+/* Mobile medium breakpoint: max-width: 50em (800px) */
+@media screen and (max-width: 50em) {
+  .assigned-topbar-wrapper {
+    height: var(--assigned-topbar-height-mobile, 5.3rem);
+  }
+}
+
+.assigned-topbar-section-title {
+  font-size: 1.8rem;
+  line-height: 2.1rem;
+  letter-spacing: 0.03px;
+  margin-left: 1.6rem;
+}
+
+/* Mobile breakpoint: max-width: 75em (1200px) */
+@media screen and (max-width: 75em) {
+  .assigned-topbar-section-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

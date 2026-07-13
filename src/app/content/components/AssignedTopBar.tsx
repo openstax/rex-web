@@ -1,44 +1,17 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import styled, { css } from 'styled-components';
+import classNames from 'classnames';
 import { MessageEvent } from '@openstax/types/lib.dom';
 import theme from '../../theme';
 import { setTextSize } from '../actions';
 import * as selectContent from '../selectors';
 import { LinkedArchiveTreeSection } from '../types';
-import { shadow, TopBarWrapper } from './Topbar/styled';
+import { TopBarWrapper } from './Topbar/styled';
 import { TextResizer } from './Topbar/TextResizer';
 import { topbarDesktopHeight, topbarMobileHeight } from './constants';
 import { TextResizerValue, textResizerValues } from '../constants';
 import { useLaunchToken } from '../launchToken';
-
-const StyledTopBarWrapper = styled(TopBarWrapper)`
-  ${shadow}
-
-  && {
-    top: 0;
-  }
-
-  background-color: ${theme.color.neutral.base};
-  color: ${theme.color.text.default};
-  display: flex;
-  height: ${topbarDesktopHeight}rem;
-  ${theme.breakpoints.mobileMedium(css`
-    height: ${topbarMobileHeight}rem;
-  `)}
-`;
-
-const StyledSectionTitle = styled.h2`
-  font-size: 1.8rem;
-  line-height: 2.1rem;
-  letter-spacing: 0.03px;
-  margin-left: 1.6rem;
-  ${theme.breakpoints.mobile(css`
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  `)}
-`;
+import './AssignedTopBar.css';
 
 const useTextResizeIntegration = (handleChange: (value: TextResizerValue) => void) => {
   const launchToken = useLaunchToken();
@@ -86,8 +59,19 @@ export const AssignedTopBar = (props: {
   }
 
   return (
-    <StyledTopBarWrapper>
-      <StyledSectionTitle dangerouslySetInnerHTML={{ __html:  props.section?.title }} />
+    <TopBarWrapper
+      className="assigned-topbar-wrapper"
+      style={{
+        '--assigned-topbar-bg-color': theme.color.neutral.base,
+        '--assigned-topbar-text-color': theme.color.text.default,
+        '--assigned-topbar-height-desktop': `${topbarDesktopHeight}rem`,
+        '--assigned-topbar-height-mobile': `${topbarMobileHeight}rem`,
+      } as React.CSSProperties}
+    >
+      <h2
+        className="assigned-topbar-section-title"
+        dangerouslySetInnerHTML={{ __html:  props.section?.title }}
+      />
       <TextResizer
         bookTheme={bookTheme}
         setTextSize={handleValueChange}
@@ -96,6 +80,6 @@ export const AssignedTopBar = (props: {
         mobileToolbarOpen={false}
         mobileVariant={false}
       />
-    </StyledTopBarWrapper>
+    </TopBarWrapper>
   );
 };
