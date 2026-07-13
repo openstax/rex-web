@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useSelector } from 'react-redux';
-import styled, { css } from 'styled-components/macro';
+import classNames from 'classnames';
 import AccessibilityButtonsWrapper from '../../components/AccessibilityButtonsWrapper';
 import Button from '../../components/Button';
 import { useServices } from '../../context/Services';
@@ -21,37 +21,63 @@ import { contentTextWidth } from './constants';
 import Page from './Page';
 import { PrevNextBar } from './PrevNextBar';
 import { getMobileSearchFailureTop } from './Page/PageToasts';
-import theme from '../../theme';
 import PageToasts from './Page/PageToasts';
 import {
   topbarDesktopHeight,
   bookBannerMobileMiniHeight,
 } from './constants';
+import './Assigned.css';
 
-const StyledButton = styled(Button)`
-  width: 100%;
-  max-width: ${contentTextWidth}rem;
-  margin: 0 auto;
-`;
-
-// Override layout for Toast
-const assignedMobileTop = (props: { mobileToolbarOpen: boolean }) =>
+// Helper to compute mobile toast top position
+const getAssignedMobileTop = (props: { mobileToolbarOpen: boolean }) =>
   getMobileSearchFailureTop(props) - bookBannerMobileMiniHeight;
-const ToastOverride = styled(PageToasts)`
-  top: ${topbarDesktopHeight}rem;
-  left: 0;
-  max-width: 100%;
-  ${theme.breakpoints.mobile(css`
-    top: ${assignedMobileTop}rem;
-  `)}
-`;
 
-// tslint:disable-next-line: variable-name
-const PlatformWrapper = styled.div<{ platform: string }>`
-  [data-platform-hidden="${props => props.platform}"] {
-    display: none;
-  }
-`;
+// StyledButton component - renders Button with assigned-styled-button class
+function StyledButton({ className, style, ...props }: React.ComponentProps<typeof Button>) {
+  return (
+    <Button
+      {...props}
+      className={classNames('assigned-styled-button', className)}
+      style={{
+        '--content-text-width': `${contentTextWidth}rem`,
+        ...style,
+      } as React.CSSProperties}
+    />
+  );
+}
+
+// ToastOverride component - renders PageToasts with overridden positioning
+function ToastOverride({ className, style, mobileToolbarOpen, ...props }: React.ComponentProps<typeof PageToasts>) {
+  return (
+    <PageToasts
+      {...props}
+      mobileToolbarOpen={mobileToolbarOpen}
+      className={classNames('assigned-toast-override', className)}
+      style={{
+        '--topbar-desktop-height': `${topbarDesktopHeight}rem`,
+        '--assigned-mobile-top': `${getAssignedMobileTop({ mobileToolbarOpen })}rem`,
+        ...style,
+      } as React.CSSProperties}
+    />
+  );
+}
+
+// PlatformWrapper component - renders div with platform-specific attribute
+interface PlatformWrapperProps extends React.HTMLAttributes<HTMLDivElement> {
+  platform: string;
+}
+
+function PlatformWrapper({ platform, className, children, ...props }: PlatformWrapperProps) {
+  return (
+    <div
+      {...props}
+      data-platform={platform}
+      className={classNames('platform-wrapper', className)}
+    >
+      {children}
+    </div>
+  );
+}
 
 const useLoadSection = (currentSection: ArchiveTreeSection | undefined) => {
   const services = useServices();

@@ -1,0 +1,32 @@
+/* Assigned component styling */
+
+/* StyledButton - full width button with max-width constraint */
+.assigned-styled-button {
+  width: 100%;
+  max-width: var(--content-text-width);
+  margin: 0 auto;
+}
+
+/* ToastOverride - override layout for Toast component */
+.assigned-toast-override {
+  top: var(--topbar-desktop-height);
+  left: 0;
+  max-width: 100%;
+}
+
+/* Mobile breakpoint for ToastOverride
+ * IMPORTANT: This breakpoint is derived from theme.breakpoints.mobile()
+ * which corresponds to max-width: 75em (1200px)
+ * If theme breakpoints change, this must be updated accordingly.
+ * The conversion formula is: rems * 10 / 16 = ems (because 1rem = 10px, 1em = 16px in media queries)
+ */
+@media screen and (max-width: 75em) {
+  .assigned-toast-override {
+    top: var(--assigned-mobile-top);
+  }
+}
+
+/* PlatformWrapper - hide elements with matching data-platform-hidden attribute */
+.platform-wrapper[data-platform="assignable"] [data-platform-hidden="assignable"] {
+  display: none;
+}
