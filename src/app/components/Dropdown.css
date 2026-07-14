@@ -11,6 +11,12 @@
   }
 }
 
+/* Base Dropdown wrapper styles */
+.dropdown-wrapper {
+  overflow: visible;
+  position: relative;
+}
+
 /* DropdownToggle styles */
 .dropdown-toggle {
   cursor: pointer;

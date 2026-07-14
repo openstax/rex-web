@@ -1,10 +1,8 @@
 import React from 'react';
+import classNames from 'classnames';
 import { FormattedMessage } from 'react-intl';
-import styled from 'styled-components/macro';
-import { ButtonLink as ButtonLinkBase } from './Button';
-
-// Wrap with styled() to make ButtonLink compatible with component selectors
-const ButtonLink = styled(ButtonLinkBase)``;
+import { ButtonLink } from './Button';
+import './AllOrNone.css';
 
 interface Props {
   className?: string;
@@ -13,29 +11,16 @@ interface Props {
   disabled?: boolean;
 }
 
-const AllOrNone = ({className, onAll, onNone, disabled}: Props) => <div className={className}>
-  <FormattedMessage id='i18n:highlighting:filters:all'>
-    {(msg) => <ButtonLink disabled={disabled} decorated onClick={onAll}>{msg}</ButtonLink>}
-  </FormattedMessage>
-  <span aria-hidden="true">|</span>
-  <FormattedMessage id='i18n:highlighting:filters:none'>
-    {(msg) => <ButtonLink disabled={disabled} decorated onClick={onNone}>{msg}</ButtonLink>}
-  </FormattedMessage>
-</div>;
-
-export default styled(AllOrNone)`
-  &,
-  ${ButtonLink} {
-    font-size: 1.4rem;
-    overflow: visible;
-  }
-
-  height: 2rem;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-
-  span {
-    padding: 0 1rem;
-  }
-`;
+export default function AllOrNone({ className, onAll, onNone, disabled }: Props) {
+  return (
+    <div className={classNames('all-or-none', className)}>
+      <FormattedMessage id='i18n:highlighting:filters:all'>
+        {(msg) => <ButtonLink disabled={disabled} decorated onClick={onAll}>{msg}</ButtonLink>}
+      </FormattedMessage>
+      <span aria-hidden="true">|</span>
+      <FormattedMessage id='i18n:highlighting:filters:none'>
+        {(msg) => <ButtonLink disabled={disabled} decorated onClick={onNone}>{msg}</ButtonLink>}
+      </FormattedMessage>
+    </div>
+  );
+}

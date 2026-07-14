@@ -1,0 +1,19 @@
+/* AllOrNone component styles */
+
+.all-or-none {
+  height: 2rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 1.4rem;
+  overflow: visible;
+}
+
+.all-or-none .button-link {
+  font-size: 1.4rem;
+  overflow: visible;
+}
+
+.all-or-none span {
+  padding: 0 1rem;
+}

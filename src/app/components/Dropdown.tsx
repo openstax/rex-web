@@ -5,7 +5,6 @@ import isUndefined from 'lodash/fp/isUndefined';
 import omitBy from 'lodash/fp/omitBy';
 import React, { ReactNode } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import styled from 'styled-components/macro';
 import classNames from 'classnames';
 import { useFocusLost, useTrapTabNavigation, focusableItemQuery } from '../reactUtils';
 import { useOnEsc } from '../reactUtils';
@@ -23,8 +22,8 @@ interface ToggleProps<T extends ComponentWithRef = ComponentWithRef> {
   [key: string]: unknown;
 }
 
-// Plain React component for DropdownToggle, but wrapped with styled() for backward compatibility
-const DropdownToggleBase = React.forwardRef<HTMLElement, ToggleProps>(
+// Plain React component for DropdownToggle
+export const DropdownToggle = React.forwardRef<HTMLElement, ToggleProps>(
   ({component, className, ...props}, ref) => {
     return React.cloneElement(component, {
       ...props,
@@ -33,9 +32,6 @@ const DropdownToggleBase = React.forwardRef<HTMLElement, ToggleProps>(
     });
   }
 );
-
-// Wrap with styled() for backward compatibility with component selectors
-export const DropdownToggle = styled(DropdownToggleBase)``;
 
 // Plain div for DropdownFocusWrapper
 export const DropdownFocusWrapper = ({ className, children, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
@@ -189,13 +185,10 @@ function TrappingDropdownList(props: React.MenuHTMLAttributes<HTMLMenuElement>) 
   );
 }
 
-// Plain React component for DropdownList, but wrapped with styled() for backward compatibility
-const DropdownListBase = ({ className, ...props }: React.MenuHTMLAttributes<HTMLMenuElement>) => {
+// Plain React component for DropdownList
+export const DropdownList = ({ className, ...props }: React.MenuHTMLAttributes<HTMLMenuElement>) => {
   return <TrappingDropdownList className={classNames('dropdown-list', className)} {...props} />;
 };
-
-// Wrap with styled() for backward compatibility with component selectors
-export const DropdownList = styled(DropdownListBase)``;
 
 interface DropdownItemProps {
   message: string;
@@ -263,15 +256,9 @@ export type TabHiddenDropdownProps = CommonDropdownProps & (Props | Props & Cont
 
 export type DropdownProps = TabTransparentDropdownProps | TabHiddenDropdownProps;
 
-const DropdownBase = React.forwardRef<HTMLElement, DropdownProps>(({transparentTab, ...props}, ref) =>
-  transparentTab !== false
-    ? <TabTransparentDropdown ref={ref} {...props} />
-    : <TabHiddenDropDown ref={ref} {...props} />
-);
-
-const Dropdown = styled(DropdownBase)<DropdownProps>`
-  overflow: visible;
-  position: relative;
-`;
+const Dropdown = React.forwardRef<HTMLElement, DropdownProps>(({transparentTab, className, ...props}, ref) => {
+  const Component = transparentTab !== false ? TabTransparentDropdown : TabHiddenDropDown;
+  return <Component ref={ref} className={classNames('dropdown-wrapper', className)} {...props} />;
+});
 
 export default Dropdown;
