@@ -13,7 +13,7 @@ interface PageTitleConfirmationProps {
 // Named export for testing - accepts props directly
 export function PageTitleConfirmation({
   className,
-  title = '',
+  title,
 }: PageTitleConfirmationProps) {
   const skipFirst = React.useRef(true);
   const message = React.useMemo(() => {

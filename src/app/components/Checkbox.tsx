@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import styled from 'styled-components/macro';
 import './Checkbox.css';
 
 /**
@@ -29,8 +30,10 @@ interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>
 
 /**
  * Checkbox component with inline SVG icon and plain CSS styling.
+ *
+ * Note: Wrapped with styled() to enable styled-components component selector references
  */
-const Checkbox = ({ children, className, disabled, ...props }: CheckboxProps) => {
+const CheckboxBase = ({ children, className, disabled, ...props }: CheckboxProps) => {
   return (
     <label
       className={classNames(
@@ -47,5 +50,7 @@ const Checkbox = ({ children, className, disabled, ...props }: CheckboxProps) =>
     </label>
   );
 };
+
+const Checkbox = styled(CheckboxBase)``;
 
 export default Checkbox;
