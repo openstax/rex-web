@@ -2,37 +2,12 @@
 
 exports[`ChapterFilter matches snapshot 1`] = `
 .c2 {
-  height: 2rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-}
-
-.c2,
-.c2 .c3 {
-  font-size: 1.4rem;
-  overflow: visible;
-}
-
-.c2 span {
-  padding: 0 1rem;
-}
-
-.c4 {
   padding: 0;
   border: none;
   margin: 0;
 }
 
-.c4 legend {
+.c2 legend {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -45,7 +20,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
   border: 0;
 }
 
-.c5 {
+.c3 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -55,7 +30,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
   flex-direction: row;
 }
 
-.c6 {
+.c4 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -69,7 +44,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
   padding: 0;
 }
 
-.c8 {
+.c6 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -81,18 +56,18 @@ exports[`ChapterFilter matches snapshot 1`] = `
   margin-left: 0.8rem;
 }
 
-.c8 > * {
+.c6 > * {
   overflow: hidden;
 }
 
-.c8 .os-text {
+.c6 .os-text {
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
   text-overflow: ellipsis;
 }
 
-.c8 .os-divider {
+.c6 .os-divider {
   margin: 0 0.4rem;
 }
 
@@ -110,20 +85,20 @@ exports[`ChapterFilter matches snapshot 1`] = `
   margin: 0.8rem 0 0.8rem 0.8rem;
 }
 
-.c0 .c7 {
+.c0 .c5 {
   padding: 0.8rem;
 }
 
-.c0 .c9 {
+.c0 .c7 {
   margin: 0 1.6rem 0 1.6rem;
 }
 
-.c0 .c10:last-child {
+.c0 .c8:last-child {
   border-bottom: none;
 }
 
 @media screen and (max-width:75em) {
-  .c5 {
+  .c3 {
     -webkit-flex-direction: column;
     -ms-flex-direction: column;
     flex-direction: column;
@@ -142,10 +117,10 @@ exports[`ChapterFilter matches snapshot 1`] = `
   tabIndex={-1}
 >
   <div
-    className="c1 c2"
+    className="all-or-none c1 "
   >
     <button
-      className="plain-button button-link button-link-decorated c3 "
+      className="plain-button button-link button-link-decorated"
       onClick={[Function]}
       style={
         Object {
@@ -162,7 +137,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
       |
     </span>
     <button
-      className="plain-button button-link button-link-decorated c3 "
+      className="plain-button button-link button-link-decorated"
       onClick={[Function]}
       style={
         Object {
@@ -175,21 +150,21 @@ exports[`ChapterFilter matches snapshot 1`] = `
     </button>
   </div>
   <fieldset
-    className="c4"
+    className="c2"
   >
     <legend>
       Filter by chapters
     </legend>
     <div
-      className="c5"
+      className="c3"
     >
       <ul
         aria-label="Filter by chapters"
-        className="c6"
+        className="c4"
       >
         <li>
           <label
-            className="checkbox-label c7 "
+            className="checkbox-label c5 "
           >
             <input
               aria-selected={true}
@@ -214,7 +189,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
               </svg>
             </span>
             <span
-              className="c8"
+              className="c6"
               dangerouslySetInnerHTML={
                 Object {
                   "__html": "<span class=\\"os-text\\">Test Page 1</span>",
@@ -225,7 +200,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
         </li>
         <li>
           <label
-            className="checkbox-label checkbox-disabled c7 "
+            className="checkbox-label checkbox-disabled c5 "
           >
             <input
               aria-selected={false}
@@ -250,7 +225,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
               </svg>
             </span>
             <span
-              className="c8"
+              className="c6"
               dangerouslySetInnerHTML={
                 Object {
                   "__html": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 1</span>",
@@ -261,7 +236,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
         </li>
         <li>
           <label
-            className="checkbox-label checkbox-disabled c7 "
+            className="checkbox-label checkbox-disabled c5 "
           >
             <input
               aria-selected={false}
@@ -286,7 +261,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
               </svg>
             </span>
             <span
-              className="c8"
+              className="c6"
               dangerouslySetInnerHTML={
                 Object {
                   "__html": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 1.1</span>",
@@ -297,7 +272,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
         </li>
         <li>
           <label
-            className="checkbox-label checkbox-disabled c7 "
+            className="checkbox-label checkbox-disabled c5 "
           >
             <input
               aria-selected={false}
@@ -322,7 +297,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
               </svg>
             </span>
             <span
-              className="c8"
+              className="c6"
               dangerouslySetInnerHTML={
                 Object {
                   "__html": "<span class=\\"os-number\\">2</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 2</span>",
@@ -333,7 +308,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
         </li>
         <li>
           <label
-            className="checkbox-label checkbox-disabled c7 "
+            className="checkbox-label checkbox-disabled c5 "
           >
             <input
               aria-selected={false}
@@ -358,7 +333,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
               </svg>
             </span>
             <span
-              className="c8"
+              className="c6"
               dangerouslySetInnerHTML={
                 Object {
                   "__html": "<span class=\\"os-number\\">3</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 3</span>",
@@ -369,7 +344,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
         </li>
         <li>
           <label
-            className="checkbox-label checkbox-disabled c7 "
+            className="checkbox-label checkbox-disabled c5 "
           >
             <input
               aria-selected={false}
@@ -394,7 +369,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
               </svg>
             </span>
             <span
-              className="c8"
+              className="c6"
               dangerouslySetInnerHTML={
                 Object {
                   "__html": "<span class=\\"os-number\\">4</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 4</span>",
@@ -405,7 +380,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
         </li>
         <li>
           <label
-            className="checkbox-label checkbox-disabled c7 "
+            className="checkbox-label checkbox-disabled c5 "
           >
             <input
               aria-selected={false}
@@ -430,7 +405,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
               </svg>
             </span>
             <span
-              className="c8"
+              className="c6"
               dangerouslySetInnerHTML={
                 Object {
                   "__html": "<span class=\\"os-number\\">10</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 5</span>",
@@ -441,7 +416,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
         </li>
         <li>
           <label
-            className="checkbox-label checkbox-disabled c7 "
+            className="checkbox-label checkbox-disabled c5 "
           >
             <input
               aria-selected={false}
@@ -466,7 +441,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
               </svg>
             </span>
             <span
-              className="c8"
+              className="c6"
               dangerouslySetInnerHTML={
                 Object {
                   "__html": "<span class=\\"os-number\\">12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 6</span>",
@@ -477,7 +452,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
         </li>
         <li>
           <label
-            className="checkbox-label checkbox-disabled c7 "
+            className="checkbox-label checkbox-disabled c5 "
           >
             <input
               aria-selected={false}
@@ -502,7 +477,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
               </svg>
             </span>
             <span
-              className="c8"
+              className="c6"
               dangerouslySetInnerHTML={
                 Object {
                   "__html": "<span class=\\"os-number\\">A</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Atomic Masses</span>",
@@ -513,7 +488,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
         </li>
         <li>
           <label
-            className="checkbox-label checkbox-disabled c7 "
+            className="checkbox-label checkbox-disabled c5 "
           >
             <input
               aria-selected={false}
@@ -538,7 +513,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
               </svg>
             </span>
             <span
-              className="c8"
+              className="c6"
               dangerouslySetInnerHTML={
                 Object {
                   "__html": "<span class=\\"os-number\\">D</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Glossary of Key Symbols and Notation</span>",
@@ -549,7 +524,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
         </li>
         <li>
           <label
-            className="checkbox-label checkbox-disabled c7 "
+            className="checkbox-label checkbox-disabled c5 "
           >
             <input
               aria-selected={false}
@@ -574,7 +549,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
               </svg>
             </span>
             <span
-              className="c8"
+              className="c6"
               dangerouslySetInnerHTML={
                 Object {
                   "__html": "<span class=\\"os-text\\">Test Page for Generic Styles</span>",

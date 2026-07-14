@@ -314,51 +314,10 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
   display: contents;
 }
 
-.c1 {
-  overflow: visible;
-  position: relative;
-}
-
-.c3 {
-  position: relative;
-  border-left: 0.1rem solid transparent;
-  border-right: 0.1rem solid transparent;
-}
-
-.c3 > div {
-  padding: 2rem 2.4rem;
-  outline: none;
-  color: #424242;
-  font-size: 1.6rem;
-  color: #5e6062;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: end;
-  -webkit-justify-content: flex-end;
-  -ms-flex-pack: end;
-  justify-content: flex-end;
-}
-
 .c2 {
   position: relative;
   border-left: 0.1rem solid transparent;
   border-right: 0.1rem solid transparent;
-  z-index: 2;
-  box-shadow: 0 0 0.6rem 0 rgba(0,0,0,0.2);
-  -webkit-clip-path: inset(0 -0.6rem 0px -0.6rem);
-  clip-path: inset(0 -0.6rem 0px -0.6rem);
-  background-color: #fff;
-  border-left: 0.1rem solid #d5d5d5;
-  border-right: 0.1rem solid #d5d5d5;
 }
 
 .c2 > div {
@@ -384,14 +343,50 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
   justify-content: flex-end;
 }
 
+.c1 {
+  position: relative;
+  border-left: 0.1rem solid transparent;
+  border-right: 0.1rem solid transparent;
+  z-index: 2;
+  box-shadow: 0 0 0.6rem 0 rgba(0,0,0,0.2);
+  -webkit-clip-path: inset(0 -0.6rem 0px -0.6rem);
+  clip-path: inset(0 -0.6rem 0px -0.6rem);
+  background-color: #fff;
+  border-left: 0.1rem solid #d5d5d5;
+  border-right: 0.1rem solid #d5d5d5;
+}
+
+.c1 > div {
+  padding: 2rem 2.4rem;
+  outline: none;
+  color: #424242;
+  font-size: 1.6rem;
+  color: #5e6062;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+}
+
 @media screen and (max-width:75em) {
-  .c3 > div {
+  .c2 > div {
     padding: 1rem 1.6rem;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c2 > div {
+  .c1 > div {
     padding: 1rem 1.6rem;
   }
 }
@@ -572,14 +567,14 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
       </button>
     </form>
     <div
-      className="c1 topbar-text-resizer-dropdown mobile-variant mobile-toolbar-closed"
+      className="dropdown-wrapper topbar-text-resizer-dropdown mobile-variant mobile-toolbar-closed"
       data-testid="text-resizer"
     >
       <button
         aria-controls="text-resizer-menu"
         aria-expanded={true}
         aria-label="Change text size"
-        className="plain-button c2 dropdown-toggle "
+        className="plain-button c1 dropdown-toggle "
         data-analytics-label="Change text size"
         onClick={[Function]}
       >
@@ -798,14 +793,14 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
         
       </form>
       <div
-        className="c1 topbar-text-resizer-dropdown mobile-variant mobile-toolbar-closed"
+        className="dropdown-wrapper topbar-text-resizer-dropdown mobile-variant mobile-toolbar-closed"
         data-testid="mobile-text-resizer"
       >
         <button
           aria-controls="text-resizer-menu"
           aria-expanded={false}
           aria-label="Change text size"
-          className="plain-button c3 dropdown-toggle "
+          className="plain-button c2 dropdown-toggle "
           data-analytics-label="Change text size"
           onClick={[Function]}
         >
