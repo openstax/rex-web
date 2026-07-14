@@ -135,7 +135,7 @@ export default () => {
   const sections = useAssignedSections();
   const [currentSectionIndex, setCurrentSectionIndex] = React.useState(0);
   const prevNext = usePrevNext(sections);
-  const section = sections[currentSectionIndex];
+  const section = sections[currentSectionIndex] ?? undefined;
 
   useLoadSection(section);
 
@@ -143,7 +143,7 @@ export default () => {
     <AccessibilityButtonsWrapper>
       <ErrorModal />
       <ErrorBoundary>
-        <AssignedTopBar section={section} />
+        {section && <AssignedTopBar section={section} />}
         <Page topHeadingLevel={2} lockNavigation={true} ToastOverride={ToastOverride}>
           {prevNext
             ? <PrevNextBar

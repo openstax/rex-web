@@ -41,7 +41,7 @@ const useTextResizeIntegration = (handleChange: (value: TextResizerValue) => voi
 };
 
 export const AssignedTopBar = (props: {
-  section: LinkedArchiveTreeSection | undefined;
+  section: LinkedArchiveTreeSection;
 }) => {
   const bookTheme = useSelector(selectContent.bookTheme);
   const textSize = useSelector(selectContent.textSize);
@@ -54,11 +54,6 @@ export const AssignedTopBar = (props: {
   const hasIntegration = useTextResizeIntegration(handleValueChange);
 
   if (hasIntegration) {
-    return null;
-  }
-
-  // Don't render until section is available (loading state)
-  if (!props.section) {
     return null;
   }
 
