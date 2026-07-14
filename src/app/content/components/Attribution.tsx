@@ -1,5 +1,5 @@
 import { HTMLDetailsElement } from '@openstax/types/lib.dom';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useLayoutEffect, useRef } from 'react';
 import { useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import classNames from 'classnames';
@@ -154,7 +154,7 @@ export function Attribution({ book, page }: AttributionProps) {
     };
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (containerRef.current && previousPageRef.current && previousPageRef.current !== page) {
       containerRef.current.removeAttribute('open');
     }
