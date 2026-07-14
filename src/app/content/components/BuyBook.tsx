@@ -24,7 +24,7 @@ const BuyBook = ({book}: {book: Book}) => {
       <a
         className="buy-book-link"
         target='_blank'
-        rel='noopener'
+        rel='noopener noreferrer'
         href={setUtmCampaign(bookWithOSwebData.amazon_link, 'rex-page')}
         data-analytics-label='buy-book'
         style={{

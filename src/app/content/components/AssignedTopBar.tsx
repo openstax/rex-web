@@ -1,6 +1,5 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import classNames from 'classnames';
 import { MessageEvent } from '@openstax/types/lib.dom';
 import theme from '../../theme';
 import { setTextSize } from '../actions';

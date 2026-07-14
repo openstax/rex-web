@@ -45,7 +45,6 @@
   /* Content text width constraint - from contentTextStyle */
   max-width: var(--content-text-width, 80rem);
   margin: 0 auto;
-
   font-weight: 500;
   list-style: none;
 
@@ -53,9 +52,13 @@
   margin-bottom: 1.8rem;
 
   /* Text styling - bodyCopyRegularStyle + decoratedLinkStyle */
-  color: var(--attribution-text-color, #424242);
   font-size: 1.6rem;
   line-height: 2.5rem;
+
+  /* Summary is clickable */
+  cursor: pointer;
+  color: var(--link-color, #027eb5);
+  text-decoration: none;
 }
 
 /* Mobile summary spacing */
@@ -78,17 +81,10 @@
   display: none;
 }
 
-/* Summary is clickable */
-.attribution-summary {
-  cursor: pointer;
-  color: var(--link-color, #027EB5);
-  text-decoration: none;
-}
-
 .attribution-summary:hover,
 .attribution-summary:focus {
   text-decoration: underline;
-  color: var(--link-hover, #0064A0);
+  color: var(--link-hover, #0064a0);
 }
 
 /* Icon styles */
@@ -135,11 +131,11 @@
 
 /* Link styling within attribution content */
 .attribution-content a {
-  color: var(--link-color, #027EB5);
+  color: var(--link-color, #027eb5);
   cursor: pointer;
   text-decoration: underline;
 }
 
 .attribution-content a:hover {
-  color: var(--link-hover, #0064A0);
+  color: var(--link-hover, #0064a0);
 }

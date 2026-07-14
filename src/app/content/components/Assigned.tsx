@@ -12,6 +12,7 @@ import * as selectNavigation from '../../navigation/selectors';
 import { assertString } from '../../utils/assertions';
 import { loadPage } from '../hooks/locationChange/resolveContent';
 import * as selectContent from '../selectors';
+import { mobileToolbarOpen as mobileToolBarOpenSelector } from '../search/selectors';
 import { ArchiveTreeSection, LinkedArchiveTreeSection } from '../types';
 import { findTreePages, getPrevNext, nodeMatcher } from '../utils/archiveTreeUtils';
 import { stripIdVersion } from '../utils/idUtils';
@@ -47,11 +48,12 @@ function StyledButton({ className, style, ...props }: React.ComponentProps<typeo
 }
 
 // ToastOverride component - renders PageToasts with overridden positioning
-function ToastOverride({ className, style, mobileToolbarOpen, ...props }: React.ComponentProps<typeof PageToasts>) {
+function ToastOverride({ className, style, ...props }: React.ComponentProps<typeof PageToasts>) {
+  const mobileToolbarOpen = useSelector(mobileToolBarOpenSelector);
+
   return (
     <PageToasts
       {...props}
-      mobileToolbarOpen={mobileToolbarOpen}
       className={classNames('assigned-toast-override', className)}
       style={{
         '--topbar-desktop-height': `${topbarDesktopHeight}rem`,

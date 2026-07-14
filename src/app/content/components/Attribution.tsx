@@ -25,7 +25,7 @@ export const textRegularLineHeight = 2.5;
 export const desktopAttributionHeight = detailsMarginTop + textRegularLineHeight + desktopSpacing * 2;
 export const mobileAttributionHeight = detailsMarginTop + textRegularLineHeight + mobileSpacing * 2;
 
-interface AttributionSummaryProps extends React.HTMLAttributes<HTMLElement> {}
+type AttributionSummaryProps = React.HTMLAttributes<HTMLElement>;
 
 function AttributionSummary({ className, style, ...props }: AttributionSummaryProps) {
   const message = useIntl().formatMessage({id: 'i18n:attribution:toggle'});
