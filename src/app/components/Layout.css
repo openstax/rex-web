@@ -1,5 +1,15 @@
 /* Layout component styles */
 
+/* MathJax help background z-index
+ * IMPORTANT: This value is derived from theme.zIndex.navbar + 1
+ * navbar is at position 7 in the zIndex array: (7) * 10 = 70
+ * Therefore: 70 + 1 = 71
+ * If theme.zIndex array changes, this value MUST be updated accordingly.
+ */
+mjx-help-background {
+  z-index: 71;
+}
+
 .layout-body {
   width: 100%;
   padding: 0 var(--layout-padding-desktop, 3.2rem);
