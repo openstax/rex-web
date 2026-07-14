@@ -1,5 +1,15 @@
 /* Keyframe animations for loader */
 
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
 @keyframes loadSvg {
   from {
     transform: scale(0);

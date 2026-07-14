@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import { FormattedMessage } from 'react-intl';
+import styled from 'styled-components/macro';
 import { ButtonLink } from './Button';
 import './AllOrNone.css';
 
@@ -11,7 +12,8 @@ interface Props {
   disabled?: boolean;
 }
 
-export default function AllOrNone({ className, onAll, onNone, disabled }: Props) {
+// Plain React component for AllOrNone
+function AllOrNoneBase({ className, onAll, onNone, disabled }: Props) {
   return (
     <div className={classNames('all-or-none', className)}>
       <FormattedMessage id='i18n:highlighting:filters:all'>
@@ -24,3 +26,7 @@ export default function AllOrNone({ className, onAll, onNone, disabled }: Props)
     </div>
   );
 }
+
+// Wrap with styled() for backward compatibility with component selectors
+// Styles are now in AllOrNone.css, but this wrapper maintains selector compatibility
+export default styled(AllOrNoneBase)``;
