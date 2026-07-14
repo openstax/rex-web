@@ -1,5 +1,6 @@
 import React from 'react';
-import './Loader.css';
+
+/* Loader.css is imported in /src/app/index.tsx */
 
 interface Props {
   large?: boolean;
