@@ -18,8 +18,8 @@
   min-height: 6rem;
 
   /* Padding - matches wrapperPadding from Layout */
-  padding-left: 4rem;
-  padding-right: 4rem;
+  padding-left: var(--layout-padding-desktop, 3.2rem);
+  padding-right: var(--layout-padding-desktop, 3.2rem);
   padding-top: 1.8rem;
 }
 
@@ -27,8 +27,8 @@
 @media screen and (max-width: 75em) {
   .attribution-details {
     min-height: 4rem;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
+    padding-left: var(--layout-padding-mobile, 1.6rem);
+    padding-right: var(--layout-padding-mobile, 1.6rem);
     padding-top: 0.8rem;
   }
 }
@@ -110,13 +110,7 @@
   margin: 0 auto;
 }
 
-/* Full page width in print */
-@media screen {
-  .attribution-content {
-    max-width: var(--content-text-width, 80rem);
-    margin: 0 auto;
-  }
-}
+/* Attribution is hidden in print (see @media print above); no additional media-specific overrides needed here. */
 
 /* Content blockquote styling */
 .attribution-content blockquote {

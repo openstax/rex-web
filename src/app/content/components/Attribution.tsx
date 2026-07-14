@@ -18,10 +18,10 @@ import { linkColor, linkHover } from '../../components/Typography/Links.constant
 import { contentTextWidth } from './constants';
 import './Attribution.css';
 
-export const detailsMarginTop = 3;
+const detailsMarginTop = 3;
 const desktopSpacing = 1.8;
 const mobileSpacing = 0.8;
-export const textRegularLineHeight = 2.5;
+const textRegularLineHeight = 2.5;
 export const desktopAttributionHeight = detailsMarginTop + textRegularLineHeight + desktopSpacing * 2;
 export const mobileAttributionHeight = detailsMarginTop + textRegularLineHeight + mobileSpacing * 2;
 

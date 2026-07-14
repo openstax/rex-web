@@ -3,7 +3,7 @@
 /* StyledButton - full width button with max-width constraint */
 .assigned-styled-button {
   width: 100%;
-  max-width: var(--content-text-width);
+  max-width: var(--content-text-width, 82.5rem);
   margin: 0 auto;
 }
 

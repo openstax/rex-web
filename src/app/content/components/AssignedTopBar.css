@@ -1,6 +1,6 @@
 /* AssignedTopBar styles */
 
-.assigned-topbar-wrapper {
+.topbar-wrapper.assigned-topbar-wrapper {
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.14);
   top: 0;
   background-color: var(--assigned-topbar-bg-color, #f1f1f1);
@@ -9,9 +9,8 @@
   height: var(--assigned-topbar-height-desktop, 5rem);
 }
 
-/* Mobile medium breakpoint: max-width: 50em (800px) */
 @media screen and (max-width: 50em) {
-  .assigned-topbar-wrapper {
+  .topbar-wrapper.assigned-topbar-wrapper {
     height: var(--assigned-topbar-height-mobile, 5.3rem);
   }
 }

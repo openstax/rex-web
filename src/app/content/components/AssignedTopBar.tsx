@@ -41,7 +41,7 @@ const useTextResizeIntegration = (handleChange: (value: TextResizerValue) => voi
 };
 
 export const AssignedTopBar = (props: {
-  section: LinkedArchiveTreeSection;
+  section: LinkedArchiveTreeSection | undefined;
 }) => {
   const bookTheme = useSelector(selectContent.bookTheme);
   const textSize = useSelector(selectContent.textSize);
@@ -57,6 +57,11 @@ export const AssignedTopBar = (props: {
     return null;
   }
 
+  // Don't render until section is available (loading state)
+  if (!props.section) {
+    return null;
+  }
+
   return (
     <TopBarWrapper
       className="assigned-topbar-wrapper"
@@ -69,7 +74,7 @@ export const AssignedTopBar = (props: {
     >
       <h2
         className="assigned-topbar-section-title"
-        dangerouslySetInnerHTML={{ __html:  props.section?.title }}
+        dangerouslySetInnerHTML={{ __html:  props.section.title }}
       />
       <TextResizer
         bookTheme={bookTheme}

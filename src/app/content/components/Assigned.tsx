@@ -66,7 +66,7 @@ function ToastOverride({ className, style, ...props }: React.ComponentProps<type
 
 // PlatformWrapper component - renders div with platform-specific attribute
 interface PlatformWrapperProps extends React.HTMLAttributes<HTMLDivElement> {
-  platform: string;
+  platform: 'assignable';
 }
 
 function PlatformWrapper({ platform, className, children, ...props }: PlatformWrapperProps) {
