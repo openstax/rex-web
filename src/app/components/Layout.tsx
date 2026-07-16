@@ -1,4 +1,4 @@
-import React, { SFC } from 'react';
+import React from 'react';
 import classNames from 'classnames';
 import ErrorBoundary from '../errors/components/ErrorBoundary';
 import ErrorModal from '../errors/components/ErrorModal';
@@ -9,15 +9,19 @@ import PageTitleConfirmation from './PageTitleConfirmation';
 import { layoutPadding } from './Layout.constants';
 import './Layout.css';
 
-const Layout: SFC = ({ children }) => <AccessibilityButtonsWrapper>
-  <NavBar />
-  <OnEsc />
-  <PageTitleConfirmation />
-  <ErrorModal />
-  <ErrorBoundary>
-    {children}
-  </ErrorBoundary>
-</AccessibilityButtonsWrapper>;
+export default function Layout({ children }: React.PropsWithChildren<{}>) {
+  return (
+    <AccessibilityButtonsWrapper>
+      <NavBar />
+      <OnEsc />
+      <PageTitleConfirmation />
+      <ErrorModal />
+      <ErrorBoundary>
+        {children}
+      </ErrorBoundary>
+    </AccessibilityButtonsWrapper>
+  );
+}
 
 // Export legacy styled-components fragment for backward compatibility
 export { wrapperPadding } from './Layout.legacy';
@@ -40,5 +44,3 @@ export const LayoutBody = ({
     {children}
   </div>
 );
-
-export default Layout;
