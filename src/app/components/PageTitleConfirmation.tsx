@@ -5,16 +5,10 @@ import { hiddenButAccessibleClass } from '../theme';
 import { AppState } from '../types';
 import { title as titleSelector } from '../head/selectors';
 
-interface PageTitleConfirmationProps {
-  className?: string;
-  title?: string;
-}
+// Default export with Redux hooks - selects state internally
+export default function PageTitleConfirmation({ className }: { className?: string }) {
+  const title = useSelector((state: AppState) => titleSelector(state));
 
-// Named export for testing - accepts props directly
-export function PageTitleConfirmation({
-  className,
-  title,
-}: PageTitleConfirmationProps) {
   const skipFirst = React.useRef(true);
   const message = React.useMemo(() => {
     if (!title) {
@@ -37,12 +31,3 @@ export function PageTitleConfirmation({
     </div>
   );
 }
-
-// Default export with Redux hooks - selects state internally
-const PageTitleConfirmationConnected = ({ className }: Omit<PageTitleConfirmationProps, 'title'>) => {
-  const title = useSelector((state: AppState) => titleSelector(state));
-
-  return <PageTitleConfirmation className={className} title={title} />;
-};
-
-export default PageTitleConfirmationConnected;

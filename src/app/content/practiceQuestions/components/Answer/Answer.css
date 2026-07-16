@@ -27,8 +27,10 @@
 /* Focus styles for keyboard navigation */
 input:focus + .answer-block,
 .answer-wrapper:focus .answer-block {
+  /* stylelint-disable declaration-block-no-duplicate-properties -- different browsers */
   outline: auto; /* Firefox and other browsers */
   outline: -webkit-focus-ring-color auto 1px; /* WebKit browsers */
+  /* stylelint-enable declaration-block-no-duplicate-properties */
 }
 
 input:not(:focus-visible):focus + .answer-block {

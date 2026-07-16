@@ -153,7 +153,9 @@
     font-size: 1.6rem;
     line-height: 2rem;
     white-space: normal;
+    /* stylelint-disable value-no-vendor-prefix -- important for clamping */
     display: -webkit-box;
+    /* stylelint-enable value-no-vendor-prefix */
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
     max-height: var(--h3-mobile-line-height-doubled);
