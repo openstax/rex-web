@@ -6,9 +6,11 @@
  * Therefore: 70 + 1 = 71
  * If theme.zIndex array changes, this value MUST be updated accordingly.
  */
+/* stylelint-disable selector-type-no-unknown */
 mjx-help-background {
   z-index: 71;
 }
+/* stylelint-enable selector-type-no-unknown */
 
 .layout-body {
   width: 100%;
