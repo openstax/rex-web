@@ -1,6 +1,6 @@
 /* Keyframe animations for loader */
 
-@keyframes fadeIn {
+@keyframes loaderFadeIn {
   0% {
     opacity: 0;
   }
@@ -87,7 +87,7 @@
 }
 
 .loading-icon * {
-  animation: fadeIn 0.3s forwards;
+  animation: loaderFadeIn 0.3s forwards;
 }
 
 .loading-icon .os-green,
