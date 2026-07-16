@@ -537,12 +537,6 @@ Array [
                         data-testid="content-link-test"
                         href="books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units"
                         onClick={[Function]}
-                        style={
-                          Object {
-                            "--link-color": "#027EB5",
-                            "--link-hover": "#0064A0",
-                          }
-                        }
                       >
                         booktitle
                       </a>
@@ -596,12 +590,6 @@ Array [
                         data-testid="content-link-test"
                         href="books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units"
                         onClick={[Function]}
-                        style={
-                          Object {
-                            "--link-color": "#027EB5",
-                            "--link-hover": "#0064A0",
-                          }
-                        }
                       >
                         booktitle2
                       </a>

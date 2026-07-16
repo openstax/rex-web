@@ -3,7 +3,6 @@ import { OutputParams } from 'query-string';
 import React from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
-import { linkColor, linkHover } from '../../components/Typography/Links.constants';
 import { useServices } from '../../context/Services';
 import { push } from '../../navigation/actions';
 import * as selectNavigation from '../../navigation/selectors';
@@ -103,11 +102,7 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
     data-testid='content-link-test'
     href={URL}
     className={classNames('content-link', className)}
-    style={{
-      '--link-color': linkColor,
-      '--link-hover': linkHover,
-      ...style,
-    } as React.CSSProperties}
+    style={style}
     {...anchorProps}
   >{children}</a>;
 };

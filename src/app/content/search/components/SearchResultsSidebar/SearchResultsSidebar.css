@@ -286,6 +286,13 @@
   line-height: 1.3;
 }
 
+/* Override ContentLink hover styles for search results - keep text color and no underline */
+.section-content-preview:hover,
+.section-content-preview:focus {
+  color: var(--color-text-default);
+  text-decoration: none;
+}
+
 .section-content-preview--selected {
   background: rgba(0, 0, 0, 0.06);
 }

@@ -40,6 +40,9 @@ import theme from '../../theme';
 import './Content.css';
 
 function GatedContent() {
+  // Book should always be loaded when Content renders (routing ensures this).
+  // assertDefined provides a clear error if this assumption is violated.
+  // Original pre-migration code passed book directly without null checks.
   const book = assertDefined(useSelector((state: AppState) => bookSelector(state)), 'Book not found');
   // Calculate positioning values
   const mobileExpanded = useSelector((state: AppState) => mobileToolbarOpen(state));
