@@ -7,15 +7,6 @@ import { query } from '../navigation/selectors';
 import { AppServices } from '../types';
 import { assertDefined } from '../utils/assertions';
 
-/**
- * Temporary export for test compatibility.
- * This component is no longer rendered but tests may still reference it.
- * @deprecated Tests should be updated to check for <style> elements instead.
- */
-export function ScopedGlobalStyle({ styles: _styles }: { styles: string }) {
-  return null;
-}
-
 const cacheStyles = new Map<string, string>();
 
 const getStyles = (
