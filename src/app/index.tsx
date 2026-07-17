@@ -31,6 +31,7 @@ import './content/components/utils/utilities.css';
 import './components/Button.css';
 import './components/Details.css';
 import './components/Dropdown.css';
+import './components/Loader.css';
 import './components/ScrollLock.css';
 import './components/ScrollOffset.css';
 import './content/components/ContentPane.css';

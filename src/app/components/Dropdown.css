@@ -11,6 +11,12 @@
   }
 }
 
+/* Base Dropdown wrapper styles */
+.dropdown-wrapper {
+  overflow: visible;
+  position: relative;
+}
+
 /* DropdownToggle styles */
 .dropdown-toggle {
   cursor: pointer;
@@ -71,8 +77,10 @@
 .dropdown-list li button:focus,
 .dropdown-list li a:focus {
   background: var(--dropdown-form-border, #d5d5d5); /* theme.color.neutral.formBorder */
+  /* stylelint-disable declaration-block-no-duplicate-properties -- different browsers */
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
+  /* stylelint-enable declaration-block-no-duplicate-properties */
 }
 
 /* TabTransparentDropdown focus-within behavior */

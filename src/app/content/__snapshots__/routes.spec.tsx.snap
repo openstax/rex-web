@@ -2,17 +2,12 @@
 
 exports[`assigned route route renders renders a component 1`] = `
 .c3 {
-  overflow: visible;
-  position: relative;
-}
-
-.c4 {
   position: relative;
   border-left: 0.1rem solid transparent;
   border-right: 0.1rem solid transparent;
 }
 
-.c4 > div {
+.c3 > div {
   padding: 2rem 2.4rem;
   outline: none;
   color: #424242;
@@ -50,33 +45,6 @@ exports[`assigned route route renders renders a component 1`] = `
   top: 0;
 }
 
-.c12 {
-  height: 1.7rem;
-  width: 1.7rem;
-}
-
-.c15 {
-  height: 1.7rem;
-  width: 1.7rem;
-}
-
-.c8 {
-  list-style: none;
-  cursor: pointer;
-}
-
-.c8::before {
-  display: none;
-}
-
-.c8::-moz-list-bullet {
-  list-style-type: none;
-}
-
-.c8::-webkit-details-marker {
-  display: none;
-}
-
 .c2 {
   font-size: 1.8rem;
   line-height: 2.1rem;
@@ -87,21 +55,48 @@ exports[`assigned route route renders renders a component 1`] = `
   margin-left: 1.6rem;
 }
 
-.c13 {
+.c11 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c14 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c7 {
+  list-style: none;
+  cursor: pointer;
+}
+
+.c7::before {
+  display: none;
+}
+
+.c7::-moz-list-bullet {
+  list-style-type: none;
+}
+
+.c7::-webkit-details-marker {
+  display: none;
+}
+
+.c12 {
   margin-left: -0.3rem;
 }
 
-.c16 {
+.c15 {
   margin-left: -0.3rem;
 }
 
-.c10 {
+.c9 {
   font-weight: 500;
   list-style: none;
 }
 
-.c10,
-.c10 span {
+.c9,
+.c9 span {
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
@@ -111,33 +106,33 @@ exports[`assigned route route renders renders a component 1`] = `
   text-decoration: none;
 }
 
-.c10 a,
-.c10 span a {
+.c9 a,
+.c9 span a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c10 a:hover,
-.c10 span a:hover {
+.c9 a:hover,
+.c9 span a:hover {
   color: #0064A0;
 }
 
-.c10:hover,
-.c10 span:hover,
-.c10:focus,
-.c10 span:focus {
+.c9:hover,
+.c9 span:hover,
+.c9:focus,
+.c9 span:focus {
   -webkit-text-decoration: underline;
   text-decoration: underline;
   color: #0064A0;
 }
 
-.c17 blockquote {
+.c16 blockquote {
   margin-left: 0;
 }
 
-.c6 {
+.c5 {
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
@@ -148,35 +143,35 @@ exports[`assigned route route renders renders a component 1`] = `
   padding-top: 1.8rem;
 }
 
-.c6[open] > summary .c11 {
+.c5[open] > summary .c10 {
   display: none;
 }
 
-.c6:not([open]) > summary .c14 {
+.c5:not([open]) > summary .c13 {
   display: none;
 }
 
-.c6 a {
+.c5 a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c6 a:hover {
+.c5 a:hover {
   color: #0064A0;
 }
 
-.c6 > .c9 {
+.c5 > .c8 {
   margin-bottom: 1.8rem;
 }
 
-.c6 li {
+.c5 li {
   margin-bottom: 1rem;
   overflow: visible;
 }
 
-.c5 {
+.c4 {
   top: 5rem;
   left: 0;
   max-width: 100%;
@@ -187,7 +182,7 @@ exports[`assigned route route renders renders a component 1`] = `
 }
 
 @media screen and (max-width:75em) {
-  .c4 > div {
+  .c3 > div {
     padding: 1rem 1.6rem;
   }
 }
@@ -207,44 +202,44 @@ exports[`assigned route route renders renders a component 1`] = `
 }
 
 @media screen {
-  .c10 {
+  .c9 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c17 {
+  .c16 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c6 {
+  .c5 {
     padding: 0 1.6rem;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c6 {
+  .c5 {
     min-height: 4rem;
     padding-top: 0.8rem;
   }
 
-  .c6 > .c7 {
+  .c5 > .c6 {
     margin-bottom: 0.8rem;
   }
 }
 
 @media print {
-  .c6 {
+  .c5 {
     display: none;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c5 {
+  .c4 {
     top: 5.300000000000001rem;
   }
 }
@@ -310,14 +305,14 @@ exports[`assigned route route renders renders a component 1`] = `
       }
     />
     <div
-      className="c3 topbar-text-resizer-dropdown"
+      className="dropdown-wrapper topbar-text-resizer-dropdown"
       data-testid="text-resizer"
     >
       <button
         aria-controls="text-resizer-menu"
         aria-expanded={false}
         aria-label="Change text size"
-        className="plain-button c4 dropdown-toggle "
+        className="plain-button c3 dropdown-toggle "
         data-analytics-label="Change text size"
         onClick={[Function]}
       >
@@ -344,7 +339,7 @@ exports[`assigned route route renders renders a component 1`] = `
   >
     <div
       aria-live="polite"
-      className="page-toast-container c5"
+      className="page-toast-container c4"
       style={
         Object {
           "--content-wrapper-max-width": "128rem",
@@ -398,17 +393,17 @@ exports[`assigned route route renders renders a component 1`] = `
     </div>
   </div>
   <details
-    className="c6"
+    className="c5"
     data-analytics-region="attribution"
     data-testid="attribution-details"
   >
     <summary
       aria-label="Citation/Attribution"
-      className="c7 c8 c9 c10"
+      className="c6 c7 c8 c9"
     >
       <svg
         aria-hidden="true"
-        className="details-expand-icon c11 c12 c13"
+        className="details-expand-icon c10 c11 c12"
         viewBox="0 0 192 512"
       >
         <path
@@ -418,7 +413,7 @@ exports[`assigned route route renders renders a component 1`] = `
       </svg>
       <svg
         aria-hidden="true"
-        className="details-collapse-icon c14 c15 c16"
+        className="details-collapse-icon c13 c14 c15"
         viewBox="0 0 320 512"
       >
         <path
@@ -434,7 +429,7 @@ exports[`assigned route route renders renders a component 1`] = `
       </span>
     </summary>
     <div
-      className="c17"
+      className="c16"
       dangerouslySetInnerHTML={
         Object {
           "__html": "

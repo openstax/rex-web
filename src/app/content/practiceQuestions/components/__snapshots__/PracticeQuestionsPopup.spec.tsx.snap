@@ -3,12 +3,7 @@
 exports[`PracticeQuestions doesn't render practice questions modal if it is closed 1`] = `null`;
 
 exports[`PracticeQuestions renders practice questions modal if it is open 1`] = `
-.c3 {
-  overflow: visible;
-  position: relative;
-}
-
-.c6 {
+.c5 {
   color: #5e6062;
   width: 1rem;
   height: 2rem;
@@ -16,13 +11,13 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
   padding-top: 0.2rem;
 }
 
-.c4 {
+.c3 {
   position: relative;
   border-left: 0.1rem solid transparent;
   border-right: 0.1rem solid transparent;
 }
 
-.c4 > div {
+.c3 > div {
   padding: 2rem 2.4rem;
   outline: none;
   color: #424242;
@@ -77,24 +72,24 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
   border-bottom: 0.1rem solid #d5d5d5;
 }
 
-.c0 .c5 {
+.c0 .c4 {
   font-weight: bold;
 }
 
-.c0 .c2 > *:not(.c5) {
+.c0 .c2 > *:not(.c4) {
   top: calc(100% - 0.1rem);
   box-shadow: 0 0 0.6rem 0 rgba(0,0,0,0.2);
   max-height: calc(100vh - 26rem);
 }
 
 @media screen and (max-width:75em) {
-  .c4 > div {
+  .c3 > div {
     padding: 1rem 1.6rem;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c0 .c2 > *:not(.c5) {
+  .c0 .c2 > *:not(.c4) {
     max-height: calc(100vh - 18.4rem);
   }
 }
@@ -104,7 +99,7 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
     position: initial;
   }
 
-  .c0 .c2 > *:not(.c5) {
+  .c0 .c2 > *:not(.c4) {
     top: auto;
     margin-top: -0.1rem;
   }
@@ -238,13 +233,13 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
           className="c1"
         >
           <div
-            className="c2 c3"
+            className="dropdown-wrapper c2 "
           >
             <button
               aria-controls="practice-filter-chapter"
               aria-expanded={false}
               aria-label="Select Practice Questions by Chapter & Section"
-              className="plain-button c4 dropdown-toggle c5 "
+              className="plain-button c3 dropdown-toggle c4 "
               data-analytics-label="Filter PQ by Chapter & Section"
               onClick={[Function]}
             >
@@ -254,7 +249,7 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
                 Chapter & Section
                 <svg
                   aria-hidden="true"
-                  className="c6"
+                  className="c5"
                   direction="down"
                   viewBox="0 0 320 512"
                 >

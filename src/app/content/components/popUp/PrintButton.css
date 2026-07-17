@@ -9,11 +9,12 @@
 }
 
 /* Style the PrintButton child inside the wrapper */
-.popup-print-button > .toolbar-print-opt-wrapper {
+:where(.popup-print-button > .toolbar-print-opt-wrapper) {
   flex-direction: row;
   height: max-content;
   min-height: unset;
   padding-right: 2.4rem; /* filters.dropdownToggle.sides.desktop */
+  min-width: auto;
 }
 
 .popup-print-button[data-loading="true"] > .toolbar-print-opt-wrapper {

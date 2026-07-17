@@ -1,48 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Filters matches snapshot and renders proper aria labels 1`] = `
-.c3 {
-  overflow: visible;
-  position: relative;
-}
-
-.c9 {
-  height: 2rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-}
-
-.c9,
-.c9 .c10 {
-  font-size: 1.4rem;
-  overflow: visible;
-}
-
-.c9 span {
-  padding: 0 1rem;
-}
-
-.c21 {
+.c18 {
   height: 1.7rem;
   margin-right: 0.4rem;
 }
 
-.c21 svg {
+.c18 svg {
   height: 0.8rem;
   width: 0.8rem;
   color: #5e6062;
 }
 
-.c22 {
+.c19 {
   color: #424242;
   font-weight: 300;
   color: #5e6062;
@@ -54,7 +24,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
   line-height: 1.5rem;
 }
 
-.c20 {
+.c17 {
   margin-right: 3.2rem;
   display: -webkit-box;
   display: -webkit-flex;
@@ -68,7 +38,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
   height: 4rem;
 }
 
-.c17 {
+.c14 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -81,7 +51,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
   border: 0;
 }
 
-.c19 {
+.c16 {
   color: #424242;
   font-size: 1.4rem;
   display: -webkit-box;
@@ -99,7 +69,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
   overflow: visible;
 }
 
-.c6 {
+.c5 {
   color: #5e6062;
   width: 1rem;
   height: 2rem;
@@ -112,13 +82,13 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
   padding-bottom: 0.2rem;
 }
 
-.c11 {
+.c8 {
   padding: 0;
   border: none;
   margin: 0;
 }
 
-.c11 legend {
+.c8 legend {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -131,7 +101,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
   border: 0;
 }
 
-.c4 {
+.c3 {
   position: relative;
   border-left: 0.1rem solid transparent;
   border-right: 0.1rem solid transparent;
@@ -144,7 +114,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
   border-right: 0.1rem solid #d5d5d5;
 }
 
-.c4 > div {
+.c3 > div {
   padding: 2rem 2.4rem;
   outline: none;
   color: #424242;
@@ -199,17 +169,17 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
   border-bottom: 0.1rem solid #d5d5d5;
 }
 
-.c0 .c5 {
+.c0 .c4 {
   font-weight: bold;
 }
 
-.c0 .c2 > *:not(.c5) {
+.c0 .c2 > *:not(.c4) {
   top: calc(100% - 0.1rem);
   box-shadow: 0 0 0.6rem 0 rgba(0,0,0,0.2);
   max-height: calc(100vh - 26rem);
 }
 
-.c12 {
+.c9 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -219,7 +189,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
   flex-direction: row;
 }
 
-.c7 {
+.c6 {
   color: #424242;
   background: #fff;
   font-size: 1.4rem;
@@ -229,23 +199,23 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
   z-index: 1;
 }
 
-.c7 .c8 {
+.c6 .c7 {
   margin: 0.8rem 0 0.8rem 0.8rem;
 }
 
-.c7 .c14 {
+.c6 .c11 {
   padding: 0.8rem;
 }
 
-.c7 .c15 {
+.c6 .c12 {
   margin: 0 1.6rem 0 1.6rem;
 }
 
-.c7 .c23:last-child {
+.c6 .c20:last-child {
   border-bottom: none;
 }
 
-.c16 {
+.c13 {
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
@@ -254,7 +224,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
   white-space: nowrap;
 }
 
-.c13 {
+.c10 {
   background: #fff;
   display: -webkit-box;
   display: -webkit-flex;
@@ -271,27 +241,27 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
   overflow: auto;
 }
 
-.c13 .c8 {
+.c10 .c7 {
   margin: 0.8rem 0 0.8rem 0.8rem;
 }
 
-.c13 .c14 {
+.c10 .c11 {
   padding: 0.8rem;
   text-transform: capitalize;
 }
 
-.c13 .c15 {
+.c10 .c12 {
   margin: 0 1.6rem 0 1.6rem;
 }
 
 @media print {
-  .c21 {
+  .c18 {
     display: none;
   }
 }
 
 @media print {
-  .c22 {
+  .c19 {
     max-width: -webkit-max-content;
     max-width: -moz-max-content;
     max-width: max-content;
@@ -299,25 +269,25 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
 }
 
 @media screen and (max-width:75em) {
-  .c19 {
+  .c16 {
     padding: 0 2.4rem 0.4rem 2.4rem;
   }
 }
 
 @media print {
-  .c19 {
+  .c16 {
     margin: 0;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c4 > div {
+  .c3 > div {
     padding: 1rem 1.6rem;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c0 .c2 > *:not(.c5) {
+  .c0 .c2 > *:not(.c4) {
     max-height: calc(100vh - 18.4rem);
   }
 }
@@ -327,7 +297,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
     position: initial;
   }
 
-  .c0 .c2 > *:not(.c5) {
+  .c0 .c2 > *:not(.c4) {
     top: auto;
     margin-top: -0.1rem;
   }
@@ -340,13 +310,13 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
 }
 
 @media print {
-  .c0 > *:not(.c18) {
+  .c0 > *:not(.c15) {
     display: none;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c12 {
+  .c9 {
     -webkit-flex-direction: column;
     -ms-flex-direction: column;
     flex-direction: column;
@@ -355,13 +325,13 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
 }
 
 @media screen and (max-width:30em) {
-  .c7 {
+  .c6 {
     width: calc(100vw - 1.6rem);
   }
 }
 
 @media screen and (max-width:30em) {
-  .c13 {
+  .c10 {
     width: calc(100vw - 1.6rem);
   }
 }
@@ -373,13 +343,13 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
     className="c1"
   >
     <div
-      className="c2 c3"
+      className="dropdown-wrapper c2 "
     >
       <button
         aria-controls="summary-filter-chapter"
         aria-expanded={true}
         aria-label="Filter highlights by Chapter"
-        className="plain-button c4 dropdown-toggle c5 "
+        className="plain-button c3 dropdown-toggle c4 "
         data-analytics-label="Filter highlights by Chapter"
         onClick={[Function]}
       >
@@ -389,7 +359,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
           Chapter
           <svg
             aria-hidden="true"
-            className="c6"
+            className="c5"
             direction="up"
             viewBox="0 0 320 512"
           >
@@ -404,15 +374,15 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
         className="dropdown-menu"
       >
         <div
-          className="c7"
+          className="c6"
           id="summary-filter-chapter"
           tabIndex={-1}
         >
           <div
-            className="c8 c9"
+            className="all-or-none c7 "
           >
             <button
-              className="plain-button button-link button-link-decorated c10 "
+              className="plain-button button-link button-link-decorated"
               onClick={[Function]}
               style={
                 Object {
@@ -429,7 +399,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
               |
             </span>
             <button
-              className="plain-button button-link button-link-decorated c10 "
+              className="plain-button button-link button-link-decorated"
               onClick={[Function]}
               style={
                 Object {
@@ -442,26 +412,26 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
             </button>
           </div>
           <fieldset
-            className="c11"
+            className="c8"
           >
             <legend>
               Filter by chapters
             </legend>
             <div
-              className="c12"
+              className="c9"
             />
           </fieldset>
         </div>
       </div>
     </div>
     <div
-      className="c2 c3"
+      className="dropdown-wrapper c2 "
     >
       <button
         aria-controls="summary-filter-color"
         aria-expanded={true}
         aria-label="Filter highlights by Color"
-        className="plain-button c4 dropdown-toggle c5 "
+        className="plain-button c3 dropdown-toggle c4 "
         data-analytics-label="Filter highlights by Color"
         onClick={[Function]}
       >
@@ -471,7 +441,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
           Color
           <svg
             aria-hidden="true"
-            className="c6"
+            className="c5"
             direction="up"
             viewBox="0 0 320 512"
           >
@@ -486,15 +456,15 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
         className="dropdown-menu"
       >
         <div
-          className="c13"
+          className="c10"
           id="summary-filter-color"
           tabIndex={-1}
         >
           <div
-            className="c8 c9"
+            className="all-or-none c7 "
           >
             <button
-              className="plain-button button-link button-link-decorated c10 "
+              className="plain-button button-link button-link-decorated"
               onClick={[Function]}
               style={
                 Object {
@@ -511,7 +481,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
               |
             </span>
             <button
-              className="plain-button button-link button-link-decorated c10 "
+              className="plain-button button-link button-link-decorated"
               onClick={[Function]}
               style={
                 Object {
@@ -524,13 +494,13 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
             </button>
           </div>
           <fieldset
-            className="c11"
+            className="c8"
           >
             <legend>
               Filter by colors
             </legend>
             <label
-              className="checkbox-label c14 "
+              className="checkbox-label c11 "
             >
               <input
                 checked={true}
@@ -554,7 +524,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
                 </svg>
               </span>
               <div
-                className="color-indicator c15 "
+                className="color-indicator c12 "
                 data-size="small"
                 style={
                   Object {
@@ -582,13 +552,13 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
                 />
               </div>
               <span
-                className="c16"
+                className="c13"
               >
                 yellow
               </span>
             </label>
             <label
-              className="checkbox-label c14 "
+              className="checkbox-label c11 "
             >
               <input
                 checked={true}
@@ -612,7 +582,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
                 </svg>
               </span>
               <div
-                className="color-indicator c15 "
+                className="color-indicator c12 "
                 data-size="small"
                 style={
                   Object {
@@ -640,13 +610,13 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
                 />
               </div>
               <span
-                className="c16"
+                className="c13"
               >
                 green
               </span>
             </label>
             <label
-              className="checkbox-label c14 "
+              className="checkbox-label c11 "
             >
               <input
                 checked={true}
@@ -670,7 +640,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
                 </svg>
               </span>
               <div
-                className="color-indicator c15 "
+                className="color-indicator c12 "
                 data-size="small"
                 style={
                   Object {
@@ -698,13 +668,13 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
                 />
               </div>
               <span
-                className="c16"
+                className="c13"
               >
                 blue
               </span>
             </label>
             <label
-              className="checkbox-label c14 "
+              className="checkbox-label c11 "
             >
               <input
                 checked={true}
@@ -728,7 +698,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
                 </svg>
               </span>
               <div
-                className="color-indicator c15 "
+                className="color-indicator c12 "
                 data-size="small"
                 style={
                   Object {
@@ -756,13 +726,13 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
                 />
               </div>
               <span
-                className="c16"
+                className="c13"
               >
                 purple
               </span>
             </label>
             <label
-              className="checkbox-label c14 "
+              className="checkbox-label c11 "
             >
               <input
                 checked={true}
@@ -786,7 +756,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
                 </svg>
               </span>
               <div
-                className="color-indicator c15 "
+                className="color-indicator c12 "
                 data-size="small"
                 style={
                   Object {
@@ -814,7 +784,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
                 />
               </div>
               <span
-                className="c16"
+                className="c13"
               >
                 pink
               </span>
@@ -861,21 +831,21 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
     </div>
   </div>
   <div
-    className="c17"
+    className="c14"
     role="status"
   />
   <ul
     aria-atomic="true"
     aria-label="Applied filters"
     aria-live="polite"
-    className="c18 c19"
+    className="c15 c16"
   >
     <li
-      className="c20"
+      className="c17"
     >
       <button
         aria-label="Remove color blue"
-        className="plain-button c21"
+        className="plain-button c18"
         data-analytics-label="Remove breadcrumb for color blue"
         onClick={[Function]}
       >
@@ -907,17 +877,17 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
         </svg>
       </button>
       <span
-        className="c22"
+        className="c19"
       >
         blue
       </span>
     </li>
     <li
-      className="c20"
+      className="c17"
     >
       <button
         aria-label="Remove color green"
-        className="plain-button c21"
+        className="plain-button c18"
         data-analytics-label="Remove breadcrumb for color green"
         onClick={[Function]}
       >
@@ -949,17 +919,17 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
         </svg>
       </button>
       <span
-        className="c22"
+        className="c19"
       >
         green
       </span>
     </li>
     <li
-      className="c20"
+      className="c17"
     >
       <button
         aria-label="Remove color pink"
-        className="plain-button c21"
+        className="plain-button c18"
         data-analytics-label="Remove breadcrumb for color pink"
         onClick={[Function]}
       >
@@ -991,17 +961,17 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
         </svg>
       </button>
       <span
-        className="c22"
+        className="c19"
       >
         pink
       </span>
     </li>
     <li
-      className="c20"
+      className="c17"
     >
       <button
         aria-label="Remove color purple"
-        className="plain-button c21"
+        className="plain-button c18"
         data-analytics-label="Remove breadcrumb for color purple"
         onClick={[Function]}
       >
@@ -1033,17 +1003,17 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
         </svg>
       </button>
       <span
-        className="c22"
+        className="c19"
       >
         purple
       </span>
     </li>
     <li
-      className="c20"
+      className="c17"
     >
       <button
         aria-label="Remove color yellow"
-        className="plain-button c21"
+        className="plain-button c18"
         data-analytics-label="Remove breadcrumb for color yellow"
         onClick={[Function]}
       >
@@ -1075,7 +1045,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
         </svg>
       </button>
       <span
-        className="c22"
+        className="c19"
       >
         yellow
       </span>

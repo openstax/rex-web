@@ -69,8 +69,10 @@
   display: block;
 
   /* Browser default outline for focus items (from theme.ts defaultFocusOutline) */
+  /* stylelint-disable declaration-block-no-duplicate-properties -- different browsers */
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
+  /* stylelint-enable declaration-block-no-duplicate-properties */
   z-index: 1;
 }
 
