@@ -73,7 +73,9 @@
 
 /* Loader icon component styles */
 .loading-icon {
+  /* stylelint-disable property-no-unknown -- `enable-background` is an SVG presentation attribute */
   enable-background: new 0 0 57.6 39.1;
+  /* stylelint-enable property-no-unknown */
   animation: loadSvg 0.3s forwards;
   animation-delay: var(--loader-delay, 300ms);
   display: block;
