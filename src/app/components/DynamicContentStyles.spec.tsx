@@ -7,6 +7,7 @@ import { runHooksAsync } from '../../test/utils';
 import { setBookStylesUrl } from '../content/actions';
 import { State } from '../content/types';
 import { locationChange } from '../navigation/actions';
+import type { HTMLStyleElement } from '@openstax/types/lib.dom';
 import DynamicContentStyles from './DynamicContentStyles';
 
 describe('DynamicContentStyles', () => {
@@ -37,7 +38,11 @@ describe('DynamicContentStyles', () => {
       some text
     </DynamicContentStyles>;
     spyFetch = jest.spyOn(globalThis, 'fetch')
-      .mockImplementation(async() => ({ text: async() => '.cool { color: red; }' }) as any);
+      .mockImplementation(async(url) => ({
+        text: async() => (url as string).includes('file2.css')
+          ? '.different { color: green; }'
+          : '.cool { color: red; }'
+      }) as Response);
   });
 
   afterEach(() => {
@@ -46,6 +51,12 @@ describe('DynamicContentStyles', () => {
     if (typeof document !== 'undefined') {
       const styleElements = document.head.querySelectorAll('style[data-dynamic-content-styles="true"]');
       styleElements.forEach((el) => el.remove());
+    }
+    // Clean up global store to prevent test interference
+    const globalKey = '__rexDynamicContentStyles__';
+    const globalStore: any = globalThis; // eslint-disable-line @typescript-eslint/no-explicit-any
+    if (globalKey in globalStore) {
+      delete globalStore[globalKey];
     }
   });
 
@@ -187,5 +198,119 @@ describe('DynamicContentStyles', () => {
     expect(styles).toContain('.cool { color: red; }');
     // The old blue style should not be present
     expect(styles).not.toContain('.cool { color: blue; }');
+  });
+
+  it('reuses existing global store when multiple components mount', async() => {
+    // This test covers line 82: globalKey in globalStore returning true
+    store.dispatch(locationChange({ location: { search: 'content-style=file.css' } } as any));
+
+    // Create first component
+    const component1 = renderer.create(<TestContainer store={store}>
+      <Component book={book} />
+    </TestContainer>);
+
+    await runHooksAsync(renderer);
+
+    // Verify style element was injected
+    let styleElement = getInjectedStyleElement();
+    expect(styleElement).not.toBeNull();
+
+    // Create second component - should reuse the same global store and style element
+    const component2 = renderer.create(<TestContainer store={store}>
+      <Component book={book} />
+    </TestContainer>);
+
+    await runHooksAsync(renderer);
+
+    // Should still have only one style element
+    const styleElements = document?.head.querySelectorAll('style[data-dynamic-content-styles="true"]');
+    expect(styleElements?.length).toBe(1);
+
+    // Unmount first component - style element should remain because second component is still mounted
+    renderer.act(() => {
+      component1.unmount();
+    });
+
+    styleElement = getInjectedStyleElement();
+    expect(styleElement).not.toBeNull();
+
+    // Unmount second component - now style element should be removed
+    renderer.act(() => {
+      component2.unmount();
+    });
+
+    styleElement = getInjectedStyleElement();
+    expect(styleElement).toBeNull();
+  });
+
+  it('recreates style element if it was removed from document.head', async() => {
+    // This test covers line 89: document.head.contains returning false
+    store.dispatch(locationChange({ location: { search: 'content-style=file.css' } } as any));
+
+    renderer.create(<TestContainer store={store}>
+      <Component book={book} />
+    </TestContainer>);
+
+    await runHooksAsync(renderer);
+
+    // Verify style element was injected
+    let styleElement = getInjectedStyleElement();
+    expect(styleElement).not.toBeNull();
+
+    // Manually remove the style element from document.head (simulating external removal)
+    styleElement?.remove();
+
+    // Verify it's gone
+    expect(getInjectedStyleElement()).toBeNull();
+
+    // Trigger a re-render by changing styles
+    await renderer.act(async() => {
+      store.dispatch(locationChange({ location: { search: 'content-style=file2.css' } } as any));
+    });
+
+    await runHooksAsync(renderer);
+
+    // Should have recreated the style element
+    styleElement = getInjectedStyleElement();
+    expect(styleElement).not.toBeNull();
+    expect(getInjectedStyles()).toContain('.different { color: green; }');
+  });
+
+  it('does not remove style element when count is still positive', async() => {
+    // This test covers line 103: the condition being false (store.count > 0)
+    store.dispatch(locationChange({ location: { search: 'content-style=file.css' } } as any));
+
+    // Create two components
+    const component1 = renderer.create(<TestContainer store={store}>
+      <Component book={book} />
+    </TestContainer>);
+
+    const component2 = renderer.create(<TestContainer store={store}>
+      <Component book={book} />
+    </TestContainer>);
+
+    await runHooksAsync(renderer);
+
+    // Verify style element exists
+    let styleElement = getInjectedStyleElement();
+    expect(styleElement).not.toBeNull();
+
+    // Unmount first component - count goes from 2 to 1, element should remain
+    renderer.act(() => {
+      component1.unmount();
+    });
+
+    // Style element should still exist because count > 0
+    styleElement = getInjectedStyleElement();
+    expect(styleElement).not.toBeNull();
+
+    // Unmount second component - count goes from 1 to 0, element should be removed
+    renderer.act(() => {
+      component2.unmount();
+    });
+
+    // Now style element should be removed
+    styleElement = getInjectedStyleElement();
+    expect(styleElement).toBeNull();
   });
 });
