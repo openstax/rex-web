@@ -134,4 +134,58 @@ describe('DynamicContentStyles', () => {
     const styleElement = getInjectedStyleElement();
     expect(styleElement).toBeNull();
   });
+
+  it('removes injected style element when component unmounts', async() => {
+    store.dispatch(locationChange({ location: { search: 'content-style=file.css' } } as any));
+
+    const component = renderer.create(<TestContainer store={store}>
+      <Component book={book} />
+    </TestContainer>);
+
+    await runHooksAsync(renderer);
+
+    // Verify style element was injected
+    let styleElement = getInjectedStyleElement();
+    expect(styleElement).not.toBeNull();
+    expect(getInjectedStyles()).toContain('.cool { color: red; }');
+
+    // Unmount the component to trigger cleanup
+    renderer.act(() => {
+      component.unmount();
+    });
+
+    // Verify style element was removed by the cleanup function
+    styleElement = getInjectedStyleElement();
+    expect(styleElement).toBeNull();
+  });
+
+  it('removes injected style element when styles change', async() => {
+    store.dispatch(setBookStylesUrl('../resources/styles/test-styles.css'));
+
+    renderer.create(<TestContainer store={store}>
+      <Component book={book} />
+    </TestContainer>);
+
+    await runHooksAsync(renderer);
+
+    // Verify initial style element was injected
+    let styleElement = getInjectedStyleElement();
+    expect(styleElement).not.toBeNull();
+    expect(getInjectedStyles()).toContain('.cool { color: blue; }');
+
+    // Change to a different style URL to trigger cleanup and re-injection
+    await renderer.act(async() => {
+      store.dispatch(locationChange({ location: { search: 'content-style=file.css' } } as any));
+    });
+
+    await runHooksAsync(renderer);
+
+    // Verify the old style was cleaned up and new style was injected
+    styleElement = getInjectedStyleElement();
+    expect(styleElement).not.toBeNull();
+    const styles = getInjectedStyles();
+    expect(styles).toContain('.cool { color: red; }');
+    // The old blue style should not be present
+    expect(styles).not.toContain('.cool { color: blue; }');
+  });
 });

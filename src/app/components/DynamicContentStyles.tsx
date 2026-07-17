@@ -87,10 +87,9 @@ const DynamicContentStyles = React.forwardRef<HTMLElement, DynamicContentStylesP
     `;
     document.head.appendChild(styleElement);
 
+    // Cleanup function to remove the style element when component unmounts or styles change
     return () => {
-      if (typeof document !== 'undefined') {
-        document.head.removeChild(styleElement);
-      }
+      document?.head.removeChild(styleElement); // no document returns early
     };
   }, [styles]);
 
