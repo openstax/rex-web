@@ -1,0 +1,119 @@
+/* Notification Card components */
+
+.notification-group {
+  width: 100%;
+}
+
+.notification-group .button-group {
+  padding: 1rem;
+  margin: 0;
+}
+
+@media (max-width: 75em) {
+  .notification-group > .button-group {
+    display: block;
+    padding: var(--page-padding-mobile, 1.6rem) 0 0 0;
+  }
+}
+
+.notification-p {
+  /* bodyCopyRegularStyle equivalent */
+  color: var(--text-color, #424242);
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  margin: 1rem 0 0 0;
+  padding: 1rem;
+}
+
+@media (max-width: 75em) {
+  .notification-p {
+    padding: 0;
+  }
+}
+
+.notification-body {
+  width: 30rem;
+  margin-left: calc(100% - 30rem);
+  overflow: visible;
+  position: sticky;
+  padding-top: 1px; /* clear child margin */
+  margin-top: -1px; /* clear child margin */
+  z-index: var(--z-index-content-notifications, 20);
+  top: 0;
+  height: 0;
+}
+
+@media (max-width: 75em) {
+  .notification-body {
+    box-shadow: inset 0 -0.2rem 0.2rem 0 rgba(0, 0, 0, 0.14);
+    background-color: var(--neutral-darker-color, #fafafa);
+    margin: 0;
+    height: auto;
+    width: 100%;
+    padding: 1.5rem 0;
+  }
+}
+
+.notification-body > div {
+  margin: 0.5rem;
+  background-color: var(--neutral-base-color, #fff);
+  border-style: solid;
+  border-color: var(--neutral-darkest-color, #e5e5e5);
+  display: flex;
+  flex-basis: 100%;
+  flex-direction: column;
+  border-width: thin;
+  box-shadow: 0 1rem 2rem 0 rgba(0, 0, 0, 0.2);
+  overflow: visible;
+}
+
+.notification-body > div > .button-group {
+  padding: 1rem;
+  margin: 2.5rem 0 0 0;
+}
+
+@media (max-width: 50em) {
+  .notification-body > div > .button-group {
+    margin: 4rem 0 0 0;
+  }
+}
+
+@media (max-width: 75em) {
+  .notification-body > div {
+    margin: var(--page-padding-mobile, 1.6rem);
+    box-shadow: none;
+    border: none;
+    flex-direction: row;
+    background-color: initial;
+  }
+
+  .notification-body > div > .button-group {
+    padding: 0;
+  }
+}
+
+.notification-header {
+  /* bodyCopyRegularStyle equivalent */
+  color: var(--text-color, #424242);
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+  background-color: var(--neutral-darker-color, #fafafa);
+  line-height: 4rem;
+}
+
+@media (max-width: 75em) {
+  .notification-header {
+    padding: 0;
+    line-height: 2rem;
+    background-color: initial;
+  }
+}
+
+/* Print styles */
+@media print {
+  .notification-body {
+    display: none;
+  }
+}
