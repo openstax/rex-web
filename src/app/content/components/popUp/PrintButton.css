@@ -9,7 +9,7 @@
 }
 
 /* Style the PrintButton child inside the wrapper */
-.popup-print-button > :where(.toolbar-print-opt-wrapper) {
+:where(.popup-print-button > .toolbar-print-opt-wrapper) {
   flex-direction: row;
   height: max-content;
   min-height: unset;
