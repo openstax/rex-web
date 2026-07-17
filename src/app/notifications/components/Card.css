@@ -25,6 +25,18 @@
   padding: 1rem;
 }
 
+.notification-p a,
+.notification-header a {
+  color: #027eb5;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.notification-p a:hover,
+.notification-header a:hover {
+  color: #0064a0;
+}
+
 @media (max-width: 75em) {
   .notification-p {
     padding: 0;

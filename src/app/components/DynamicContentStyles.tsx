@@ -72,26 +72,40 @@ const DynamicContentStyles = React.forwardRef<HTMLElement, DynamicContentStylesP
   const [dataDynamicStyle, styles] = getStyles(disable, queryStyles, book, bookStylesUrl, archiveLoader);
 
   // Inject dynamic styles into a <style> tag
-  React.useEffect(() => {
-    if (!styles || typeof document === 'undefined') {
-      return;
+React.useEffect(() => {
+  if (!styles || typeof document === 'undefined') {
+    return;
+  }
+
+  const globalKey = '__rexDynamicContentStyles__';
+  const globalStore: any = globalThis; // eslint-disable-line @typescript-eslint/no-explicit-any
+  const store = globalKey in globalStore ? globalStore[globalKey] : {
+    count: 0,
+    element: null as HTMLStyleElement | null,
+  };
+
+  store.count += 1;
+
+  if (!store.element || !document.head.contains(store.element)) {
+    store.element = document.createElement('style');
+    store.element.setAttribute('data-dynamic-content-styles', 'true');
+    document.head.appendChild(store.element);
+  }
+
+  store.element.textContent = `
+    [data-dynamic-style="true"] {
+      ${styles}
     }
+  `;
 
-    // Create a <style> element with scoped styles
-    const styleElement = document.createElement('style');
-    styleElement.setAttribute('data-dynamic-content-styles', 'true');
-    styleElement.textContent = `
-      [data-dynamic-style="true"] {
-        ${styles}
-      }
-    `;
-    document.head.appendChild(styleElement);
-
-    // Cleanup function to remove the style element when component unmounts or styles change
-    return () => {
-      document?.head.removeChild(styleElement); // no document returns early
-    };
-  }, [styles]);
+  return () => {
+    store.count -= 1;
+    if (store.count <= 0 && store.element) {
+      store.element.remove();
+      store.element = null;
+    }
+  };
+}, [styles]);
 
   return <div data-dynamic-style={dataDynamicStyle} {...otherProps} ref={ref}>
     {children}
