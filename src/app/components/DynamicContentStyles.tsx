@@ -1,6 +1,5 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { createGlobalStyle } from 'styled-components/macro';
 import { bookStylesUrl as bookStylesUrlSelector } from '../content/selectors';
 import { State } from '../content/types';
 import { useServices } from '../context/Services';
@@ -8,11 +7,14 @@ import { query } from '../navigation/selectors';
 import { AppServices } from '../types';
 import { assertDefined } from '../utils/assertions';
 
-export const ScopedGlobalStyle = createGlobalStyle`
-  [data-dynamic-style="true"] {
-    ${(props: { styles: string }) => props.styles}
-  }
-`;
+/**
+ * Temporary export for test compatibility.
+ * This component is no longer rendered but tests may still reference it.
+ * @deprecated Tests should be updated to check for <style> elements instead.
+ */
+export function ScopedGlobalStyle({ styles: _styles }: { styles: string }) {
+  return null;
+}
 
 const cacheStyles = new Map<string, string>();
 
@@ -78,18 +80,32 @@ const DynamicContentStyles = React.forwardRef<HTMLElement, DynamicContentStylesP
   const bookStylesUrl = useSelector(bookStylesUrlSelector);
   const [dataDynamicStyle, styles] = getStyles(disable, queryStyles, book, bookStylesUrl, archiveLoader);
 
-  if (styles) {
-    return <>
-      <ScopedGlobalStyle styles={styles}/>
-      <div data-dynamic-style={dataDynamicStyle} {...otherProps} ref={ref}>
-        {children}
-      </div>
-    </>;
-  } else {
-    return <div data-dynamic-style={dataDynamicStyle} {...otherProps} ref={ref}>
-      {children}
-    </div>;
-  }
+  // Inject dynamic styles into a <style> tag
+  React.useEffect(() => {
+    if (!styles || typeof document === 'undefined') {
+      return;
+    }
+
+    // Create a <style> element with scoped styles
+    const styleElement = document.createElement('style');
+    styleElement.setAttribute('data-dynamic-content-styles', 'true');
+    styleElement.textContent = `
+      [data-dynamic-style="true"] {
+        ${styles}
+      }
+    `;
+    document.head.appendChild(styleElement);
+
+    return () => {
+      if (typeof document !== 'undefined') {
+        document.head.removeChild(styleElement);
+      }
+    };
+  }, [styles]);
+
+  return <div data-dynamic-style={dataDynamicStyle} {...otherProps} ref={ref}>
+    {children}
+  </div>;
 });
 
 export default DynamicContentStyles;

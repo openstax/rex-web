@@ -1,0 +1,18 @@
+/* Books component - Developer page book list */
+
+.developer-book-li {
+  display: flex;
+  flex-direction: row;
+  overflow: visible;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.developer-book-li h3 {
+  padding-bottom: 0;
+}
+
+.developer-book-li small {
+  margin-top: -0.2rem;
+  color: #ccc;
+}

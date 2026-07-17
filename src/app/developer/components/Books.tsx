@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components/macro';
 import { BookVersionConfig } from '../../../config.books';
 import { getBooksConfigSync } from '../../../gateways/createBookConfigLoader';
 import { DotMenuDropdown, DotMenuDropdownList } from '../../components/DotMenu';
@@ -13,23 +12,7 @@ import { AppServices } from '../../types';
 import { downloadFile } from '../utils/downloadFile';
 import { generateBookPageSpreadsheet } from '../utils/generateBookPageSpreadsheet';
 import Panel from './Panel';
-
-const BookLI = styled.li`
-  display: flex;
-  flex-direction: row;
-  overflow: visible;
-  align-items: center;
-  justify-content: space-between;
-
-  h3 {
-    padding-bottom: 0;
-  }
-
-  small {
-    margin-top: -0.2rem;
-    color: #ccc;
-  }
-`;
+import './Books.css';
 
 export const exportBookHandler = (book: Book, services: AppServices) => async() => {
   downloadFile(`${book.title}.csv`, await generateBookPageSpreadsheet(book, services));
@@ -78,9 +61,9 @@ const Books = () => {
 
   return <Panel title='Books'>
     <ul style={{paddingBottom: '5rem'}}>
-      {books.map(([id, config, book]) => <BookLI key={id}>
+      {books.map(([id, config, book]) => <li key={id} className="developer-book-li">
         <BookLink id={`${id}@${config.defaultVersion}`} book={book} />
-      </BookLI>)}
+      </li>)}
     </ul>
   </Panel>;
 };
