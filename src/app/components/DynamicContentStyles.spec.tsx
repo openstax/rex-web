@@ -46,7 +46,7 @@ describe('DynamicContentStyles', () => {
   });
 
   afterEach(() => {
-    spyFetch.mockClear();
+    spyFetch.mockRestore();
     // Clean up any injected style elements
     if (typeof document !== 'undefined') {
       const styleElements = document.head.querySelectorAll('style[data-dynamic-content-styles="true"]');
