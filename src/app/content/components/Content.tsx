@@ -1,13 +1,10 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import styled, { css } from 'styled-components/macro';
+import { useSelector } from 'react-redux';
 import Layout from '../../components/Layout';
 import ScrollOffset from '../../components/ScrollOffset';
 import ErrorBoundary from '../../errors/components/ErrorBoundary';
 import Notifications from '../../notifications/components/Notifications';
-import theme from '../../theme';
 import { AppState } from '../../types';
-import { Book } from '../types';
 import HighlightsPopUp from '../highlights/components/HighlightsPopUp';
 import KeyboardShortcutsPopup from '../keyboardShortcuts/components/KeyboardShortcutsPopup';
 import PracticeQuestionsPopup from '../practiceQuestions/components/PracticeQuestionsPopup';
@@ -38,88 +35,86 @@ import Navigation from './Navigation';
 import Topbar from './Topbar';
 import { ConfirmationToastProvider } from './ConfirmationToast';
 import Wrapper from './Wrapper';
+import { assertDefined } from '../../utils';
+import theme from '../../theme';
+import './Content.css';
 
-const Background = styled.div`
-  @media screen {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    overflow: visible; /* so sidebar position: sticky works */
-    background-color: ${theme.color.neutral.darker};
-  }
-`;
+function GatedContent() {
+  // Book should always be loaded when Content renders (routing ensures this).
+  // assertDefined provides a clear error if this assumption is violated.
+  // Original pre-migration code passed book directly without null checks.
+  const book = assertDefined(useSelector((state: AppState) => bookSelector(state)), 'Book not found');
+  // Calculate positioning values
+  const mobileExpanded = useSelector((state: AppState) => mobileToolbarOpen(state));
+  const mobileTop = mobileExpanded
+    ? bookBannerMobileMiniHeight + toolbarMobileExpandedHeight
+    : bookBannerMobileMiniHeight + topbarMobileHeight;
+  const desktopTop = bookBannerDesktopMiniHeight + topbarDesktopHeight;
 
-const ContentNotifications = styled(Notifications)`
-  &&& {
-    z-index: ${theme.zIndex.contentNotifications};
-    top: ${bookBannerDesktopMiniHeight + topbarDesktopHeight}rem;
-    ${theme.breakpoints.mobile(css`
-      top: ${({mobileExpanded}: {mobileExpanded: boolean}) => mobileExpanded
-          ? bookBannerMobileMiniHeight + toolbarMobileExpandedHeight
-          : bookBannerMobileMiniHeight + topbarMobileHeight
-      }rem;
-    `)}
-  }
-`;
+  return (
+    <LoginGate book={book}>
+      <Topbar />
+      <div
+        className="content-notifications-wrapper"
+        style={{
+          '--content-notifications-z-index': theme.zIndex.contentNotifications,
+          '--content-notifications-top-desktop': `${desktopTop}rem`,
+          '--content-notifications-top-mobile': `${mobileTop}rem`,
+        } as React.CSSProperties}
+      >
+        <Notifications className="content-notifications" />
+      </div>
+      <ContentWarning book={book} />
+      <Page>
+        <PrevNextBar />
+        <LabsCTA />
+        <BuyBook book={book} />
+      </Page>
+    </LoginGate>
+  );
+}
 
-const OuterWrapper = styled.div`
-  @media screen {
-    display: flex;
-    flex-direction: column;
-    overflow: visible;
-  }
-`;
+function Content() {
+  const mobileExpanded = useSelector((state: AppState) => mobileToolbarOpen(state));
 
+  return (
+    <Layout>
+      <ScrollOffset
+        desktopOffset={
+          bookBannerDesktopMiniHeight
+          + topbarDesktopHeight
+          + scrollOffset
+        }
+        mobileOffset={
+          bookBannerMobileMiniHeight
+          + (mobileExpanded ? toolbarMobileExpandedHeight : topbarMobileHeight)
+          + scrollOffset
+        }
+      />
+      <div className="content-background">
+        <BookBanner />
+        <ErrorBoundary>
+          <ConfirmationToastProvider>
+            <HighlightsPopUp />
+            <KeyboardShortcutsPopup />
+            <StudyguidesPopUp />
+            <PracticeQuestionsPopup />
+            <NudgeStudyTools />
+            <div className="content-outer-wrapper">
+              <Wrapper>
+                <Navigation />
+                <ContentPane>
+                  <GatedContent />
+                  <Attribution />
+                  <Footer />
+                </ContentPane>
+              </Wrapper>
+            </div>
+          </ConfirmationToastProvider>
+        </ErrorBoundary>
+      </div>
+    </Layout>
+  );
+}
 
-const Content = ({mobileExpanded, book}: {mobileExpanded: boolean; book: Book}) => <Layout>
-  <ScrollOffset
-    desktopOffset={
-      bookBannerDesktopMiniHeight
-      + topbarDesktopHeight
-      + scrollOffset
-    }
-    mobileOffset={
-      bookBannerMobileMiniHeight
-      + (mobileExpanded ? toolbarMobileExpandedHeight : topbarMobileHeight)
-      + scrollOffset
-    }
-  />
-  <Background>
-    <BookBanner />
-    <ErrorBoundary>
-      <ConfirmationToastProvider>
-        <HighlightsPopUp />
-        <KeyboardShortcutsPopup />
-        <StudyguidesPopUp />
-        <PracticeQuestionsPopup />
-        <NudgeStudyTools />
-        <OuterWrapper>
-          <Wrapper>
-            <Navigation />
-            <ContentPane>
-              <LoginGate book={book}>
-                <Topbar />
-                <ContentNotifications mobileExpanded={mobileExpanded} />
-                <ContentWarning book={book} />
-                <Page>
-                  <PrevNextBar />
-                  <LabsCTA />
-                  <BuyBook book={book} />
-                </Page>
-              </LoginGate>
-              <Attribution />
-              <Footer />
-            </ContentPane>
-          </Wrapper>
-        </OuterWrapper>
-      </ConfirmationToastProvider>
-    </ErrorBoundary>
-  </Background>
-</Layout>;
-
-export default connect(
-  (state: AppState) => ({
-    mobileExpanded: mobileToolbarOpen(state),
-    book: bookSelector(state),
-  })
-)(Content);
+export default Content;

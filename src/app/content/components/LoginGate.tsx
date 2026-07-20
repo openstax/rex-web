@@ -4,45 +4,8 @@ import { hasOSWebData } from '../guards';
 import { ConnectedLoginButton } from '../../components/NavBar';
 import { user } from '../../auth/selectors';
 import { useSelector } from 'react-redux';
-import styled from 'styled-components/macro';
 import ModalWithScrollLock from '../../components/Modal';
-
-const Modal = styled(ModalWithScrollLock)`
-  width: 100vw;
-
-  > div:first-child > div {
-    width: auto;
-  }
-
-  header {
-    padding: 0.5rem 3rem;
-
-    > svg {
-      display: none;
-    }
-  }
-
-  > :last-child {
-    background-color: rgba(0, 0, 0, 0.8);
-  }
-`;
-
-const Centered = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 70vw;
-  height: 70vh;
-`;
-
-const Message = styled.div`
-  padding: 0.5rem 3rem;
-  max-width: 60rem;
-
-  a {
-    place-self: center;
-  }
-`;
+import './LoginGate.css';
 
 export default function LoginGate({
   book,
@@ -57,14 +20,17 @@ export default function LoginGate({
   return (
     <>
       {children}
-      <Modal heading='i18n:content-warning:heading:aria-label'>
-        <Centered>
-          <Message>
+      <ModalWithScrollLock
+        className="login-gate-modal"
+        heading='i18n:content-warning:heading:aria-label'
+      >
+        <div className="login-gate-centered">
+          <div className="login-gate-message">
             <span dangerouslySetInnerHTML={{__html: book.require_login_message_text}} />
             <ConnectedLoginButton />
-          </Message>
-        </Centered>
-      </Modal>
+          </div>
+        </div>
+      </ModalWithScrollLock>
     </>
   );
 }

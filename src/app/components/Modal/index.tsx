@@ -4,7 +4,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import * as Styled from './Modal';
 
 interface PropTypes {
-  onModalClose: () => void;
+  onModalClose?: () => void;
   heading: string;
   className?: string;
   closeButtonRef?: React.Ref<HTMLButtonElement>;
@@ -30,11 +30,13 @@ const Modal = ({
                 </Styled.Heading>
               )}
             </FormattedMessage>
-              <Styled.CloseModalIcon
-                ref={closeButtonRef}
-                onClick={onModalClose}
-                aria-label={intl.formatMessage({ id: 'i18n:modal:close' })}
-              />
+              {onModalClose && (
+                <Styled.CloseModalIcon
+                  ref={closeButtonRef}
+                  onClick={onModalClose}
+                  aria-label={intl.formatMessage({ id: 'i18n:modal:close' })}
+                />
+              )}
           </Styled.Header>
           {children}
         </Styled.Card>

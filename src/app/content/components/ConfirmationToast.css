@@ -1,0 +1,13 @@
+/*
+ * ConfirmationToast component styles
+ */
+
+/*
+ * ElevatedToastContainer - Elevated z-index for toast notifications
+ *
+ * Uses high specificity (.elevated-toast-container.elevated-toast-container.elevated-toast-container)
+ * to override ui-components default ToastContainer styles, similar to the &&& pattern in styled-components.
+ */
+.elevated-toast-container.elevated-toast-container.elevated-toast-container {
+  z-index: var(--elevated-toast-z-index);
+}

@@ -67,7 +67,7 @@ const KeyboardShortcutsPopup = () => {
   return isKeyboardShortcutsOpen ?
     <StyledModal
       ref={popUpRef}
-      tabIndex='-1'
+      tabIndex={-1}
       data-testid='keyboard-shortcuts-popup-wrapper'
       scrollLockProps={{
         mediumScreensOnly: false,

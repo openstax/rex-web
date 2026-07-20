@@ -39,6 +39,7 @@ import './errors/components/ErrorModal.css';
 import './notifications/components/ToastNotifications/ToastNotifications.css';
 import './content/highlights/components/ColorPicker.css';
 import './content/highlights/components/ColorIndicator.css';
+import './content/components/ConfirmationToast.css';
 
 export const actions = {
   app: appAactions,
