@@ -72,7 +72,10 @@ const DynamicContentStyles = React.forwardRef<HTMLElement, DynamicContentStylesP
   const [dataDynamicStyle, styles] = getStyles(disable, queryStyles, book, bookStylesUrl, archiveLoader);
 
   // Inject dynamic styles into a <style> tag
-  React.useEffect(() => {
+  // Use useLayoutEffect to inject styles synchronously before paint,
+  // preventing FOUC (Flash of Unstyled Content) and matching the
+  // synchronous behavior of the original createGlobalStyle approach.
+  React.useLayoutEffect(() => {
     if (!styles || typeof document === 'undefined') {
       return;
     }
