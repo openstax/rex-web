@@ -21,6 +21,7 @@ async def test_nursing_book_content_warning_logged_in(chrome_page, base_url):
     await nursing.click_nursing_content_warning_dialog_goto()
 
     # THEN: Content warning dialog opens with user already logged in
+    await nursing.nursing_material_warning_dialog.wait_for(state="visible")
     assert await nursing.nursing_material_warning_dialog.is_visible()
 
     await nursing.dismiss_nursing_material_warning_dialog()

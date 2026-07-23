@@ -17,10 +17,9 @@ class NursingBooks:
 
     @property
     def nursing_material_warning_dialog(self):
-        return self.page.locator(
-            "div",
-            has_text="This material is intended for",
-        ).nth(1)
+        return self.page.get_by_role("dialog").filter(
+            has_text="This material is intended for"
+        )
 
     @pytest.mark.asyncio
     async def dismiss_nursing_material_warning_dialog(self):
