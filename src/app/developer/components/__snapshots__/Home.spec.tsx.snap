@@ -107,6 +107,11 @@ Array [
   >
     <div
       className="developer-home-style"
+      style={
+        Object {
+          "--text-color": "#424242",
+        }
+      }
     >
       <h1
         className="typography-heading typography-h1"
