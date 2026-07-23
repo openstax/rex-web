@@ -355,7 +355,6 @@
 
 /* Figure styles */
 .page-content .os-figure,
-.page-content [data-dynamic-style="true"] .os-figure,
 .page-content .os-figure:last-child {
   margin-bottom: 5px; /* fix double scrollbar bug */
 }
