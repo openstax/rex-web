@@ -91,9 +91,9 @@ class HomeRex:
         await next_locator.scroll_into_view_if_needed()
         await next_locator.click()
 
-    @pytest.mark.asyncio
-    async def subject_listing_book_is_visible(self):
-        return await self.page.locator("a").get_by_text("Astronomy").is_visible()
+    @property
+    def subject_listing_book(self):
+        return self.page.locator("a").get_by_text("Astronomy")
 
     @pytest.mark.asyncio
     async def click_cookieyes_accept(self):
@@ -341,11 +341,9 @@ class HomeRex:
 
     # Error states and pages
 
-    @pytest.mark.asyncio
-    async def subjects_error_page_is_visible(self):
-        return (
-            await self.page.locator("h1").get_by_text("Subject not found").is_visible()
-        )
+    @property
+    def subjects_error_page(self):
+        return self.page.locator("h1").get_by_text("Subject not found")
 
     @pytest.mark.asyncio
     async def click_view_all_subjects_link(self):
