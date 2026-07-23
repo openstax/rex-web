@@ -11,34 +11,11 @@ import {
   toolbarIconColor,
   verticalNavbarMaxWidth,
 } from '../constants';
+import { ChevronLeftIcon } from '../ChevronIcons';
 
 interface IconProps extends React.SVGAttributes<SVGSVGElement> {
   className?: string;
 }
-
-/**
- * ChevronLeft icon for Toolbar component.
- * SVG path from Boxicons (https://boxicons.com - MIT License)
- *
- * Note: Wrapped with styled() to enable styled-components component selector references
- */
-function ChevronLeftIconBase({ className, ...props }: IconProps) {
-  return (
-    <svg
-      className={className}
-      viewBox="0 0 24 24"
-      aria-hidden="true"
-      {...props}
-    >
-      <path
-        fill="currentColor"
-        d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
-      />
-    </svg>
-  );
-}
-
-export const ChevronLeftIcon = styled(ChevronLeftIconBase)``;
 
 /**
  * Print icon for Toolbar component.
