@@ -108,7 +108,6 @@
   /* bodyCopyRegularStyle equivalent */
   color: var(--text-color, #424242);
   font-size: 1.6rem;
-  line-height: 2.5rem;
   padding: 0.5rem 1rem;
   font-weight: bold;
   background-color: var(--neutral-darker-color, #fafafa);

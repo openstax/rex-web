@@ -10,6 +10,45 @@ import { assertDefined } from '../utils/assertions';
 const cacheStyles = new Map<string, string>();
 
 /**
+ * Helper function to split selector list safely, respecting commas inside functional pseudos.
+ * Splits on commas that are not inside parentheses.
+ */
+const splitSelectors = (selector: string): string[] => {
+  const selectors: string[] = [];
+  let current = '';
+  let depth = 0;
+
+  for (let i = 0; i < selector.length; i++) {
+    const char = selector[i];
+
+    if (char === '(') {
+      depth++;
+      current += char;
+    } else if (char === ')') {
+      depth--;
+      current += char;
+    } else if (char === ',' && depth === 0) {
+      // Only split on commas outside of parentheses
+      const trimmed = current.trim();
+      if (trimmed) {
+        selectors.push(trimmed);
+      }
+      current = '';
+    } else {
+      current += char;
+    }
+  }
+
+  // Add the last selector
+  const trimmed = current.trim();
+  if (trimmed) {
+    selectors.push(trimmed);
+  }
+
+  return selectors;
+};
+
+/**
  * Transforms CSS by prefixing all selectors with a scope selector.
  * This replicates the behavior of styled-components' stylis preprocessor,
  * which would automatically scope nested CSS rules.
@@ -21,7 +60,10 @@ const cacheStyles = new Map<string, string>();
  * Handles:
  * - Simple selectors: .class, #id, element
  * - Complex selectors: .class1 .class2, .class1, .class2
+ * - Functional pseudos with commas: :not(.a, .b), :is(.a, .b), :has(.a, .b)
  * - At-rules: @media, @keyframes, @supports (scope is applied to rules inside)
+ * - Declaration at-rules: @font-face, @page, @property (copied as-is)
+ * - Vendor-prefixed keyframes: @-webkit-keyframes, @-moz-keyframes
  * - Pseudo-elements and pseudo-classes
  *
  * @internal Exported for testing purposes only
@@ -40,18 +82,34 @@ export const scopeCSS = (css: string, scope: string): string => {
 
     // Check for at-rules (@media, @keyframes, @supports, etc.)
     if (css[i] === '@') {
-      // Find the opening brace
+      // Find the opening brace or semicolon
       let atRule = '';
-      while (i < css.length && css[i] !== '{') {
+      while (i < css.length && css[i] !== '{' && css[i] !== ';') {
         atRule += css[i];
         i++;
       }
 
-      // Special handling for @keyframes - don't scope keyframe selectors
-      if (atRule.trim().startsWith('@keyframes')) {
+      const atRuleNormalized = atRule.trim().toLowerCase();
+
+      // Check if this is a keyframes rule (including vendor prefixes)
+      const isKeyframes = atRuleNormalized.startsWith('@keyframes') ||
+                          atRuleNormalized.startsWith('@-webkit-keyframes') ||
+                          atRuleNormalized.startsWith('@-moz-keyframes') ||
+                          atRuleNormalized.startsWith('@-o-keyframes') ||
+                          atRuleNormalized.startsWith('@-ms-keyframes');
+
+      // Check if this is a declaration-based at-rule (no selector scoping needed)
+      const isDeclarationRule = atRuleNormalized.startsWith('@font-face') ||
+                                atRuleNormalized.startsWith('@page') ||
+                                atRuleNormalized.startsWith('@property') ||
+                                atRuleNormalized.startsWith('@counter-style') ||
+                                atRuleNormalized.startsWith('@font-feature-values');
+
+      // Handle keyframes and declaration-based at-rules - don't scope their contents
+      if (isKeyframes || isDeclarationRule) {
         result += atRule;
-        // Copy the entire @keyframes block as-is
-        if (i < css.length) {
+        // Copy the entire block as-is
+        if (i < css.length && css[i] === '{') {
           result += css[i]; // opening brace
           i++;
           let braceCount = 1;
@@ -61,11 +119,15 @@ export const scopeCSS = (css: string, scope: string): string => {
             result += css[i];
             i++;
           }
+        } else if (i < css.length && css[i] === ';') {
+          // Some at-rules end with semicolon instead of block
+          result += css[i];
+          i++;
         }
         continue;
       }
 
-      // For other at-rules (@media, @supports), include the at-rule and recursively scope the contents
+      // For container at-rules (@media, @supports, @container, @layer), recursively scope the contents
       result += atRule;
       if (i < css.length && css[i] === '{') {
         result += css[i]; // opening brace
@@ -87,6 +149,10 @@ export const scopeCSS = (css: string, scope: string): string => {
           }
           i++;
         }
+      } else if (i < css.length && css[i] === ';') {
+        // Some at-rules end with semicolon
+        result += css[i];
+        i++;
       }
       continue;
     }
@@ -99,8 +165,8 @@ export const scopeCSS = (css: string, scope: string): string => {
     }
 
     if (selector.trim()) {
-      // Split multiple selectors (e.g., ".class1, .class2")
-      const selectors = selector.split(',').map((s) => s.trim()).filter((s) => s);
+      // Split multiple selectors safely, respecting commas inside functional pseudos
+      const selectors = splitSelectors(selector);
       const scopedSelectors = selectors.map((sel) => `${scope} ${sel}`);
       result += scopedSelectors.join(', ');
     }

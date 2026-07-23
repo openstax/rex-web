@@ -431,4 +431,89 @@ describe('scopeCSS', () => {
     expect(result).toContain('@media screen');
     expect(result).toBeDefined();
   });
+
+  it('handles @font-face without scoping (declaration-based at-rule)', () => {
+    // @font-face is a declaration-based at-rule that should not have its contents scoped
+    const css = '@font-face { font-family: "Custom"; src: url("font.woff2"); }';
+    const result = scopeCSS(css, scope);
+    expect(result).toContain('@font-face');
+    expect(result).toContain('font-family: "Custom"');
+    expect(result).toContain('src: url("font.woff2")');
+    // Should NOT add scope prefix inside @font-face
+    expect(result).not.toContain('[data-dynamic-style="true"]');
+  });
+
+  it('handles @page without scoping (declaration-based at-rule)', () => {
+    // @page is a declaration-based at-rule used for print styles
+    const css = '@page { margin: 1in; }';
+    const result = scopeCSS(css, scope);
+    expect(result).toContain('@page');
+    expect(result).toContain('margin: 1in');
+    // Should NOT add scope prefix inside @page
+    expect(result).not.toContain('[data-dynamic-style="true"]');
+  });
+
+  it('handles @property without scoping (declaration-based at-rule)', () => {
+    // @property is used to define custom CSS properties
+    const css = '@property --my-color { syntax: "<color>"; inherits: false; initial-value: #000; }';
+    const result = scopeCSS(css, scope);
+    expect(result).toContain('@property --my-color');
+    expect(result).toContain('syntax: "<color>"');
+    // Should NOT add scope prefix inside @property
+    expect(result).not.toContain('[data-dynamic-style="true"]');
+  });
+
+  it('handles vendor-prefixed @keyframes (e.g., @-webkit-keyframes)', () => {
+    // Vendor-prefixed keyframes should be treated like regular @keyframes
+    const css = '@-webkit-keyframes fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }';
+    const result = scopeCSS(css, scope);
+    expect(result).toContain('@-webkit-keyframes fadeIn');
+    expect(result).toContain('0%');
+    expect(result).toContain('100%');
+    expect(result).toContain('opacity: 0');
+    expect(result).toContain('opacity: 1');
+    // Keyframe selectors should NOT be scoped
+    expect(result).not.toContain('[data-dynamic-style="true"] 0%');
+    expect(result).not.toContain('[data-dynamic-style="true"] 100%');
+  });
+
+  it('handles selectors with :not() containing commas', () => {
+    // :not(.a, .b) should be treated as a single selector, not split on the comma
+    const css = '.button:not(.disabled, .loading) { color: blue; }';
+    const result = scopeCSS(css, scope);
+    expect(result).toContain('[data-dynamic-style="true"] .button:not(.disabled, .loading)');
+    expect(result).toContain('color: blue');
+    // Should NOT split on the comma inside :not()
+    expect(result).not.toContain('.disabled)');
+    expect(result).not.toContain('.loading)');
+  });
+
+  it('handles selectors with :is() containing commas', () => {
+    // :is(.a, .b) should be treated as a single selector, not split on the comma
+    const css = ':is(h1, h2, h3) { font-weight: bold; }';
+    const result = scopeCSS(css, scope);
+    expect(result).toContain('[data-dynamic-style="true"] :is(h1, h2, h3)');
+    expect(result).toContain('font-weight: bold');
+    // Should NOT split on commas inside :is()
+    expect(result).not.toContain('h2)');
+  });
+
+  it('handles selectors with :has() containing commas', () => {
+    // :has(.a, .b) should be treated as a single selector, not split on the comma
+    const css = '.container:has(> .child, > .other) { padding: 10px; }';
+    const result = scopeCSS(css, scope);
+    expect(result).toContain('[data-dynamic-style="true"] .container:has(> .child, > .other)');
+    expect(result).toContain('padding: 10px');
+    // Should NOT split on commas inside :has()
+    expect(result).not.toContain('.other)');
+  });
+
+  it('handles multiple selectors with functional pseudos containing commas', () => {
+    // Mix of regular selector splitting and functional pseudos with commas
+    const css = '.a:not(.x, .y), .b:is(.m, .n) { color: red; }';
+    const result = scopeCSS(css, scope);
+    expect(result).toContain('[data-dynamic-style="true"] .a:not(.x, .y)');
+    expect(result).toContain('[data-dynamic-style="true"] .b:is(.m, .n)');
+    expect(result).toContain('color: red');
+  });
 });
