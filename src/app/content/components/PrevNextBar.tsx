@@ -1,8 +1,9 @@
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { connect } from 'react-redux';
-import styled, { css } from 'styled-components/macro';
-import { decoratedLinkStyle, textRegularLineHeight, textRegularStyle } from '../../components/Typography';
+import { useSelector } from 'react-redux';
+import classNames from 'classnames';
+import { linkColor, linkHover } from '../../components/Typography/Links.constants';
+import { textRegularLineHeight } from '../../components/Typography';
 import * as navSelect from '../../navigation/selectors';
 import theme from '../../theme';
 import { AppState } from '../../types';
@@ -10,118 +11,37 @@ import * as select from '../selectors';
 import { ArchiveTreeSection, Book, ContentQueryParams } from '../types';
 import { contentTextWidth } from './constants';
 import ContentLink from './ContentLink';
-import { disablePrint } from './utils/disablePrint';
-
-interface IconProps extends React.SVGAttributes<SVGSVGElement> {
-  className?: string;
-}
-
-/**
- * ChevronLeft icon for PrevNextBar component.
- * SVG path from Boxicons (https://boxicons.com - MIT License)
- *
- * Note: Wrapped with styled() to enable styled-components component selector references
- */
-function ChevronLeftIconBase({ className, ...props }: IconProps) {
-  return (
-    <svg
-      className={className}
-      viewBox="0 0 24 24"
-      aria-hidden="true"
-      {...props}
-    >
-      <path
-        fill="currentColor"
-        d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
-      />
-    </svg>
-  );
-}
-
-export const ChevronLeftIcon = styled(ChevronLeftIconBase)``;
-
-/**
- * ChevronRight icon for PrevNextBar component.
- * SVG path from Boxicons (https://boxicons.com - MIT License)
- *
- * Note: Wrapped with styled() to enable styled-components component selector references
- */
-function ChevronRightIconBase({ className, ...props }: IconProps) {
-  return (
-    <svg
-      className={className}
-      viewBox="0 0 24 24"
-      aria-hidden="true"
-      {...props}
-    >
-      <path
-        fill="currentColor"
-        d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"
-      />
-    </svg>
-  );
-}
-
-export const ChevronRightIcon = styled(ChevronRightIconBase)``;
-
-const prevNextIconStyles = css`
-  height: ${textRegularLineHeight}rem;
-  width: ${textRegularLineHeight}rem;
-`;
-
-const LeftArrow = styled(ChevronLeftIcon)`
-  ${prevNextIconStyles}
-`;
-
-const RightArrow = styled(ChevronRightIcon)`
-  ${prevNextIconStyles}
-  margin-top: 0.1rem;
-`;
+import { disablePrintClass } from './utils/disablePrint';
+import { ChevronLeftIcon, ChevronRightIcon } from './ChevronIcons';
+import './PrevNextBar.css';
 
 interface HidingContentLinkProps {
   book?: Book;
   page?: ArchiveTreeSection;
   side: 'left' | 'right';
+  queryParams?: ContentQueryParams;
+  onClick?: () => void;
+  handleClick?: () => void;
+  'aria-label'?: string;
+  'data-analytics-label'?: string;
+  children?: React.ReactNode;
 }
-const HidingContentLinkComponent = ({page, book, side, ...props}: HidingContentLinkProps) =>
+
+const HidingContentLink = ({page, book, side, children, ...props}: HidingContentLinkProps) =>
   page !== undefined && book !== undefined
-    ? <ContentLink book={book} page={page} {...props} />
+    ? <ContentLink
+        book={book}
+        page={page}
+        className={classNames('prev-next-link', `side-${side}`)}
+        style={{
+          '--link-color': linkColor,
+          '--link-hover': linkHover,
+        } as React.CSSProperties}
+        {...props}
+      >
+        {children}
+      </ContentLink>
     : <span aria-hidden />;
-
-const HidingContentLink = styled(HidingContentLinkComponent)`
-  ${decoratedLinkStyle}
-  ${(props) => props.side === 'left' && theme.breakpoints.mobile(css`
-    margin-left: -0.8rem;
-  `)}
-  ${(props) => props.side === 'right' && theme.breakpoints.mobile(css`
-    margin-right: -0.8rem;
-  `)}
-`;
-
-const BarWrapper = styled.div`
-  ${disablePrint}
-  ${textRegularStyle}
-  overflow: visible;
-  width: 100%;
-  max-width: ${contentTextWidth}rem;
-  justify-content: space-between;
-  height: 4rem;
-  display: flex;
-  align-items: center;
-  margin: 5rem auto 3rem auto;
-  border-top: solid 0.1rem ${theme.color.neutral.darkest};
-  border-bottom: solid 0.1rem ${theme.color.neutral.darkest};
-
-  a {
-    border: none;
-    display: flex;
-  }
-
-  ${theme.breakpoints.mobile(css`
-    margin: 3.5rem auto 3rem auto;
-    border: 0;
-  `)}
-`;
 
 interface PropTypes {
   book?: Book;
@@ -136,6 +56,9 @@ interface PropTypes {
   };
 }
 
+/**
+ * PrevNextBar component - Navigation bar for previous/next page links
+ */
 export const PrevNextBar = ({book, prevNext, queryParams, ...props}: PropTypes) => {
   const { formatMessage } = useIntl();
 
@@ -143,43 +66,54 @@ export const PrevNextBar = ({book, prevNext, queryParams, ...props}: PropTypes) 
     return null;
   }
 
-  return <BarWrapper data-analytics-region='prev-next'>
-    <HidingContentLink side='left'
-      book={book}
-      page={prevNext.prev}
-      queryParams={queryParams}
-      onClick={props.onPrevious}
-      handleClick={props.handlePrevious}
-      aria-label={formatMessage({id: 'i18n:prevnext:prev:aria-label'})}
-      data-analytics-label='prev'
+  return (
+    <div
+      className={classNames('prev-next-bar-wrapper', disablePrintClass)}
+      data-analytics-region='prev-next'
+      style={{
+        '--text-color': theme.color.text.default,
+        '--text-regular-line-height': `${textRegularLineHeight}rem`,
+        '--content-text-width': `${contentTextWidth}rem`,
+        '--neutral-darkest': theme.color.neutral.darkest,
+      } as React.CSSProperties}
     >
-      <LeftArrow />
-      <FormattedMessage id='i18n:prevnext:prev:text'>
-        {(msg) => msg}
-      </FormattedMessage>
-    </HidingContentLink>
+      <HidingContentLink side='left'
+        book={book}
+        page={prevNext.prev}
+        queryParams={queryParams}
+        onClick={props.onPrevious}
+        handleClick={props.handlePrevious}
+        aria-label={formatMessage({id: 'i18n:prevnext:prev:aria-label'})}
+        data-analytics-label='prev'
+      >
+        <ChevronLeftIcon className={classNames('prev-next-icon', 'left-arrow')} />
+        <FormattedMessage id='i18n:prevnext:prev:text'>
+          {(msg) => msg}
+        </FormattedMessage>
+      </HidingContentLink>
 
-    <HidingContentLink side='right'
-      book={book}
-      page={prevNext.next}
-      queryParams={queryParams}
-      onClick={props.onNext}
-      handleClick={props.handleNext}
-      aria-label={formatMessage({id: 'i18n:prevnext:next:aria-label'})}
-      data-analytics-label='next'
-    >
-      <FormattedMessage id='i18n:prevnext:next:text'>
-        {(msg) => msg}
-      </FormattedMessage>
-      <RightArrow />
-    </HidingContentLink>
-  </BarWrapper>;
+      <HidingContentLink side='right'
+        book={book}
+        page={prevNext.next}
+        queryParams={queryParams}
+        onClick={props.onNext}
+        handleClick={props.handleNext}
+        aria-label={formatMessage({id: 'i18n:prevnext:next:aria-label'})}
+        data-analytics-label='next'
+      >
+        <FormattedMessage id='i18n:prevnext:next:text'>
+          {(msg) => msg}
+        </FormattedMessage>
+        <ChevronRightIcon className={classNames('prev-next-icon', 'right-arrow')} />
+      </HidingContentLink>
+    </div>
+  );
 };
 
-export default connect(
-  (state: AppState) => ({
-    book: select.book(state),
-    prevNext: select.prevNextPage(state),
-    queryParams: navSelect.persistentQueryParameters(state),
-  })
-)(PrevNextBar);
+export default function ConnectedPrevNextBar() {
+  const book = useSelector((state: AppState) => select.book(state));
+  const prevNext = useSelector((state: AppState) => select.prevNextPage(state));
+  const queryParams = useSelector((state: AppState) => navSelect.persistentQueryParameters(state));
+
+  return <PrevNextBar book={book} prevNext={prevNext} queryParams={queryParams} />;
+}
