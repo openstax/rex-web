@@ -11,7 +11,7 @@ import sys
 )
 @pytest.mark.asyncio
 async def test_accessibility_help(chrome_page_unlogged, base_url, book_slug, page_slug):
-    # Verifies the hidden 'Go to accessibility page'
+    # Verifies the hidden 'Go to accessibility page' link
 
     # GIVEN: Open osweb book details page
 
