@@ -8,7 +8,7 @@ import { setBookStylesUrl } from '../content/actions';
 import { State } from '../content/types';
 import { locationChange } from '../navigation/actions';
 import type { HTMLStyleElement } from '@openstax/types/lib.dom';
-import DynamicContentStyles from './DynamicContentStyles';
+import DynamicContentStyles, { scopeCSS } from './DynamicContentStyles';
 
 describe('DynamicContentStyles', () => {
   let Component: (props: { book: State['book'], disable?: boolean }) => JSX.Element;
@@ -72,10 +72,11 @@ describe('DynamicContentStyles', () => {
     expect(spyFetch).toHaveBeenCalledTimes(1);
     expect(spyFetch).toHaveBeenCalledWith('file.css');
 
-    // Check that the style element was injected with the correct styles
+    // Check that the style element was injected with the correct transformed styles
+    // The CSS should be scoped with flat selectors, not nested CSS
     const injectedStyles = getInjectedStyles();
-    expect(injectedStyles).toContain('.cool { color: red; }');
-    expect(injectedStyles).toContain('[data-dynamic-style="true"]');
+    expect(injectedStyles).toContain('[data-dynamic-style="true"] .cool');
+    expect(injectedStyles).toContain('color: red');
 
     await renderer.act(async() => {
       store.dispatch(locationChange({ location: { search: 'content-style=file2.css' } } as any));
@@ -100,10 +101,10 @@ describe('DynamicContentStyles', () => {
 
     await runHooksAsync(renderer);
 
-    // Check that the style element was injected with the correct cached styles
+    // Check that the style element was injected with the correct transformed cached styles
     const injectedStyles = getInjectedStyles();
-    expect(injectedStyles).toContain('.cool { color: blue; }');
-    expect(injectedStyles).toContain('[data-dynamic-style="true"]');
+    expect(injectedStyles).toContain('[data-dynamic-style="true"] .cool');
+    expect(injectedStyles).toContain('color: blue');
   });
 
   it('does not set styles but sets data-dynamic-style if bookStylesUrl is not cached', async() => {
@@ -155,10 +156,11 @@ describe('DynamicContentStyles', () => {
 
     await runHooksAsync(renderer);
 
-    // Verify style element was injected
+    // Verify style element was injected with transformed CSS
     let styleElement = getInjectedStyleElement();
     expect(styleElement).not.toBeNull();
-    expect(getInjectedStyles()).toContain('.cool { color: red; }');
+    expect(getInjectedStyles()).toContain('[data-dynamic-style="true"] .cool');
+    expect(getInjectedStyles()).toContain('color: red');
 
     // Unmount the component to trigger cleanup
     renderer.act(() => {
@@ -179,10 +181,11 @@ describe('DynamicContentStyles', () => {
 
     await runHooksAsync(renderer);
 
-    // Verify initial style element was injected
+    // Verify initial style element was injected with transformed CSS
     let styleElement = getInjectedStyleElement();
     expect(styleElement).not.toBeNull();
-    expect(getInjectedStyles()).toContain('.cool { color: blue; }');
+    expect(getInjectedStyles()).toContain('[data-dynamic-style="true"] .cool');
+    expect(getInjectedStyles()).toContain('color: blue');
 
     // Change to a different style URL to trigger cleanup and re-injection
     await renderer.act(async() => {
@@ -195,9 +198,10 @@ describe('DynamicContentStyles', () => {
     styleElement = getInjectedStyleElement();
     expect(styleElement).not.toBeNull();
     const styles = getInjectedStyles();
-    expect(styles).toContain('.cool { color: red; }');
+    expect(styles).toContain('[data-dynamic-style="true"] .cool');
+    expect(styles).toContain('color: red');
     // The old blue style should not be present
-    expect(styles).not.toContain('.cool { color: blue; }');
+    expect(styles).not.toContain('color: blue');
   });
 
   it('reuses existing global store when multiple components mount', async() => {
@@ -270,10 +274,11 @@ describe('DynamicContentStyles', () => {
 
     await runHooksAsync(renderer);
 
-    // Should have recreated the style element
+    // Should have recreated the style element with transformed CSS
     styleElement = getInjectedStyleElement();
     expect(styleElement).not.toBeNull();
-    expect(getInjectedStyles()).toContain('.different { color: green; }');
+    expect(getInjectedStyles()).toContain('[data-dynamic-style="true"] .different');
+    expect(getInjectedStyles()).toContain('color: green');
   });
 
   it('does not remove style element when count is still positive', async() => {
@@ -312,5 +317,118 @@ describe('DynamicContentStyles', () => {
     // Now style element should be removed
     styleElement = getInjectedStyleElement();
     expect(styleElement).toBeNull();
+  });
+});
+
+describe('scopeCSS', () => {
+  const scope = '[data-dynamic-style="true"]';
+
+  it('handles CSS with leading whitespace (covers line 34)', () => {
+    // This test exercises the while loop body that skips whitespace
+    const css = '  \n\t  .cool { color: red; }';
+    const result = scopeCSS(css, scope);
+    expect(result).toContain('[data-dynamic-style="true"] .cool');
+    expect(result).toContain('color: red');
+  });
+
+  it('handles @media at-rules (covers line 40 - at-rule branch)', () => {
+    // This test exercises the if statement at line 40 when it's true (at-rule detected)
+    const css = '@media (min-width: 768px) { .cool { color: blue; } }';
+    const result = scopeCSS(css, scope);
+    expect(result).toContain('@media (min-width: 768px)');
+    expect(result).toContain('[data-dynamic-style="true"] .cool');
+    expect(result).toContain('color: blue');
+  });
+
+  it('handles @keyframes at-rules without scoping keyframe selectors (covers line 40 @keyframes branch)', () => {
+    // This test exercises the special @keyframes handling that preserves the block as-is
+    const css = '@keyframes fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }';
+    const result = scopeCSS(css, scope);
+    expect(result).toContain('@keyframes fadeIn');
+    expect(result).toContain('0%');
+    expect(result).toContain('100%');
+    expect(result).toContain('opacity: 0');
+    expect(result).toContain('opacity: 1');
+    // Keyframe selectors should NOT be scoped
+    expect(result).not.toContain('[data-dynamic-style="true"] 0%');
+    expect(result).not.toContain('[data-dynamic-style="true"] 100%');
+  });
+
+  it('handles @supports at-rules (covers line 40 - other at-rules branch)', () => {
+    // This test exercises the recursive scoping for at-rules like @supports
+    const css = '@supports (display: grid) { .grid { display: grid; } }';
+    const result = scopeCSS(css, scope);
+    expect(result).toContain('@supports (display: grid)');
+    expect(result).toContain('[data-dynamic-style="true"] .grid');
+    expect(result).toContain('display: grid');
+  });
+
+  it('handles empty selector gracefully (covers line 99 else branch)', () => {
+    // This test exercises the else branch when selector.trim() is falsy
+    const css = '   { color: red; }';  // Empty selector before opening brace
+    const result = scopeCSS(css, scope);
+    // Should handle gracefully without crashing
+    expect(result).toBeDefined();
+  });
+
+  it('handles malformed CSS with missing opening brace (covers line 107 else branch)', () => {
+    // This test exercises the else branch when there's no opening brace after a selector
+    const css = '.cool';  // Selector without opening brace
+    const result = scopeCSS(css, scope);
+    // Should handle gracefully - the function should not crash
+    expect(result).toContain('[data-dynamic-style="true"] .cool');
+  });
+
+  it('handles nested braces in rule body (covers line 112 - brace increment)', () => {
+    // This test exercises the if statement at line 112 that increments braceCount
+    // This happens with CSS that contains nested braces (unusual but possible in some contexts)
+    const css = '.cool { content: "{"; color: red; }';
+    const result = scopeCSS(css, scope);
+    expect(result).toContain('[data-dynamic-style="true"] .cool');
+    expect(result).toContain('content: "{"');
+    expect(result).toContain('color: red');
+  });
+
+  it('handles complex nested at-rules with multiple levels (covers nested brace counting)', () => {
+    // This test exercises complex nesting with multiple brace levels
+    const css = '@media screen { @supports (display: flex) { .flex { display: flex; } } }';
+    const result = scopeCSS(css, scope);
+    expect(result).toContain('@media screen');
+    expect(result).toContain('@supports (display: flex)');
+    expect(result).toContain('[data-dynamic-style="true"] .flex');
+    expect(result).toContain('display: flex');
+  });
+
+  it('handles multiple selectors separated by commas', () => {
+    const css = '.class1, .class2 { color: red; }';
+    const result = scopeCSS(css, scope);
+    expect(result).toContain('[data-dynamic-style="true"] .class1, [data-dynamic-style="true"] .class2');
+    expect(result).toContain('color: red');
+  });
+
+  it('preserves whitespace structure while transforming selectors', () => {
+    const css = '\n.cool {\n  color: red;\n  font-size: 14px;\n}\n';
+    const result = scopeCSS(css, scope);
+    expect(result).toContain('[data-dynamic-style="true"] .cool');
+    expect(result).toContain('color: red');
+    expect(result).toContain('font-size: 14px');
+  });
+
+  it('handles @keyframes without opening brace (covers line 54 else branch)', () => {
+    // This test exercises the else branch at line 54 when @keyframes is at end of CSS without opening brace
+    const css = '@keyframes fadeIn';  // @keyframes declaration without opening brace
+    const result = scopeCSS(css, scope);
+    // Should handle gracefully without crashing
+    expect(result).toContain('@keyframes fadeIn');
+    expect(result).toBeDefined();
+  });
+
+  it('handles at-rule without opening brace (covers line 70 else branch)', () => {
+    // This test exercises the else branch at line 70 when at-rule has no opening brace
+    const css = '@media screen';  // @media declaration without opening brace
+    const result = scopeCSS(css, scope);
+    // Should handle gracefully - function should not crash
+    expect(result).toContain('@media screen');
+    expect(result).toBeDefined();
   });
 });
