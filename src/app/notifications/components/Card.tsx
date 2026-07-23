@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import theme from '../../theme';
-import './Card.css';
+/* CSS imported in src/app/notifications/index.ts */
 
 interface GroupProps extends React.HTMLAttributes<HTMLDivElement> {
   theme?: unknown;
