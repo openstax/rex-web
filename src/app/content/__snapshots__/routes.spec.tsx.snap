@@ -1,18 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`assigned route route renders renders a component 1`] = `
-.c3 {
+.c0 {
   overflow: visible;
   position: relative;
 }
 
-.c4 {
+.c1 {
   position: relative;
   border-left: 0.1rem solid transparent;
   border-right: 0.1rem solid transparent;
 }
 
-.c4 > div {
+.c1 > div {
   padding: 2rem 2.4rem;
   outline: none;
   color: #424242;
@@ -35,222 +35,15 @@ exports[`assigned route route renders renders a component 1`] = `
   justify-content: flex-end;
 }
 
-.c1 {
-  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.14);
-  background-color: #fff;
-  color: #424242;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  height: 5rem;
-}
-
-.c1.c1 {
-  top: 0;
-}
-
-.c12 {
-  height: 1.7rem;
-  width: 1.7rem;
-}
-
-.c15 {
-  height: 1.7rem;
-  width: 1.7rem;
-}
-
-.c8 {
-  list-style: none;
-  cursor: pointer;
-}
-
-.c8::before {
-  display: none;
-}
-
-.c8::-moz-list-bullet {
-  list-style-type: none;
-}
-
-.c8::-webkit-details-marker {
-  display: none;
-}
-
-.c2 {
-  font-size: 1.8rem;
-  line-height: 2.1rem;
-  -webkit-letter-spacing: 0.03px;
-  -moz-letter-spacing: 0.03px;
-  -ms-letter-spacing: 0.03px;
-  letter-spacing: 0.03px;
-  margin-left: 1.6rem;
-}
-
-.c13 {
-  margin-left: -0.3rem;
-}
-
-.c16 {
-  margin-left: -0.3rem;
-}
-
-.c10 {
-  font-weight: 500;
-  list-style: none;
-}
-
-.c10,
-.c10 span {
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c10 a,
-.c10 span a {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c10 a:hover,
-.c10 span a:hover {
-  color: #0064A0;
-}
-
-.c10:hover,
-.c10 span:hover,
-.c10:focus,
-.c10 span:focus {
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-  color: #0064A0;
-}
-
-.c17 blockquote {
-  margin-left: 0;
-}
-
-.c6 {
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
-  margin: 3rem 0 0 0;
-  min-height: 6rem;
-  padding: 0 3.2rem;
-  padding-top: 1.8rem;
-}
-
-.c6[open] > summary .c11 {
-  display: none;
-}
-
-.c6:not([open]) > summary .c14 {
-  display: none;
-}
-
-.c6 a {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c6 a:hover {
-  color: #0064A0;
-}
-
-.c6 > .c9 {
-  margin-bottom: 1.8rem;
-}
-
-.c6 li {
-  margin-bottom: 1rem;
-  overflow: visible;
-}
-
-.c5 {
-  top: 5rem;
-  left: 0;
-  max-width: 100%;
-}
-
-.c0 [data-platform-hidden="assignable"] {
-  display: none;
-}
-
 @media screen and (max-width:75em) {
-  .c4 > div {
+  .c1 > div {
     padding: 1rem 1.6rem;
   }
 }
 
-@media screen and (max-width:50em) {
-  .c1 {
-    height: 5.3rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c2 {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-}
-
-@media screen {
-  .c10 {
-    max-width: 82.5rem;
-    margin: 0 auto;
-  }
-}
-
-@media screen {
-  .c17 {
-    max-width: 82.5rem;
-    margin: 0 auto;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c6 {
-    padding: 0 1.6rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c6 {
-    min-height: 4rem;
-    padding-top: 0.8rem;
-  }
-
-  .c6 > .c7 {
-    margin-bottom: 0.8rem;
-  }
-}
-
-@media print {
-  .c6 {
-    display: none;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c5 {
-    top: 5.300000000000001rem;
-  }
-}
-
 <div
-  className="c0"
+  className="platform-wrapper"
+  data-platform="assignable"
 >
   <a
     className="hidden-but-accessible hidden-link"
@@ -291,9 +84,13 @@ exports[`assigned route route renders renders a component 1`] = `
     Keyboard shortcuts menu
   </button>
   <div
-    className="topbar-wrapper c1"
+    className="topbar-wrapper assigned-topbar-wrapper"
     style={
       Object {
+        "--assigned-topbar-bg-color": "#fff",
+        "--assigned-topbar-height-desktop": "5rem",
+        "--assigned-topbar-height-mobile": "5.3rem",
+        "--assigned-topbar-text-color": "#424242",
         "--topbar-sticky-top-desktop": "7rem",
         "--topbar-sticky-top-mobile": "6rem",
         "--topbar-z-index": 30,
@@ -302,7 +99,7 @@ exports[`assigned route route renders renders a component 1`] = `
     }
   >
     <h2
-      className="c2"
+      className="assigned-topbar-section-title"
       dangerouslySetInnerHTML={
         Object {
           "__html": "<span class=\\"os-text\\">Test Page 1</span>",
@@ -310,14 +107,14 @@ exports[`assigned route route renders renders a component 1`] = `
       }
     />
     <div
-      className="c3 topbar-text-resizer-dropdown"
+      className="c0 topbar-text-resizer-dropdown"
       data-testid="text-resizer"
     >
       <button
         aria-controls="text-resizer-menu"
         aria-expanded={false}
         aria-label="Change text size"
-        className="plain-button c4 dropdown-toggle "
+        className="plain-button c1 dropdown-toggle "
         data-analytics-label="Change text size"
         onClick={[Function]}
       >
@@ -344,14 +141,16 @@ exports[`assigned route route renders renders a component 1`] = `
   >
     <div
       aria-live="polite"
-      className="page-toast-container c5"
+      className="page-toast-container assigned-toast-override"
       style={
         Object {
+          "--assigned-mobile-top": "5.300000000000001rem",
           "--content-wrapper-max-width": "128rem",
           "--desktop-search-failure-top": "12rem",
           "--mobile-search-failure-top": "11.3rem",
           "--toast-z-index-desktop": 19,
           "--toast-z-index-mobile": 21,
+          "--topbar-desktop-height": "5rem",
           "--vertical-navbar-max-width": "8rem",
         }
       }
@@ -398,17 +197,32 @@ exports[`assigned route route renders renders a component 1`] = `
     </div>
   </div>
   <details
-    className="c6"
+    className="attribution-details"
     data-analytics-region="attribution"
     data-testid="attribution-details"
+    style={
+      Object {
+        "--attribution-text-color": "#424242",
+        "--content-text-width": "82.5rem",
+        "--link-color": "#027EB5",
+        "--link-hover": "#0064A0",
+      }
+    }
   >
     <summary
       aria-label="Citation/Attribution"
-      className="c7 c8 c9 c10"
+      className="attribution-summary"
+      style={
+        Object {
+          "--attribution-text-color": "#424242",
+          "--link-color": "#027EB5",
+          "--link-hover": "#0064A0",
+        }
+      }
     >
       <svg
         aria-hidden="true"
-        className="details-expand-icon c11 c12 c13"
+        className="details-expand-icon attribution-summary-icon attribution-expand-icon"
         viewBox="0 0 192 512"
       >
         <path
@@ -418,7 +232,7 @@ exports[`assigned route route renders renders a component 1`] = `
       </svg>
       <svg
         aria-hidden="true"
-        className="details-collapse-icon c14 c15 c16"
+        className="details-collapse-icon attribution-summary-icon attribution-collapse-icon"
         viewBox="0 0 320 512"
       >
         <path
@@ -434,7 +248,7 @@ exports[`assigned route route renders renders a component 1`] = `
       </span>
     </summary>
     <div
-      className="c17"
+      className="attribution-content"
       dangerouslySetInnerHTML={
         Object {
           "__html": "
@@ -502,6 +316,11 @@ exports[`assigned route route renders renders a component 1`] = `
   consent of Rice University.</strong>
 </p>
 ",
+        }
+      }
+      style={
+        Object {
+          "--content-text-width": "82.5rem",
         }
       }
     />

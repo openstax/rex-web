@@ -45,7 +45,7 @@
   flex: 1;
 }
 
-.labs-call-header .labs-call-column {
+.labs-call-header .labs-call-column:not(:last-child) {
   margin-right: 1.4rem;
 }
 

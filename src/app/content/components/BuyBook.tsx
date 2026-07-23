@@ -1,36 +1,12 @@
+import classNames from 'classnames';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import styled from 'styled-components/macro';
-import { textRegularSize } from '../../components/Typography';
 import theme from '../../theme';
 import { contentTextWidth } from './constants';
-import { disablePrint } from './utils/disablePrint';
+import { disablePrintClass } from './utils/disablePrint';
 import { setUtmCampaign } from '../utils/urlUtils';
 import { Book, BookWithOSWebData } from '../types';
-
-const BuyBookAlignment = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  margin: 0 auto;
-  max-width: ${contentTextWidth}rem;
-  overflow: visible;
-  ${disablePrint}
-`;
-
-const BuyBookLink = styled.a`
-  ${textRegularSize};
-  font-size: 1.6rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  height: 5rem;
-  width: 19rem;
-  color: ${theme.color.primary.orange.base};
-  border: solid 0.1rem;
-  font-weight: 700;
-`;
+import './BuyBook.css';
 
 const BuyBook = ({book}: {book: Book}) => {
   const bookWithOSwebData = book as BookWithOSWebData;
@@ -38,18 +14,29 @@ const BuyBook = ({book}: {book: Book}) => {
   if (!bookWithOSwebData.amazon_link) {
     return null;
   }
-  return <BuyBookAlignment>
-    <BuyBookLink
-      target='_blank'
-      rel='noopener'
-      href={setUtmCampaign(bookWithOSwebData.amazon_link, 'rex-page')}
-      data-analytics-label='buy-book'
+  return (
+    <div
+      className={classNames('buy-book-alignment', disablePrintClass)}
+      style={{
+        '--buy-book-max-width': `${contentTextWidth}rem`,
+      } as React.CSSProperties}
     >
-      <FormattedMessage id='i18n:toolbar:buy-book:text'>
-        {(msg) => msg}
-      </FormattedMessage>
-    </BuyBookLink>
-  </BuyBookAlignment>;
+      <a
+        className="buy-book-link"
+        target='_blank'
+        rel='noopener noreferrer'
+        href={setUtmCampaign(bookWithOSwebData.amazon_link, 'rex-page')}
+        data-analytics-label='buy-book'
+        style={{
+          '--buy-book-color': theme.color.primary.orange.base,
+        } as React.CSSProperties}
+      >
+        <FormattedMessage id='i18n:toolbar:buy-book:text'>
+          {(msg) => msg}
+        </FormattedMessage>
+      </a>
+    </div>
+  );
 };
 
 export default BuyBook;
