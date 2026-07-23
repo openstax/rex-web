@@ -51,6 +51,7 @@ async def test_nursing_book_content_warning_signup(chrome_page_unlogged, base_ur
     await nursing.click_nursing_content_warning_dialog_goto()
 
     # THEN: Content warning dialog opens and user can sign up
+    await nursing.nursing_material_warning_dialog.wait_for(state="visible")
     assert await nursing.nursing_material_warning_dialog.is_visible()
 
     if await nursing.nursing_content_warning_dialog_login.is_visible():
@@ -82,6 +83,7 @@ async def test_nursing_book_content_warning_login(
     await nursing.click_nursing_content_warning_dialog_goto()
 
     # THEN: Content warning dialog opens and user can log in
+    await nursing.nursing_material_warning_dialog.wait_for(state="visible")
     assert await nursing.nursing_material_warning_dialog.is_visible()
 
     if await nursing.nursing_content_warning_dialog_login.is_visible():
