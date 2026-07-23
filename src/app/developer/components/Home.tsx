@@ -7,13 +7,16 @@ import Books from './Books';
 import Notifications from './Notifications';
 import Routes from './Routes';
 import './Home.css';
+import theme from '../../theme';
 
 function Home() {
   return (
     <Layout>
       <DisplayNotifications />
       <LayoutBody className="developer-home-wrapper">
-        <div className="developer-home-style">
+        <div className="developer-home-style" style={{
+          '--text-color': theme.color.text.default,
+        } as React.CSSProperties}>
           <H1>REX Developer Homepage</H1>
           <div className="developer-home-row">
             <div className="developer-home-col">
