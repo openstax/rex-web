@@ -1,0 +1,111 @@
+/**
+ * SectionHighlights component styles
+ *
+ * Migrated from styled-components to plain CSS following patterns in
+ * PLAIN_CSS_MIGRATION_LEARNINGS.md
+ */
+
+.highlights-chapter-wrapper {
+  display: flex;
+  align-items: center;
+  min-height: 5.6rem;
+  padding: 0 var(--popup-padding, 3.2rem);
+}
+
+@media screen and (max-width: 75em) {
+  .highlights-chapter-wrapper {
+    padding: 0 var(--mobile-padding-sides, 1.6rem);
+  }
+}
+
+.highlights-chapter {
+  /* h4 styles - font-size: 1.8rem, line-height: 2.5rem on desktop; 1.6rem/2rem on mobile */
+  color: var(--text-color, #424242);
+  font-size: 1.8rem;
+  line-height: 2.5rem;
+  letter-spacing: -0.02rem;
+  padding: 1rem 0 1rem 0;
+  margin: 0;
+  font-weight: bold;
+  display: flex;
+  align-items: baseline;
+  width: 100%;
+}
+
+@media screen and (max-width: 75em) {
+  .highlights-chapter {
+    font-size: 1.6rem;
+    line-height: 2rem;
+  }
+}
+
+.highlights-chapter .os-number {
+  overflow: visible;
+}
+
+.highlights-chapter > .os-text {
+  white-space: break-spaces;
+}
+
+@media print {
+  .highlights-chapter {
+    padding: 0;
+    background: white;
+  }
+}
+
+.highlight-wrapper {
+  margin: var(--desktop-vertical-margin, 1.6rem) var(--desktop-horizontal-margin, 3.2rem);
+  border: solid 0.1rem var(--neutral-darkest, #e5e5e5);
+  overflow: visible;
+}
+
+@media screen and (max-width: 75em) {
+  .highlight-wrapper {
+    margin: 0 0 calc(var(--mobile-margin-sides, 0.8rem) * 2) 0;
+  }
+}
+
+@media print {
+  .highlight-wrapper {
+    margin: 0;
+    border-width: 0;
+  }
+}
+
+.highlight-section {
+  /* label styles - font-size: 1.4rem, line-height: 1.6rem */
+  color: var(--text-color, #424242);
+  font-size: 1.4rem;
+  line-height: 1.6rem;
+  font-weight: bold;
+  padding: 0 var(--popup-body-padding, 2.4rem) 0 var(--popup-padding, 3.2rem);
+  background: var(--neutral-darkest, #e5e5e5);
+  height: 3.2rem;
+  display: flex;
+  align-items: center;
+}
+
+.highlight-section > .os-number,
+.highlight-section > .os-divider,
+.highlight-section > .os-text {
+  overflow: hidden;
+}
+
+.highlight-section > .os-number,
+.highlight-section > .os-divider {
+  flex-shrink: 0;
+}
+
+.highlight-section > .os-text {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+@media print {
+  .highlight-section {
+    break-after: avoid;
+    break-inside: avoid;
+    background: white;
+  }
+}
