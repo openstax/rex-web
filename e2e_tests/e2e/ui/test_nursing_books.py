@@ -96,12 +96,15 @@ async def test_nursing_book_content_warning_login(
 
         await chrome_page_unlogged.keyboard.press("Escape")
 
+        await nursing.nursing_material_warning_dialog.wait_for(state="visible")
         assert await nursing.nursing_material_warning_dialog.is_visible()
 
+        await chrome_page_unlogged.wait_for_load_state("domcontentloaded")
+
+        assert await nursing.nursing_material_warning_dialog.is_visible()
         await nursing.dismiss_nursing_material_warning_dialog()
 
         await home.click_logged_in_user_dropdown()
-
         await home.logout_link_is_visible()
 
         assert (
