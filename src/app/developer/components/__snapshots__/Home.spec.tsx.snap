@@ -91,89 +91,13 @@ Array [
   >
     
   </div>,
-  .c6 {
+  .c0 {
   overflow: visible;
   position: relative;
 }
 
-.c4 {
-  padding: 1rem;
-}
-
-.c5 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  overflow: visible;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-}
-
-.c5 h3 {
-  padding-bottom: 0;
-}
-
-.c5 small {
-  margin-top: -0.2rem;
-  color: #ccc;
-}
-
-.c1 {
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  max-width: 128rem;
-  margin: 0 auto;
-  padding: 2rem 0;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-}
-
-.c2 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-}
-
-.c3 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-}
-
-.c0 {
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-}
-
 <div
-    className="layout-body c0"
+    className="layout-body developer-home-wrapper"
     style={
       Object {
         "--layout-padding-desktop": "3.2rem",
@@ -182,7 +106,12 @@ Array [
     }
   >
     <div
-      className="c1"
+      className="developer-home-style"
+      style={
+        Object {
+          "--text-color": "#424242",
+        }
+      }
     >
       <h1
         className="typography-heading typography-h1"
@@ -195,10 +124,10 @@ Array [
         REX Developer Homepage
       </h1>
       <div
-        className="c2"
+        className="developer-home-row"
       >
         <div
-          className="c3"
+          className="developer-home-col"
         >
           <div>
             <h2
@@ -212,7 +141,7 @@ Array [
               Notifications
             </h2>
             <div
-              className="c4"
+              className="developer-panel-wrapper"
             >
               <div
                 className="button-group button-group-vertical"
@@ -352,7 +281,7 @@ Array [
               Routes
             </h2>
             <div
-              className="c4"
+              className="developer-panel-wrapper"
             >
               <div>
                 <h3
@@ -497,7 +426,7 @@ Array [
           </div>
         </div>
         <div
-          className="c3"
+          className="developer-home-col"
         >
           <div>
             <h2
@@ -511,7 +440,7 @@ Array [
               Books
             </h2>
             <div
-              className="c4"
+              className="developer-panel-wrapper"
             >
               <ul
                 style={
@@ -521,7 +450,7 @@ Array [
                 }
               >
                 <li
-                  className="c5"
+                  className="developer-book-li"
                 >
                   <div>
                     <h3
@@ -546,7 +475,7 @@ Array [
                     </small>
                   </div>
                   <div
-                    className="c6 dot-menu-dropdown"
+                    className="c0 dot-menu-dropdown"
                   >
                     <button
                       aria-expanded={false}
@@ -574,7 +503,7 @@ Array [
                   </div>
                 </li>
                 <li
-                  className="c5"
+                  className="developer-book-li"
                 >
                   <div>
                     <h3
@@ -599,7 +528,7 @@ Array [
                     </small>
                   </div>
                   <div
-                    className="c6 dot-menu-dropdown"
+                    className="c0 dot-menu-dropdown"
                   >
                     <button
                       aria-expanded={false}
