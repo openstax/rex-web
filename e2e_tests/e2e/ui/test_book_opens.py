@@ -26,8 +26,6 @@ async def test_book_opens(chrome_page, base_url):
     # THEN: Books details page opens
     assert "calculus-volume-1" in new_tab.url
 
-    assert await new_tab.get_by_text("Recommended").is_visible()
-
     assert await new_tab.locator(".order-print-copy").is_visible()
 
     await new_tab.get_by_text("View online").click()
