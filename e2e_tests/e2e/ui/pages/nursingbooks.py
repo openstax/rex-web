@@ -1,4 +1,5 @@
 import pytest
+import re
 
 
 class NursingBooks:
@@ -17,14 +18,14 @@ class NursingBooks:
 
     @property
     def nursing_material_warning_dialog(self):
-        return self.page.locator(
-            "div",
-            has_text="This material is intended for",
-        ).nth(1)
+        return self.page.locator("[class*='ContentWarning']").filter(
+            has_text=re.compile(r"^This material is intended for", re.IGNORECASE)
+        )
 
-    @pytest.mark.asyncio
     async def dismiss_nursing_material_warning_dialog(self):
-        await self.page.get_by_role("button", name="Ok").click()
+        await self.nursing_material_warning_dialog.get_by_role(
+            "button", name="Ok"
+        ).click()
 
     @pytest.mark.asyncio
     async def click_nursing_content_warning_dialog_create(self):
@@ -48,6 +49,7 @@ class NursingBooks:
         await maternal_view.scroll_into_view_if_needed()
         await maternal_view.click()
 
-    @pytest.mark.asyncio
     async def click_nursing_content_warning_dialog_goto(self):
-        await self.page.get_by_role("link", name="Go to your book").click()
+        link = self.page.get_by_role("link", name="Go to your book")
+        await link.wait_for(state="visible")
+        await link.click()
