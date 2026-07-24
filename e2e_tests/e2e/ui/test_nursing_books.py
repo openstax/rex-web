@@ -82,7 +82,7 @@ async def test_nursing_book_content_warning_login(
     await nursing.click_maternal_newborn_book_view_online_link()
     await nursing.click_nursing_content_warning_dialog_goto()
 
-    #to debug in CI - begin
+    # to debug in CI - begin
     await chrome_page_unlogged.wait_for_load_state("domcontentloaded")
 
     print(f"DEBUG URL after goto click: {chrome_page_unlogged.url}")
@@ -91,7 +91,7 @@ async def test_nursing_book_content_warning_login(
     # Check if the element exists at all even if not visible
     count = await chrome_page_unlogged.locator("[class*='ContentWarning']").count()
     print(f"DEBUG ContentWarning count: {count}")
-    #to debug in CI - ends
+    # to debug in CI - ends
 
     # THEN: Content warning dialog opens and user can log in
     await nursing.nursing_material_warning_dialog.wait_for(state="visible")
