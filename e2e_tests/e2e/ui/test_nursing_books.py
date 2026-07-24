@@ -5,7 +5,7 @@ from e2e_tests.e2e.ui.pages.nursingbooks import NursingBooks
 
 
 @pytest.mark.asyncio
-async def test_nursing_book_content_warning_logged_in(chrome_page, base_url):
+async def tst_nursing_book_content_warning_logged_in(chrome_page, base_url):
 
     # GIVEN: Playwright, chromium and the rex_base_url
 
@@ -30,7 +30,7 @@ async def test_nursing_book_content_warning_logged_in(chrome_page, base_url):
 
 
 @pytest.mark.asyncio
-async def test_nursing_book_content_warning_signup(chrome_page_unlogged, base_url):
+async def tst_nursing_book_content_warning_signup(chrome_page_unlogged, base_url):
 
     # GIVEN: Playwright, chromium and the rex_base_url
 
@@ -83,6 +83,7 @@ async def test_nursing_book_content_warning_login(
     await nursing.click_nursing_content_warning_dialog_goto()
 
     # THEN: Content warning dialog opens and user can log in
+    await nursing.nursing_material_warning_dialog.wait_for(state="visible")
     assert await nursing.nursing_material_warning_dialog.is_visible()
 
     if await nursing.nursing_content_warning_dialog_login.is_visible():
@@ -101,6 +102,12 @@ async def test_nursing_book_content_warning_login(
         assert (
             "maternal-newborn-nursing/pages/1-introduction" in chrome_page_unlogged.url
         )
+
+        await chrome_page_unlogged.locator(
+            "[data-testid='scroll-lock-overlay']"
+        ).wait_for(state="hidden")
+
+        await chrome_page_unlogged.keyboard.press("Escape")
 
         await home.click_logged_in_user_dropdown()
         assert await home.logout_link_is_visible()
