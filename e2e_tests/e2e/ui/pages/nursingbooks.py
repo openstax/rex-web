@@ -49,6 +49,7 @@ class NursingBooks:
         await maternal_view.scroll_into_view_if_needed()
         await maternal_view.click()
 
-    @pytest.mark.asyncio
     async def click_nursing_content_warning_dialog_goto(self):
-        await self.page.get_by_role("link", name="Go to your book").click()
+        link = self.page.get_by_role("link", name="Go to your book")
+        await link.wait_for(state="visible")
+        await link.click()
