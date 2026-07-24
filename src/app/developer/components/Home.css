@@ -1,0 +1,28 @@
+/* Home component - Developer homepage */
+
+.developer-home-style {
+  /* textRegularStyle equivalent */
+  color: var(--text-color, #424242); /* theme.color.text.default */
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  max-width: 128rem; /* contentWrapperMaxWidth = 82.5 + 37.5 + 8 */
+  margin: 0 auto;
+  padding: 2rem 0;
+  flex: 1;
+}
+
+.developer-home-row {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+}
+
+.developer-home-col {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.developer-home-wrapper {
+  flex: 1;
+}
