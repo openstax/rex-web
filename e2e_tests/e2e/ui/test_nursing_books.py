@@ -5,7 +5,7 @@ from e2e_tests.e2e.ui.pages.nursingbooks import NursingBooks
 
 
 @pytest.mark.asyncio
-async def tst_nursing_book_content_warning_logged_in(chrome_page, base_url):
+async def test_nursing_book_content_warning_logged_in(chrome_page, base_url):
 
     # GIVEN: Playwright, chromium and the rex_base_url
 
@@ -30,7 +30,7 @@ async def tst_nursing_book_content_warning_logged_in(chrome_page, base_url):
 
 
 @pytest.mark.asyncio
-async def tst_nursing_book_content_warning_signup(chrome_page_unlogged, base_url):
+async def test_nursing_book_content_warning_signup(chrome_page_unlogged, base_url):
 
     # GIVEN: Playwright, chromium and the rex_base_url
 
