@@ -1,6 +1,5 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { createGlobalStyle } from 'styled-components/macro';
 import { bookStylesUrl as bookStylesUrlSelector } from '../content/selectors';
 import { State } from '../content/types';
 import { useServices } from '../context/Services';
@@ -8,13 +7,28 @@ import { query } from '../navigation/selectors';
 import { AppServices } from '../types';
 import { assertDefined } from '../utils/assertions';
 
-export const ScopedGlobalStyle = createGlobalStyle`
-  [data-dynamic-style="true"] {
-    ${(props: { styles: string }) => props.styles}
-  }
-`;
-
 const cacheStyles = new Map<string, string>();
+
+/**
+ * Wraps CSS content in a nesting selector to scope all styles to elements with a specific attribute.
+ * Uses CSS nesting (supported in all modern browsers) to automatically scope all selectors.
+ *
+ * Example:
+ *   Input:  ".cool { color: blue; }"
+ *   Output: "[data-dynamic-style=\"true\"] { .cool { color: blue; } }"
+ *
+ * CSS nesting automatically handles:
+ * - Simple selectors: .class, #id, element
+ * - Complex selectors: .class1 .class2, .class1, .class2
+ * - Functional pseudos: :not(), :is(), :has()
+ * - At-rules: @media, @keyframes, @supports
+ * - Pseudo-elements and pseudo-classes
+ *
+ * @internal Exported for testing purposes only
+ */
+export const wrapWithNesting = (css: string, scope: string): string => {
+  return `${scope} {\n${css}\n}`;
+};
 
 const getStyles = (
   disable: boolean | undefined,
@@ -78,18 +92,53 @@ const DynamicContentStyles = React.forwardRef<HTMLElement, DynamicContentStylesP
   const bookStylesUrl = useSelector(bookStylesUrlSelector);
   const [dataDynamicStyle, styles] = getStyles(disable, queryStyles, book, bookStylesUrl, archiveLoader);
 
-  if (styles) {
-    return <>
-      <ScopedGlobalStyle styles={styles}/>
-      <div data-dynamic-style={dataDynamicStyle} {...otherProps} ref={ref}>
-        {children}
-      </div>
-    </>;
-  } else {
-    return <div data-dynamic-style={dataDynamicStyle} {...otherProps} ref={ref}>
-      {children}
-    </div>;
-  }
+  // Inject dynamic styles into a <style> tag
+  // Use an isomorphic layout effect to avoid SSR warnings during prerendering,
+  // while still injecting synchronously before paint in the browser.
+  const useIsomorphicLayoutEffect =
+    typeof window !== 'undefined' ? React.useLayoutEffect : React.useEffect;
+
+  useIsomorphicLayoutEffect(() => {
+    if (!styles || typeof document === 'undefined') {
+      return;
+    }
+
+    const globalKey = '__rexDynamicContentStyles__';
+    const globalStore: any = globalThis; // eslint-disable-line @typescript-eslint/no-explicit-any
+
+    if (!(globalKey in globalStore)) {
+      globalStore[globalKey] = {
+        count: 0,
+        element: null as HTMLStyleElement | null,
+      };
+    }
+
+    const store = globalStore[globalKey];
+    store.count += 1;
+
+    if (!store.element || !document.head.contains(store.element)) {
+      store.element = document.createElement('style');
+      store.element.setAttribute('data-dynamic-content-styles', 'true');
+      document.head.appendChild(store.element);
+    }
+
+    // Wrap the CSS in a nesting block to scope all styles to [data-dynamic-style="true"]
+    // This uses native CSS nesting, which is supported in all modern browsers
+    const scopedStyles = wrapWithNesting(styles, '[data-dynamic-style="true"]');
+    store.element.textContent = scopedStyles;
+
+    return () => {
+      store.count -= 1;
+      if (store.count <= 0 && store.element) {
+        store.element.remove();
+        store.element = null;
+      }
+    };
+  }, [styles]);
+
+  return <div data-dynamic-style={dataDynamicStyle} {...otherProps} ref={ref}>
+    {children}
+  </div>;
 });
 
 export default DynamicContentStyles;
