@@ -458,4 +458,154 @@ describe('wrapWithNesting', () => {
     expect(result).toContain('@keyframes fadeIn');
     expect(result).not.toContain('[data-dynamic-style="true"]');
   });
+
+  it('handles at-rule ending with semicolon (covers line 99)', () => {
+    // @import ends with semicolon, not a block
+    const css = '@import url("other.css"); .cool { color: blue; }';
+    const result = wrapWithNesting(css, scope);
+    expect(result).toContain('@import url("other.css");');
+    expect(result).toContain('[data-dynamic-style="true"] {');
+    expect(result).toContain('.cool { color: blue; }');
+    // @import should be hoisted before scope
+    expect(result.indexOf('@import')).toBeLessThan(result.indexOf('[data-dynamic-style="true"]'));
+  });
+
+  it('handles malformed CSS without opening brace (covers line 126 not-true case)', () => {
+    // CSS content that doesn't have an opening brace (malformed)
+    const css = '.selector-without-braces';
+    const result = wrapWithNesting(css, scope);
+    // Should still wrap in scope block even if malformed
+    expect(result).toContain('[data-dynamic-style="true"]');
+  });
+
+  it('handles nested braces in CSS rule (covers line 132)', () => {
+    // CSS with nested braces (e.g., in content property or nested rules)
+    const css = '.cool { content: "{"; color: red; }';
+    const result = wrapWithNesting(css, scope);
+    expect(result).toContain('[data-dynamic-style="true"] {');
+    expect(result).toContain('.cool { content: "{"; color: red; }');
+  });
+
+  it('handles actual nested braces in CSS nesting (covers line 204 true case)', () => {
+    // CSS with actual nested braces (CSS nesting syntax)
+    // This will trigger braceDepth++ at line 204 when encountering the nested opening brace
+    const css = '.parent { color: blue; .child { color: red; } }';
+    const result = wrapWithNesting(css, scope);
+    expect(result).toContain('[data-dynamic-style="true"] {');
+    expect(result).toContain('.parent { color: blue; .child { color: red; } }');
+  });
+
+  it('handles content without braces after selector (covers line 140 else if)', () => {
+    // Edge case: content exists but no braces found
+    const css = '.text-only';
+    const result = wrapWithNesting(css, scope);
+    expect(result).toContain('[data-dynamic-style="true"]');
+  });
+
+  it('handles empty nested content after hoisting (covers line 227 false case)', () => {
+    // When ALL rules are hoisted (keyframes, font-face, etc.), nested is empty after trim
+    // This tests line 227 where nested.trim() === '' (line 227 condition is false)
+    const css = '@keyframes spin { from { transform: rotate(0deg); } }';
+    const result = wrapWithNesting(css, scope);
+    expect(result).toContain('@keyframes spin');
+    // Should not include scope block if nothing needs to be nested
+    expect(result).not.toContain('[data-dynamic-style="true"]');
+  });
+
+  it('handles trailing whitespace with no content (covers line 213 else if not-true case)', () => {
+    // Edge case: CSS ends with only whitespace after all rules are processed
+    // This tests line 213 where ruleStart >= i (else if condition is false)
+    const css = '.cool { color: blue; }   \n\t  ';
+    const result = wrapWithNesting(css, scope);
+    expect(result).toContain('[data-dynamic-style="true"]');
+    expect(result).toContain('.cool { color: blue; }');
+    // The trailing whitespace is parsed but since ruleStart >= i, line 213 else if is false
+    // and nothing is added to nestedRules for the whitespace
+    expect(result).toBeDefined();
+  });
+
+  it('handles incomplete at-rule without brace or semicolon (covers line 99 else if not-true case)', () => {
+    // Edge case: at-rule that ends abruptly without { or ;
+    // This would be malformed CSS, but we should handle it gracefully
+    const css = '@media screen';
+    const result = wrapWithNesting(css, scope);
+    // Should still process and include the at-rule text
+    expect(result).toContain('@media screen');
+    expect(result).toBeDefined();
+  });
+
+  // String and comment handling tests
+  it('handles semicolon inside string in @import (avoids premature termination)', () => {
+    // This tests the Copilot-identified edge case: semicolons inside quoted strings
+    const css = '@import url("https://example.com/a;b.css"); .cool { color: blue; }';
+    const result = wrapWithNesting(css, scope);
+    // @import should be hoisted with the full URL intact
+    expect(result).toContain('@import url("https://example.com/a;b.css");');
+    // Regular selector should be in nesting block
+    expect(result).toContain('[data-dynamic-style="true"]');
+    expect(result).toContain('.cool { color: blue; }');
+  });
+
+  it('handles braces inside string literals (content property)', () => {
+    // This tests braces inside strings don't break brace counting
+    const css = '.cool { content: "{"; color: red; } .other { content: "}"; }';
+    const result = wrapWithNesting(css, scope);
+    expect(result).toContain('[data-dynamic-style="true"]');
+    expect(result).toContain('.cool { content: "{"; color: red; }');
+    expect(result).toContain('.other { content: "}"; }');
+  });
+
+  it('handles braces inside comments (avoids breaking brace counting)', () => {
+    // This tests braces/semicolons inside comments don't affect parsing
+    const css = '.cool /* } */ { color: blue; /* ; */ } .other { color: red; }';
+    const result = wrapWithNesting(css, scope);
+    expect(result).toContain('[data-dynamic-style="true"]');
+    expect(result).toContain('.cool /* } */ { color: blue; /* ; */ }');
+    expect(result).toContain('.other { color: red; }');
+  });
+
+  it('handles escaped quotes in string literals', () => {
+    // This tests escaped quotes don't prematurely close strings
+    const css = '.cool { content: "\\""; color: blue; }';
+    const result = wrapWithNesting(css, scope);
+    expect(result).toContain('[data-dynamic-style="true"]');
+    expect(result).toContain('.cool { content: "\\""; color: blue; }');
+  });
+
+  it('handles single-quoted strings with special characters', () => {
+    // This tests single-quoted strings are handled the same as double-quoted
+    const css = ".cool { content: '{'; color: blue; }";
+    const result = wrapWithNesting(css, scope);
+    expect(result).toContain('[data-dynamic-style="true"]');
+    expect(result).toContain(".cool { content: '{'; color: blue; }");
+  });
+
+  it('handles @keyframes with comments containing braces', () => {
+    // This tests comments don't break at-rule hoisting
+    const css = '@keyframes /* { */ fadeIn { 0% { opacity: 0; } } .cool { animation: fadeIn; }';
+    const result = wrapWithNesting(css, scope);
+    expect(result).toContain('@keyframes /* { */ fadeIn');
+    expect(result).toContain('[data-dynamic-style="true"]');
+    expect(result).toContain('.cool { animation: fadeIn; }');
+    // @keyframes should be hoisted before the scope
+    expect(result.indexOf('@keyframes')).toBeLessThan(result.indexOf('[data-dynamic-style="true"]'));
+  });
+
+  it('handles unclosed string (edge case)', () => {
+    // This tests graceful handling of malformed CSS with unclosed strings
+    const css = '.cool { content: "unclosed; } .other { color: blue; }';
+    const result = wrapWithNesting(css, scope);
+    expect(result).toContain('[data-dynamic-style="true"]');
+    // Parser should handle this gracefully without crashing
+    expect(result).toBeDefined();
+  });
+
+  it('handles unclosed comment (edge case)', () => {
+    // This tests graceful handling of malformed CSS with unclosed comments
+    const css = '.cool { color: red; /* unclosed comment } .other { color: blue; }';
+    const result = wrapWithNesting(css, scope);
+    expect(result).toContain('[data-dynamic-style="true"]');
+    // Parser should handle this gracefully without crashing
+    expect(result).toBeDefined();
+  });
 });

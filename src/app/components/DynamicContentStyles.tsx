@@ -11,6 +11,50 @@ import { assertDefined } from '../utils/assertions';
 const cacheStyles = new Map<string, string>();
 
 /**
+ * Helper function to skip over strings and comments when parsing CSS.
+ * This prevents characters inside strings/comments from being mistaken for structural CSS syntax.
+ *
+ * @param css - The CSS string being parsed
+ * @param i - Current position in the CSS string
+ * @returns New position after skipping string or comment, or original position if not at string/comment start
+ */
+const skipStringsAndComments = (css: string, i: number): number => {
+  // Handle strings (both single and double quoted)
+  if (css[i] === '"' || css[i] === "'") {
+    const quote = css[i];
+    i++;
+    while (i < css.length) {
+      if (css[i] === '\\') {
+        // Skip escaped character (e.g., \" or \\)
+        i += 2;
+      } else if (css[i] === quote) {
+        // Found closing quote
+        return i + 1;
+      } else {
+        i++;
+      }
+    }
+    return i; // Unclosed string - return end position
+  }
+
+  // Handle block comments /* ... */
+  if (css[i] === '/' && i + 1 < css.length && css[i + 1] === '*') {
+    i += 2;
+    while (i < css.length - 1) {
+      if (css[i] === '*' && css[i + 1] === '/') {
+        // Found end of comment
+        return i + 2;
+      }
+      i++;
+    }
+    return i; // Unclosed comment - return end position
+  }
+
+  // Not at a string or comment start
+  return i;
+};
+
+/**
  * Wraps CSS content in a nesting selector to scope all styles to elements with a specific attribute.
  * Uses CSS nesting (supported in all modern browsers) to automatically scope all selectors.
  *
@@ -27,6 +71,11 @@ const cacheStyles = new Map<string, string>();
  * - Functional pseudos: :not(), :is(), :has()
  * - Container at-rules: @media, @supports, @container, @layer (nested inside scope)
  * - Pseudo-elements and pseudo-classes
+ *
+ * Handles edge cases:
+ * - Strings with special characters: @import url("https://example.com/a;b.css");
+ * - Comments with braces: /* } */ /*
+ * - Escaped quotes in strings: content: "\"";
  *
  * @internal Exported for testing purposes only
  */
@@ -82,19 +131,31 @@ export const wrapWithNesting = (css: string, scope: string): string => {
       let braceDepth = 0;
       let atRuleEnd = i;
 
-      // Skip to the opening brace or semicolon
+      // Skip to the opening brace or semicolon, avoiding strings and comments
       while (atRuleEnd < css.length && css[atRuleEnd] !== '{' && css[atRuleEnd] !== ';') {
-        atRuleEnd++;
+        const newPos = skipStringsAndComments(css, atRuleEnd);
+        if (newPos !== atRuleEnd) {
+          // Skipped over a string or comment
+          atRuleEnd = newPos;
+        } else {
+          atRuleEnd++;
+        }
       }
 
       if (atRuleEnd < css.length && css[atRuleEnd] === '{') {
-        // Has a block - find the matching closing brace
+        // Has a block - find the matching closing brace, avoiding strings and comments
         braceDepth = 1;
         atRuleEnd++;
         while (atRuleEnd < css.length && braceDepth > 0) {
-          if (css[atRuleEnd] === '{') { braceDepth++; }
-          if (css[atRuleEnd] === '}') { braceDepth--; }
-          atRuleEnd++;
+          const newPos = skipStringsAndComments(css, atRuleEnd);
+          if (newPos !== atRuleEnd) {
+            // Skipped over a string or comment
+            atRuleEnd = newPos;
+          } else {
+            if (css[atRuleEnd] === '{') { braceDepth++; }
+            if (css[atRuleEnd] === '}') { braceDepth--; }
+            atRuleEnd++;
+          }
         }
       } else if (atRuleEnd < css.length && css[atRuleEnd] === ';') {
         // Ends with semicolon
@@ -118,9 +179,15 @@ export const wrapWithNesting = (css: string, scope: string): string => {
     let braceDepth = 0;
     let foundOpenBrace = false;
 
-    // Skip to opening brace
+    // Skip to opening brace, avoiding strings and comments
     while (i < css.length && css[i] !== '{') {
-      i++;
+      const newPos = skipStringsAndComments(css, i);
+      if (newPos !== i) {
+        // Skipped over a string or comment
+        i = newPos;
+      } else {
+        i++;
+      }
     }
 
     if (i < css.length && css[i] === '{') {
@@ -129,9 +196,15 @@ export const wrapWithNesting = (css: string, scope: string): string => {
       i++;
 
       while (i < css.length && braceDepth > 0) {
-        if (css[i] === '{') { braceDepth++; }
-        if (css[i] === '}') { braceDepth--; }
-        i++;
+        const newPos = skipStringsAndComments(css, i);
+        if (newPos !== i) {
+          // Skipped over a string or comment
+          i = newPos;
+        } else {
+          if (css[i] === '{') { braceDepth++; }
+          if (css[i] === '}') { braceDepth--; }
+          i++;
+        }
       }
     }
 
@@ -150,11 +223,9 @@ export const wrapWithNesting = (css: string, scope: string): string => {
     result.push(hoistedRules.join('\n'));
   }
 
-  if (nestedRules.length > 0) {
-    const nested = nestedRules.join('').trim();
-    if (nested) {
-      result.push(`${scope} {\n${nested}\n}`);
-    }
+  const nested = nestedRules.join('').trim();
+  if (nested) {
+    result.push(`${scope} {\n${nested}\n}`);
   }
 
   return result.join('\n');
