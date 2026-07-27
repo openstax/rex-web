@@ -6,18 +6,18 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
   position: relative;
 }
 
-.c24 {
+.c23 {
   height: 1.7rem;
   margin-right: 0.4rem;
 }
 
-.c24 svg {
+.c23 svg {
   height: 0.8rem;
   width: 0.8rem;
   color: #5e6062;
 }
 
-.c25 {
+.c24 {
   color: #424242;
   font-weight: 300;
   color: #5e6062;
@@ -29,7 +29,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
   line-height: 1.5rem;
 }
 
-.c23 {
+.c22 {
   margin-right: 3.2rem;
   display: -webkit-box;
   display: -webkit-flex;
@@ -43,7 +43,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
   height: 4rem;
 }
 
-.c20 {
+.c19 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -56,7 +56,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
   border: 0;
 }
 
-.c22 {
+.c21 {
   color: #424242;
   font-size: 1.4rem;
   display: -webkit-box;
@@ -282,7 +282,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
   margin: 0 1.6rem 0 1.6rem;
 }
 
-.c7 .c26:last-child {
+.c7 .c25:last-child {
   border-bottom: none;
 }
 
@@ -325,20 +325,14 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
   margin: 0 1.6rem 0 1.6rem;
 }
 
-.c19 {
-  height: 2.5rem;
-  width: 2.5rem;
-  padding: 0.4rem;
-}
-
 @media print {
-  .c24 {
+  .c23 {
     display: none;
   }
 }
 
 @media print {
-  .c25 {
+  .c24 {
     max-width: -webkit-max-content;
     max-width: -moz-max-content;
     max-width: max-content;
@@ -346,13 +340,13 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
 }
 
 @media screen and (max-width:75em) {
-  .c22 {
+  .c21 {
     padding: 0 2.4rem 0.4rem 2.4rem;
   }
 }
 
 @media print {
-  .c22 {
+  .c21 {
     margin: 0;
   }
 }
@@ -387,7 +381,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
 }
 
 @media print {
-  .c0 > *:not(.c21) {
+  .c0 > *:not(.c20) {
     display: none;
   }
 }
@@ -1098,7 +1092,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
         >
           <svg
             aria-hidden="true"
-            className="c19"
+            className="toolbar-print-icon"
             viewBox="0 0 512 512"
           >
             <path
@@ -1116,21 +1110,21 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
     </div>
   </div>
   <div
-    className="c20"
+    className="c19"
     role="status"
   />
   <ul
     aria-atomic="true"
     aria-label="Applied filters"
     aria-live="polite"
-    className="c21 c22 filters-list"
+    className="c20 c21 filters-list"
   >
     <li
-      className="c23"
+      className="c22"
     >
       <button
         aria-label="Remove chapter 2 Test Chapter 2"
-        className="plain-button c24"
+        className="plain-button c23"
         data-analytics-label="Remove breadcrumb for chapter 2 Test Chapter 2"
         onClick={[Function]}
       >
@@ -1162,7 +1156,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
         </svg>
       </button>
       <span
-        className="c25"
+        className="c24"
         dangerouslySetInnerHTML={
           Object {
             "__html": "<span class=\\"os-number\\">2</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 2</span>",
@@ -1171,11 +1165,11 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
       />
     </li>
     <li
-      className="c23"
+      className="c22"
     >
       <button
         aria-label="Remove label Important Concepts"
-        className="plain-button c24"
+        className="plain-button c23"
         data-analytics-label="Remove breadcrumb for label Important Concepts"
         onClick={[Function]}
       >
@@ -1207,17 +1201,17 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
         </svg>
       </button>
       <span
-        className="c25"
+        className="c24"
       >
         Important Concepts
       </span>
     </li>
     <li
-      className="c23"
+      className="c22"
     >
       <button
         aria-label="Remove label Connections & Relationships"
-        className="plain-button c24"
+        className="plain-button c23"
         data-analytics-label="Remove breadcrumb for label Connections & Relationships"
         onClick={[Function]}
       >
@@ -1249,17 +1243,17 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
         </svg>
       </button>
       <span
-        className="c25"
+        className="c24"
       >
         Connections & Relationships
       </span>
     </li>
     <li
-      className="c23"
+      className="c22"
     >
       <button
         aria-label="Remove label Enrichment"
-        className="plain-button c24"
+        className="plain-button c23"
         data-analytics-label="Remove breadcrumb for label Enrichment"
         onClick={[Function]}
       >
@@ -1291,17 +1285,17 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
         </svg>
       </button>
       <span
-        className="c25"
+        className="c24"
       >
         Enrichment
       </span>
     </li>
     <li
-      className="c23"
+      className="c22"
     >
       <button
         aria-label="Remove label Key Terms"
-        className="plain-button c24"
+        className="plain-button c23"
         data-analytics-label="Remove breadcrumb for label Key Terms"
         onClick={[Function]}
       >
@@ -1333,7 +1327,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
         </svg>
       </button>
       <span
-        className="c25"
+        className="c24"
       >
         Key Terms
       </span>

@@ -372,12 +372,12 @@
 }
 
 /* Close search results text button */
-.topbar-close-search-results-text-button {
+.topbar-mobile-search-container .topbar-close-search-results-text-button {
   display: none;
 }
 
 @media screen and (max-width: 50em) {
-  .topbar-close-search-results-text-button {
+  .topbar-mobile-search-container .topbar-close-search-results-text-button {
     display: block;
   }
 }
@@ -503,4 +503,21 @@
 /* Text resizer change button */
 .topbar-text-resizer-change-button {
   margin: 0.2rem 0.6rem;
+}
+
+/* === Shadow Utility === */
+.topbar-shadow {
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.14);
+}
+
+/* === Icon Components === */
+.topbar-hamburger-icon {
+  height: 2.5rem;
+  width: 2.5rem;
+  padding: 0.4rem;
+}
+
+.topbar-left-arrow {
+  width: 2.5rem;
+  height: 2.5rem;
 }

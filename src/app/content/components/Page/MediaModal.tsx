@@ -1,57 +1,13 @@
 import React from 'react';
-import styled from 'styled-components/macro';
+import classNames from 'classnames';
 import ScrollLock from '../../../components/ScrollLock';
 import { HTMLButtonElement, HTMLDivElement } from '@openstax/types/lib.dom';
 import { useTrapTabNavigation } from '../../../reactUtils';
 import theme from '../../../theme';
+import './MediaModal.css';
 
 const buttonHeight = 4.2; // rem
 const buttonMargin = 0.5; // rem
-
-const ScrollableContent = styled.div`
-  background: white;
-  max-width: 100vw;
-  max-height: calc(100vh - ${(buttonHeight + buttonMargin * 2) * 2}rem);
-  overflow: auto;
-
-  > img {
-    ${/*
-      fix ScrollableContent height issue where it is slightly larger than
-      the image and leaves a gap at the bottom */ ''}
-    display: block;
-  }
-`;
-
-
-const FloatingCloseButton = styled.button`
-  position: absolute;
-  top: -${buttonHeight + buttonMargin}rem;
-  right: ${buttonMargin}rem;
-  z-index: 10;
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  width: ${buttonHeight}rem;
-  height: ${buttonHeight}rem;
-`;
-
-const ContentContainer = styled.div`
-  position: relative;
-  pointer-events: auto;
-`;
-
-const ModalWrapper = styled.div`
-  position: fixed;
-  inset: 0;
-  overflow: hidden;
-  z-index: ${theme.zIndex.highlightSummaryPopup + 1};
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  pointer-events: none;
-`;
-
 
 const CloseIcon = () => (
   <svg width='42' height='42' viewBox='0 0 42 42' xmlns='http://www.w3.org/2000/svg'>
@@ -66,7 +22,13 @@ interface MediaModalProps {
   onClose: () => void;
   children: React.ReactNode;
 }
-const MediaModal: React.FC<MediaModalProps> = ({ isOpen, onClose, children }) => {
+
+/**
+ * MediaModal component - Full-screen modal for displaying enlarged media
+ *
+ * Migrated from styled-components to plain CSS.
+ */
+function MediaModal({ isOpen, onClose, children }: MediaModalProps) {
   const closeButtonRef = React.useRef<HTMLButtonElement>(null);
   const wrapperRef = React.useRef<HTMLDivElement>(null);
 
@@ -80,6 +42,9 @@ const MediaModal: React.FC<MediaModalProps> = ({ isOpen, onClose, children }) =>
 
   if (!isOpen) return null;
 
+  const scrollableMaxHeight = `calc(100vh - ${(buttonHeight + buttonMargin * 2) * 2}rem)`;
+  const closeButtonTop = `-${buttonHeight + buttonMargin}rem`;
+
   return (
     <>
       <ScrollLock
@@ -87,16 +52,34 @@ const MediaModal: React.FC<MediaModalProps> = ({ isOpen, onClose, children }) =>
         overlay={true}
         zIndex={theme.zIndex.highlightSummaryPopup}
       />
-      <ModalWrapper ref={wrapperRef} aria-modal='true' role='dialog' aria-label='Enlarged media'>
-        <ContentContainer >
-          <FloatingCloseButton ref={closeButtonRef} onClick={onClose} aria-label='Close media preview'>
+      <div
+        ref={wrapperRef}
+        className={classNames('media-modal-wrapper')}
+        aria-modal='true'
+        role='dialog'
+        aria-label='Enlarged media'
+        style={{
+          '--modal-z-index': theme.zIndex.highlightSummaryPopup + 1,
+          '--scrollable-max-height': scrollableMaxHeight,
+          '--button-height': `${buttonHeight}rem`,
+          '--button-margin': `${buttonMargin}rem`,
+          '--close-button-top': closeButtonTop,
+        } as React.CSSProperties}
+      >
+        <div className={classNames('media-modal-content-container')}>
+          <button
+            ref={closeButtonRef}
+            onClick={onClose}
+            aria-label='Close media preview'
+            className={classNames('media-modal-close-button')}
+          >
             <CloseIcon />
-          </FloatingCloseButton>
-          <ScrollableContent>{children}</ScrollableContent>
-        </ContentContainer>
-      </ModalWrapper>
+          </button>
+          <div className={classNames('media-modal-scrollable-content')}>{children}</div>
+        </div>
+      </div>
     </>
   );
-};
+}
 
 export default MediaModal;

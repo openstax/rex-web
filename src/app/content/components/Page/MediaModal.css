@@ -1,0 +1,43 @@
+/* Media Modal Styles */
+
+.media-modal-wrapper {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  z-index: var(--modal-z-index);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+}
+
+.media-modal-content-container {
+  position: relative;
+  pointer-events: auto;
+}
+
+.media-modal-scrollable-content {
+  background: white;
+  max-width: 100vw;
+  max-height: var(--scrollable-max-height);
+  overflow: auto;
+}
+
+/* Fix ScrollableContent height issue where it is slightly larger than
+   the image and leaves a gap at the bottom */
+.media-modal-scrollable-content > img {
+  display: block;
+}
+
+.media-modal-close-button {
+  position: absolute;
+  top: var(--close-button-top);
+  right: var(--button-margin);
+  z-index: 10;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  width: var(--button-height);
+  height: var(--button-height);
+}

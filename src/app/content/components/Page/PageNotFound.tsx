@@ -1,49 +1,38 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import styled, { css } from 'styled-components/macro';
+import classNames from 'classnames';
 import theme from '../../../theme';
 import { StyledOpenTOCControl } from '../SidebarControl';
+import './PageNotFound.css';
 
-const PageNotFoundWrapper = styled.div`
-  margin: 10rem;
-  text-align: center;
-  color: ${theme.color.primary.gray.base};
-  ${theme.breakpoints.mobile(css`
-    margin: 4rem 0 0 0;
-  `)}
-`;
-
-const PageNotFoundTitle = styled.h1`
-  font-weight: bold;
-  padding: 1rem 0;
-  line-height: 1;
-`;
-
-const PageNotFoundText = styled.div`
-  display: flex;
-  justify-content: center;
-  font-size: 1.6rem;
-  line-height: 1.8;
-
-  span {
-    margin-right: 0.5rem;
-  }
-`;
-
-const PageNotFound = () => <PageNotFoundWrapper>
-  <PageNotFoundTitle>
-    <FormattedMessage id='i18n:page-not-found:heading'>
-      {(msg) => msg}
-    </FormattedMessage>
-  </PageNotFoundTitle>
-  <PageNotFoundText>
-    <span>
-      <FormattedMessage id='i18n:page-not-found:text-before-button'>
-        {(msg) => msg}
-      </FormattedMessage>
-    </span>
-    <StyledOpenTOCControl />
-  </PageNotFoundText>
-</PageNotFoundWrapper>;
+/**
+ * PageNotFound component - Displays 404 error page
+ *
+ * Migrated from styled-components to plain CSS.
+ */
+function PageNotFound() {
+  return (
+    <div
+      className={classNames('page-not-found-wrapper')}
+      style={{
+        '--text-color': theme.color.primary.gray.base,
+      } as React.CSSProperties}
+    >
+      <h1 className={classNames('page-not-found-title')}>
+        <FormattedMessage id='i18n:page-not-found:heading'>
+          {(msg) => msg}
+        </FormattedMessage>
+      </h1>
+      <div className={classNames('page-not-found-text')}>
+        <span>
+          <FormattedMessage id='i18n:page-not-found:text-before-button'>
+            {(msg) => msg}
+          </FormattedMessage>
+        </span>
+        <StyledOpenTOCControl />
+      </div>
+    </div>
+  );
+}
 
 export default PageNotFound;

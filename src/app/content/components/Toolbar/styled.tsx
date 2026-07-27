@@ -3,6 +3,7 @@ import styled from 'styled-components/macro';
 import classNames from 'classnames';
 import Times from '../../../components/Times';
 import theme from '../../../theme';
+import './styled.css';
 import {
   bookBannerDesktopMiniHeight,
   bookBannerMobileMiniHeight,
@@ -10,36 +11,11 @@ import {
   toolbarIconColor,
   verticalNavbarMaxWidth,
 } from '../constants';
-import { toolbarIconStyles } from './iconStyles';
-import './Toolbar.css';
+import { ChevronLeftIcon } from '../ChevronIcons';
 
 interface IconProps extends React.SVGAttributes<SVGSVGElement> {
   className?: string;
 }
-
-/**
- * ChevronLeft icon for Toolbar component.
- * SVG path from Boxicons (https://boxicons.com - MIT License)
- *
- * Note: Wrapped with styled() to enable styled-components component selector references
- */
-function ChevronLeftIconBase({ className, ...props }: IconProps) {
-  return (
-    <svg
-      className={className}
-      viewBox="0 0 24 24"
-      aria-hidden="true"
-      {...props}
-    >
-      <path
-        fill="currentColor"
-        d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
-      />
-    </svg>
-  );
-}
-
-export const ChevronLeftIcon = styled(ChevronLeftIconBase)``;
 
 /**
  * Print icon for Toolbar component.
@@ -72,12 +48,10 @@ export const PlainButton = React.forwardRef<
   React.ButtonHTMLAttributes<HTMLButtonElement> & {
     theme?: unknown;
     isActive?: boolean;
-    practiceQuestionsEnabled?: boolean;
   }
 >(function PlainButton(
   {
-    className, style, theme: _theme, isActive: _isActive,
-    practiceQuestionsEnabled: _practiceQuestionsEnabled, ...domProps
+    className, style, theme: _theme, isActive: _isActive, ...domProps
   },
   ref
 ) {
@@ -133,9 +107,20 @@ export const PrintOptions = styled(function PrintOptions({
   );
 })``;
 
-export const PrintIcon = styled(PrintIconComponent)`
-  ${toolbarIconStyles}
-`;
+export const PrintIcon = function PrintIcon({
+  theme: _theme,
+  className,
+  style,
+  ...domProps
+}: React.SVGAttributes<SVGSVGElement> & { theme?: unknown }) {
+  return (
+    <PrintIconComponent
+      {...domProps}
+      className={classNames('toolbar-print-icon', className)}
+      style={style}
+    />
+  );
+};
 
 export const ToolbarWrapper = React.forwardRef<
   HTMLDivElement,
@@ -228,16 +213,27 @@ export const TimesIcon = function TimesIcon({
   );
 };
 
-export const LeftArrow = styled(ChevronLeftIcon)`
-  width: 4rem;
-  height: 4rem;
-  color: ${toolbarIconColor.base};
-  margin: 0 -1rem;
+export const LeftArrow = function LeftArrow({
+  className,
+  style,
+  ...props
+}: React.SVGAttributes<SVGSVGElement> & { theme?: unknown }) {
+  const { theme: _theme, ...domProps } = props as Record<string, unknown>;
 
-  :hover {
-    color: ${toolbarIconColor.darker};
-  }
-`;
+  return (
+    <ChevronLeftIcon
+      {...domProps}
+      className={classNames('toolbar-left-arrow', className)}
+      style={
+        {
+          '--toolbar-icon-color': toolbarIconColor.base,
+          '--toolbar-icon-darker-color': toolbarIconColor.darker,
+          ...style,
+        } as React.CSSProperties
+      }
+    />
+  );
+};
 
 export const ToolbarElements = function ToolbarElements({
   className,

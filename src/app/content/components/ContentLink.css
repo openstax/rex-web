@@ -1,0 +1,19 @@
+/**
+ * ContentLink CSS
+ *
+ * Styles for ContentLink component.
+ * Migrated from styled-components decoratedLinkStyle (not linkStyle).
+ * Links are not underlined by default, only on hover and focus.
+ */
+
+.content-link {
+  color: var(--link-color, #027eb5);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.content-link:hover,
+.content-link:focus {
+  text-decoration: underline;
+  color: var(--link-hover, #0064a0);
+}

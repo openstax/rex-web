@@ -1,0 +1,13 @@
+/**
+ * Modal Component Styles
+ *
+ * Note: This component primarily uses styles from PopupStyles.css.
+ * This file exists to follow the plain CSS migration pattern where each component
+ * has its own CSS file, even if minimal.
+ *
+ * The actual modal styles are defined in:
+ * - PopupStyles.css (.popup-wrapper, .popup-modal classes)
+ * - ScrollLock.css (scroll locking behavior)
+ */
+
+/* No component-specific styles needed - uses PopupStyles components */

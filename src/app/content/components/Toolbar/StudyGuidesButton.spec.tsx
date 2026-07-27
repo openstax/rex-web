@@ -10,7 +10,8 @@ import { MiddlewareAPI, Store } from '../../../types';
 import { studyGuidesFeatureFlag } from '../../constants';
 import { CountsPerSource } from '../../highlights/types';
 import { receiveStudyGuidesTotalCounts } from '../../studyGuides/actions';
-import StudyGuidesButton, { StudyGuidesWrapper } from './StudyGuidesButton';
+import StudyGuidesButton from './StudyGuidesButton';
+import { ToolbarDefaultButton } from './ToolbarDefaults';
 
 describe('study guides button', () => {
   let store: Store;
@@ -83,7 +84,7 @@ describe('study guides button', () => {
     </Provider>);
 
     renderer.act(() => {
-      const button = component.root.findByType(StudyGuidesWrapper);
+      const button = component.root.findByType(ToolbarDefaultButton);
       button.props.onClick();
     });
 

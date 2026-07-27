@@ -14,67 +14,27 @@ Array [
       }
     }
   />,
-  .c3 {
-  background: white;
-  max-width: 100vw;
-  max-height: calc(100vh - 10.4rem);
-  overflow: auto;
-}
-
-.c3 > img {
-  display: block;
-}
-
-.c2 {
-  position: absolute;
-  top: -4.7rem;
-  right: 0.5rem;
-  z-index: 10;
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  width: 4.2rem;
-  height: 4.2rem;
-}
-
-.c1 {
-  position: relative;
-  pointer-events: auto;
-}
-
-.c0 {
-  position: fixed;
-  inset: 0;
-  overflow: hidden;
-  z-index: 111;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  pointer-events: none;
-}
-
-<div
+  <div
     aria-label="Enlarged media"
     aria-modal="true"
-    className="c0"
+    className="media-modal-wrapper"
     role="dialog"
+    style={
+      Object {
+        "--button-height": "4.2rem",
+        "--button-margin": "0.5rem",
+        "--close-button-top": "-4.7rem",
+        "--modal-z-index": 111,
+        "--scrollable-max-height": "calc(100vh - 10.4rem)",
+      }
+    }
   >
     <div
-      className="c1"
+      className="media-modal-content-container"
     >
       <button
         aria-label="Close media preview"
-        className="c2"
+        className="media-modal-close-button"
         onClick={[MockFunction]}
       >
         <svg
@@ -113,7 +73,7 @@ Array [
         </svg>
       </button>
       <div
-        className="c3"
+        className="media-modal-scrollable-content"
       >
         <div>
           Test Content

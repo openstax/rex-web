@@ -6,18 +6,18 @@ exports[`Filters matches snapshot 1`] = `
   position: relative;
 }
 
-.c12 {
+.c11 {
   height: 1.7rem;
   margin-right: 0.4rem;
 }
 
-.c12 svg {
+.c11 svg {
   height: 0.8rem;
   width: 0.8rem;
   color: #5e6062;
 }
 
-.c13 {
+.c12 {
   color: #424242;
   font-weight: 300;
   color: #5e6062;
@@ -29,7 +29,7 @@ exports[`Filters matches snapshot 1`] = `
   line-height: 1.5rem;
 }
 
-.c11 {
+.c10 {
   margin-right: 3.2rem;
   display: -webkit-box;
   display: -webkit-flex;
@@ -43,7 +43,7 @@ exports[`Filters matches snapshot 1`] = `
   height: 4rem;
 }
 
-.c8 {
+.c7 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -56,7 +56,7 @@ exports[`Filters matches snapshot 1`] = `
   border: 0;
 }
 
-.c10 {
+.c9 {
   color: #424242;
   font-size: 1.4rem;
   display: -webkit-box;
@@ -153,20 +153,14 @@ exports[`Filters matches snapshot 1`] = `
   max-height: calc(100vh - 26rem);
 }
 
-.c7 {
-  height: 2.5rem;
-  width: 2.5rem;
-  padding: 0.4rem;
-}
-
 @media print {
-  .c12 {
+  .c11 {
     display: none;
   }
 }
 
 @media print {
-  .c13 {
+  .c12 {
     max-width: -webkit-max-content;
     max-width: -moz-max-content;
     max-width: max-content;
@@ -174,13 +168,13 @@ exports[`Filters matches snapshot 1`] = `
 }
 
 @media screen and (max-width:75em) {
-  .c10 {
+  .c9 {
     padding: 0 2.4rem 0.4rem 2.4rem;
   }
 }
 
 @media print {
-  .c10 {
+  .c9 {
     margin: 0;
   }
 }
@@ -215,7 +209,7 @@ exports[`Filters matches snapshot 1`] = `
 }
 
 @media print {
-  .c0 > *:not(.c9) {
+  .c0 > *:not(.c8) {
     display: none;
   }
 }
@@ -305,7 +299,7 @@ exports[`Filters matches snapshot 1`] = `
       >
         <svg
           aria-hidden="true"
-          className="c7"
+          className="toolbar-print-icon"
           viewBox="0 0 512 512"
         >
           <path
@@ -322,21 +316,21 @@ exports[`Filters matches snapshot 1`] = `
     </div>
   </div>
   <div
-    className="c8"
+    className="c7"
     role="status"
   />
   <ul
     aria-atomic="true"
     aria-label="Applied filters"
     aria-live="polite"
-    className="c9 c10"
+    className="c8 c9"
   >
     <li
-      className="c11"
+      className="c10"
     >
       <button
         aria-label="Remove color blue"
-        className="plain-button c12"
+        className="plain-button c11"
         data-analytics-label="Remove breadcrumb for color blue"
         onClick={[Function]}
       >
@@ -368,17 +362,17 @@ exports[`Filters matches snapshot 1`] = `
         </svg>
       </button>
       <span
-        className="c13"
+        className="c12"
       >
         blue
       </span>
     </li>
     <li
-      className="c11"
+      className="c10"
     >
       <button
         aria-label="Remove color green"
-        className="plain-button c12"
+        className="plain-button c11"
         data-analytics-label="Remove breadcrumb for color green"
         onClick={[Function]}
       >
@@ -410,17 +404,17 @@ exports[`Filters matches snapshot 1`] = `
         </svg>
       </button>
       <span
-        className="c13"
+        className="c12"
       >
         green
       </span>
     </li>
     <li
-      className="c11"
+      className="c10"
     >
       <button
         aria-label="Remove color pink"
-        className="plain-button c12"
+        className="plain-button c11"
         data-analytics-label="Remove breadcrumb for color pink"
         onClick={[Function]}
       >
@@ -452,17 +446,17 @@ exports[`Filters matches snapshot 1`] = `
         </svg>
       </button>
       <span
-        className="c13"
+        className="c12"
       >
         pink
       </span>
     </li>
     <li
-      className="c11"
+      className="c10"
     >
       <button
         aria-label="Remove color purple"
-        className="plain-button c12"
+        className="plain-button c11"
         data-analytics-label="Remove breadcrumb for color purple"
         onClick={[Function]}
       >
@@ -494,17 +488,17 @@ exports[`Filters matches snapshot 1`] = `
         </svg>
       </button>
       <span
-        className="c13"
+        className="c12"
       >
         purple
       </span>
     </li>
     <li
-      className="c11"
+      className="c10"
     >
       <button
         aria-label="Remove color yellow"
-        className="plain-button c12"
+        className="plain-button c11"
         data-analytics-label="Remove breadcrumb for color yellow"
         onClick={[Function]}
       >
@@ -536,7 +530,7 @@ exports[`Filters matches snapshot 1`] = `
         </svg>
       </button>
       <span
-        className="c13"
+        className="c12"
       >
         yellow
       </span>
@@ -551,7 +545,7 @@ exports[`Filters matches snapshot when open color filters 1`] = `
   position: relative;
 }
 
-.c10 {
+.c9 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -564,7 +558,7 @@ exports[`Filters matches snapshot when open color filters 1`] = `
   border: 0;
 }
 
-.c12 {
+.c11 {
   color: #424242;
   font-size: 1.4rem;
   display: -webkit-box;
@@ -710,20 +704,14 @@ exports[`Filters matches snapshot when open color filters 1`] = `
   max-height: calc(100vh - 26rem);
 }
 
-.c9 {
-  height: 2.5rem;
-  width: 2.5rem;
-  padding: 0.4rem;
-}
-
 @media screen and (max-width:75em) {
-  .c12 {
+  .c11 {
     padding: 0 2.4rem 0.4rem 2.4rem;
   }
 }
 
 @media print {
-  .c12 {
+  .c11 {
     margin: 0;
   }
 }
@@ -764,7 +752,7 @@ exports[`Filters matches snapshot when open color filters 1`] = `
 }
 
 @media print {
-  .c0 > *:not(.c11) {
+  .c0 > *:not(.c10) {
     display: none;
   }
 }
@@ -900,7 +888,7 @@ exports[`Filters matches snapshot when open color filters 1`] = `
       >
         <svg
           aria-hidden="true"
-          className="c9"
+          className="toolbar-print-icon"
           viewBox="0 0 512 512"
         >
           <path
@@ -917,14 +905,14 @@ exports[`Filters matches snapshot when open color filters 1`] = `
     </div>
   </div>
   <div
-    className="c10"
+    className="c9"
     role="status"
   />
   <ul
     aria-atomic="true"
     aria-label="Applied filters"
     aria-live="polite"
-    className="c11 c12"
+    className="c10 c11"
   />
 </div>
 `;
