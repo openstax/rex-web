@@ -14,21 +14,150 @@ const cacheStyles = new Map<string, string>();
  * Wraps CSS content in a nesting selector to scope all styles to elements with a specific attribute.
  * Uses CSS nesting (supported in all modern browsers) to automatically scope all selectors.
  *
+ * Top-level at-rules (@keyframes, @font-face, @page, @property, etc.) are hoisted outside the
+ * nesting block because they must be at the root of the stylesheet to work correctly.
+ *
  * Example:
- *   Input:  ".cool { color: blue; }"
- *   Output: "[data-dynamic-style=\"true\"] { .cool { color: blue; } }"
+ *   Input:  ".cool { color: blue; } @keyframes fadeIn { 0% { opacity: 0; } }"
+ *   Output: "@keyframes fadeIn { 0% { opacity: 0; } }\n[data-dynamic-style=\"true\"] { .cool { color: blue; } }"
  *
  * CSS nesting automatically handles:
  * - Simple selectors: .class, #id, element
  * - Complex selectors: .class1 .class2, .class1, .class2
  * - Functional pseudos: :not(), :is(), :has()
- * - At-rules: @media, @keyframes, @supports
+ * - Container at-rules: @media, @supports, @container, @layer (nested inside scope)
  * - Pseudo-elements and pseudo-classes
  *
  * @internal Exported for testing purposes only
  */
 export const wrapWithNesting = (css: string, scope: string): string => {
-  return `${scope} {\n${css}\n}`;
+  // At-rules that must be hoisted to the root of the stylesheet
+  // These cannot be nested inside other rules
+  const topLevelAtRules = [
+    '@keyframes',
+    '@-webkit-keyframes',
+    '@-moz-keyframes',
+    '@-o-keyframes',
+    '@-ms-keyframes',
+    '@font-face',
+    '@page',
+    '@property',
+    '@counter-style',
+    '@font-feature-values',
+    '@import',
+    '@charset',
+    '@namespace',
+  ];
+
+  const hoistedRules: string[] = [];
+  const nestedRules: string[] = [];
+
+  let i = 0;
+  while (i < css.length) {
+    // Skip whitespace
+    const wsStart = i;
+    while (i < css.length && /\s/.test(css[i])) {
+      i++;
+    }
+    const whitespace = css.substring(wsStart, i);
+
+    // Check for at-rules
+    if (css[i] === '@') {
+      const atRuleStart = i;
+
+      // Extract the at-rule name
+      let atRuleName = '@';
+      i++;
+      while (i < css.length && /[a-z-]/i.test(css[i])) {
+        atRuleName += css[i];
+        i++;
+      }
+
+      // Check if this is a top-level at-rule that needs hoisting
+      const shouldHoist = topLevelAtRules.some(rule =>
+        atRuleName.toLowerCase().startsWith(rule.toLowerCase())
+      );
+
+      // Find the end of the at-rule (semicolon or closing brace)
+      let braceDepth = 0;
+      let atRuleEnd = i;
+
+      // Skip to the opening brace or semicolon
+      while (atRuleEnd < css.length && css[atRuleEnd] !== '{' && css[atRuleEnd] !== ';') {
+        atRuleEnd++;
+      }
+
+      if (atRuleEnd < css.length && css[atRuleEnd] === '{') {
+        // Has a block - find the matching closing brace
+        braceDepth = 1;
+        atRuleEnd++;
+        while (atRuleEnd < css.length && braceDepth > 0) {
+          if (css[atRuleEnd] === '{') { braceDepth++; }
+          if (css[atRuleEnd] === '}') { braceDepth--; }
+          atRuleEnd++;
+        }
+      } else if (atRuleEnd < css.length && css[atRuleEnd] === ';') {
+        // Ends with semicolon
+        atRuleEnd++;
+      }
+
+      const fullAtRule = css.substring(atRuleStart, atRuleEnd);
+
+      if (shouldHoist) {
+        hoistedRules.push(fullAtRule);
+      } else {
+        nestedRules.push(whitespace + fullAtRule);
+      }
+
+      i = atRuleEnd;
+      continue;
+    }
+
+    // Regular rule - find the end
+    const ruleStart = i;
+    let braceDepth = 0;
+    let foundOpenBrace = false;
+
+    // Skip to opening brace
+    while (i < css.length && css[i] !== '{') {
+      i++;
+    }
+
+    if (i < css.length && css[i] === '{') {
+      foundOpenBrace = true;
+      braceDepth = 1;
+      i++;
+
+      while (i < css.length && braceDepth > 0) {
+        if (css[i] === '{') { braceDepth++; }
+        if (css[i] === '}') { braceDepth--; }
+        i++;
+      }
+    }
+
+    if (foundOpenBrace) {
+      nestedRules.push(whitespace + css.substring(ruleStart, i));
+    } else if (ruleStart < i) {
+      // Content without braces (shouldn't normally happen, but preserve it)
+      nestedRules.push(whitespace + css.substring(ruleStart, i));
+    }
+  }
+
+  // Combine hoisted rules at the top, then the scoped nested rules
+  const result: string[] = [];
+
+  if (hoistedRules.length > 0) {
+    result.push(hoistedRules.join('\n'));
+  }
+
+  if (nestedRules.length > 0) {
+    const nested = nestedRules.join('').trim();
+    if (nested) {
+      result.push(`${scope} {\n${nested}\n}`);
+    }
+  }
+
+  return result.join('\n');
 };
 
 const getStyles = (

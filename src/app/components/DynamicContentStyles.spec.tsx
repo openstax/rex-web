@@ -345,21 +345,78 @@ describe('wrapWithNesting', () => {
     expect(result).toContain('}');
   });
 
-  it('wraps CSS with @media rules in nesting block', () => {
+  it('wraps CSS with @media rules in nesting block (container at-rule)', () => {
     const css = '@media (min-width: 768px) { .cool { color: blue; } }';
     const result = wrapWithNesting(css, scope);
     expect(result).toContain('[data-dynamic-style="true"] {');
     expect(result).toContain('@media (min-width: 768px)');
     expect(result).toContain('.cool { color: blue; }');
+    // @media should be nested, not hoisted
+    expect(result.indexOf('@media')).toBeGreaterThan(result.indexOf('[data-dynamic-style="true"]'));
   });
 
-  it('wraps CSS with @keyframes rules in nesting block', () => {
-    const css = '@keyframes fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }';
+  it('hoists @keyframes rules to the top (top-level at-rule)', () => {
+    const css = '.cool { color: blue; } @keyframes fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }';
     const result = wrapWithNesting(css, scope);
-    expect(result).toContain('[data-dynamic-style="true"] {');
     expect(result).toContain('@keyframes fadeIn');
     expect(result).toContain('0%');
     expect(result).toContain('100%');
+    expect(result).toContain('[data-dynamic-style="true"] {');
+    expect(result).toContain('.cool { color: blue; }');
+    // @keyframes should come before the scoped block
+    expect(result.indexOf('@keyframes')).toBeLessThan(result.indexOf('[data-dynamic-style="true"]'));
+  });
+
+  it('hoists vendor-prefixed @keyframes rules', () => {
+    const css = '.cool { color: blue; } @-webkit-keyframes fadeIn { 0% { opacity: 0; } }';
+    const result = wrapWithNesting(css, scope);
+    expect(result).toContain('@-webkit-keyframes fadeIn');
+    expect(result).toContain('[data-dynamic-style="true"] {');
+    // Vendor-prefixed @keyframes should come before the scoped block
+    expect(result.indexOf('@-webkit-keyframes')).toBeLessThan(result.indexOf('[data-dynamic-style="true"]'));
+  });
+
+  it('hoists @font-face rules to the top', () => {
+    const css = '.text { font-family: Custom; } @font-face { font-family: "Custom"; src: url("font.woff2"); }';
+    const result = wrapWithNesting(css, scope);
+    expect(result).toContain('@font-face');
+    expect(result).toContain('font-family: "Custom"');
+    expect(result).toContain('[data-dynamic-style="true"] {');
+    expect(result).toContain('.text { font-family: Custom; }');
+    // @font-face should come before the scoped block
+    expect(result.indexOf('@font-face')).toBeLessThan(result.indexOf('[data-dynamic-style="true"]'));
+  });
+
+  it('hoists @page rules to the top', () => {
+    const css = '.print { color: black; } @page { margin: 1in; }';
+    const result = wrapWithNesting(css, scope);
+    expect(result).toContain('@page');
+    expect(result).toContain('margin: 1in');
+    expect(result).toContain('[data-dynamic-style="true"] {');
+    // @page should come before the scoped block
+    expect(result.indexOf('@page')).toBeLessThan(result.indexOf('[data-dynamic-style="true"]'));
+  });
+
+  it('hoists @property rules to the top', () => {
+    const css = '.custom { --color: red; } @property --my-color { syntax: "<color>"; inherits: false; }';
+    const result = wrapWithNesting(css, scope);
+    expect(result).toContain('@property --my-color');
+    expect(result).toContain('syntax: "<color>"');
+    expect(result).toContain('[data-dynamic-style="true"] {');
+    // @property should come before the scoped block
+    expect(result.indexOf('@property')).toBeLessThan(result.indexOf('[data-dynamic-style="true"]'));
+  });
+
+  it('hoists multiple top-level at-rules in order', () => {
+    const css = '@keyframes fadeIn { 0% { opacity: 0; } } .cool { animation: fadeIn; } @font-face { font-family: "Custom"; }';
+    const result = wrapWithNesting(css, scope);
+    expect(result).toContain('@keyframes fadeIn');
+    expect(result).toContain('@font-face');
+    expect(result).toContain('[data-dynamic-style="true"] {');
+    expect(result).toContain('.cool { animation: fadeIn; }');
+    // Both at-rules should come before the scoped block
+    expect(result.indexOf('@keyframes')).toBeLessThan(result.indexOf('[data-dynamic-style="true"]'));
+    expect(result.indexOf('@font-face')).toBeLessThan(result.indexOf('[data-dynamic-style="true"]'));
   });
 
   it('preserves functional pseudos with commas in nesting block', () => {
@@ -375,5 +432,30 @@ describe('wrapWithNesting', () => {
     const result = wrapWithNesting(css, scope);
     expect(result).toContain('[data-dynamic-style="true"] {');
     expect(result).toContain('.class1, .class2 { color: red; }');
+  });
+
+  it('handles mixed hoisted and nested at-rules', () => {
+    const css = '@keyframes slideIn { from { left: 0; } } @media (min-width: 768px) { .cool { color: blue; } } .text { color: red; }';
+    const result = wrapWithNesting(css, scope);
+    expect(result).toContain('@keyframes slideIn');
+    expect(result).toContain('@media (min-width: 768px)');
+    expect(result).toContain('[data-dynamic-style="true"] {');
+    // @keyframes should be hoisted before scope
+    expect(result.indexOf('@keyframes')).toBeLessThan(result.indexOf('[data-dynamic-style="true"]'));
+    // @media should be nested inside scope
+    expect(result.indexOf('@media')).toBeGreaterThan(result.indexOf('[data-dynamic-style="true"]'));
+  });
+
+  it('handles empty CSS', () => {
+    const css = '';
+    const result = wrapWithNesting(css, scope);
+    expect(result).toBe('');
+  });
+
+  it('handles CSS with only hoisted at-rules', () => {
+    const css = '@keyframes fadeIn { 0% { opacity: 0; } }';
+    const result = wrapWithNesting(css, scope);
+    expect(result).toContain('@keyframes fadeIn');
+    expect(result).not.toContain('[data-dynamic-style="true"]');
   });
 });
