@@ -1,20 +1,20 @@
 import React from 'react';
-import styled from 'styled-components/macro';
 import { H2 } from '../../components/Typography';
+import './Panel.css';
 
 interface Props {
   title: string;
 }
 
-const Wrappper = styled.div`
-  padding: 1rem;
-`;
-
-const Panel = ({title, children}: React.PropsWithChildren<Props>) => <div>
-  <H2>{title}</H2>
-  <Wrappper>
-    {children}
-  </Wrappper>
-</div>;
+function Panel({title, children}: React.PropsWithChildren<Props>) {
+  return (
+    <div>
+      <H2>{title}</H2>
+      <div className="developer-panel-wrapper">
+        {children}
+      </div>
+    </div>
+  );
+}
 
 export default Panel;

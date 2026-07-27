@@ -1,35 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ToastNotifications matches snapshot for few notifications 1`] = `
-.c0 {
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  padding: 0.5rem 1rem;
-  font-weight: bold;
-  background-color: #fafafa;
-  line-height: 4rem;
-}
-
-.c0 a {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c0 a:hover {
-  color: #0064A0;
-}
-
-@media (max-width:75em) {
-  .c0 {
-    padding: 0;
-    line-height: 2rem;
-    background-color: initial;
-  }
-}
-
 <div
   className="toasts-container"
 >
@@ -50,7 +21,13 @@ exports[`ToastNotifications matches snapshot for few notifications 1`] = `
       className="banner-body banner-body-error"
     >
       <div
-        className="c0 toast-header"
+        className="notification-header toast-header"
+        style={
+          Object {
+            "--neutral-darker-color": "#fafafa",
+            "--text-color": "#424242",
+          }
+        }
       >
         The highlight could not be saved. Please check your connection and try again.
       </div>
@@ -107,7 +84,13 @@ exports[`ToastNotifications matches snapshot for few notifications 1`] = `
       className="banner-body banner-body-error"
     >
       <div
-        className="c0 toast-header"
+        className="notification-header toast-header"
+        style={
+          Object {
+            "--neutral-darker-color": "#fafafa",
+            "--text-color": "#424242",
+          }
+        }
       >
         The highlight could not be deleted. Please check your connection and try again.
       </div>
