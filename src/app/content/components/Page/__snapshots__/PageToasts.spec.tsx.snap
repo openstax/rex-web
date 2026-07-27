@@ -18,35 +18,6 @@ exports[`PageToasts matches snapshot 1`] = `
 `;
 
 exports[`PageToasts matches snapshot with toasts when mobile toolbar is open 1`] = `
-.c0 {
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  padding: 0.5rem 1rem;
-  font-weight: bold;
-  background-color: #fafafa;
-  line-height: 4rem;
-}
-
-.c0 a {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c0 a:hover {
-  color: #0064A0;
-}
-
-@media (max-width:75em) {
-  .c0 {
-    padding: 0;
-    line-height: 2rem;
-    background-color: initial;
-  }
-}
-
 <div
   aria-live="polite"
   className="page-toast-container"
@@ -81,7 +52,13 @@ exports[`PageToasts matches snapshot with toasts when mobile toolbar is open 1`]
         className="banner-body banner-body-error"
       >
         <div
-          className="c0 toast-header"
+          className="notification-header toast-header"
+          style={
+            Object {
+              "--neutral-darker-color": "#fafafa",
+              "--text-color": "#424242",
+            }
+          }
         >
           The highlight could not be saved. Please check your connection and try again.
         </div>
@@ -126,35 +103,6 @@ exports[`PageToasts matches snapshot with toasts when mobile toolbar is open 1`]
 `;
 
 exports[`PageToasts matches snapshots with toasts 1`] = `
-.c0 {
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  padding: 0.5rem 1rem;
-  font-weight: bold;
-  background-color: #fafafa;
-  line-height: 4rem;
-}
-
-.c0 a {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c0 a:hover {
-  color: #0064A0;
-}
-
-@media (max-width:75em) {
-  .c0 {
-    padding: 0;
-    line-height: 2rem;
-    background-color: initial;
-  }
-}
-
 <div
   aria-live="polite"
   className="page-toast-container"
@@ -189,7 +137,13 @@ exports[`PageToasts matches snapshots with toasts 1`] = `
         className="banner-body banner-body-error"
       >
         <div
-          className="c0 toast-header"
+          className="notification-header toast-header"
+          style={
+            Object {
+              "--neutral-darker-color": "#fafafa",
+              "--text-color": "#424242",
+            }
+          }
         >
           The highlight could not be saved. Please check your connection and try again.
         </div>
