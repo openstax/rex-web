@@ -95,6 +95,7 @@ const DynamicContentStyles = React.forwardRef<HTMLElement, DynamicContentStylesP
   // Inject dynamic styles into a <style> tag
   // Use an isomorphic layout effect to avoid SSR warnings during prerendering,
   // while still injecting synchronously before paint in the browser.
+  /* istanbul ignore next */
   const useIsomorphicLayoutEffect =
     typeof window !== 'undefined' ? React.useLayoutEffect : React.useEffect;
 
