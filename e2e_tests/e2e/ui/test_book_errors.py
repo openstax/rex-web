@@ -48,20 +48,24 @@ async def test_incorrect_subject(chrome_page, base_url, subjects):
 
     # GIVEN: An invalid subjects title
 
-    # WHEN: The Home page is not loaded
-    await chrome_page.goto(f"{base_url}/subjects/{subjects}")
+    # WHEN: The page is loaded with an invalid subject
+    await chrome_page.goto(
+        f"{base_url}/subjects/{subjects}", wait_until="domcontentloaded"
+    )
     home = HomeRex(chrome_page)
 
     # THEN: Error page is shown
-    assert await home.subjects_error_page_is_visible()
+    await home.subjects_error_page.wait_for(state="visible")
+    assert await home.subjects_error_page.is_visible()
 
     # THEN: User can get to book subjects page
-
     await home.click_view_all_subjects_link()
 
+    await chrome_page.wait_for_url("**/subjects**")
     assert "openstax.org/subjects" in chrome_page.url
 
-    assert await home.subject_listing_book_is_visible()
+    await home.subject_listing_book.wait_for(state="visible")
+    assert await home.subject_listing_book.is_visible()
 
 
 @pytest.mark.parametrize(

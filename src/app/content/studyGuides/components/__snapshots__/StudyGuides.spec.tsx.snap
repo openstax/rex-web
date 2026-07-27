@@ -1,165 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`StudyGuides properly display summary highlights 1`] = `
-.c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  min-height: 5.6rem;
-  padding: 0 3.2rem;
-}
-
-.c1 {
-  color: #424242;
-  font-size: 1.8rem;
-  line-height: 2.5rem;
-  -webkit-letter-spacing: -0.02rem;
-  -moz-letter-spacing: -0.02rem;
-  -ms-letter-spacing: -0.02rem;
-  letter-spacing: -0.02rem;
-  padding: 1rem 0 1rem 0;
-  margin: 0;
-  font-weight: bold;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: baseline;
-  -webkit-box-align: baseline;
-  -ms-flex-align: baseline;
-  align-items: baseline;
-  width: 100%;
-}
-
-.c1 .os-number {
-  overflow: visible;
-}
-
-.c1 > .os-text {
-  white-space: break-spaces;
-}
-
-.c2 {
-  margin: 1.6rem 3.2rem;
-  border: solid 0.1rem #e5e5e5;
-  overflow: visible;
-}
-
-.c3 {
-  color: #424242;
-  font-size: 1.4rem;
-  line-height: 1.6rem;
-  font-weight: normal;
-  padding: 0 2.4rem 0 3.2rem;
-  background: #e5e5e5;
-  height: 3.2rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  font-weight: bold;
-}
-
-.c3 > .os-number,
-.c3 > .os-divider,
-.c3 > .os-text {
-  overflow: hidden;
-}
-
-.c3 > .os-number,
-.c3 > .os-divider {
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-}
-
-.c3 > .os-text {
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-
-.c4 {
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  overflow: auto;
-  padding: 0.8rem 0;
-}
-
-.c4 a {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c4 a:hover {
-  color: #0064A0;
-}
-
-.c4 * {
-  overflow: initial;
-}
-
-@media screen and (max-width:75em) {
-  .c0 {
-    padding: 0 1.6rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c1 {
-    color: #424242;
-    font-size: 1.6rem;
-    line-height: 2rem;
-    -webkit-letter-spacing: -0.02rem;
-    -moz-letter-spacing: -0.02rem;
-    -ms-letter-spacing: -0.02rem;
-    letter-spacing: -0.02rem;
-    padding: 1rem 0 1rem 0;
-    margin: 0;
-  }
-}
-
-@media print {
-  .c1 {
-    padding: 0;
-    background: white;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c2 {
-    margin: 0 0 1.6rem 0;
-  }
-}
-
-@media print {
-  .c2 {
-    margin: 0;
-    border-width: 0;
-  }
-}
-
-@media print {
-  .c3 {
-    -webkit-break-after: avoid;
-    break-after: avoid;
-    -webkit-break-inside: avoid;
-    break-inside: avoid;
-    background: white;
-  }
-}
-
 <div
   className="study-guides-wrapper"
   style={
@@ -172,29 +13,56 @@ exports[`StudyGuides properly display summary highlights 1`] = `
     className="highlights-wrapper"
   >
     <div
-      className="c0"
+      className="highlights-chapter-wrapper"
+      style={
+        Object {
+          "--mobile-padding-sides": "1.6rem",
+          "--popup-padding": "3.2rem",
+        }
+      }
     >
       <h2
-        className="c1"
+        className="highlights-chapter"
         dangerouslySetInnerHTML={
           Object {
             "__html": "<span class=\\"os-number\\">10</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 5</span>",
           }
         }
         data-testid="chapter-title"
+        style={
+          Object {
+            "--text-color": "#424242",
+          }
+        }
       />
     </div>
     <div
-      className="c2"
+      className="highlight-wrapper"
+      style={
+        Object {
+          "--desktop-horizontal-margin": "3.2rem",
+          "--desktop-vertical-margin": "1.6rem",
+          "--mobile-margin-sides": "0.8rem",
+          "--neutral-darkest": "#e5e5e5",
+        }
+      }
     >
       <h3
-        className="c3"
+        className="highlight-section"
         dangerouslySetInnerHTML={
           Object {
             "__html": "<span class=\\"os-text\\">Test Page 6 with special characters in url</span>",
           }
         }
         data-testid="section-title"
+        style={
+          Object {
+            "--neutral-darkest": "#e5e5e5",
+            "--popup-body-padding": "2.4rem",
+            "--popup-padding": "3.2rem",
+            "--text-color": "#424242",
+          }
+        }
       />
       <div
         className="study-guides-list-element-outer"
@@ -231,7 +99,7 @@ exports[`StudyGuides properly display summary highlights 1`] = `
             Important Concepts
           </div>
           <div
-            className="content-excerpt c4"
+            className="content-excerpt"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "<a href=\\"/books/book-slug-1/pages/link\\" target=\\"_blank\\">Link</a>",
@@ -239,6 +107,13 @@ exports[`StudyGuides properly display summary highlights 1`] = `
             }
             data-dynamic-style={false}
             data-highlight-id="hl1"
+            style={
+              Object {
+                "--link-color": "#027EB5",
+                "--link-hover": "#0064A0",
+                "--text-color": "#424242",
+              }
+            }
           />
         </div>
       </div>
@@ -277,7 +152,7 @@ exports[`StudyGuides properly display summary highlights 1`] = `
             Connections & Relationships
           </div>
           <div
-            className="content-excerpt c4"
+            className="content-excerpt"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "content",
@@ -285,6 +160,13 @@ exports[`StudyGuides properly display summary highlights 1`] = `
             }
             data-dynamic-style={false}
             data-highlight-id="hl2"
+            style={
+              Object {
+                "--link-color": "#027EB5",
+                "--link-hover": "#0064A0",
+                "--text-color": "#424242",
+              }
+            }
           />
         </div>
       </div>
@@ -323,7 +205,7 @@ exports[`StudyGuides properly display summary highlights 1`] = `
             Key Terms
           </div>
           <div
-            className="content-excerpt c4"
+            className="content-excerpt"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "content",
@@ -331,6 +213,13 @@ exports[`StudyGuides properly display summary highlights 1`] = `
             }
             data-dynamic-style={false}
             data-highlight-id="hl3"
+            style={
+              Object {
+                "--link-color": "#027EB5",
+                "--link-hover": "#0064A0",
+                "--text-color": "#424242",
+              }
+            }
           />
         </div>
       </div>
@@ -369,7 +258,7 @@ exports[`StudyGuides properly display summary highlights 1`] = `
             Enrichment
           </div>
           <div
-            className="content-excerpt c4"
+            className="content-excerpt"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "content",
@@ -377,6 +266,13 @@ exports[`StudyGuides properly display summary highlights 1`] = `
             }
             data-dynamic-style={false}
             data-highlight-id="hl4"
+            style={
+              Object {
+                "--link-color": "#027EB5",
+                "--link-hover": "#0064A0",
+                "--text-color": "#424242",
+              }
+            }
           />
         </div>
       </div>
@@ -408,7 +304,7 @@ exports[`StudyGuides properly display summary highlights 1`] = `
             Key Terms
           </div>
           <div
-            className="content-excerpt c4"
+            className="content-excerpt"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "content",
@@ -416,34 +312,68 @@ exports[`StudyGuides properly display summary highlights 1`] = `
             }
             data-dynamic-style={false}
             data-highlight-id="hl5"
+            style={
+              Object {
+                "--link-color": "#027EB5",
+                "--link-hover": "#0064A0",
+                "--text-color": "#424242",
+              }
+            }
           />
         </div>
       </div>
     </div>
     <div
-      className="c0"
+      className="highlights-chapter-wrapper"
+      style={
+        Object {
+          "--mobile-padding-sides": "1.6rem",
+          "--popup-padding": "3.2rem",
+        }
+      }
     >
       <h2
-        className="c1"
+        className="highlights-chapter"
         dangerouslySetInnerHTML={
           Object {
             "__html": "<span class=\\"os-number\\">12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 6</span>",
           }
         }
         data-testid="chapter-title"
+        style={
+          Object {
+            "--text-color": "#424242",
+          }
+        }
       />
     </div>
     <div
-      className="c2"
+      className="highlight-wrapper"
+      style={
+        Object {
+          "--desktop-horizontal-margin": "3.2rem",
+          "--desktop-vertical-margin": "1.6rem",
+          "--mobile-margin-sides": "0.8rem",
+          "--neutral-darkest": "#e5e5e5",
+        }
+      }
     >
       <h3
-        className="c3"
+        className="highlight-section"
         dangerouslySetInnerHTML={
           Object {
             "__html": "<span class=\\"os-text\\">Test Page 7</span>",
           }
         }
         data-testid="section-title"
+        style={
+          Object {
+            "--neutral-darkest": "#e5e5e5",
+            "--popup-body-padding": "2.4rem",
+            "--popup-padding": "3.2rem",
+            "--text-color": "#424242",
+          }
+        }
       />
       <div
         className="study-guides-list-element-outer"
@@ -480,7 +410,7 @@ exports[`StudyGuides properly display summary highlights 1`] = `
             Important Concepts
           </div>
           <div
-            className="content-excerpt c4"
+            className="content-excerpt"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "content",
@@ -488,6 +418,13 @@ exports[`StudyGuides properly display summary highlights 1`] = `
             }
             data-dynamic-style={false}
             data-highlight-id="hl1"
+            style={
+              Object {
+                "--link-color": "#027EB5",
+                "--link-hover": "#0064A0",
+                "--text-color": "#424242",
+              }
+            }
           />
         </div>
       </div>
@@ -526,7 +463,7 @@ exports[`StudyGuides properly display summary highlights 1`] = `
             Connections & Relationships
           </div>
           <div
-            className="content-excerpt c4"
+            className="content-excerpt"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "content",
@@ -534,6 +471,13 @@ exports[`StudyGuides properly display summary highlights 1`] = `
             }
             data-dynamic-style={false}
             data-highlight-id="hl2"
+            style={
+              Object {
+                "--link-color": "#027EB5",
+                "--link-hover": "#0064A0",
+                "--text-color": "#424242",
+              }
+            }
           />
         </div>
       </div>

@@ -1,9 +1,10 @@
 import flow from 'lodash/fp/flow';
 import React, { HTMLAttributes } from 'react';
 import { useSelector } from 'react-redux';
-import styled from 'styled-components/macro';
+import classNames from 'classnames';
 import DynamicContentStyles from '../../components/DynamicContentStyles';
-import { bodyCopyRegularStyle } from '../../components/Typography';
+import { linkColor, linkHover } from '../../components/Typography/Links.constants';
+import theme from '../../theme';
 import { assertDefined } from '../../utils';
 import { book } from '../selectors';
 import { LinkedArchiveTreeSection } from '../types';
@@ -14,21 +15,24 @@ import {
   resolveRelativeResources,
 } from '../utils/contentManipulation';
 import { getBookPageUrlAndParams } from '../utils/urlUtils';
+import './ContentExcerpt.css';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   content: string;
   className?: string;
   source: string | LinkedArchiveTreeSection;
-  forwardedRef?: React.Ref<HTMLElement>;
   disableDynamicContentStyles?: boolean;
 }
 
-const ContentExcerpt = (props: Props) => {
+/**
+ * ContentExcerpt component - Displays content excerpts with proper link handling
+ */
+function ContentExcerpt(props: Props, ref?: React.Ref<HTMLElement>) {
   const {
     content,
     className,
     source,
-    forwardedRef,
+    style,
     ...excerptProps
   } = props;
 
@@ -46,25 +50,21 @@ const ContentExcerpt = (props: Props) => {
     addTargetBlankToLinks,
     (newContent) => rebaseRelativeContentLinks(newContent, excerptSource.url),
     (newContent) => resolveRelativeResources(newContent, excerptSource.url)
-  )(props.content), [props.content, excerptSource.url]);
+)(content), [content, excerptSource.url]);
 
   return <DynamicContentStyles
     book={currentBook}
-    ref={forwardedRef}
+    ref={ref}
     dangerouslySetInnerHTML={{ __html: fixedContent }}
-    className={`content-excerpt ${className}`}
+    className={classNames('content-excerpt', className)}
+    style={{
+      '--text-color': theme.color.text.default,
+      '--link-color': linkColor,
+      '--link-hover': linkHover,
+      ...style,
+    } as React.CSSProperties}
     {...excerptProps}
   />;
-};
+}
 
-export default styled(React.forwardRef<HTMLElement, Props>(
-  (props, ref) => <ContentExcerpt {...props} forwardedRef={ref} />)
-)`
-  ${bodyCopyRegularStyle}
-  overflow: auto;
-  padding: 0.8rem 0;
-
-  * {
-    overflow: initial;
-  }
-`;
+export default React.forwardRef<HTMLElement, Props>(ContentExcerpt);
