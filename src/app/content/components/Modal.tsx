@@ -1,11 +1,11 @@
 import React from 'react';
 import { createPortal } from 'react-dom';
-import { StyledComponentProps } from 'styled-components/macro';
 import ScrollLock from '../../components/ScrollLock';
 import { assertDocument } from '../../utils/browser-assertions';
 import { Modal as ModalWrapper, PopupWrapper } from '../styles/PopupStyles';
+import './Modal.css';
 
-interface ModalWithScrollLockProps extends StyledComponentProps<'div', {}, {}, ''> {
+interface ModalWithScrollLockProps extends React.HTMLAttributes<HTMLDivElement> {
   scrollLockProps: React.ComponentProps<typeof ScrollLock>;
 }
 

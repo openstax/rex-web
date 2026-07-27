@@ -1,7 +1,6 @@
 import React from 'react';
 import { Book } from '../types';
 import { HTMLDivElement } from '@openstax/types/lib.dom';
-import styled from 'styled-components/macro';
 import Button from '../../components/Button';
 import Modal from './Modal';
 import theme from '../../theme';
@@ -11,23 +10,7 @@ import { assertDocument } from '../../utils';
 import { hasOSWebData } from '../guards';
 import { tuple } from '../../utils';
 import { useIntl } from 'react-intl';
-
-const WarningDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 4rem;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.8rem;
-  padding: 2rem;
-  min-height: 50vh;
-  top: 25vh;
-  z-index: 4;
-
-  > div {
-    max-width: 80rem;
-  }
-`;
+import './ContentWarning.css';
 
 function WarningDivWithTrap({
   text,
@@ -59,12 +42,12 @@ function WarningDivWithTrap({
   useTrapTabNavigation(ref);
 
   return (
-    <WarningDiv tabIndex='-1' ref={ref}>
-      <div dangerouslySetInnerHTML={{__html: text}} />
+    <div className="content-warning-div" tabIndex={-1} ref={ref}>
+      <div className="content-warning-text" dangerouslySetInnerHTML={{__html: text}} />
       <Button type='button' onClick={dismiss}>
         Ok
       </Button>
-    </WarningDiv>
+    </div>
   );
 }
 
@@ -97,7 +80,7 @@ export default function ContentWarning({ book }: { book: Book }) {
   return (
     <Modal
       aria-label={intl.formatMessage({ id: 'i18n:content-warning:heading:aria-label' })}
-      tabIndex='-1'
+      tabIndex={-1}
       scrollLockProps={{
         mediumScreensOnly: false,
         overlay: true,

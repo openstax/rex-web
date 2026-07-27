@@ -1,17 +1,7 @@
 import React from 'react';
-import styled from 'styled-components/macro';
 import { ToastData, ToastContainer } from '@openstax/ui-components';
-import theme, { hiddenButAccessible } from '../../theme';
-
-const HiddenLiveRegion = styled.div`
-  ${hiddenButAccessible}
-`;
-
-const ElevatedToastContainer = styled(ToastContainer)`
-  &&& {
-    z-index: ${theme.zIndex.nudgeOverlay + 1};
-  }
-`;
+import theme, { hiddenButAccessibleClass } from '../../theme';
+/* CSS imported in src/app/index.tsx */
 
 interface ConfirmationToastContextValue {
   showToast: (data: ConfirmationToastData) => void;
@@ -54,9 +44,9 @@ function ModalToastAnnouncer() {
   }, [announcement]);
 
   return (
-    <HiddenLiveRegion aria-live='polite'>
+    <div className={hiddenButAccessibleClass} aria-live='polite'>
       {liveMsg}
-    </HiddenLiveRegion>
+    </div>
   );
 }
 
@@ -86,7 +76,16 @@ function ConfirmationToastProvider({ children }: React.PropsWithChildren<{}>) {
 
   return (
     <ctx.Provider value={value}>
-      <ElevatedToastContainer toasts={toastData} />
+      <div
+        style={{
+          '--elevated-toast-z-index': theme.zIndex.nudgeOverlay + 1,
+        } as React.CSSProperties}
+      >
+        <ToastContainer
+          toasts={toastData}
+          className="elevated-toast-container"
+        />
+      </div>
       {children}
     </ctx.Provider>
   );

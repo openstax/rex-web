@@ -154,7 +154,7 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
         "--top-bottom-margin": "9.6rem",
       }
     }
-    tabIndex="-1"
+    tabIndex={-1}
   >
     <div
       className="popup-header disable-print"
