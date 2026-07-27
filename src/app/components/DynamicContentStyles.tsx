@@ -1,4 +1,5 @@
 import React from 'react';
+import type { HTMLStyleElement } from '@openstax/types/lib.dom';
 import { useSelector } from 'react-redux';
 import { bookStylesUrl as bookStylesUrlSelector } from '../content/selectors';
 import { State } from '../content/types';
