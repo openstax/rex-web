@@ -1,13 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Dropdown matches snapshot 1`] = `
-.c0 {
-  overflow: visible;
-  position: relative;
-}
-
 <div
-  className="dropdown-transparent c0"
+  className="dropdown-transparent dropdown-wrapper "
 >
   <div
     className="dropdown-focus-wrapper"
@@ -24,7 +19,7 @@ exports[`Dropdown matches snapshot 1`] = `
       className="dropdown-menu"
     >
       <menu
-        className="dropdown-list "
+        className="dropdown-list"
       >
         <li>
           <button
@@ -60,13 +55,8 @@ exports[`Dropdown matches snapshot 1`] = `
 `;
 
 exports[`Dropdown matches snapshot for tab hidden (closed) 1`] = `
-.c0 {
-  overflow: visible;
-  position: relative;
-}
-
 <div
-  className="c0"
+  className="dropdown-wrapper "
 >
   <button
     className="dropdown-toggle "
@@ -79,13 +69,8 @@ exports[`Dropdown matches snapshot for tab hidden (closed) 1`] = `
 `;
 
 exports[`Dropdown matches snapshot for tab hidden (open) 1`] = `
-.c0 {
-  overflow: visible;
-  position: relative;
-}
-
 <div
-  className="c0"
+  className="dropdown-wrapper "
 >
   <button
     className="dropdown-toggle "
@@ -98,7 +83,7 @@ exports[`Dropdown matches snapshot for tab hidden (open) 1`] = `
     className="dropdown-menu"
   >
     <menu
-      className="dropdown-list "
+      className="dropdown-list"
     >
       <li>
         <button
