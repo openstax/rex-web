@@ -1,13 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Dropdown matches snapshot 1`] = `
-.c0 {
-  overflow: visible;
-  position: relative;
-}
-
 <div
-  className="dropdown-transparent c0 dot-menu-dropdown"
+  className="dropdown-transparent dropdown-wrapper dot-menu-dropdown"
 >
   <div
     className="dropdown-focus-wrapper"
@@ -92,13 +87,8 @@ exports[`Dropdown matches snapshot 1`] = `
 `;
 
 exports[`Dropdown matches snapshot on right align 1`] = `
-.c0 {
-  overflow: visible;
-  position: relative;
-}
-
 <div
-  className="dropdown-transparent c0 dot-menu-dropdown"
+  className="dropdown-transparent dropdown-wrapper dot-menu-dropdown"
 >
   <div
     className="dropdown-focus-wrapper"

@@ -1,11 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ContextMenu match snapshot when closed 1`] = `
-.c0 {
-  overflow: visible;
-  position: relative;
-}
-
 <div
   className="styled-context-menu"
   style={
@@ -16,7 +11,7 @@ exports[`ContextMenu match snapshot when closed 1`] = `
   }
 >
   <div
-    className="c0"
+    className="dropdown-wrapper "
     data-dropdown={true}
   >
     <button
@@ -48,11 +43,6 @@ exports[`ContextMenu match snapshot when closed 1`] = `
 `;
 
 exports[`ContextMenu match snapshot when open 1`] = `
-.c0 {
-  overflow: visible;
-  position: relative;
-}
-
 <div
   className="styled-context-menu"
   style={
@@ -63,7 +53,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
   }
 >
   <div
-    className="c0"
+    className="dropdown-wrapper "
     data-dropdown={true}
   >
     <button

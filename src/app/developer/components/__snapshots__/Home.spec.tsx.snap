@@ -71,32 +71,14 @@ Array [
       </a>
     </div>
   </div>,
-  .c0 {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border: 0;
-}
-
-<div
+  <div
     aria-live="polite"
-    className="c0"
+    className="hidden-but-accessible"
     id="page-title-confirmation"
   >
     
   </div>,
-  .c0 {
-  overflow: visible;
-  position: relative;
-}
-
-<div
+  <div
     className="layout-body developer-home-wrapper"
     style={
       Object {
@@ -475,7 +457,7 @@ Array [
                     </small>
                   </div>
                   <div
-                    className="c0 dot-menu-dropdown"
+                    className="dropdown-wrapper dot-menu-dropdown"
                   >
                     <button
                       aria-expanded={false}
@@ -528,7 +510,7 @@ Array [
                     </small>
                   </div>
                   <div
-                    className="c0 dot-menu-dropdown"
+                    className="dropdown-wrapper dot-menu-dropdown"
                   >
                     <button
                       aria-expanded={false}
