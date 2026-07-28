@@ -1,6 +1,5 @@
 import React from 'react';
 import classNames from 'classnames';
-import styled from 'styled-components/macro';
 import { HTMLDetailsElement } from '@openstax/types/lib.dom';
 import '../../polyfill/details';
 // Note: Details.css is imported globally from src/app/index.tsx to ensure consistent
@@ -15,10 +14,8 @@ interface IconProps extends React.SVGAttributes<SVGSVGElement> {
 /**
  * Expand icon (caret-right) for Details component.
  * SVG path from Font Awesome Free (https://fontawesome.com - MIT License)
- *
- * Note: Wrapped with styled() to enable styled-components component selector references
  */
-function ExpandIconBase({ className, ...props }: IconProps) {
+export function ExpandIcon({ className, ...props }: IconProps) {
   return (
     <svg
       className={classNames('details-expand-icon', className)}
@@ -34,15 +31,11 @@ function ExpandIconBase({ className, ...props }: IconProps) {
   );
 }
 
-export const ExpandIcon = styled(ExpandIconBase)``;
-
 /**
  * Collapse icon (caret-down) for Details component.
  * SVG path from Font Awesome Free (https://fontawesome.com - MIT License)
- *
- * Note: Wrapped with styled() to enable styled-components component selector references
  */
-function CollapseIconBase({ className, ...props }: IconProps) {
+export function CollapseIcon({ className, ...props }: IconProps) {
   return (
     <svg
       className={classNames('details-collapse-icon', className)}
@@ -57,8 +50,6 @@ function CollapseIconBase({ className, ...props }: IconProps) {
     </svg>
   );
 }
-
-export const CollapseIcon = styled(CollapseIconBase)``;
 
 export function Summary({
   children,
