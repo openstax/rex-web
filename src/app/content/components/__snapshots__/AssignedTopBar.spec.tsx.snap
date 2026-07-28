@@ -1,18 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`AssignedTopBar renders 1`] = `
-.c2 {
+.c0 {
   overflow: visible;
   position: relative;
 }
 
-.c3 {
+.c1 {
   position: relative;
   border-left: 0.1rem solid transparent;
   border-right: 0.1rem solid transparent;
 }
 
-.c3 > div {
+.c1 > div {
   padding: 2rem 2.4rem;
   outline: none;
   color: #424242;
@@ -35,55 +35,20 @@ exports[`AssignedTopBar renders 1`] = `
   justify-content: flex-end;
 }
 
-.c0 {
-  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.14);
-  background-color: #fff;
-  color: #424242;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  height: 5rem;
-}
-
-.c0.c0 {
-  top: 0;
-}
-
-.c1 {
-  font-size: 1.8rem;
-  line-height: 2.1rem;
-  -webkit-letter-spacing: 0.03px;
-  -moz-letter-spacing: 0.03px;
-  -ms-letter-spacing: 0.03px;
-  letter-spacing: 0.03px;
-  margin-left: 1.6rem;
-}
-
 @media screen and (max-width:75em) {
-  .c3 > div {
+  .c1 > div {
     padding: 1rem 1.6rem;
   }
 }
 
-@media screen and (max-width:50em) {
-  .c0 {
-    height: 5.3rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c1 {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-}
-
 <div
-  className="topbar-wrapper c0"
+  className="topbar-wrapper assigned-topbar-wrapper"
   style={
     Object {
+      "--assigned-topbar-bg-color": "#fff",
+      "--assigned-topbar-height-desktop": "5rem",
+      "--assigned-topbar-height-mobile": "5.3rem",
+      "--assigned-topbar-text-color": "#424242",
       "--topbar-sticky-top-desktop": "7rem",
       "--topbar-sticky-top-mobile": "6rem",
       "--topbar-z-index": 30,
@@ -92,7 +57,7 @@ exports[`AssignedTopBar renders 1`] = `
   }
 >
   <h2
-    className="c1"
+    className="assigned-topbar-section-title"
     dangerouslySetInnerHTML={
       Object {
         "__html": "1.1 Section Title",
@@ -100,14 +65,14 @@ exports[`AssignedTopBar renders 1`] = `
     }
   />
   <div
-    className="c2 topbar-text-resizer-dropdown"
+    className="c0 topbar-text-resizer-dropdown"
     data-testid="text-resizer"
   >
     <button
       aria-controls="text-resizer-menu"
       aria-expanded={false}
       aria-label="Change text size"
-      className="plain-button c3 dropdown-toggle "
+      className="plain-button c1 dropdown-toggle "
       data-analytics-label="Change text size"
       onClick={[Function]}
     >
