@@ -49,10 +49,12 @@
 }
 
 /* Close icon */
+/* stylelint-disable selector-class-pattern */
 .highlights-help-info__close-icon {
   color: var(--close-icon-color, #818181); /* theme.color.secondary.lightGray.darkest */
   width: 1.4rem;
 }
+/* stylelint-enable selector-class-pattern */
 
 /* Hidden on desktop (min-width: 75em / 1200px) */
 @media screen and (min-width: 75em) {
