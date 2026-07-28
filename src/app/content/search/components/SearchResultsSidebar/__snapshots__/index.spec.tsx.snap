@@ -280,7 +280,7 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
             >
               <svg
                 aria-hidden="true"
-                className="details-expand-icon "
+                className="details-expand-icon"
                 viewBox="0 0 192 512"
               >
                 <path
@@ -290,7 +290,7 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
               </svg>
               <svg
                 aria-hidden="true"
-                className="details-collapse-icon "
+                className="details-collapse-icon"
                 viewBox="0 0 320 512"
               >
                 <path
@@ -528,7 +528,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
             >
               <svg
                 aria-hidden="true"
-                className="details-expand-icon "
+                className="details-expand-icon"
                 viewBox="0 0 192 512"
               >
                 <path
@@ -538,7 +538,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
               </svg>
               <svg
                 aria-hidden="true"
-                className="details-collapse-icon "
+                className="details-collapse-icon"
                 viewBox="0 0 320 512"
               >
                 <path
@@ -617,7 +617,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
             >
               <svg
                 aria-hidden="true"
-                className="details-expand-icon "
+                className="details-expand-icon"
                 viewBox="0 0 192 512"
               >
                 <path
@@ -627,7 +627,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
               </svg>
               <svg
                 aria-hidden="true"
-                className="details-collapse-icon "
+                className="details-collapse-icon"
                 viewBox="0 0 320 512"
               >
                 <path
@@ -694,78 +694,6 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
 `;
 
 exports[`SearchResultsSidebar shows sidebar with loading state if there is a search 1`] = `
-.c0 {
-  enable-background: new 0 0 57.6 39.1;
-  -webkit-animation: iuEIAH 0.3s forwards 300ms;
-  animation: iuEIAH 0.3s forwards 300ms;
-  display: block;
-  height: 100%;
-  margin: 0 auto;
-  opacity: 0;
-  position: relative;
-  -webkit-transform: scale(0);
-  -ms-transform: scale(0);
-  transform: scale(0);
-  -webkit-transform-origin: center;
-  -ms-transform-origin: center;
-  transform-origin: center;
-  width: 5rem;
-}
-
-.c0 * {
-  -webkit-animation: fadeIn 0.3s forwards;
-  animation: fadeIn 0.3s forwards;
-}
-
-.c0 .os-green,
-.c0 .os-orange,
-.c0 .os-gray,
-.c0 .os-yellow,
-.c0 .os-blue {
-  -webkit-animation-delay: 0.5s;
-  animation-delay: 0.5s;
-}
-
-.c0 .os-green {
-  -webkit-animation: hkCfKg 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
-  animation: hkCfKg 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
-  -webkit-transform-origin: center left;
-  -ms-transform-origin: center left;
-  transform-origin: center left;
-}
-
-.c0 .os-orange {
-  -webkit-animation: kSacDd 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
-  animation: kSacDd 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
-  -webkit-transform-origin: center right;
-  -ms-transform-origin: center right;
-  transform-origin: center right;
-}
-
-.c0 .os-gray {
-  -webkit-animation: fXlVAV 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
-  animation: fXlVAV 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
-  -webkit-transform-origin: center right;
-  -ms-transform-origin: center right;
-  transform-origin: center right;
-}
-
-.c0 .os-yellow {
-  -webkit-animation: hbytGi 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.6s infinite alternate;
-  animation: hbytGi 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.6s infinite alternate;
-  -webkit-transform-origin: center right;
-  -ms-transform-origin: center right;
-  transform-origin: center right;
-}
-
-.c0 .os-blue {
-  -webkit-animation: jfsUaa 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
-  animation: jfsUaa 0.6s cubic-bezier(0.81,0.41,0.13,0.74) 0.5s infinite alternate;
-  -webkit-transform-origin: center;
-  -ms-transform-origin: center;
-  transform-origin: center;
-}
-
 <div
   aria-label="Search results sidebar"
   aria-live="polite"
@@ -827,9 +755,15 @@ exports[`SearchResultsSidebar shows sidebar with loading state if there is a sea
       </button>
     </div>
     <svg
-      className="c0"
+      className="loading-icon"
       data-testid="loader"
       id="Layer_1"
+      style={
+        Object {
+          "--loader-delay": "300ms",
+          "--loader-width": "5rem",
+        }
+      }
       version="1.1"
       viewBox="0 0 57.6 39.1"
       x="0px"
