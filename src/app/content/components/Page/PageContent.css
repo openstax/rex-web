@@ -384,8 +384,10 @@
 }
 
 .page-content .image-button-wrapper:focus {
+  /* stylelint-disable declaration-block-no-duplicate-properties -- different browsers */
   outline: 1px solid Highlight;
   outline: 1px solid -webkit-focus-ring-color;
+  /* stylelint-enable declaration-block-no-duplicate-properties */
   outline-offset: 2px;
 }
 
