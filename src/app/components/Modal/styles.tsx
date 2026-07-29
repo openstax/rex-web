@@ -1,5 +1,4 @@
 /**
- * @deprecated This file maintains backward compatibility.
- * Import from './Modal' for new code, or './styles.legacy' for styled-components.
+ * @deprecated This file is deprecated and should not be used.
+ * Import from './Modal' for new code.
  */
-export * from './styles.legacy';
