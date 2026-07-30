@@ -1,54 +1,32 @@
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import styled, { css } from 'styled-components/macro';
+import styled from 'styled-components/macro';
 import { PlainButton } from '../../../components/Button';
 import Times from '../../../components/Times';
-import theme, { hiddenButAccessible } from '../../../theme';
 import { SummaryFiltersUpdate } from '../../highlights/types';
 import { LinkedArchiveTreeNode } from '../../types';
 import { splitTitleParts } from '../../utils/archiveTreeUtils';
 import { LocationFilters } from './types';
+import classNames from 'classnames';
+import './FiltersList.css';
 
-export const StyledPlainButton = styled(PlainButton)`
-  height: 1.7rem;
-  margin-right: 0.4rem;
+// Wrap PlainButton with styled() for backward compatibility with component selectors
+// The actual styles are in FiltersList.css under .filters-list-close-button
+const StyledPlainButtonBase = (props: React.ComponentProps<typeof PlainButton>) => (
+  <PlainButton {...props} className="filters-list-close-button" />
+);
+export const StyledPlainButton = styled(StyledPlainButtonBase)``;
 
-  svg {
-    height: 0.8rem;
-    width: 0.8rem;
+const ItemLabel = ({ children, ...props }: React.HTMLAttributes<HTMLSpanElement>) => (
+  <span {...props} className="filters-list-item-label">
+    {children}
+  </span>
+);
 
-    /* eslint-disable-next-line */
-    color: ${theme.color.primary.gray.base};
-  }
-
-  @media print {
-    display: none;
-  }
-`;
-
-const ItemLabel = styled.span`
-  font-weight: 300;
-  color: ${theme.color.primary.gray.base};
-  max-width: 8rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  text-transform: capitalize;
-  line-height: 1.5rem;
-
-  @media print {
-    max-width: max-content;
-  }
-`;
-
-const FilterListItem = styled.li`
-  margin-right: 3.2rem;
-  display: flex;
-  align-items: center;
-  overflow: visible;
-  height: 4rem;
-`;
+const FilterListItem = ({ children }: { children: React.ReactNode }) => (
+  <li className="filters-list-item">{children}</li>
+);
 
 interface FiltersListColorProps {
   color: HighlightColorEnum;
@@ -141,11 +119,12 @@ function useFilterCounts(
   }, [colorFilterCount, locationFilterCount]);
 }
 
-const StatusDiv = styled.div`
-  ${hiddenButAccessible}
-`;
+const StatusDiv = ({ children }: { children: React.ReactNode }) => (
+  <div className="filters-list-status" role="status">{children}</div>
+);
 
-const FiltersList = ({
+// Plain React component for FiltersList
+function FiltersListBase({
   className,
   locationFilters,
   selectedColorFilters,
@@ -156,7 +135,7 @@ const FiltersList = ({
   colorAriaLabelKey,
   colorDataAnalyticsLabel,
   colorLabelKey,
-}: FiltersListProps) => {
+}: FiltersListProps) {
   const intl = useIntl();
 
   const onRemoveChapter = (location: LinkedArchiveTreeNode) => {
@@ -174,9 +153,9 @@ const FiltersList = ({
   const statusMessage = useFilterCounts(selectedColorFilters.size, selectedLocationFilters.size);
 
   return <>
-    <StatusDiv role='status'>{statusMessage}</StatusDiv>
+    <StatusDiv>{statusMessage}</StatusDiv>
     <ul
-      className={className}
+      className={classNames('filters-list', className)}
       aria-live='polite'
       aria-atomic='true'
       aria-label={intl.formatMessage({id: 'i18n:highlighting:filters:applied-filters:aria-label'})}
@@ -200,24 +179,8 @@ const FiltersList = ({
       />)}
     </ul>
   </>;
-};
+}
 
-export default styled(FiltersList)`
-  color: ${theme.color.text.default};
-  font-size: 1.4rem;
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%;
-  margin: 0;
-  padding: 0 2.8rem 1rem 2.8rem;
-  margin-top: -1rem;
-  list-style: none;
-  overflow: visible;
-  ${theme.breakpoints.mobile(css`
-    padding: 0 2.4rem 0.4rem 2.4rem;
-  `)}
-
-  @media print {
-    margin: 0;
-  }
-`;
+// Wrap with styled() for backward compatibility with component selectors in Filters.tsx
+// Styles are now in FiltersList.css, but this wrapper maintains selector compatibility
+export default styled(FiltersListBase)``;

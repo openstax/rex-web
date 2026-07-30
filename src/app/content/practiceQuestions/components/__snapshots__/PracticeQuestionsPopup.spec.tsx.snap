@@ -111,7 +111,7 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
 }
 
 @media print {
-  .c0 > *:not(.FiltersList-sc-1sdnk9e-4) {
+  .c0 > *:not(.FiltersList-sc-1sdnk9e-1) {
     display: none;
   }
 }
