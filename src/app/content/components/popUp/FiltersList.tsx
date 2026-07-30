@@ -4,9 +4,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
 import { PlainButton } from '../../../components/Button';
 import Times from '../../../components/Times';
-import { textStyle } from '../../../components/Typography';
 import theme, { hiddenButAccessible } from '../../../theme';
-import { disablePrint } from '../../components/utils/disablePrint';
 import { SummaryFiltersUpdate } from '../../highlights/types';
 import { LinkedArchiveTreeNode } from '../../types';
 import { splitTitleParts } from '../../utils/archiveTreeUtils';
@@ -22,11 +20,10 @@ export const StyledPlainButton = styled(PlainButton)`
     color: ${theme.color.primary.gray.base};
   }
 
-  ${disablePrint}
+  @media print { display: none; }
 `;
 
 const ItemLabel = styled.span`
-  ${textStyle}
   font-weight: 300;
   color: ${theme.color.primary.gray.base};
   max-width: 8rem;
@@ -202,7 +199,7 @@ const FiltersList = ({
 };
 
 export default styled(FiltersList)`
-  ${textStyle}
+  color: ${theme.color.text.default};
   font-size: 1.4rem;
   display: flex;
   flex-wrap: wrap;

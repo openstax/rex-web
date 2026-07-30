@@ -5,7 +5,6 @@ import { FormattedMessage } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
 import AllOrNone from '../../../components/AllOrNone';
 import Checkbox from '../../../components/Checkbox';
-import { textStyle } from '../../../components/Typography';
 import { useTrapTabNavigation } from '../../../reactUtils/focusUtils';
 import theme from '../../../theme';
 import { highlightStyles } from '../../constants';
@@ -85,7 +84,7 @@ export default styled(ColorFilter)`
   background: ${theme.color.white};
   display: flex;
   flex-direction: column;
-  ${textStyle}
+  color: ${theme.color.text.default};
   font-size: 1.4rem;
   padding: ${filters.dropdownContent.padding.topBottom}rem ${filters.dropdownContent.padding.sides}rem;
   outline: none;
