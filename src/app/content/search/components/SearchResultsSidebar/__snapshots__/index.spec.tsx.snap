@@ -80,23 +80,6 @@ exports[`SearchResultsSidebar matches snapshot for no search results 1`] = `
 `;
 
 exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
-.c0 {
-  list-style: none;
-  cursor: pointer;
-}
-
-.c0::before {
-  display: none;
-}
-
-.c0::-moz-list-bullet {
-  list-style-type: none;
-}
-
-.c0::-webkit-details-marker {
-  display: none;
-}
-
 <div
   aria-label="Search results sidebar"
   aria-live="polite"
@@ -271,7 +254,7 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
           open={true}
         >
           <summary
-            className="c0 search-bar-summary"
+            className="details-summary search-bar-summary"
             tabIndex={0}
           >
             <div
@@ -357,23 +340,6 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
 `;
 
 exports[`SearchResultsSidebar matches snapshot with results 1`] = `
-.c0 {
-  list-style: none;
-  cursor: pointer;
-}
-
-.c0::before {
-  display: none;
-}
-
-.c0::-moz-list-bullet {
-  list-style-type: none;
-}
-
-.c0::-webkit-details-marker {
-  display: none;
-}
-
 <div
   aria-label="Search results sidebar"
   aria-live="polite"
@@ -519,7 +485,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
           open={true}
         >
           <summary
-            className="c0 search-bar-summary"
+            className="details-summary search-bar-summary"
             tabIndex={0}
           >
             <div
@@ -608,7 +574,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
           open={true}
         >
           <summary
-            className="c0 search-bar-summary"
+            className="details-summary search-bar-summary"
             tabIndex={0}
           >
             <div
