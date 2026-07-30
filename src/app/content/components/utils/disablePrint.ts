@@ -1,5 +1,3 @@
-import { css } from 'styled-components/macro';
-
 /**
  * CSS class name for hiding elements in print media.
  * Apply this class to elements that should not appear in printed output.
@@ -7,25 +5,15 @@ import { css } from 'styled-components/macro';
  * Note: The utilities.css file (which defines this class) is imported globally
  * from src/app/index.tsx. Do not import it here to avoid side effects.
  *
+ * This module has no dependencies and can be safely imported by plain CSS code.
+ *
  * @example
  * <div className={disablePrintClass}>Not visible in print</div>
  */
 export const disablePrintClass = 'disable-print';
 
 /**
- * Legacy styled-components CSS fragment for hiding elements in print media.
- *
- * @deprecated This is a legacy export for backward compatibility.
- * New code should use the `disablePrintClass` className instead.
- *
- * @example
- * // Old (styled-components):
- * const Component = styled.div`
- *   ${disablePrint}
- * `;
- *
- * // New (plain CSS):
- * import { disablePrintClass } from './disablePrint';
- * <div className={disablePrintClass}>...</div>
+ * @deprecated Use `disablePrintClass` with className instead.
+ * For the styled-components css fragment, import from './disablePrint.legacy'
  */
-export const disablePrint = css`@media print { display: none; }`;
+export { disablePrint } from './disablePrint.legacy';

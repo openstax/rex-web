@@ -1,25 +1,22 @@
 /**
  * Typography Module Entry Point
  *
- * This module exports:
- * 1. Plain CSS components (H1-H6) - no styled-components dependencies
- * 2. Constants that were previously in legacy files - preserved for backward compatibility
+ * This module exports plain CSS components (H1-H6) with no styled-components dependencies.
+ *
+ * For legacy styled-components css fragments and constants, import from:
+ * - './Typography.legacy' for textStyle, textRegularLineHeight
+ * - './Headings.legacy' for h3MobileLineHeight
+ * - './Links.constants' for linkColor, linkHover (dependency-free)
  */
-
-import { css } from 'styled-components/macro';
-import theme from '../../theme';
 
 // Export plain CSS components (no styled-components dependencies)
 export * from './Headings';
 
-// Export link color constants (from Links.constants.ts)
+// Export link color constants (dependency-free module)
 export { linkColor, linkHover } from './Links.constants';
 
-// Export constants that were previously in legacy files for backward compatibility
-export const h3MobileLineHeight = 2;
-export const textRegularLineHeight = 2.5;
-
-// Export styled-components css fragments for backward compatibility
-export const textStyle = css`
-  color: ${theme.color.text.default};
-`;
+// Re-export legacy constants and css fragments for backward compatibility
+// These are kept in separate .legacy files to avoid pulling styled-components
+// into modules that only need the plain CSS components
+export { h3MobileLineHeight } from './Headings.legacy';
+export { textRegularLineHeight, textStyle } from './Typography.legacy';
