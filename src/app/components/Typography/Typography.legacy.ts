@@ -9,9 +9,6 @@
 import { css } from 'styled-components/macro';
 import theme from '../../theme';
 
-// Export constants for backward compatibility
-export const textRegularLineHeight = 2.5;
-
 // Export styled-components css fragments for backward compatibility
 // These maintain compatibility with existing code that interpolates them in styled-components
 export const textStyle = css`
