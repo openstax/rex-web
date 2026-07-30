@@ -5,7 +5,6 @@ import { PlainButton } from '../../../components/Button';
 import Dropdown, { TabHiddenDropdownProps } from '../../../components/Dropdown';
 import theme, { hiddenButAccessible } from '../../../theme';
 import { filters } from '../../styles/PopupConstants';
-import FiltersList from './FiltersList';
 
 interface IconProps extends React.SVGAttributes<SVGSVGElement> {
   className?: string;
@@ -219,7 +218,7 @@ export default styled(Filters)`
   }
 
   ${css`
-    > *:not(${FiltersList}) {
+    > *:not(.filters-list) {
       @media print { display: none; }
     }
   `}
