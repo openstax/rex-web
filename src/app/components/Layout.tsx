@@ -41,9 +41,3 @@ export const LayoutBody = ({
     {children}
   </div>
 );
-
-/**
- * @deprecated Use LayoutBody component with plain CSS instead.
- * For the styled-components css fragment, import from './Layout.legacy'
- */
-export { wrapperPadding } from './Layout.legacy';
