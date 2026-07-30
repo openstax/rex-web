@@ -5,7 +5,6 @@
  *
  * For legacy styled-components css fragments and constants, import from:
  * - './Typography.legacy' for textStyle, textRegularLineHeight
- * - './Headings.legacy' for h3MobileLineHeight
  * - './Links.constants' for linkColor, linkHover (dependency-free)
  */
 
@@ -18,5 +17,4 @@ export { linkColor, linkHover } from './Links.constants';
 // Re-export legacy constants and css fragments for backward compatibility
 // These are kept in separate .legacy files to avoid pulling styled-components
 // into modules that only need the plain CSS components
-export { h3MobileLineHeight } from './Headings.legacy';
 export { textRegularLineHeight, textStyle } from './Typography.legacy';
