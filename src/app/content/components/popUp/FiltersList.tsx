@@ -13,8 +13,8 @@ import './FiltersList.css';
 
 // Wrap PlainButton with styled() for backward compatibility with component selectors
 // The actual styles are in FiltersList.css under .filters-list-close-button
-const StyledPlainButtonBase = (props: React.ComponentProps<typeof PlainButton>) => (
-  <PlainButton {...props} className="filters-list-close-button" />
+const StyledPlainButtonBase = ({ className, ...props }: React.ComponentProps<typeof PlainButton>) => (
+  <PlainButton {...props} className={classNames('filters-list-close-button', className)} />
 );
 export const StyledPlainButton = styled(StyledPlainButtonBase)``;
 
