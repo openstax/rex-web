@@ -3,15 +3,14 @@
  *
  * These components use plain CSS for styling with CSS variables bound from theme.ts.
  * No styled-components dependencies.
- *
- * For legacy styled-components css exports (h3Style, h4Style, etc.),
- * see Headings.legacy.ts
  */
 
 import React from 'react';
 import classNames from 'classnames';
 import theme from '../../theme';
 import './Headings.css';
+
+export const h3MobileLineHeight = 2;
 
 interface HeadingProps extends React.HTMLAttributes<HTMLHeadingElement> {
   children: React.ReactNode;
