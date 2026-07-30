@@ -2,7 +2,7 @@ import React from 'react';
 import { useIntl } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
 import { PlainButton } from '../../../components/Button';
-import Dropdown, { DropdownToggle, TabHiddenDropdownProps } from '../../../components/Dropdown';
+import Dropdown, { TabHiddenDropdownProps } from '../../../components/Dropdown';
 import theme, { hiddenButAccessible } from '../../../theme';
 import { filters } from '../../styles/PopupConstants';
 import FiltersList from './FiltersList';

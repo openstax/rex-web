@@ -52,6 +52,7 @@ function ColorIndicator<T extends React.ComponentType | undefined>(
 
   // Handle case where style might be undefined at runtime (defensive check)
   if (!style) {
+    // eslint-disable-next-line no-console
     console.error('ColorIndicator: style prop is required but was undefined');
     return null;
   }

@@ -7,7 +7,6 @@ import { PlainButton as PlainButtonBase } from '../../../components/Button';
 import Checkbox from '../../../components/Checkbox';
 import { useTrapTabNavigation } from '../../../reactUtils/focusUtils';
 import theme from '../../../theme';
-import ColorIndicator from '../../highlights/components/ColorIndicator';
 import { filters, mobileMarginSides } from '../../styles/PopupConstants';
 import { LinkedArchiveTreeNode } from '../../types';
 import { splitTitleParts } from '../../utils/archiveTreeUtils';
