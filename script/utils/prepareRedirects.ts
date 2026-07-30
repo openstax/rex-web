@@ -29,7 +29,21 @@ const prepareRedirects = async(
   for (const fileName of redirectsDataFiles) {
     const bookRedirects: RedirectsData = (await import(fileName)).default;
 
-    for (const { bookId, pageId, pathname, query } of bookRedirects) {
+    for (const entry of bookRedirects) {
+      if ('to' in entry) {
+        redirects.push({ from: entry.pathname, to: entry.to });
+
+        if (!entry.pathname.endsWith('/')) {
+          redirects.push({
+            from: `${entry.pathname}/`,
+            to: entry.pathname,
+          });
+        }
+
+        continue;
+      }
+
+      const { bookId, pageId, pathname, query } = entry;
       const { tree, slug: bookSlug } = await bookLoader(bookId);
       const page = findArchiveTreeNodeById(tree, pageId);
 
