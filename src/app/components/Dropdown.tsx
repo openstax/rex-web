@@ -26,6 +26,10 @@ interface ToggleProps<T extends ComponentWithRef = ComponentWithRef> {
 // Plain React component for DropdownToggle
 export const DropdownToggle = React.forwardRef<HTMLElement, ToggleProps>(
   ({component, className, ...props}, ref) => {
+    // Handle case where component might be undefined at runtime
+    if (!component) {
+      return null;
+    }
     return React.cloneElement(component, {
       ...props,
       className: classNames('dropdown-toggle', className),

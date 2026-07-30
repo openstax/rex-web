@@ -49,6 +49,13 @@ function ColorIndicator<T extends React.ComponentType | undefined>(
   props: React.PropsWithChildren<Props<T> & { theme?: unknown }>
 ) {
   const { theme: _theme, children, style, checked, size, component, shape, className, ...otherProps } = props;
+
+  // Handle case where style might be undefined at runtime (defensive check)
+  if (!style) {
+    console.error('ColorIndicator: style prop is required but was undefined');
+    return null;
+  }
+
   const indicatorStyle = {
     '--passive-color': style.passive,
     '--focused-color': style.focused,
