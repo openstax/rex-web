@@ -20,7 +20,6 @@ exports[`Filters ChapterFilter matches snapshot when it is closed 1`] = `
   outline: none;
   color: #424242;
   font-size: 1.6rem;
-  color: #5e6062;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -213,7 +212,6 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
   outline: none;
   color: #424242;
   font-size: 1.6rem;
-  color: #5e6062;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -718,7 +716,6 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
   outline: none;
   color: #424242;
   font-size: 1.6rem;
-  color: #5e6062;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;

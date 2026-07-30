@@ -325,7 +325,6 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
   outline: none;
   color: #424242;
   font-size: 1.6rem;
-  color: #5e6062;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -361,7 +360,6 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
   outline: none;
   color: #424242;
   font-size: 1.6rem;
-  color: #5e6062;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
