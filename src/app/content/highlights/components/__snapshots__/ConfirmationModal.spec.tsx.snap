@@ -71,10 +71,10 @@ exports[`ConfirmationModal matches snapshot 1`] = `
         </button>
       </header>
       <div
-        className="modal-body "
+        className="modal-body"
       >
         <h3
-          className="modal-body-heading "
+          className="modal-body-heading"
         >
           You have an unsaved note on this page.
         </h3>
