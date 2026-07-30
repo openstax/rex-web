@@ -23,9 +23,6 @@ export default function Layout({ children }: React.PropsWithChildren<{}>) {
   );
 }
 
-// Export legacy styled-components fragment for backward compatibility
-export { wrapperPadding } from './Layout.legacy';
-
 export const LayoutBody = ({
   children,
   className,
