@@ -28,6 +28,7 @@ const prepareRedirects = async(
 
   for (const fileName of redirectsDataFiles) {
     const bookRedirects: RedirectsData = (await import(fileName)).default;
+    const oldBookSlugsRedirected = new Set<string>();
 
     for (const { bookId, pageId, pathname, query } of bookRedirects) {
       const { tree, slug: bookSlug } = await bookLoader(bookId);
@@ -49,6 +50,17 @@ const prepareRedirects = async(
           to: pathname,
         });
       }
+
+      // also redirect the bare book url (no page) for any old slug referenced by this file,
+      // so links like /books/<old-slug> land on the book's current bare book url instead of 404ing
+      const oldBookSlug = pathname.match(/^\/books\/([^/]+)\//)?.[1];
+      if (oldBookSlug && oldBookSlug !== bookSlug && !oldBookSlugsRedirected.has(oldBookSlug)) {
+        oldBookSlugsRedirected.add(oldBookSlug);
+        redirects.push(
+          { from: `/books/${oldBookSlug}`, to: `/books/${bookSlug}` },
+          { from: `/books/${oldBookSlug}/`, to: `/books/${bookSlug}` }
+        );
+      }
     }
   }
 
@@ -64,7 +76,17 @@ const prepareRedirects = async(
     });
   }
 
-  return redirects;
+  // a retired/renamed book's old slug can collide with the generic "current book" redirects above
+  // (e.g. a retired book still gets a /details/books/ redirect for its own old slug); keep the first
+  // occurrence of each `from`, since the more specific per-book redirects are pushed first
+  const seenFrom = new Set<string>();
+  return redirects.filter(({ from }) => {
+    if (seenFrom.has(from)) {
+      return false;
+    }
+    seenFrom.add(from);
+    return true;
+  });
 };
 
 export default prepareRedirects;
