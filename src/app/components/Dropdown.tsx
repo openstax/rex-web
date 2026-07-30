@@ -5,7 +5,6 @@ import isUndefined from 'lodash/fp/isUndefined';
 import omitBy from 'lodash/fp/omitBy';
 import React, { ReactNode } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import styled from 'styled-components/macro';
 import classNames from 'classnames';
 import { useFocusLost, useTrapTabNavigation, focusableItemQuery } from '../reactUtils';
 import { useOnEsc } from '../reactUtils';
@@ -23,19 +22,17 @@ interface ToggleProps<T extends ComponentWithRef = ComponentWithRef> {
   [key: string]: unknown;
 }
 
-// Plain React component for DropdownToggle, but wrapped with styled() for backward compatibility
-const DropdownToggleBase = React.forwardRef<HTMLElement, ToggleProps>(
+// Plain React component for DropdownToggle
+export const DropdownToggle = React.forwardRef<HTMLElement, ToggleProps>(
   ({component, className, ...props}, ref) => {
     return React.cloneElement(component, {
       ...props,
       className: classNames('dropdown-toggle', className),
+      'data-testid': 'dropdown-toggle',
       ref,
     });
   }
 );
-
-// Wrap with styled() for backward compatibility with component selectors
-export const DropdownToggle = styled(DropdownToggleBase)``;
 
 // Plain div for DropdownFocusWrapper
 export const DropdownFocusWrapper = ({ className, children, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
