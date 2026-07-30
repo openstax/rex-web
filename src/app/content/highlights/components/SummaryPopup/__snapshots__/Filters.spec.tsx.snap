@@ -13,7 +13,6 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
 }
 
 .c19 {
-  color: #424242;
   font-weight: 300;
   color: #5e6062;
   max-width: 8rem;
@@ -119,7 +118,6 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
   outline: none;
   color: #424242;
   font-size: 1.6rem;
-  color: #5e6062;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;

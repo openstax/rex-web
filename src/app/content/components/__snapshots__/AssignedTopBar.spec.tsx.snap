@@ -12,7 +12,6 @@ exports[`AssignedTopBar renders 1`] = `
   outline: none;
   color: #424242;
   font-size: 1.6rem;
-  color: #5e6062;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;

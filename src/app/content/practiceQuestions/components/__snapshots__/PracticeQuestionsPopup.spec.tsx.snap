@@ -22,7 +22,6 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
   outline: none;
   color: #424242;
   font-size: 1.6rem;
-  color: #5e6062;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;

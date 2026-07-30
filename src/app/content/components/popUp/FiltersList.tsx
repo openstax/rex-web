@@ -17,10 +17,14 @@ export const StyledPlainButton = styled(PlainButton)`
   svg {
     height: 0.8rem;
     width: 0.8rem;
+
+    /* eslint-disable-next-line */
     color: ${theme.color.primary.gray.base};
   }
 
-  @media print { display: none; }
+  @media print {
+    display: none;
+  }
 `;
 
 const ItemLabel = styled.span`
