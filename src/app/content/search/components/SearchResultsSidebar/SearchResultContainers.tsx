@@ -1,9 +1,7 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
 import { connect } from 'react-redux';
-import { CollapseIcon, ExpandIcon } from '../../../../components/Details';
-import { Details as BaseDetails } from '../../../../components/Details';
-import { Summary } from '../../../../components/Details.legacy';
+import { CollapseIcon, ExpandIcon, Details as BaseDetails, Summary } from '../../../../components/Details';
 import { AppState, Dispatch, FirstArgumentType } from '../../../../types';
 import * as select from '../../../selectors';
 import { Book, Page } from '../../../types';

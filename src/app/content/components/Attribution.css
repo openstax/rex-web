@@ -17,7 +17,7 @@
   margin: 3rem 0 0 0;
   min-height: 6rem;
 
-  /* Padding - matches wrapperPadding from Layout */
+  /* Padding - replaces wrapperPadding from Layout */
   padding-left: var(--layout-padding-desktop, 3.2rem);
   padding-right: var(--layout-padding-desktop, 3.2rem);
   padding-top: 1.8rem;
