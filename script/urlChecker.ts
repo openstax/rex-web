@@ -49,7 +49,7 @@ async function checkPages(
 
   const validatePage = async(page: LinkedArchiveTreeSection) => {
     const pageURL = getUrl(book)(page);
-    const urls = [pageURL, ...redirectedPages.filter(({ pageId }) => pageId === page.id)
+    const urls = [pageURL, ...redirectedPages.filter((redirect) => 'pageId' in redirect && redirect.pageId === page.id)
       .map(({ pathname }) => pathname)];
 
     for (const url of urls) {
