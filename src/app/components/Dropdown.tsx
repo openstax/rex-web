@@ -5,6 +5,7 @@ import isUndefined from 'lodash/fp/isUndefined';
 import omitBy from 'lodash/fp/omitBy';
 import React, { ReactNode } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
+import styled from 'styled-components/macro';
 import classNames from 'classnames';
 import { useFocusLost, useTrapTabNavigation, focusableItemQuery } from '../reactUtils';
 import { useOnEsc } from '../reactUtils';
