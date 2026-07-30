@@ -1,0 +1,1311 @@
+[
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "bf586686-91c5-4160-b5c5-fccde02d4ed9",
+    "pathname": "/books/principles-of-finance-2e/pages/preface"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "6fa95340-9ccc-40c5-b4f3-014d40bd3c2f",
+    "pathname": "/books/principles-of-finance-2e/pages/1-why-it-matters"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "562a910a-a933-4baf-a61e-c93ada8891c7",
+    "pathname": "/books/principles-of-finance-2e/pages/1-1-what-is-finance"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "f427fa12-21e9-4a81-950e-d9e18221caeb",
+    "pathname": "/books/principles-of-finance-2e/pages/1-2-the-role-of-finance-in-an-organization"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "d4ec8d42-f162-4614-acf3-b0c5942cf7b4",
+    "pathname": "/books/principles-of-finance-2e/pages/1-3-importance-of-data-and-technology"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "67739711-5c7f-4499-963f-a27a11fb5003",
+    "pathname": "/books/principles-of-finance-2e/pages/1-4-careers-in-finance"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "99d4fc95-e3b5-4434-a93d-4499a17defb2",
+    "pathname": "/books/principles-of-finance-2e/pages/1-5-markets-and-participants"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "6a92bcb9-cfcc-4cb4-86d4-2bb80f3d98f8",
+    "pathname": "/books/principles-of-finance-2e/pages/1-6-microeconomic-and-macroeconomic-matters"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "8f261b0c-509e-4ef0-b580-373554bfa0c6",
+    "pathname": "/books/principles-of-finance-2e/pages/1-7-financial-instruments"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "e13bfaff-5e45-44e5-ad28-997db0a6267c",
+    "pathname": "/books/principles-of-finance-2e/pages/1-8-concepts-of-time-and-value"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "5aa7d134-dcca-500b-87b4-1453503674cf",
+    "pathname": "/books/principles-of-finance-2e/pages/1-summary"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "f8c1a55e-5d04-5fc2-b150-c4d49d453284",
+    "pathname": "/books/principles-of-finance-2e/pages/1-key-terms"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "df9165a2-702e-511c-8c0e-f4cddc9493d6",
+    "pathname": "/books/principles-of-finance-2e/pages/1-multiple-choice"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "75b95afa-e4de-5fb4-873c-2ac87a3dc60e",
+    "pathname": "/books/principles-of-finance-2e/pages/1-review-questions"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "d39a561c-bfcd-5f17-83a1-f4eb2d7a0c82",
+    "pathname": "/books/principles-of-finance-2e/pages/1-video-activity"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "542954cb-a7a9-4301-a523-d2e798b196db",
+    "pathname": "/books/principles-of-finance-2e/pages/2-why-it-matters"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "8202b6cd-702f-45be-9b14-5012a0a81b3d",
+    "pathname": "/books/principles-of-finance-2e/pages/2-1-business-structures"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "039528dc-2747-4d14-95fb-e8a12efcf9d2",
+    "pathname": "/books/principles-of-finance-2e/pages/2-2-relationship-between-shareholders-and-company-management"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "31426484-06a6-4f12-8930-1b1dc5bb6ed8",
+    "pathname": "/books/principles-of-finance-2e/pages/2-3-role-of-the-board-of-directors"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "65b9a0f7-778f-4b84-b31e-834d3bf9fb9a",
+    "pathname": "/books/principles-of-finance-2e/pages/2-4-agency-issues-shareholders-and-corporate-boards"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "647e51dc-2ce3-49ff-a30a-0451a6180e41",
+    "pathname": "/books/principles-of-finance-2e/pages/2-5-interacting-with-investors-intermediaries-and-other-market-participants"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "b81b0c54-4415-4080-8fce-cad4b9393690",
+    "pathname": "/books/principles-of-finance-2e/pages/2-6-companies-in-domestic-and-global-markets"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "b8b63ba7-2408-5104-887a-ff85b0688ed0",
+    "pathname": "/books/principles-of-finance-2e/pages/2-summary"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "8f2ca92d-9bec-5c76-bff8-b81b18ef673b",
+    "pathname": "/books/principles-of-finance-2e/pages/2-key-terms"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "091b1ccd-4982-59c3-8f5e-34186406fe8c",
+    "pathname": "/books/principles-of-finance-2e/pages/2-cfa-institute"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "c1711ba8-c9fe-5f65-b8e5-78a392656669",
+    "pathname": "/books/principles-of-finance-2e/pages/2-multiple-choice"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "4b74c1b0-75bd-5aa9-8f95-c91070259ca4",
+    "pathname": "/books/principles-of-finance-2e/pages/2-review-questions"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "16be6d1f-937c-538a-89ba-ddee44924908",
+    "pathname": "/books/principles-of-finance-2e/pages/2-video-activity"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "726bced1-79ca-4f70-bebd-0c7bb47f99de",
+    "pathname": "/books/principles-of-finance-2e/pages/3-why-it-matters"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "48f69f6d-3332-4c78-b369-fb4f3da70500",
+    "pathname": "/books/principles-of-finance-2e/pages/3-1-microeconomics"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "b41df9c2-15bb-4209-b18d-fe503e285911",
+    "pathname": "/books/principles-of-finance-2e/pages/3-2-macroeconomics"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "f513f18d-d837-483b-a5fc-974190539060",
+    "pathname": "/books/principles-of-finance-2e/pages/3-3-business-cycles-and-economic-activity"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "aa1be439-4af7-4102-97df-717615d3b5f5",
+    "pathname": "/books/principles-of-finance-2e/pages/3-4-interest-rates"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "c62a097b-1dee-451d-aa18-7f68486c7862",
+    "pathname": "/books/principles-of-finance-2e/pages/3-5-foreign-exchange-rates"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "a82ef8f5-a467-43bb-9597-bef21c1d6cec",
+    "pathname": "/books/principles-of-finance-2e/pages/3-6-sources-and-characteristics-of-economic-data"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "3a422dff-a847-5d19-af65-8285650889c0",
+    "pathname": "/books/principles-of-finance-2e/pages/3-summary"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "689de995-39ed-5d00-b9d8-3bf641627148",
+    "pathname": "/books/principles-of-finance-2e/pages/3-key-terms"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "ce816804-6f2d-575a-bf19-179aa3c2db0f",
+    "pathname": "/books/principles-of-finance-2e/pages/3-cfa-institute"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "9f2fbc77-c515-5448-a047-5bd1d9c0a0df",
+    "pathname": "/books/principles-of-finance-2e/pages/3-multiple-choice"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "219433af-31a5-58fa-807b-f05c85860862",
+    "pathname": "/books/principles-of-finance-2e/pages/3-review-questions"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "9a08fc5f-913f-5642-817b-af64d02db4ca",
+    "pathname": "/books/principles-of-finance-2e/pages/3-problems"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "d40ebe4f-b15b-5244-8e32-71eb1e0c6c3b",
+    "pathname": "/books/principles-of-finance-2e/pages/3-video-activity"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "0f225d63-3e5f-4176-acdc-664b7fca122e",
+    "pathname": "/books/principles-of-finance-2e/pages/4-why-it-matters"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "f57bb0af-5460-4a40-b0c8-0227f8c413d0",
+    "pathname": "/books/principles-of-finance-2e/pages/4-1-cash-versus-accrual-accounting"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "58e35d1b-a71e-4d2e-94fe-8ef845828dbf",
+    "pathname": "/books/principles-of-finance-2e/pages/4-2-economic-basis-for-accrual-accounting"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "a4911505-8540-45f4-b180-bc88d95586e5",
+    "pathname": "/books/principles-of-finance-2e/pages/4-3-how-does-a-company-recognize-a-sale-and-an-expense"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "17b018f0-8ce7-4caa-98ae-de7135848744",
+    "pathname": "/books/principles-of-finance-2e/pages/4-4-when-should-a-company-capitalize-or-expense-an-item"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "c3986034-092e-4fbb-88a4-c1896e9514d9",
+    "pathname": "/books/principles-of-finance-2e/pages/4-5-what-is-profit-versus-loss-for-the-company"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "24b0d696-9aac-5e8f-bae9-42d36d6540b2",
+    "pathname": "/books/principles-of-finance-2e/pages/4-summary"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "a5c8ea87-726f-50f7-9a24-6676b3606b68",
+    "pathname": "/books/principles-of-finance-2e/pages/4-key-terms"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "8b5181cb-7151-589f-875c-e262ba648640",
+    "pathname": "/books/principles-of-finance-2e/pages/4-multiple-choice"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "12fa3008-6055-51b4-bf33-802ee651e9d5",
+    "pathname": "/books/principles-of-finance-2e/pages/4-review-questions"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "0e88965f-22b5-5a17-b472-e9cbd7519681",
+    "pathname": "/books/principles-of-finance-2e/pages/4-problems"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "0a39f208-0638-5b6e-b0b8-5ab400f79459",
+    "pathname": "/books/principles-of-finance-2e/pages/4-video-activity"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "c40dc63e-d9b2-4feb-8627-3e0f4ce54a8d",
+    "pathname": "/books/principles-of-finance-2e/pages/5-why-it-matters"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "0cdb989a-d555-4b67-b241-15a0c1cf0740",
+    "pathname": "/books/principles-of-finance-2e/pages/5-1-the-income-statement"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "45519176-e489-4e46-9f0b-8d638e146dab",
+    "pathname": "/books/principles-of-finance-2e/pages/5-2-the-balance-sheet"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "8677e30c-f7f3-4fe8-9600-1ea105aae3b5",
+    "pathname": "/books/principles-of-finance-2e/pages/5-3-the-relationship-between-the-balance-sheet-and-the-income-statement"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "a1589b67-9982-4ced-aa86-966099810764",
+    "pathname": "/books/principles-of-finance-2e/pages/5-4-the-statement-of-owners-equity"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "91a7143c-2b3c-4ffc-98da-fa2e70740267",
+    "pathname": "/books/principles-of-finance-2e/pages/5-5-the-statement-of-cash-flows"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "d575fc7b-0bae-47c2-b667-6ab6669b1316",
+    "pathname": "/books/principles-of-finance-2e/pages/5-6-operating-cash-flow-and-free-cash-flow-to-the-firm-fcff"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "70f25a16-4f1e-4b93-a996-e31bcf0eef6f",
+    "pathname": "/books/principles-of-finance-2e/pages/5-7-common-size-statements"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "1f9ad0bf-a3a8-4cfc-bcae-0e9399dca8b7",
+    "pathname": "/books/principles-of-finance-2e/pages/5-8-reporting-financial-activity"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "017ead45-f543-5c00-b40c-1ec6be2abe54",
+    "pathname": "/books/principles-of-finance-2e/pages/5-summary"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "c1f60b09-3123-5087-ba24-0c2ccecd9df3",
+    "pathname": "/books/principles-of-finance-2e/pages/5-key-terms"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "f6acc8cd-0ae6-508a-9869-3c1d15aa14da",
+    "pathname": "/books/principles-of-finance-2e/pages/5-cfa-institute"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "fae21d11-9162-58d0-94e5-13589778ee63",
+    "pathname": "/books/principles-of-finance-2e/pages/5-multiple-choice"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "d225e209-26af-5e05-9a21-786256929acd",
+    "pathname": "/books/principles-of-finance-2e/pages/5-review-questions"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "2e45d7c7-cae5-5930-984e-db5ccaa5c7a7",
+    "pathname": "/books/principles-of-finance-2e/pages/5-problems"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "d55750af-69d4-5161-bd2d-47bc4570262e",
+    "pathname": "/books/principles-of-finance-2e/pages/5-video-activity"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "16f3437c-ba5a-4588-b376-859ee9d274c2",
+    "pathname": "/books/principles-of-finance-2e/pages/6-why-it-matters"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "3f3227a1-78e8-4956-8434-54dbc4fc69b5",
+    "pathname": "/books/principles-of-finance-2e/pages/6-1-ratios-condensing-information-into-smaller-pieces"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "b40c23e1-ffc3-4298-931a-969f44baa9a4",
+    "pathname": "/books/principles-of-finance-2e/pages/6-2-operating-efficiency-ratios"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "f49e5fa3-089d-4946-b01a-b8b9a5463901",
+    "pathname": "/books/principles-of-finance-2e/pages/6-3-liquidity-ratios"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "86278761-8289-43d2-b7fe-9d0b5909cde9",
+    "pathname": "/books/principles-of-finance-2e/pages/6-4-solvency-ratios"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "288ddbf4-fc2e-4bb9-ae48-97f2c7f3fce6",
+    "pathname": "/books/principles-of-finance-2e/pages/6-5-market-value-ratios"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "df7114e6-23f1-48c3-b8d4-a4e489041f65",
+    "pathname": "/books/principles-of-finance-2e/pages/6-6-profitability-ratios-and-the-dupont-method"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "a94d7b65-f96e-560c-903b-fda9d3f00369",
+    "pathname": "/books/principles-of-finance-2e/pages/6-summary"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "8cd64431-e095-50a4-b093-c57308715328",
+    "pathname": "/books/principles-of-finance-2e/pages/6-key-terms"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "02b6bfbf-f41d-55f0-ad33-c83ff323ddb8",
+    "pathname": "/books/principles-of-finance-2e/pages/6-cfa-institute"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "806a0635-7c51-5e19-9d94-4ecf6f2e0e69",
+    "pathname": "/books/principles-of-finance-2e/pages/6-multiple-choice"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "af9e47de-5e2e-5cac-9f23-62f2a8082d97",
+    "pathname": "/books/principles-of-finance-2e/pages/6-review-questions"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "74559851-77fc-52df-b358-03994d93af1e",
+    "pathname": "/books/principles-of-finance-2e/pages/6-problems"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "b76067d3-5cd2-5e5c-b034-fc183daafb92",
+    "pathname": "/books/principles-of-finance-2e/pages/6-video-activity"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "c10ddeaa-1a7a-4c33-86a3-025046fd3878",
+    "pathname": "/books/principles-of-finance-2e/pages/7-why-it-matters"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "b1700a6d-0328-4eb0-bd34-2b3170894c7f",
+    "pathname": "/books/principles-of-finance-2e/pages/7-1-now-versus-later-concepts"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "ad571b15-1736-40c2-8c54-9c5380cd6da0",
+    "pathname": "/books/principles-of-finance-2e/pages/7-2-time-value-of-money-tvm-basics"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "f4e6c4e8-153f-4cbd-974f-d6eb11f08b72",
+    "pathname": "/books/principles-of-finance-2e/pages/7-3-methods-for-solving-time-value-of-money-problems"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "d4931017-9c43-4315-ad09-13566f8567f9",
+    "pathname": "/books/principles-of-finance-2e/pages/7-4-applications-of-tvm-in-finance"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "e495389b-4cbd-5c98-be8a-84fb2880856a",
+    "pathname": "/books/principles-of-finance-2e/pages/7-summary"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "d248b9fe-2927-58a9-ad14-2c4701cadfb5",
+    "pathname": "/books/principles-of-finance-2e/pages/7-key-terms"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "03c3656c-0fd5-5a0f-9a17-4e9013b0b7d3",
+    "pathname": "/books/principles-of-finance-2e/pages/7-cfa-institute"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "649b51a8-e2fc-5953-ab10-b23de89ec7c5",
+    "pathname": "/books/principles-of-finance-2e/pages/7-multiple-choice"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "27cc69b2-4adf-584b-bb07-ebcb571495da",
+    "pathname": "/books/principles-of-finance-2e/pages/7-review-questions"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "40841838-80cb-506a-931d-bfc7f2875e37",
+    "pathname": "/books/principles-of-finance-2e/pages/7-problems"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "471508b2-66df-5c81-bfac-f8a6e27c6a0b",
+    "pathname": "/books/principles-of-finance-2e/pages/7-video-activity"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "f10eab1a-2740-40d7-a3ed-651d900b34a2",
+    "pathname": "/books/principles-of-finance-2e/pages/8-why-it-matters"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "c1b497ce-114c-49fc-a4dc-3f88cbdad3ef",
+    "pathname": "/books/principles-of-finance-2e/pages/8-1-perpetuities"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "f0fdc220-6f6e-4189-8e19-a59d0d45dece",
+    "pathname": "/books/principles-of-finance-2e/pages/8-2-annuities"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "4b188295-0368-4d49-9632-e4eb0a42288a",
+    "pathname": "/books/principles-of-finance-2e/pages/8-3-loan-amortization"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "55a9e82a-5294-47f6-8302-d93a0981934c",
+    "pathname": "/books/principles-of-finance-2e/pages/8-4-stated-versus-effective-rates"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "8d7cd414-c7a2-44b5-89fb-0280cf0a485b",
+    "pathname": "/books/principles-of-finance-2e/pages/8-5-equal-payments-with-a-financial-calculator-and-excel"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "231257a7-dec9-5c35-9987-fac620262298",
+    "pathname": "/books/principles-of-finance-2e/pages/8-summary"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "00033a78-c1ef-5140-86cc-281c0d66266f",
+    "pathname": "/books/principles-of-finance-2e/pages/8-key-terms"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "85ec9acd-1e85-5dcf-9b4f-a0fd58859f61",
+    "pathname": "/books/principles-of-finance-2e/pages/8-cfa-institute"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "1c8899e3-7b47-5de9-8d2e-d4a9c4865eb4",
+    "pathname": "/books/principles-of-finance-2e/pages/8-multiple-choice"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "44456889-1835-51d7-b050-086c668f484a",
+    "pathname": "/books/principles-of-finance-2e/pages/8-problems"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "b6340957-c569-5175-9115-3809a231d5c3",
+    "pathname": "/books/principles-of-finance-2e/pages/8-video-activity"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "23efc1ae-8c5e-4812-99f8-2a75c826534d",
+    "pathname": "/books/principles-of-finance-2e/pages/9-why-it-matters"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "f99895ce-4a77-463b-8cf3-09298ab27545",
+    "pathname": "/books/principles-of-finance-2e/pages/9-1-timing-of-cash-flows"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "91eff659-989c-4ef1-aa3a-dce3878af5db",
+    "pathname": "/books/principles-of-finance-2e/pages/9-2-unequal-payments-using-a-financial-calculator-or-microsoft-excel"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "94a9857a-3807-5cf7-8db1-8f9c32553400",
+    "pathname": "/books/principles-of-finance-2e/pages/9-summary"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "8fe4928b-fee6-57aa-9d84-801725ff44ef",
+    "pathname": "/books/principles-of-finance-2e/pages/9-key-terms"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "de886552-9f5f-52ea-9621-9b64b8465580",
+    "pathname": "/books/principles-of-finance-2e/pages/9-cfa-institute"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "04c00b0b-0c4f-5393-91fa-f0cff72f33ae",
+    "pathname": "/books/principles-of-finance-2e/pages/9-multiple-choice"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "44715608-d326-5d21-868b-36439b8f28fa",
+    "pathname": "/books/principles-of-finance-2e/pages/9-review-questions"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "48b48412-6817-588e-ab91-e49378314e35",
+    "pathname": "/books/principles-of-finance-2e/pages/9-problems"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "007cd9af-6e5a-5a32-aee5-7310ea89d9cc",
+    "pathname": "/books/principles-of-finance-2e/pages/9-video-activity"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "60ac42c8-6afd-4ab5-a215-bd1fbb14dfd8",
+    "pathname": "/books/principles-of-finance-2e/pages/10-why-it-matters"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "41ad1b18-407f-4efe-b4ba-70ea22ce2a51",
+    "pathname": "/books/principles-of-finance-2e/pages/10-1-characteristics-of-bonds"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "70a2fea3-7e83-4e62-ad9a-59f3a4ede6d9",
+    "pathname": "/books/principles-of-finance-2e/pages/10-2-bond-valuation"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "3416d4a5-0b08-4247-b0e5-3f3cc6d4b94e",
+    "pathname": "/books/principles-of-finance-2e/pages/10-3-using-the-yield-curve"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "4198bab5-b9e4-4587-831d-5aff9cb97c4b",
+    "pathname": "/books/principles-of-finance-2e/pages/10-4-risks-of-interest-rates-and-default"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "82f3ab2a-76fb-4c12-bad4-b16484d9eff4",
+    "pathname": "/books/principles-of-finance-2e/pages/10-5-using-spreadsheets-to-solve-bond-problems"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "fd0734d6-1b8f-5577-a3fa-a767ed58a83d",
+    "pathname": "/books/principles-of-finance-2e/pages/10-summary"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "068d0dd2-d73f-5469-9711-23a4c5814973",
+    "pathname": "/books/principles-of-finance-2e/pages/10-key-terms"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "4eaf830f-d403-5cd0-aadf-a6a35fbe95a9",
+    "pathname": "/books/principles-of-finance-2e/pages/10-cfa-institute"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "d9baebe3-37d4-5ef5-8d84-95978ebb955c",
+    "pathname": "/books/principles-of-finance-2e/pages/10-multiple-choice"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "946a3e6c-5f9c-5016-bae5-1eb4e891317a",
+    "pathname": "/books/principles-of-finance-2e/pages/10-review-questions"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "984cd028-5e1d-54d5-8197-7ed1d61cc13a",
+    "pathname": "/books/principles-of-finance-2e/pages/10-problems"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "f9313c40-0967-556e-95ec-da36dace0e80",
+    "pathname": "/books/principles-of-finance-2e/pages/10-video-activity"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "c94d1d45-779f-47ba-b137-0093d9cfe8f8",
+    "pathname": "/books/principles-of-finance-2e/pages/11-why-it-matters"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "cd04a2b9-b771-4c40-b110-fd269c6b1322",
+    "pathname": "/books/principles-of-finance-2e/pages/11-1-multiple-approaches-to-stock-valuation"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "98b4140e-7df7-4059-9f7e-b7892c015fda",
+    "pathname": "/books/principles-of-finance-2e/pages/11-2-dividend-discount-models-ddms"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "03ce7025-0b2d-4e01-bb5d-c7ae80ba1b1a",
+    "pathname": "/books/principles-of-finance-2e/pages/11-3-discounted-cash-flow-dcf-model"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "16f20e50-4562-45db-bb3f-54bdd034aa7f",
+    "pathname": "/books/principles-of-finance-2e/pages/11-4-preferred-stock"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "b3f7d651-ef1f-4add-9769-0a12cc5f2a9d",
+    "pathname": "/books/principles-of-finance-2e/pages/11-5-efficient-markets"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "9b7df579-2b32-549f-bd7c-56c36f89abba",
+    "pathname": "/books/principles-of-finance-2e/pages/11-summary"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "6177ab8c-c031-5300-afdc-3e3afd095fd0",
+    "pathname": "/books/principles-of-finance-2e/pages/11-key-terms"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "870130ed-5e91-5b27-8cad-85ed50559030",
+    "pathname": "/books/principles-of-finance-2e/pages/11-cfa-institute"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "778dd41c-ee0f-5daf-8262-6c65a86029b5",
+    "pathname": "/books/principles-of-finance-2e/pages/11-multiple-choice"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "c643f461-ba34-578f-86fa-6bc09a192e71",
+    "pathname": "/books/principles-of-finance-2e/pages/11-review-questions"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "f9769480-9503-5d0c-a661-e824ef895082",
+    "pathname": "/books/principles-of-finance-2e/pages/11-problems"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "903be841-3eb6-5fdc-b6ce-09f8ea80d515",
+    "pathname": "/books/principles-of-finance-2e/pages/11-video-activity"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "335494fb-ba5d-4326-84b5-2957911f52df",
+    "pathname": "/books/principles-of-finance-2e/pages/12-why-it-matters"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "ea720788-34a4-4189-b5b2-862ebe8c972a",
+    "pathname": "/books/principles-of-finance-2e/pages/12-1-overview-of-us-financial-markets"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "5eee0113-ebb3-46b9-a793-aa635acda7ea",
+    "pathname": "/books/principles-of-finance-2e/pages/12-2-historical-picture-of-inflation"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "a90c9209-9906-45b4-9251-b1c1c12ead50",
+    "pathname": "/books/principles-of-finance-2e/pages/12-3-historical-picture-of-returns-to-bonds"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "98272c1b-6609-45e3-a5c2-80bd6ad4ab7a",
+    "pathname": "/books/principles-of-finance-2e/pages/12-4-historical-picture-of-returns-to-stocks"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "8b738b30-0186-5dba-ac35-d4a50d49dca9",
+    "pathname": "/books/principles-of-finance-2e/pages/12-summary"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "e7f1d6bd-1bbb-54e2-a0de-25d4db703a5d",
+    "pathname": "/books/principles-of-finance-2e/pages/12-key-terms"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "8b60addd-c67c-5abd-81aa-e52617e3311b",
+    "pathname": "/books/principles-of-finance-2e/pages/12-multiple-choice"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "01286d89-3065-55f0-bce8-5784fe0a8b4c",
+    "pathname": "/books/principles-of-finance-2e/pages/12-review-questions"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "e3fe5fc1-8bb6-58d5-b370-526337d26517",
+    "pathname": "/books/principles-of-finance-2e/pages/12-video-activity"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "76d4ea17-5e41-4574-817f-537096888e9f",
+    "pathname": "/books/principles-of-finance-2e/pages/13-why-it-matters"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "2ac83c94-090a-4f6e-9b07-8b1bfa4987e5",
+    "pathname": "/books/principles-of-finance-2e/pages/13-1-measures-of-center"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "97a226f5-360b-4081-af5d-5a765fe6b1a0",
+    "pathname": "/books/principles-of-finance-2e/pages/13-2-measures-of-spread"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "cd0601eb-e6f9-46e6-a2eb-9b0740e8a8f5",
+    "pathname": "/books/principles-of-finance-2e/pages/13-3-measures-of-position"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "f10df1e4-d7f5-483b-954b-f2c5f8b72324",
+    "pathname": "/books/principles-of-finance-2e/pages/13-4-statistical-distributions"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "14b7afbe-82b8-444d-987c-4c240f340438",
+    "pathname": "/books/principles-of-finance-2e/pages/13-5-probability-distributions"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "a2ca2087-b302-434e-8732-47c677158e5f",
+    "pathname": "/books/principles-of-finance-2e/pages/13-6-data-visualization-and-graphical-displays"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "1129068b-6268-42e8-a9ad-b181c1c220d5",
+    "pathname": "/books/principles-of-finance-2e/pages/13-7-the-r-statistical-analysis-tool"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "7969b980-b1e1-5ef5-92a2-6dc42bdc82c2",
+    "pathname": "/books/principles-of-finance-2e/pages/13-summary"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "b1698cb2-754a-5eb8-bfcd-7013d8d03dec",
+    "pathname": "/books/principles-of-finance-2e/pages/13-key-terms"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "e49f43b9-4576-5b3c-8e18-e7584f316a5f",
+    "pathname": "/books/principles-of-finance-2e/pages/13-cfa-institute"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "b4fa55ab-e4d4-56e0-bb56-c6acdba37aad",
+    "pathname": "/books/principles-of-finance-2e/pages/13-multiple-choice"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "273dd855-6f38-51c9-b173-7b6897d4bdb9",
+    "pathname": "/books/principles-of-finance-2e/pages/13-review-questions"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "72bad35e-88c1-5673-84b1-e7bdad5360db",
+    "pathname": "/books/principles-of-finance-2e/pages/13-problems"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "4181a6bc-6d11-54f9-b2e2-ddb87a4bc7d4",
+    "pathname": "/books/principles-of-finance-2e/pages/13-video-activity"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "74bf82d3-361f-4742-aa93-c5ab976add13",
+    "pathname": "/books/principles-of-finance-2e/pages/14-why-it-matters"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "b01b0ae3-9515-45e6-a5d9-23594abe1042",
+    "pathname": "/books/principles-of-finance-2e/pages/14-1-correlation-analysis"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "afda0610-1faa-4299-9f5b-81ba0c55d409",
+    "pathname": "/books/principles-of-finance-2e/pages/14-2-linear-regression-analysis"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "90199356-2f30-46cc-afb7-518370a50735",
+    "pathname": "/books/principles-of-finance-2e/pages/14-3-best-fit-linear-model"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "2c2094fb-a8f2-402c-b37e-b3ce938ea612",
+    "pathname": "/books/principles-of-finance-2e/pages/14-4-regression-applications-in-finance"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "fa2de103-236f-4a54-92f3-79d2d6a3e54f",
+    "pathname": "/books/principles-of-finance-2e/pages/14-5-predictions-and-prediction-intervals"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "ca98fc45-b624-4f66-9fe9-8a599fe55876",
+    "pathname": "/books/principles-of-finance-2e/pages/14-6-use-of-r-statistical-analysis-tool-for-regression-analysis"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "8e9d174a-b931-598b-9179-3e617801b65d",
+    "pathname": "/books/principles-of-finance-2e/pages/14-summary"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "5c4f0166-97a7-5ecc-8a3d-cb2bfc7cb5bd",
+    "pathname": "/books/principles-of-finance-2e/pages/14-key-terms"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "0285c702-9a99-5127-9a30-6e9a32b6c60e",
+    "pathname": "/books/principles-of-finance-2e/pages/14-multiple-choice"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "46c22e1e-a087-5dcd-859c-77354985b99c",
+    "pathname": "/books/principles-of-finance-2e/pages/14-review-questions"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "40fba810-8860-5c22-9dbd-1b6d4946cc08",
+    "pathname": "/books/principles-of-finance-2e/pages/14-problems"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "59abe13f-ca5a-56d9-a6dc-ec8587b5a2e2",
+    "pathname": "/books/principles-of-finance-2e/pages/14-video-activity"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "c702ef1f-d767-4c02-b012-6fba3b7d338e",
+    "pathname": "/books/principles-of-finance-2e/pages/15-why-it-matters"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "a12f6608-665e-4297-881f-ef136d7d319b",
+    "pathname": "/books/principles-of-finance-2e/pages/15-1-risk-and-return-to-an-individual-asset"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "92c64210-eb9b-4312-bc65-76eec076106a",
+    "pathname": "/books/principles-of-finance-2e/pages/15-2-risk-and-return-to-multiple-assets"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "93dc309c-3781-41d2-b9db-e8e768b2dce4",
+    "pathname": "/books/principles-of-finance-2e/pages/15-3-the-capital-asset-pricing-model-capm"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "774239bf-cb95-48e8-a5c0-b367d380950b",
+    "pathname": "/books/principles-of-finance-2e/pages/15-4-applications-in-performance-measurement"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "8565bc18-a887-4797-a49b-7861f5d3862c",
+    "pathname": "/books/principles-of-finance-2e/pages/15-5-using-excel-to-make-investment-decisions"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "cd42b30c-2df9-5479-9d9c-bd329d6f87d4",
+    "pathname": "/books/principles-of-finance-2e/pages/15-summary"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "9a63fdb2-896b-53dc-a23a-17bfd30e7189",
+    "pathname": "/books/principles-of-finance-2e/pages/15-key-terms"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "175967dc-35f3-5a9c-8364-fd9f26208122",
+    "pathname": "/books/principles-of-finance-2e/pages/15-cfa-institute"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "52121664-8659-55d0-898b-f1bac58dd462",
+    "pathname": "/books/principles-of-finance-2e/pages/15-multiple-choice"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "8d778ebd-097f-5cde-847c-92b2f5866b57",
+    "pathname": "/books/principles-of-finance-2e/pages/15-review-questions"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "5d78319a-bf14-54f7-9ef2-ef0e30e0537b",
+    "pathname": "/books/principles-of-finance-2e/pages/15-problems"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "f4ae174f-1208-5384-bfdb-2035e267c23d",
+    "pathname": "/books/principles-of-finance-2e/pages/15-video-activity"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "e2465c4b-ced4-41fd-b64d-cd7f7cd9eaf1",
+    "pathname": "/books/principles-of-finance-2e/pages/16-why-it-matters"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "54f734d5-1bb7-43d6-9808-17c8af5f5de4",
+    "pathname": "/books/principles-of-finance-2e/pages/16-1-payback-period-method"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "49dd2b7a-1414-4c0c-9d61-352872a4d024",
+    "pathname": "/books/principles-of-finance-2e/pages/16-2-net-present-value-npv-method"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "d3625624-4efc-4379-a4cc-8a69f7e32e1c",
+    "pathname": "/books/principles-of-finance-2e/pages/16-3-internal-rate-of-return-irr-method"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "a271d4c3-2541-442d-b4cb-5cae5d56776c",
+    "pathname": "/books/principles-of-finance-2e/pages/16-4-alternative-methods"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "0a9bea9c-d8cb-44f5-b708-4645d8dee473",
+    "pathname": "/books/principles-of-finance-2e/pages/16-5-choosing-between-projects"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "48e217ba-0cc6-4a17-9782-1b0011a2b439",
+    "pathname": "/books/principles-of-finance-2e/pages/16-6-using-excel-to-make-company-investment-decisions"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "980b1a05-82cf-5295-bc26-ab031f929351",
+    "pathname": "/books/principles-of-finance-2e/pages/16-summary"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "8005fe86-864b-5bc9-893b-48f9f27c0f79",
+    "pathname": "/books/principles-of-finance-2e/pages/16-key-terms"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "8202ee6e-9a6a-5b4a-a867-7d78cf4a97cb",
+    "pathname": "/books/principles-of-finance-2e/pages/16-cfa-institute"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "75d1d2d4-c0ef-5d44-93df-866b6b8968fc",
+    "pathname": "/books/principles-of-finance-2e/pages/16-multiple-choice"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "a3245200-1012-5203-9fb9-11f9cd2d422d",
+    "pathname": "/books/principles-of-finance-2e/pages/16-review-questions"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "4b95111a-eefb-5f76-9ce7-ad8d79cdd224",
+    "pathname": "/books/principles-of-finance-2e/pages/16-problems"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "e2f2eb28-e3a4-5d07-840a-c0bf5f2b9f29",
+    "pathname": "/books/principles-of-finance-2e/pages/16-video-activity"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "0b31323b-9da7-4fb3-9f29-319ecfc1c9a2",
+    "pathname": "/books/principles-of-finance-2e/pages/17-why-it-matters"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "1c25c0be-8ddb-4da2-bdbf-ee264421fffc",
+    "pathname": "/books/principles-of-finance-2e/pages/17-1-the-concept-of-capital-structure"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "5dca0c4c-9695-4b1c-ab4d-240fa9f398f7",
+    "pathname": "/books/principles-of-finance-2e/pages/17-2-the-costs-of-debt-and-equity-capital"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "14e5ea01-68f3-40ec-b409-3ada93f33ba9",
+    "pathname": "/books/principles-of-finance-2e/pages/17-3-calculating-the-weighted-average-cost-of-capital"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "39a89836-eca7-4549-a2f7-60b345f250c9",
+    "pathname": "/books/principles-of-finance-2e/pages/17-4-capital-structure-choices"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "814eb134-b6c9-43c5-998c-a52da2b11db6",
+    "pathname": "/books/principles-of-finance-2e/pages/17-5-optimal-capital-structure"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "6188e19f-18c1-4412-960e-73072f92dbf7",
+    "pathname": "/books/principles-of-finance-2e/pages/17-6-alternative-sources-of-funds"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "57d6a3de-f95b-5fee-9b47-31d6813c2a56",
+    "pathname": "/books/principles-of-finance-2e/pages/17-summary"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "faf154b1-bbe8-5a0f-8c90-2b43a76e893d",
+    "pathname": "/books/principles-of-finance-2e/pages/17-key-terms"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "5b8403a2-3dba-5ad4-9468-0f2daeda48e8",
+    "pathname": "/books/principles-of-finance-2e/pages/17-cfa-institute"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "4884bf09-b2dc-5f2d-9846-9db201383d9f",
+    "pathname": "/books/principles-of-finance-2e/pages/17-multiple-choice"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "84176b75-4be8-58c7-9439-32fb5283a029",
+    "pathname": "/books/principles-of-finance-2e/pages/17-review-questions"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "e66bd36c-87fd-567a-a4db-5421af0b1e61",
+    "pathname": "/books/principles-of-finance-2e/pages/17-problems"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "6c915b6b-7b4e-53f8-b8a7-edf7feeb93b8",
+    "pathname": "/books/principles-of-finance-2e/pages/17-video-activity"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "615639c9-26e6-4e98-985c-94804af10e67",
+    "pathname": "/books/principles-of-finance-2e/pages/18-why-it-matters"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "ac6d2c27-ac1a-400a-b082-bb7647505cd2",
+    "pathname": "/books/principles-of-finance-2e/pages/18-1-the-importance-of-forecasting"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "bc5775a3-8adc-42a4-8f3b-f47ce8df9095",
+    "pathname": "/books/principles-of-finance-2e/pages/18-2-forecasting-sales"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "9a8d3713-3b98-4004-aa3c-e9c56e778c56",
+    "pathname": "/books/principles-of-finance-2e/pages/18-3-pro-forma-financials"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "7aa61a82-49c5-455e-9b76-854a94936cc6",
+    "pathname": "/books/principles-of-finance-2e/pages/18-4-generating-the-complete-forecast"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "5ed7943a-22f5-43ba-9de7-4666cb2f539e",
+    "pathname": "/books/principles-of-finance-2e/pages/18-5-forecasting-cash-flow-and-assessing-the-value-of-growth"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "c1b46da4-b245-4eb2-b569-7b5bb027d74b",
+    "pathname": "/books/principles-of-finance-2e/pages/18-6-using-excel-to-create-the-long-term-forecast"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "f0b2d26e-4169-50eb-8efb-bd1358164422",
+    "pathname": "/books/principles-of-finance-2e/pages/18-summary"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "85f8d608-f8bf-5353-91c5-f4ff1c1d3a66",
+    "pathname": "/books/principles-of-finance-2e/pages/18-key-terms"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "9bb75273-edb6-596c-894c-4b4ba2abe12b",
+    "pathname": "/books/principles-of-finance-2e/pages/18-multiple-choice"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "23733d0b-c759-5ef4-8018-f2a3796019b7",
+    "pathname": "/books/principles-of-finance-2e/pages/18-review-questions"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "44196a59-ba87-5fe9-ad57-bdbd4c497d9b",
+    "pathname": "/books/principles-of-finance-2e/pages/18-problems"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "7b14ebb6-e7a1-5daf-8580-d927745b2832",
+    "pathname": "/books/principles-of-finance-2e/pages/18-video-activity"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "3578fd68-b511-4bb0-834a-60e10d1a8ec0",
+    "pathname": "/books/principles-of-finance-2e/pages/19-why-it-matters"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "ccbe5604-ac4e-4a16-aeb9-afb74ec16190",
+    "pathname": "/books/principles-of-finance-2e/pages/19-1-what-is-working-capital"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "629286a4-201a-4d04-8e5a-b8edbafc1e73",
+    "pathname": "/books/principles-of-finance-2e/pages/19-2-what-is-trade-credit"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "89a5a903-8a0b-417a-8ba5-eae38a6f9485",
+    "pathname": "/books/principles-of-finance-2e/pages/19-3-cash-management"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "f4bcbbb6-30a6-4fda-bef2-9f0e835e50eb",
+    "pathname": "/books/principles-of-finance-2e/pages/19-4-receivables-management"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "3ac1c2a2-4d9a-40c6-811e-2b699c380208",
+    "pathname": "/books/principles-of-finance-2e/pages/19-5-inventory-management"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "19528483-ad31-4e0a-9c19-83eee233024a",
+    "pathname": "/books/principles-of-finance-2e/pages/19-6-using-excel-to-create-the-short-term-plan"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "8398ad10-b569-5d45-b4a8-ac783949210a",
+    "pathname": "/books/principles-of-finance-2e/pages/19-summary"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "0a692585-1377-5e44-9e25-b2596a74f7c9",
+    "pathname": "/books/principles-of-finance-2e/pages/19-key-terms"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "89b3fffd-14c0-5a9d-bec5-16ad555df8e1",
+    "pathname": "/books/principles-of-finance-2e/pages/19-multiple-choice"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "cc7ca307-24aa-53f0-9e1f-414214104322",
+    "pathname": "/books/principles-of-finance-2e/pages/19-review-questions"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "fd46f6b0-498d-5e21-a684-bad259178d48",
+    "pathname": "/books/principles-of-finance-2e/pages/19-video-activity"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "7292bd53-4634-42cf-9c08-58918aad45d4",
+    "pathname": "/books/principles-of-finance-2e/pages/20-why-it-matters"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "ba43fa65-0b01-4795-8d6c-b92c6faa8f77",
+    "pathname": "/books/principles-of-finance-2e/pages/20-1-the-importance-of-risk-management"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "d4420f31-57a2-4f02-9c04-168b7680e32e",
+    "pathname": "/books/principles-of-finance-2e/pages/20-2-commodity-price-risk"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "dd6341c6-861d-40fc-aa04-b42c6483ccd2",
+    "pathname": "/books/principles-of-finance-2e/pages/20-3-exchange-rates-and-risk"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "d12839d6-413a-4db7-ace5-a62c7760972c",
+    "pathname": "/books/principles-of-finance-2e/pages/20-4-interest-rate-risk"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "86429d72-c509-595f-aea6-8a269b114862",
+    "pathname": "/books/principles-of-finance-2e/pages/20-summary"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "15b0a049-07e1-5263-af41-eae204cb00ad",
+    "pathname": "/books/principles-of-finance-2e/pages/20-key-terms"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "5734ecf5-c3f1-5349-80ee-a2d87a188849",
+    "pathname": "/books/principles-of-finance-2e/pages/20-cfa-institute"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "881d6ae9-a600-5b4a-87e4-6e11f2cfccef",
+    "pathname": "/books/principles-of-finance-2e/pages/20-multiple-choice"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "315b473f-2fe4-5623-bae4-0e4499862a74",
+    "pathname": "/books/principles-of-finance-2e/pages/20-review-questions"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "c9d3d013-23a6-5ac7-a16f-afc1c5ee8781",
+    "pathname": "/books/principles-of-finance-2e/pages/20-problems"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "fa239d37-bd7e-59c7-bb4e-3efc0fe69306",
+    "pathname": "/books/principles-of-finance-2e/pages/20-video-activity"
+  },
+  {
+    "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
+    "pageId": "2a275ad9-c955-5587-8139-ac2f711ebb2a",
+    "pathname": "/books/principles-of-finance-2e/pages/index"
+  },
+  {
+    "pathname": "/books/principles-of-finance-2e",
+    "to": "/books/principles-finance-2e"
+  }
+]
