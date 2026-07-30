@@ -284,15 +284,15 @@ export default styled(ChapterFilter)`
   overflow: auto;
   z-index: 1;
 
-  ${AllOrNone} {
+  .all-or-none {
     margin: 0.8rem 0 0.8rem 0.8rem;
   }
 
-  ${Checkbox} {
+  .checkbox-label {
     padding: 0.8rem;
   }
 
-  ${ColorIndicator} {
+  .color-indicator {
     margin: 0 1.6rem 0 1.6rem;
   }
 
