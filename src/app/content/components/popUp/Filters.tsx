@@ -125,7 +125,7 @@ const Toggle = styled(
       padding: ${filters.dropdownToggle.topBottom.mobile}rem ${filters.dropdownToggle.sides.mobile}rem;
     `)}
     outline: none;
-    color: ${theme.color.text.default};
+    color: ${theme.color.primary.gray.base};
     font-size: 1.6rem;
     display: flex;
     flex-direction: row;

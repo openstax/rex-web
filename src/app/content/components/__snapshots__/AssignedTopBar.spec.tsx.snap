@@ -10,7 +10,7 @@ exports[`AssignedTopBar renders 1`] = `
 .c0 > div {
   padding: 2rem 2.4rem;
   outline: none;
-  color: #424242;
+  color: #5e6062;
   font-size: 1.6rem;
   display: -webkit-box;
   display: -webkit-flex;

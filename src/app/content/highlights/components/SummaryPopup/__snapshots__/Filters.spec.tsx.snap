@@ -49,7 +49,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
 .c3 > div {
   padding: 2rem 2.4rem;
   outline: none;
-  color: #424242;
+  color: #5e6062;
   font-size: 1.6rem;
   display: -webkit-box;
   display: -webkit-flex;
@@ -750,7 +750,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
     >
       <button
         aria-label="Remove color blue"
-        className="plain-button filters-list-close-button"
+        className="plain-button filters-list-close-button "
         data-analytics-label="Remove breadcrumb for color blue"
         onClick={[Function]}
       >
@@ -792,7 +792,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
     >
       <button
         aria-label="Remove color green"
-        className="plain-button filters-list-close-button"
+        className="plain-button filters-list-close-button "
         data-analytics-label="Remove breadcrumb for color green"
         onClick={[Function]}
       >
@@ -834,7 +834,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
     >
       <button
         aria-label="Remove color pink"
-        className="plain-button filters-list-close-button"
+        className="plain-button filters-list-close-button "
         data-analytics-label="Remove breadcrumb for color pink"
         onClick={[Function]}
       >
@@ -876,7 +876,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
     >
       <button
         aria-label="Remove color purple"
-        className="plain-button filters-list-close-button"
+        className="plain-button filters-list-close-button "
         data-analytics-label="Remove breadcrumb for color purple"
         onClick={[Function]}
       >
@@ -918,7 +918,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
     >
       <button
         aria-label="Remove color yellow"
-        className="plain-button filters-list-close-button"
+        className="plain-button filters-list-close-button "
         data-analytics-label="Remove breadcrumb for color yellow"
         onClick={[Function]}
       >

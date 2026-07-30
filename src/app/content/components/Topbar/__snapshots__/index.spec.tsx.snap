@@ -323,7 +323,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
 .c2 > div {
   padding: 2rem 2.4rem;
   outline: none;
-  color: #424242;
+  color: #5e6062;
   font-size: 1.6rem;
   display: -webkit-box;
   display: -webkit-flex;
@@ -358,7 +358,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
 .c1 > div {
   padding: 2rem 2.4rem;
   outline: none;
-  color: #424242;
+  color: #5e6062;
   font-size: 1.6rem;
   display: -webkit-box;
   display: -webkit-flex;

@@ -49,7 +49,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
 .c3 > div {
   padding: 2rem 2.4rem;
   outline: none;
-  color: #424242;
+  color: #5e6062;
   font-size: 1.6rem;
   display: -webkit-box;
   display: -webkit-flex;
@@ -999,7 +999,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
     >
       <button
         aria-label="Remove chapter 2 Test Chapter 2"
-        className="plain-button filters-list-close-button"
+        className="plain-button filters-list-close-button "
         data-analytics-label="Remove breadcrumb for chapter 2 Test Chapter 2"
         onClick={[Function]}
       >
@@ -1044,7 +1044,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
     >
       <button
         aria-label="Remove label Important Concepts"
-        className="plain-button filters-list-close-button"
+        className="plain-button filters-list-close-button "
         data-analytics-label="Remove breadcrumb for label Important Concepts"
         onClick={[Function]}
       >
@@ -1086,7 +1086,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
     >
       <button
         aria-label="Remove label Connections & Relationships"
-        className="plain-button filters-list-close-button"
+        className="plain-button filters-list-close-button "
         data-analytics-label="Remove breadcrumb for label Connections & Relationships"
         onClick={[Function]}
       >
@@ -1128,7 +1128,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
     >
       <button
         aria-label="Remove label Enrichment"
-        className="plain-button filters-list-close-button"
+        className="plain-button filters-list-close-button "
         data-analytics-label="Remove breadcrumb for label Enrichment"
         onClick={[Function]}
       >
@@ -1170,7 +1170,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
     >
       <button
         aria-label="Remove label Key Terms"
-        className="plain-button filters-list-close-button"
+        className="plain-button filters-list-close-button "
         data-analytics-label="Remove breadcrumb for label Key Terms"
         onClick={[Function]}
       >
