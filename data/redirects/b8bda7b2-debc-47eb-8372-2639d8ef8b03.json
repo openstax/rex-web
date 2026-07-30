@@ -1303,5 +1303,9 @@
     "bookId": "b8bda7b2-debc-47eb-8372-2639d8ef8b03",
     "pageId": "2a275ad9-c955-5587-8139-ac2f711ebb2a",
     "pathname": "/books/principles-of-finance-2e/pages/index"
+  },
+  {
+    "pathname": "/books/principles-of-finance-2e",
+    "to": "/books/principles-finance-2e"
   }
 ]
