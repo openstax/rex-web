@@ -8,8 +8,6 @@ import * as contentSelectors from '../selectors';
 import { contentWrapperMaxWidth, verticalNavbarMaxWidth } from './constants';
 import './Wrapper.css';
 
-export { wrapperPadding } from '../../components/Layout';
-
 interface WrapperProps {
   verticalNavOpen?: boolean;
   className?: string;

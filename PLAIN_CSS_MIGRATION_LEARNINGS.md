@@ -34,7 +34,6 @@ This document captures key learnings from the styled-components to plain CSS mig
 **Issue**: Initially mixed legacy styled-components exports with new plain CSS components in the same files, forcing all consumers to pull in styled-components dependencies.
 
 **Resolution**: Created separate `.legacy.ts` files:
-- `Headings.legacy.ts` - Legacy heading styles (h3Style, h4Style, etc.)
 - `Typography.legacy.ts` - Legacy text/link styles (textStyle, linkStyle, etc.)
 - `Links.constants.ts` - Side-effect-free constants module
 
