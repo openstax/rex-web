@@ -3,7 +3,7 @@
 exports[`PracticeQuestions doesn't render practice questions modal if it is closed 1`] = `null`;
 
 exports[`PracticeQuestions renders practice questions modal if it is open 1`] = `
-.c5 {
+.c4 {
   color: #5e6062;
   width: 1rem;
   height: 2rem;
@@ -71,11 +71,11 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
   border-bottom: 0.1rem solid #d5d5d5;
 }
 
-.c0 .c4 {
+.c0 .dropdown-toggle {
   font-weight: bold;
 }
 
-.c0 .c2 > *:not(.c4) {
+.c0 .c2 > *:not(.dropdown-toggle) {
   top: calc(100% - 0.1rem);
   box-shadow: 0 0 0.6rem 0 rgba(0,0,0,0.2);
   max-height: calc(100vh - 26rem);
@@ -88,7 +88,7 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
 }
 
 @media screen and (max-width:75em) {
-  .c0 .c2 > *:not(.c4) {
+  .c0 .c2 > *:not(.dropdown-toggle) {
     max-height: calc(100vh - 18.4rem);
   }
 }
@@ -98,7 +98,7 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
     position: initial;
   }
 
-  .c0 .c2 > *:not(.c4) {
+  .c0 .c2 > *:not(.dropdown-toggle) {
     top: auto;
     margin-top: -0.1rem;
   }
@@ -111,7 +111,7 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
 }
 
 @media print {
-  .c0 > *:not(.FiltersList-sc-1sdnk9e-1) {
+  .c0 > *:not(.filters-list) {
     display: none;
   }
 }
@@ -238,8 +238,9 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
               aria-controls="practice-filter-chapter"
               aria-expanded={false}
               aria-label="Select Practice Questions by Chapter & Section"
-              className="plain-button c3 dropdown-toggle c4 "
+              className="plain-button c3 dropdown-toggle"
               data-analytics-label="Filter PQ by Chapter & Section"
+              data-testid="dropdown-toggle"
               onClick={[Function]}
             >
               <div
@@ -248,7 +249,7 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
                 Chapter & Section
                 <svg
                   aria-hidden="true"
-                  className="c5"
+                  className="c4"
                   direction="down"
                   viewBox="0 0 320 512"
                 >
