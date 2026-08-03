@@ -64,17 +64,25 @@ function isFulfilledPromiseResult<Type>(
 ): promiseResult is FulfilledPromiseResult<Type> { return promiseResult.status === 'fulfilled'; }
 
 // Changes the SQS VisibilityTimeout for the given ReceiptHandles to the given number of seconds
-// A single batch request is used instead of one request per handle so a container with many
-// worker threads doesn't saturate the SQS client's HTTP connection pool with heartbeat calls
+// Errors are caught rather than thrown since an uncaught rejection here would trigger
+// logUnhandledRejectionsAndExit and crash the whole container
 async function changeReceiptHandlesVisibility(receiptHandles: string[], visibilityTimeout: number) {
-  return sqsClient.send(new ChangeMessageVisibilityBatchCommand({
-    Entries: receiptHandles.map((receiptHandle, index) => ({
-      Id: index.toString(),
-      ReceiptHandle: receiptHandle,
-      VisibilityTimeout: visibilityTimeout,
-    })),
-    QueueUrl: process.env.WORK_QUEUE_URL,
-  }));
+  try {
+    const result = await sqsClient.send(new ChangeMessageVisibilityBatchCommand({
+      Entries: receiptHandles.map((receiptHandle, index) => ({
+        Id: index.toString(),
+        ReceiptHandle: receiptHandle,
+        VisibilityTimeout: visibilityTimeout,
+      })),
+      QueueUrl: process.env.WORK_QUEUE_URL,
+    }));
+
+    if (result.Failed && result.Failed.length > 0) {
+      console.error('[SQS] [ChangeMessageVisibilityBatch] Some entries failed:', result.Failed);
+    }
+  } catch (error) {
+    console.error('[SQS] [ChangeMessageVisibilityBatch] Request failed:', error);
+  }
 }
 
 // To be used with setInterval() with a delay of around 15000
