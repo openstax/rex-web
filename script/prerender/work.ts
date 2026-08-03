@@ -6,7 +6,7 @@
 */
 
 import {
-  ChangeMessageVisibilityCommand,
+  ChangeMessageVisibilityBatchCommand,
   DeleteMessageBatchCommand,
   Message,
   ReceiveMessageCommand,
@@ -64,18 +64,17 @@ function isFulfilledPromiseResult<Type>(
 ): promiseResult is FulfilledPromiseResult<Type> { return promiseResult.status === 'fulfilled'; }
 
 // Changes the SQS VisibilityTimeout for the given ReceiptHandles to the given number of seconds
+// A single batch request is used instead of one request per handle so a container with many
+// worker threads doesn't saturate the SQS client's HTTP connection pool with heartbeat calls
 async function changeReceiptHandlesVisibility(receiptHandles: string[], visibilityTimeout: number) {
-  // We use Promise.allSettled() here to prevent failing all messages
-  // in case one or more messages have already been deleted by other workers
-  return allSettled(
-    receiptHandles.map(async(receiptHandle) => sqsClient.send(
-      new ChangeMessageVisibilityCommand({
-        QueueUrl: process.env.WORK_QUEUE_URL,
-        ReceiptHandle: receiptHandle,
-        VisibilityTimeout: visibilityTimeout,
-      })
-    ))
-  );
+  return sqsClient.send(new ChangeMessageVisibilityBatchCommand({
+    Entries: receiptHandles.map((receiptHandle, index) => ({
+      Id: index.toString(),
+      ReceiptHandle: receiptHandle,
+      VisibilityTimeout: visibilityTimeout,
+    })),
+    QueueUrl: process.env.WORK_QUEUE_URL,
+  }));
 }
 
 // To be used with setInterval() with a delay of around 15000
