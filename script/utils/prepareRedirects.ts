@@ -26,6 +26,21 @@ const prepareRedirects = async(
 
   const redirects: Array<{ from: string, to: string }> = [];
 
+  // this must run before the per-file loop below: redirects to a bare book url (e.g. an
+  // ExplicitRedirect entry) depend on that book's current bare url already existing as a
+  // redirect source, which is what this loop establishes for every current book
+  for (const [bookId] of Object.entries(booksConfig.books)) {
+    const slug = await osWebLoader.getBookSlugFromId(bookId);
+    redirects.push({
+      from: `/books/${slug}`,
+      to: `/details/books/${slug}`,
+    },
+    {
+      from: `/books/${slug}/`,
+      to: `/details/books/${slug}`,
+    });
+  }
+
   for (const fileName of redirectsDataFiles) {
     const bookRedirects: RedirectsData = (await import(fileName)).default;
 
@@ -64,18 +79,6 @@ const prepareRedirects = async(
         });
       }
     }
-  }
-
-  for (const [bookId] of Object.entries(booksConfig.books)) {
-    const slug = await osWebLoader.getBookSlugFromId(bookId);
-    redirects.push({
-      from: `/books/${slug}`,
-      to: `/details/books/${slug}`,
-    },
-    {
-      from: `/books/${slug}/`,
-      to: `/details/books/${slug}`,
-    });
   }
 
   return redirects;
