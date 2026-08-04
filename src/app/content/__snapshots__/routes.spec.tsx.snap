@@ -108,8 +108,9 @@ exports[`assigned route route renders renders a component 1`] = `
         aria-controls="text-resizer-menu"
         aria-expanded={false}
         aria-label="Change text size"
-        className="plain-button c0 dropdown-toggle "
+        className="plain-button c0 dropdown-toggle"
         data-analytics-label="Change text size"
+        data-testid="dropdown-toggle"
         onClick={[Function]}
       >
         <div
