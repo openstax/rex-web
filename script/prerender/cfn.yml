@@ -42,11 +42,11 @@ Parameters:
     AllowedPattern: ^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\dZ$
     ConstraintDescription: Must be a timestamp in the YYYY-MM-DDTHH:MM:SSZ format
 
-  TotalMemoryMiB:
-    Description: Total fleet memory capacity in MiB (must equal desired task count * 4096)
+  TotalVCpuCount:
+    Description: Total fleet vCPU capacity (must equal desired task count * 2)
     Type: Number
-    MinValue: 4096
-    ConstraintDescription: Must equal desired task count * 4096
+    MinValue: 2
+    ConstraintDescription: Must equal desired task count * 2
 
 Resources:
 
@@ -81,6 +81,7 @@ Resources:
       ContainerDefinitions:
         - Command:
             - prerender:work
+          Cpu: 1024
           EntryPoint:
             - yarn
           Environment:
@@ -198,9 +199,7 @@ Resources:
                 MaxSpotPriceAsPercentageOfOptimalOnDemandPrice: 101
                 MemoryGiBPerVCpu:
                   Min: 2
-                  Max: 8
                 MemoryMiB:
-                  Max: !Ref TotalMemoryMiB
                   Min: 4096
                 VCpuCount:
                   Min: 2
@@ -223,8 +222,8 @@ Resources:
               Value: !Sub ${AWS::StackName}-fleet
       TargetCapacitySpecification:
         DefaultTargetCapacityType: spot
-        TargetCapacityUnitType: memory-mib
-        TotalTargetCapacity: !Ref TotalMemoryMiB
+        TargetCapacityUnitType: vcpu
+        TotalTargetCapacity: !Ref TotalVCpuCount
       TerminateInstancesWithExpiration: true
       ValidUntil: !Ref ValidUntil
 

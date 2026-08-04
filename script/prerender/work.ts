@@ -21,8 +21,7 @@ import './logUnhandledRejectionsAndExit';
 // The timeout must be long enough to render the slowest page, otherwise builds will never finish
 const MAX_HEARTBEATS = 20;
 
-// Since SchedulingStrategy switched from DAEMON to REPLICA, MemoryReservation controls how many
-// tasks each instance gets; at a 2 GiB/vCPU floor, a 4096 MiB task can get up to 2 vCPUs
+// Each task reserves exactly 1 vCPU, so this is a deliberate 2x oversubscription
 const WORKER_THREAD_COUNT = 2;
 
 console.log(`Bucket: ${process.env.BUCKET_NAME} (${process.env.BUCKET_REGION})`);
