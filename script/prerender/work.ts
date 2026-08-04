@@ -21,7 +21,7 @@ import './logUnhandledRejectionsAndExit';
 // The timeout must be long enough to render the slowest page, otherwise builds will never finish
 const MAX_HEARTBEATS = 20;
 
-// Each task reserves exactly 1 vCPU, so this is a deliberate 2x oversubscription
+// Each task reserves 2 vCPUs, one per thread
 const WORKER_THREAD_COUNT = 2;
 
 console.log(`Bucket: ${process.env.BUCKET_NAME} (${process.env.BUCKET_REGION})`);

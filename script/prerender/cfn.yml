@@ -81,7 +81,7 @@ Resources:
       ContainerDefinitions:
         - Command:
             - prerender:work
-          Cpu: 1024
+          Cpu: 2048
           EntryPoint:
             - yarn
           Environment:
