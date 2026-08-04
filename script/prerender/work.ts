@@ -12,7 +12,6 @@ import {
   ReceiveMessageCommand,
   SQSClient,
 } from '@aws-sdk/client-sqs';
-import { cpus } from 'os';
 import path from 'path';
 import { Worker } from 'worker_threads';
 import { assertDefined } from '../../src/app/utils';
@@ -21,6 +20,10 @@ import './logUnhandledRejectionsAndExit';
 // Thread timeout = MAX_HEARTBEATS * 15 seconds
 // The timeout must be long enough to render the slowest page, otherwise builds will never finish
 const MAX_HEARTBEATS = 20;
+
+// Since SchedulingStrategy switched from DAEMON to REPLICA, MemoryReservation controls how many
+// tasks each instance gets; at a 2 GiB/vCPU floor, a 4096 MiB task can get up to 2 vCPUs
+const WORKER_THREAD_COUNT = 2;
 
 console.log(`Bucket: ${process.env.BUCKET_NAME} (${process.env.BUCKET_REGION})`);
 
@@ -252,8 +255,7 @@ async function popWorker() {
   }
 }
 
-// Having a few more worker threads than CPUs seemed to help keep CPU utilization high
-for (const _undefined of Array(Math.ceil(1.5 * cpus().length))) { pushWorker(new SQSWorker()); }
+for (const _undefined of Array(WORKER_THREAD_COUNT)) { pushWorker(new SQSWorker()); }
 
 async function work() {
   while (true) {
