@@ -122,6 +122,57 @@ test('CORE-1485 new selection: Tab reaches the create button, which creates via 
   expect(await page.locator('.highlight').count(), 'a highlight was created').toBeGreaterThan(0)
 })
 
+test('CORE-1485 new selection: Tab past the create button leaves cleanly and discards the selection', async ({
+  page,
+  isMobile,
+}) => {
+  test.skip(isMobile as boolean, 'desktop only: the card control is hidden on mobile')
+  test.setTimeout(150000)
+
+  // GIVEN: an authenticated user with a pending (unsaved) selection and the create button focused
+  const bookPage = new ContentPage(page)
+  await bookPage.open(BOOK_PAGE)
+  await rexUserSignup(page)
+  await expect(page).toHaveURL(BOOK_PAGE)
+
+  const paraNumber = randomNum(await bookPage.paracount())
+  await bookPage.selectText(paraNumber)
+  await page.waitForSelector(ACTIVE_CARD, { timeout: 15000 })
+  await page.keyboard.press('Tab')
+  const onCreate = await activeElementInfo(page)
+  expect(onCreate.inCard, 'focus is on the create button').toBe(true)
+  expect(onCreate.tag).toBe('BUTTON')
+
+  // WHEN: Tab again (declining to create)  THEN: focus leaves the card cleanly and the unsaved
+  // selection is discarded — no bounce to an earlier highlight and back to the selected text.
+  await page.keyboard.press('Tab')
+  const afterTab = await activeElementInfo(page)
+  console.log('after Tab past create button:', afterTab)
+
+  expect(afterTab.inCard, 'focus left the card').toBe(false)
+  expect(afterTab.text, 'focus is no longer on the create button').not.toContain('create highlight')
+
+  const selectionCollapsed = await page.evaluate(() => {
+    const s = window.getSelection()
+    return !s || s.isCollapsed
+  })
+  expect(selectionCollapsed, 'the unsaved selection was discarded').toBe(true)
+  expect(await page.locator('.highlight').count(), 'no highlight was created').toBe(0)
+
+  // Focus continued *forward* (at/after the selection), rather than bouncing to the page top.
+  const bouncedBackward = await page.evaluate((n) => {
+    const para = document.querySelectorAll('p[id*=para]')[n]
+    const a = document.activeElement as HTMLElement | null
+    if (!para || !a || a === document.body) {
+      return false
+    }
+    const DOCUMENT_POSITION_PRECEDING = 2
+    // eslint-disable-next-line no-bitwise
+    return Boolean(para.compareDocumentPosition(a) & DOCUMENT_POSITION_PRECEDING)
+  }, paraNumber)
+  expect(bouncedBackward, 'focus did not bounce to an element before the selection').toBe(false)
+})
+
 test('CORE-1485 existing highlight: edit control is reachable via Tab / Shift+Tab', async ({ page, isMobile }) => {
   test.skip(isMobile as boolean, 'desktop only: the card control is hidden on mobile')
   test.setTimeout(150000)

@@ -1,5 +1,5 @@
 import Highlighter, { Highlight } from '@openstax/highlighter';
-import { HTMLElement, KeyboardEvent, MouseEvent } from '@openstax/types/lib.dom';
+import { HTMLElement, KeyboardEvent, MouseEvent, Node } from '@openstax/types/lib.dom';
 import React from 'react';
 import { connect, useSelector } from 'react-redux';
 import flow from 'lodash/fp/flow';
@@ -95,21 +95,35 @@ function useCardsHeights() {
   return [cardsHeights, onHeightChange] as const;
 }
 
-// Finds the first content control that Tab would reach after the whole highlight,
-// skipping the highlight's own injected screen-reader spans.
-function findNextContentTabbable(container: HTMLElement, highlight: Highlight): HTMLElement | null {
-  const elements = highlight.elements as HTMLElement[];
-  const lastEl = elements[elements.length - 1];
-  if (!lastEl) {
-    return null;
-  }
+// Finds the first tabbable element after `reference` in document order, skipping any `exclude`
+// elements (a highlight's own injected spans, and the card wrapper). Anchoring on the reference
+// (the highlight's last element, or a selection's end node) and searching the whole document lets
+// Tab continue from *after* the highlight/selection to the true next tab stop - including content
+// that lives outside the highlighter container (e.g. the page footer when the highlight is last).
+// The card wrapper is rendered before the content in the DOM, so it never qualifies as "next".
+function findNextContentTabbable(reference: Node, exclude: HTMLElement[] = []): HTMLElement | null {
   const following = assertDocument().getRootNode().DOCUMENT_POSITION_FOLLOWING;
-  const candidates = Array.from(container.querySelectorAll<HTMLElement>(tabbableElementsSelector));
+  const candidates = Array.from(
+    assertDocument().body.querySelectorAll<HTMLElement>(tabbableElementsSelector)
+  );
   return candidates.find((el) =>
     // eslint-disable-next-line no-bitwise
-    Boolean(lastEl.compareDocumentPosition(el) & following)
-    && !elements.some((mark) => mark === el || mark.contains(el))
+    Boolean(reference.compareDocumentPosition(el) & following)
+    && !exclude.some((ex) => ex === el || ex.contains(el))
   ) ?? null;
+}
+
+// The node at the end of the current selection, if it is inside the content container. Used to
+// anchor "next content control" routing for a not-yet-saved selection (which has no injected
+// highlight element to anchor on). The end node itself is returned (usually a text node, which has
+// no element descendants) so that compareDocumentPosition can't pick a tabbable *inside* it.
+function selectionEndNode(container: HTMLElement): Node | null {
+  const selection = assertWindow().getSelection();
+  if (!selection || selection.rangeCount === 0) {
+    return null;
+  }
+  const endNode = selection.getRangeAt(0).endContainer;
+  return container.contains(endNode) ? endNode : null;
 }
 
 // The card holding the edit/create control lives in a separate DOM layer, so it isn't
@@ -169,22 +183,32 @@ function useTabRouting(
         return;
       }
 
-      if (inCard && !isEditing && !isNewSelection) {
-        // Shift+Tab off the card's first control returns to the highlight.
-        if (event.shiftKey && active === firstFocusable) {
+      if (inCard && !isEditing) {
+        // Shift+Tab off the card's first control returns to the highlight. A new selection has
+        // no highlight span to return to, so this only applies to existing highlights.
+        if (event.shiftKey && active === firstFocusable && !isNewSelection) {
           event.preventDefault();
           focusedHighlight.focus();
           return;
         }
-        // Tab off the card's last control continues to the next content control,
-        // clearing the highlight focus as native Tab-past would have.
+        // Tab off the card's last control continues to the next content control. Any lingering
+        // or unsaved selection is discarded first, so focus lands cleanly and doesn't bounce
+        // back to the selected text (which would otherwise re-trigger the pending selection's
+        // teardown). This also clears the highlight focus, as native Tab-past would have.
         if (!event.shiftKey && active === lastFocusable) {
-          const next = findNextContentTabbable(container, focusedHighlight);
-          if (next) {
-            event.preventDefault();
-            unfocus();
-            next.focus();
-          }
+          const reference: Node | null = isNewSelection
+            ? selectionEndNode(container)
+            : (elements[elements.length - 1] ?? null);
+          const cardWrapper = element.current;
+          const exclude = [
+            ...(isNewSelection ? [] : elements),
+            ...(cardWrapper ? [cardWrapper] : []),
+          ];
+          const next = reference ? findNextContentTabbable(reference, exclude) : null;
+          event.preventDefault();
+          assertWindow().getSelection()?.removeAllRanges();
+          unfocus();
+          next?.focus();
           return;
         }
       }

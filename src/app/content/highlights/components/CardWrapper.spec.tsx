@@ -1149,6 +1149,57 @@ describe('CardWrapper', () => {
       cleanup();
     });
 
+    it('routes Tab off the create button to next content and discards the unsaved selection', () => {
+      const document = assertDocument();
+      const highlight = createMockHighlight(); // new selection: elements stays []
+
+      // Content: a selection-end text node followed by a link.
+      const para = document.createElement('p');
+      const selectionEndText = document.createTextNode('selected text');
+      para.appendChild(selectionEndText);
+      container.appendChild(para);
+      const nextLink = document.createElement('a');
+      nextLink.setAttribute('href', '#next');
+      container.appendChild(nextLink);
+
+      // Active pending "create" card with the create button.
+      const cardWrapperElement = document.createElement('div');
+      const cardNode = document.createElement('div');
+      cardNode.setAttribute('data-active', 'true');
+      const createButton = document.createElement('button');
+      cardNode.appendChild(createButton);
+      cardWrapperElement.appendChild(cardNode);
+      document.body.appendChild(cardWrapperElement);
+
+      const removeAllRanges = jest.fn();
+      const getSelectionSpy = jest.spyOn(window!, 'getSelection').mockReturnValue({
+        isCollapsed: false,
+        rangeCount: 1,
+        anchorNode: selectionEndText,
+        getRangeAt: () => ({ endContainer: selectionEndText }),
+        removeAllRanges,
+      } as any);
+
+      store.dispatch(focusHighlight(highlight.id));
+      renderer.create(<Provider store={store}>
+        <CardWrapper container={container} highlights={[highlight]} />
+      </Provider>, { createNodeMock: () => cardWrapperElement });
+      renderer.act(() => undefined);
+
+      const focusSpy = jest.spyOn(nextLink, 'focus');
+      renderer.act(() => {
+        createButton.focus();
+        dispatchKeyDownEvent({ key: 'Tab' });
+      });
+
+      expect(removeAllRanges).toHaveBeenCalled();
+      expect(focusSpy).toHaveBeenCalled();
+      expect(store.getState().content.highlights.currentPage.focused).toBeUndefined();
+
+      getSelectionSpy.mockRestore();
+      cardWrapperElement.remove();
+    });
+
     it('ignores non-Tab keys', () => {
       const { srSpan, firstButton, cleanup } = setupRouting();
       const focusSpy = jest.spyOn(firstButton, 'focus');
