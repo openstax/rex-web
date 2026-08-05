@@ -95,35 +95,41 @@ function useCardsHeights() {
   return [cardsHeights, onHeightChange] as const;
 }
 
-// Finds the first tabbable element after `reference` in document order, skipping any `exclude`
-// elements (a highlight's own injected spans, and the card wrapper). Anchoring on the reference
-// (the highlight's last element, or a selection's end node) and searching the whole document lets
-// Tab continue from *after* the highlight/selection to the true next tab stop - including content
-// that lives outside the highlighter container (e.g. the page footer when the highlight is last).
-// The card wrapper is rendered before the content in the DOM, so it never qualifies as "next".
-function findNextContentTabbable(reference: Node, exclude: HTMLElement[] = []): HTMLElement | null {
-  const following = assertDocument().getRootNode().DOCUMENT_POSITION_FOLLOWING;
+// Finds the nearest tabbable element before/after `reference` in document order, skipping any
+// `exclude` elements (a highlight's own injected spans, and the card wrapper). Searching the whole
+// document lets Tab/Shift+Tab continue from *after*/*before* the highlight or selection to the true
+// next/previous tab stop - including content outside the highlighter container (e.g. the footer, or
+// a toolbar control). The card wrapper is rendered before the content in the DOM; excluding it keeps
+// its own controls from ever being treated as the adjacent stop.
+function findAdjacentContentTabbable(
+  reference: Node,
+  forward: boolean,
+  exclude: HTMLElement[] = []
+): HTMLElement | null {
+  const root = assertDocument().getRootNode();
+  const position = forward ? root.DOCUMENT_POSITION_FOLLOWING : root.DOCUMENT_POSITION_PRECEDING;
   const candidates = Array.from(
     assertDocument().body.querySelectorAll<HTMLElement>(tabbableElementsSelector)
-  );
-  return candidates.find((el) =>
+  ).filter((el) =>
     // eslint-disable-next-line no-bitwise
-    Boolean(reference.compareDocumentPosition(el) & following)
+    Boolean(reference.compareDocumentPosition(el) & position)
     && !exclude.some((ex) => ex === el || ex.contains(el))
-  ) ?? null;
+  );
+  return (forward ? candidates[0] : candidates[candidates.length - 1]) ?? null;
 }
 
-// The node at the end of the current selection, if it is inside the content container. Used to
-// anchor "next content control" routing for a not-yet-saved selection (which has no injected
-// highlight element to anchor on). The end node itself is returned (usually a text node, which has
-// no element descendants) so that compareDocumentPosition can't pick a tabbable *inside* it.
-function selectionEndNode(container: HTMLElement): Node | null {
+// The node at the start/end boundary of the current selection, if inside the content container.
+// Used to anchor next/previous-tab-stop routing for a not-yet-saved selection (which has no injected
+// highlight element to anchor on). The boundary node itself (usually a text node, which has no
+// element descendants) is returned so compareDocumentPosition can't pick a tabbable inside it.
+function selectionBoundaryNode(container: HTMLElement, end: boolean): Node | null {
   const selection = assertWindow().getSelection();
   if (!selection || selection.rangeCount === 0) {
     return null;
   }
-  const endNode = selection.getRangeAt(0).endContainer;
-  return container.contains(endNode) ? endNode : null;
+  const range = selection.getRangeAt(0);
+  const node = end ? range.endContainer : range.startContainer;
+  return container.contains(node) ? node : null;
 }
 
 // The card holding the edit/create control lives in a separate DOM layer, so it isn't
@@ -184,31 +190,37 @@ function useTabRouting(
       }
 
       if (inCard && !isEditing) {
-        // Shift+Tab off the card's first control returns to the highlight. A new selection has
-        // no highlight span to return to, so this only applies to existing highlights.
-        if (event.shiftKey && active === firstFocusable && !isNewSelection) {
+        const goingBack = event.shiftKey && active === firstFocusable;
+        const goingForward = !event.shiftKey && active === lastFocusable;
+
+        // Shift+Tab off the first control of an existing highlight returns to the highlight itself.
+        if (goingBack && !isNewSelection) {
           event.preventDefault();
           focusedHighlight.focus();
           return;
         }
-        // Tab off the card's last control continues to the next content control. Any lingering
-        // or unsaved selection is discarded first, so focus lands cleanly and doesn't bounce
-        // back to the selected text (which would otherwise re-trigger the pending selection's
-        // teardown). This also clears the highlight focus, as native Tab-past would have.
-        if (!event.shiftKey && active === lastFocusable) {
+
+        // Otherwise, at a card boundary, continue in the natural tab order to the adjacent content
+        // control: Tab off the last control (existing highlight or new selection) or Shift+Tab off
+        // the first control of a new selection (which has no highlight span to return to). Any
+        // lingering/unsaved selection is discarded first, so focus lands cleanly and doesn't bounce
+        // back to the selected text. This also clears the highlight focus, as native Tab would have.
+        if (goingForward || goingBack) {
           const reference: Node | null = isNewSelection
-            ? selectionEndNode(container)
+            ? selectionBoundaryNode(container, goingForward)
             : (elements[elements.length - 1] ?? null);
           const cardWrapper = element.current;
           const exclude = [
             ...(isNewSelection ? [] : elements),
             ...(cardWrapper ? [cardWrapper] : []),
           ];
-          const next = reference ? findNextContentTabbable(reference, exclude) : null;
+          const target = reference
+            ? findAdjacentContentTabbable(reference, goingForward, exclude)
+            : null;
           event.preventDefault();
           assertWindow().getSelection()?.removeAllRanges();
           unfocus();
-          next?.focus();
+          target?.focus();
           return;
         }
       }

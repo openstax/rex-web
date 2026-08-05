@@ -173,6 +173,61 @@ test('CORE-1485 new selection: Tab past the create button leaves cleanly and dis
   expect(bouncedBackward, 'focus did not bounce to an element before the selection').toBe(false)
 })
 
+test('CORE-1485 new selection: Shift+Tab off the create button goes to previous content, not the toolbar', async ({
+  page,
+  isMobile,
+}) => {
+  test.skip(isMobile as boolean, 'desktop only: the card control is hidden on mobile')
+  test.setTimeout(150000)
+
+  const bookPage = new ContentPage(page)
+  await bookPage.open(BOOK_PAGE)
+  await rexUserSignup(page)
+  await expect(page).toHaveURL(BOOK_PAGE)
+
+  // Select a paragraph in the latter half of the page so real content precedes the selection.
+  const paraCount = await bookPage.paracount()
+  const paraNumber = Math.max(1, paraCount - 1)
+  await bookPage.selectText(paraNumber)
+  await page.waitForSelector(ACTIVE_CARD, { timeout: 15000 })
+  await page.keyboard.press('Tab')
+  expect((await activeElementInfo(page)).tag, 'focus is on the create button').toBe('BUTTON')
+
+  // WHEN: Shift+Tab  THEN: focus goes to the previous tab stop before the selection (in the
+  // content), NOT backward past the whole card layer into the toolbar; the selection is discarded.
+  await page.keyboard.press('Shift+Tab')
+  const afterShiftTab = await activeElementInfo(page)
+  console.log('after Shift+Tab off create button:', afterShiftTab)
+
+  expect(afterShiftTab.inCard, 'focus left the card').toBe(false)
+  expect(afterShiftTab.text, 'focus is no longer on the create button').not.toContain('create highlight')
+  const selectionCollapsed = await page.evaluate(() => {
+    const s = window.getSelection()
+    return !s || s.isCollapsed
+  })
+  expect(selectionCollapsed, 'the unsaved selection was discarded').toBe(true)
+
+  const relation = await page.evaluate((n) => {
+    const para = document.querySelectorAll('p[id*=para]')[n]
+    const a = document.activeElement as HTMLElement | null
+    if (!para || !a || a === document.body) {
+      return { checked: false, precedes: false, inMainContent: false }
+    }
+    const DOCUMENT_POSITION_PRECEDING = 2
+    return {
+      checked: true,
+      // eslint-disable-next-line no-bitwise
+      precedes: Boolean(para.compareDocumentPosition(a) & DOCUMENT_POSITION_PRECEDING),
+      inMainContent: Boolean(a.closest('#main-content')),
+    }
+  }, paraNumber)
+  console.log('shift-tab target relation:', relation)
+  if (relation.checked) {
+    expect(relation.precedes, 'focus moved backward, to before the selection').toBe(true)
+    expect(relation.inMainContent, 'focus stayed in the content, not the toolbar/card layer').toBe(true)
+  }
+})
+
 test('CORE-1485 existing highlight: edit control is reachable via Tab / Shift+Tab', async ({ page, isMobile }) => {
   test.skip(isMobile as boolean, 'desktop only: the card control is hidden on mobile')
   test.setTimeout(150000)
