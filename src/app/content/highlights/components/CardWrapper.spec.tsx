@@ -1251,6 +1251,96 @@ describe('CardWrapper', () => {
       cardWrapperElement.remove();
     });
 
+    it('routes Shift+Tab from a new selection in the content to previous content', () => {
+      const document = assertDocument();
+      const highlight = createMockHighlight(); // new selection: elements stays []
+
+      const prevLink = document.createElement('a');
+      prevLink.setAttribute('href', '#prev');
+      container.appendChild(prevLink);
+      const para = document.createElement('p');
+      const selectionStartText = document.createTextNode('selected text');
+      para.appendChild(selectionStartText);
+      container.appendChild(para);
+
+      // The pending create card is rendered, but focus is still in the content (not on the button).
+      const cardWrapperElement = document.createElement('div');
+      const cardNode = document.createElement('div');
+      cardNode.setAttribute('data-active', 'true');
+      cardNode.appendChild(document.createElement('button'));
+      cardWrapperElement.appendChild(cardNode);
+      document.body.appendChild(cardWrapperElement);
+
+      const removeAllRanges = jest.fn();
+      const getSelectionSpy = jest.spyOn(window!, 'getSelection').mockReturnValue({
+        isCollapsed: false,
+        rangeCount: 1,
+        anchorNode: selectionStartText,
+        getRangeAt: () => ({ startContainer: selectionStartText, endContainer: selectionStartText }),
+        removeAllRanges,
+      } as any);
+
+      store.dispatch(focusHighlight(highlight.id));
+      renderer.create(<Provider store={store}>
+        <CardWrapper container={container} highlights={[highlight]} />
+      </Provider>, { createNodeMock: () => cardWrapperElement });
+      renderer.act(() => undefined);
+
+      const focusSpy = jest.spyOn(prevLink, 'focus');
+      renderer.act(() => {
+        (assertDocument().activeElement as { blur?: () => void } | null)?.blur?.();
+        dispatchKeyDownEvent({ key: 'Tab', shiftKey: true });
+      });
+
+      expect(removeAllRanges).toHaveBeenCalled();
+      expect(focusSpy).toHaveBeenCalled();
+      expect(store.getState().content.highlights.currentPage.focused).toBeUndefined();
+
+      getSelectionSpy.mockRestore();
+      cardWrapperElement.remove();
+    });
+
+    it('routes Shift+Tab from the highlight span to previous content, breaking the span/button loop', () => {
+      const document = assertDocument();
+      const highlight = createMockHighlight();
+
+      const prevLink = document.createElement('a');
+      prevLink.setAttribute('href', '#prev');
+      container.appendChild(prevLink);
+
+      const highlightElement = document.createElement('span');
+      const srSpan = document.createElement('span');
+      srSpan.setAttribute('data-for-screenreaders', 'true');
+      srSpan.setAttribute('tabindex', '0');
+      highlightElement.appendChild(srSpan);
+      container.appendChild(highlightElement);
+      highlight.elements.push(highlightElement);
+
+      const cardWrapperElement = document.createElement('div');
+      const cardNode = document.createElement('div');
+      cardNode.setAttribute('data-active', 'true');
+      cardNode.appendChild(document.createElement('button'));
+      cardWrapperElement.appendChild(cardNode);
+      document.body.appendChild(cardWrapperElement);
+
+      store.dispatch(focusHighlight(highlight.id));
+      renderer.create(<Provider store={store}>
+        <CardWrapper container={container} highlights={[highlight]} />
+      </Provider>, { createNodeMock: () => cardWrapperElement });
+      renderer.act(() => undefined);
+
+      const focusSpy = jest.spyOn(prevLink, 'focus');
+      renderer.act(() => {
+        srSpan.focus();
+        dispatchKeyDownEvent({ key: 'Tab', shiftKey: true });
+      });
+
+      expect(focusSpy).toHaveBeenCalled();
+      expect(store.getState().content.highlights.currentPage.focused).toBeUndefined();
+
+      cardWrapperElement.remove();
+    });
+
     it('ignores non-Tab keys', () => {
       const { srSpan, firstButton, cleanup } = setupRouting();
       const focusSpy = jest.spyOn(firstButton, 'focus');

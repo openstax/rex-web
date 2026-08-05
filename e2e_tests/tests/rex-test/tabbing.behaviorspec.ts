@@ -228,6 +228,62 @@ test('CORE-1485 new selection: Shift+Tab off the create button goes to previous 
   }
 })
 
+test('CORE-1485 new selection: Shift+Tab directly from the selection goes to previous content', async ({
+  page,
+  isMobile,
+}) => {
+  test.skip(isMobile as boolean, 'desktop only: the card control is hidden on mobile')
+  test.setTimeout(150000)
+
+  const bookPage = new ContentPage(page)
+  await bookPage.open(BOOK_PAGE)
+  await rexUserSignup(page)
+  await expect(page).toHaveURL(BOOK_PAGE)
+
+  // Select a paragraph in the latter half of the page so real content precedes the selection.
+  const paraCount = await bookPage.paracount()
+  const paraNumber = Math.max(1, paraCount - 1)
+  await bookPage.selectText(paraNumber)
+  await page.waitForSelector(ACTIVE_CARD, { timeout: 15000 })
+  expect((await activeElementInfo(page)).inCard, 'focus is in the content at the selection').toBe(false)
+
+  // WHEN: Shift+Tab straight from the selection (without first tabbing to the button)
+  // THEN: focus goes backward to previous content — not forward into the card (Chromium) and not
+  // via <body> (Firefox) — and the unsaved selection is discarded.
+  await page.keyboard.press('Shift+Tab')
+  const afterShiftTab = await activeElementInfo(page)
+  console.log('select -> Shift+Tab:', afterShiftTab)
+
+  expect(afterShiftTab.inCard, 'did not jump forward into the card').toBe(false)
+  expect(afterShiftTab.tag, 'did not detour through <body>').not.toBe('BODY')
+  expect(afterShiftTab.text, 'focus is not the create button').not.toContain('create highlight')
+  const selectionCollapsed = await page.evaluate(() => {
+    const s = window.getSelection()
+    return !s || s.isCollapsed
+  })
+  expect(selectionCollapsed, 'the unsaved selection was discarded').toBe(true)
+
+  const relation = await page.evaluate((n) => {
+    const para = document.querySelectorAll('p[id*=para]')[n]
+    const a = document.activeElement as HTMLElement | null
+    if (!para || !a || a === document.body) {
+      return { checked: false, precedes: false, inMainContent: false }
+    }
+    const DOCUMENT_POSITION_PRECEDING = 2
+    return {
+      checked: true,
+      // eslint-disable-next-line no-bitwise
+      precedes: Boolean(para.compareDocumentPosition(a) & DOCUMENT_POSITION_PRECEDING),
+      inMainContent: Boolean(a.closest('#main-content')),
+    }
+  }, paraNumber)
+  console.log('select -> Shift+Tab relation:', relation)
+  if (relation.checked) {
+    expect(relation.precedes, 'focus moved backward, to before the selection').toBe(true)
+    expect(relation.inMainContent, 'focus stayed in the content, not the toolbar/card layer').toBe(true)
+  }
+})
+
 test('CORE-1485 existing highlight: edit control is reachable via Tab / Shift+Tab', async ({ page, isMobile }) => {
   test.skip(isMobile as boolean, 'desktop only: the card control is hidden on mobile')
   test.setTimeout(150000)
@@ -274,4 +330,27 @@ test('CORE-1485 existing highlight: edit control is reachable via Tab / Shift+Ta
   console.log('after Tab (out of card to content):', afterCard)
   expect(afterCard.inCard, 'Tab past the last control leaves the card').toBe(false)
   expect(afterCard.tag, 'focus lands on a real content element, not <body>').not.toBe('BODY')
+
+  // AND: Shift+Tab from the highlight span breaks OUT to the previous content — it must not toggle
+  // back to the edit button (which sits before the content in the DOM), which would trap focus.
+  await focusHighlightStartSpan(page, highlightId as string)
+  await page.waitForSelector(ACTIVE_CARD, { timeout: 15000 })
+  expect((await activeElementInfo(page)).isScreenReaderSpan, 'focus is back on the highlight span').toBe(true)
+  await page.keyboard.press('Shift+Tab')
+  const beforeHighlight = await activeElementInfo(page)
+  console.log('after Shift+Tab from span (break out):', beforeHighlight)
+  expect(beforeHighlight.inCard, 'Shift+Tab from the span leaves the card layer').toBe(false)
+  expect(beforeHighlight.text, 'focus is not the edit button').not.toContain('edit highlight')
+  expect(beforeHighlight.tag, 'focus landed on a real element, not <body>').not.toBe('BODY')
+  const precedesHighlight = await page.evaluate((id) => {
+    const mark = document.querySelector(`[data-highlight-id="${id}"]`)
+    const a = document.activeElement as HTMLElement | null
+    if (!mark || !a || a === document.body) {
+      return false
+    }
+    const DOCUMENT_POSITION_PRECEDING = 2
+    // eslint-disable-next-line no-bitwise
+    return Boolean(mark.compareDocumentPosition(a) & DOCUMENT_POSITION_PRECEDING)
+  }, highlightId)
+  expect(precedesHighlight, 'focus moved backward, before the highlight').toBe(true)
 })

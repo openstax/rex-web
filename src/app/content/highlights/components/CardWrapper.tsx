@@ -189,6 +189,24 @@ function useTabRouting(
         return;
       }
 
+      // Shift+Tab from the highlight's screen-reader span breaks out to the previous content
+      // control. Native Shift+Tab would instead land on the edit button (which sits before the
+      // content in the DOM), creating a span<->button loop that can never reach earlier elements.
+      if (onHighlightSpan && event.shiftKey && startEl) {
+        const cardWrapper = element.current;
+        const previous = findAdjacentContentTabbable(
+          startEl,
+          false,
+          [...elements, ...(cardWrapper ? [cardWrapper] : [])]
+        );
+        if (previous) {
+          event.preventDefault();
+          unfocus();
+          previous.focus();
+        }
+        return;
+      }
+
       if (inCard && !isEditing) {
         const goingBack = event.shiftKey && active === firstFocusable;
         const goingForward = !event.shiftKey && active === lastFocusable;
@@ -225,17 +243,32 @@ function useTabRouting(
         }
       }
 
-      // New selection: there is no highlight span yet. Route Tab forward from the content
-      // into the pending "create" card, preserving the live selection. Shift+Tab back has
-      // no stable anchor to return to, so it is left to default behavior (best effort).
-      if (isNewSelection && !inCard && !event.shiftKey && firstFocusable) {
+      // New selection: there is no highlight span, and the card lives before the content in the
+      // DOM, so native Tab/Shift+Tab from the selection would jump into the card (or, in Firefox,
+      // detour through <body>) instead of following the content. Route both directions explicitly.
+      if (isNewSelection && !inCard) {
         const selection = assertWindow().getSelection();
         const anchorInContainer = Boolean(
           selection?.anchorNode && container.contains(selection.anchorNode)
         );
         if (selection && !selection.isCollapsed && anchorInContainer) {
-          event.preventDefault();
-          withSelectionPreserved(() => firstFocusable.focus());
+          if (!event.shiftKey && firstFocusable) {
+            // Tab: into the create card, preserving the live selection so it can still be created.
+            event.preventDefault();
+            withSelectionPreserved(() => firstFocusable.focus());
+          } else if (event.shiftKey) {
+            // Shift+Tab: backward to the previous content control (like the created-highlight case),
+            // discarding the unsaved selection so focus lands cleanly instead of on the card/<body>.
+            const reference = selectionBoundaryNode(container, false);
+            const cardWrapper = element.current;
+            const previous = reference
+              ? findAdjacentContentTabbable(reference, false, cardWrapper ? [cardWrapper] : [])
+              : null;
+            event.preventDefault();
+            assertWindow().getSelection()?.removeAllRanges();
+            unfocus();
+            previous?.focus();
+          }
         }
       }
     };
