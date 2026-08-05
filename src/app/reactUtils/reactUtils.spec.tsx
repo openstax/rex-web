@@ -320,6 +320,25 @@ describe('useTrapTabNavigation', () => {
     addEventListenerSpy.mockRestore();
     removeEventListenerSpy.mockRestore();
   });
+  it('does not attach listeners when disabled', () => {
+    const container = assertDocument().createElement('div');
+    const b = assertDocument().createElement('button');
+    container.appendChild(b);
+    const addEventListenerSpy = jest.spyOn(container, 'addEventListener');
+
+    const Component = () => {
+      const ref = React.useRef<HTMLElement | null>(container);
+      utils.useTrapTabNavigation(ref, undefined, false, false);
+      return <div />;
+    };
+
+    renderer.create(<Component />);
+    runHooks(renderer);
+
+    expect(addEventListenerSpy).not.toHaveBeenCalledWith('keydown', expect.any(Function), true);
+
+    addEventListenerSpy.mockRestore();
+  });
   it('auto-focuses first focusable element on mount', () => {
     const container = assertDocument().createElement('div');
     const btn1 = assertDocument().createElement('button');

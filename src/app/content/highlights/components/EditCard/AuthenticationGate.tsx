@@ -43,11 +43,18 @@ export function LoginOrEdit({
   const authenticated = !!useSelector(selectAuth.user);
   const { formatMessage } = useIntl();
 
-  const showCard = React.useCallback((event: React.MouseEvent) => {
+  // Preserve the live text selection on mouse interaction: the default mousedown
+  // behavior would move focus and collapse the selection before the highlight is
+  // created. preventDefault suppresses that without suppressing the ensuing click.
+  const preserveSelectionOnMouseDown = React.useCallback((event: React.MouseEvent) => {
     if (event.button === 0) {
       event.preventDefault();
-      document?.dispatchEvent(new CustomEvent('showCardEvent', { bubbles: true }));
     }
+  }, []);
+
+  // Dispatched on click so activation works for mouse and keyboard (Enter/Space) alike.
+  const showCard = React.useCallback(() => {
+    document?.dispatchEvent(new CustomEvent('showCardEvent', { bubbles: true }));
   }, []);
 
   return (
@@ -56,6 +63,7 @@ export function LoginOrEdit({
       className={className}
       role='dialog'
       aria-label={formatMessage({ id: 'i18n:highlighter:edit-note:label' })}
+      data-highlight-card
       onClick={onClick}
       style={style}
       {...restProps}
@@ -71,7 +79,12 @@ export function LoginOrEdit({
               {children}
             </form>
           ) : (
-            <button type='button' className='button-default' onMouseDown={showCard}>
+            <button
+              type='button'
+              className='button-default'
+              onMouseDown={preserveSelectionOnMouseDown}
+              onClick={showCard}
+            >
               <FormattedMessage
                 id={
                   isNewSelection

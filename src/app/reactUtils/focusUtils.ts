@@ -94,6 +94,17 @@ function scheduleSelectionRestoration(win: Window, restoreFn: () => void): void 
   }
 }
 
+// Runs a focus-moving callback while preserving the current text selection.
+// Moving focus into a control can collapse an active selection in some browsers
+// (notably Firefox); this saves the range and restores it afterwards. Used by the
+// highlight Tab-routing to move focus into the card without losing a pending selection.
+export function withSelectionPreserved(fn: () => void): void {
+  const win = assertWindow();
+  const savedRange = safeSaveTextSelection(win);
+  fn();
+  restoreTextSelection(win, savedRange);
+}
+
 // Determines the next focus element when Tab wraps around
 function getNextWrapElement(
   currentIndex: number,
@@ -240,14 +251,17 @@ function autoFocusFirstElement(el: HTMLElement): void {
 
 // Supply otherDep when focusable elements might change (see EditCard)
 // Set autoFocus=true to focus the first focusable element on mount (useful for modals/overlays)
+// Set isEnabled=false to leave the trap detached (e.g. so focus can be routed out of the card
+// while it is not actively being edited)
 export function useTrapTabNavigation(
   ref: React.MutableRefObject<HTMLElement | null>,
   otherDep?: unknown,
-  autoFocus?: boolean
+  autoFocus?: boolean,
+  isEnabled = true
 ) {
   React.useEffect(() => {
     const el = ref.current;
-    if (!el?.addEventListener) {
+    if (!el?.addEventListener || !isEnabled) {
       return;
     }
 
@@ -265,7 +279,7 @@ export function useTrapTabNavigation(
     el.addEventListener('keydown', trapTab, true);
 
     return () => el.removeEventListener('keydown', trapTab, true);
-  }, [ref, otherDep, autoFocus]);
+  }, [ref, otherDep, autoFocus, isEnabled]);
 }
 
 export const onFocusInOrOutHandler =
@@ -330,7 +344,7 @@ export const useFocusIn = (
 
 // Based on https://stackoverflow.com/questions/1599660/which-html-elements-can-receive-focus/30753870#30753870
 // and https://allyjs.io/data-tables/focusable.html
-const tabbableElementsSelector = [
+export const tabbableElementsSelector = [
   'a[href]',
   'area[href]',
   'audio',

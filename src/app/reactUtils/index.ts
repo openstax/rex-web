@@ -22,8 +22,10 @@ import { assertDefined } from '../utils';
 export {
   useDrawFocus,
   focusableItemQuery,
+  tabbableElementsSelector,
   createTrapTab,
   useTrapTabNavigation,
+  withSelectionPreserved,
   onFocusInOrOutHandler,
   useFocusLost,
   useFocusIn,

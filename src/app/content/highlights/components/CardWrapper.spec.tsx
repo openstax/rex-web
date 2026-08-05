@@ -1032,6 +1032,137 @@ describe('CardWrapper', () => {
 
   });
 
+  describe('useTabRouting', () => {
+    const setupRouting = ({ isNewSelection = false, editing = false } = {}) => {
+      const document = assertDocument();
+      const highlight = createMockHighlight();
+
+      // Highlight start span in the content: the library-injected, tab-focusable anchor.
+      const highlightElement = document.createElement('span');
+      const srSpan = document.createElement('span');
+      srSpan.setAttribute('data-for-screenreaders', 'true');
+      srSpan.setAttribute('tabindex', '0');
+      highlightElement.appendChild(srSpan);
+      container.appendChild(highlightElement);
+
+      // A content control that follows the highlight in document order.
+      const nextLink = document.createElement('a');
+      nextLink.setAttribute('href', '#next');
+      container.appendChild(nextLink);
+
+      if (!isNewSelection) {
+        highlight.elements.push(highlightElement);
+      }
+
+      // Build the active card DOM that the router resolves via the wrapper ref.
+      const cardWrapperElement = document.createElement('div');
+      const cardNode = document.createElement('div');
+      cardNode.setAttribute('data-active', 'true');
+      const firstButton = document.createElement('button');
+      const lastButton = document.createElement('button');
+      cardNode.append(firstButton, lastButton);
+      if (editing) {
+        const editingMarker = document.createElement('div');
+        editingMarker.setAttribute('data-editing', 'true');
+        cardNode.appendChild(editingMarker);
+      }
+      cardWrapperElement.appendChild(cardNode);
+      document.body.appendChild(cardWrapperElement);
+
+      store.dispatch(focusHighlight(highlight.id));
+
+      renderer.create(<Provider store={store}>
+        <CardWrapper container={container} highlights={[highlight]} />
+      </Provider>, { createNodeMock: () => cardWrapperElement });
+
+      renderer.act(() => undefined);
+
+      return {
+        cleanup: () => cardWrapperElement.remove(),
+        firstButton, highlight, highlightElement, lastButton, nextLink, srSpan,
+      };
+    };
+
+    it('routes Tab from the highlight span into the card', () => {
+      const { srSpan, firstButton, cleanup } = setupRouting();
+      const focusSpy = jest.spyOn(firstButton, 'focus');
+
+      renderer.act(() => {
+        srSpan.focus();
+        dispatchKeyDownEvent({ key: 'Tab' });
+      });
+
+      expect(focusSpy).toHaveBeenCalled();
+      cleanup();
+    });
+
+    it('routes Shift+Tab from the first card control back to the highlight', () => {
+      const { highlight, firstButton, cleanup } = setupRouting();
+
+      renderer.act(() => {
+        firstButton.focus();
+        highlight.focus.mockClear();
+        dispatchKeyDownEvent({ key: 'Tab', shiftKey: true });
+      });
+
+      expect(highlight.focus).toHaveBeenCalled();
+      cleanup();
+    });
+
+    it('routes Tab from the last card control to the next content control and clears focus', () => {
+      const { lastButton, nextLink, cleanup } = setupRouting();
+      const focusSpy = jest.spyOn(nextLink, 'focus');
+
+      renderer.act(() => {
+        lastButton.focus();
+        dispatchKeyDownEvent({ key: 'Tab' });
+      });
+
+      expect(focusSpy).toHaveBeenCalled();
+      expect(store.getState().content.highlights.currentPage.focused).toBeUndefined();
+      cleanup();
+    });
+
+    it('does not route across card boundaries while a note is being edited', () => {
+      const { lastButton, nextLink, cleanup } = setupRouting({ editing: true });
+      const focusSpy = jest.spyOn(nextLink, 'focus');
+
+      renderer.act(() => {
+        lastButton.focus();
+        dispatchKeyDownEvent({ key: 'Tab' });
+      });
+
+      expect(focusSpy).not.toHaveBeenCalled();
+      cleanup();
+    });
+
+    it('routes Tab into the pending card for a new selection', () => {
+      const { firstButton, highlightElement, cleanup } = setupRouting({ isNewSelection: true });
+      const focusSpy = jest.spyOn(firstButton, 'focus');
+      const selectionMock = { isCollapsed: false, rangeCount: 0, anchorNode: highlightElement };
+      const getSelectionSpy = jest.spyOn(window!, 'getSelection').mockReturnValue(selectionMock as any);
+
+      renderer.act(() => { dispatchKeyDownEvent({ key: 'Tab' }); });
+
+      expect(focusSpy).toHaveBeenCalled();
+      getSelectionSpy.mockRestore();
+      cleanup();
+    });
+
+    it('ignores non-Tab keys', () => {
+      const { srSpan, firstButton, cleanup } = setupRouting();
+      const focusSpy = jest.spyOn(firstButton, 'focus');
+
+      renderer.act(() => {
+        srSpan.focus();
+        dispatchKeyDownEvent({ key: 'a' });
+      });
+
+      expect(focusSpy).not.toHaveBeenCalled();
+      cleanup();
+    });
+  });
+
   describe('data attributes for CSS', () => {
     it('sets data-toc-open attribute when isTocOpen is true', () => {
       // Create a mock state with tocOpen = true

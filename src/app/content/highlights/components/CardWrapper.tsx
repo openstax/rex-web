@@ -6,9 +6,16 @@ import flow from 'lodash/fp/flow';
 import { clearFocusedHighlight } from '../actions';
 import ResizeObserver from 'resize-observer-polyfill';
 import { isHtmlElement, isElement } from '../../../guards';
-import { useFocusLost, useKeyCombination, useFocusHighlight, useOnEsc } from '../../../reactUtils';
+import {
+  tabbableElementsSelector,
+  useFocusHighlight,
+  useFocusLost,
+  useKeyCombination,
+  useOnEsc,
+  withSelectionPreserved,
+} from '../../../reactUtils';
 import { AppState, Dispatch } from '../../../types';
-import { assertDefined, assertDocument, stripHtml } from '../../../utils';
+import { assertDefined, assertDocument, assertWindow, stripHtml } from '../../../utils';
 import * as selectSearch from '../../search/selectors';
 import * as contentSelect from '../../selectors';
 import { highlightKeyCombination } from '../constants';
@@ -86,6 +93,120 @@ function useCardsHeights() {
   }, [cardsHeights]);
 
   return [cardsHeights, onHeightChange] as const;
+}
+
+// Finds the first content control that Tab would reach after the whole highlight,
+// skipping the highlight's own injected screen-reader spans.
+function findNextContentTabbable(container: HTMLElement, highlight: Highlight): HTMLElement | null {
+  const elements = highlight.elements as HTMLElement[];
+  const lastEl = elements[elements.length - 1];
+  if (!lastEl) {
+    return null;
+  }
+  const following = assertDocument().getRootNode().DOCUMENT_POSITION_FOLLOWING;
+  const candidates = Array.from(container.querySelectorAll<HTMLElement>(tabbableElementsSelector));
+  return candidates.find((el) =>
+    // eslint-disable-next-line no-bitwise
+    Boolean(lastEl.compareDocumentPosition(el) & following)
+    && !elements.some((mark) => mark === el || mark.contains(el))
+  ) ?? null;
+}
+
+// The card holding the edit/create control lives in a separate DOM layer, so it isn't
+// reachable by Tab in document order from its highlight. useTabRouting bridges that gap
+// using standard Tab/Shift+Tab: it moves focus from the focused highlight (its injected
+// [data-for-screenreaders] span) into the visible card, back to the highlight, and out to
+// the next content control - satisfying keyboard operability (WCAG 2.1.1) without moving
+// the card in the DOM or relying on non-standard keys (Enter/Alt+H) to place focus.
+function useTabRouting(
+  focusedHighlight: Highlight | undefined,
+  element: React.RefObject<HTMLElement>,
+  container: HTMLElement,
+  unfocus: () => void
+) {
+  const document = assertDocument();
+
+  React.useEffect(() => {
+    if (!focusedHighlight) {
+      return;
+    }
+
+    const handler = (event: KeyboardEvent) => {
+      if (event.key !== 'Tab') {
+        return;
+      }
+      const active = document.activeElement as HTMLElement | null;
+      if (!active) {
+        return;
+      }
+
+      // The card node for the focused highlight (EditCard dialog wrapper or DisplayNote root).
+      const cardNode = element.current?.querySelector<HTMLElement>('[data-active="true"]') ?? null;
+      const inCard = Boolean(cardNode?.contains(active));
+      // While a note is actively being edited, the EditCard tab trap owns Tab within the
+      // card; leave the card boundaries to it.
+      const isEditing = Boolean(cardNode?.querySelector('[data-editing="true"]'));
+      // tabbableElementsSelector (not focusableItemQuery) so tabindex="-1" controls -
+      // e.g. the color-picker radios, which are reached via their radiogroup, not Tab -
+      // are excluded and the card's real first/last tab stops are used.
+      const focusables = cardNode
+        ? Array.from(cardNode.querySelectorAll<HTMLElement>(tabbableElementsSelector))
+        : [];
+      const firstFocusable = focusables[0];
+      const lastFocusable = focusables[focusables.length - 1];
+
+      const elements = focusedHighlight.elements as HTMLElement[];
+      const startEl = elements[0];
+      const isNewSelection = elements.length === 0;
+
+      // Tab from the highlight's screen-reader span moves focus into the card.
+      const onHighlightSpan = Boolean(
+        startEl && startEl.contains(active) && active.hasAttribute('data-for-screenreaders')
+      );
+      if (onHighlightSpan && !event.shiftKey && firstFocusable) {
+        event.preventDefault();
+        firstFocusable.focus();
+        return;
+      }
+
+      if (inCard && !isEditing && !isNewSelection) {
+        // Shift+Tab off the card's first control returns to the highlight.
+        if (event.shiftKey && active === firstFocusable) {
+          event.preventDefault();
+          focusedHighlight.focus();
+          return;
+        }
+        // Tab off the card's last control continues to the next content control,
+        // clearing the highlight focus as native Tab-past would have.
+        if (!event.shiftKey && active === lastFocusable) {
+          const next = findNextContentTabbable(container, focusedHighlight);
+          if (next) {
+            event.preventDefault();
+            unfocus();
+            next.focus();
+          }
+          return;
+        }
+      }
+
+      // New selection: there is no highlight span yet. Route Tab forward from the content
+      // into the pending "create" card, preserving the live selection. Shift+Tab back has
+      // no stable anchor to return to, so it is left to default behavior (best effort).
+      if (isNewSelection && !inCard && !event.shiftKey && firstFocusable) {
+        const selection = assertWindow().getSelection();
+        const anchorInContainer = Boolean(
+          selection?.anchorNode && container.contains(selection.anchorNode)
+        );
+        if (selection && !selection.isCollapsed && anchorInContainer) {
+          event.preventDefault();
+          withSelectionPreserved(() => firstFocusable.focus());
+        }
+      }
+    };
+
+    document.addEventListener('keydown', handler, true);
+    return () => document.removeEventListener('keydown', handler, true);
+  }, [document, focusedHighlight, element, container, unfocus]);
 }
 
 function useFocusedHighlight(
@@ -166,6 +287,8 @@ function useFocusedHighlight(
 
   useKeyCombination({ key: 'Enter' }, editOnEnter, notFiredFromHighlight);
   useKeyCombination(highlightKeyCombination, moveFocus, noopKeyCombinationHandler([container, element]));
+  // Standard-keyboard path: Tab/Shift+Tab move focus between the highlight and its card.
+  useTabRouting(focusedHighlight, element, container, unfocus);
   // Clear shouldFocusCard when focus is lost from the CardWrapper.
   // If we don't do this then card related for the focused highlight will be focused automatically.
   useFocusLost(element, shouldFocusCard && Boolean(isExistingHighlight), React.useCallback(() => {

@@ -691,11 +691,16 @@ describe('EditCard', () => {
       const preventDefault = jest.fn();
       document!.dispatchEvent = jest.fn();
 
-      // Two branches of showCard - must be mousedown of button 0
+      // mousedown only preserves the live selection (preventDefault on primary button);
+      // it no longer dispatches, so the selection isn't collapsed before activation.
       ReactTestUtils.Simulate.mouseDown(button, { preventDefault, button: 1 });
       expect(preventDefault).not.toHaveBeenCalled();
       ReactTestUtils.Simulate.mouseDown(button, { preventDefault, button: 0 });
       expect(preventDefault).toHaveBeenCalled();
+      expect(document!.dispatchEvent).not.toHaveBeenCalled();
+
+      // activation happens on click, which fires for mouse and keyboard (Enter/Space) alike
+      ReactTestUtils.Simulate.click(button);
       expect(document!.dispatchEvent).toHaveBeenCalled();
 
       cleanup();

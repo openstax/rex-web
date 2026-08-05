@@ -30,6 +30,7 @@ Array [
   <div
     aria-label="Edit highlighted note"
     className="edit-card "
+    data-highlight-card={true}
     role="dialog"
   >
     <div
@@ -39,7 +40,9 @@ Array [
         data-analytics-region="edit-note"
         data-highlight-card={true}
       >
-        <div>
+        <div
+          data-editing="true"
+        >
           <div
             data-props={
               Object {
@@ -141,6 +144,7 @@ exports[`EditCard Snapshots and Rendering matches snapshot when focused 1`] = `
 <div
   aria-label="Edit highlighted note"
   className="edit-card "
+  data-highlight-card={true}
   role="dialog"
 >
   <div
@@ -190,6 +194,7 @@ Array [
   <div
     aria-label="Edit highlighted note"
     className="edit-card "
+    data-highlight-card={true}
     role="dialog"
   >
     <div
@@ -235,6 +240,7 @@ exports[`EditCard Snapshots and Rendering matches snapshot without data 1`] = `
 <div
   aria-label="Edit highlighted note"
   className="edit-card "
+  data-highlight-card={true}
   role="dialog"
 >
   <div
