@@ -18,14 +18,12 @@ class NursingBooks:
 
     @property
     def nursing_material_warning_dialog(self):
-        return self.page.locator("[class*='ContentWarning']").filter(
-            has_text=re.compile(r"^This material is intended for", re.IGNORECASE)
-        )
+        return self.page.locator(".content-warning-text",
+                                 has_text=re.compile(r"^This material is intended for "
+                                                     r"a post-secondary student audience", re.IGNORECASE))
 
     async def dismiss_nursing_material_warning_dialog(self):
-        await self.nursing_material_warning_dialog.get_by_role(
-            "button", name="Ok"
-        ).click()
+        await self.page.get_by_role("button", name="Ok").click()
 
     @pytest.mark.asyncio
     async def click_nursing_content_warning_dialog_create(self):

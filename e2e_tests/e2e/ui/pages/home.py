@@ -249,11 +249,13 @@ class HomeRex:
 
     @property
     def highlights_option_text_colour_check_purple(self):
-        return self.page.locator('div[color="purple"]').get_attribute("color")
-
+        return self.page.locator(".highlight-content-wrapper").filter(
+    has_text="notepurple"
+)
     @property
     def highlights_option_text_colour_check_green(self):
-        return self.page.locator('div[color="green"]').get_attribute("color")
+        return self.page.locator(".highlight-content-wrapper").filter(
+    has_text="notegreen")
 
     @pytest.mark.asyncio
     async def small_highlighted_note_box_is_visible(self):
