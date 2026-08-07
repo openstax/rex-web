@@ -250,8 +250,8 @@ class HomeRex:
     @property
     def highlights_option_text_colour_check_purple(self):
         return self.page.locator(".highlight-content-wrapper").filter(
-    has_text="notepurple"
-)
+    has_text="notepurple")
+
     @property
     def highlights_option_text_colour_check_green(self):
         return self.page.locator(".highlight-content-wrapper").filter(
