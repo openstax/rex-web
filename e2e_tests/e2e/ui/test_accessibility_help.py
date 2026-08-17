@@ -34,7 +34,7 @@ async def test_accessibility_help(chrome_page_unlogged, base_url, book_slug, pag
 
         await chrome_page_unlogged.keyboard.press("Enter")
 
-        # THEN: Accessibility help opens
+        # THEN: Accessibility help page opens
 
         accessibility_page_content = await home.accessibility_help_content.inner_text()
 
