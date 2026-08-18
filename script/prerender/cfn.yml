@@ -124,6 +124,13 @@ Resources:
       EnableECSManagedTags: true
       EnableExecuteCommand: true
       LaunchType: EC2
+      PlacementStrategies:
+        - Field: attribute:ecs.availability-zone
+          Type: spread
+        - Field: cpu
+          Type: binpack
+        - Field: memory
+          Type: binpack
       PropagateTags: SERVICE
       ServiceName: Prerendering
       TaskDefinition: !Ref TaskDefinition
