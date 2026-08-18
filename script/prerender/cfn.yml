@@ -110,7 +110,7 @@ Resources:
               awslogs-region: !Ref AWS::Region
               awslogs-stream-prefix: workers
               mode: non-blocking
-          MemoryReservation: 4096
+          MemoryReservation: 3686
           Name: !Sub ${AWS::StackName}-task-definition
       Family: Prerendering
       NetworkMode: host
