@@ -125,7 +125,7 @@ async def test_highlight_box_note_colours(
         in await home.highlights_option_page.inner_text()
     )
 
-    assert "purple" in await home.highlights_option_text_colour_check_purple
+    assert await home.highlights_option_text_colour_check_purple.is_visible()
 
     await home.click_highlights_option_page_menu()
 
@@ -133,7 +133,7 @@ async def test_highlight_box_note_colours(
 
     await chrome_page.keyboard.press("Escape")
 
-    assert "green" in await home.highlights_option_text_colour_check_green
+    assert await home.highlights_option_text_colour_check_green.is_visible()
 
     # THEN: Delete the created highlight
 
