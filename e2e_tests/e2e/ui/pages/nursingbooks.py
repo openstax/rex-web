@@ -23,9 +23,7 @@ class NursingBooks:
                                                      r"a post-secondary student audience", re.IGNORECASE))
 
     async def dismiss_nursing_material_warning_dialog(self):
-        await self.nursing_material_warning_dialog.get_by_role(
-            "button", name="Ok"
-        ).click()
+        await self.page.get_by_role("button", name="Ok").click()
 
     @pytest.mark.asyncio
     async def click_nursing_content_warning_dialog_create(self):
