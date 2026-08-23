@@ -12,7 +12,11 @@ import './FiltersList.css';
 
 // Plain button component for filter list close button
 const StyledPlainButton = ({ className, ...props }: React.ComponentProps<typeof PlainButton>) => (
-  <PlainButton {...props} className={classNames('filters-list-close-button', className)} data-testid="filters-list-close-button" />
+  <PlainButton
+    data-testid='filters-list-close-button'
+    {...props}
+    className={classNames('filters-list-close-button', className)}
+  />
 );
 export { StyledPlainButton };
 

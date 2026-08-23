@@ -11,7 +11,6 @@ exports[`Dropdown matches snapshot 1`] = `
   >
     <button
       className="dropdown-toggle"
-      data-testid="dropdown-toggle"
       tabIndex={0}
     >
       show more
@@ -48,7 +47,6 @@ exports[`Dropdown matches snapshot 1`] = `
   </div>
   <button
     className="dropdown-toggle dropdown-toggle-second"
-    data-testid="dropdown-toggle"
     tabIndex={0}
   >
     show more
@@ -62,7 +60,6 @@ exports[`Dropdown matches snapshot for tab hidden (closed) 1`] = `
 >
   <button
     className="dropdown-toggle"
-    data-testid="dropdown-toggle"
     isOpen={false}
     onClick={[Function]}
   >
@@ -77,7 +74,6 @@ exports[`Dropdown matches snapshot for tab hidden (open) 1`] = `
 >
   <button
     className="dropdown-toggle"
-    data-testid="dropdown-toggle"
     isOpen={true}
     onClick={[Function]}
   >

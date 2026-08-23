@@ -464,7 +464,7 @@ Array [
                       aria-label="Actions"
                       className="plain-button dot-menu-toggle dropdown-toggle"
                       data-menu-toggle={true}
-                      data-testid="dropdown-toggle"
+                      data-testid="dot-menu-toggle"
                       onClick={[Function]}
                     >
                       <div
@@ -519,7 +519,7 @@ Array [
                       aria-label="Actions"
                       className="plain-button dot-menu-toggle dropdown-toggle"
                       data-menu-toggle={true}
-                      data-testid="dropdown-toggle"
+                      data-testid="dot-menu-toggle"
                       onClick={[Function]}
                     >
                       <div

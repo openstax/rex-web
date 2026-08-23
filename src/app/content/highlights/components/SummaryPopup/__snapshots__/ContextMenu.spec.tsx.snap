@@ -19,7 +19,7 @@ exports[`ContextMenu match snapshot when closed 1`] = `
       aria-label="Edit this highlight"
       className="plain-button dot-menu-toggle dropdown-toggle"
       data-menu-toggle={true}
-      data-testid="dropdown-toggle"
+      data-testid="highlight-dropdown-menu-toggle"
       onClick={[Function]}
     >
       <div
@@ -62,7 +62,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
       aria-label="Edit this highlight"
       className="plain-button dot-menu-toggle dropdown-toggle"
       data-menu-toggle={true}
-      data-testid="dropdown-toggle"
+      data-testid="highlight-dropdown-menu-toggle"
       onClick={[Function]}
     >
       <div

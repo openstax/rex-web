@@ -129,7 +129,6 @@ exports[`Filters ChapterFilter matches snapshot when it is closed 1`] = `
         aria-label="Select Practice Questions by Chapter & Section"
         className="plain-button c3 dropdown-toggle"
         data-analytics-label="Filter PQ by Chapter & Section"
-        data-testid="dropdown-toggle"
         onClick={[Function]}
       >
         <div
@@ -484,7 +483,6 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
         aria-label="Select Practice Questions by Chapter & Section"
         className="plain-button c3 dropdown-toggle"
         data-analytics-label="Filter PQ by Chapter & Section"
-        data-testid="dropdown-toggle"
         onClick={[Function]}
       >
         <div
@@ -989,7 +987,6 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
         aria-label="Select Practice Questions by Chapter & Section"
         className="plain-button c3 dropdown-toggle"
         data-analytics-label="Filter PQ by Chapter & Section"
-        data-testid="dropdown-toggle"
         onClick={[Function]}
       >
         <div

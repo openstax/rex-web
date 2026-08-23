@@ -240,7 +240,6 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
               aria-label="Select Practice Questions by Chapter & Section"
               className="plain-button c3 dropdown-toggle"
               data-analytics-label="Filter PQ by Chapter & Section"
-              data-testid="dropdown-toggle"
               onClick={[Function]}
             >
               <div

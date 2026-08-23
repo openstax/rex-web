@@ -26,10 +26,12 @@ interface ToggleProps<T extends ComponentWithRef = ComponentWithRef> {
 // Plain React component for DropdownToggle
 export const DropdownToggle = React.forwardRef<HTMLElement, ToggleProps>(
   ({component, className, ...props}, ref) => {
+    // No default data-testid here; cloneElement props take precedence over the
+    // toggle component's own attributes, so a default would clobber the
+    // data-testid a consumer set on its toggle. Select on .dropdown-toggle instead.
     return React.cloneElement(component, {
       ...props,
       className: classNames('dropdown-toggle', className),
-      'data-testid': 'dropdown-toggle',
       ref,
     });
   }

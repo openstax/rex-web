@@ -256,7 +256,6 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
         aria-label="Filter highlights by Chapter"
         className="plain-button c3 dropdown-toggle"
         data-analytics-label="Filter highlights by Chapter"
-        data-testid="dropdown-toggle"
         onClick={[Function]}
       >
         <div
@@ -340,7 +339,6 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
         aria-label="Filter highlights by Color"
         className="plain-button c3 dropdown-toggle"
         data-analytics-label="Filter highlights by Color"
-        data-testid="dropdown-toggle"
         onClick={[Function]}
       >
         <div

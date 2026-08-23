@@ -80,13 +80,13 @@ function ColorIndicator<T extends React.ComponentType | undefined>(
 
   return (
     <div
+      data-testid='color-indicator'
       {...otherProps}
       className={indicatorClasses}
       style={indicatorStyle}
       data-size={size}
       data-shape={shape}
       data-checked={checked}
-      data-testid="color-indicator"
     >
       {content}
     </div>

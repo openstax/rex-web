@@ -13,7 +13,7 @@ exports[`Dropdown matches snapshot 1`] = `
       aria-label="Actions"
       className="plain-button dot-menu-toggle dropdown-toggle"
       data-menu-toggle={true}
-      data-testid="dropdown-toggle"
+      data-testid="dot-menu-toggle"
       tabIndex={0}
     >
       <div
@@ -67,7 +67,7 @@ exports[`Dropdown matches snapshot 1`] = `
     aria-label="Actions"
     className="plain-button dot-menu-toggle dropdown-toggle dropdown-toggle-second"
     data-menu-toggle={true}
-    data-testid="dropdown-toggle"
+    data-testid="dot-menu-toggle"
     tabIndex={0}
   >
     <div
@@ -103,7 +103,7 @@ exports[`Dropdown matches snapshot on right align 1`] = `
       aria-label="Actions"
       className="plain-button dot-menu-toggle dropdown-toggle"
       data-menu-toggle={true}
-      data-testid="dropdown-toggle"
+      data-testid="dot-menu-toggle"
       tabIndex={0}
     >
       <div
@@ -157,7 +157,7 @@ exports[`Dropdown matches snapshot on right align 1`] = `
     aria-label="Actions"
     className="plain-button dot-menu-toggle dropdown-toggle dropdown-toggle-second"
     data-menu-toggle={true}
-    data-testid="dropdown-toggle"
+    data-testid="dot-menu-toggle"
     tabIndex={0}
   >
     <div

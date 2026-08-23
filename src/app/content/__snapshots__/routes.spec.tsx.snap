@@ -110,7 +110,6 @@ exports[`assigned route route renders renders a component 1`] = `
         aria-label="Change text size"
         className="plain-button c0 dropdown-toggle"
         data-analytics-label="Change text size"
-        data-testid="dropdown-toggle"
         onClick={[Function]}
       >
         <div

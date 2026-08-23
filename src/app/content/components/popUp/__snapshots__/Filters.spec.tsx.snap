@@ -129,7 +129,6 @@ exports[`Filters matches snapshot 1`] = `
         aria-label="Filter highlights by Chapter"
         className="plain-button c3 dropdown-toggle"
         data-analytics-label="Filter highlights by Chapter"
-        data-testid="dropdown-toggle"
         onClick={[Function]}
       >
         <div
@@ -159,7 +158,6 @@ exports[`Filters matches snapshot 1`] = `
         aria-label="Filter highlights by Color"
         className="plain-button c3 dropdown-toggle"
         data-analytics-label="Filter highlights by Color"
-        data-testid="dropdown-toggle"
         onClick={[Function]}
       >
         <div
@@ -630,7 +628,6 @@ exports[`Filters matches snapshot when open color filters 1`] = `
         aria-label="Filter highlights by Chapter"
         className="plain-button c3 dropdown-toggle"
         data-analytics-label="Filter highlights by Chapter"
-        data-testid="dropdown-toggle"
         onClick={[Function]}
       >
         <div
@@ -660,7 +657,6 @@ exports[`Filters matches snapshot when open color filters 1`] = `
         aria-label="Filter highlights by Color"
         className="plain-button c5 dropdown-toggle"
         data-analytics-label="Filter highlights by Color"
-        data-testid="dropdown-toggle"
         onClick={[Function]}
       >
         <div
