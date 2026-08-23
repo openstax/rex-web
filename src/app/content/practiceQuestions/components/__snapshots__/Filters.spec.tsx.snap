@@ -18,9 +18,8 @@ exports[`Filters ChapterFilter matches snapshot when it is closed 1`] = `
 .c3 > div {
   padding: 2rem 2.4rem;
   outline: none;
-  color: #424242;
-  font-size: 1.6rem;
   color: #5e6062;
+  font-size: 1.6rem;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -110,7 +109,7 @@ exports[`Filters ChapterFilter matches snapshot when it is closed 1`] = `
 }
 
 @media print {
-  .c0 > *:not(.FiltersList-sc-1sdnk9e-4) {
+  .c0 > *:not(.FiltersList-sc-1sdnk9e-1) {
     display: none;
   }
 }
@@ -211,9 +210,8 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
 .c3 > div {
   padding: 2rem 2.4rem;
   outline: none;
-  color: #424242;
-  font-size: 1.6rem;
   color: #5e6062;
+  font-size: 1.6rem;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -444,7 +442,7 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
 }
 
 @media print {
-  .c0 > *:not(.FiltersList-sc-1sdnk9e-4) {
+  .c0 > *:not(.FiltersList-sc-1sdnk9e-1) {
     display: none;
   }
 }
@@ -716,9 +714,8 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
 .c3 > div {
   padding: 2rem 2.4rem;
   outline: none;
-  color: #424242;
-  font-size: 1.6rem;
   color: #5e6062;
+  font-size: 1.6rem;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -949,7 +946,7 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
 }
 
 @media print {
-  .c0 > *:not(.FiltersList-sc-1sdnk9e-4) {
+  .c0 > *:not(.FiltersList-sc-1sdnk9e-1) {
     display: none;
   }
 }
