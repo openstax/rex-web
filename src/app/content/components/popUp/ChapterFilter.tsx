@@ -5,7 +5,6 @@ import styled, { css } from 'styled-components/macro';
 import AllOrNone from '../../../components/AllOrNone';
 import { PlainButton as PlainButtonBase } from '../../../components/Button';
 import Checkbox from '../../../components/Checkbox';
-import { textStyle } from '../../../components/Typography';
 import { useTrapTabNavigation } from '../../../reactUtils/focusUtils';
 import theme from '../../../theme';
 import ColorIndicator from '../../highlights/components/ColorIndicator';
@@ -254,7 +253,7 @@ export const StyledSectionItem = styled(PlainButton)`
   width: 100%;
   text-align: left;
   font-size: 1.4rem;
-  ${textStyle}
+  color: ${theme.color.text.default};
 
   &[aria-current="true"] {
     color: ${linkColor};
@@ -277,7 +276,7 @@ export const StyledChapterFilterItemWrapper = styled.div`
 `;
 
 export default styled(ChapterFilter)`
-  ${textStyle}
+  color: ${theme.color.text.default};
   background: ${theme.color.white};
   font-size: 1.4rem;
   padding: ${filters.dropdownContent.padding.topBottom}rem ${filters.dropdownContent.padding.sides}rem;

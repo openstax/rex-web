@@ -3,10 +3,8 @@ import { useIntl } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
 import { PlainButton } from '../../../components/Button';
 import Dropdown, { DropdownToggle, TabHiddenDropdownProps } from '../../../components/Dropdown';
-import { textStyle } from '../../../components/Typography';
 import theme, { hiddenButAccessible } from '../../../theme';
 import { filters } from '../../styles/PopupConstants';
-import { disablePrint } from '../utils/disablePrint';
 import FiltersList from './FiltersList';
 
 interface IconProps extends React.SVGAttributes<SVGSVGElement> {
@@ -127,9 +125,8 @@ const Toggle = styled(
       padding: ${filters.dropdownToggle.topBottom.mobile}rem ${filters.dropdownToggle.sides.mobile}rem;
     `)}
     outline: none;
-    ${textStyle}
-    font-size: 1.6rem;
     color: ${theme.color.primary.gray.base};
+    font-size: 1.6rem;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -223,7 +220,7 @@ export default styled(Filters)`
 
   ${css`
     > *:not(${FiltersList}) {
-      ${disablePrint}
+      @media print { display: none; }
     }
   `}
 `;
