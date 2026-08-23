@@ -1,74 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = `
-.c20 {
-  height: 1.7rem;
-  margin-right: 0.4rem;
-}
-
-.c20 svg {
-  height: 0.8rem;
-  width: 0.8rem;
-  color: #5e6062;
-}
-
-.c21 {
-  color: #424242;
-  font-weight: 300;
-  color: #5e6062;
-  max-width: 8rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  text-transform: capitalize;
-  line-height: 1.5rem;
-}
-
-.c19 {
-  margin-right: 3.2rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  overflow: visible;
-  height: 4rem;
-}
-
-.c16 {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border: 0;
-}
-
-.c18 {
-  color: #424242;
-  font-size: 1.4rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  width: 100%;
-  margin: 0;
-  padding: 0 2.8rem 1rem 2.8rem;
-  margin-top: -1rem;
-  list-style: none;
-  overflow: visible;
-}
-
 .c5 {
   color: #5e6062;
   width: 1rem;
@@ -117,9 +49,8 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
 .c3 > div {
   padding: 2rem 2.4rem;
   outline: none;
-  color: #424242;
-  font-size: 1.6rem;
   color: #5e6062;
+  font-size: 1.6rem;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -252,7 +183,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
   margin: 0 1.6rem 0 1.6rem;
 }
 
-.c6 .c22:last-child {
+.c6 .c17:last-child {
   border-bottom: none;
 }
 
@@ -295,32 +226,6 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
   margin: 0 1.6rem 0 1.6rem;
 }
 
-@media print {
-  .c20 {
-    display: none;
-  }
-}
-
-@media print {
-  .c21 {
-    max-width: -webkit-max-content;
-    max-width: -moz-max-content;
-    max-width: max-content;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c18 {
-    padding: 0 2.4rem 0.4rem 2.4rem;
-  }
-}
-
-@media print {
-  .c18 {
-    margin: 0;
-  }
-}
-
 @media screen and (max-width:75em) {
   .c3 > div {
     padding: 1rem 1.6rem;
@@ -351,7 +256,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
 }
 
 @media print {
-  .c0 > *:not(.c17) {
+  .c0 > *:not(.c16) {
     display: none;
   }
 }
@@ -1080,21 +985,21 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
     </div>
   </div>
   <div
-    className="c16"
+    className="filters-list-status"
     role="status"
   />
   <ul
     aria-atomic="true"
     aria-label="Applied filters"
     aria-live="polite"
-    className="c17 c18 filters-list"
+    className="filters-list c16 filters-list"
   >
     <li
-      className="c19"
+      className="filters-list-item"
     >
       <button
         aria-label="Remove chapter 2 Test Chapter 2"
-        className="plain-button c20"
+        className="plain-button filters-list-close-button "
         data-analytics-label="Remove breadcrumb for chapter 2 Test Chapter 2"
         onClick={[Function]}
       >
@@ -1126,7 +1031,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
         </svg>
       </button>
       <span
-        className="c21"
+        className="filters-list-item-label"
         dangerouslySetInnerHTML={
           Object {
             "__html": "<span class=\\"os-number\\">2</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 2</span>",
@@ -1135,11 +1040,11 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
       />
     </li>
     <li
-      className="c19"
+      className="filters-list-item"
     >
       <button
         aria-label="Remove label Important Concepts"
-        className="plain-button c20"
+        className="plain-button filters-list-close-button "
         data-analytics-label="Remove breadcrumb for label Important Concepts"
         onClick={[Function]}
       >
@@ -1171,17 +1076,17 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
         </svg>
       </button>
       <span
-        className="c21"
+        className="filters-list-item-label"
       >
         Important Concepts
       </span>
     </li>
     <li
-      className="c19"
+      className="filters-list-item"
     >
       <button
         aria-label="Remove label Connections & Relationships"
-        className="plain-button c20"
+        className="plain-button filters-list-close-button "
         data-analytics-label="Remove breadcrumb for label Connections & Relationships"
         onClick={[Function]}
       >
@@ -1213,17 +1118,17 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
         </svg>
       </button>
       <span
-        className="c21"
+        className="filters-list-item-label"
       >
         Connections & Relationships
       </span>
     </li>
     <li
-      className="c19"
+      className="filters-list-item"
     >
       <button
         aria-label="Remove label Enrichment"
-        className="plain-button c20"
+        className="plain-button filters-list-close-button "
         data-analytics-label="Remove breadcrumb for label Enrichment"
         onClick={[Function]}
       >
@@ -1255,17 +1160,17 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
         </svg>
       </button>
       <span
-        className="c21"
+        className="filters-list-item-label"
       >
         Enrichment
       </span>
     </li>
     <li
-      className="c19"
+      className="filters-list-item"
     >
       <button
         aria-label="Remove label Key Terms"
-        className="plain-button c20"
+        className="plain-button filters-list-close-button "
         data-analytics-label="Remove breadcrumb for label Key Terms"
         onClick={[Function]}
       >
@@ -1297,7 +1202,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
         </svg>
       </button>
       <span
-        className="c21"
+        className="filters-list-item-label"
       >
         Key Terms
       </span>

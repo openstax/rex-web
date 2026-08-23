@@ -1,74 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Filters matches snapshot 1`] = `
-.c10 {
-  height: 1.7rem;
-  margin-right: 0.4rem;
-}
-
-.c10 svg {
-  height: 0.8rem;
-  width: 0.8rem;
-  color: #5e6062;
-}
-
-.c11 {
-  color: #424242;
-  font-weight: 300;
-  color: #5e6062;
-  max-width: 8rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  text-transform: capitalize;
-  line-height: 1.5rem;
-}
-
-.c9 {
-  margin-right: 3.2rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  overflow: visible;
-  height: 4rem;
-}
-
-.c6 {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border: 0;
-}
-
-.c8 {
-  color: #424242;
-  font-size: 1.4rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  width: 100%;
-  margin: 0;
-  padding: 0 2.8rem 1rem 2.8rem;
-  margin-top: -1rem;
-  list-style: none;
-  overflow: visible;
-}
-
 .c5 {
   color: #5e6062;
   width: 1rem;
@@ -86,9 +18,8 @@ exports[`Filters matches snapshot 1`] = `
 .c3 > div {
   padding: 2rem 2.4rem;
   outline: none;
-  color: #424242;
-  font-size: 1.6rem;
   color: #5e6062;
+  font-size: 1.6rem;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -148,32 +79,6 @@ exports[`Filters matches snapshot 1`] = `
   max-height: calc(100vh - 26rem);
 }
 
-@media print {
-  .c10 {
-    display: none;
-  }
-}
-
-@media print {
-  .c11 {
-    max-width: -webkit-max-content;
-    max-width: -moz-max-content;
-    max-width: max-content;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c8 {
-    padding: 0 2.4rem 0.4rem 2.4rem;
-  }
-}
-
-@media print {
-  .c8 {
-    margin: 0;
-  }
-}
-
 @media screen and (max-width:75em) {
   .c3 > div {
     padding: 1rem 1.6rem;
@@ -204,7 +109,7 @@ exports[`Filters matches snapshot 1`] = `
 }
 
 @media print {
-  .c0 > *:not(.c7) {
+  .c0 > *:not(.c6) {
     display: none;
   }
 }
@@ -311,21 +216,21 @@ exports[`Filters matches snapshot 1`] = `
     </div>
   </div>
   <div
-    className="c6"
+    className="filters-list-status"
     role="status"
   />
   <ul
     aria-atomic="true"
     aria-label="Applied filters"
     aria-live="polite"
-    className="c7 c8"
+    className="filters-list c6 "
   >
     <li
-      className="c9"
+      className="filters-list-item"
     >
       <button
         aria-label="Remove color blue"
-        className="plain-button c10"
+        className="plain-button filters-list-close-button "
         data-analytics-label="Remove breadcrumb for color blue"
         onClick={[Function]}
       >
@@ -357,17 +262,17 @@ exports[`Filters matches snapshot 1`] = `
         </svg>
       </button>
       <span
-        className="c11"
+        className="filters-list-item-label"
       >
         blue
       </span>
     </li>
     <li
-      className="c9"
+      className="filters-list-item"
     >
       <button
         aria-label="Remove color green"
-        className="plain-button c10"
+        className="plain-button filters-list-close-button "
         data-analytics-label="Remove breadcrumb for color green"
         onClick={[Function]}
       >
@@ -399,17 +304,17 @@ exports[`Filters matches snapshot 1`] = `
         </svg>
       </button>
       <span
-        className="c11"
+        className="filters-list-item-label"
       >
         green
       </span>
     </li>
     <li
-      className="c9"
+      className="filters-list-item"
     >
       <button
         aria-label="Remove color pink"
-        className="plain-button c10"
+        className="plain-button filters-list-close-button "
         data-analytics-label="Remove breadcrumb for color pink"
         onClick={[Function]}
       >
@@ -441,17 +346,17 @@ exports[`Filters matches snapshot 1`] = `
         </svg>
       </button>
       <span
-        className="c11"
+        className="filters-list-item-label"
       >
         pink
       </span>
     </li>
     <li
-      className="c9"
+      className="filters-list-item"
     >
       <button
         aria-label="Remove color purple"
-        className="plain-button c10"
+        className="plain-button filters-list-close-button "
         data-analytics-label="Remove breadcrumb for color purple"
         onClick={[Function]}
       >
@@ -483,17 +388,17 @@ exports[`Filters matches snapshot 1`] = `
         </svg>
       </button>
       <span
-        className="c11"
+        className="filters-list-item-label"
       >
         purple
       </span>
     </li>
     <li
-      className="c9"
+      className="filters-list-item"
     >
       <button
         aria-label="Remove color yellow"
-        className="plain-button c10"
+        className="plain-button filters-list-close-button "
         data-analytics-label="Remove breadcrumb for color yellow"
         onClick={[Function]}
       >
@@ -525,7 +430,7 @@ exports[`Filters matches snapshot 1`] = `
         </svg>
       </button>
       <span
-        className="c11"
+        className="filters-list-item-label"
       >
         yellow
       </span>
@@ -535,37 +440,6 @@ exports[`Filters matches snapshot 1`] = `
 `;
 
 exports[`Filters matches snapshot when open color filters 1`] = `
-.c8 {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border: 0;
-}
-
-.c10 {
-  color: #424242;
-  font-size: 1.4rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  width: 100%;
-  margin: 0;
-  padding: 0 2.8rem 1rem 2.8rem;
-  margin-top: -1rem;
-  list-style: none;
-  overflow: visible;
-}
-
 .c5 {
   color: #5e6062;
   width: 1rem;
@@ -596,9 +470,8 @@ exports[`Filters matches snapshot when open color filters 1`] = `
 .c3 > div {
   padding: 2rem 2.4rem;
   outline: none;
-  color: #424242;
-  font-size: 1.6rem;
   color: #5e6062;
+  font-size: 1.6rem;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -632,9 +505,8 @@ exports[`Filters matches snapshot when open color filters 1`] = `
 .c6 > div {
   padding: 2rem 2.4rem;
   outline: none;
-  color: #424242;
-  font-size: 1.6rem;
   color: #5e6062;
+  font-size: 1.6rem;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -695,18 +567,6 @@ exports[`Filters matches snapshot when open color filters 1`] = `
 }
 
 @media screen and (max-width:75em) {
-  .c10 {
-    padding: 0 2.4rem 0.4rem 2.4rem;
-  }
-}
-
-@media print {
-  .c10 {
-    margin: 0;
-  }
-}
-
-@media screen and (max-width:75em) {
   .c3 > div {
     padding: 1rem 1.6rem;
   }
@@ -742,7 +602,7 @@ exports[`Filters matches snapshot when open color filters 1`] = `
 }
 
 @media print {
-  .c0 > *:not(.c9) {
+  .c0 > *:not(.c8) {
     display: none;
   }
 }
@@ -895,14 +755,14 @@ exports[`Filters matches snapshot when open color filters 1`] = `
     </div>
   </div>
   <div
-    className="c8"
+    className="filters-list-status"
     role="status"
   />
   <ul
     aria-atomic="true"
     aria-label="Applied filters"
     aria-live="polite"
-    className="c9 c10"
+    className="filters-list c8 "
   />
 </div>
 `;
