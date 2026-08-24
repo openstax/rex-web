@@ -216,7 +216,7 @@ describe('ChapterFilter', () => {
         children: [{ id: 'testbook1-testpage3-uuid', title: 'page' }],
         section: { id: 'testbook1-testchapter2-uuid', title: 'chapter' },
       },
-    ]]);
+    ]]) as unknown as LocationFilters;
 
     const component = renderer.create(<TestContainer store={store}>
       <ChapterFilter
@@ -254,7 +254,7 @@ describe('ChapterFilter', () => {
         children: [{ id: 'testbook1-testpage3-uuid', title: 'page' }],
         section: { id: 'testbook1-testchapter2-uuid', title: 'chapter' },
       },
-    ]]);
+    ]]) as unknown as LocationFilters;
 
     const component = renderer.create(<TestContainer store={store}>
       <ChapterFilter
@@ -281,7 +281,7 @@ describe('ChapterFilter', () => {
         children: [section],
         section: { id: 'testbook1-testchapter2-uuid', title: 'chapter' },
       },
-    ]]);
+    ]]) as unknown as LocationFilters;
     const setFilters = jest.fn();
 
     const component = renderer.create(<TestContainer store={store}>

@@ -1,0 +1,49 @@
+/* ColorFilter styles - plain CSS version
+ *
+ * Values previously interpolated from theme.ts / PopupConstants.ts are inlined
+ * here with the original expression in a comment.
+ */
+
+/* ColorLabel - the highlight color name next to its swatch */
+.color-filter-label {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ColorFilter container */
+.color-filter {
+  background: #fff; /* theme.color.white */
+  display: flex;
+  flex-direction: column;
+  color: #424242; /* theme.color.text.default */
+  font-size: 1.4rem;
+
+  /* filters.dropdownContent.padding.topBottom, filters.dropdownContent.padding.sides */
+  padding: 0.8rem 1.6rem;
+  outline: none;
+  z-index: 1;
+  overflow: auto;
+}
+
+.color-filter .all-or-none {
+  margin: 0.8rem 0 0.8rem 0.8rem;
+}
+
+.color-filter .checkbox-label {
+  padding: 0.8rem;
+  text-transform: capitalize;
+}
+
+.color-filter .color-indicator {
+  margin: 0 1.6rem 0 1.6rem;
+}
+
+/* theme.breakpoints.mobileSmall */
+@media screen and (max-width: 30em) {
+  .color-filter {
+    /* mobileMarginSides * 2 */
+    width: calc(100vw - 1.6rem);
+  }
+}
