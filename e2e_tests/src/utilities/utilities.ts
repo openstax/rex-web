@@ -86,12 +86,12 @@ class MobileNavigation {
   async openMobileMenu(menu: any) {
     switch (menu) {
       case 'toc':
-        await this.page.click('[id*="mobile-menu-button"] [class*="styled__PlainButton"]')
+        await this.page.click('[id*="mobile-menu-button"] .topbar-menu-button')
         await this.page.click('[data-analytics-label="Open the Table of Contents"]')
         break
 
       case 'MH':
-        await this.page.click('[id*="mobile-menu-button"] [class*="styled__PlainButton"]')
+        await this.page.click('[id*="mobile-menu-button"] .topbar-menu-button')
         await this.page.click('[data-analytics-label="My highlights"]')
         // Close the mobile help notification tooltip
         await this.page.locator('[data-testid="highlights-popup-wrapper"] button').nth(4).click()

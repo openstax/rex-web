@@ -27,7 +27,7 @@ class MHModal {
 
   async waitForHighlights() {
     // Wait for the highlights to be loaded in MH modal
-    await this.page.waitForSelector('[class*=HighlightOuterWrapper]')
+    await this.page.waitForSelector('.highlight-outer-wrapper')
   }
 
   async chapterDropdownCount() {
@@ -145,7 +145,7 @@ class MHHighlights {
 
   constructor(page: Page) {
     this.page = page
-    this.highlight = page.locator('[class*="HighlightOuterWrapper"]')
+    this.highlight = page.locator('.highlight-outer-wrapper')
     this.MHContextMenu = this.page.locator('[data-testid="highlight-dropdown-menu-toggle"]')
     this.blue = this.page.locator('[data-testid="show-myhighlights-body"] [aria-label="Apply blue highlight"]')
     this.green = this.page.locator('[data-testid="show-myhighlights-body"] [aria-label="Apply green highlight"]')
@@ -164,7 +164,7 @@ class MHHighlights {
 
   async highlightCount() {
     // Total number of highlights in MH page
-    await Promise.all([this.page.waitForSelector('[class*="HighlightOuterWrapper"]')])
+    await Promise.all([this.page.waitForSelector('.highlight-outer-wrapper')])
     return await this.highlight.count()
   }
 
