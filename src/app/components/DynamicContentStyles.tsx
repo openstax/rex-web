@@ -55,27 +55,32 @@ const skipStringsAndComments = (css: string, i: number): number => {
 };
 
 /**
- * Wraps CSS content in a nesting selector to scope all styles to elements with a specific attribute.
- * Uses CSS nesting (supported in all modern browsers) to automatically scope all selectors.
+ * Wraps CSS in a nesting block so that every selector it contains is scoped to `scope`.
  *
- * Top-level at-rules (@keyframes, @font-face, @page, @property, etc.) are hoisted outside the
- * nesting block because they must be at the root of the stylesheet to work correctly.
+ * Native CSS nesting does almost all of the work here. Wrapping arbitrary CSS in
+ * `[data-dynamic-style="true"] { ... }` scopes every selector inside it -- simple selectors,
+ * comma-separated and descendant selectors, functional pseudos (:not/:is/:has), pseudo-elements,
+ * and conditional at-rules (@media, @supports, @container, @layer) -- without rewriting the CSS.
+ *
+ * The one exception, and the reason this function exists at all rather than being a template
+ * string, is at-rules that are only valid at the top level of a stylesheet: @keyframes,
+ * @font-face, @page, @property, @counter-style, @font-feature-values, @import, @charset and
+ * @namespace. Browsers drop those if they end up inside a style rule, so they have to be hoisted
+ * back out of the nesting block and emitted before it.
+ *
+ * Finding them takes one top-level scan of the CSS, which is the small parser below. It tracks
+ * brace depth and skips over quoted strings and comments, so a brace or semicolon appearing in
+ * `content: "{"` or inside a comment cannot split a rule in the wrong place. It deliberately does
+ * not parse selectors or declarations -- anything that is not hoisted is passed through verbatim.
+ * See the PR/ticket discussion for why this is ~60 lines here instead of a postcss dependency.
+ *
+ * Known limitation: only at-rules at the top level of the input are hoisted. A @font-face nested
+ * inside a @media block stays inside the nesting block and will be dropped by the browser.
  *
  * Example:
  *   Input:  ".cool { color: blue; } @keyframes fadeIn { 0% { opacity: 0; } }"
- *   Output: "@keyframes fadeIn { 0% { opacity: 0; } }\n[data-dynamic-style=\"true\"] { .cool { color: blue; } }"
- *
- * CSS nesting automatically handles:
- * - Simple selectors: .class, #id, element
- * - Complex selectors: .class1 .class2, .class1, .class2
- * - Functional pseudos: :not(), :is(), :has()
- * - Container at-rules: @media, @supports, @container, @layer (nested inside scope)
- * - Pseudo-elements and pseudo-classes
- *
- * Handles edge cases:
- * - Strings with special characters: @import url("https://example.com/a;b.css");
- * - Comments with braces: /* } */ /*
- * - Escaped quotes in strings: content: "\"";
+ *   Output: "@keyframes fadeIn { 0% { opacity: 0; } }
+ *            [data-dynamic-style=\"true\"] { .cool { color: blue; } }"
  *
  * @internal Exported for testing purposes only
  */
