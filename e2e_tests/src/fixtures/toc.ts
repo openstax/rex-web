@@ -50,7 +50,9 @@ class TOC {
       }
       await this.collapsedDropdownLocator.first().dispatchEvent('click', { detail: 0 })
     }
-    console.log(`The ToC still had collapsed dropdowns after ${maxExpansions} expansions`)
+    // Bail loudly: every caller below counts or indexes rows, and a partially expanded
+    // ToC would silently produce wrong numbers instead of a failure anyone can read.
+    throw new Error(`The ToC still had collapsed dropdowns after ${maxExpansions} expansions`)
   }
 
   async pageCount() {

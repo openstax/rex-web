@@ -471,6 +471,32 @@ describe('TableOfContents', () => {
     expect(typeof leafItem.props['textValue']).toBe('string');
   });
 
+  // Regression guard for the bug this PR fixes. data-type has to sit on the TreeItem
+  // row: TreeItemContent is a collection leaf component that renders no DOM node, so
+  // anything passed to it is silently dropped. The mock above mirrors that, which is
+  // what lets these two assertions notice if the attribute moves back.
+  // See rowDataType.spec.tsx for the same check against a real, unmocked Tree.
+  it('puts data-type on the row of a leaf section', () => {
+    const { root } = renderToDom(Component);
+
+    const leafRow = root.querySelector('[data-testid="mock-tree-item"][data-type="page"]');
+
+    expect(leafRow).not.toBeNull();
+    // it is the row that carries the attribute, not some wrapper inside it
+    expect(leafRow!.querySelector('a.toc-content-link')).not.toBeNull();
+  });
+
+  it('puts data-type on the row of an expandable section', () => {
+    const { root } = renderToDom(Component);
+
+    expect(root.querySelector('[data-testid="mock-tree-item"][data-type="chapter"]')).not.toBeNull();
+
+    // no row may be left without a type - that is how the e2e locators find them
+    const rows = Array.from(root.querySelectorAll('[data-testid="mock-tree-item"]'));
+    expect(rows.length).toBeGreaterThan(0);
+    expect(rows.filter((row) => !row.getAttribute('data-type'))).toEqual([]);
+  });
+
   it('adds aria-label to TreeItem for expandable sections', () => {
     const component = renderer.create(Component);
 
