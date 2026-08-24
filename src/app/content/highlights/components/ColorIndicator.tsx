@@ -67,6 +67,7 @@ function ColorIndicator<T extends React.ComponentType | undefined>(
 
   if (isDefined(component)) {
     const extraProps: Record<string, unknown> = {
+      'data-testid': 'color-indicator',
       ...otherProps,
       className: indicatorClasses,
       style: indicatorStyle,

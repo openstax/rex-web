@@ -113,6 +113,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
                 className="color-indicator color-button "
                 data-checked={false}
                 data-size="small"
+                data-testid="color-indicator"
                 style={
                   Object {
                     "--focus-border-color": "#8f7700",
@@ -152,6 +153,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
                 className="color-indicator color-button "
                 data-checked={false}
                 data-size="small"
+                data-testid="color-indicator"
                 style={
                   Object {
                     "--focus-border-color": "#4e6f01",
@@ -191,6 +193,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
                 className="color-indicator color-button "
                 data-checked={true}
                 data-size="small"
+                data-testid="color-indicator"
                 style={
                   Object {
                     "--focus-border-color": "#006880",
@@ -230,6 +233,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
                 className="color-indicator color-button "
                 data-checked={false}
                 data-size="small"
+                data-testid="color-indicator"
                 style={
                   Object {
                     "--focus-border-color": "#141a3e",
@@ -269,6 +273,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
                 className="color-indicator color-button "
                 data-checked={false}
                 data-size="small"
+                data-testid="color-indicator"
                 style={
                   Object {
                     "--focus-border-color": "#560131",
