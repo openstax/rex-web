@@ -48,7 +48,7 @@ class TOC {
       if ((await this.collapsedDropdownLocator.count()) === 0) {
         return
       }
-      await this.collapsedDropdownLocator.first().dispatchEvent('click')
+      await this.collapsedDropdownLocator.first().dispatchEvent('click', { detail: 0 })
     }
     console.log(`The ToC still had collapsed dropdowns after ${maxExpansions} expansions`)
   }
@@ -121,7 +121,7 @@ class TOC {
     if ((await titleAfterClick) != (await titleBeforeClick)) {
       return
     } else {
-      sleep(2)
+      await sleep(2)
     }
   }
 
