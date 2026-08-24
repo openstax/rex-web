@@ -39,10 +39,20 @@ jest.mock('react-aria-components', () => {
     TreeItem: ({ children, ...props }: any) =>
       <div data-testid='mock-tree-item' {...props}>{children}</div>
     ,
-    // Real TreeItemContent is a collection leaf component: it renders its children
-    // and NO DOM node, so className/data-* passed to it never reach the document.
-    // Mirror that here so props that would be silently dropped can't pass tests.
-    TreeItemContent: ({ children }: any) => <>{children}</>,
+    // Real TreeItemContent is a collection leaf component: it renders its children and
+    // NO DOM node, so className/data-* passed to it never reach the document. Mirror
+    // that here, and refuse the props outright rather than dropping them quietly - the
+    // quiet drop is exactly how data-type went missing from every ToC row for months.
+    TreeItemContent: ({ children, ...props }: any) => {
+      const dropped = Object.keys(props).filter((prop) => prop === 'className' || prop.startsWith('data-'));
+      if (dropped.length) {
+        throw new Error(
+          `TreeItemContent renders no DOM node, so ${dropped.join(', ')} would never reach the document. `
+          + `Put it on TreeItem instead.`
+        );
+      }
+      return <>{children}</>;
+    },
   };
 });
 
