@@ -164,7 +164,7 @@ class MHHighlights {
 
   async highlightCount() {
     // Total number of highlights in MH page
-    await Promise.all([this.page.waitForSelector('.highlight-outer-wrapper')])
+    await this.page.waitForSelector('.highlight-outer-wrapper')
     return await this.highlight.count()
   }
 
