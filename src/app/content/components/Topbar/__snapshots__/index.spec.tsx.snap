@@ -572,7 +572,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
         aria-controls="text-resizer-menu"
         aria-expanded={true}
         aria-label="Change text size"
-        className="plain-button c1 dropdown-toggle "
+        className="plain-button c1 dropdown-toggle"
         data-analytics-label="Change text size"
         onClick={[Function]}
       >
@@ -798,7 +798,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
           aria-controls="text-resizer-menu"
           aria-expanded={false}
           aria-label="Change text size"
-          className="plain-button c2 dropdown-toggle "
+          className="plain-button c2 dropdown-toggle"
           data-analytics-label="Change text size"
           onClick={[Function]}
         >

@@ -2,10 +2,9 @@ import React from 'react';
 import { useIntl } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
 import { PlainButton } from '../../../components/Button';
-import Dropdown, { DropdownToggle, TabHiddenDropdownProps } from '../../../components/Dropdown';
+import Dropdown, { TabHiddenDropdownProps } from '../../../components/Dropdown';
 import theme, { hiddenButAccessible } from '../../../theme';
 import { filters } from '../../styles/PopupConstants';
-import FiltersList from './FiltersList';
 
 interface IconProps extends React.SVGAttributes<SVGSVGElement> {
   className?: string;
@@ -189,12 +188,12 @@ export default styled(Filters)`
   background: ${theme.color.neutral.base};
   border-bottom: ${filters.border}rem solid ${theme.color.neutral.formBorder};
   ${css`
-    ${DropdownToggle} {
+    .dropdown-toggle {
       font-weight: bold;
     }
 
     ${Dropdown} {
-      & > *:not(${DropdownToggle}) {
+      & > *:not(.dropdown-toggle) {
         top: calc(100% - ${filters.border}rem);
         box-shadow: 0 0 0.6rem 0 rgba(0, 0, 0, 0.2);
         max-height: calc(100vh - ${filters.valueToSubstractFromVH.desktop}rem);
@@ -206,7 +205,7 @@ export default styled(Filters)`
       ${theme.breakpoints.mobileSmall(css`
         position: initial;
 
-        & > *:not(${DropdownToggle}) {
+        & > *:not(.dropdown-toggle) {
           top: auto;
           margin-top: -${filters.border}rem;
         }
@@ -219,7 +218,7 @@ export default styled(Filters)`
   }
 
   ${css`
-    > *:not(${FiltersList}) {
+    > *:not(.filters-list) {
       @media print { display: none; }
     }
   `}

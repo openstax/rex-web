@@ -17,7 +17,7 @@ exports[`ContextMenu match snapshot when closed 1`] = `
     <button
       aria-expanded={false}
       aria-label="Edit this highlight"
-      className="plain-button dot-menu-toggle dropdown-toggle "
+      className="plain-button dot-menu-toggle dropdown-toggle"
       data-menu-toggle={true}
       data-testid="highlight-dropdown-menu-toggle"
       onClick={[Function]}
@@ -27,8 +27,9 @@ exports[`ContextMenu match snapshot when closed 1`] = `
       >
         <svg
           aria-hidden="true"
-          className="dot-menu-icon "
+          className="dot-menu-icon"
           data-menu-icon={true}
+          data-testid="dot-menu-icon"
           viewBox="0 0 192 512"
         >
           <path
@@ -59,7 +60,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
     <button
       aria-expanded={true}
       aria-label="Edit this highlight"
-      className="plain-button dot-menu-toggle dropdown-toggle "
+      className="plain-button dot-menu-toggle dropdown-toggle"
       data-menu-toggle={true}
       data-testid="highlight-dropdown-menu-toggle"
       onClick={[Function]}
@@ -69,8 +70,9 @@ exports[`ContextMenu match snapshot when open 1`] = `
       >
         <svg
           aria-hidden="true"
-          className="dot-menu-icon "
+          className="dot-menu-icon"
           data-menu-icon={true}
+          data-testid="dot-menu-icon"
           viewBox="0 0 192 512"
         >
           <path
@@ -111,6 +113,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
                 className="color-indicator color-button "
                 data-checked={false}
                 data-size="small"
+                data-testid="color-indicator"
                 style={
                   Object {
                     "--focus-border-color": "#8f7700",
@@ -150,6 +153,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
                 className="color-indicator color-button "
                 data-checked={false}
                 data-size="small"
+                data-testid="color-indicator"
                 style={
                   Object {
                     "--focus-border-color": "#4e6f01",
@@ -189,6 +193,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
                 className="color-indicator color-button "
                 data-checked={true}
                 data-size="small"
+                data-testid="color-indicator"
                 style={
                   Object {
                     "--focus-border-color": "#006880",
@@ -228,6 +233,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
                 className="color-indicator color-button "
                 data-checked={false}
                 data-size="small"
+                data-testid="color-indicator"
                 style={
                   Object {
                     "--focus-border-color": "#141a3e",
@@ -267,6 +273,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
                 className="color-indicator color-button "
                 data-checked={false}
                 data-size="small"
+                data-testid="color-indicator"
                 style={
                   Object {
                     "--focus-border-color": "#560131",
