@@ -118,7 +118,9 @@ const NudgeStudyTools = ({
 };
 
 function useTabNavigationInterceptor() {
-  const ref = React.useRef<HTMLElement>();
+  // NudgeCloseButton renders a <button>; the ref type has to match now that it
+  // forwards to PlainButton directly instead of through styled()
+  const ref = React.useRef<HTMLButtonElement>(null);
   const isMobile = useMatchMobileMediumQuery();
 
   React.useEffect(
