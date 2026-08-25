@@ -87,6 +87,8 @@ let mockResizeObserver: any;
 
 resetModules();
 
+// @openstax/ui-components still renders styled-components internally, so the
+// snapshot serializer is still needed even though rex-web no longer uses them
 require('jest-styled-components');
 
 afterAll(async() => {

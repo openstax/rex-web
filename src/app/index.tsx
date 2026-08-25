@@ -10,6 +10,7 @@ import Sentry from '../helpers/Sentry';
 import * as appAactions from './actions';
 import * as auth from './auth';
 import * as content from './content';
+import { DynamicContentStylesProvider } from './components/DynamicContentStyles';
 import * as Services from './context/Services';
 import * as developer from './developer';
 import * as errors from './errors';
@@ -143,9 +144,11 @@ export default (options: AppOptions) => {
       <OuterErrorBoundary intl={services.intl.current}>
         <Services.Provider value={{ dispatch: store.dispatch, getState: store.getState, ...services }}>
           <MessageProvider>
-            <ErrorBoundary>
-              <navigation.components.NavigationProvider routes={routes} />
-            </ErrorBoundary>
+            <DynamicContentStylesProvider>
+              <ErrorBoundary>
+                <navigation.components.NavigationProvider routes={routes} />
+              </ErrorBoundary>
+            </DynamicContentStylesProvider>
           </MessageProvider>
         </Services.Provider>
       </OuterErrorBoundary>
