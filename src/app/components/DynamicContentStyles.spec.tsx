@@ -1,5 +1,9 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
+import { renderToString } from 'react-dom/server';
+import { act } from 'react-dom/test-utils';
 import renderer from 'react-test-renderer';
+import createTestServices from '../../test/createTestServices';
 import createTestStore from '../../test/createTestStore';
 import { book } from '../../test/mocks/archiveLoader';
 import TestContainer from '../../test/TestContainer';
@@ -7,6 +11,7 @@ import { runHooksAsync } from '../../test/utils';
 import { receiveBook, setBookStylesUrl } from '../content/actions';
 import { State } from '../content/types';
 import { locationChange } from '../navigation/actions';
+import { assertDocument } from '../utils/browser-assertions';
 import DynamicContentStyles, {
   DynamicContentStylesProvider,
   ScopedGlobalStyle,
@@ -85,7 +90,7 @@ describe('DynamicContentStyles', () => {
     expect(spyFetch).toHaveBeenCalledWith('file.css');
 
     const globalStyle = component.root.findByType(ScopedGlobalStyle);
-    expect(globalStyle.props.styles).toEqual('.cool { color: red; }');
+    expect(globalStyle.props.css).toEqual(scopeStyles('.cool { color: red; }'));
     expect(component.root.findByProps({ 'data-dynamic-style': true })).toBeTruthy();
 
     await renderer.act(async() => {
@@ -110,7 +115,7 @@ describe('DynamicContentStyles', () => {
     await runHooksAsync(renderer);
 
     const globalStyle = component.root.findByType(ScopedGlobalStyle);
-    expect(globalStyle.props.styles).toEqual('.cool { color: blue; }');
+    expect(globalStyle.props.css).toEqual(scopeStyles('.cool { color: blue; }'));
   });
 
   it('does not set styles but sets data-dynamic-style if bookStylesUrl is not cached', async() => {
@@ -142,5 +147,101 @@ describe('DynamicContentStyles', () => {
 
     expect(component.root.findAllByType(ScopedGlobalStyle)).toEqual([]);
     expect(component.root.findByProps({ 'data-dynamic-style': false })).toBeTruthy();
+  });
+});
+
+describe('the prerendered stylesheet', () => {
+  const bookStyles = '.cool { color: blue; }';
+  const bookStylesUrl = '../resources/styles/test-styles.css';
+
+  let store: ReturnType<typeof createTestStore>;
+
+  const tree = (services: ReturnType<typeof createTestServices>) => <TestContainer store={store} services={services}>
+    <DynamicContentStylesProvider>
+      <DynamicContentStyles book={book}>
+        some text
+      </DynamicContentStyles>
+    </DynamicContentStylesProvider>
+  </TestContainer>;
+
+  // the browser builds its own archiveLoader, so nothing is cached in it yet
+  const withColdCache = () => {
+    const services = createTestServices();
+    services.archiveLoader.mock.cachedResource.mockReturnValue(undefined as unknown as string);
+    return services;
+  };
+
+  beforeEach(() => {
+    store = createTestStore();
+    store.dispatch(receiveBook(book));
+  });
+
+  // these tests put things in the real document, and getPrerenderedStyleSheet reads it
+  afterEach(() => {
+    const document = assertDocument();
+    Array.from(document.querySelectorAll('style[data-dynamic-stylesheet], [data-test-container]'))
+      .forEach((element) => element.remove());
+  });
+
+  it('survives hydration, when the client has not cached the styles yet', () => {
+    store.dispatch(setBookStylesUrl(bookStylesUrl));
+
+    const document = assertDocument();
+    const container = document.createElement('div');
+    container.setAttribute('data-test-container', 'true');
+    document.body.appendChild(container);
+
+    // react-redux's useSelector warns about useLayoutEffect on every server render
+    const consoleError = jest.spyOn(console, 'error').mockImplementation(() => undefined);
+
+    // prerendering, where the archiveLoader does have the styles cached
+    container.innerHTML = renderToString(tree(createTestServices()));
+
+    expect(container.querySelector('style[data-dynamic-stylesheet]')!.textContent)
+      .toEqual(scopeStyles(bookStyles));
+
+    const clientServices = withColdCache();
+
+    act(() => {
+      ReactDOM.hydrate(tree(clientServices), container);
+    });
+
+    expect(container.querySelector('style[data-dynamic-stylesheet]')!.textContent)
+      .toEqual(scopeStyles(bookStyles));
+    expect(consoleError.mock.calls.filter(([message]) => `${message}`.includes('did not match'))).toEqual([]);
+
+    ReactDOM.unmountComponentAtNode(container);
+    consoleError.mockRestore();
+  });
+
+  it('is dropped when the book has no dynamic styles', async() => {
+    const document = assertDocument();
+    const styleElement = document.createElement('style');
+    styleElement.setAttribute('data-dynamic-stylesheet', 'true');
+    styleElement.textContent = scopeStyles(bookStyles);
+    document.head.appendChild(styleElement);
+
+    // no bookStylesUrl in the store
+    const component = renderer.create(tree(withColdCache()));
+
+    await runHooksAsync(renderer);
+
+    expect(component.root.findAllByType(ScopedGlobalStyle)).toEqual([]);
+  });
+
+  it('is not looked for outside the browser', () => {
+    store.dispatch(setBookStylesUrl(bookStylesUrl));
+
+    const services = withColdCache();
+    const consoleError = jest.spyOn(console, 'error').mockImplementation(() => undefined);
+    const documentBack = document;
+    delete (global as any).document;
+
+    try {
+      expect(renderToString(tree(services))).not.toContain('<style');
+    } finally {
+      (global as any).document = documentBack;
+      consoleError.mockRestore();
+    }
   });
 });
