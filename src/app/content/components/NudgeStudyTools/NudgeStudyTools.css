@@ -132,9 +132,9 @@
   pointer-events: none;
   display: grid;
   grid-template-areas:
-    'top       top       top'
-    'left   spotlight   right'
-    'bottom   bottom   bottom';
+    "top       top       top"
+    "left   spotlight   right"
+    "bottom   bottom   bottom";
 }
 
 /* ClickBlocker */
