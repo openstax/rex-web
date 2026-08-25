@@ -16,13 +16,18 @@ const Row = ({ children }: { children: React.ReactNode }) => (
   <div className='chapter-filter-row'>{children}</div>
 );
 
-const Column = ({ children, ...props }: React.HTMLAttributes<HTMLUListElement>) => (
-  <ul className='chapter-filter-column' {...props}>{children}</ul>
+const Column = ({ children, className, ...props }: React.HTMLAttributes<HTMLUListElement>) => (
+  <ul className={classNames('chapter-filter-column', className)} {...props}>{children}</ul>
 );
 
 const ChapterTitle = ({ className, ...props }: React.HTMLAttributes<HTMLSpanElement>) => (
   <span className={classNames('chapter-filter-title', className)} {...props} />
 );
+
+// practice questions doesn't pass locationFiltersWithContent; its location
+// filters always have children, so the lookups that read it are never reached
+// there. Shared so the fallback doesn't allocate on every render.
+const noLocationFiltersWithContent: Map<string, LinkedArchiveTreeNode> = new Map();
 
 const chunk = <T extends unknown>(sections: T[]) => {
   const cutoff = Math.max(20, Math.ceil(sections.length / 2));
@@ -34,8 +39,6 @@ interface ChapterFilterProps {
   className?: string;
   disabled?: boolean;
   locationFilters: LocationFilters;
-  // optional: practice questions filters always have children, so the
-  // "does this location have content" lookups below are never reached there
   locationFiltersWithContent?: Map<string, LinkedArchiveTreeNode>;
   selectedLocationFilters: Set<string>;
   multiselect: boolean;
@@ -46,8 +49,9 @@ interface ChapterFilterProps {
 const ChapterFilter = (props: ChapterFilterProps) => {
   const [openChapterId, setOpenChapterId] = React.useState<string | null>(null);
   const intl = useIntl();
-  const ref = React.useRef<HTMLDivElement>(null);
-  useTrapTabNavigation(ref as React.MutableRefObject<HTMLElement | null>);
+  const locationFiltersWithContent = props.locationFiltersWithContent ?? noLocationFiltersWithContent;
+  const ref = React.useRef<HTMLElement>(null);
+  useTrapTabNavigation(ref);
 
   React.useEffect(() => {
     const selectedSectionId = Array.from(props.selectedLocationFilters).pop();
@@ -88,14 +92,8 @@ const ChapterFilter = (props: ChapterFilterProps) => {
     {props.multiselect
       ? (
         <AllOrNone
-          onNone={() => setSelectedChapters({
-            remove: Array.from(props.locationFiltersWithContent?.values() ?? []),
-            new: [],
-          })}
-          onAll={() => setSelectedChapters({
-            remove: [],
-            new: Array.from(props.locationFiltersWithContent?.values() ?? []),
-          })}
+          onNone={() => setSelectedChapters({ remove: Array.from(locationFiltersWithContent.values()), new: [] })}
+          onAll={() => setSelectedChapters({ remove: [], new: Array.from(locationFiltersWithContent.values()) })}
           disabled={props.disabled}
         />
       )
@@ -109,7 +107,7 @@ const ChapterFilter = (props: ChapterFilterProps) => {
             if (!children) {
               return <li key={section.id}><ChapterFilterItem
                 selected={props.selectedLocationFilters.has(section.id)}
-                disabled={props.disabled || !props.locationFiltersWithContent?.has(section.id)}
+                disabled={props.disabled || !locationFiltersWithContent.has(section.id)}
                 multiselect={Boolean(props.multiselect)}
                 title={section.title}
                 onChange={() => handleChange(section)}

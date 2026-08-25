@@ -44,8 +44,7 @@ export const Fieldset = ({ className, ...props }: React.FieldsetHTMLAttributes<H
   <fieldset className={classNames('filters-fieldset', className)} {...props} />
 );
 
-interface ToggleProps {
-  className?: string;
+interface ToggleProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   label: string;
   showLabel?: boolean;
   toggleChildren?: JSX.Element;

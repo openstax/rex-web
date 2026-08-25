@@ -181,11 +181,6 @@ export default {
     mobileMediumBreak,
     mobileMediumQuery,
     mobileQuery,
-    mobileSmall: (style: FlattenSimpleInterpolation) => css`
-      @media screen and ${mobileSmallQuery} {
-        ${style}
-      }
-    `,
     mobileSmallBreak,
     mobileSmallQuery,
   },
