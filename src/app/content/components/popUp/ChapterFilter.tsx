@@ -16,11 +16,11 @@ const Row = ({ children }: { children: React.ReactNode }) => (
   <div className='chapter-filter-row'>{children}</div>
 );
 
-const Column = ({ children, ...props }: React.HTMLAttributes<HTMLElement>) => (
+const Column = ({ children, ...props }: React.HTMLAttributes<HTMLUListElement>) => (
   <ul className='chapter-filter-column' {...props}>{children}</ul>
 );
 
-const ChapterTitle = ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => (
+const ChapterTitle = ({ className, ...props }: React.HTMLAttributes<HTMLSpanElement>) => (
   <span className={classNames('chapter-filter-title', className)} {...props} />
 );
 
@@ -46,8 +46,8 @@ interface ChapterFilterProps {
 const ChapterFilter = (props: ChapterFilterProps) => {
   const [openChapterId, setOpenChapterId] = React.useState<string | null>(null);
   const intl = useIntl();
-  const ref = React.useRef<HTMLElement>(null);
-  useTrapTabNavigation(ref);
+  const ref = React.useRef<HTMLDivElement>(null);
+  useTrapTabNavigation(ref as React.MutableRefObject<HTMLElement | null>);
 
   React.useEffect(() => {
     const selectedSectionId = Array.from(props.selectedLocationFilters).pop();
@@ -190,19 +190,19 @@ const ChapterFilterItem = (props: ChapterFilterItemProps) => {
   </StyledSectionItem>;
 };
 
-export const StyledDetailsContainer = ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => (
+export const StyledDetailsContainer = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
   <div className={classNames('chapter-filter-details', className)} {...props} />
 );
 
-export const StyledSummaryButton = ({ className, ...props }: React.ButtonHTMLAttributes<HTMLElement>) => (
+export const StyledSummaryButton = ({ className, ...props }: React.ButtonHTMLAttributes<HTMLButtonElement>) => (
   <PlainButton className={classNames('chapter-filter-summary-button', className)} {...props} />
 );
 
-export const StyledSectionItem = ({ className, ...props }: React.ButtonHTMLAttributes<HTMLElement>) => (
+export const StyledSectionItem = ({ className, ...props }: React.ButtonHTMLAttributes<HTMLButtonElement>) => (
   <PlainButton className={classNames('chapter-filter-section-item', className)} {...props} />
 );
 
-export const StyledChapterFilterItemWrapper = ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => (
+export const StyledChapterFilterItemWrapper = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
   <div className={classNames('chapter-filter-item-wrapper', className)} {...props} />
 );
 
