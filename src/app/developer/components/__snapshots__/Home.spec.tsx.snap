@@ -462,8 +462,9 @@ Array [
                     <button
                       aria-expanded={false}
                       aria-label="Actions"
-                      className="plain-button dot-menu-toggle dropdown-toggle "
+                      className="plain-button dot-menu-toggle dropdown-toggle"
                       data-menu-toggle={true}
+                      data-testid="dot-menu-toggle"
                       onClick={[Function]}
                     >
                       <div
@@ -471,8 +472,9 @@ Array [
                       >
                         <svg
                           aria-hidden="true"
-                          className="dot-menu-icon "
+                          className="dot-menu-icon"
                           data-menu-icon={true}
+                          data-testid="dot-menu-icon"
                           viewBox="0 0 192 512"
                         >
                           <path
@@ -515,8 +517,9 @@ Array [
                     <button
                       aria-expanded={false}
                       aria-label="Actions"
-                      className="plain-button dot-menu-toggle dropdown-toggle "
+                      className="plain-button dot-menu-toggle dropdown-toggle"
                       data-menu-toggle={true}
+                      data-testid="dot-menu-toggle"
                       onClick={[Function]}
                     >
                       <div
@@ -524,8 +527,9 @@ Array [
                       >
                         <svg
                           aria-hidden="true"
-                          className="dot-menu-icon "
+                          className="dot-menu-icon"
                           data-menu-icon={true}
+                          data-testid="dot-menu-icon"
                           viewBox="0 0 192 512"
                         >
                           <path

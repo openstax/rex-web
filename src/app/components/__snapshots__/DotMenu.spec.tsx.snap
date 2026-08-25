@@ -11,8 +11,9 @@ exports[`Dropdown matches snapshot 1`] = `
   >
     <button
       aria-label="Actions"
-      className="plain-button dot-menu-toggle dropdown-toggle "
+      className="plain-button dot-menu-toggle dropdown-toggle"
       data-menu-toggle={true}
+      data-testid="dot-menu-toggle"
       tabIndex={0}
     >
       <div
@@ -20,8 +21,9 @@ exports[`Dropdown matches snapshot 1`] = `
       >
         <svg
           aria-hidden="true"
-          className="dot-menu-icon "
+          className="dot-menu-icon"
           data-menu-icon={true}
+          data-testid="dot-menu-icon"
           viewBox="0 0 192 512"
         >
           <path
@@ -65,6 +67,7 @@ exports[`Dropdown matches snapshot 1`] = `
     aria-label="Actions"
     className="plain-button dot-menu-toggle dropdown-toggle dropdown-toggle-second"
     data-menu-toggle={true}
+    data-testid="dot-menu-toggle"
     tabIndex={0}
   >
     <div
@@ -72,8 +75,9 @@ exports[`Dropdown matches snapshot 1`] = `
     >
       <svg
         aria-hidden="true"
-        className="dot-menu-icon "
+        className="dot-menu-icon"
         data-menu-icon={true}
+        data-testid="dot-menu-icon"
         viewBox="0 0 192 512"
       >
         <path
@@ -97,8 +101,9 @@ exports[`Dropdown matches snapshot on right align 1`] = `
   >
     <button
       aria-label="Actions"
-      className="plain-button dot-menu-toggle dropdown-toggle "
+      className="plain-button dot-menu-toggle dropdown-toggle"
       data-menu-toggle={true}
+      data-testid="dot-menu-toggle"
       tabIndex={0}
     >
       <div
@@ -106,8 +111,9 @@ exports[`Dropdown matches snapshot on right align 1`] = `
       >
         <svg
           aria-hidden="true"
-          className="dot-menu-icon "
+          className="dot-menu-icon"
           data-menu-icon={true}
+          data-testid="dot-menu-icon"
           viewBox="0 0 192 512"
         >
           <path
@@ -151,6 +157,7 @@ exports[`Dropdown matches snapshot on right align 1`] = `
     aria-label="Actions"
     className="plain-button dot-menu-toggle dropdown-toggle dropdown-toggle-second"
     data-menu-toggle={true}
+    data-testid="dot-menu-toggle"
     tabIndex={0}
   >
     <div
@@ -158,8 +165,9 @@ exports[`Dropdown matches snapshot on right align 1`] = `
     >
       <svg
         aria-hidden="true"
-        className="dot-menu-icon "
+        className="dot-menu-icon"
         data-menu-icon={true}
+        data-testid="dot-menu-icon"
         viewBox="0 0 192 512"
       >
         <path

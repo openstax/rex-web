@@ -10,7 +10,7 @@ exports[`Dropdown matches snapshot 1`] = `
     onFocus={[Function]}
   >
     <button
-      className="dropdown-toggle "
+      className="dropdown-toggle"
       tabIndex={0}
     >
       show more
@@ -59,7 +59,7 @@ exports[`Dropdown matches snapshot for tab hidden (closed) 1`] = `
   className="dropdown-wrapper "
 >
   <button
-    className="dropdown-toggle "
+    className="dropdown-toggle"
     isOpen={false}
     onClick={[Function]}
   >
@@ -73,7 +73,7 @@ exports[`Dropdown matches snapshot for tab hidden (open) 1`] = `
   className="dropdown-wrapper "
 >
   <button
-    className="dropdown-toggle "
+    className="dropdown-toggle"
     isOpen={true}
     onClick={[Function]}
   >

@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 import React from 'react';
 import { useIntl } from 'react-intl';
-import styled from 'styled-components/macro';
 import trashIcon from '../../../../assets/trash-347.svg';
 import { isDefined } from '../../../guards';
 import { highlightStyles } from '../../constants';
@@ -68,6 +67,7 @@ function ColorIndicator<T extends React.ComponentType | undefined>(
 
   if (isDefined(component)) {
     const extraProps: Record<string, unknown> = {
+      'data-testid': 'color-indicator',
       ...otherProps,
       className: indicatorClasses,
       style: indicatorStyle,
@@ -81,6 +81,7 @@ function ColorIndicator<T extends React.ComponentType | undefined>(
 
   return (
     <div
+      data-testid='color-indicator'
       {...otherProps}
       className={indicatorClasses}
       style={indicatorStyle}
@@ -124,7 +125,5 @@ export function TrashButton({
  * ColorIndicator - Plain CSS/React implementation
  *
  * This component uses plain CSS for styling (ColorIndicator.css).
- * The default export is wrapped with styled() for backward compatibility with
- * styled-components component selectors (used in ColorFilter.tsx and other files).
  */
-export default styled(ColorIndicator)``;
+export default ColorIndicator;

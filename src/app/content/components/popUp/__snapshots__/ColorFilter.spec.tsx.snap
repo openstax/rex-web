@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ColorFilter matches snapshot 1`] = `
-.c2 {
+.c1 {
   padding: 0;
   border: none;
   margin: 0;
 }
 
-.c2 legend {
+.c1 legend {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -20,7 +20,7 @@ exports[`ColorFilter matches snapshot 1`] = `
   border: 0;
 }
 
-.c5 {
+.c2 {
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
@@ -46,16 +46,16 @@ exports[`ColorFilter matches snapshot 1`] = `
   overflow: auto;
 }
 
-.c0 .c1 {
+.c0 .all-or-none {
   margin: 0.8rem 0 0.8rem 0.8rem;
 }
 
-.c0 .c3 {
+.c0 .checkbox-label {
   padding: 0.8rem;
   text-transform: capitalize;
 }
 
-.c0 .c4 {
+.c0 .color-indicator {
   margin: 0 1.6rem 0 1.6rem;
 }
 
@@ -71,7 +71,8 @@ exports[`ColorFilter matches snapshot 1`] = `
   tabIndex={-1}
 >
   <div
-    className="all-or-none c1 "
+    className="all-or-none"
+    data-testid="all-or-none"
   >
     <button
       className="plain-button button-link button-link-decorated"
@@ -104,13 +105,14 @@ exports[`ColorFilter matches snapshot 1`] = `
     </button>
   </div>
   <fieldset
-    className="c2"
+    className="c1"
   >
     <legend>
       Filter by colors
     </legend>
     <label
-      className="checkbox-label c3 "
+      className="checkbox-label"
+      data-testid="checkbox"
     >
       <input
         checked={true}
@@ -134,8 +136,9 @@ exports[`ColorFilter matches snapshot 1`] = `
         </svg>
       </span>
       <div
-        className="color-indicator c4 "
+        className="color-indicator"
         data-size="small"
+        data-testid="color-indicator"
         style={
           Object {
             "--focus-border-color": "#8f7700",
@@ -162,13 +165,14 @@ exports[`ColorFilter matches snapshot 1`] = `
         />
       </div>
       <span
-        className="c5"
+        className="c2"
       >
         yellow
       </span>
     </label>
     <label
-      className="checkbox-label c3 "
+      className="checkbox-label"
+      data-testid="checkbox"
     >
       <input
         checked={true}
@@ -192,8 +196,9 @@ exports[`ColorFilter matches snapshot 1`] = `
         </svg>
       </span>
       <div
-        className="color-indicator c4 "
+        className="color-indicator"
         data-size="small"
+        data-testid="color-indicator"
         style={
           Object {
             "--focus-border-color": "#4e6f01",
@@ -220,13 +225,14 @@ exports[`ColorFilter matches snapshot 1`] = `
         />
       </div>
       <span
-        className="c5"
+        className="c2"
       >
         green
       </span>
     </label>
     <label
-      className="checkbox-label checkbox-disabled c3 "
+      className="checkbox-label checkbox-disabled"
+      data-testid="checkbox"
     >
       <input
         checked={false}
@@ -250,8 +256,9 @@ exports[`ColorFilter matches snapshot 1`] = `
         </svg>
       </span>
       <div
-        className="color-indicator c4 "
+        className="color-indicator"
         data-size="small"
+        data-testid="color-indicator"
         style={
           Object {
             "--focus-border-color": "#006880",
@@ -278,13 +285,14 @@ exports[`ColorFilter matches snapshot 1`] = `
         />
       </div>
       <span
-        className="c5"
+        className="c2"
       >
         blue
       </span>
     </label>
     <label
-      className="checkbox-label checkbox-disabled c3 "
+      className="checkbox-label checkbox-disabled"
+      data-testid="checkbox"
     >
       <input
         checked={false}
@@ -308,8 +316,9 @@ exports[`ColorFilter matches snapshot 1`] = `
         </svg>
       </span>
       <div
-        className="color-indicator c4 "
+        className="color-indicator"
         data-size="small"
+        data-testid="color-indicator"
         style={
           Object {
             "--focus-border-color": "#141a3e",
@@ -336,13 +345,14 @@ exports[`ColorFilter matches snapshot 1`] = `
         />
       </div>
       <span
-        className="c5"
+        className="c2"
       >
         purple
       </span>
     </label>
     <label
-      className="checkbox-label c3 "
+      className="checkbox-label"
+      data-testid="checkbox"
     >
       <input
         checked={true}
@@ -366,8 +376,9 @@ exports[`ColorFilter matches snapshot 1`] = `
         </svg>
       </span>
       <div
-        className="color-indicator c4 "
+        className="color-indicator"
         data-size="small"
+        data-testid="color-indicator"
         style={
           Object {
             "--focus-border-color": "#560131",
@@ -394,7 +405,7 @@ exports[`ColorFilter matches snapshot 1`] = `
         />
       </div>
       <span
-        className="c5"
+        className="c2"
       >
         pink
       </span>

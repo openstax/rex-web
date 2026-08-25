@@ -91,16 +91,16 @@ export default styled(ColorFilter)`
   z-index: 1;
   overflow: auto;
 
-  ${AllOrNone} {
+  .all-or-none {
     margin: 0.8rem 0 0.8rem 0.8rem;
   }
 
-  ${Checkbox} {
+  .checkbox-label {
     padding: 0.8rem;
     text-transform: capitalize;
   }
 
-  ${ColorIndicator} {
+  .color-indicator {
     margin: 0 1.6rem 0 1.6rem;
   }
 
