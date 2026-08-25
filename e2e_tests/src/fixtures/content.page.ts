@@ -48,7 +48,7 @@ class ContentPage {
     this.noteTextBox = this.page.locator('[data-analytics-region="edit-note"]')
     this.saveNote = this.page.locator('[data-testid="save"]')
     this.cancelNote = this.page.locator('[data-testid="cancel"]')
-    this.contextMenu = this.page.locator('[class*=MenuToggle]')
+    this.contextMenu = this.page.locator('[data-testid="dot-menu-toggle"]')
     this.editHighlightLocator = this.page.locator('[data-testid="card"] >> text=Edit')
     this.noteTextLocator = this.page.locator('[class*=TruncatedText]')
     this.noteEditCard = this.page.locator('form[data-analytics-region="edit-note"]')

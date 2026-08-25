@@ -5,7 +5,7 @@ import Button from '../../components/Button';
 import { supportCenterLink } from '../../components/Footer';
 import htmlMessage from '../../components/htmlMessage';
 import Modal from '../../components/Modal';
-import { Body, BodyHeading, Footer } from '../../components/Modal/styles';
+import { Body, BodyHeading, Footer } from '../../components/Modal/Modal';
 import { AppState } from '../../types';
 import { hideErrorDialog } from '../actions';
 import * as select from '../selectors';
