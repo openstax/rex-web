@@ -13,8 +13,8 @@ class TOC {
   constructor(page: Page) {
     this.page = page
     this.pageLocator = this.page.locator('[data-type="page"]')
-    this.tocDropdownLocator = this.page.locator('div[class*="StyledTreeItemContent"]')
-    this.sectionNameLocator = this.page.locator('h1[class*="BookBanner"]')
+    this.tocDropdownLocator = this.page.locator('div.toc-summary-wrapper')
+    this.sectionNameLocator = this.page.locator('h1.book-banner-chapter')
     this.pageSlugLocator = this.page.locator('[data-type="page"] a')
     this.currentPageLocator = this.page.locator("[aria-label*='Current Page'] a")
   }
@@ -72,7 +72,7 @@ class TOC {
         await this.pageLocator.nth(pageNumber).click()
       } else {
         // expand the dropdowns in toc
-        await this.page.waitForSelector('div[class*="StyledTreeItemContent"]')
+        await this.page.waitForSelector('div.toc-summary-wrapper')
         const tocDropdownCounts = await this.tocDropdownLocator.count()
         let tocDropdownCount: number
         for (tocDropdownCount = 0; tocDropdownCount < tocDropdownCounts; tocDropdownCount++) {
@@ -135,7 +135,7 @@ class TOC {
     const chapterLocator = toc.locator('[data-type=chapter]', {
       has: this.page.locator(`[href="${await this.CurrentPageSlug()}"]`),
     })
-    const chapter = chapterLocator.locator('span[class*="SummaryTitle"]').first().textContent()
+    const chapter = chapterLocator.locator('span.toc-summary-title').first().textContent()
     return (await chapter).replace(/[\n\r]/g, '')
   }
 
@@ -157,7 +157,7 @@ class TOC {
     const eocLocator = toc.locator('[data-type=eoc-dropdown]', {
       has: this.page.locator(`[href="${await this.CurrentPageSlug()}"]`),
     })
-    const eocSectionHeading = eocLocator.locator('span[class*="SummaryTitle"]').first().textContent()
+    const eocSectionHeading = eocLocator.locator('span.toc-summary-title').first().textContent()
     return (await eocSectionHeading).replace(/[\n\r]/g, '')
   }
 
@@ -167,7 +167,7 @@ class TOC {
     const eobLocator = toc.locator('[data-type=eob-dropdown]', {
       has: this.page.locator(`[href="${await this.CurrentPageSlug()}"]`),
     })
-    const eobSectionHeading = eobLocator.locator('span[class*="SummaryTitle"]').first().textContent()
+    const eobSectionHeading = eobLocator.locator('span.toc-summary-title').first().textContent()
     return (await eobSectionHeading).replace(/[\n\r]/g, '')
   }
 }
