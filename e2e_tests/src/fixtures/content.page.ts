@@ -44,15 +44,15 @@ class ContentPage {
     this.paragraph = this.page.locator('p[id*=para]')
     this.body = this.page.locator('[class*="page-content"]')
     this.MHbodyLoaded = this.page.locator('[data-testid="show-myhighlights-body"]')
-    this.contentHighlightsLoaded = this.page.locator('[class*="HighlightsWrapper"]')
+    this.contentHighlightsLoaded = this.page.locator('.highlights-wrapper')
     this.noteTextBox = this.page.locator('[data-analytics-region="edit-note"]')
     this.saveNote = this.page.locator('[data-testid="save"]')
     this.cancelNote = this.page.locator('[data-testid="cancel"]')
     this.contextMenu = this.page.locator('[data-testid="dot-menu-toggle"]')
     this.editHighlightLocator = this.page.locator('[data-testid="card"] >> text=Edit')
-    this.noteTextLocator = this.page.locator('[class*=TruncatedText]')
+    this.noteTextLocator = this.page.locator('.truncated-text-note')
     this.noteEditCard = this.page.locator('form[data-analytics-region="edit-note"]')
-    this.textarea = this.page.locator('textarea[class*="TextArea"]')
+    this.textarea = this.page.locator('textarea.note-textarea')
   }
 
   async open(path: string) {
