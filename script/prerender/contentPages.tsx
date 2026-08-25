@@ -7,6 +7,7 @@ import { renderToString } from 'react-dom/server';
 import Loadable from 'react-loadable';
 import { EnumChangefreq } from 'sitemap';
 import { SitemapItemOptions } from 'sitemap';
+import { ServerStyleSheet, StyleSheetManager } from 'styled-components/macro';
 import asyncPool from 'tiny-async-pool';
 import createApp from '../../src/app';
 import { AppOptions } from '../../src/app';
@@ -72,6 +73,14 @@ const prepareApp = async(
   stats.promiseCollector += timer();
 
   const state = app.store.getState();
+  /*
+   * rex-web itself no longer uses styled-components, but @openstax/ui-components
+   * still does and we render it (Footer, NavBar, toasts). Without this collector
+   * the prerendered HTML carries their generated class names but none of their
+   * CSS, so those components are unstyled until the client bundle boots. Remove
+   * it once ui-components has migrated.
+   */
+  const styles = new ServerStyleSheet();
   const pathname = navigationSelectors.pathname(state);
 
   if (pathname !== url) {
@@ -81,24 +90,27 @@ const prepareApp = async(
     throw new Error(`UNSUPPORTED: url: ${url} expected code ${expectedCode}, got ${errorSelectors.code(state)}`);
   }
 
-  return {app, state, url};
+  return {app, state, styles, url};
 };
 
-type RenderHtml = (app: ReturnType<typeof createApp>, state: AppState) => string;
-const renderHtml: RenderHtml = (app, state) => {
+type RenderHtml = (styles: ServerStyleSheet, app: ReturnType<typeof createApp>, state: AppState) => string;
+const renderHtml: RenderHtml = (styles, app, state) => {
   const modules: string[] = [];
 
   return injectHTML(indexHtml, {
     body: renderToString(
-      <Loadable.Capture report={(m) => modules.push(m)}>
-        <app.container />
-      </Loadable.Capture>
+      <StyleSheetManager sheet={styles.instance}>
+        <Loadable.Capture report={(m) => modules.push(m)}>
+          <app.container />
+        </Loadable.Capture>
+      </StyleSheetManager>
     ),
     fonts: app.services.fontCollector.fonts,
     links: headSelectors.links(state),
     meta: headSelectors.meta(state),
     modules,
     state,
+    styles,
     title: headSelectors.title(state),
   });
 };
@@ -128,10 +140,10 @@ export async function renderAndSavePage(
   serializedMatch: SerializedPageMatch
 ) {
   const match = deserializePageMatch(serializedMatch);
-  const {app, state, url} = await prepareApp(services, match, code);
+  const {app, styles, state, url} = await prepareApp(services, match, code);
   console.info(`Rendering ${url}`);
 
-  const html = await renderHtml(app, state);
+  const html = await renderHtml(styles, app, state);
 
   await savePage(url, html);
 
@@ -204,6 +216,7 @@ export const renderPages = async(services: AppOptions['services'], pages: Pages)
 
 interface Options {
   body: string;
+  styles: ServerStyleSheet;
   fonts: FontCollector['fonts'];
   meta: Meta[];
   links: Link[];
@@ -211,7 +224,7 @@ interface Options {
   modules: string[];
   title: string;
 }
-function injectHTML(html: string, {body, state, fonts, meta, links, modules, title}: Options) {
+function injectHTML(html: string, {body, styles, state, fonts, meta, links, modules, title}: Options) {
 
   const assetManifest = JSON.parse(readAssetFile('asset-manifest.json'));
   const book = assertDefined(contentSelectors.book(state), 'book not loaded');
@@ -253,6 +266,7 @@ function injectHTML(html: string, {body, state, fonts, meta, links, modules, tit
     links.map(
       (tag) => `<link data-rex-page ${Object.entries(tag).map(([name, value]) => `${name}="${value}"`).join(' ')}>`
     ).join('') +
+    styles.getStyleTags() +
     '</head>'
   );
   html = html.replace(
