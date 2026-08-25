@@ -44,9 +44,31 @@ const JS_COMMENT_REGEX = /^\s*\/\/.*$/gm;
 export const scopeStyles = (styles: string) =>
   stylis('', `${scopeSelector} { ${styles.replace(JS_COMMENT_REGEX, '')} }`);
 
-export const ScopedGlobalStyle = ({ styles }: { styles: string }) => (
-  <style data-dynamic-stylesheet='true' dangerouslySetInnerHTML={{ __html: scopeStyles(styles) }} />
+export const ScopedGlobalStyle = ({ css }: { css: string }) => (
+  <style data-dynamic-stylesheet='true' dangerouslySetInnerHTML={{ __html: css }} />
 );
+
+// must match the attribute ScopedGlobalStyle renders
+const styleSheetSelector = 'style[data-dynamic-stylesheet]';
+
+/*
+ * Prerendered pages already carry this stylesheet in their markup, but the browser
+ * starts with an empty archiveLoader cache: hydration doesn't dispatch receiveBook,
+ * so the dynamicStyles hook never runs and `cached()` returns nothing. Reading the
+ * stylesheet back out of the document keeps the first client render byte-identical
+ * to the prerendered markup, instead of hydration tearing the book's only copy of
+ * its CSS out of the page.
+ *
+ * This is also what createGlobalStyle did: styled-components rehydrated the
+ * prerendered stylesheet and left it alone until non-empty styles replaced it.
+ */
+const getPrerenderedStyleSheet = () => {
+  if (typeof document === 'undefined') {
+    return '';
+  }
+
+  return document.querySelector(styleSheetSelector)?.textContent || '';
+};
 
 const cacheStyles = new Map<string, string>();
 
@@ -117,10 +139,15 @@ export const DynamicContentStylesProvider = ({ children }: React.PropsWithChildr
   const book = useSelector(bookSelector);
   const bookStylesUrl = useSelector(bookStylesUrlSelector);
   const { archiveLoader } = useServices();
-  const [, styles] = getStyles(false, queryStyles, book, bookStylesUrl, archiveLoader);
+  // Read once on mount, before anything has had a chance to replace it
+  const [prerenderedCss] = React.useState(getPrerenderedStyleSheet);
+  const [hasDynamicStyle, styles] = getStyles(false, queryStyles, book, bookStylesUrl, archiveLoader);
+  // Styles are blank while hydrating, and while a newly selected book's stylesheet
+  // is still loading; keep serving whatever the page already has until it resolves
+  const css = React.useMemo(() => styles ? scopeStyles(styles) : '', [styles]) || prerenderedCss;
 
   return <QueryStylesContext.Provider value={queryStyles}>
-    {styles ? <ScopedGlobalStyle styles={styles} /> : null}
+    {hasDynamicStyle && css ? <ScopedGlobalStyle css={css} /> : null}
     {children}
   </QueryStylesContext.Provider>;
 };
