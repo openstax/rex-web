@@ -1,7 +1,6 @@
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import styled from 'styled-components/macro';
 import { PlainButton } from '../../../components/Button';
 import Times from '../../../components/Times';
 import { SummaryFiltersUpdate } from '../../highlights/types';
@@ -11,12 +10,15 @@ import { LocationFilters } from './types';
 import classNames from 'classnames';
 import './FiltersList.css';
 
-// Wrap PlainButton with styled() for backward compatibility with component selectors
-// The actual styles are in FiltersList.css under .filters-list-close-button
-const StyledPlainButtonBase = ({ className, ...props }: React.ComponentProps<typeof PlainButton>) => (
-  <PlainButton {...props} className={classNames('filters-list-close-button', className)} />
+// Plain button component for filter list close button
+const StyledPlainButton = ({ className, ...props }: React.ComponentProps<typeof PlainButton>) => (
+  <PlainButton
+    data-testid='filters-list-close-button'
+    {...props}
+    className={classNames('filters-list-close-button', className)}
+  />
 );
-export const StyledPlainButton = styled(StyledPlainButtonBase)``;
+export { StyledPlainButton };
 
 const ItemLabel = ({ children, ...props }: React.HTMLAttributes<HTMLSpanElement>) => (
   <span {...props} className="filters-list-item-label">
@@ -124,7 +126,7 @@ const StatusDiv = ({ children }: { children: React.ReactNode }) => (
 );
 
 // Plain React component for FiltersList
-function FiltersListBase({
+export default function FiltersList({
   className,
   locationFilters,
   selectedColorFilters,
@@ -159,6 +161,7 @@ function FiltersListBase({
       aria-live='polite'
       aria-atomic='true'
       aria-label={intl.formatMessage({id: 'i18n:highlighting:filters:applied-filters:aria-label'})}
+      data-testid="filters-list"
     >
       {Array.from(locationFilters).map(([locationId, location]) => selectedLocationFilters.has(locationId) &&
       <FiltersListChapter
@@ -180,7 +183,3 @@ function FiltersListBase({
     </ul>
   </>;
 }
-
-// Wrap with styled() for backward compatibility with component selectors in Filters.tsx
-// Styles are now in FiltersList.css, but this wrapper maintains selector compatibility
-export default styled(FiltersListBase)``;

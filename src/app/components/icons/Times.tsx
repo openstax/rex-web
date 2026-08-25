@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components/macro';
 
 interface IconProps extends React.SVGAttributes<SVGSVGElement> {
   className?: string;
@@ -11,15 +10,14 @@ interface IconProps extends React.SVGAttributes<SVGSVGElement> {
  *
  * Usage: Use this Font Awesome-based icon in content components that were migrated from styled-icons.
  * For UI close buttons (modals, toasts, sidebars), use the existing components/Times.tsx instead.
- *
- * Note: Wrapped with styled() to enable styled-components component selector references
  */
-function TimesIconBase({ className, ...props }: IconProps) {
+function TimesIcon({ className, ...props }: IconProps) {
   return (
     <svg
       className={className}
       viewBox="0 0 352 512"
       aria-hidden="true"
+      data-testid="times-icon"
       {...props}
     >
       <path
@@ -30,6 +28,5 @@ function TimesIconBase({ className, ...props }: IconProps) {
   );
 }
 
-export const TimesIcon = styled(TimesIconBase)``;
-
+export { TimesIcon };
 export default TimesIcon;

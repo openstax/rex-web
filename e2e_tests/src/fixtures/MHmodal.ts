@@ -17,7 +17,7 @@ class MHModal {
     this.MHModalCloseIcon = page.locator('data-testid=close-highlights-popup')
     this.chapterDropdownLocator = page.locator('[aria-label="Filter highlights by Chapter"]')
     this.colorDropdownLocator = page.locator('[aria-label="Filter highlights by Color"]')
-    this.checkBoxStatus = page.locator('label[class*="Checkbox"]')
+    this.checkBoxStatus = page.locator('label[data-testid="checkbox"]')
   }
 
   // Close My Highlights modal using x icon
@@ -116,7 +116,7 @@ class MHModal {
     if (typeof n === 'string') {
       n = colorNumber(n)
     }
-    await this.page.locator('label[class*="Checkbox"]').nth(n).click()
+    await this.page.locator('label[data-testid="checkbox"]').nth(n).click()
   }
 }
 
@@ -146,7 +146,7 @@ class MHHighlights {
   constructor(page: Page) {
     this.page = page
     this.highlight = page.locator('[class*="HighlightOuterWrapper"]')
-    this.MHContextMenu = this.page.locator('[class*="MenuToggle"]')
+    this.MHContextMenu = this.page.locator('[data-testid="highlight-dropdown-menu-toggle"]')
     this.blue = this.page.locator('[data-testid="show-myhighlights-body"] [aria-label="Apply blue highlight"]')
     this.green = this.page.locator('[data-testid="show-myhighlights-body"] [aria-label="Apply green highlight"]')
     this.pink = this.page.locator('[data-testid="show-myhighlights-body"] [aria-label="Apply pink highlight"]')
