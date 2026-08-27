@@ -29,9 +29,20 @@ jest.mock('react-aria-components', () => {
     TreeItem: ({ children, ...props }: any) =>
       <div data-testid='mock-tree-item' {...props}>{children}</div>
     ,
-    TreeItemContent: ({ children, ...props }: any) =>
-      <div data-testid='mock-tree-item-content' {...props}>{children}</div>
-    ,
+    // Real TreeItemContent is a collection leaf component: it renders its children and
+    // NO DOM node, so className/data-* passed to it never reach the document. Mirror
+    // that here, and refuse the props outright rather than dropping them quietly - the
+    // quiet drop is exactly how data-type went missing from every ToC row for months.
+    TreeItemContent: ({ children, ...props }: any) => {
+      const dropped = Object.keys(props).filter((prop) => prop === 'className' || prop.startsWith('data-'));
+      if (dropped.length) {
+        throw new Error(
+          `TreeItemContent renders no DOM node, so ${dropped.join(', ')} would never reach the document. `
+          + `Put it on TreeItem instead.`
+        );
+      }
+      return <>{children}</>;
+    },
   };
 });
 
@@ -468,6 +479,32 @@ describe('TableOfContents', () => {
     // Verify the textValue prop (used for keyboard navigation) is also set correctly
     expect(leafItem.props['textValue']).toBeDefined();
     expect(typeof leafItem.props['textValue']).toBe('string');
+  });
+
+  // Regression guard for the bug this PR fixes. data-type has to sit on the TreeItem
+  // row: TreeItemContent is a collection leaf component that renders no DOM node, so
+  // anything passed to it is silently dropped. The mock above mirrors that, which is
+  // what lets these two assertions notice if the attribute moves back.
+  // See rowDataType.spec.tsx for the same check against a real, unmocked Tree.
+  it('puts data-type on the row of a leaf section', () => {
+    const { root } = renderToDom(Component);
+
+    const leafRow = root.querySelector('[data-testid="mock-tree-item"][data-type="page"]');
+
+    expect(leafRow).not.toBeNull();
+    // it is the row that carries the attribute, not some wrapper inside it
+    expect(leafRow!.querySelector('a.toc-content-link')).not.toBeNull();
+  });
+
+  it('puts data-type on the row of an expandable section', () => {
+    const { root } = renderToDom(Component);
+
+    expect(root.querySelector('[data-testid="mock-tree-item"][data-type="chapter"]')).not.toBeNull();
+
+    // no row may be left without a type - that is how the e2e locators find them
+    const rows = Array.from(root.querySelectorAll('[data-testid="mock-tree-item"]'));
+    expect(rows.length).toBeGreaterThan(0);
+    expect(rows.filter((row) => !row.getAttribute('data-type'))).toEqual([]);
   });
 
   it('adds aria-label to TreeItem for expandable sections', () => {
