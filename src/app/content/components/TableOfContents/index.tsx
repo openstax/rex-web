@@ -239,6 +239,7 @@ function TocLeaf({
       textValue={strippedTitle}
       aria-label={intl.formatMessage({ id: 'i18n:toc:aria-label:link' }, { title: disambiguatedTitle })}
       className="toc-tree-item"
+      data-type={sectionType}
       style={{
         '--toc-number-width': `${numberWidth}rem`,
         '--toc-divider-width': `${dividerWidth}rem`,
@@ -253,11 +254,9 @@ function TocLeaf({
         }
       }
     >
-      <TreeItemContent
-        className="toc-nav-item"
-        data-type={sectionType}
-        textValue={strippedTitle}
-      >
+      {/* TreeItemContent renders no DOM node, so className/data-* on it are dropped.
+          Anything that has to reach the DOM belongs on TreeItem above. */}
+      <TreeItemContent textValue={strippedTitle}>
         <ContentLink
           ref={linkRef}
           onClick={onNavigate}
@@ -308,6 +307,7 @@ function TocSection({
                 textValue={strippedTitle}
                 aria-label={intl.formatMessage({ id: 'i18n:toc:aria-label:section' }, { title: strippedTitle })}
                 className="toc-tree-item"
+                data-type={sectionType}
                 style={{
                   '--toc-number-width': `${numberWidth}rem`,
                   '--toc-divider-width': `${dividerWidth}rem`,
