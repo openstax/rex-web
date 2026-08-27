@@ -39,19 +39,6 @@
   text-decoration: underline;
 }
 
-/* Navigation item wrapper */
-.toc-nav-item {
-  list-style: none;
-  overflow: visible;
-  margin: 1.2rem 0 0 0;
-}
-
-@media screen and (max-width: 75em) {
-  .toc-nav-item {
-    margin-top: 1.7rem;
-  }
-}
-
 /* Summary wrapper for expandable sections */
 .toc-summary-wrapper {
   display: flex;
