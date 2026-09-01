@@ -109,8 +109,23 @@ const COLOR_FUNCTIONS = [
  */
 const COLOR_KEYWORDS = ['transparent', 'currentcolor', 'inherit', 'initial', 'unset', 'revert', 'none'];
 
-/** Removes comments, string contents and url() payloads, preserving structure. */
-export const stripNoise = (css: string): string => {
+/**
+ * Blanks the parts of a stylesheet that can hold colour-shaped text without meaning a
+ * colour: comments, string contents and `url()` payloads.
+ *
+ * Blanked to spaces rather than deleted, so the result is the same length as the input
+ * and every character keeps its original index. `declarations` relies on that: it finds
+ * structure in the blanked text and then slices the corresponding span out of a second,
+ * differently-blanked copy.
+ *
+ * `keepStrings` is what that second copy is for. A string is noise inside a declaration
+ * value — `content: "#fff"` is not a colour — but it is *meaning* inside a selector:
+ * `[data-loading="true"]` and `[data-loading="false"]` are different rules, and blanking
+ * both to `[data-loading=""]` would make them one declaration as far as the baseline is
+ * concerned, so a literal could move between them without the ratchet noticing.
+ */
+const blankNoise = (css: string, keepStrings: boolean): string => {
+  const pad = (length: number) => ' '.repeat(Math.max(0, length));
   let out = '';
   let index = 0;
 
@@ -119,8 +134,9 @@ export const stripNoise = (css: string): string => {
 
     if (rest.startsWith('/*')) {
       const end = css.indexOf('*/', index + 2);
-      index = end === -1 ? css.length : end + 2;
-      out += ' ';
+      const stop = end === -1 ? css.length : end + 2;
+      out += pad(stop - index);
+      index = stop;
       continue;
     }
 
@@ -130,22 +146,30 @@ export const stripNoise = (css: string): string => {
       while (cursor < css.length && css[cursor] !== quote) {
         cursor += css[cursor] === '\\' ? 2 : 1;
       }
-      index = cursor + 1;
-      out += '""';
+      const stop = Math.min(cursor + 1, css.length);
+      // blanked whole, quotes included: nothing downstream needs the quotes, and
+      // keeping them would have to handle an unterminated string running off the end.
+      out += keepStrings ? css.slice(index, stop) : pad(stop - index);
+      index = stop;
       continue;
     }
 
     const url = /^url\(/i.exec(rest);
     if (url) {
+      const open = index + url[0].length;
       let depth = 1;
-      let cursor = index + url[0].length;
+      let cursor = open;
       while (cursor < css.length && depth > 0) {
         if (css[cursor] === '(') { depth++; }
         if (css[cursor] === ')') { depth--; }
         cursor++;
       }
+      // the parens themselves are structure -- `declarations` balances them -- so only
+      // the payload between them is blanked.
+      const closed = depth === 0;
+      const payloadEnd = closed ? cursor - 1 : cursor;
+      out += css.slice(index, open) + pad(payloadEnd - open) + (closed ? ')' : '');
       index = cursor;
-      out += 'url()';
       continue;
     }
 
@@ -155,6 +179,9 @@ export const stripNoise = (css: string): string => {
 
   return out;
 };
+
+/** Noise blanked for reading declaration values: strings go too. */
+export const stripNoise = (css: string): string => blankNoise(css, false);
 
 /**
  * Pulls declarations out of a stylesheet at any nesting depth, so `@media` blocks are
@@ -166,37 +193,50 @@ export const stripNoise = (css: string): string => {
  * identifier is only a colour in a property that takes one (`animation-name: red` is
  * an animation), and the baseline needs a way to tell two occurrences of the same
  * literal in the same file apart.
+ *
+ * Two blanked copies of the source are walked in step. Structure is read from `values`,
+ * where strings are gone, so a `;` or `{` inside one cannot split a declaration. The
+ * `context` is sliced out of `selectors`, where string contents survive, so that
+ * `[data-loading="true"]` and `[data-loading="false"]` stay distinguishable. Both are
+ * the same length as the input, which is what lets one index address both.
  */
 export const declarations = (css: string): Declaration[] => {
   const found: Declaration[] = [];
-  const stripped = stripNoise(css);
+  const values = stripNoise(css);
+  const selectors = blankNoise(css, true);
   const stack: string[] = [];
-  let buffer = '';
+  let start = 0;
   let parens = 0;
 
-  const flush = () => {
-    const separator = buffer.indexOf(':');
+  const flush = (end: number) => {
+    const segment = values.slice(start, end);
+    const separator = segment.indexOf(':');
+
     if (stack.length > 0 && separator !== -1) {
-      const value = buffer.slice(separator + 1).trim();
-      const property = buffer.slice(0, separator).trim().toLowerCase();
+      const value = segment.slice(separator + 1).trim();
+      const property = segment.slice(0, separator).trim().toLowerCase();
       if (value) { found.push({context: stack.join(' '), property, value}); }
     }
-    buffer = '';
+
+    start = end + 1;
   };
 
-  for (const character of stripped) {
+  for (let index = 0; index < values.length; index++) {
+    const character = values[index];
+
     if (character === '(') { parens++; }
     if (character === ')') { parens = Math.max(0, parens - 1); }
+    if (parens !== 0) { continue; }
 
-    if (parens === 0 && character === '{') {
-      stack.push(buffer.replace(/\s+/g, ' ').trim());
-      buffer = '';
-      continue;
+    if (character === '{') {
+      stack.push(selectors.slice(start, index).replace(/\s+/g, ' ').trim());
+      start = index + 1;
+    } else if (character === '}') {
+      flush(index);
+      stack.pop();
+    } else if (character === ';') {
+      flush(index);
     }
-    if (parens === 0 && character === '}') { flush(); stack.pop(); continue; }
-    if (parens === 0 && character === ';') { flush(); continue; }
-
-    buffer += character;
   }
 
   return found;
