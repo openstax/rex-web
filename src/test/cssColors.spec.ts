@@ -17,20 +17,40 @@ describe('stripNoise', () => {
   });
 
   it('removes string contents so content: "tan" is not a colour', () => {
-    expect(stripNoise('a { content: "tan"; }')).toContain('content: ""');
+    expect(stripNoise('a { content: "tan"; }')).not.toContain('tan');
   });
 
   it('removes url() payloads', () => {
-    expect(stripNoise('a { background: url(data:image/svg+xml;base64,Zm9v) no-repeat; }'))
-      .toContain('url() no-repeat');
+    const blanked = stripNoise('a { background: url(data:image/svg+xml;base64,Zm9v) no-repeat; }');
+    expect(blanked).not.toContain('base64');
+    expect(blanked).toContain('no-repeat');
+  });
+
+  it('keeps the url() parentheses, which are structure rather than noise', () => {
+    // declarations balances parens to know a `;` inside url() is not a separator
+    expect(stripNoise('a { background: url(x;y); }')).toContain('url(');
+    expect(stripNoise('a { background: url(x;y); }')).toContain(')');
   });
 
   it('handles an escaped quote inside a string', () => {
-    expect(stripNoise('a { content: "a\\"b"; }')).toContain('content: ""');
+    expect(stripNoise('a { content: "a\\"b"; }')).not.toContain('b"');
   });
 
   it('tolerates an unterminated comment', () => {
     expect(stripNoise('a { color: red; /* oops')).toContain('color: red;');
+  });
+
+  it.each([
+    ['a comment', 'a { /* note */ color: red; }'],
+    ['a string', 'a { content: "tan"; }'],
+    ['an unterminated string', 'a { content: "tan }'],
+    ['a url()', 'a { background: url(data:image/svg+xml;base64,Zm9v); }'],
+    ['an unterminated url()', 'a { background: url(oops }'],
+    ['an unterminated comment', 'a { color: red; /* oops'],
+  ])('blanks %s without changing the length', (_case, css) => {
+    // declarations addresses two differently-blanked copies with one index, so this
+    // is load-bearing rather than cosmetic: a length change silently misaligns context.
+    expect(stripNoise(css)).toHaveLength(css.length);
   });
 });
 
@@ -90,6 +110,29 @@ describe('declarations', () => {
     const parsed = declarations('@media (max-width: 50em) { a { color: red; } } b { color: blue; }');
     expect(parsed.map(({context}) => context))
       .toEqual(['@media (max-width: 50em) a', 'b']);
+  });
+
+  it('keeps string contents in the context, so attribute selectors stay distinct', () => {
+    // the baseline identifies an occurrence by its context, so two rules that differ
+    // only inside a selector string must not reduce to the same one -- otherwise a
+    // literal could move between them and the ratchet would see no change.
+    const parsed = declarations(
+      '.x[data-loading="true"] { color: #fff; } .x[data-loading="false"] { color: #fff; }'
+    );
+
+    expect(parsed.map(({context}) => context))
+      .toEqual(['.x[data-loading="true"]', '.x[data-loading="false"]']);
+  });
+
+  it('still blanks strings in the value, where they are not colours', () => {
+    // the other half of the same change: context keeps strings, values must not, or
+    // `content: "#fff"` starts reading as a colour.
+    expect(declarations('a { content: "#fff"; }')).toEqual([]);
+  });
+
+  it('does not let a brace inside a selector string open a block', () => {
+    expect(declarations('.x[data-glyph="{"] { color: red; }'))
+      .toEqual([{context: '.x[data-glyph="{"]', property: 'color', value: 'red'}]);
   });
 });
 
