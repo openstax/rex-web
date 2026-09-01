@@ -402,15 +402,24 @@ export const findColors = (value: string, named: boolean): FoundColor[] => {
   return found;
 };
 
-/** Every color literal written in a stylesheet, in source order. */
-export const stylesheetColors = (css: string): StylesheetColor[] =>
-  declarations(css).reduce(
-    (result: StylesheetColor[], {context, property, value}) => [
-      ...result,
-      ...findColors(value, takesColor(property)).map((found) => ({...found, context, property})),
-    ],
-    []
-  );
+/**
+ * Every color literal written in a stylesheet, in source order.
+ *
+ * Accumulated with `push` rather than by spreading into a new array per declaration:
+ * this runs over every stylesheet in the tree, so the quadratic version was copying
+ * every color found so far once per subsequent declaration.
+ */
+export const stylesheetColors = (css: string): StylesheetColor[] => {
+  const found: StylesheetColor[] = [];
+
+  for (const {context, property, value} of declarations(css)) {
+    for (const color of findColors(value, takesColor(property))) {
+      found.push({...color, context, property});
+    }
+  }
+
+  return found;
+};
 
 /** Canonical key for comparing two colors. Opaque colors ignore alpha. */
 export const colorKey = (rgba: Rgba): string =>
@@ -426,11 +435,16 @@ export const opaqueKey = (rgba: Rgba): string => `${rgba.r},${rgba.g},${rgba.b}`
  */
 
 /** Maps a canonical color key to the token that declares it. */
-export const themeColorIndex = (): {[key: string]: string} => themeTokens()
-  .reduce((result: {[key: string]: string}, [name, value]) => {
+export const themeColorIndex = (): {[key: string]: string} => {
+  const index: {[key: string]: string} = {};
+
+  for (const [name, value] of themeTokens()) {
     const rgba = describeColor(value);
-    return rgba === null ? result : {...result, [colorKey(rgba)]: `--${name}`};
-  }, {});
+    if (rgba !== null) { index[colorKey(rgba)] = `--${name}`; }
+  }
+
+  return index;
+};
 
 /**
  * Colors that are deliberately not theme values, so they are never reported as
@@ -441,14 +455,17 @@ export const themeColorIndex = (): {[key: string]: string} => themeTokens()
 export const KNOWN_OFF_PALETTE: {[key: string]: string} = {};
 
 export const stylesheetFiles = (srcDir: string): string[] => {
-  const walk = (dir: string): string[] => fs.readdirSync(dir, {withFileTypes: true})
-    .reduce((result: string[], entry) => {
+  const walk = (dir: string, into: string[]): string[] => {
+    for (const entry of fs.readdirSync(dir, {withFileTypes: true})) {
       const target = path.join(dir, entry.name);
-      if (entry.isDirectory()) { return [...result, ...walk(target)]; }
-      return entry.name.endsWith('.css') ? [...result, target] : result;
-    }, []);
+      if (entry.isDirectory()) { walk(target, into); }
+      else if (entry.name.endsWith('.css')) { into.push(target); }
+    }
 
-  return walk(srcDir)
+    return into;
+  };
+
+  return walk(srcDir, [])
     // generated from the LESS in generic-styles/; styles book content we do not own
     .filter((file) => file !== path.join(srcDir, 'content.css'))
     // the generated token file is the one place a theme value may be written out
