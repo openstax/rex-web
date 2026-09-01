@@ -2,7 +2,6 @@ import {
   colorKey,
   declarationValues,
   describeColor,
-  findColors,
   opaqueKey,
   stripNoise,
   stylesheetColors,
