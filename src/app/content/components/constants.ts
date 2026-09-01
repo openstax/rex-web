@@ -43,7 +43,8 @@ export const searchSidebarTopOffset = bookBannerMobileMiniHeight
 
 export const contentTextWidth = 82.5;
 
-export const mainContentBackground = '#fff';
+// the theme's white; referenced from CSS as var(--color-neutral-base)
+export const mainContentBackground = theme.color.neutral.base;
 
 export const maxContentGutter = 6;
 export const contentWrapperMaxWidth = contentTextWidth + sidebarDesktopWidth + verticalNavbarMaxWidth;
