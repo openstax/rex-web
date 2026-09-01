@@ -227,18 +227,18 @@ unprefixed (`--section-bg`, `--popup-padding`) is a component-local override hoo
 a global token.
 
 **When to use a global token:**
-- Any static colour, z-index or page padding — i.e. the value does not depend on props
+- Any static color, z-index or page padding — i.e. the value does not depend on props
 - Values used across more than one component
 
 **When to bind from JavaScript instead:**
-- Book-specific theme colours requiring dynamic property access (`theme.color.primary[bookTheme]`)
-- Colours with runtime computations (highlight colours via the Color library)
+- Book-specific theme colors requiring dynamic property access (`theme.color.primary[bookTheme]`)
+- Colors with runtime computations (highlight colors via the Color library)
 - Any value that changes based on props or state
 
 **Example:**
 
 ```typescript
-// ❌ Before: component-level binding for a static colour
+// ❌ Before: component-level binding for a static color
 import theme from '../theme';
 
 export function Card({ className, style, ...props }) {
@@ -291,8 +291,8 @@ See `src/app/theme.css` for the full list of 80 tokens.
 
 1. The committed `theme.css` matches the generator's output, so the CSS cannot go stale
    against the JS. If this fails, run `yarn generate:theme-css`.
-2. No stylesheet writes a colour literal that duplicates a theme value.
-3. No stylesheet introduces a colour that is neither a theme value nor explicitly
+2. No stylesheet writes a color literal that duplicates a theme value.
+3. No stylesheet introduces a color that is neither a theme value nor explicitly
    allowlisted in `KNOWN_OFF_PALETTE` (in `src/test/cssColors.ts`) with a reason.
 4. No stylesheet reads a `--color-*`/`--z-index-*`/`--padding-*` token that doesn't
    exist — which also keeps component-local variables out of those namespaces.
@@ -313,7 +313,7 @@ baseline to need regenerating, if you move a declaration or rename a selector; t
 counts are what should not go up.
 
 Hex literals and `rgb()`/`hsl()`/`oklch()` are audited in every declaration. Bare named
-colours (`white`, `tan`) are only read as colours in properties that can take one, so
+colors (`white`, `tan`) are only read as colors in properties that can take one, so
 `animation-name: red` is left alone. `src/test/cssColors.ts` has the list.
 
 **Breakpoints are the known gap.** `@media (min-width: var(--x))` is not valid CSS, so
@@ -682,7 +682,7 @@ style={{ '--banner-bg': colors.base }}
   — never edit the CSS by hand, and run `yarn generate:theme-css` after changing the data.
 - `theme.ts` re-exports that data, so `theme.color.x` in JavaScript is unchanged.
 - Don't hardcode a theme value in CSS, and don't declare a second token for one.
-- Link colours come from the theme too; import them from
+- Link colors come from the theme too; import them from
   `components/Typography/Links.constants.ts` in JS, or use `var(--color-link)` in CSS.
 
 ## Migration Checklist

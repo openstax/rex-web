@@ -16,7 +16,7 @@ describe('stripNoise', () => {
     expect(stripNoise('a { /* #ff0000 */ color: red; }')).not.toContain('#ff0000');
   });
 
-  it('removes string contents so content: "tan" is not a colour', () => {
+  it('removes string contents so content: "tan" is not a color', () => {
     expect(stripNoise('a { content: "tan"; }')).not.toContain('tan');
   });
 
@@ -124,9 +124,9 @@ describe('declarations', () => {
       .toEqual(['.x[data-loading="true"]', '.x[data-loading="false"]']);
   });
 
-  it('still blanks strings in the value, where they are not colours', () => {
+  it('still blanks strings in the value, where they are not colors', () => {
     // the other half of the same change: context keeps strings, values must not, or
-    // `content: "#fff"` starts reading as a colour.
+    // `content: "#fff"` starts reading as a color.
     expect(declarations('a { content: "#fff"; }')).toEqual([]);
   });
 
@@ -138,7 +138,7 @@ describe('declarations', () => {
 
 describe('takesColor', () => {
   it.each(['color', 'background-color', 'border-top-color', '-webkit-text-fill-color'])(
-    'accepts %s, which names a colour', (property) => {
+    'accepts %s, which names a color', (property) => {
       expect(takesColor(property)).toBe(true);
     }
   );
@@ -154,7 +154,7 @@ describe('takesColor', () => {
   });
 
   it.each(['animation-name', 'font-family', 'transition-property', 'grid-area'])(
-    'rejects %s, where an identifier is not a colour', (property) => {
+    'rejects %s, where an identifier is not a color', (property) => {
       expect(takesColor(property)).toBe(false);
     }
   );
@@ -169,11 +169,11 @@ describe('findColors', () => {
     expect(literals('a { color: #ff0000; }')).toEqual(['#ff0000']);
   });
 
-  it('finds a bare named colour in a shorthand', () => {
+  it('finds a bare named color in a shorthand', () => {
     expect(literals('a { border: 0.1rem solid red; }')).toEqual(['red']);
   });
 
-  it('finds colours in gradient stops', () => {
+  it('finds colors in gradient stops', () => {
     expect(literals('a { background: linear-gradient(to top, #fff 0%, #000 100%); }'))
       .toEqual(['#fff', '#000']);
   });
@@ -207,27 +207,27 @@ describe('findColors', () => {
     expect(found[0].rgba).toBeNull();
   });
 
-  it('does not treat a class selector named .red as a colour', () => {
+  it('does not treat a class selector named .red as a color', () => {
     expect(literals('.red { opacity: 1; }')).toEqual([]);
   });
 
-  it('does not treat content: "tan" as a colour', () => {
+  it('does not treat content: "tan" as a color', () => {
     expect(literals('a { content: "tan"; }')).toEqual([]);
   });
 
-  it('does not treat a colour inside a comment as a colour', () => {
+  it('does not treat a color inside a comment as a color', () => {
     expect(literals('a { /* was #ff0000 */ color: var(--x); }')).toEqual([]);
   });
 
-  it('does not treat transparent or currentcolor as comparable colours', () => {
+  it('does not treat transparent or currentcolor as comparable colors', () => {
     expect(literals('a { color: currentcolor; background: transparent; }')).toEqual([]);
   });
 
-  it('does not treat a non-colour keyword as a colour', () => {
+  it('does not treat a non-color keyword as a color', () => {
     expect(literals('a { transition: all 0.2s linear; }')).toEqual([]);
   });
 
-  it('finds several colours in one declaration', () => {
+  it('finds several colors in one declaration', () => {
     expect(literals('a { box-shadow: 0 0 0 red, 0 0 0 #00f; }')).toEqual(['red', '#00f']);
   });
 
@@ -243,31 +243,31 @@ describe('findColors', () => {
     // the property gate has to survive the descent into a function, not just the
     // top level of the value -- findColors passes `named` down to itself.
     ['a var() fallback under one', 'a { animation-name: var(--enter, red); }'],
-  ])('does not read %s as a named colour', (_case, css) => {
+  ])('does not read %s as a named color', (_case, css) => {
     expect(literals(css)).toEqual([]);
   });
 
   it.each([
-    ['a colour property', 'a { color: red; }'],
+    ['a color property', 'a { color: red; }'],
     ['a shorthand', 'a { border: 0.1rem solid red; }'],
     ['a custom property', 'a { --x: red; }'],
     ['a box-shadow', 'a { box-shadow: 0 0 0.2rem red; }'],
     ['a vendor-prefixed property', 'a { -webkit-text-fill-color: red; }'],
-    // the other side of the descent: gating named colours on the property must not
+    // the other side of the descent: gating named colors on the property must not
     // stop finding them inside a function the walk descends into.
     ['a gradient stop', 'a { background: linear-gradient(to top, red, transparent); }'],
-  ])('still reads a named colour in %s', (_case, css) => {
+  ])('still reads a named color in %s', (_case, css) => {
     expect(literals(css)).toEqual(['red']);
   });
 
-  it('still reads hex and rgb() in a property that cannot take a named colour', () => {
+  it('still reads hex and rgb() in a property that cannot take a named color', () => {
     // only the bare-identifier case is property-sensitive: `#fff` and `rgb(...)` are
-    // colours wherever they are written, so they stay in scope everywhere.
+    // colors wherever they are written, so they stay in scope everywhere.
     expect(literals('a { animation-name: #fff; transition-property: rgb(0, 0, 0); }'))
       .toEqual(['#fff', 'rgb(0, 0, 0)']);
   });
 
-  it('records the declaration each colour was written in', () => {
+  it('records the declaration each color was written in', () => {
     expect(stylesheetColors('@media (max-width: 50em) { .a:hover { color: #fff; } }'))
       .toEqual([{
         context: '@media (max-width: 50em) .a:hover',
@@ -295,7 +295,7 @@ describe('describeColor', () => {
     expect(describeColor('#027EB5')).toEqual(describeColor('#027eb5'));
   });
 
-  it('resolves a named colour', () => {
+  it('resolves a named color', () => {
     expect(describeColor('white')).toEqual({a: 1, b: 255, g: 255, r: 255});
   });
 
@@ -328,7 +328,7 @@ describe('describeColor', () => {
   });
 
   it('returns null for an unknown identifier', () => {
-    expect(describeColor('notacolour')).toBeNull();
+    expect(describeColor('notacolor')).toBeNull();
   });
 
   it.each(['#12345', '#1234567', '#123456789'])(
@@ -340,7 +340,7 @@ describe('describeColor', () => {
   it.each(['#ggg', '#gggggg', '#12345g'])(
     'returns null for %s rather than a set of NaN channels', (literal) => {
       // the length is right, so only checking the length would hand back
-      // {r: NaN, g: NaN, b: NaN} and read as a resolved colour.
+      // {r: NaN, g: NaN, b: NaN} and read as a resolved color.
       expect(describeColor(literal)).toBeNull();
     }
   );
@@ -353,17 +353,17 @@ describe('describeColor', () => {
   });
 });
 
-describe('colour keys', () => {
-  it('treats an opaque colour as equal however it is written', () => {
+describe('color keys', () => {
+  it('treats an opaque color as equal however it is written', () => {
     expect(colorKey(describeColor('#fff')!)).toEqual(colorKey(describeColor('white')!));
   });
 
-  it('distinguishes a translucent colour from its opaque form', () => {
+  it('distinguishes a translucent color from its opaque form', () => {
     expect(colorKey(describeColor('rgba(0, 0, 0, 0.2)')!))
       .not.toEqual(colorKey(describeColor('#000')!));
   });
 
-  it('recognises a translucent colour by its opaque channels', () => {
+  it('recognises a translucent color by its opaque channels', () => {
     expect(opaqueKey(describeColor('rgba(0, 0, 0, 0.2)')!))
       .toEqual(opaqueKey(describeColor('#000')!));
   });

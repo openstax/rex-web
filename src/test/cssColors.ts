@@ -1,8 +1,8 @@
 /**
- * Colour auditing for plain-CSS stylesheets, used by src/app/theme.spec.ts.
+ * color auditing for plain-CSS stylesheets, used by src/app/theme.spec.ts.
  *
  * This parses declarations rather than grepping for `#hex`, because a grep misses
- * `rgba()`, `hsl()`, named colours in shorthands and colours in gradient stops —
+ * `rgba()`, `hsl()`, named colors in shorthands and colors in gradient stops —
  * all of which can silently duplicate or diverge from a theme value.
  *
  * Lives under src/test/ because it is test infrastructure rather than app code, so
@@ -33,7 +33,7 @@ export interface Declaration {
   /**
    * The selectors and at-rule preludes the declaration sits inside, outermost first,
    * whitespace-collapsed: `@media (max-width: 75em) .book-banner .title`. Used as the
-   * stable half of a colour occurrence's identity in the baseline.
+   * stable half of a color occurrence's identity in the baseline.
    */
   context: string;
   /** lower-cased property name, e.g. `background-color` or `--book-banner-height` */
@@ -42,7 +42,7 @@ export interface Declaration {
   value: string;
 }
 
-/** A colour literal together with the declaration it was written in. */
+/** A color literal together with the declaration it was written in. */
 export interface StylesheetColor extends FoundColor {
   context: string;
   property: string;
@@ -95,8 +95,8 @@ const NAMED_COLORS: {[name: string]: string} = {
 };
 
 /**
- * Colour functions are terminal — we try to resolve them and flag them.
- * Anything else that happens to *contain* a colour (`var`, `color-mix`, the
+ * color functions are terminal — we try to resolve them and flag them.
+ * Anything else that happens to *contain* a color (`var`, `color-mix`, the
  * gradients) is descended into instead.
  */
 const COLOR_FUNCTIONS = [
@@ -104,14 +104,14 @@ const COLOR_FUNCTIONS = [
 ];
 
 /**
- * Keywords that are colour-valued but carry no fixed channels, so there is nothing
+ * Keywords that are color-valued but carry no fixed channels, so there is nothing
  * to compare against the theme. They are never flagged.
  */
 const COLOR_KEYWORDS = ['transparent', 'currentcolor', 'inherit', 'initial', 'unset', 'revert', 'none'];
 
 /**
- * Blanks the parts of a stylesheet that can hold colour-shaped text without meaning a
- * colour: comments, string contents and `url()` payloads.
+ * Blanks the parts of a stylesheet that can hold color-shaped text without meaning a
+ * color: comments, string contents and `url()` payloads.
  *
  * Blanked to spaces rather than deleted, so the result is the same length as the input
  * and every character keeps its original index. `declarations` relies on that: it finds
@@ -119,7 +119,7 @@ const COLOR_KEYWORDS = ['transparent', 'currentcolor', 'inherit', 'initial', 'un
  * differently-blanked copy.
  *
  * `keepStrings` is what that second copy is for. A string is noise inside a declaration
- * value — `content: "#fff"` is not a colour — but it is *meaning* inside a selector:
+ * value — `content: "#fff"` is not a color — but it is *meaning* inside a selector:
  * `[data-loading="true"]` and `[data-loading="false"]` are different rules, and blanking
  * both to `[data-loading=""]` would make them one declaration as far as the baseline is
  * concerned, so a literal could move between them without the ratchet noticing.
@@ -187,10 +187,10 @@ export const stripNoise = (css: string): string => blankNoise(css, false);
  * Pulls declarations out of a stylesheet at any nesting depth, so `@media` blocks are
  * covered. Selectors and at-rule preludes end at a `{` and become the declaration's
  * `context` rather than being read as declarations themselves, which is what keeps
- * `a:hover` and `@keyframes` percentages out of the colour scan.
+ * `a:hover` and `@keyframes` percentages out of the color scan.
  *
  * The property name is kept as well as the value. Two things need it: a bare
- * identifier is only a colour in a property that takes one (`animation-name: red` is
+ * identifier is only a color in a property that takes one (`animation-name: red` is
  * an animation), and the baseline needs a way to tell two occurrences of the same
  * literal in the same file apart.
  *
@@ -245,10 +245,10 @@ export const declarations = (css: string): Declaration[] => {
 /**
  * Properties whose value can hold a `<color>`, directly or inside a shorthand.
  *
- * Hex and the colour functions are only ever colours, so they are read wherever they
+ * Hex and the color functions are only ever colors, so they are read wherever they
  * appear. A bare identifier is not: `animation-name: red` names a keyframe animation
  * and `font-family: black` names a font, and reporting either as a palette violation
- * would be wrong. Named colours are therefore only read here. Custom properties have
+ * would be wrong. Named colors are therefore only read here. Custom properties have
  * no property grammar at all, so they count.
  */
 const COLOR_SHORTHANDS = [
@@ -275,7 +275,7 @@ const channel = (raw: string): number | null => {
   const percent = /^(-?[\d.]+)%$/.exec(text);
   // scale by 255/100 rather than by the decimal 2.55, which is not representable in
   // binary: 50 * 2.55 is 127.49999999999999 and rounds to 127, where 50% of 255 is
-  // 127.5 and rounds to 128. The two spellings of the same colour must agree, or they
+  // 127.5 and rounds to 128. The two spellings of the same color must agree, or they
   // get different keys and the audit misclassifies one of them.
   if (percent) { return Math.round((clamp(parseFloat(percent[1]), 100) / 100) * 255); }
   return /^-?[\d.]+$/.test(text) ? Math.round(clamp(parseFloat(text), 255)) : null;
@@ -293,7 +293,7 @@ const alphaChannel = (raw?: string): number | null => {
  * Only the four lengths CSS defines, and only hex digits. Checking the grammar rather
  * than just the length matters: `#ggg` would otherwise expand to six characters,
  * `parseInt` them to NaN, and hand back an Rgba of NaNs that reads as a resolved
- * colour. A malformed *theme* value would then pass the "every colour token resolves"
+ * color. A malformed *theme* value would then pass the "every color token resolves"
  * spec while generating invalid CSS.
  */
 const HEX = /^#(?:[0-9a-f]{3,4}|[0-9a-f]{6}|[0-9a-f]{8})$/;
@@ -314,7 +314,7 @@ const fromHex = (literal: string): Rgba | null => {
 };
 
 /**
- * Resolves a colour literal to channels, or null when it cannot be resolved
+ * Resolves a color literal to channels, or null when it cannot be resolved
  * statically. Returning null is deliberate: `hsl()`, `oklch()` and `color()` fail
  * the audit rather than passing silently, so the escape hatch stays explicit.
  */
@@ -342,11 +342,11 @@ export const describeColor = (literal: string): Rgba | null => {
 };
 
 /**
- * Finds every colour literal in a declaration value, at any depth. Functions that
- * merely contain colours are descended into; colour functions are terminal.
+ * Finds every color literal in a declaration value, at any depth. Functions that
+ * merely contain colors are descended into; color functions are terminal.
  *
- * `named` says whether a bare identifier may be read as a colour, which depends on the
- * property the value belongs to — see `takesColor`. Hex and the colour functions are
+ * `named` says whether a bare identifier may be read as a color, which depends on the
+ * property the value belongs to — see `takesColor`. Hex and the color functions are
  * unambiguous and are found either way. It has no default: defaulting it to `true`
  * would quietly restore the over-eager behaviour for any caller that forgot it.
  */
@@ -402,7 +402,7 @@ export const findColors = (value: string, named: boolean): FoundColor[] => {
   return found;
 };
 
-/** Every colour literal written in a stylesheet, in source order. */
+/** Every color literal written in a stylesheet, in source order. */
 export const stylesheetColors = (css: string): StylesheetColor[] =>
   declarations(css).reduce(
     (result: StylesheetColor[], {context, property, value}) => [
@@ -412,7 +412,7 @@ export const stylesheetColors = (css: string): StylesheetColor[] =>
     []
   );
 
-/** Canonical key for comparing two colours. Opaque colours ignore alpha. */
+/** Canonical key for comparing two colors. Opaque colors ignore alpha. */
 export const colorKey = (rgba: Rgba): string =>
   rgba.a === 1 ? `${rgba.r},${rgba.g},${rgba.b}` : `${rgba.r},${rgba.g},${rgba.b},${rgba.a}`;
 
@@ -425,7 +425,7 @@ export const opaqueKey = (rgba: Rgba): string => `${rgba.r},${rgba.g},${rgba.b}`
  * baseline would otherwise be generated by different logic than it is checked with.
  */
 
-/** Maps a canonical colour key to the token that declares it. */
+/** Maps a canonical color key to the token that declares it. */
 export const themeColorIndex = (): {[key: string]: string} => themeTokens()
   .reduce((result: {[key: string]: string}, [name, value]) => {
     const rgba = describeColor(value);
@@ -433,8 +433,8 @@ export const themeColorIndex = (): {[key: string]: string} => themeTokens()
   }, {});
 
 /**
- * Colours that are deliberately not theme values, so they are never reported as
- * unrecognised. Each entry needs a reason: a colour only belongs here if snapping it
+ * Colors that are deliberately not theme values, so they are never reported as
+ * unrecognised. Each entry needs a reason: a color only belongs here if snapping it
  * to the nearest palette entry would be a visual change, which is a design decision
  * rather than a refactor.
  */
@@ -464,17 +464,17 @@ export interface ColorViolations {
 }
 
 /**
- * How a colour occurrence is identified in the baseline.
+ * How a color occurrence is identified in the baseline.
  *
  * File and literal alone are not enough: two `#fff`s in one file would be
  * interchangeable, so deleting one and writing a new one somewhere else in that file
- * would leave the sorted baseline unchanged and slip a fresh hardcoded colour past the
+ * would leave the sorted baseline unchanged and slip a fresh hardcoded color past the
  * ratchet. Naming the selector and property pins each occurrence to the declaration it
  * was written in.
  *
  * Deliberately not a line number, which would be a stricter identity but would also
  * churn the baseline every time an unrelated rule is inserted above one — and a
- * baseline regenerated for an unrelated reason is exactly where a new colour hides.
+ * baseline regenerated for an unrelated reason is exactly where a new color hides.
  * What is left uncaught is a literal moving between two declarations that share a file,
  * a selector and a property, which is to say the same declaration written twice.
  */

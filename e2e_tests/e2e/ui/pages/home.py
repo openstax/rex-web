@@ -232,28 +232,28 @@ class HomeRex:
         await self.page.locator("#note-textarea").fill(value)
 
     @pytest.mark.asyncio
-    async def highlight_box_colours_are_visible(self):
+    async def highlight_box_colors_are_visible(self):
         return (
             await self.page.locator("div")
-            .get_by_test_id("highlight-colours-picker")
+            .get_by_test_id("highlight-colors-picker")
             .is_visible()
         )
 
     @pytest.mark.asyncio
-    async def click_highlight_box_purple_colour(self):
+    async def click_highlight_box_purple_color(self):
         await self.page.locator("div").get_by_title("purple").first.click()
 
     @pytest.mark.asyncio
-    async def click_highlights_option_green_colour(self):
+    async def click_highlights_option_green_color(self):
         await self.page.locator("div").get_by_title("green").first.click()
 
     @property
-    def highlights_option_text_colour_check_purple(self):
+    def highlights_option_text_color_check_purple(self):
         return self.page.locator(".highlight-content-wrapper").filter(
     has_text="notepurple")
 
     @property
-    def highlights_option_text_colour_check_green(self):
+    def highlights_option_text_color_check_green(self):
         return self.page.locator(".highlight-content-wrapper").filter(
     has_text="notegreen")
 

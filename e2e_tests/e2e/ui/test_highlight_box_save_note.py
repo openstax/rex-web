@@ -88,7 +88,7 @@ async def test_overlapping_highlights(
 @pytest.mark.parametrize(
     "book_slug, page_slug", [("astronomy-2e", "9-3-impact-craters")]
 )
-async def test_highlight_box_note_colours(
+async def test_highlight_box_note_colors(
     chrome_page, base_url, book_slug, page_slug, rex_user, rex_password
 ):
 
@@ -98,7 +98,7 @@ async def test_highlight_box_note_colours(
     await chrome_page.goto(f"{base_url}/books/{book_slug}/pages/{page_slug}")
     home = HomeRex(chrome_page)
 
-    # THEN: Book page opens, highlight box appears with colours and highlighted text can get different colour
+    # THEN: Book page opens, highlight box appears with colors and highlighted text can get different color
     await chrome_page.keyboard.press("Escape")
 
     await home.select_text()
@@ -108,7 +108,7 @@ async def test_highlight_box_note_colours(
 
     assert await home.highlight_box_is_visible()
 
-    await home.click_highlight_box_purple_colour()
+    await home.click_highlight_box_purple_color()
 
     await home.click_highlight_box_note_field()
 
@@ -125,15 +125,15 @@ async def test_highlight_box_note_colours(
         in await home.highlights_option_page.inner_text()
     )
 
-    assert await home.highlights_option_text_colour_check_purple.is_visible()
+    assert await home.highlights_option_text_color_check_purple.is_visible()
 
     await home.click_highlights_option_page_menu()
 
-    await home.click_highlights_option_green_colour()
+    await home.click_highlights_option_green_color()
 
     await chrome_page.keyboard.press("Escape")
 
-    assert await home.highlights_option_text_colour_check_green.is_visible()
+    assert await home.highlights_option_text_color_check_green.is_visible()
 
     # THEN: Delete the created highlight
 
