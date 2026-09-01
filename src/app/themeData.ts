@@ -6,9 +6,15 @@
  * styled-components (or React, or any CSS) into the generator. `theme.ts` spreads
  * everything here into its default export, so `theme.color.x` paths are unchanged.
  *
- * Every value here is projected into a CSS custom property in `theme.css` by
- * `themeCss.ts`. Do not hand-copy a value from here into a stylesheet — reference
- * its token instead. `theme.spec.ts` fails the build if you do.
+ * The colour, padding and z-index values here are projected into CSS custom
+ * properties in `theme.css` by `themeCss.ts`. Do not hand-copy one of those into a
+ * stylesheet — reference its token instead. `theme.spec.ts` fails the build if you do.
+ *
+ * The breakpoint sizes at the bottom of this file are the exception: they have no
+ * token, because `@media (min-width: var(--x))` is not valid CSS, so a media query
+ * cannot read a custom property. Write the em value in the query. `theme.spec.ts`
+ * covers that duplication differently — it fails a query whose width is within 1em of
+ * a theme breakpoint without being one, which is the typo the duplication invites.
  */
 
 export interface ColorSet {
@@ -135,6 +141,7 @@ export const color = {
   white: '#fff',
 };
 
+// Breakpoints. No CSS token — see the note at the top of this file.
 export const mobileSmallBreak = 30; // 480px
 export const mobileMediumBreak = 50; // 800px
 export const mobileBreak = 75; // 1200px

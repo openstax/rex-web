@@ -28,6 +28,26 @@ export interface FoundColor {
   rgba: Rgba | null;
 }
 
+/** A declaration, with enough of its surroundings to identify it again. */
+export interface Declaration {
+  /**
+   * The selectors and at-rule preludes the declaration sits inside, outermost first,
+   * whitespace-collapsed: `@media (max-width: 75em) .book-banner .title`. Used as the
+   * stable half of a colour occurrence's identity in the baseline.
+   */
+  context: string;
+  /** lower-cased property name, e.g. `background-color` or `--book-banner-height` */
+  property: string;
+  /** everything to the right of the `:` */
+  value: string;
+}
+
+/** A colour literal together with the declaration it was written in. */
+export interface StylesheetColor extends FoundColor {
+  context: string;
+  property: string;
+}
+
 /** https://www.w3.org/TR/css-color-4/#named-colors */
 const NAMED_COLORS: {[name: string]: string} = {
   aliceblue: '#f0f8ff', antiquewhite: '#faebd7', aqua: '#00ffff', aquamarine: '#7fffd4',
@@ -137,23 +157,29 @@ export const stripNoise = (css: string): string => {
 };
 
 /**
- * Pulls declaration values out of a stylesheet at any nesting depth, so `@media`
- * blocks are covered. Selectors and at-rule preludes are discarded (they end at a
- * `{`), which is what keeps `a:hover` and `@keyframes` percentages from being read
- * as declarations.
+ * Pulls declarations out of a stylesheet at any nesting depth, so `@media` blocks are
+ * covered. Selectors and at-rule preludes end at a `{` and become the declaration's
+ * `context` rather than being read as declarations themselves, which is what keeps
+ * `a:hover` and `@keyframes` percentages out of the colour scan.
+ *
+ * The property name is kept as well as the value. Two things need it: a bare
+ * identifier is only a colour in a property that takes one (`animation-name: red` is
+ * an animation), and the baseline needs a way to tell two occurrences of the same
+ * literal in the same file apart.
  */
-export const declarationValues = (css: string): string[] => {
-  const values: string[] = [];
+export const declarations = (css: string): Declaration[] => {
+  const found: Declaration[] = [];
   const stripped = stripNoise(css);
+  const stack: string[] = [];
   let buffer = '';
-  let depth = 0;
   let parens = 0;
 
   const flush = () => {
     const separator = buffer.indexOf(':');
-    if (depth > 0 && separator !== -1) {
+    if (stack.length > 0 && separator !== -1) {
       const value = buffer.slice(separator + 1).trim();
-      if (value) { values.push(value); }
+      const property = buffer.slice(0, separator).trim().toLowerCase();
+      if (value) { found.push({context: stack.join(' '), property, value}); }
     }
     buffer = '';
   };
@@ -162,14 +188,44 @@ export const declarationValues = (css: string): string[] => {
     if (character === '(') { parens++; }
     if (character === ')') { parens = Math.max(0, parens - 1); }
 
-    if (parens === 0 && character === '{') { buffer = ''; depth++; continue; }
-    if (parens === 0 && character === '}') { flush(); depth = Math.max(0, depth - 1); continue; }
+    if (parens === 0 && character === '{') {
+      stack.push(buffer.replace(/\s+/g, ' ').trim());
+      buffer = '';
+      continue;
+    }
+    if (parens === 0 && character === '}') { flush(); stack.pop(); continue; }
     if (parens === 0 && character === ';') { flush(); continue; }
 
     buffer += character;
   }
 
-  return values;
+  return found;
+};
+
+/**
+ * Properties whose value can hold a `<color>`, directly or inside a shorthand.
+ *
+ * Hex and the colour functions are only ever colours, so they are read wherever they
+ * appear. A bare identifier is not: `animation-name: red` names a keyframe animation
+ * and `font-family: black` names a font, and reporting either as a palette violation
+ * would be wrong. Named colours are therefore only read here. Custom properties have
+ * no property grammar at all, so they count.
+ */
+const COLOR_SHORTHANDS = [
+  'background', 'background-image', 'border', 'border-block', 'border-block-end',
+  'border-block-start', 'border-bottom', 'border-image', 'border-image-source',
+  'border-inline', 'border-inline-end', 'border-inline-start', 'border-left',
+  'border-right', 'border-top', 'box-shadow', 'caret', 'column-rule', 'fill', 'filter',
+  'backdrop-filter', 'list-style', 'mask', 'mask-image', 'outline', 'stroke',
+  'text-decoration', 'text-emphasis', 'text-shadow', 'text-stroke',
+];
+
+export const takesColor = (property: string): boolean => {
+  if (property.startsWith('--')) { return true; }
+
+  const name = property.replace(/^-(?:webkit|moz|ms|o)-/, '');
+
+  return name.includes('color') || COLOR_SHORTHANDS.includes(name);
 };
 
 const clamp = (value: number, max: number) => Math.min(max, Math.max(0, value));
@@ -177,7 +233,11 @@ const clamp = (value: number, max: number) => Math.min(max, Math.max(0, value));
 const channel = (raw: string): number | null => {
   const text = raw.trim();
   const percent = /^(-?[\d.]+)%$/.exec(text);
-  if (percent) { return Math.round(clamp(parseFloat(percent[1]), 100) * 2.55); }
+  // scale by 255/100 rather than by the decimal 2.55, which is not representable in
+  // binary: 50 * 2.55 is 127.49999999999999 and rounds to 127, where 50% of 255 is
+  // 127.5 and rounds to 128. The two spellings of the same colour must agree, or they
+  // get different keys and the audit misclassifies one of them.
+  if (percent) { return Math.round((clamp(parseFloat(percent[1]), 100) / 100) * 255); }
   return /^-?[\d.]+$/.test(text) ? Math.round(clamp(parseFloat(text), 255)) : null;
 };
 
@@ -189,12 +249,21 @@ const alphaChannel = (raw?: string): number | null => {
   return /^-?[\d.]+$/.test(text) ? clamp(parseFloat(text), 1) : null;
 };
 
+/**
+ * Only the four lengths CSS defines, and only hex digits. Checking the grammar rather
+ * than just the length matters: `#ggg` would otherwise expand to six characters,
+ * `parseInt` them to NaN, and hand back an Rgba of NaNs that reads as a resolved
+ * colour. A malformed *theme* value would then pass the "every colour token resolves"
+ * spec while generating invalid CSS.
+ */
+const HEX = /^#(?:[0-9a-f]{3,4}|[0-9a-f]{6}|[0-9a-f]{8})$/;
+
 const fromHex = (literal: string): Rgba | null => {
+  if (!HEX.test(literal.toLowerCase())) { return null; }
+
   const digits = literal.slice(1);
   const expand = (text: string) => text.split('').map((c) => c + c).join('');
   const full = digits.length === 3 || digits.length === 4 ? expand(digits) : digits;
-
-  if (full.length !== 6 && full.length !== 8) { return null; }
 
   return {
     a: full.length === 8 ? parseInt(full.slice(6, 8), 16) / 255 : 1,
@@ -235,8 +304,13 @@ export const describeColor = (literal: string): Rgba | null => {
 /**
  * Finds every colour literal in a declaration value, at any depth. Functions that
  * merely contain colours are descended into; colour functions are terminal.
+ *
+ * `named` says whether a bare identifier may be read as a colour, which depends on the
+ * property the value belongs to — see `takesColor`. Hex and the colour functions are
+ * unambiguous and are found either way. It has no default: defaulting it to `true`
+ * would quietly restore the over-eager behaviour for any caller that forgot it.
  */
-export const findColors = (value: string): FoundColor[] => {
+export const findColors = (value: string, named: boolean): FoundColor[] => {
   const found: FoundColor[] = [];
   let index = 0;
 
@@ -258,7 +332,7 @@ export const findColors = (value: string): FoundColor[] => {
       if (COLOR_FUNCTIONS.includes(call[1].toLowerCase())) {
         found.push({literal, rgba: describeColor(literal)});
       } else {
-        found.push(...findColors(args));
+        found.push(...findColors(args, named));
       }
 
       index = cursor;
@@ -275,7 +349,7 @@ export const findColors = (value: string): FoundColor[] => {
     const word = /^-?[a-zA-Z][\w-]*/.exec(rest);
     if (word) {
       const name = word[0].toLowerCase();
-      if (NAMED_COLORS[name] && !COLOR_KEYWORDS.includes(name)) {
+      if (named && NAMED_COLORS[name] && !COLOR_KEYWORDS.includes(name)) {
         found.push({literal: word[0], rgba: describeColor(word[0])});
       }
       index += word[0].length;
@@ -289,9 +363,12 @@ export const findColors = (value: string): FoundColor[] => {
 };
 
 /** Every colour literal written in a stylesheet, in source order. */
-export const stylesheetColors = (css: string): FoundColor[] =>
-  declarationValues(css).reduce(
-    (result: FoundColor[], value) => [...result, ...findColors(value)],
+export const stylesheetColors = (css: string): StylesheetColor[] =>
+  declarations(css).reduce(
+    (result: StylesheetColor[], {context, property, value}) => [
+      ...result,
+      ...findColors(value, takesColor(property)).map((found) => ({...found, context, property})),
+    ],
     []
   );
 
@@ -346,6 +423,24 @@ export interface ColorViolations {
   unknown: string[];
 }
 
+/**
+ * How a colour occurrence is identified in the baseline.
+ *
+ * File and literal alone are not enough: two `#fff`s in one file would be
+ * interchangeable, so deleting one and writing a new one somewhere else in that file
+ * would leave the sorted baseline unchanged and slip a fresh hardcoded colour past the
+ * ratchet. Naming the selector and property pins each occurrence to the declaration it
+ * was written in.
+ *
+ * Deliberately not a line number, which would be a stricter identity but would also
+ * churn the baseline every time an unrelated rule is inserted above one — and a
+ * baseline regenerated for an unrelated reason is exactly where a new colour hides.
+ * What is left uncaught is a literal moving between two declarations that share a file,
+ * a selector and a property, which is to say the same declaration written twice.
+ */
+const occurrence = (file: string, found: StylesheetColor) =>
+  `${file}: ${found.context} { ${found.property}: ${found.literal} }`;
+
 export const colorViolations = (srcDir: string): ColorViolations => {
   const values = themeColorIndex();
   const duplicates: string[] = [];
@@ -354,12 +449,14 @@ export const colorViolations = (srcDir: string): ColorViolations => {
   stylesheetFiles(srcDir).forEach((file) => {
     const name = path.relative(srcDir, file);
 
-    stylesheetColors(fs.readFileSync(file, 'utf8')).forEach(({literal, rgba}) => {
+    stylesheetColors(fs.readFileSync(file, 'utf8')).forEach((found) => {
+      const {rgba} = found;
+
       if (rgba && values[colorKey(rgba)]) {
         // an exact match is a duplicate. `rgba(0, 0, 0, 0.2)` is not: it is black at
         // 20% and has no token form, so it falls through to the check below and
         // passes there on its opaque channels.
-        duplicates.push(`${name}: ${literal} is ${values[colorKey(rgba)]}`);
+        duplicates.push(`${occurrence(name, found)} is ${values[colorKey(rgba)]}`);
         return;
       }
 
@@ -369,7 +466,7 @@ export const colorViolations = (srcDir: string): ColorViolations => {
       if (!recognised) {
         // rgba === null lands here on purpose: hsl(), oklch() and color() cannot be
         // resolved statically, so they fail rather than passing silently.
-        unknown.push(`${name}: ${literal}`);
+        unknown.push(occurrence(name, found));
       }
     });
   });

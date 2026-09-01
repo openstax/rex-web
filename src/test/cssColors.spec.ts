@@ -1,13 +1,15 @@
 import {
   colorKey,
-  declarationValues,
+  declarations,
   describeColor,
   opaqueKey,
   stripNoise,
   stylesheetColors,
+  takesColor,
 } from './cssColors';
 
 const literals = (css: string) => stylesheetColors(css).map((found) => found.literal);
+const values = (css: string) => declarations(css).map((declaration) => declaration.value);
 
 describe('stripNoise', () => {
   it('removes block comments', () => {
@@ -32,41 +34,90 @@ describe('stripNoise', () => {
   });
 });
 
-describe('declarationValues', () => {
+describe('declarations', () => {
   it('reads declarations at the top level of a rule', () => {
-    expect(declarationValues('a { color: red; background: blue; }'))
-      .toEqual(['red', 'blue']);
+    expect(values('a { color: red; background: blue; }')).toEqual(['red', 'blue']);
   });
 
   it('reads declarations nested in @media', () => {
-    expect(declarationValues('@media (max-width: 50em) { a { color: red; } }'))
-      .toEqual(['red']);
+    expect(values('@media (max-width: 50em) { a { color: red; } }')).toEqual(['red']);
   });
 
   it('does not mistake a pseudo-class selector for a declaration', () => {
-    expect(declarationValues('a:hover { color: red; }')).toEqual(['red']);
+    expect(values('a:hover { color: red; }')).toEqual(['red']);
   });
 
   it('does not mistake @keyframes percentages for declarations', () => {
-    expect(declarationValues('@keyframes f { 0% { opacity: 0; } 100% { opacity: 1; } }'))
+    expect(values('@keyframes f { 0% { opacity: 0; } 100% { opacity: 1; } }'))
       .toEqual(['0', '1']);
   });
 
   it('ignores at-rules outside a block, such as @import', () => {
-    expect(declarationValues('@import "./theme.css";')).toEqual([]);
+    expect(values('@import "./theme.css";')).toEqual([]);
   });
 
   it('reads a declaration with no trailing semicolon', () => {
-    expect(declarationValues('a { color: red }')).toEqual(['red']);
+    expect(values('a { color: red }')).toEqual(['red']);
   });
 
   it('does not split on a semicolon inside parentheses', () => {
-    const values = declarationValues('a { background: url(x;y); color: red; }');
-    expect(values).toContain('red');
+    expect(values('a { background: url(x;y); color: red; }')).toContain('red');
   });
 
   it('keeps a custom property declaration', () => {
-    expect(declarationValues(':root { --color-x: #fff; }')).toEqual(['#fff']);
+    expect(values(':root { --color-x: #fff; }')).toEqual(['#fff']);
+  });
+
+  it('lower-cases the property name', () => {
+    expect(declarations('a { COLOR: red; }')[0].property).toEqual('color');
+  });
+
+  it('records the selector as context', () => {
+    expect(declarations('a:hover .thing { color: red; }')[0].context)
+      .toEqual('a:hover .thing');
+  });
+
+  it('collapses whitespace in the context', () => {
+    expect(declarations('a,\n  b {\n  color: red;\n}')[0].context).toEqual('a, b');
+  });
+
+  it('nests the at-rule prelude and the selector in the context', () => {
+    expect(declarations('@media (max-width: 50em) { a { color: red; } }')[0].context)
+      .toEqual('@media (max-width: 50em) a');
+  });
+
+  it('pops the context again after a nested block closes', () => {
+    const parsed = declarations('@media (max-width: 50em) { a { color: red; } } b { color: blue; }');
+    expect(parsed.map(({context}) => context))
+      .toEqual(['@media (max-width: 50em) a', 'b']);
+  });
+});
+
+describe('takesColor', () => {
+  it.each(['color', 'background-color', 'border-top-color', '-webkit-text-fill-color'])(
+    'accepts %s, which names a colour', (property) => {
+      expect(takesColor(property)).toBe(true);
+    }
+  );
+
+  it.each(['background', 'border', 'border-left', 'box-shadow', 'outline', 'fill'])(
+    'accepts the %s shorthand', (property) => {
+      expect(takesColor(property)).toBe(true);
+    }
+  );
+
+  it('accepts a custom property, which has no grammar to go on', () => {
+    expect(takesColor('--book-banner-background')).toBe(true);
+  });
+
+  it.each(['animation-name', 'font-family', 'transition-property', 'grid-area'])(
+    'rejects %s, where an identifier is not a colour', (property) => {
+      expect(takesColor(property)).toBe(false);
+    }
+  );
+
+  it('sees through a vendor prefix', () => {
+    expect(takesColor('-webkit-box-shadow')).toBe(true);
   });
 });
 
@@ -140,6 +191,40 @@ describe('findColors', () => {
   it('tolerates an unbalanced function call', () => {
     expect(() => literals('a { color: rgb(0, 0, 0; }')).not.toThrow();
   });
+
+  it.each([
+    ['an animation name', 'a { animation-name: red; }'],
+    ['a font family', 'a { font-family: black; }'],
+    ['a transitioned property', 'a { transition-property: tan; }'],
+    ['a grid area', 'a { grid-area: navy; }'],
+  ])('does not read %s as a named colour', (_case, css) => {
+    expect(literals(css)).toEqual([]);
+  });
+
+  it.each([
+    ['a colour property', 'a { color: red; }'],
+    ['a shorthand', 'a { border: 0.1rem solid red; }'],
+    ['a custom property', 'a { --x: red; }'],
+  ])('still reads a named colour in %s', (_case, css) => {
+    expect(literals(css)).toEqual(['red']);
+  });
+
+  it('still reads hex and rgb() in a property that cannot take a named colour', () => {
+    // only the bare-identifier case is property-sensitive: `#fff` and `rgb(...)` are
+    // colours wherever they are written, so they stay in scope everywhere.
+    expect(literals('a { animation-name: #fff; transition-property: rgb(0, 0, 0); }'))
+      .toEqual(['#fff', 'rgb(0, 0, 0)']);
+  });
+
+  it('records the declaration each colour was written in', () => {
+    expect(stylesheetColors('@media (max-width: 50em) { .a:hover { color: #fff; } }'))
+      .toEqual([{
+        context: '@media (max-width: 50em) .a:hover',
+        literal: '#fff',
+        property: 'color',
+        rgba: {a: 1, b: 255, g: 255, r: 255},
+      }]);
+  });
 });
 
 describe('describeColor', () => {
@@ -197,6 +282,21 @@ describe('describeColor', () => {
 
   it('returns null for a malformed hex length', () => {
     expect(describeColor('#12345')).toBeNull();
+  });
+
+  it.each(['#ggg', '#gggggg', '#12345g'])(
+    'returns null for %s rather than a set of NaN channels', (literal) => {
+      // the length is right, so only checking the length would hand back
+      // {r: NaN, g: NaN, b: NaN} and read as a resolved colour.
+      expect(describeColor(literal)).toBeNull();
+    }
+  );
+
+  it('rounds a percentage channel the same way as its integer spelling', () => {
+    // 50% of 255 is 127.5, which rounds to 128. Scaling by the decimal 2.55 gives
+    // 127.49999999999999 and rounds to 127, so the two spellings would disagree.
+    expect(describeColor('rgb(50%, 50%, 50%)')).toEqual({a: 1, b: 128, g: 128, r: 128});
+    expect(describeColor('rgb(50%, 50%, 50%)')).toEqual(describeColor('rgb(128, 128, 128)'));
   });
 });
 

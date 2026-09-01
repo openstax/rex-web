@@ -8,7 +8,10 @@
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap");
 @import url("https://fast.fonts.net/t/1.css?apiType=css&projectid=437b6557-ce99-4f35-97ff-64a93247731f");
 
-/* Global theme tokens, generated from src/app/themeData.ts. See README "Styling". */
+/*
+ * Global theme tokens, generated from src/app/themeData.ts -- do not edit theme.css.
+ * See PLAIN_CSS_MIGRATION_GUIDE.md, "Pattern 2.5: Using Global Theme Tokens".
+ */
 @import "./app/theme.css";
 
 body,

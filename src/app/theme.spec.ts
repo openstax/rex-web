@@ -23,6 +23,9 @@ const relative = (file: string) => path.relative(srcDir, file);
  * the check means enforcement starts now: a new duplicated colour fails CI today, and
  * the list can only shrink. After removing some, run `yarn generate:theme-baseline`
  * and check the counts went down.
+ *
+ * Each entry identifies the declaration the literal was written in, not just the file
+ * and the literal -- see `occurrence` in src/test/cssColors.ts for why.
  */
 const baseline = (): {duplicates: string[], unknown: string[]} =>
   JSON.parse(fs.readFileSync(baselinePath, 'utf8'));
@@ -85,7 +88,8 @@ describe('stylesheets', () => {
     // breakpoints outright would be wrong (Footer legitimately uses 37.5em, 60.1em and
     // 90em), so this catches the failure the duplication actually causes instead: a
     // value meant to be a theme breakpoint but mistyped, e.g. 74em or 75.5em, which
-    // silently stops matching where the theme's own queries match.
+    // silently stops matching where the theme's own queries match. The bound is
+    // inclusive so that 74em -- exactly 1em out, and the likeliest typo -- is caught.
     const themeBreaks = [
       theme.breakpoints.mobileSmallBreak,
       theme.breakpoints.mobileMediumBreak,
@@ -106,7 +110,7 @@ describe('stylesheets', () => {
           size: parseFloat((/([\d.]+)em/.exec(query) as RegExpExecArray)[1]),
         }))
         .filter(({size}) => !exact.has(size))
-        .filter(({size}) => themeBreaks.some((themeBreak) => Math.abs(themeBreak - size) < 1))
+        .filter(({size}) => themeBreaks.some((themeBreak) => Math.abs(themeBreak - size) <= 1))
         .map(({query}) => `${relative(file)}: ${query}`);
 
       return [...result, ...offenders];
