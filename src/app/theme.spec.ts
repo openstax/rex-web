@@ -69,15 +69,16 @@ describe('stylesheets', () => {
     const declared = new Set(themeTokens().map(([name]) => `--${name}`));
     const globalFamilies = /^--(color|z-index|padding)-/;
 
-    const missing = stylesheetFiles(srcDir).reduce((result: string[], file) => {
+    const missing: string[] = [];
+
+    for (const file of stylesheetFiles(srcDir)) {
       const read = stripNoise(fs.readFileSync(file, 'utf8')).match(/var\(\s*(--[\w-]+)/g) || [];
-      const offenders = read
+
+      read
         .map((match) => match.replace(/var\(\s*/, ''))
         .filter((name) => globalFamilies.test(name) && !declared.has(name))
-        .map((name) => `${relative(file)}: ${name}`);
-
-      return [...result, ...offenders];
-    }, []);
+        .forEach((name) => missing.push(`${relative(file)}: ${name}`));
+    }
 
     expect(missing).toEqual([]);
   });
@@ -101,20 +102,21 @@ describe('stylesheets', () => {
       []
     ));
 
-    const suspicious = stylesheetFiles(srcDir).reduce((result: string[], file) => {
+    const suspicious: string[] = [];
+
+    for (const file of stylesheetFiles(srcDir)) {
       const queries = stripNoise(fs.readFileSync(file, 'utf8'))
         .match(/\((?:min|max)-width:\s*[\d.]+em\)/g) || [];
-      const offenders = queries
+
+      queries
         .map((query) => ({
           query,
           size: parseFloat((/([\d.]+)em/.exec(query) as RegExpExecArray)[1]),
         }))
         .filter(({size}) => !exact.has(size))
         .filter(({size}) => themeBreaks.some((themeBreak) => Math.abs(themeBreak - size) <= 1))
-        .map(({query}) => `${relative(file)}: ${query}`);
-
-      return [...result, ...offenders];
-    }, []);
+        .forEach(({query}) => suspicious.push(`${relative(file)}: ${query}`));
+    }
 
     expect(suspicious).toEqual([]);
   });
