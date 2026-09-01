@@ -19,13 +19,23 @@ const GENERATED_HEADER = [
 ].join('\n');
 
 /**
- * Hex values are lowercased on the way out. The JS theme mixes cases (`#027EB5`
- * next to `#d4450c`) and CSS is case-insensitive here, so normalising means a
- * token's value has exactly one spelling and stylelint's color-hex-case is
- * satisfied without having to touch the published JS values.
+ * Hex values are normalised on the way out: lowercased, and shortened to the 3-digit
+ * form where it is equivalent. The JS theme mixes cases and lengths (`#027EB5` next to
+ * `#d4450c`, `#888888` next to `#fff`), so normalising gives each token exactly one
+ * spelling and satisfies stylelint's color-hex-case and color-hex-length without
+ * having to touch the JS values other code reads.
  */
-const normalizeValue = (value: string) =>
-  /^#[0-9a-fA-F]{3,8}$/.test(value) ? value.toLowerCase() : value;
+const normalizeValue = (value: string) => {
+  if (!/^#[0-9a-fA-F]{6}$/.test(value)) {
+    return /^#[0-9a-fA-F]{3,8}$/.test(value) ? value.toLowerCase() : value;
+  }
+
+  const [r1, r2, g1, g2, b1, b2] = value.slice(1).toLowerCase();
+
+  return r1 === r2 && g1 === g2 && b1 === b2
+    ? `#${r1}${g1}${b1}`
+    : `#${r1}${r2}${g1}${g2}${b1}${b2}`;
+};
 
 const kebabCase = (value: string) => value
   .replace(/([a-z0-9])([A-Z])/g, '$1-$2')
@@ -36,7 +46,7 @@ const kebabCase = (value: string) => value
  * `{neutral: {formBorder: '#d5d5d5'}}` becomes `[['neutral-form-border', '#d5d5d5']]`.
  * Keys that are already kebab-case (`light-blue`) pass through unchanged.
  */
-const flatten = (source: object, prefix: string[] = []): Array<[string, string]> =>
+const flatten = (source: object, prefix: string[]): Array<[string, string]> =>
   Object.entries(source).reduce((result: Array<[string, string]>, [key, value]) => {
     const path = [...prefix, kebabCase(key)];
 

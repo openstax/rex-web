@@ -22,7 +22,7 @@
   --color-neutral-page-background: #f1f1f1;
   --color-primary-blue-base: #002468;
   --color-primary-blue-foreground: #fff;
-  --color-primary-blue-foreground-hover: #888888;
+  --color-primary-blue-foreground-hover: #888;
   --color-primary-deep-green-base: #067056;
   --color-primary-deep-green-foreground: #fff;
   --color-primary-deep-green-foreground-hover: #c5c5c5;
@@ -31,7 +31,7 @@
   --color-primary-gray-foreground: #fff;
   --color-primary-gray-foreground-hover: #424242;
   --color-primary-gray-light: #767676;
-  --color-primary-gray-medium: #888888;
+  --color-primary-gray-medium: #888;
   --color-primary-gray-lighter: #c5c5c5;
   --color-primary-gray-lightest: #ededed;
   --color-primary-green-base: #63a524;
@@ -42,7 +42,7 @@
   --color-primary-light-blue-foreground-hover: #424242;
   --color-primary-midnight-base: #003e52;
   --color-primary-midnight-foreground: #fff;
-  --color-primary-midnight-foreground-hover: #888888;
+  --color-primary-midnight-foreground-hover: #888;
   --color-primary-orange-base: #d4450c;
   --color-primary-orange-darker: #be3c08;
   --color-primary-orange-darkest: #b03808;
