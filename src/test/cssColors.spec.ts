@@ -197,6 +197,9 @@ describe('findColors', () => {
     ['a font family', 'a { font-family: black; }'],
     ['a transitioned property', 'a { transition-property: tan; }'],
     ['a grid area', 'a { grid-area: navy; }'],
+    // the property gate has to survive the descent into a function, not just the
+    // top level of the value -- findColors passes `named` down to itself.
+    ['a var() fallback under one', 'a { animation-name: var(--enter, red); }'],
   ])('does not read %s as a named colour', (_case, css) => {
     expect(literals(css)).toEqual([]);
   });
@@ -205,6 +208,11 @@ describe('findColors', () => {
     ['a colour property', 'a { color: red; }'],
     ['a shorthand', 'a { border: 0.1rem solid red; }'],
     ['a custom property', 'a { --x: red; }'],
+    ['a box-shadow', 'a { box-shadow: 0 0 0.2rem red; }'],
+    ['a vendor-prefixed property', 'a { -webkit-text-fill-color: red; }'],
+    // the other side of the descent: gating named colours on the property must not
+    // stop finding them inside a function the walk descends into.
+    ['a gradient stop', 'a { background: linear-gradient(to top, red, transparent); }'],
   ])('still reads a named colour in %s', (_case, css) => {
     expect(literals(css)).toEqual(['red']);
   });
@@ -280,9 +288,11 @@ describe('describeColor', () => {
     expect(describeColor('notacolour')).toBeNull();
   });
 
-  it('returns null for a malformed hex length', () => {
-    expect(describeColor('#12345')).toBeNull();
-  });
+  it.each(['#12345', '#1234567', '#123456789'])(
+    'returns null for the malformed hex length %s', (literal) => {
+      expect(describeColor(literal)).toBeNull();
+    }
+  );
 
   it.each(['#ggg', '#gggggg', '#12345g'])(
     'returns null for %s rather than a set of NaN channels', (literal) => {
