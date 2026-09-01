@@ -6,7 +6,7 @@
  * styled-components (or React, or any CSS) into the generator. `theme.ts` spreads
  * everything here into its default export, so `theme.color.x` paths are unchanged.
  *
- * The colour, padding and z-index values here are projected into CSS custom
+ * The color, padding and z-index values here are projected into CSS custom
  * properties in `theme.css` by `themeCss.ts`. Do not hand-copy one of those into a
  * stylesheet — reference its token instead. `theme.spec.ts` fails the build if you do.
  *

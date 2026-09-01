@@ -18,9 +18,9 @@ const baselinePath = path.join(__dirname, 'theme.baseline.json');
 const relative = (file: string) => path.relative(srcDir, file);
 
 /**
- * The colour violations that already existed when the token file was introduced and
+ * The color violations that already existed when the token file was introduced and
  * that the sweep subtasks are working through. Locking the list rather than skipping
- * the check means enforcement starts now: a new duplicated colour fails CI today, and
+ * the check means enforcement starts now: a new duplicated color fails CI today, and
  * the list can only shrink. After removing some, run `yarn generate:theme-baseline`
  * and check the counts went down.
  *
@@ -37,7 +37,7 @@ describe('theme.css', () => {
     expect(fs.readFileSync(themeCssPath, 'utf8')).toEqual(themeCss());
   });
 
-  it('resolves every colour token to real channels', () => {
+  it('resolves every color token to real channels', () => {
     // Guards the index the audit is built on: a token whose value cannot be resolved
     // would silently drop out of it and then be reported as unrecognised everywhere.
     const unresolvable = themeTokens()
@@ -54,11 +54,11 @@ describe('stylesheets', () => {
     expect(stylesheetFiles(srcDir).length).toBeGreaterThan(50);
   });
 
-  it('do not duplicate a theme colour beyond the baseline', () => {
+  it('do not duplicate a theme color beyond the baseline', () => {
     expect(colorViolations(srcDir).duplicates).toEqual(baseline().duplicates);
   });
 
-  it('do not introduce an unrecognised colour beyond the baseline', () => {
+  it('do not introduce an unrecognised color beyond the baseline', () => {
     expect(colorViolations(srcDir).unknown).toEqual(baseline().unknown);
   });
 

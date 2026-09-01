@@ -1,10 +1,10 @@
 /**
  * Rewrites src/app/theme.baseline.json from the current stylesheets.
  *
- * The baseline records the colour violations that predate the token file, so that
+ * The baseline records the color violations that predate the token file, so that
  * src/app/theme.spec.ts can fail on *new* ones while the sweep works through the old
  * ones. Run this after removing violations — the counts it prints should go down, never
- * up. If they go up, you have added a hardcoded colour that belongs in a token.
+ * up. If they go up, you have added a hardcoded color that belongs in a token.
  */
 import fs from 'fs';
 import path from 'path';

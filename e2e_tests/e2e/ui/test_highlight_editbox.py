@@ -29,7 +29,7 @@ async def test_highlight_editbox_opens_on_one_click(
 
     assert await home.highlight_box_is_visible()
 
-    assert await home.highlight_box_colours_are_visible()
+    assert await home.highlight_box_colors_are_visible()
     assert await home.highlight_box_trash_icon_is_visible()
 
     await home.click_highlight_box_trash_icon()
