@@ -9,7 +9,7 @@ import { useTrapTabNavigation } from '../../../reactUtils/focusUtils';
 import { LinkedArchiveTreeNode } from '../../types';
 import { splitTitleParts } from '../../utils/archiveTreeUtils';
 import { AngleIcon, Fieldset } from './Filters';
-import { FiltersChange, LocationFilters } from './types';
+import { FiltersChange, LocationFilters, LocationFiltersWithChildren } from './types';
 import './ChapterFilter.css';
 
 const Row = ({ children }: { children: React.ReactNode }) => (
@@ -24,9 +24,8 @@ const ChapterTitle = ({ className, ...props }: React.HTMLAttributes<HTMLSpanElem
   <span className={classNames('chapter-filter-title', className)} {...props} />
 );
 
-// practice questions doesn't pass locationFiltersWithContent; its location
-// filters always have children, so the lookups that read it are never reached
-// there. Shared so the fallback doesn't allocate on every render.
+// only reachable for the ChapterFilterWithoutContentProps shape below, where
+// nothing reads it. Shared so the fallback doesn't allocate on every render.
 const noLocationFiltersWithContent: Map<string, LinkedArchiveTreeNode> = new Map();
 
 const chunk = <T extends unknown>(sections: T[]) => {
@@ -34,17 +33,33 @@ const chunk = <T extends unknown>(sections: T[]) => {
   return [sections.slice(0, cutoff), sections.slice(cutoff)].filter((arr) => arr.length > 0);
 };
 
-interface ChapterFilterProps {
+interface ChapterFilterCommonProps {
   ariaLabelItemId?: string;
   className?: string;
   disabled?: boolean;
-  locationFilters: LocationFilters;
-  locationFiltersWithContent?: Map<string, LinkedArchiveTreeNode>;
   selectedLocationFilters: Set<string>;
-  multiselect: boolean;
   setFilters: (filters: FiltersChange<LinkedArchiveTreeNode>) => void;
   id: string;
 }
+
+// locationFiltersWithContent decides two things: what All/None dispatches, and
+// whether a childless filter is disabled. Callers that can hit either need it.
+interface ChapterFilterWithContentProps extends ChapterFilterCommonProps {
+  locationFilters: LocationFilters;
+  locationFiltersWithContent: Map<string, LinkedArchiveTreeNode>;
+  multiselect: boolean;
+}
+
+// practice questions hits neither: every one of its filters has children, and
+// single-select renders no All/None. Omitting the map is only allowed for that
+// exact shape so it can't silently disable filters somewhere else.
+interface ChapterFilterWithoutContentProps extends ChapterFilterCommonProps {
+  locationFilters: LocationFiltersWithChildren;
+  locationFiltersWithContent?: undefined;
+  multiselect: false;
+}
+
+type ChapterFilterProps = ChapterFilterWithContentProps | ChapterFilterWithoutContentProps;
 
 const ChapterFilter = (props: ChapterFilterProps) => {
   const [openChapterId, setOpenChapterId] = React.useState<string | null>(null);
