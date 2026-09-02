@@ -1,6 +1,6 @@
 import React from 'react';
+import classNames from 'classnames';
 import { useIntl } from 'react-intl';
-import styled from 'styled-components/macro';
 import RiceWhiteLogo from '../../../assets/rice-logo-white.png';
 import theme from '../../theme';
 
@@ -12,11 +12,9 @@ export const linkedInUrl = 'https://www.linkedin.com/company/openstax';
 export const riceUrl = 'http://www.rice.edu';
 
 // Icon components
-// These icons were migrated from styled-components in styled.tsx.
-// They remain as local SVG components so this module can apply consistent
-// inline sizing/styling via className and SVG attributes during the migration.
-// They are not exported for external styled-components component selector usage.
-// See PLAIN_CSS_MIGRATION_LEARNINGS.md for more details on the migration pattern.
+// These are local SVG components rather than shared icons so this module can
+// apply consistent sizing via the .footer-social-icon-svg class in Footer.css.
+// They are not exported.
 interface IconProps extends React.SVGAttributes<SVGSVGElement> {
   className?: string;
 }
@@ -25,10 +23,10 @@ interface IconProps extends React.SVGAttributes<SVGSVGElement> {
  * Facebook icon for social media links.
  * SVG path from Font Awesome Free (https://fontawesome.com - MIT License)
  */
-function FacebookIconBase({ className, ...props }: IconProps) {
+function FBIcon({ className, ...props }: IconProps) {
   return (
     <svg
-      className={className}
+      className={classNames('footer-social-icon-svg', className)}
       viewBox="0 0 320 512"
       aria-hidden="true"
       {...props}
@@ -41,18 +39,14 @@ function FacebookIconBase({ className, ...props }: IconProps) {
   );
 }
 
-const FBIcon = styled(FacebookIconBase)`
-  height: 1em;
-`;
-
 /**
  * X (Twitter) icon for social media links.
  * SVG path from Font Awesome Free (https://fontawesome.com - MIT License)
  */
-function XTwitterBase({ className, ...props }: IconProps) {
+function TwitterIcon({ className, ...props }: IconProps) {
   return (
     <svg
-      className={className}
+      className={classNames('footer-social-icon-svg', className)}
       aria-hidden='true'
       focusable='false'
       data-prefix='fab'
@@ -74,20 +68,14 @@ function XTwitterBase({ className, ...props }: IconProps) {
   );
 }
 
-const TwitterIcon = styled(XTwitterBase)`
-  height: 1em;
-`;
-
 /**
  * Instagram icon for social media links.
  * SVG path from Font Awesome Free (https://fontawesome.com - MIT License)
- *
- * Note: Wrapped with styled() to enable styled-components styling
  */
-function InstagramIconBase({ className, ...props }: IconProps) {
+function IGIcon({ className, ...props }: IconProps) {
   return (
     <svg
-      className={className}
+      className={classNames('footer-social-icon-svg', className)}
       viewBox="0 0 448 512"
       aria-hidden="true"
       {...props}
@@ -100,20 +88,14 @@ function InstagramIconBase({ className, ...props }: IconProps) {
   );
 }
 
-const IGIcon = styled(InstagramIconBase)`
-  height: 1em;
-`;
-
 /**
  * LinkedIn icon for social media links.
  * SVG path from Font Awesome Free (https://fontawesome.com - MIT License)
- *
- * Note: Wrapped with styled() to enable styled-components styling
  */
-function LinkedInIconBase({ className, ...props }: IconProps) {
+function LinkedInIcon({ className, ...props }: IconProps) {
   return (
     <svg
-      className={className}
+      className={classNames('footer-social-icon-svg', className)}
       viewBox="0 0 448 512"
       aria-hidden="true"
       {...props}
@@ -125,10 +107,6 @@ function LinkedInIconBase({ className, ...props }: IconProps) {
     </svg>
   );
 }
-
- const LinkedInIcon = styled(LinkedInIconBase)`
-  height: 1em;
-`;
 
 const SocialIconMessage: React.FunctionComponent<{
   id: string;

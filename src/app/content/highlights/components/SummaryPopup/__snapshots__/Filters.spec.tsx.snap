@@ -498,7 +498,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
           />
         </svg>
         <span
-          className="toolbar-print-options "
+          className="toolbar-print-options"
         >
           Print
         </span>

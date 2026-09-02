@@ -27,13 +27,6 @@ import { isVerticalNavOpenConnector } from '../utils/sidebar';
 import Color from 'color';
 /* CSS is imported in src/app/index.tsx */
 
-// Keep legacy css export for backward compatibility with AssignedTopBar
-// TODO: Remove this once AssignedTopBar is migrated to plain CSS
-import { css } from 'styled-components/macro'; // eslint-disable-line import/first
-export const shadow = css`
-  box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.14);
-`;
-
 interface IconProps extends React.SVGAttributes<SVGSVGElement> {
   className?: string;
 }
