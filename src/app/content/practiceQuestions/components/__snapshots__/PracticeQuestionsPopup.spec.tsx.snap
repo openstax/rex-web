@@ -3,119 +3,6 @@
 exports[`PracticeQuestions doesn't render practice questions modal if it is closed 1`] = `null`;
 
 exports[`PracticeQuestions renders practice questions modal if it is open 1`] = `
-.c4 {
-  color: #5e6062;
-  width: 1rem;
-  height: 2rem;
-  margin-left: 0.8rem;
-  padding-top: 0.2rem;
-}
-
-.c3 {
-  position: relative;
-  border-left: 0.1rem solid transparent;
-  border-right: 0.1rem solid transparent;
-}
-
-.c3 > div {
-  padding: 2rem 2.4rem;
-  outline: none;
-  color: #5e6062;
-  font-size: 1.6rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: end;
-  -webkit-justify-content: flex-end;
-  -ms-flex-pack: end;
-  justify-content: flex-end;
-}
-
-.c1 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  overflow: visible;
-  width: 100%;
-}
-
-.c0 {
-  position: relative;
-  z-index: 2;
-  overflow: visible;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-flow: row wrap;
-  -ms-flex-flow: row wrap;
-  flex-flow: row wrap;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  background: #fff;
-  border-bottom: 0.1rem solid #d5d5d5;
-}
-
-.c0 .dropdown-toggle {
-  font-weight: bold;
-}
-
-.c0 .c2 > *:not(.dropdown-toggle) {
-  top: calc(100% - 0.1rem);
-  box-shadow: 0 0 0.6rem 0 rgba(0,0,0,0.2);
-  max-height: calc(100vh - 26rem);
-}
-
-@media screen and (max-width:75em) {
-  .c3 > div {
-    padding: 1rem 1.6rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c0 .c2 > *:not(.dropdown-toggle) {
-    max-height: calc(100vh - 18.4rem);
-  }
-}
-
-@media screen and (max-width:30em) {
-  .c0 .c2 {
-    position: initial;
-  }
-
-  .c0 .c2 > *:not(.dropdown-toggle) {
-    top: auto;
-    margin-top: -0.1rem;
-  }
-}
-
-@media print {
-  .c0 {
-    padding-left: 0;
-  }
-}
-
-@media print {
-  .c0 > *:not(.filters-list) {
-    display: none;
-  }
-}
-
 <div
   aria-labelledby="modal-title"
   aria-modal="true"
@@ -226,19 +113,19 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
       }
     >
       <div
-        className="c0"
+        className="popup-filters"
       >
         <div
-          className="c1"
+          className="popup-filters-top-bar"
         >
           <div
-            className="dropdown-wrapper c2 "
+            className="dropdown-wrapper"
           >
             <button
               aria-controls="practice-filter-chapter"
               aria-expanded={false}
               aria-label="Select Practice Questions by Chapter & Section"
-              className="plain-button c3 dropdown-toggle"
+              className="plain-button filters-toggle dropdown-toggle"
               data-analytics-label="Filter PQ by Chapter & Section"
               onClick={[Function]}
             >
@@ -248,8 +135,7 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
                 Chapter & Section
                 <svg
                   aria-hidden="true"
-                  className="c4"
-                  direction="down"
+                  className="filters-angle-icon"
                   viewBox="0 0 320 512"
                 >
                   <path

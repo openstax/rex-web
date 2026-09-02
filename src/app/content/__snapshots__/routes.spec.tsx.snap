@@ -1,40 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`assigned route route renders renders a component 1`] = `
-.c0 {
-  position: relative;
-  border-left: 0.1rem solid transparent;
-  border-right: 0.1rem solid transparent;
-}
-
-.c0 > div {
-  padding: 2rem 2.4rem;
-  outline: none;
-  color: #5e6062;
-  font-size: 1.6rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: end;
-  -webkit-justify-content: flex-end;
-  -ms-flex-pack: end;
-  justify-content: flex-end;
-}
-
-@media screen and (max-width:75em) {
-  .c0 > div {
-    padding: 1rem 1.6rem;
-  }
-}
-
 <div
   className="platform-wrapper"
   data-platform="assignable"
@@ -108,7 +74,7 @@ exports[`assigned route route renders renders a component 1`] = `
         aria-controls="text-resizer-menu"
         aria-expanded={false}
         aria-label="Change text size"
-        className="plain-button c0 dropdown-toggle"
+        className="plain-button filters-toggle dropdown-toggle"
         data-analytics-label="Change text size"
         onClick={[Function]}
       >
