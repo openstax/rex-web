@@ -1,0 +1,163 @@
+/* NudgeStudyTools styles - plain CSS version
+ *
+ * Values previously interpolated from theme.ts / constants.ts are inlined here
+ * with the original expression in a comment. Geometry that usePositions()
+ * computes at runtime (top/left offsets, spotlight grid tracks) stays in the
+ * style prop, since it cannot live in a static stylesheet.
+ *
+ * --nudge-overlay-z-index is set from theme.zIndex.nudgeOverlay by the
+ * components, matching the CSS-custom-property pattern in Toolbar/styled.tsx.
+ */
+
+/* NudgeWrapper and NudgeElementTarget */
+.nudge-wrapper {
+  display: contents;
+}
+
+/* NudgeContentWrapper - top/left come from the style prop */
+.nudge-content-wrapper {
+  position: fixed;
+  z-index: calc(var(--nudge-overlay-z-index, 130) + 1); /* theme.zIndex.nudgeOverlay + 1 */
+  outline: none;
+
+  /* NOTE: the styled-components version had `width: ${contentWidth}` where
+   * contentWidth is the unitless number 69. That renders as `width: 69`, which
+   * is invalid CSS and was dropped by every browser, so no desktop width was
+   * ever applied. Reproducing that here by omitting the declaration rather than
+   * silently "fixing" it to 69rem, which would be a visual change. See the PR. */
+}
+
+/* theme.breakpoints.mobileMedium */
+@media screen and (max-width: 50em) {
+  .nudge-content-wrapper {
+    left: auto;
+    width: 100%;
+    padding: 0 1.6rem;
+  }
+}
+
+/* NudgeContent */
+.nudge-content {
+  position: relative;
+}
+
+/* NudgeHeading */
+.nudge-heading {
+  font-size: 3.6rem;
+  line-height: 1.1;
+  letter-spacing: -1.4px;
+  margin: 0 0 1.6rem 0;
+  color: #fff; /* theme.color.text.white */
+  overflow: hidden;
+}
+
+.nudge-heading strong {
+  color: #f4d019; /* theme.color.primary.yellow.base */
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* theme.breakpoints.mobileMedium */
+@media screen and (max-width: 50em) {
+  .nudge-heading {
+    font-size: 2.4rem;
+  }
+}
+
+/* NudgeText */
+.nudge-text {
+  font-size: 2.4rem;
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -1px;
+  color: #fff; /* theme.color.text.white */
+  max-width: 690px;
+  overflow: hidden;
+}
+
+/* theme.breakpoints.mobileMedium */
+@media screen and (max-width: 50em) {
+  .nudge-text {
+    max-width: 100%;
+    font-size: 1.6rem;
+    line-height: 1.4;
+  }
+}
+
+/* NudgeArrow - top/left come from the style prop */
+.nudge-arrow {
+  position: fixed;
+  z-index: calc(var(--nudge-overlay-z-index, 130) + 1); /* theme.zIndex.nudgeOverlay + 1 */
+  display: block;
+  height: 11.5rem; /* arrowDesktopHeight */
+}
+
+/* NudgeCloseIcon */
+.nudge-close-icon {
+  width: 1.1rem;
+  color: #fff; /* theme.color.text.white */
+}
+
+/* NudgeCloseButton - top/left come from the style prop.
+ * The sizes below were remsToPx(...) in JS; rem is the same computation. */
+.nudge-close-button {
+  position: fixed;
+  z-index: calc(var(--nudge-overlay-z-index, 130) + 1); /* theme.zIndex.nudgeOverlay + 1 */
+  width: 4rem; /* closeButtonSize */
+  height: 4rem; /* closeButtonSize */
+  padding: 1rem;
+  border-radius: 50%;
+  border: 1px solid #fff; /* theme.color.white */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* theme.breakpoints.mobile */
+@media screen and (max-width: 75em) {
+  .nudge-close-button {
+    left: auto;
+    top: 3rem; /* closeButtonMobileMargin */
+    right: 3rem; /* closeButtonMobileMargin */
+  }
+}
+
+/* NudgeBackground - grid-template tracks come from the style prop */
+.nudge-background {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: var(--nudge-overlay-z-index, 130); /* theme.zIndex.nudgeOverlay */
+  pointer-events: none;
+  display: grid;
+  grid-template-areas:
+    "top       top       top"
+    "left   spotlight   right"
+    "bottom   bottom   bottom";
+}
+
+/* ClickBlocker */
+.nudge-click-blocker {
+  width: 100%;
+  height: 100%;
+  pointer-events: all;
+  background-color: #000; /* theme.color.black */
+  opacity: 0.9;
+}
+
+.nudge-click-blocker-top {
+  grid-area: top;
+}
+
+.nudge-click-blocker-right {
+  grid-area: right;
+}
+
+.nudge-click-blocker-bottom {
+  grid-area: bottom;
+}
+
+.nudge-click-blocker-left {
+  grid-area: left;
+}
