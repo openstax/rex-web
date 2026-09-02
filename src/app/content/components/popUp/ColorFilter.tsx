@@ -2,23 +2,19 @@ import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import styled, { css } from 'styled-components/macro';
+import classNames from 'classnames';
 import AllOrNone from '../../../components/AllOrNone';
 import Checkbox from '../../../components/Checkbox';
 import { useTrapTabNavigation } from '../../../reactUtils/focusUtils';
-import theme from '../../../theme';
 import { highlightStyles } from '../../constants';
 import ColorIndicator from '../../highlights/components/ColorIndicator';
-import { filters, mobileMarginSides } from '../../styles/PopupConstants';
 import { FiltersChange } from './types';
 import { Fieldset } from './Filters';
+import './ColorFilter.css';
 
-const ColorLabel = styled.span`
-  flex: 1;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-`;
+const ColorLabel = ({ children }: { children: React.ReactNode }) => (
+  <span className='color-filter-label'>{children}</span>
+);
 export interface ColorFilterProps {
   className?: string;
   disabled?: boolean;
@@ -55,7 +51,7 @@ const ColorFilter = ({
     }
   };
 
-  return <div className={className} tabIndex={-1} id={id} ref={ref}>
+  return <div className={classNames('color-filter', className)} tabIndex={-1} id={id} ref={ref}>
     <AllOrNone
       onNone={() => setSelectedColors({ remove: Array.from(colorFiltersWithContent), new: [] })}
       onAll={() => setSelectedColors({ remove: [], new: Array.from(colorFiltersWithContent) })}
@@ -80,31 +76,4 @@ const ColorFilter = ({
   </div>;
 };
 
-export default styled(ColorFilter)`
-  background: ${theme.color.white};
-  display: flex;
-  flex-direction: column;
-  color: ${theme.color.text.default};
-  font-size: 1.4rem;
-  padding: ${filters.dropdownContent.padding.topBottom}rem ${filters.dropdownContent.padding.sides}rem;
-  outline: none;
-  z-index: 1;
-  overflow: auto;
-
-  .all-or-none {
-    margin: 0.8rem 0 0.8rem 0.8rem;
-  }
-
-  .checkbox-label {
-    padding: 0.8rem;
-    text-transform: capitalize;
-  }
-
-  .color-indicator {
-    margin: 0 1.6rem 0 1.6rem;
-  }
-
-  ${theme.breakpoints.mobileSmall(css`
-    width: calc(100vw - ${mobileMarginSides * 2}rem);
-  `)}
-`;
+export default ColorFilter;

@@ -2,7 +2,7 @@
 
 exports[`Dropdown matches snapshot 1`] = `
 <div
-  className="dropdown-transparent dropdown-wrapper "
+  className="dropdown-transparent dropdown-wrapper"
 >
   <div
     className="dropdown-focus-wrapper"
@@ -56,7 +56,7 @@ exports[`Dropdown matches snapshot 1`] = `
 
 exports[`Dropdown matches snapshot for tab hidden (closed) 1`] = `
 <div
-  className="dropdown-wrapper "
+  className="dropdown-wrapper"
 >
   <button
     className="dropdown-toggle"
@@ -70,7 +70,7 @@ exports[`Dropdown matches snapshot for tab hidden (closed) 1`] = `
 
 exports[`Dropdown matches snapshot for tab hidden (open) 1`] = `
 <div
-  className="dropdown-wrapper "
+  className="dropdown-wrapper"
 >
   <button
     className="dropdown-toggle"

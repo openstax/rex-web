@@ -1,72 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ColorFilter matches snapshot 1`] = `
-.c1 {
-  padding: 0;
-  border: none;
-  margin: 0;
-}
-
-.c1 legend {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border: 0;
-}
-
-.c2 {
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.c0 {
-  background: #fff;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  color: #424242;
-  font-size: 1.4rem;
-  padding: 0.8rem 1.6rem;
-  outline: none;
-  z-index: 1;
-  overflow: auto;
-}
-
-.c0 .all-or-none {
-  margin: 0.8rem 0 0.8rem 0.8rem;
-}
-
-.c0 .checkbox-label {
-  padding: 0.8rem;
-  text-transform: capitalize;
-}
-
-.c0 .color-indicator {
-  margin: 0 1.6rem 0 1.6rem;
-}
-
-@media screen and (max-width:30em) {
-  .c0 {
-    width: calc(100vw - 1.6rem);
-  }
-}
-
 <div
-  className="c0"
+  className="color-filter"
   id="color-filter"
   tabIndex={-1}
 >
@@ -105,7 +41,7 @@ exports[`ColorFilter matches snapshot 1`] = `
     </button>
   </div>
   <fieldset
-    className="c1"
+    className="filters-fieldset"
   >
     <legend>
       Filter by colors
@@ -165,7 +101,7 @@ exports[`ColorFilter matches snapshot 1`] = `
         />
       </div>
       <span
-        className="c2"
+        className="color-filter-label"
       >
         yellow
       </span>
@@ -225,7 +161,7 @@ exports[`ColorFilter matches snapshot 1`] = `
         />
       </div>
       <span
-        className="c2"
+        className="color-filter-label"
       >
         green
       </span>
@@ -285,7 +221,7 @@ exports[`ColorFilter matches snapshot 1`] = `
         />
       </div>
       <span
-        className="c2"
+        className="color-filter-label"
       >
         blue
       </span>
@@ -345,7 +281,7 @@ exports[`ColorFilter matches snapshot 1`] = `
         />
       </div>
       <span
-        className="c2"
+        className="color-filter-label"
       >
         purple
       </span>
@@ -405,7 +341,7 @@ exports[`ColorFilter matches snapshot 1`] = `
         />
       </div>
       <span
-        className="c2"
+        className="color-filter-label"
       >
         pink
       </span>

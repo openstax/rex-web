@@ -11,7 +11,7 @@ exports[`ContextMenu match snapshot when closed 1`] = `
   }
 >
   <div
-    className="dropdown-wrapper "
+    className="dropdown-wrapper"
     data-dropdown={true}
   >
     <button
@@ -54,7 +54,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
   }
 >
   <div
-    className="dropdown-wrapper "
+    className="dropdown-wrapper"
     data-dropdown={true}
   >
     <button
