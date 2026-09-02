@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import ChapterFilter from '../../components/popUp/ChapterFilter';
 import Filters, { FilterDropdown, FiltersTopBar } from '../../components/popUp/Filters';
 import { FiltersChange } from '../../components/popUp/types';
-import { LinkedArchiveTreeSection } from '../../types';
+import { LinkedArchiveTreeNode, LinkedArchiveTreeSection } from '../../types';
 import { setSelectedSection } from '../actions';
 import * as selectors from '../selectors';
 import './Filters.css';
@@ -13,14 +13,16 @@ export default () => {
   const locationFilters = useSelector(selectors.practiceQuestionsLocationFilters);
   const selectedSection = useSelector(selectors.selectedSection);
   const dispatch = useDispatch();
-  const setFilters = React.useCallback((change: FiltersChange<LinkedArchiveTreeSection>) => {
+  const setFilters = React.useCallback((change: FiltersChange<LinkedArchiveTreeNode>) => {
     const clickedSection = change.new.pop();
     if (!clickedSection) {
       // user clicked on the selected section
       setOpen(false);
       return;
     }
-    dispatch(setSelectedSection(clickedSection));
+    // practice questions location filters always have children, so ChapterFilter
+    // only ever hands back one of those children, which is a section
+    dispatch(setSelectedSection(clickedSection as LinkedArchiveTreeSection));
     setOpen(false);
   }, [dispatch]);
   const selectedLocationFilters = React.useMemo(

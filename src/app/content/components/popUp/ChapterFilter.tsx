@@ -1,80 +1,70 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { useIntl } from 'react-intl';
-import styled, { css } from 'styled-components/macro';
+import classNames from 'classnames';
 import AllOrNone from '../../../components/AllOrNone';
-import { PlainButton as PlainButtonBase } from '../../../components/Button';
+import { PlainButton } from '../../../components/Button';
 import Checkbox from '../../../components/Checkbox';
 import { useTrapTabNavigation } from '../../../reactUtils/focusUtils';
-import theme from '../../../theme';
-import { filters, mobileMarginSides } from '../../styles/PopupConstants';
 import { LinkedArchiveTreeNode } from '../../types';
 import { splitTitleParts } from '../../utils/archiveTreeUtils';
 import { AngleIcon, Fieldset } from './Filters';
-import { FiltersChange, LocationFilters } from './types';
-import { linkColor, linkHover } from '../../../components/Typography';
+import { FiltersChange, LocationFilters, LocationFiltersWithChildren } from './types';
+import './ChapterFilter.css';
 
-// Wrap with styled() to make PlainButton compatible with component selectors
-const PlainButton = styled(PlainButtonBase)``;
+const Row = ({ children }: { children: React.ReactNode }) => (
+  <div className='chapter-filter-row'>{children}</div>
+);
 
-const Row = styled.div`
-  display: flex;
-  flex-direction: row;
-  ${theme.breakpoints.mobile(css`
-    flex-direction: column;
-    overflow: hidden;
-  `)}
-`;
+const Column = ({ children, className, ...props }: React.HTMLAttributes<HTMLUListElement>) => (
+  <ul className={classNames('chapter-filter-column', className)} {...props}>{children}</ul>
+);
 
-const Column = styled.ul`
-  display: flex;
-  flex-direction: column;
-  overflow-x: hidden;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-`;
+const ChapterTitle = ({ className, ...props }: React.HTMLAttributes<HTMLSpanElement>) => (
+  <span className={classNames('chapter-filter-title', className)} {...props} />
+);
 
-const ChapterTitle = styled.span`
-  display: flex;
-  flex-direction: row;
-  white-space: nowrap;
-  margin-left: 0.8rem;
-
-  > * {
-    overflow: hidden;
-  }
-
-  .os-text {
-    flex: 1;
-    text-overflow: ellipsis;
-  }
-
-  .os-divider {
-    margin: 0 0.4rem;
-  }
-`;
+// only reachable for the ChapterFilterWithoutContentProps shape below, where
+// nothing reads it. Shared so the fallback doesn't allocate on every render.
+const noLocationFiltersWithContent: Map<string, LinkedArchiveTreeNode> = new Map();
 
 const chunk = <T extends unknown>(sections: T[]) => {
   const cutoff = Math.max(20, Math.ceil(sections.length / 2));
   return [sections.slice(0, cutoff), sections.slice(cutoff)].filter((arr) => arr.length > 0);
 };
 
-interface ChapterFilterProps {
+interface ChapterFilterCommonProps {
   ariaLabelItemId?: string;
   className?: string;
   disabled?: boolean;
-  locationFilters: LocationFilters;
-  locationFiltersWithContent: Map<string, LinkedArchiveTreeNode>;
   selectedLocationFilters: Set<string>;
-  multiselect: boolean;
   setFilters: (filters: FiltersChange<LinkedArchiveTreeNode>) => void;
   id: string;
 }
 
+// locationFiltersWithContent decides two things: what All/None dispatches, and
+// whether a childless filter is disabled. Callers that can hit either need it.
+interface ChapterFilterWithContentProps extends ChapterFilterCommonProps {
+  locationFilters: LocationFilters;
+  locationFiltersWithContent: Map<string, LinkedArchiveTreeNode>;
+  multiselect: boolean;
+}
+
+// practice questions hits neither: every one of its filters has children, and
+// single-select renders no All/None. Omitting the map is only allowed for that
+// exact shape so it can't silently disable filters somewhere else.
+interface ChapterFilterWithoutContentProps extends ChapterFilterCommonProps {
+  locationFilters: LocationFiltersWithChildren;
+  locationFiltersWithContent?: undefined;
+  multiselect: false;
+}
+
+type ChapterFilterProps = ChapterFilterWithContentProps | ChapterFilterWithoutContentProps;
+
 const ChapterFilter = (props: ChapterFilterProps) => {
   const [openChapterId, setOpenChapterId] = React.useState<string | null>(null);
   const intl = useIntl();
+  const locationFiltersWithContent = props.locationFiltersWithContent ?? noLocationFiltersWithContent;
   const ref = React.useRef<HTMLElement>(null);
   useTrapTabNavigation(ref);
 
@@ -113,12 +103,12 @@ const ChapterFilter = (props: ChapterFilterProps) => {
   const hasFiltersWithChildren = Boolean(values.find((filter) => filter.children));
   const sectionChunks = hasFiltersWithChildren ? [values] : chunk(values);
 
-  return <div className={props.className} tabIndex={-1} id={props.id} ref={ref}>
+  return <div className={classNames('chapter-filter', props.className)} tabIndex={-1} id={props.id} ref={ref}>
     {props.multiselect
       ? (
         <AllOrNone
-          onNone={() => setSelectedChapters({ remove: Array.from(props.locationFiltersWithContent.values()), new: [] })}
-          onAll={() => setSelectedChapters({ remove: [], new: Array.from(props.locationFiltersWithContent.values()) })}
+          onNone={() => setSelectedChapters({ remove: Array.from(locationFiltersWithContent.values()), new: [] })}
+          onAll={() => setSelectedChapters({ remove: [], new: Array.from(locationFiltersWithContent.values()) })}
           disabled={props.disabled}
         />
       )
@@ -132,7 +122,7 @@ const ChapterFilter = (props: ChapterFilterProps) => {
             if (!children) {
               return <li key={section.id}><ChapterFilterItem
                 selected={props.selectedLocationFilters.has(section.id)}
-                disabled={props.disabled || !props.locationFiltersWithContent.has(section.id)}
+                disabled={props.disabled || !locationFiltersWithContent.has(section.id)}
                 multiselect={Boolean(props.multiselect)}
                 title={section.title}
                 onChange={() => handleChange(section)}
@@ -213,95 +203,20 @@ const ChapterFilterItem = (props: ChapterFilterItemProps) => {
   </StyledSectionItem>;
 };
 
-export const StyledDetailsContainer = styled.div`
-  width: 400px;
-  border-bottom: 1px solid ${theme.color.neutral.formBorder};
-  overflow: visible;
-  ${theme.breakpoints.mobileSmall(css`
-    width: 100%;
-  `)}
-`;
+export const StyledDetailsContainer = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
+  <div className={classNames('chapter-filter-details', className)} {...props} />
+);
 
-export const StyledSummaryButton = styled(PlainButton)`
-  display: block;
-  width: 100%;
-  padding: 1rem 1.6rem;
-  text-align: left;
+export const StyledSummaryButton = ({ className, ...props }: React.ButtonHTMLAttributes<HTMLButtonElement>) => (
+  <PlainButton className={classNames('chapter-filter-summary-button', className)} {...props} />
+);
 
-  ${ChapterTitle} {
-    float: left;
-    margin-left: 0;
-    text-align: left;
-  }
+export const StyledSectionItem = ({ className, ...props }: React.ButtonHTMLAttributes<HTMLButtonElement>) => (
+  <PlainButton className={classNames('chapter-filter-section-item', className)} {...props} />
+);
 
-  ${AngleIcon} {
-    float: right;
-  }
+export const StyledChapterFilterItemWrapper = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
+  <div className={classNames('chapter-filter-item-wrapper', className)} {...props} />
+);
 
-  &::after {
-    content: "";
-    display: table;
-    clear: both;
-  }
-`;
-
-export const StyledSectionItem = styled(PlainButton)`
-  display: flex;
-  align-items: center;
-  height: 4rem;
-  width: 100%;
-  text-align: left;
-  font-size: 1.4rem;
-  color: ${theme.color.text.default};
-
-  &[aria-current="true"] {
-    color: ${linkColor};
-  }
-
-  &:hover,
-  &:focus {
-    background-color: ${theme.color.neutral.pageBackground};
-    color: ${linkHover};
-  }
-
-  ${ChapterTitle} {
-    padding-left: 2.5rem;
-    width: 95%;
-  }
-`;
-
-export const StyledChapterFilterItemWrapper = styled.div`
-  overflow: visible;
-`;
-
-export default styled(ChapterFilter)`
-  color: ${theme.color.text.default};
-  background: ${theme.color.white};
-  font-size: 1.4rem;
-  padding: ${filters.dropdownContent.padding.topBottom}rem ${filters.dropdownContent.padding.sides}rem;
-  outline: none;
-  overflow: auto;
-  z-index: 1;
-
-  .all-or-none {
-    margin: 0.8rem 0 0.8rem 0.8rem;
-  }
-
-  .checkbox-label {
-    padding: 0.8rem;
-  }
-
-  .color-indicator {
-    margin: 0 1.6rem 0 1.6rem;
-  }
-
-  ${StyledDetailsContainer} {
-    &:last-child {
-      border-bottom: none;
-    }
-  }
-
-  ${theme.breakpoints.mobileSmall(css`
-    width: calc(100vw - ${mobileMarginSides * 2}rem);
-  `)}
-`;
+export default ChapterFilter;

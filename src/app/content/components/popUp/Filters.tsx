@@ -1,10 +1,9 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
-import styled, { css } from 'styled-components/macro';
+import classNames from 'classnames';
 import { PlainButton } from '../../../components/Button';
 import Dropdown, { TabHiddenDropdownProps } from '../../../components/Dropdown';
-import theme, { hiddenButAccessible } from '../../../theme';
-import { filters } from '../../styles/PopupConstants';
+import './Filters.css';
 
 interface IconProps extends React.SVGAttributes<SVGSVGElement> {
   className?: string;
@@ -13,10 +12,8 @@ interface IconProps extends React.SVGAttributes<SVGSVGElement> {
 /**
  * Angle down icon for filter dropdowns.
  * SVG path from Font Awesome Free (https://fontawesome.com - MIT License)
- *
- * Note: Wrapped with styled() to enable styled-components component selector references
  */
-function AngleDownIconBase({ className, ...props }: IconProps) {
+function AngleDownIcon({ className, ...props }: IconProps) {
   return (
     <svg
       className={className}
@@ -32,106 +29,65 @@ function AngleDownIconBase({ className, ...props }: IconProps) {
   );
 }
 
-const AngleDownIcon = styled(AngleDownIconBase)``;
+interface AngleIconProps extends IconProps {
+  direction: 'up' | 'down';
+}
 
-export const AngleIcon = styled(AngleDownIcon)`
-  color: ${theme.color.primary.gray.base};
-  width: ${filters.dropdownToggle.icon.width}rem;
-  height: ${filters.dropdownToggle.icon.height}rem;
-  margin-left: 0.8rem;
-  padding-top: 0.2rem;
-  ${({ direction }: { direction: 'up' | 'down' }) => {
-    if (direction === 'up') {
-      return `
-        transform: rotate(180deg);
-        padding-top: 0;
-        padding-bottom: 0.2rem;
-      `;
-    }
-  }}
-`;
+export const AngleIcon = ({ className, direction, ...props }: AngleIconProps) => (
+  <AngleDownIcon
+    className={classNames('filters-angle-icon', { 'filters-angle-icon-up': direction === 'up' }, className)}
+    {...props}
+  />
+);
 
-export const Fieldset = styled.fieldset`
-  padding: 0;
-  border: none;
-  margin: 0;
+export const Fieldset = ({ className, ...props }: React.FieldsetHTMLAttributes<HTMLFieldSetElement>) => (
+  <fieldset className={classNames('filters-fieldset', className)} {...props} />
+);
 
-  legend {
-    ${hiddenButAccessible}
-  }
-`;
-
-interface ToggleProps {
+interface ToggleProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   label: string;
-  showLabel: boolean;
+  showLabel?: boolean;
   toggleChildren?: JSX.Element;
-  isOpen: boolean;
+  isOpen?: boolean;
   ariaLabelId: string;
-  showAngleIcon: boolean;
+  showAngleIcon?: boolean;
   controlsId: string;
 }
-const Toggle = styled(
-  React.forwardRef<HTMLButtonElement, ToggleProps>(
-    (
-      {
-        label,
-        isOpen,
-        ariaLabelId,
-        showAngleIcon = true,
-        showLabel = true,
-        toggleChildren,
-        controlsId,
-        ...props
-      },
-      ref
-    ) => (
-      <PlainButton
-        ref={ref}
-        {...props}
-        aria-label={useIntl().formatMessage(
-          { id: ariaLabelId },
-          { filter: label }
-        )}
-        aria-expanded={isOpen}
-        aria-controls={controlsId}
-      >
-        <div tabIndex={-1}>
-          {showLabel && label}
-          {toggleChildren}
-          {showAngleIcon && <AngleIcon direction={isOpen ? 'up' : 'down'} />}
-        </div>
-      </PlainButton>
-    )
+
+const Toggle = React.forwardRef<HTMLButtonElement, ToggleProps>(
+  (
+    {
+      className,
+      label,
+      isOpen,
+      ariaLabelId,
+      showAngleIcon = true,
+      showLabel = true,
+      toggleChildren,
+      controlsId,
+      ...props
+    },
+    ref
+  ) => (
+    <PlainButton
+      ref={ref}
+      {...props}
+      className={classNames('filters-toggle', { 'filters-toggle-open': isOpen }, className)}
+      aria-label={useIntl().formatMessage(
+        { id: ariaLabelId },
+        { filter: label }
+      )}
+      aria-expanded={isOpen}
+      aria-controls={controlsId}
+    >
+      <div tabIndex={-1}>
+        {showLabel && label}
+        {toggleChildren}
+        {showAngleIcon && <AngleIcon direction={isOpen ? 'up' : 'down'} />}
+      </div>
+    </PlainButton>
   )
-)`
-  position: relative;
-  border-left: ${filters.border}rem solid transparent;
-  border-right: ${filters.border}rem solid transparent;
-  ${(props: ToggleProps) => props.isOpen
-    ? css`
-      z-index: 2;
-      box-shadow: 0 0 0.6rem 0 rgba(0, 0, 0, 0.2);
-      clip-path: inset(0 -0.6rem 0px -0.6rem);
-      background-color: ${theme.color.white};
-      border-left: ${filters.border}rem solid ${theme.color.neutral.formBorder};
-      border-right: ${filters.border}rem solid ${theme.color.neutral.formBorder};
-    `
-    : null
-  }
-  > div {
-    padding: ${filters.dropdownToggle.topBottom.desktop}rem ${filters.dropdownToggle.sides.desktop}rem;
-    ${theme.breakpoints.mobile(css`
-      padding: ${filters.dropdownToggle.topBottom.mobile}rem ${filters.dropdownToggle.sides.mobile}rem;
-    `)}
-    outline: none;
-    color: ${theme.color.primary.gray.base};
-    font-size: 1.6rem;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-end;
-  }
-`;
+);
 
 type FilterDropdownProps = {
   label: string;
@@ -161,65 +117,18 @@ React.PropsWithChildren<FilterDropdownProps>) => (
   </Dropdown>
 );
 
-export const FiltersTopBar = styled.div`
-  display: flex;
-  align-items: center;
-  overflow: visible;
-  width: 100%;
-`;
+export const FiltersTopBar = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
+  <div className={classNames('popup-filters-top-bar', className)} {...props} />
+);
 
 interface Props {
   className?: string;
 }
 
 const Filters = ({className, children}: React.PropsWithChildren<Props>) => {
-  return <div className={className}>
+  return <div className={classNames('popup-filters', className)}>
     {children}
   </div>;
 };
 
-export default styled(Filters)`
-  position: relative;
-  z-index: 2;
-  overflow: visible;
-  display: flex;
-  flex-flow: row wrap;
-  align-items: center;
-  background: ${theme.color.neutral.base};
-  border-bottom: ${filters.border}rem solid ${theme.color.neutral.formBorder};
-  ${css`
-    .dropdown-toggle {
-      font-weight: bold;
-    }
-
-    ${Dropdown} {
-      & > *:not(.dropdown-toggle) {
-        top: calc(100% - ${filters.border}rem);
-        box-shadow: 0 0 0.6rem 0 rgba(0, 0, 0, 0.2);
-        max-height: calc(100vh - ${filters.valueToSubstractFromVH.desktop}rem);
-        ${theme.breakpoints.mobile(css`
-          max-height: calc(100vh - ${filters.valueToSubstractFromVH.mobile}rem);
-        `)}
-      }
-
-      ${theme.breakpoints.mobileSmall(css`
-        position: initial;
-
-        & > *:not(.dropdown-toggle) {
-          top: auto;
-          margin-top: -${filters.border}rem;
-        }
-      `)}
-    }
-  `}
-
-  @media print {
-    padding-left: 0;
-  }
-
-  ${css`
-    > *:not(.filters-list) {
-      @media print { display: none; }
-    }
-  `}
-`;
+export default Filters;
