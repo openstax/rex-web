@@ -1,5 +1,3 @@
-import { FlattenSimpleInterpolation } from 'styled-components';
-import { css } from 'styled-components/macro';
 // based on https://sketchviewer.com/sketches/59766aabb57e8900114c89ce/latest/
 
 export interface ColorSet {
@@ -167,17 +165,7 @@ const mobileQuery = `(max-width: ${mobileBreak}em)`;
 export default {
   breakpoints: {
     desktopBreak,
-    mobile: (style: FlattenSimpleInterpolation) => css`
-      @media screen and ${mobileQuery} {
-        ${style}
-      }
-    `,
     mobileBreak,
-    mobileMedium: (style: FlattenSimpleInterpolation) => css`
-      @media screen and ${mobileMediumQuery} {
-        ${style}
-      }
-    `,
     mobileMediumBreak,
     mobileMediumQuery,
     mobileQuery,

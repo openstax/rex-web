@@ -93,7 +93,7 @@ exports[`Filters matches snapshot 1`] = `
           />
         </svg>
         <span
-          className="toolbar-print-options "
+          className="toolbar-print-options"
         >
           Print
         </span>
@@ -469,7 +469,7 @@ exports[`Filters matches snapshot when open color filters 1`] = `
           />
         </svg>
         <span
-          className="toolbar-print-options "
+          className="toolbar-print-options"
         >
           Print
         </span>

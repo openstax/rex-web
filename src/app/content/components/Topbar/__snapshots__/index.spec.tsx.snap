@@ -1,10 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`text resizer does not render if textSize is null 1`] = `
-.c0 {
-  display: contents;
-}
-
 <div
   className="topbar-wrapper"
   data-testid="topbar"
@@ -30,7 +26,7 @@ exports[`text resizer does not render if textSize is null 1`] = `
     }
   >
     <div
-      className="c0"
+      className="nudge-wrapper"
       id="mobile-menu-button"
     >
       <button
@@ -310,10 +306,6 @@ exports[`text resizer does not render if textSize is null 1`] = `
 `;
 
 exports[`text resizer opens menu when clicking menu button 1`] = `
-.c0 {
-  display: contents;
-}
-
 <div
   className="topbar-wrapper"
   data-testid="topbar"
@@ -339,7 +331,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
     }
   >
     <div
-      className="c0"
+      className="nudge-wrapper"
       id="mobile-menu-button"
     >
       <button
