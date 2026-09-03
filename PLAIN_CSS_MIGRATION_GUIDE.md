@@ -212,31 +212,33 @@ export function Button({ children, ...props }) {
 }
 ```
 
-### Pattern 2.5: Using Root-Level CSS Variables for Static Theme Colors
+### Pattern 2.5: Using Global Theme Tokens for Static Theme Values
 
-For static theme colors that don't require dynamic property access (like `theme.color.text.*`, `theme.color.neutral.*`, `theme.color.disabled.*`), use root-level CSS variables defined in `src/index.css` instead of binding them at the component level.
+For theme values that don't require dynamic property access, reference the global
+tokens in `src/app/theme.css` instead of binding them at the component level.
 
-**Benefits:**
-- Reduces code duplication across components
-- Improves maintainability by centralizing static color definitions
-- Establishes clear patterns for future migrations
-- Keeps a documented mapping from `src/app/theme.ts` into shared CSS variables
+**`src/app/theme.css` is generated — do not edit it.** `src/app/themeData.ts` is the
+source of truth, `src/app/themeCss.ts` owns the projection, and
+`yarn generate:theme-css` writes the file. It is also regenerated as part of
+`yarn build` and `yarn start`, so a build cannot ship a stale copy.
 
-**Important:** The root-level variables in `src/index.css` are copied from `src/app/theme.ts`; they are not automatically generated or verified by the process described in this guide. When updating these values, keep `src/index.css` and `src/app/theme.ts` in sync manually.
-**When to use root-level variables:**
-- Static colors that never change based on props
-- Colors used across multiple components
-- Colors from `theme.color.text.*`, `theme.color.neutral.*`, `theme.color.disabled.*`, and `theme.color.primary.gray.*`
+The token families are `--color-*`, `--z-index-*` and `--padding-*`. Anything else
+unprefixed (`--section-bg`, `--popup-padding`) is a component-local override hook, not
+a global token.
 
-**When to use component-level bindings:**
+**When to use a global token:**
+- Any static color, z-index or page padding — i.e. the value does not depend on props
+- Values used across more than one component
+
+**When to bind from JavaScript instead:**
 - Book-specific theme colors requiring dynamic property access (`theme.color.primary[bookTheme]`)
-- Colors with runtime computations (highlight colors using Color library)
-- Any color that changes based on props or state
+- Colors with runtime computations (highlight colors via the Color library)
+- Any value that changes based on props or state
 
 **Example:**
 
 ```typescript
-// ❌ Before: Component-level binding for static color
+// ❌ Before: component-level binding for a static color
 import theme from '../theme';
 
 export function Card({ className, style, ...props }) {
@@ -244,7 +246,7 @@ export function Card({ className, style, ...props }) {
     <div
       className="modal-card"
       style={{
-        '--text-color': theme.color.text.default,  // Static, repeated across components
+        '--text-color': theme.color.text.default,  // static, repeated across components
         ...style,
       } as React.CSSProperties}
     />
@@ -253,43 +255,70 @@ export function Card({ className, style, ...props }) {
 ```
 
 ```typescript
-// ✅ After: Use root-level CSS variable
+// ✅ After: reference the token in CSS
 export function Card({ className, style, ...props }) {
-  return (
-    <div
-      className="modal-card"
-      style={style}  // No need to bind static colors
-    />
-  );
+  return <div className="modal-card" style={style} />;
 }
 ```
 
 ```css
 /* Component.css */
 .modal-card {
-  color: var(--color-text-default);  /* References root-level variable */
+  color: var(--color-text-default);
   background: var(--color-neutral-base);
 }
 ```
 
-**Naming Convention:**
+Note that removing an inline default changes cascade precedence: a rule setting the
+variable on an ancestor element used to lose to the inline style and now applies. Grep
+for the variable before removing its binding.
 
-Root-level CSS variables follow the pattern: `--color-{category}-{property}`
+**Naming convention:**
 
-- `theme.color.text.default` → `--color-text-default`
-- `theme.color.neutral.pageBackground` → `--color-neutral-page-background`
-- `theme.color.primary.gray.base` → `--color-primary-gray-base`
-- `theme.color.disabled.foreground` → `--color-disabled-foreground`
+A token name is the kebab-case form of its path in `themeData.ts`:
 
-Note: camelCase properties in theme.ts become kebab-case in CSS variable names.
+- `color.text.default` → `--color-text-default`
+- `color.neutral.pageBackground` → `--color-neutral-page-background`
+- `color.primary.gray.base` → `--color-primary-gray-base`
+- `zIndex.navbar` → `--z-index-navbar`
+- `padding.page.desktop` → `--padding-page-desktop` (emitted in `rem`)
 
-**Available Root-Level Variables:**
+The one exception is `--color-link`, rather than `--color-link-base`.
 
-See `src/index.css` for the complete list of available root-level CSS variables. These include:
-- Text colors: `--color-text-black`, `--color-text-default`, `--color-text-label`, `--color-text-white`
-- Neutral colors: `--color-neutral-base`, `--color-neutral-darker`, `--color-neutral-darkest`, `--color-neutral-page-background`, etc.
-- Disabled colors: `--color-disabled-base`, `--color-disabled-foreground`
-- Primary gray colors: `--color-primary-gray-base`, `--color-primary-gray-darker`, etc.
+See `src/app/theme.css` for the full list of 80 tokens.
+
+**What CI enforces** (`src/app/theme.spec.ts`):
+
+1. The committed `theme.css` matches the generator's output, so the CSS cannot go stale
+   against the JS. If this fails, run `yarn generate:theme-css`.
+2. No stylesheet writes a color literal that duplicates a theme value.
+3. No stylesheet introduces a color that is neither a theme value nor explicitly
+   allowlisted in `KNOWN_OFF_PALETTE` (in `src/test/cssColors.ts`) with a reason.
+4. No stylesheet reads a `--color-*`/`--z-index-*`/`--padding-*` token that doesn't
+   exist — which also keeps component-local variables out of those namespaces.
+5. No `@media` breakpoint sits within 1em of a theme breakpoint without being one,
+   which catches a `75em` mistyped as `74em`. The bound is inclusive, so `74em` and
+   `76em` are both caught.
+
+Checks 2 and 3 are currently locked to a baseline in `src/app/theme.baseline.json`,
+recording the violations that predate the token file. **New** violations fail
+immediately; the baseline only shrinks. If you remove some, run
+`yarn generate:theme-baseline` — the counts it prints should go down.
+
+Each baseline entry names the file, the selector and at-rule it sits under, and the
+property, not just the literal — `app/components/Button.css: .btn:hover { color: #fff }
+is --color-neutral-base`. That is what stops a removed `#fff` and a newly added one
+elsewhere in the same file from cancelling out. Expect the entry to change, and the
+baseline to need regenerating, if you move a declaration or rename a selector; the
+counts are what should not go up.
+
+Hex literals and `rgb()`/`hsl()`/`oklch()` are audited in every declaration. Bare named
+colors (`white`, `tan`) are only read as colors in properties that can take one, so
+`animation-name: red` is left alone. `src/test/cssColors.ts` has the list.
+
+**Breakpoints are the known gap.** `@media (min-width: var(--x))` is not valid CSS, so
+breakpoint values stay duplicated in stylesheets (`75em` appears well over a hundred
+times). Check 5 is the cheap mitigation; a real fix needs a preprocessor step.
 
 ### Pattern 3: Component with Dynamic Theme Access
 
@@ -548,19 +577,33 @@ test('renders button with correct class', () => {
 
 ## Common Pitfalls
 
-### 1. Don't Duplicate Theme in CSS
+### 1. Don't Duplicate Theme Values in CSS
 
-**❌ Wrong:**
+**❌ Wrong:** hand-copying the value. `src/app/theme.spec.ts` fails on this.
 ```css
-:root {
-  --color-orange: #d4450c; /* Duplicates theme.ts */
+.button {
+  background: #d4450c; /* duplicates color.primary.orange.base */
 }
 ```
 
-**✅ Right:**
+**❌ Also wrong:** declaring your own token for it. `theme.css` is generated; a second
+declaration is a second source of truth.
+```css
+:root {
+  --color-orange: #d4450c;
+}
+```
+
+**✅ Right:** reference the generated token.
+```css
+.button {
+  background: var(--color-primary-orange-base);
+}
+```
+
+**✅ Also right,** when the value genuinely depends on props — bind it from JavaScript:
 ```typescript
-// Bind from theme.ts at component level
-style={{ '--button-bg': theme.color.primary.orange.base }}
+style={{ '--button-bg': theme.color.primary[bookTheme].base }}
 ```
 
 ### 2. Use classNames Library for Conditional Classes
@@ -633,11 +676,14 @@ const colors = theme.color.primary[bookTheme];
 style={{ '--banner-bg': colors.base }}
 ```
 
-### 6. Remember That theme.ts is Still the Source of Truth
+### 6. Remember Where the Source of Truth Is
 
-- Don't hardcode theme values in CSS
-- Always reference theme.ts when you need theme values
-- The theme object is unchanged and fully accessible in JavaScript
+- `src/app/themeData.ts` holds the values. `src/app/theme.css` is **generated** from it
+  — never edit the CSS by hand, and run `yarn generate:theme-css` after changing the data.
+- `theme.ts` re-exports that data, so `theme.color.x` in JavaScript is unchanged.
+- Don't hardcode a theme value in CSS, and don't declare a second token for one.
+- Link colors come from the theme too; import them from
+  `components/Typography/Links.constants.ts` in JS, or use `var(--color-link)` in CSS.
 
 ## Migration Checklist
 

@@ -101,14 +101,14 @@
 .book-banner-bar-wrapper.variant-big {
   height: var(--banner-desktop-big-height);
   position: relative;
-  z-index: var(--z-index-big);
+  z-index: calc(var(--z-index-navbar) - 1);
 }
 
 /* Mini variant styles */
 .book-banner-bar-wrapper.variant-mini {
   height: var(--banner-desktop-mini-height);
   position: sticky;
-  z-index: var(--z-index-mini);
+  z-index: calc(var(--z-index-navbar) - 2);
   margin-top: calc(-1 * var(--banner-desktop-mini-height));
 }
 
