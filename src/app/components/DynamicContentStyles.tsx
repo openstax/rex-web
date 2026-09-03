@@ -44,8 +44,23 @@ const JS_COMMENT_REGEX = /^\s*\/\/.*$/gm;
 export const scopeStyles = (styles: string) =>
   stylis('', `${scopeSelector} { ${styles.replace(JS_COMMENT_REGEX, '')} }`);
 
+/*
+ * A <style> element's content is raw text, so the HTML parser ends the element at
+ * the first `</style` it sees. CSS may legitimately contain that sequence inside a
+ * string or a url(), and this stylesheet can come from the `content-style` query
+ * param, so handing it to innerHTML unaltered would let crafted CSS close the
+ * element early and have the rest of itself parsed as markup.
+ *
+ * `\/` is the CSS escape for `/`, and means `/` in strings, url() tokens and idents
+ * alike, so the stylesheet keeps its meaning; the `<` is simply no longer followed
+ * by `/`, so the HTML parser sees no end tag. This is idempotent, which matters
+ * because the first client render re-serializes the stylesheet it read back out of
+ * the prerendered <style>.
+ */
+export const escapeStyleSheetText = (css: string) => css.replace(/<(\/style)/gi, '<\\$1');
+
 export const ScopedGlobalStyle = ({ css }: { css: string }) => (
-  <style data-dynamic-stylesheet='true' dangerouslySetInnerHTML={{ __html: css }} />
+  <style data-dynamic-stylesheet='true' dangerouslySetInnerHTML={{ __html: escapeStyleSheetText(css) }} />
 );
 
 // must match the attribute ScopedGlobalStyle renders
