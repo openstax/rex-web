@@ -14,6 +14,7 @@ import { locationChange } from '../navigation/actions';
 import { assertDocument } from '../utils/browser-assertions';
 import DynamicContentStyles, {
   DynamicContentStylesProvider,
+  escapeStyleSheetText,
   ScopedGlobalStyle,
   scopeStyles,
 } from './DynamicContentStyles';
@@ -43,6 +44,23 @@ describe('scopeStyles', () => {
       .toEqual('@page{margin:1cm;}');
   });
 
+  it('hoists @keyframes and duplicates them for -webkit-', () => {
+    expect(scopeStyles('@keyframes spin { 0% { opacity: 0; } 100% { opacity: 1; } }'))
+      .toEqual(
+        '@-webkit-keyframes spin{0%{opacity:0;}100%{opacity:1;}}'
+        + '@keyframes spin{0%{opacity:0;}100%{opacity:1;}}'
+      );
+  });
+
+  it('leaves keyframe names alone, so animations declared elsewhere still find them', () => {
+    // this is what stylis' `keyframe: false` option buys us: no name namespacing
+    expect(scopeStyles('.a { animation: spin 1s; } @keyframes spin { 0% { opacity: 0; } }'))
+      .toEqual(
+        '[data-dynamic-style="true"] .a{-webkit-animation:spin 1s;animation:spin 1s;}'
+        + '@-webkit-keyframes spin{0%{opacity:0;}}@keyframes spin{0%{opacity:0;}}'
+      );
+  });
+
   it('lifts @import to the front, where css requires it', () => {
     expect(scopeStyles(".a { color: red; } @import url('other.css');"))
       .toEqual("@import url('other.css');[data-dynamic-style=\"true\"] .a{color:red;}");
@@ -51,6 +69,45 @@ describe('scopeStyles', () => {
   it('adds vendor prefixes', () => {
     expect(scopeStyles('.a { display: flex; }'))
       .toContain('-webkit-flex');
+  });
+});
+
+describe('escapeStyleSheetText', () => {
+  // valid css: the sequence is inside a string, so stylis passes it straight through
+  const breakout = '.a { content: "</style><img src=x onerror=alert(1)>"; }';
+
+  it('neutralizes closing style tags, which css can legally contain', () => {
+    const escaped = escapeStyleSheetText(scopeStyles(breakout));
+
+    expect(escaped).not.toContain('</style');
+    // \/ is the css escape for /, so the declaration still means the same thing
+    expect(escaped).toContain('<\\/style>');
+  });
+
+  it('catches the sequence in any case, since html end tags are case insensitive', () => {
+    expect(escapeStyleSheetText('.a { content: "</StYlE >"; }'))
+      .toEqual('.a { content: "<\\/StYlE >"; }');
+  });
+
+  it('is idempotent, because hydration re-serializes an already escaped stylesheet', () => {
+    const once = escapeStyleSheetText(scopeStyles(breakout));
+
+    expect(escapeStyleSheetText(once)).toEqual(once);
+  });
+
+  it('leaves css without the sequence untouched', () => {
+    expect(escapeStyleSheetText(scopeStyles('.a { color: red; }')))
+      .toEqual(scopeStyles('.a { color: red; }'));
+  });
+
+  it('stops ScopedGlobalStyle serializing css into escaping markup', () => {
+    const container = assertDocument().createElement('div');
+    container.innerHTML = renderToString(<ScopedGlobalStyle css={scopeStyles(breakout)} />);
+
+    expect(container.querySelectorAll('style')).toHaveLength(1);
+    expect(container.querySelector('img')).toBeNull();
+    // the whole payload stayed inside the stylesheet, as css text
+    expect(container.querySelector('style')!.textContent).toContain('onerror=alert(1)');
   });
 });
 
