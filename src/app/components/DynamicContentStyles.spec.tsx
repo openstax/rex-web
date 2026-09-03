@@ -1,3 +1,4 @@
+import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { renderToString } from 'react-dom/server';
@@ -11,13 +12,31 @@ import { runHooksAsync } from '../../test/utils';
 import { receiveBook, setBookStylesUrl } from '../content/actions';
 import { State } from '../content/types';
 import { locationChange } from '../navigation/actions';
-import { assertDocument } from '../utils/browser-assertions';
+import { assertDefined } from '../utils/assertions';
+import { assertDocument, assertWindow } from '../utils/browser-assertions';
 import DynamicContentStyles, {
   DynamicContentStylesProvider,
   escapeStyleSheetText,
   ScopedGlobalStyle,
   scopeStyles,
 } from './DynamicContentStyles';
+
+/*
+ * The prerender runs in node with no dom at all, which is exactly why markup is
+ * its only way to get the stylesheet into the page. A renderToString that leaves
+ * jsdom's document in place exercises the browser path instead, so anything
+ * standing in for the prerender has to take the document away.
+ */
+const prerender = (element: React.ReactElement) => {
+  const documentBack = document;
+  delete (global as any).document;
+
+  try {
+    return renderToString(element);
+  } finally {
+    (global as any).document = documentBack;
+  }
+};
 
 describe('scopeStyles', () => {
   it('scopes plain selectors under the dynamic style attribute', () => {
@@ -89,7 +108,7 @@ describe('escapeStyleSheetText', () => {
       .toEqual('.a { content: "<\\/StYlE >"; }');
   });
 
-  it('is idempotent, because hydration re-serializes an already escaped stylesheet', () => {
+  it('is idempotent, because the adopted stylesheet has already been escaped', () => {
     const once = escapeStyleSheetText(scopeStyles(breakout));
 
     expect(escapeStyleSheetText(once)).toEqual(once);
@@ -99,10 +118,95 @@ describe('escapeStyleSheetText', () => {
     expect(escapeStyleSheetText(scopeStyles('.a { color: red; }')))
       .toEqual(scopeStyles('.a { color: red; }'));
   });
+});
 
-  it('stops ScopedGlobalStyle serializing css into escaping markup', () => {
-    const container = assertDocument().createElement('div');
-    container.innerHTML = renderToString(<ScopedGlobalStyle css={scopeStyles(breakout)} />);
+describe('ScopedGlobalStyle', () => {
+  // valid css: the sequence is inside a string, so stylis passes it straight through
+  const breakout = '.a { content: "</style><img src=x onerror=alert(1)>"; }';
+
+  let container: HTMLElement;
+
+  beforeEach(() => {
+    const document = assertDocument();
+    // serializeFirstRender reads the document, so no stylesheet may be left over
+    Array.from(document.querySelectorAll('style[data-dynamic-stylesheet]'))
+      .forEach((element) => element.remove());
+    container = document.createElement('div');
+  });
+
+  afterEach(() => {
+    ReactDOM.unmountComponentAtNode(container);
+  });
+
+  const mount = (css: string) => {
+    act(() => {
+      ReactDOM.render(<ScopedGlobalStyle css={css} />, container);
+    });
+
+    return container.querySelector('style[data-dynamic-stylesheet]')!;
+  };
+
+  /*
+   * The property worth pinning is that the browser never hands the stylesheet to
+   * an html parser at all, and that leaves no trace in the dom to assert against
+   * -- escaped markup parses into exactly the same text as a textContent write.
+   * So watch for the writes themselves.
+   */
+  const recordInnerHtmlWrites = () => {
+    const elementPrototype = assertWindow().Element.prototype;
+    const descriptor = assertDefined(
+      Object.getOwnPropertyDescriptor(elementPrototype, 'innerHTML'),
+      'jsdom defines innerHTML on Element'
+    );
+    const writes: string[] = [];
+
+    Object.defineProperty(elementPrototype, 'innerHTML', {
+      ...descriptor,
+      set(value: string) {
+        writes.push(value);
+        descriptor.set!.call(this, value);
+      },
+    });
+
+    return { restore: () => Object.defineProperty(elementPrototype, 'innerHTML', descriptor), writes };
+  };
+
+  it('never gives react the stylesheet as markup in the browser', () => {
+    const { restore, writes } = recordInnerHtmlWrites();
+
+    try {
+      mount(scopeStyles(breakout));
+    } finally {
+      restore();
+    }
+
+    // react only ever creates the element empty; the effect fills it as text
+    expect(writes).toEqual(['']);
+  });
+
+  it('writes the stylesheet as text in the browser, never as markup', () => {
+    const styleSheet = mount(scopeStyles(breakout));
+
+    expect(container.querySelector('img')).toBeNull();
+    // textContent takes text and only text, so the css needs no escaping at all
+    expect(styleSheet.textContent).toEqual(scopeStyles(breakout));
+    expect(styleSheet.textContent).toContain('</style>');
+  });
+
+  it('updates the same element in place when the styles change', () => {
+    const styleSheet = mount(scopeStyles('.a { color: red; }'));
+
+    act(() => {
+      ReactDOM.render(<ScopedGlobalStyle css={scopeStyles('.a { color: blue; }')} />, container);
+    });
+
+    expect(styleSheet.textContent).toEqual(scopeStyles('.a { color: blue; }'));
+    expect(container.querySelector('style[data-dynamic-stylesheet]')).toBe(styleSheet);
+  });
+
+  it('escapes the stylesheet when the prerender has to serialize it', () => {
+    // no dom, so react has no choice but to write the stylesheet as markup
+    container.innerHTML = prerender(<ScopedGlobalStyle css={scopeStyles(breakout)} />);
 
     expect(container.querySelectorAll('style')).toHaveLength(1);
     expect(container.querySelector('img')).toBeNull();
@@ -252,7 +356,7 @@ describe('the prerendered stylesheet', () => {
     const consoleError = jest.spyOn(console, 'error').mockImplementation(() => undefined);
 
     // prerendering, where the archiveLoader does have the styles cached
-    container.innerHTML = renderToString(tree(createTestServices()));
+    container.innerHTML = prerender(tree(createTestServices()));
 
     expect(container.querySelector('style[data-dynamic-stylesheet]')!.textContent)
       .toEqual(scopeStyles(bookStyles));
@@ -291,13 +395,10 @@ describe('the prerendered stylesheet', () => {
 
     const services = withColdCache();
     const consoleError = jest.spyOn(console, 'error').mockImplementation(() => undefined);
-    const documentBack = document;
-    delete (global as any).document;
 
     try {
-      expect(renderToString(tree(services))).not.toContain('<style');
+      expect(prerender(tree(services))).not.toContain('<style');
     } finally {
-      (global as any).document = documentBack;
       consoleError.mockRestore();
     }
   });
