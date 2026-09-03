@@ -99,7 +99,9 @@ export const useOnDOMEvent = (
 
 export const useTimeout = (delay: number, callback: () => void) => {
   const savedCallback = React.useRef<typeof callback>();
-  const timeout = React.useRef<number>();
+  // ReturnType, not `number`: setTimeout's return type differs between the DOM
+  // lib and @types/node, and this file is typechecked with both in scope.
+  const timeout = React.useRef<ReturnType<typeof setTimeout>>();
 
   const timeoutHandler = () => savedCallback.current && savedCallback.current();
   const reset = React.useCallback(() => {
