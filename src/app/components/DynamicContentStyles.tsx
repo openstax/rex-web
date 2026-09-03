@@ -1,3 +1,4 @@
+import { HTMLStyleElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import Stylis from 'stylis';
@@ -46,22 +47,17 @@ export const scopeStyles = (styles: string) =>
 
 /*
  * A <style> element's content is raw text, so the HTML parser ends the element at
- * the first `</style` it sees. CSS may legitimately contain that sequence inside a
- * string or a url(), and this stylesheet can come from the `content-style` query
- * param, so handing it to innerHTML unaltered would let crafted CSS close the
- * element early and have the rest of itself parsed as markup.
+ * the first `</style` it sees, and CSS may legitimately contain that sequence
+ * inside a string or a url(). Anything serialized into the element as markup has
+ * to have it neutralized first, or crafted CSS could close the element early and
+ * have the rest of itself parsed as HTML.
  *
  * `\/` is the CSS escape for `/`, and means `/` in strings, url() tokens and idents
  * alike, so the stylesheet keeps its meaning; the `<` is simply no longer followed
- * by `/`, so the HTML parser sees no end tag. This is idempotent, which matters
- * because the first client render re-serializes the stylesheet it read back out of
- * the prerendered <style>.
+ * by `/`, so the HTML parser sees no end tag. It is idempotent, so it is safe to
+ * apply to a stylesheet that has already been through it.
  */
 export const escapeStyleSheetText = (css: string) => css.replace(/<(\/style)/gi, '<\\$1');
-
-export const ScopedGlobalStyle = ({ css }: { css: string }) => (
-  <style data-dynamic-stylesheet='true' dangerouslySetInnerHTML={{ __html: escapeStyleSheetText(css) }} />
-);
 
 // must match the attribute ScopedGlobalStyle renders
 const styleSheetSelector = 'style[data-dynamic-stylesheet]';
@@ -83,6 +79,46 @@ const getPrerenderedStyleSheet = () => {
   }
 
   return document.querySelector(styleSheetSelector)?.textContent || '';
+};
+
+/*
+ * The prerender is the only thing that ever serializes this stylesheet. A server
+ * render has no DOM to write to, so markup is its only way to get text inside an
+ * element, and it is escaped on the way in.
+ *
+ * The browser never does: it adopts what the prerender left behind, and every
+ * stylesheet it produces itself is written with textContent, which takes text and
+ * only text. So nothing the browser fetched is ever HTML-parsed -- including the
+ * `content-style` query param, the one stylesheet a visitor can choose, which is
+ * fetched in an effect and therefore only ever exists in the browser.
+ *
+ * That means the html react is given is frozen at mount, for two reasons: the
+ * first client render has to match the element it is hydrating, and freezing it
+ * stops react writing innerHTML on any later render, leaving every update to the
+ * effect below.
+ */
+const serializeFirstRender = (css: string) => escapeStyleSheetText(
+  typeof document === 'undefined' ? css : getPrerenderedStyleSheet()
+);
+
+export const ScopedGlobalStyle = ({ css }: { css: string }) => {
+  const ref = React.useRef<HTMLStyleElement>(null);
+  const [initialHtml] = React.useState(() => serializeFirstRender(css));
+
+  React.useEffect(() => {
+    const styleSheet = ref.current;
+
+    // already equal when hydrating, so hydration doesn't rewrite the adopted sheet
+    if (styleSheet && styleSheet.textContent !== css) {
+      styleSheet.textContent = css;
+    }
+  }, [css]);
+
+  return <style
+    ref={ref}
+    data-dynamic-stylesheet='true'
+    dangerouslySetInnerHTML={{ __html: initialHtml }}
+  />;
 };
 
 const cacheStyles = new Map<string, string>();
