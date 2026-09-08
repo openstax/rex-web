@@ -20,23 +20,37 @@ const allowedImporters = new Set([
   'script/prerender/contentPages.tsx',
 ]);
 
-const searchRoots = ['src', 'script'];
-const sourceExtensions = ['.ts', '.tsx'];
-const skipDirectories = new Set(['node_modules', 'build', 'coverage']);
+/*
+ * The whole repo, not just src: script/entry.js, src/setupProxy.js and craco.config.js
+ * are all executable, and a require() in one of those reintroduces the dependency just as
+ * effectively as an import in a component. Extensions are the ones jest resolves (see
+ * moduleFileExtensions in package.json) plus the module variants webpack resolves.
+ */
+const searchRoot = '.';
+const sourceExtensions = ['.ts', '.tsx', '.js', '.jsx', '.mjs', '.cjs'];
+const skipDirectories = new Set(['.git', 'node_modules', 'build', 'coverage']);
 
 /*
- * Matches an import or a require of the package or any of its subpaths (the /macro entry
- * being the one we used to use). Deliberately written not to match itself, so that this
- * file does not show up in its own results.
+ * Matches every way the package or one of its subpaths (the /macro entry being the one we
+ * used to use) can be pulled in: a static import or re-export (from ...), a side-effect
+ * import, a dynamic import, and a require. The quote has to sit directly against the
+ * package name, so jest-styled-components in src/test/setup.ts is not a match.
+ *
+ * Deliberately written not to match itself, so that this file does not show up in its own
+ * results -- which is why the package name never appears quoted in these comments.
  */
-const importPattern = /(?:from|require\()\s*['"]styled-components(?:\/[^'"]*)?['"]/;
+const importPattern = /(?:\bfrom\s*|\bimport\s*\(|\bimport\s+|\brequire\s*\()['"]styled-components(?:\/[^'"]*)?['"]/;
 
 const repoRoot = path.resolve(__dirname, '..');
 
+/*
+ * Relative paths are joined with '/' rather than path.join so that they compare against
+ * the allowlist on Windows too; path.join resolves them against the repo root either way.
+ */
 const findSourceFiles = (directory: string): string[] => fs
   .readdirSync(path.join(repoRoot, directory), {withFileTypes: true})
   .reduce<string[]>((found, entry) => {
-    const relativePath = path.join(directory, entry.name);
+    const relativePath = directory === '.' ? entry.name : `${directory}/${entry.name}`;
 
     if (entry.isDirectory()) {
       return skipDirectories.has(entry.name) ? found : found.concat(findSourceFiles(relativePath));
@@ -47,8 +61,7 @@ const findSourceFiles = (directory: string): string[] => fs
 
 describe('styled-components', () => {
   it('is imported only by the files that still need it', () => {
-    const importers = searchRoots
-      .reduce<string[]>((found, root) => found.concat(findSourceFiles(root)), [])
+    const importers = findSourceFiles(searchRoot)
       .filter((relativePath) => importPattern.test(fs.readFileSync(path.join(repoRoot, relativePath), 'utf8')));
 
     expect(importers.sort()).toEqual(Array.from(allowedImporters).sort());
