@@ -211,11 +211,6 @@
       "lcovonly"
     ]
   },
-  "babelMacros": {
-    "styledComponents": {
-      "pure": true
-    }
-  },
   "resolutions": {
     "crypto-browserify": "npm:crypto-browserify@^3.12.0"
   }
