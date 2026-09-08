@@ -20,7 +20,13 @@ const srcDir = path.join(__dirname, '..', 'src');
 const target = path.join(srcDir, 'app', 'theme.baseline.json');
 const violations = colorViolations(srcDir);
 
-fs.writeFileSync(target, `${JSON.stringify(violations, null, 2)}\n`);
+// The two identity lists only. `violations.tokens` is which theme tokens happen to
+// carry each color, which the spec recomputes when it needs to name them -- it is a
+// fact about the theme rather than about the tree being locked, so writing it here
+// would churn the baseline on token renames.
+const {duplicates, unknown} = violations;
+
+fs.writeFileSync(target, `${JSON.stringify({duplicates, unknown}, null, 2)}\n`);
 
 // eslint-disable-next-line no-console
 console.log(

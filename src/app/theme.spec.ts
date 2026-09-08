@@ -7,7 +7,9 @@
  */
 import fs from 'fs';
 import path from 'path';
-import { colorViolations, describeColor, stripNoise, stylesheetFiles } from '../test/cssColors';
+import {
+  colorViolations, describeColor, stripNoise, stylesheetFiles, tokenChoices,
+} from '../test/cssColors';
 import theme from './theme';
 import { themeCss, themeTokens } from './themeCss';
 
@@ -53,8 +55,12 @@ const baseline = (): {duplicates: string[], unknown: string[]} =>
  * once per occurrence. Set membership would call 2 -> 1 no change and let a fixed
  * violation come back for free -- widening the blind spot that `occurrence` in
  * src/test/cssColors.ts deliberately narrows.
+ *
+ * `annotate` decorates the `added` entries only, so that what a new violation should
+ * be replaced with is shown where it is useful without becoming part of the identity
+ * the baseline stores.
  */
-const ratchet = (found: string[], locked: string[]) => {
+const ratchet = (found: string[], locked: string[], annotate = (entry: string) => entry) => {
   const unmatched = new Map<string, number>();
   locked.forEach((entry) => unmatched.set(entry, (unmatched.get(entry) || 0) + 1));
 
@@ -70,7 +76,7 @@ const ratchet = (found: string[], locked: string[]) => {
     for (let repeat = 0; repeat < count; repeat++) { removed.push(entry); }
   });
 
-  return {added, removed: removed.sort()};
+  return {added: added.map(annotate), removed: removed.sort()};
 };
 
 const noDrift = {added: [], removed: []};
@@ -80,7 +86,7 @@ describe('the baseline ratchet', () => {
   // anything -- it just quietly stops the checks from catching what they exist to
   // catch. The multiset cases below are the ones that matter: the obvious set-based
   // implementation passes every other test in this block.
-  const entry = (n: number) => `a.css: .x { color: #00${n} } is --color-x`;
+  const entry = (n: number) => `a.css: .x { color: #00${n} }`;
 
   it('reports no drift when the tree matches the baseline', () => {
     expect(ratchet([entry(1), entry(2)], [entry(2), entry(1)])).toEqual(noDrift);
@@ -104,6 +110,18 @@ describe('the baseline ratchet', () => {
   it('counts repeats, so a second copy of an existing occurrence is added', () => {
     expect(ratchet([entry(1), entry(1)], [entry(1)]))
       .toEqual({added: [entry(1)], removed: []});
+  });
+
+  it('annotates what was added, so a new violation says what to use instead', () => {
+    expect(ratchet([entry(1)], [], (found) => `${found} -- use --color-x`))
+      .toEqual({added: [`${entry(1)} -- use --color-x`], removed: []});
+  });
+
+  it('leaves what was removed unannotated, since it matches a baseline entry', () => {
+    // `removed` entries are quoted back for regeneration, so they have to stay
+    // byte-identical to what the baseline holds.
+    expect(ratchet([], [entry(1)], (found) => `${found} -- use --color-x`))
+      .toEqual({added: [], removed: [entry(1)]});
   });
 });
 
@@ -132,7 +150,14 @@ describe('stylesheets', () => {
   });
 
   it('do not duplicate a theme color beyond the baseline', () => {
-    expect(ratchet(colorViolations(srcDir).duplicates, baseline().duplicates)).toEqual(noDrift);
+    const {duplicates, tokens} = colorViolations(srcDir);
+
+    // A new duplicate is reported with every token that carries the color, rather than
+    // with one picked for it -- `#000` is five tokens here, and which of them a given
+    // declaration meant is not something the audit can know.
+    const annotate = (entry: string) => `${entry} -- use ${tokenChoices(tokens[entry])}`;
+
+    expect(ratchet(duplicates, baseline().duplicates, annotate)).toEqual(noDrift);
   });
 
   it('do not introduce an unrecognised color beyond the baseline', () => {
