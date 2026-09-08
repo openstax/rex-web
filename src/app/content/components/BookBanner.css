@@ -97,6 +97,18 @@
   }
 }
 
+/*
+ * The two z-indexes below were JS bindings (--z-index-big/--z-index-mini, set from
+ * theme.zIndex.navbar - 1 and - 2). They are computed here instead so that they stop
+ * squatting in the global --z-index-* namespace while being component-local, which
+ * src/app/theme.spec.ts now rejects.
+ *
+ * calc() is valid where an <integer> is expected -- css-values-3 §"Math functions can
+ * be used in the place of <integer>", rounding the result -- so the declarations are
+ * not dropped. Verified in Chromium against --z-index-navbar: 70: getComputedStyle
+ * reports 69 and 68, the same values the bindings produced.
+ */
+
 /* Big variant styles */
 .book-banner-bar-wrapper.variant-big {
   height: var(--banner-desktop-big-height);

@@ -3,8 +3,14 @@
  *
  * The baseline records the color violations that predate the token file, so that
  * src/app/theme.spec.ts can fail on *new* ones while the sweep works through the old
- * ones. Run this after removing violations — the counts it prints should go down, never
- * up. If they go up, you have added a hardcoded color that belongs in a token.
+ * ones. Run this after removing violations — the counts it prints should go down.
+ *
+ * The one legitimate reason for them to go up is merging main: the plain-CSS migration
+ * is landing stylesheets faster than the sweep is clearing them, and until this check
+ * is on main those arrive unenforced. That is still a snapshot of pre-existing
+ * violations, just taken later. Before regenerating, read the entries the spec reports
+ * as added — if they are in files your branch touched, they are yours, and they want a
+ * token rather than a line in here.
  */
 import fs from 'fs';
 import path from 'path';

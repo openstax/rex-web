@@ -30,6 +30,51 @@ const relative = (file: string) => path.relative(srcDir, file);
 const baseline = (): {duplicates: string[], unknown: string[]} =>
   JSON.parse(fs.readFileSync(baselinePath, 'utf8'));
 
+/**
+ * Splits a ratchet failure into its two directions, so the diff names the occurrences
+ * that changed instead of printing two long sorted arrays side by side and leaving the
+ * reader to find the delta in them.
+ *
+ * Both directions fail, because both mean the baseline no longer describes the tree:
+ *
+ * - `added` is the one that should block. Either you hardcoded a color that has a
+ *   token, or you merged main and picked up stylesheets written before this check
+ *   existed. Read the entries: if they name files your branch never touched, they are
+ *   the second case and regenerating is the right call.
+ * - `removed` means violations were fixed and the baseline needs to tighten around
+ *   what is left, or the ratchet would leave room for them to come back.
+ *
+ * Either way the fix is `yarn generate:theme-baseline`; what differs is whether you
+ * should be reaching for it or for a token.
+ *
+ * Compares as multisets rather than sets, because an occurrence key is not unique: one
+ * declaration can write the same literal twice (`background: #fff` under a selector
+ * that repeats a property for vendor-prefixed pseudo-elements), and the baseline holds
+ * such a key once per occurrence. Set membership would call 2 -> 1 no change and let a
+ * fixed violation come back for free -- which is the blind spot `occurrence` in
+ * src/test/cssColors.ts already narrows deliberately, so it should not be widened here.
+ */
+const ratchet = (found: string[], locked: string[]) => {
+  const unmatched = new Map<string, number>();
+  locked.forEach((entry) => unmatched.set(entry, (unmatched.get(entry) || 0) + 1));
+
+  const added = found.filter((entry) => {
+    const count = unmatched.get(entry) || 0;
+    if (count === 0) { return true; }
+    unmatched.set(entry, count - 1);
+    return false;
+  });
+
+  const removed: string[] = [];
+  unmatched.forEach((count, entry) => {
+    for (let repeat = 0; repeat < count; repeat++) { removed.push(entry); }
+  });
+
+  return {added, removed: removed.sort()};
+};
+
+const noDrift = {added: [], removed: []};
+
 describe('theme.css', () => {
   it('is exactly what the generator produces from the JS theme', () => {
     // One equality rather than several assertions, so a missing token, an orphan token
@@ -55,11 +100,11 @@ describe('stylesheets', () => {
   });
 
   it('do not duplicate a theme color beyond the baseline', () => {
-    expect(colorViolations(srcDir).duplicates).toEqual(baseline().duplicates);
+    expect(ratchet(colorViolations(srcDir).duplicates, baseline().duplicates)).toEqual(noDrift);
   });
 
   it('do not introduce an unrecognised color beyond the baseline', () => {
-    expect(colorViolations(srcDir).unknown).toEqual(baseline().unknown);
+    expect(ratchet(colorViolations(srcDir).unknown, baseline().unknown)).toEqual(noDrift);
   });
 
   it('do not read a global token that does not exist', () => {
