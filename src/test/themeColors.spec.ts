@@ -1,4 +1,4 @@
-import { colorKey, describeColor } from './cssColors';
+import { colorKey, describeColor } from '@openstax/ui-components/theme/cssColors';
 import { themeColorIndex, tokenChoices } from './themeColors';
 
 describe('tokenChoices', () => {
