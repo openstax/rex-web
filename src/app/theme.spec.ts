@@ -47,12 +47,12 @@ const baseline = (): {duplicates: string[], unknown: string[]} =>
  * Either way the fix is `yarn generate:theme-baseline`; what differs is whether you
  * should be reaching for it or for a token.
  *
- * Compares as multisets rather than sets, because an occurrence key is not unique: one
- * declaration can write the same literal twice (`background: #fff` under a selector
- * that repeats a property for vendor-prefixed pseudo-elements), and the baseline holds
- * such a key once per occurrence. Set membership would call 2 -> 1 no change and let a
- * fixed violation come back for free -- which is the blind spot `occurrence` in
- * src/test/cssColors.ts already narrows deliberately, so it should not be widened here.
+ * Compares as multisets rather than sets, because an occurrence key is not unique: a
+ * single declaration can write the same literal more than once, as Topbar's slider
+ * track does with `#fff` at two stops of one gradient, and the baseline holds that key
+ * once per occurrence. Set membership would call 2 -> 1 no change and let a fixed
+ * violation come back for free -- widening the blind spot that `occurrence` in
+ * src/test/cssColors.ts deliberately narrows.
  */
 const ratchet = (found: string[], locked: string[]) => {
   const unmatched = new Map<string, number>();
@@ -74,6 +74,38 @@ const ratchet = (found: string[], locked: string[]) => {
 };
 
 const noDrift = {added: [], removed: []};
+
+describe('the baseline ratchet', () => {
+  // The comparison the two locked checks are built on, so a bug here does not fail
+  // anything -- it just quietly stops the checks from catching what they exist to
+  // catch. The multiset cases below are the ones that matter: the obvious set-based
+  // implementation passes every other test in this block.
+  const entry = (n: number) => `a.css: .x { color: #00${n} } is --color-x`;
+
+  it('reports no drift when the tree matches the baseline', () => {
+    expect(ratchet([entry(1), entry(2)], [entry(2), entry(1)])).toEqual(noDrift);
+  });
+
+  it('reports a new violation as added', () => {
+    expect(ratchet([entry(1), entry(2)], [entry(1)]))
+      .toEqual({added: [entry(2)], removed: []});
+  });
+
+  it('reports a fixed violation as removed', () => {
+    expect(ratchet([entry(1)], [entry(1), entry(2)]))
+      .toEqual({added: [], removed: [entry(2)]});
+  });
+
+  it('counts repeats, so fixing one of two identical occurrences is removed', () => {
+    expect(ratchet([entry(1)], [entry(1), entry(1)]))
+      .toEqual({added: [], removed: [entry(1)]});
+  });
+
+  it('counts repeats, so a second copy of an existing occurrence is added', () => {
+    expect(ratchet([entry(1), entry(1)], [entry(1)]))
+      .toEqual({added: [entry(1)], removed: []});
+  });
+});
 
 describe('theme.css', () => {
   it('is exactly what the generator produces from the JS theme', () => {
