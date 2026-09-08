@@ -73,6 +73,13 @@ const prepareApp = async(
   stats.promiseCollector += timer();
 
   const state = app.store.getState();
+  /*
+   * rex-web itself no longer uses styled-components, but @openstax/ui-components
+   * still does and we render it (Footer, NavBar, toasts). Without this collector
+   * the prerendered HTML carries their generated class names but none of their
+   * CSS, so those components are unstyled until the client bundle boots. Remove
+   * it once ui-components has migrated.
+   */
   const styles = new ServerStyleSheet();
   const pathname = navigationSelectors.pathname(state);
 

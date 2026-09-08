@@ -21,8 +21,8 @@ export const reactAndFriends = () => {
     ReactDOM: require('react-dom') as typeof import ('react-dom'),
     ReactDOMTestUtils: require('react-dom/test-utils') as typeof import ('react-dom/test-utils'),
     Services: require('../app/context/Services'),
-    TestContainer: require('./TestContainer').default,
     _jestStyledComponents: require('jest-styled-components'),
+    TestContainer: require('./TestContainer').default,
     renderToDom: require('./reactutils').renderToDom,
     renderer: require('react-test-renderer'),
   };
