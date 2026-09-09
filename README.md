@@ -26,6 +26,16 @@ yarn
 yarn start
 ```
 
+### node version
+
+The version in `.nvmrc` is the single source of truth — CI, the CI/QA docker
+image, and `nvm install` all read it.
+
+`build:js` and `script/start.bash` set `NODE_OPTIONS=--openssl-legacy-provider`
+because webpack 4 (via react-scripts 4) hashes with md4, which OpenSSL 3 —
+shipped with node 17 and later — removed. The flag goes away with the
+react-scripts 5 / webpack 5 migration (CORE-2854).
+
 ### to fix scarry untrusted cert warning in chrome
 
 *note:* you must do this for login to work
