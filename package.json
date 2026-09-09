@@ -12,7 +12,7 @@
     "@openstax/highlighter": "https://github.com/openstax/highlighter#1.16.4b",
     "@openstax/open-search-client": "0.1.0-build.7",
     "@openstax/ts-utils": "1.19.0",
-    "@openstax/ui-components": "openstax/ui-components#1.21.1",
+    "@openstax/ui-components": "openstax/ui-components#test-core-2736-2",
     "@sentry/integrations": "^7.54.0",
     "@sentry/react": "^7.54.0",
     "classnames": "2.3.2",
@@ -185,6 +185,7 @@
     "moduleNameMapper": {
       "//comment//": "remove this when CRA upgrades jest above 28",
       "(.*)@openstax/ts-utils(.*)": "$1@openstax/ts-utils/dist/cjs$2",
+      "(.*)@openstax/ui-components/(.*)": "$1@openstax/ui-components/dist/cjs/$2",
       "\\.css$": "<rootDir>/__mocks__/styleMock.js"
     },
     "setupFilesAfterEnv": [

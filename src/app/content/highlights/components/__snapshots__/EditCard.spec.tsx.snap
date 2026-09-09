@@ -2,20 +2,7 @@
 
 exports[`EditCard Snapshots and Rendering matches snapshot when editing 1`] = `
 Array [
-  .c0 {
-  position: fixed;
-  right: 2rem;
-  z-index: 40;
-  display: grid;
-  justify-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  gap: 1vh;
-}
-
-<div
+  <div
     style={
       Object {
         "--elevated-toast-z-index": 131,
@@ -24,7 +11,7 @@ Array [
   >
     <div
       aria-live="polite"
-      className="c0 elevated-toast-container"
+      className="toast-container elevated-toast-container"
     />
   </div>,
   <div
@@ -162,20 +149,7 @@ exports[`EditCard Snapshots and Rendering matches snapshot when focused 1`] = `
 
 exports[`EditCard Snapshots and Rendering matches snapshot with data for authenticated user 1`] = `
 Array [
-  .c0 {
-  position: fixed;
-  right: 2rem;
-  z-index: 40;
-  display: grid;
-  justify-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  gap: 1vh;
-}
-
-<div
+  <div
     style={
       Object {
         "--elevated-toast-z-index": 131,
@@ -184,7 +158,7 @@ Array [
   >
     <div
       aria-live="polite"
-      className="c0 elevated-toast-container"
+      className="toast-container elevated-toast-container"
     />
   </div>,
   <div
