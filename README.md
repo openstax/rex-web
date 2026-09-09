@@ -1,7 +1,5 @@
 Unified **R**eading **Ex**perience
 
-[![Updates](https://pyup.io/repos/github/openstax/rex-web/shield.svg)](https://pyup.io/repos/github/openstax/rex-web/) [![Greenkeeper badge](https://badges.greenkeeper.io/openstax/rex-web.svg)](https://greenkeeper.io/)
-
 ## Confluence
 
 Real documentation is on [confluence](https://openstax.atlassian.net/wiki/spaces/UNIFIED/pages/196936/REX) everything here is just for quick reference.
