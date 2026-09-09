@@ -99,7 +99,7 @@ export const useOnDOMEvent = (
 
 export const useTimeout = (delay: number, callback: () => void) => {
   const savedCallback = React.useRef<typeof callback>();
-  const timeout = React.useRef<number>();
+  const timeout = React.useRef<ReturnType<typeof setTimeout>>();
 
   const timeoutHandler = () => savedCallback.current && savedCallback.current();
   const reset = React.useCallback(() => {
