@@ -183,6 +183,19 @@ function useTabRouting(
       const startEl = elements[0];
       const isNewSelection = elements.length === 0;
 
+      // Route focus out of the highlight/card to the nearest forward direction content tab stop
+      const focusAdjacentContent = (reference: Node | null, forward: boolean, clearSelection: boolean) => {
+        event.preventDefault();
+        if (clearSelection) {
+          assertWindow().getSelection()?.removeAllRanges();
+        }
+        const cardWrapper = element.current;
+        const exclude = [...elements, ...(cardWrapper ? [cardWrapper] : [])];
+        const target = reference ? findAdjacentContentTabbable(reference, forward, exclude) : null;
+        unfocus();
+        target?.focus();
+      };
+
       // Tab from the highlight's screen-reader span moves focus into the card.
       const onHighlightSpan = Boolean(
         startEl && startEl.contains(active) && active.hasAttribute('data-for-screenreaders')
@@ -198,15 +211,7 @@ function useTabRouting(
         // content control, mirroring Tab off the last card control and clearing the highlight
         // focus as native Tab off the highlight would have.
         if (cardHidden) {
-          const reference = elements[elements.length - 1] ?? null;
-          const cardWrapper = element.current;
-          const exclude = [...elements, ...(cardWrapper ? [cardWrapper] : [])];
-          const target = reference
-            ? findAdjacentContentTabbable(reference, true, exclude)
-            : null;
-          event.preventDefault();
-          unfocus();
-          target?.focus();
+          focusAdjacentContent(elements[elements.length - 1] ?? null, true, false);
           return;
         }
       }
@@ -215,17 +220,7 @@ function useTabRouting(
       // control. Native Shift+Tab would instead land on the edit button (which sits before the
       // content in the DOM), creating a span<->button loop that can never reach earlier elements.
       if (onHighlightSpan && event.shiftKey && startEl) {
-        const cardWrapper = element.current;
-        const previous = findAdjacentContentTabbable(
-          startEl,
-          false,
-          [...elements, ...(cardWrapper ? [cardWrapper] : [])]
-        );
-        if (previous) {
-          event.preventDefault();
-          unfocus();
-          previous.focus();
-        }
+        focusAdjacentContent(startEl, false, false);
         return;
       }
 
@@ -249,18 +244,7 @@ function useTabRouting(
           const reference: Node | null = isNewSelection
             ? selectionBoundaryNode(container, goingForward)
             : (elements[elements.length - 1] ?? null);
-          const cardWrapper = element.current;
-          const exclude = [
-            ...(isNewSelection ? [] : elements),
-            ...(cardWrapper ? [cardWrapper] : []),
-          ];
-          const target = reference
-            ? findAdjacentContentTabbable(reference, goingForward, exclude)
-            : null;
-          event.preventDefault();
-          assertWindow().getSelection()?.removeAllRanges();
-          unfocus();
-          target?.focus();
+          focusAdjacentContent(reference, goingForward, true);
           return;
         }
       }
@@ -281,15 +265,7 @@ function useTabRouting(
           } else if (event.shiftKey) {
             // Shift+Tab: backward to the previous content control (like the created-highlight case),
             // discarding the unsaved selection so focus lands cleanly instead of on the card/<body>.
-            const reference = selectionBoundaryNode(container, false);
-            const cardWrapper = element.current;
-            const previous = reference
-              ? findAdjacentContentTabbable(reference, false, cardWrapper ? [cardWrapper] : [])
-              : null;
-            event.preventDefault();
-            assertWindow().getSelection()?.removeAllRanges();
-            unfocus();
-            previous?.focus();
+            focusAdjacentContent(selectionBoundaryNode(container, false), false, true);
           }
         }
       }
