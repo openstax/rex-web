@@ -407,3 +407,67 @@ test('CORE-1485 existing highlight: after Escape hides the card, Tab continues t
   }, highlightId)
   expect(followsHighlight, 'focus moved forward, after the highlight').toBe(true)
 })
+
+test('CORE-1485 existing highlight: Escape from the note textarea returns focus to the highlight', async ({
+  page,
+  isMobile,
+}) => {
+  test.skip(isMobile as boolean, 'desktop only: the card control is hidden on mobile')
+  test.setTimeout(150000)
+
+  // GIVEN: an authenticated user with one saved highlight, focused on its screen-reader span
+  const bookPage = new ContentPage(page)
+  await bookPage.open(BOOK_PAGE)
+  await rexUserSignup(page)
+  await expect(page).toHaveURL(BOOK_PAGE)
+  await createGreenHighlight(page, bookPage, randomNum(await bookPage.paracount()))
+
+  await page.reload()
+  await page.waitForSelector('.highlight', { timeout: 20000 })
+  const highlightId = await page.evaluate(
+    () => document.querySelector('.highlight')?.getAttribute('data-highlight-id') ?? null,
+  )
+  expect(highlightId, 'the saved highlight loaded').toBeTruthy()
+
+  await focusHighlightStartSpan(page, highlightId as string)
+  await page.waitForSelector(ACTIVE_CARD, { timeout: 15000 })
+  expect((await activeElementInfo(page)).isScreenReaderSpan, 'focus starts on the highlight span').toBe(true)
+
+  // WHEN: Enter opens the note entry field, which takes focus
+  await page.keyboard.press('Enter')
+  await page.waitForSelector(`${ACTIVE_CARD} textarea`, { timeout: 15000 })
+  const inNote = await activeElementInfo(page)
+  console.log('after Enter (note field):', inNote)
+  expect(inNote.inCard, 'Enter moved focus into the card').toBe(true)
+  expect(inNote.tag, 'the note entry field is a textarea').toBe('TEXTAREA')
+
+  // WHEN: Escape closes the (empty) note field
+  // THEN: focus returns to the highlight span rather than falling to <body> (the bug)
+  await page.keyboard.press('Escape')
+  const afterEscape = await activeElementInfo(page)
+  console.log('after Escape (from textarea):', afterEscape)
+  expect(afterEscape.tag, 'Escape did not drop focus to <body>').not.toBe('BODY')
+  expect(afterEscape.isScreenReaderSpan, 'Escape returns focus to the highlight span').toBe(true)
+  expect(afterEscape.highlightId, 'focus is on the same highlight').toBe(highlightId)
+
+  // AND: Shift+Tab now routes to the previous content and closes the card (the bug: it jumped
+  // outside the container and left the "Press Enter" card open).
+  await page.keyboard.press('Shift+Tab')
+  const afterShiftTab = await activeElementInfo(page)
+  console.log('after Escape -> Shift+Tab:', afterShiftTab)
+  expect(afterShiftTab.inCard, 'Shift+Tab left the card layer').toBe(false)
+  expect(afterShiftTab.tag, 'focus landed on a real content element, not <body>').not.toBe('BODY')
+  expect(await page.locator(ACTIVE_CARD).count(), 'the active card closed').toBe(0)
+
+  const precedesHighlight = await page.evaluate((id) => {
+    const mark = document.querySelector(`[data-highlight-id="${id}"]`)
+    const a = document.activeElement as HTMLElement | null
+    if (!mark || !a || a === document.body) {
+      return false
+    }
+    const DOCUMENT_POSITION_PRECEDING = 2
+    // eslint-disable-next-line no-bitwise
+    return Boolean(mark.compareDocumentPosition(a) & DOCUMENT_POSITION_PRECEDING)
+  }, highlightId)
+  expect(precedesHighlight, 'focus moved backward, before the highlight').toBe(true)
+})

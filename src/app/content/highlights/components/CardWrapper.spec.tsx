@@ -422,6 +422,53 @@ describe('CardWrapper', () => {
     });
   });
 
+  it('hideCardEvent returns focus to an existing highlight so keyboard nav can continue', () => {
+    const document = assertDocument();
+    const highlight = createMockHighlight('id1');
+    const highlightElement = document.createElement('span');
+    highlight.elements.push(highlightElement);
+    container.appendChild(highlightElement);
+
+    renderer.create(
+      <Provider store={store}>
+        <OnEsc />
+        <CardWrapper container={container} highlights={[highlight as unknown as Highlight]} />
+      </Provider>
+    );
+
+    renderer.act(() => { store.dispatch(focusHighlight(highlight.id)); });
+
+    // The "ensure focused" effect focuses on focus change; clear so we assert the hideCardEvent path.
+    (highlight.focus as jest.Mock).mockClear();
+
+    renderer.act(() => {
+      document?.dispatchEvent(new CustomEvent('hideCardEvent', { bubbles: true }));
+    });
+
+    expect(highlight.focus).toHaveBeenCalled();
+  });
+
+  it('hideCardEvent does not focus a selection-only highlight (no elements)', () => {
+    const document = assertDocument();
+    const selectionHighlight = { id: 'string', elements: [], focus: jest.fn() };
+
+    renderer.create(
+      <Provider store={store}>
+        <OnEsc />
+        <CardWrapper container={container} highlights={[selectionHighlight as unknown as Highlight]} />
+      </Provider>
+    );
+
+    renderer.act(() => { store.dispatch(focusHighlight(selectionHighlight.id)); });
+    selectionHighlight.focus.mockClear();
+
+    renderer.act(() => {
+      document?.dispatchEvent(new CustomEvent('hideCardEvent', { bubbles: true }));
+    });
+
+    expect(selectionHighlight.focus).not.toHaveBeenCalled();
+  });
+
   it(
     'handles useKeyCombination - noop if trigerred in element that we dont support '
     + 'or with another key combination',

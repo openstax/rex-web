@@ -326,11 +326,17 @@ function useFocusedHighlight(
   React.useEffect(() => {
     const handler = () => {
       setShouldFocusCard(false);
+      // The textarea is about to unmount; without moving focus first it falls to <body>,
+      // which breaks Tab/Shift+Tab routing and prevents the card from closing. Return focus
+      // to the highlight span so keyboard nav continues from the highlight (mirrors hideCard).
+      if (isExistingHighlight) {
+        focusedHighlight?.focus();
+      }
     };
 
     document.addEventListener('hideCardEvent', handler);
     return () => document.removeEventListener('hideCardEvent', handler);
-  }, [document]);
+  }, [document, isExistingHighlight, focusedHighlight]);
 
   // Ensure focusedHighlight is actually focused
   React.useEffect(() => {
