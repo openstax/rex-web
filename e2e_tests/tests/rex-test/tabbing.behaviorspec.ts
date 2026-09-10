@@ -354,3 +354,56 @@ test('CORE-1485 existing highlight: edit control is reachable via Tab / Shift+Ta
   }, highlightId)
   expect(precedesHighlight, 'focus moved backward, before the highlight').toBe(true)
 })
+
+test('CORE-1485 existing highlight: after Escape hides the card, Tab continues to the next content', async ({
+  page,
+  isMobile,
+}) => {
+  test.skip(isMobile as boolean, 'desktop only: the card control is hidden on mobile')
+  test.setTimeout(150000)
+
+  // GIVEN: an authenticated user with one saved highlight, focused on its screen-reader span
+  const bookPage = new ContentPage(page)
+  await bookPage.open(BOOK_PAGE)
+  await rexUserSignup(page)
+  await expect(page).toHaveURL(BOOK_PAGE)
+  await createGreenHighlight(page, bookPage, randomNum(await bookPage.paracount()))
+
+  await page.reload()
+  await page.waitForSelector('.highlight', { timeout: 20000 })
+  const highlightId = await page.evaluate(
+    () => document.querySelector('.highlight')?.getAttribute('data-highlight-id') ?? null,
+  )
+  expect(highlightId, 'the saved highlight loaded').toBeTruthy()
+
+  await focusHighlightStartSpan(page, highlightId as string)
+  await page.waitForSelector(ACTIVE_CARD, { timeout: 15000 })
+  expect((await activeElementInfo(page)).isScreenReaderSpan, 'focus starts on the highlight span').toBe(true)
+
+  // WHEN: Escape hides the card (focus stays on the highlight); then Tab
+  await page.keyboard.press('Escape')
+  const afterEscape = await activeElementInfo(page)
+  console.log('after Escape:', afterEscape)
+  expect(afterEscape.isScreenReaderSpan, 'Escape keeps focus on the highlight span').toBe(true)
+
+  // THEN: Tab moves forward to the following content — it does NOT get trapped on the highlight by
+  // trying to focus into the now-hidden card (the bug: the second Tab did nothing).
+  await page.keyboard.press('Tab')
+  const afterTab = await activeElementInfo(page)
+  console.log('after Escape -> Tab:', afterTab)
+  expect(afterTab.inCard, 'focus did not go into the hidden card').toBe(false)
+  expect(afterTab.isScreenReaderSpan, 'focus advanced off the highlight span').toBe(false)
+  expect(afterTab.tag, 'focus landed on a real content element, not <body>').not.toBe('BODY')
+
+  const followsHighlight = await page.evaluate((id) => {
+    const mark = document.querySelector(`[data-highlight-id="${id}"]`)
+    const a = document.activeElement as HTMLElement | null
+    if (!mark || !a || a === document.body) {
+      return false
+    }
+    const DOCUMENT_POSITION_FOLLOWING = 4
+    // eslint-disable-next-line no-bitwise
+    return Boolean(mark.compareDocumentPosition(a) & DOCUMENT_POSITION_FOLLOWING)
+  }, highlightId)
+  expect(followsHighlight, 'focus moved forward, after the highlight').toBe(true)
+})

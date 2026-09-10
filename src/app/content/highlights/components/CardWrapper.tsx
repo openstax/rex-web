@@ -162,6 +162,10 @@ function useTabRouting(
 
       // The card node for the focused highlight (EditCard dialog wrapper or DisplayNote root).
       const cardNode = element.current?.querySelector<HTMLElement>('[data-active="true"]') ?? null;
+      // A card dismissed by Escape (or hidden under a collapsed section) is visibility:hidden,
+      // so it's out of the tab order and its controls can't take focus. Treat it as no card:
+      // route Tab out to the adjacent content instead of trying to focus into it.
+      const cardHidden = cardNode?.matches('[data-hidden="true"]') ?? false;
       const inCard = Boolean(cardNode?.contains(active));
       // While a note is actively being edited, the EditCard tab trap owns Tab within the
       // card; leave the card boundaries to it.
@@ -183,10 +187,28 @@ function useTabRouting(
       const onHighlightSpan = Boolean(
         startEl && startEl.contains(active) && active.hasAttribute('data-for-screenreaders')
       );
-      if (onHighlightSpan && !event.shiftKey && firstFocusable) {
-        event.preventDefault();
-        firstFocusable.focus();
-        return;
+      if (onHighlightSpan && !event.shiftKey) {
+        // Card is visible: move focus into it.
+        if (!cardHidden && firstFocusable) {
+          event.preventDefault();
+          firstFocusable.focus();
+          return;
+        }
+        // Card was dismissed (Escape): there's nothing to tab into, so continue to the next
+        // content control, mirroring Tab off the last card control and clearing the highlight
+        // focus as native Tab off the highlight would have.
+        if (cardHidden) {
+          const reference = elements[elements.length - 1] ?? null;
+          const cardWrapper = element.current;
+          const exclude = [...elements, ...(cardWrapper ? [cardWrapper] : [])];
+          const target = reference
+            ? findAdjacentContentTabbable(reference, true, exclude)
+            : null;
+          event.preventDefault();
+          unfocus();
+          target?.focus();
+          return;
+        }
       }
 
       // Shift+Tab from the highlight's screen-reader span breaks out to the previous content
