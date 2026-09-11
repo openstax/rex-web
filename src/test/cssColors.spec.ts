@@ -36,6 +36,20 @@ describe('stripNoise', () => {
     expect(stripNoise('a { content: "a\\"b"; }')).not.toContain('b"');
   });
 
+  it('leaves a function whose name merely ends in url alone', () => {
+    // `myurl(` is not a url token: its payload is ordinary value text, and blanking it
+    // would lose a color. Only an ident boundary before `url` makes it a url token.
+    expect(stripNoise('a { --x: myurl(#fff); }')).toContain('#fff');
+  });
+
+  it('ends a url() at the structural paren, not at one inside its quoted payload', () => {
+    // stopping at the inner `)` would leave the trailing quote behind, and blanking
+    // that "unterminated string" would swallow every declaration after it.
+    const blanked = stripNoise('a { background: url("asset).svg"); } b { color: #fff; }');
+    expect(blanked).toContain('color: #fff;');
+    expect(blanked).not.toContain('asset');
+  });
+
   it('tolerates an unterminated comment', () => {
     expect(stripNoise('a { color: red; /* oops')).toContain('color: red;');
   });
@@ -46,6 +60,9 @@ describe('stripNoise', () => {
     ['an unterminated string', 'a { content: "tan }'],
     ['a url()', 'a { background: url(data:image/svg+xml;base64,Zm9v); }'],
     ['an unterminated url()', 'a { background: url(oops }'],
+    ['a url() with a quoted payload', 'a { background: url("a).svg"); }'],
+    ['a url() with an unterminated quote', 'a { background: url("oops }'],
+    ['a url() ending in an escape', 'a { background: url(oops\\'],
     ['an unterminated comment', 'a { color: red; /* oops'],
   ])('blanks %s without changing the length', (_case, css) => {
     // declarations addresses two differently-blanked copies with one index, so this
@@ -130,6 +147,23 @@ describe('declarations', () => {
     expect(declarations('a { content: "#fff"; }')).toEqual([]);
   });
 
+  it('does not collapse whitespace inside a selector string', () => {
+    // the separator/content distinction: `[data-value="a  b"]` and `[data-value="a b"]`
+    // match different values, so collapsing both to the latter would let a literal move
+    // between two distinct rules without the baseline identity changing.
+    const parsed = declarations(
+      '.x[data-value="a  b"] { color: #fff; } .x[data-value="a b"] { color: #fff; }'
+    );
+
+    expect(parsed.map(({context}) => context))
+      .toEqual(['.x[data-value="a  b"]', '.x[data-value="a b"]']);
+  });
+
+  it('still collapses the whitespace that is a separator', () => {
+    expect(declarations('.a\n  >\n  .b[data-x="y"] { color: red; }')[0].context)
+      .toEqual('.a > .b[data-x="y"]');
+  });
+
   it('does not let a brace inside a selector string open a block', () => {
     expect(declarations('.x[data-glyph="{"] { color: red; }'))
       .toEqual([{context: '.x[data-glyph="{"]', property: 'color', value: 'red'}]);
@@ -205,6 +239,24 @@ describe('findColors', () => {
     const found = stylesheetColors('a { color: rgba(var(--channels), 0.2); }');
     expect(found).toHaveLength(1);
     expect(found[0].rgba).toBeNull();
+  });
+
+  it('finds device-cmyk(), which is a color function rather than a container', () => {
+    // absent from the terminal list it would be descended into, its numeric arguments
+    // would yield nothing, and a hardcoded color would pass the audit unreported.
+    const found = stylesheetColors('a { color: device-cmyk(0 1 1 0); }');
+    expect(found).toHaveLength(1);
+    expect(found[0].literal).toEqual('device-cmyk(0 1 1 0)');
+    expect(found[0].rgba).toBeNull();
+  });
+
+  it('finds a color inside a function whose name merely ends in url', () => {
+    expect(literals('a { --x: myurl(#fff); }')).toEqual(['#fff']);
+  });
+
+  it('keeps finding colors after a url() with a paren in its quoted payload', () => {
+    expect(literals('a { background: url("asset).svg"); } b { color: #fff; }'))
+      .toEqual(['#fff']);
   });
 
   it('does not treat a class selector named .red as a color', () => {
@@ -344,6 +396,27 @@ describe('describeColor', () => {
       expect(describeColor(literal)).toBeNull();
     }
   );
+
+  it.each(['rgb(., 0, 0)', 'rgb(1..2, 0, 0)', 'rgb(0, 0, 0, .)', 'rgb(., 0, 0 )'])(
+    'returns null for %s rather than a set of NaN channels', (literal) => {
+      // `[\d.]+` matches `.` and `1..2`, which parseFloat turns into NaN and a
+      // truncated 1. Only checking for null would hand either back as resolved, the
+      // same failure mode the hex grammar check prevents.
+      expect(describeColor(literal)).toBeNull();
+    }
+  );
+
+  it.each(['rgb(+255, 0, 0)', 'rgb(2.55e2, 0, 0)', 'rgb(255.0, 0, 0)'])(
+    'still reads %s, which the CSS number grammar allows', (literal) => {
+      expect(describeColor(literal)).toEqual({a: 1, b: 0, g: 0, r: 255});
+    }
+  );
+
+  it('reads an rgb() written across several lines', () => {
+    // CSS whitespace inside a function includes newlines; a `.`-based grammar would
+    // leave this unresolved and misreport a resolvable duplicate as unrecognised.
+    expect(describeColor('rgb(\n  255 0 0\n)')).toEqual({a: 1, b: 0, g: 0, r: 255});
+  });
 
   it('rounds a percentage channel the same way as its integer spelling', () => {
     // 50% of 255 is 127.5, which rounds to 128. Scaling by the decimal 2.55 gives

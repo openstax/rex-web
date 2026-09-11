@@ -33,8 +33,9 @@ export interface FoundColor {
 export interface Declaration {
   /**
    * The selectors and at-rule preludes the declaration sits inside, outermost first,
-   * whitespace-collapsed: `@media (max-width: 75em) .book-banner .title`. Used as the
-   * stable half of a color occurrence's identity in the baseline.
+   * with runs of whitespace collapsed outside strings:
+   * `@media (max-width: 75em) .book-banner .title`. Used as the stable half of a
+   * color occurrence's identity in the baseline.
    */
   context: string;
   /** lower-cased property name, e.g. `background-color` or `--book-banner-height` */
@@ -102,6 +103,7 @@ const NAMED_COLORS: {[name: string]: string} = {
  */
 const COLOR_FUNCTIONS = [
   'rgb', 'rgba', 'hsl', 'hsla', 'hwb', 'lab', 'lch', 'oklab', 'oklch', 'color',
+  'device-cmyk',
 ];
 
 /**
@@ -155,16 +157,41 @@ const blankNoise = (css: string, keepStrings: boolean): string => {
       continue;
     }
 
-    const url = /^url\(/i.exec(rest);
+    // `url` has to be the whole function name rather than the tail of one. In
+    // `--x: myurl(#fff)` the payload is ordinary value text to descend into, and
+    // blanking it loses the color. The preceding source character settles it: an
+    // ident character there means `url` is only a suffix.
+    const boundary = index === 0 || !/[\w-]/.test(css[index - 1]);
+    const url = boundary ? /^url\(/i.exec(rest) : null;
     if (url) {
       const open = index + url[0].length;
       let depth = 1;
       let cursor = open;
+      // only a structural `)` ends the url: `url("icon).svg")` closes at the last
+      // paren, not at the one in the filename. Stopping early would leave the trailing
+      // quote behind, and blanking that "unterminated string" would swallow every
+      // declaration after it.
       while (cursor < css.length && depth > 0) {
-        if (css[cursor] === '(') { depth++; }
-        if (css[cursor] === ')') { depth--; }
+        const character = css[cursor];
+
+        if (character === '\\') { cursor += 2; continue; }
+
+        if (character === '"' || character === '\'') {
+          cursor++;
+          while (cursor < css.length && css[cursor] !== character) {
+            cursor += css[cursor] === '\\' ? 2 : 1;
+          }
+          cursor++;
+          continue;
+        }
+
+        if (character === '(') { depth++; }
+        if (character === ')') { depth--; }
         cursor++;
       }
+      // an escape or a quote at the very end can carry the cursor past the end, and the
+      // blanked copy has to stay the same length as the input.
+      cursor = Math.min(cursor, css.length);
       // the parens themselves are structure -- `declarations` balances them -- so only
       // the payload between them is blanked.
       const closed = depth === 0;
@@ -183,6 +210,51 @@ const blankNoise = (css: string, keepStrings: boolean): string => {
 
 /** Noise blanked for reading declaration values: strings go too. */
 export const stripNoise = (css: string): string => blankNoise(css, false);
+
+/**
+ * Collapses runs of whitespace in a selector, but only where the whitespace is
+ * separator rather than content. `[data-label="a  b"]` and `[data-label="a b"]` match
+ * different values, so a context that collapsed both to the latter would stop telling
+ * two rules apart -- which is the one job the context has, and the reason the context
+ * copy keeps its strings in the first place.
+ */
+const collapseSeparators = (selector: string): string => {
+  let out = '';
+  let index = 0;
+
+  while (index < selector.length) {
+    const character = selector[index];
+
+    if (character === '\\') {
+      // an escaped space is part of an identifier, e.g. the class `.a\ b`
+      out += selector.slice(index, index + 2);
+      index += 2;
+      continue;
+    }
+
+    if (character === '"' || character === '\'') {
+      let cursor = index + 1;
+      while (cursor < selector.length && selector[cursor] !== character) {
+        cursor += selector[cursor] === '\\' ? 2 : 1;
+      }
+      const stop = Math.min(cursor + 1, selector.length);
+      out += selector.slice(index, stop);
+      index = stop;
+      continue;
+    }
+
+    if (/\s/.test(character)) {
+      while (index < selector.length && /\s/.test(selector[index])) { index++; }
+      out += ' ';
+      continue;
+    }
+
+    out += character;
+    index++;
+  }
+
+  return out.trim();
+};
 
 /**
  * Pulls declarations out of a stylesheet at any nesting depth, so `@media` blocks are
@@ -230,7 +302,7 @@ export const declarations = (css: string): Declaration[] => {
     if (parens !== 0) { continue; }
 
     if (character === '{') {
-      stack.push(selectors.slice(start, index).replace(/\s+/g, ' ').trim());
+      stack.push(collapseSeparators(selectors.slice(start, index)));
       start = index + 1;
     } else if (character === '}') {
       flush(index);
@@ -271,23 +343,34 @@ export const takesColor = (property: string): boolean => {
 
 const clamp = (value: number, max: number) => Math.min(max, Math.max(0, value));
 
+/**
+ * The CSS `<number>` grammar, shared by the channels and the alpha rather than
+ * approximated as "digits and dots". `[\d.]+` also matches `.` and `1..2`, which
+ * `parseFloat` turns into `NaN` and a truncated `1`; both would then be handed back as
+ * resolved channels, so a malformed declaration would read as a real color and get a
+ * comparison key built out of `NaN` -- the same failure the hex grammar check prevents.
+ */
+const NUMBER = '[+-]?(?:\\d+|\\d*\\.\\d+)(?:e[+-]?\\d+)?';
+const IS_NUMBER = new RegExp(`^${NUMBER}$`, 'i');
+const IS_PERCENTAGE = new RegExp(`^(${NUMBER})%$`, 'i');
+
 const channel = (raw: string): number | null => {
   const text = raw.trim();
-  const percent = /^(-?[\d.]+)%$/.exec(text);
+  const percent = IS_PERCENTAGE.exec(text);
   // scale by 255/100 rather than by the decimal 2.55, which is not representable in
   // binary: 50 * 2.55 is 127.49999999999999 and rounds to 127, where 50% of 255 is
   // 127.5 and rounds to 128. The two spellings of the same color must agree, or they
   // get different keys and the audit misclassifies one of them.
   if (percent) { return Math.round((clamp(parseFloat(percent[1]), 100) / 100) * 255); }
-  return /^-?[\d.]+$/.test(text) ? Math.round(clamp(parseFloat(text), 255)) : null;
+  return IS_NUMBER.test(text) ? Math.round(clamp(parseFloat(text), 255)) : null;
 };
 
 const alphaChannel = (raw?: string): number | null => {
   if (raw === undefined) { return 1; }
   const text = raw.trim();
-  const percent = /^(-?[\d.]+)%$/.exec(text);
+  const percent = IS_PERCENTAGE.exec(text);
   if (percent) { return clamp(parseFloat(percent[1]), 100) / 100; }
-  return /^-?[\d.]+$/.test(text) ? clamp(parseFloat(text), 1) : null;
+  return IS_NUMBER.test(text) ? clamp(parseFloat(text), 1) : null;
 };
 
 /**
@@ -327,7 +410,9 @@ export const describeColor = (literal: string): Rgba | null => {
   const named = NAMED_COLORS[text.toLowerCase()];
   if (named) { return fromHex(named); }
 
-  const fn = /^(rgba?)\((.*)\)$/i.exec(text);
+  // dotall: CSS whitespace inside `rgb()` includes newlines, and a bare `.` would
+  // leave a wrapped literal unresolved and misreport a theme duplicate as unrecognised.
+  const fn = /^(rgba?)\((.*)\)$/is.exec(text);
   if (!fn) { return null; }
 
   const args = fn[2].includes(',')
