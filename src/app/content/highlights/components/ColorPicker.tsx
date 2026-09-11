@@ -119,7 +119,7 @@ const ColorPicker = ({className, ...props}: Props) => {
         onKeyDown={handleKeyNavigation}
         onFocus={focusOnSelected}
         role='radiogroup'
-        data-testid='highlight-colours-picker'
+        data-testid='highlight-colors-picker'
       >
         <legend>Choose highlight color</legend>
         {highlightStyles.map((style) => <ColorButton key={style.label}
