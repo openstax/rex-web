@@ -410,10 +410,9 @@ export const describeColor = (literal: string): Rgba | null => {
   const named = NAMED_COLORS[text.toLowerCase()];
   if (named) { return fromHex(named); }
 
-  // `[\s\S]` rather than the `s` flag, which needs an es2018 target and REX is on
-  // es2017: CSS whitespace inside `rgb()` includes newlines, and a `.` would leave a
-  // wrapped literal unresolved and misreport a theme duplicate as unrecognised.
-  const fn = /^(rgba?)\(([\s\S]*)\)$/i.exec(text);
+  // dotall: CSS whitespace inside `rgb()` includes newlines, and a bare `.` would
+  // leave a wrapped literal unresolved and misreport a theme duplicate as unrecognised.
+  const fn = /^(rgba?)\((.*)\)$/is.exec(text);
   if (!fn) { return null; }
 
   const args = fn[2].includes(',')
