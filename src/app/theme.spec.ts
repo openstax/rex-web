@@ -9,6 +9,7 @@
 import fs from 'fs';
 import path from 'path';
 import { describeColor, stripNoise } from '../test/cssColors';
+import { mediaWidths } from '../test/cssMediaQueries';
 import { colorViolations, stylesheetFiles, tokenChoices } from '../test/themeColors';
 import theme from './theme';
 import { themeCss, themeTokens } from './themeCss';
@@ -193,6 +194,11 @@ describe('stylesheets', () => {
     // value meant to be a theme breakpoint but mistyped, e.g. 74em or 75.5em, which
     // silently stops matching where the theme's own queries match. The bound is
     // inclusive so that 74em -- exactly 1em out, and the likeliest typo -- is caught.
+    //
+    // Both spellings of a query count, and every endpoint of a range: see
+    // src/test/cssMediaQueries.ts. `(width <= 74em)` is the same typo as
+    // `(max-width: 74em)` and this check would be worth little if the newer syntax
+    // were the way around it.
     const themeBreaks = [
       theme.breakpoints.mobileSmallBreak,
       theme.breakpoints.mobileMediumBreak,
@@ -207,14 +213,7 @@ describe('stylesheets', () => {
     const suspicious: string[] = [];
 
     for (const file of stylesheetFiles(srcDir)) {
-      const queries = stripNoise(fs.readFileSync(file, 'utf8'))
-        .match(/\((?:min|max)-width:\s*[\d.]+em\)/g) || [];
-
-      queries
-        .map((query) => ({
-          query,
-          size: parseFloat((/([\d.]+)em/.exec(query) as RegExpExecArray)[1]),
-        }))
+      mediaWidths(fs.readFileSync(file, 'utf8'))
         .filter(({size}) => !exact.has(size))
         .filter(({size}) => themeBreaks.some((themeBreak) => Math.abs(themeBreak - size) <= 1))
         .forEach(({query}) => suspicious.push(`${relative(file)}: ${query}`));
