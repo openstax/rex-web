@@ -43,6 +43,17 @@ describe('mediaWidths', () => {
     it('reads a decimal with no integer part', () => {
       expect(sizes(query('(min-width: .5em)'))).toEqual([0.5]);
     });
+
+    it.each([
+      // in a media query there is no element for `em` to be relative to, so both
+      // units resolve against the initial font size and match at the same width:
+      // `74rem` is the same mistyped breakpoint as `74em`, not a different one
+      ['rem as the em it is in a media query', '(max-width: 74rem)'],
+      ['REM in capitals', '(max-width: 74REM)'],
+      ['rem in a range', '(width <= 74rem)'],
+    ])('reads %s', (_case, feature) => {
+      expect(sizes(query(feature))).toEqual([74]);
+    });
   });
 
   describe('calc()', () => {
@@ -63,6 +74,11 @@ describe('mediaWidths', () => {
 
     it('resolves a sum in another unit, which is then out of scope', () => {
       expect(sizes(query('(max-width: calc(1200px + 1px))'))).toEqual([]);
+    });
+
+    it('adds em and rem terms, which are the same unit here', () => {
+      // the reason rem is normalised in `resolve` rather than on the way out
+      expect(sizes(query('(max-width: calc(74rem + 1em))'))).toEqual([75]);
     });
 
     it.each([
@@ -115,10 +131,10 @@ describe('mediaWidths', () => {
     ['a feature with no length', '(min-resolution: 2dppx)'],
     ['a boolean width feature', '(width)'],
     ['a media type on its own', 'print'],
-    // the theme's breakpoints are em; px cannot be compared without assuming a root
-    // font size, so it is skipped rather than guessed at
+    // px is the same length whatever the initial font size is, so comparing it with
+    // an em breakpoint would mean assuming that size
     ['a width in px', '(max-width: 1200px)'],
-    ['a width in rem', '(max-width: 74rem)'],
+    ['a width in cm', '(max-width: 30cm)'],
     ['a zero width', '(min-width: 0)'],
   ])('ignores %s', (_case, feature) => {
     expect(sizes(query(feature))).toEqual([]);
