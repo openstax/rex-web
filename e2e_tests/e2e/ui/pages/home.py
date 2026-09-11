@@ -1,3 +1,5 @@
+import re
+
 import pytest
 
 
@@ -233,9 +235,14 @@ class HomeRex:
 
     @pytest.mark.asyncio
     async def highlight_box_colors_are_visible(self):
+        # this suite runs against the deployed site, so while the `colours` ->
+        # `colors` spelling of the test id is in flight it has to match either
+        # one: the new spelling is not live until the rename deploys, and the old
+        # one comes back if that deploy is rolled back. Narrow this to
+        # `highlight-colors-picker` once the rename is out everywhere.
         return (
             await self.page.locator("div")
-            .get_by_test_id("highlight-colors-picker")
+            .get_by_test_id(re.compile(r"^highlight-colou?rs-picker$"))
             .is_visible()
         )
 
