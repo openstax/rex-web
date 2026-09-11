@@ -198,7 +198,9 @@ describe('stylesheets', () => {
     // Both spellings of a query count, and every endpoint of a range: see
     // src/test/cssMediaQueries.ts. `(width <= 74em)` is the same typo as
     // `(max-width: 74em)` and this check would be worth little if the newer syntax
-    // were the way around it.
+    // were the way around it. Values are parsed rather than matched, so `7.4e1em` is
+    // the 74em it means, and `calc(49em + 1em)` is the 50em it means rather than a
+    // 49em that then fails this.
     const themeBreaks = [
       theme.breakpoints.mobileSmallBreak,
       theme.breakpoints.mobileMediumBreak,
@@ -211,12 +213,23 @@ describe('stylesheets', () => {
     ));
 
     const suspicious: string[] = [];
+    const near = (size: number) => !exact.has(size)
+      && themeBreaks.some((themeBreak) => Math.abs(themeBreak - size) <= 1);
 
     for (const file of stylesheetFiles(srcDir)) {
-      mediaWidths(fs.readFileSync(file, 'utf8'))
-        .filter(({size}) => !exact.has(size))
-        .filter(({size}) => themeBreaks.some((themeBreak) => Math.abs(themeBreak - size) <= 1))
-        .forEach(({query}) => suspicious.push(`${relative(file)}: ${query}`));
+      for (const {query, size} of mediaWidths(fs.readFileSync(file, 'utf8'))) {
+        // An endpoint that cannot be resolved to one em length is reported rather
+        // than skipped, the same way the color audit refuses to pass a color it
+        // cannot resolve: a calc() this does not evaluate -- a multiplication, a mix
+        // of units -- could be hiding the very typo the check is for. Nothing in
+        // src/** writes one today. Either write the value out, or teach mediaWidths
+        // the form; do not add it to an allowlist.
+        if (size === null) {
+          suspicious.push(`${relative(file)}: ${query} -- not resolvable to a width in em`);
+        } else if (near(size)) {
+          suspicious.push(`${relative(file)}: ${query}`);
+        }
+      }
     }
 
     expect(suspicious).toEqual([]);
