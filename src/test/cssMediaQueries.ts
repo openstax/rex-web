@@ -52,6 +52,19 @@ const LEADING_NUMBER = new RegExp(`^${NUMBER}`, 'i');
 const IS_UNIT = /^(?:[a-z]+|%)?$/;
 
 /**
+ * `rem` is `em` in a media query. Inside one, both resolve against the initial value
+ * of `font-size` rather than against any element -- there is no element to be
+ * relative to -- so `(max-width: 74rem)` and `(max-width: 74em)` match at exactly the
+ * same width (Media Queries 4 §1.3). Folding it in means the theme's breakpoints are
+ * audited in either spelling, instead of `rem` being a way to write the typo.
+ *
+ * `px` is not folded in: it is the same length whatever the initial font size is, so
+ * comparing it to `75em` would mean assuming that size -- usually 16px, but the user
+ * decides.
+ */
+const EM_EQUIVALENT: {[unit: string]: string} = {em: 'em', rem: 'em'};
+
+/**
  * The text between `@media` and the `{` that opens its block, for every media rule,
  * at any nesting depth. Reading the prelude rather than scanning the whole stylesheet
  * is what keeps declaration values out: `--page-width: 74em` and
@@ -199,9 +212,12 @@ function resolve(value: string): Length | null {
   const number = LEADING_NUMBER.exec(text);
   if (!number) { return null; }
 
-  const unit = text.slice(number[0].length).toLowerCase();
+  const written = text.slice(number[0].length).toLowerCase();
+  if (!IS_UNIT.test(written)) { return null; }
 
-  return IS_UNIT.test(unit) ? {size: parseFloat(number[0]), unit} : null;
+  // normalised here rather than at the end, so that the terms of
+  // `calc(74rem + 1em)` are seen to share a unit and the sum resolves.
+  return {size: parseFloat(number[0]), unit: EM_EQUIVALENT[written] || written};
 }
 
 /**
@@ -211,9 +227,10 @@ function resolve(value: string): Length | null {
  * in a range, and the deprecated `device-width` spellings -- and each of its value
  * expressions is an endpoint, which is what gets both ends of `(30em < width < 74em)`.
  *
- * An endpoint that resolves to a length in some other unit is dropped, not reported:
- * the theme's breakpoints are `em`, and `75em` against `1200px` is a comparison this
- * cannot make without assuming a root font size. There are none in `src/**` today.
+ * Endpoints are reported in em, `rem` included, since the two are the same unit in a
+ * media query -- see `EM_EQUIVALENT`. An endpoint in any other unit is dropped rather
+ * than reported: `75em` against `1200px` is a comparison this cannot make without
+ * assuming an initial font size. There are none in `src/**` today.
  */
 export const mediaWidths = (css: string): MediaWidth[] => {
   const found: MediaWidth[] = [];
