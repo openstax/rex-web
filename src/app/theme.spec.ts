@@ -2,14 +2,14 @@
  * Keeps the theme and the stylesheets honest.
  *
  * Jest maps `*.css` imports to a style mock, so these read the stylesheets off disk
- * with `fs` instead of importing them. The audit itself lives in src/test/cssColors.ts,
- * shared with `script/generate-theme-baseline.ts` so the two cannot disagree.
+ * with `fs` instead of importing them. The audit itself lives in src/test/: the
+ * parsing in cssColors.ts, and the theme-aware half in themeColors.ts, which is shared
+ * with `script/generate-theme-baseline.ts` so the two cannot disagree.
  */
 import fs from 'fs';
 import path from 'path';
-import {
-  colorViolations, describeColor, stripNoise, stylesheetFiles, tokenChoices,
-} from '../test/cssColors';
+import { describeColor, stripNoise } from '../test/cssColors';
+import { colorViolations, stylesheetFiles, tokenChoices } from '../test/themeColors';
 import theme from './theme';
 import { themeCss, themeTokens } from './themeCss';
 
@@ -27,7 +27,7 @@ const relative = (file: string) => path.relative(srcDir, file);
  * and check the counts went down.
  *
  * Each entry identifies the declaration the literal was written in, not just the file
- * and the literal -- see `occurrence` in src/test/cssColors.ts for why.
+ * and the literal -- see `occurrence` in src/test/themeColors.ts for why.
  */
 const baseline = (): {duplicates: string[], unknown: string[]} =>
   JSON.parse(fs.readFileSync(baselinePath, 'utf8'));
@@ -54,7 +54,7 @@ const baseline = (): {duplicates: string[], unknown: string[]} =>
  * track does with `#fff` at two stops of one gradient, and the baseline holds that key
  * once per occurrence. Set membership would call 2 -> 1 no change and let a fixed
  * violation come back for free -- widening the blind spot that `occurrence` in
- * src/test/cssColors.ts deliberately narrows.
+ * src/test/themeColors.ts deliberately narrows.
  *
  * `annotate` decorates the `added` entries only, so that what a new violation should
  * be replaced with is shown where it is useful without becoming part of the identity
