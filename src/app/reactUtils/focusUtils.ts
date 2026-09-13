@@ -72,16 +72,25 @@ function saveTextSelection(win: Window): Range | null {
 
 // Restores a previously saved text selection
 function restoreTextSelection(win: Window, savedRange: Range | null): void {
-  if (savedRange) {
-    try {
-      const sel = win.getSelection();
-      if (sel) {
-        sel.removeAllRanges();
-        sel.addRange(savedRange);
-      }
-    } catch (e) {
-      // Ignore restoration errors
+  if (!savedRange) {
+    return;
+  }
+
+  /// Prevent writing a document selection while an editable field is focused, which deactivates its
+  // caret. Otherwise the field keeps its focus ring but won't accept typing until it's clicked.
+  const active = win.document.activeElement as HTMLElement | null;
+  if (active && (active.tagName === 'TEXTAREA' || active.tagName === 'INPUT' || active.isContentEditable)) {
+    return;
+  }
+
+  try {
+    const sel = win.getSelection();
+    if (sel) {
+      sel.removeAllRanges();
+      sel.addRange(savedRange);
     }
+  } catch (e) {
+    // Ignore restoration errors
   }
 }
 
