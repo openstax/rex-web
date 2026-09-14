@@ -749,7 +749,11 @@ describe('createTrapTab', () => {
 
     // Tab forward from the last element (should wrap)
     Object.defineProperty(document, 'activeElement', { value: i, writable: false, configurable: true });
-    b.focus = jest.fn();
+    // Focusing the button moves activeElement off the input (as a real browser would)
+    // so restoreTextSelection's editable-field guard lets the selection be restored.
+    b.focus = jest.fn(() => {
+      Object.defineProperty(document, 'activeElement', { value: b, writable: false, configurable: true });
+    });
     preventDefault.mockClear();
 
     trapTab({ key: 'Tab', preventDefault } as unknown as KeyboardEvent);
@@ -908,7 +912,7 @@ describe('createTrapTab', () => {
     } as any;
 
     const getSelectionSpy = jest.spyOn(assertWindow(), 'getSelection').mockReturnValue(mockSelection);
-    
+
     // Mock requestAnimationFrame to be undefined
     const originalRAF = assertWindow().requestAnimationFrame;
     Object.defineProperty(assertWindow(), 'requestAnimationFrame', {
@@ -949,7 +953,7 @@ describe('createTrapTab', () => {
     // When no valid containers are passed, createTrapTab should skip
     // calling assertWindow() and return a noop function immediately.
     const result = utils.createTrapTab();
-    
+
     // Should return null when handler is called
     expect(result({ key: 'Tab' } as KeyboardEvent)).toBeNull();
   });
