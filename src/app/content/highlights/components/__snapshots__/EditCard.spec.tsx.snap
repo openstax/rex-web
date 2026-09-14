@@ -204,7 +204,9 @@ Array [
         data-analytics-region="edit-note"
         data-highlight-card={true}
       >
-        <div>
+        <div
+          data-editing="true"
+        >
           <div
             data-props={
               Object {

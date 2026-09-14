@@ -161,8 +161,10 @@ function useTabRouting(
       // controls can't take focus. Treat it as no card: route Tab out to the adjacent content.
       const cardHidden = cardNode?.matches('[data-hidden="true"]') ?? false;
       const inCard = Boolean(cardNode?.contains(active));
-      // While a note is actively being edited, the EditCard tab trap owns Tab within the
-      // card; leave the card boundaries to it.
+      // When an expanded edit form is open (existing highlight), the EditCard tab trap owns Tab
+      // within the card and cycles its controls; leave the card boundaries to it. The collapsed
+      // edit/create button and the new-selection create form carry no marker, so their boundaries
+      // are routed here instead.
       const isEditing = Boolean(cardNode?.querySelector('[data-editing="true"]'));
       // tabbableElementsSelector (not focusableItemQuery) excludes tabindex="-1" controls - e.g.
       // the color-picker radios, reached via their radiogroup, not Tab - so the card's real

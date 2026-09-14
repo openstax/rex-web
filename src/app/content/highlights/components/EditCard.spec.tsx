@@ -616,7 +616,7 @@ describe('EditCard', () => {
       expect(note.props.note).toBe('asdf');
 
       const cancel = findByTestId('cancel');
-      
+
       renderer.act(() => {
         cancel.props.onClick({ preventDefault: jest.fn() });
       });
@@ -628,6 +628,34 @@ describe('EditCard', () => {
       cleanup();
     });
 
+  });
+
+  describe('Tab trapping', () => {
+    const trapMarkers = (component: renderer.ReactTestRenderer) =>
+      component.root.findAll((node) => node.props['data-editing'] === 'true');
+
+    it('marks an existing highlight open edit form as trap-controlled', () => {
+      const { component, cleanup } = renderAuthenticatedEditCard({
+        ...editCardProps,
+        shouldFocusCard: true,
+      });
+
+      // The data-editing marker tells CardWrapper's Tab-routing to step aside so the trap can
+      // cycle the form's controls (color picker, trash, note), instead of routing focus out.
+      expect(trapMarkers(component)).toHaveLength(1);
+      cleanup();
+    });
+
+    it('does not mark a new selection create form', () => {
+      const { component, cleanup } = renderAuthenticatedEditCard({
+        ...editCardProps,
+        highlight: { ...highlight, elements: [] } as unknown as Highlight,
+        shouldFocusCard: true,
+      });
+
+      expect(trapMarkers(component)).toHaveLength(0);
+      cleanup();
+    });
   });
 
   describe('Event Handling', () => {

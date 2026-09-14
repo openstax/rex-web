@@ -1,5 +1,5 @@
 /**
- * CORE-1485 — Highlight create/edit control keyboard tab-order.
+ * Highlight create/edit control keyboard tab-order.
  *
  * Verifies, in a live browser, that the highlight edit/create control participates in the
  * standard keyboard focus model (WCAG 2.1.1) — the control is reached with Tab/Shift+Tab,
@@ -81,10 +81,7 @@ async function focusHighlightStartSpan(page: Page, highlightId: string) {
   }, highlightId)
 }
 
-test('CORE-1485 new selection: Tab reaches the create button, which creates via the keyboard', async ({
-  page,
-  isMobile,
-}) => {
+test('new selection: Tab reaches the create button, which creates via the keyboard', async ({ page, isMobile }) => {
   test.skip(isMobile as boolean, 'desktop only: the card control is hidden on mobile')
   test.setTimeout(150000)
 
@@ -122,7 +119,7 @@ test('CORE-1485 new selection: Tab reaches the create button, which creates via 
   expect(await page.locator('.highlight').count(), 'a highlight was created').toBeGreaterThan(0)
 })
 
-test('CORE-1485 new selection: Tab past the create button leaves cleanly and discards the selection', async ({
+test('new selection: Tab past the create button leaves cleanly and discards the selection', async ({
   page,
   isMobile,
 }) => {
@@ -173,7 +170,7 @@ test('CORE-1485 new selection: Tab past the create button leaves cleanly and dis
   expect(bouncedBackward, 'focus did not bounce to an element before the selection').toBe(false)
 })
 
-test('CORE-1485 new selection: Shift+Tab off the create button goes to previous content, not the toolbar', async ({
+test('new selection: Shift+Tab off the create button goes to previous content, not the toolbar', async ({
   page,
   isMobile,
 }) => {
@@ -228,10 +225,7 @@ test('CORE-1485 new selection: Shift+Tab off the create button goes to previous 
   }
 })
 
-test('CORE-1485 new selection: Shift+Tab directly from the selection goes to previous content', async ({
-  page,
-  isMobile,
-}) => {
+test('new selection: Shift+Tab directly from the selection goes to previous content', async ({ page, isMobile }) => {
   test.skip(isMobile as boolean, 'desktop only: the card control is hidden on mobile')
   test.setTimeout(150000)
 
@@ -284,7 +278,7 @@ test('CORE-1485 new selection: Shift+Tab directly from the selection goes to pre
   }
 })
 
-test('CORE-1485 existing highlight: edit control is reachable via Tab / Shift+Tab', async ({ page, isMobile }) => {
+test('existing highlight: edit control is reachable via Tab / Shift+Tab', async ({ page, isMobile }) => {
   test.skip(isMobile as boolean, 'desktop only: the card control is hidden on mobile')
   test.setTimeout(150000)
 
@@ -355,7 +349,7 @@ test('CORE-1485 existing highlight: edit control is reachable via Tab / Shift+Ta
   expect(precedesHighlight, 'focus moved backward, before the highlight').toBe(true)
 })
 
-test('CORE-1485 existing highlight: after Escape hides the card, Tab continues to the next content', async ({
+test('existing highlight: after Escape hides the card, Tab continues to the next content', async ({
   page,
   isMobile,
 }) => {
@@ -408,7 +402,7 @@ test('CORE-1485 existing highlight: after Escape hides the card, Tab continues t
   expect(followsHighlight, 'focus moved forward, after the highlight').toBe(true)
 })
 
-test('CORE-1485 existing highlight: Escape from the note textarea returns focus to the highlight', async ({
+test('existing highlight: the open note form traps Tab, and Escape returns focus to the highlight', async ({
   page,
   isMobile,
 }) => {
@@ -440,6 +434,23 @@ test('CORE-1485 existing highlight: Escape from the note textarea returns focus 
   console.log('after Enter (note field):', inNote)
   expect(inNote.inCard, 'Enter moved focus into the card').toBe(true)
   expect(inNote.tag, 'the note entry field is a textarea').toBe('TEXTAREA')
+
+  // AND: the open form traps Tab — cycling stays within the card (reaching the color picker / trash)
+  // instead of escaping to the following content, and wraps back to the note textarea (the bug:
+  // focus left the card before you could reach the other controls by Tab).
+  const cycledTags: Array<string | null> = []
+  for (let i = 0; i < 3; i++) {
+    await page.keyboard.press('Tab')
+    const info = await activeElementInfo(page)
+    console.log(`after Tab #${i + 1} (trapped form):`, info)
+    expect(info.inCard, `Tab #${i + 1} stays within the trapped form`).toBe(true)
+    cycledTags.push(info.tag)
+  }
+  expect(
+    cycledTags.some((t) => t !== 'TEXTAREA'),
+    'Tab reaches the color picker / trash controls too',
+  ).toBe(true)
+  expect((await activeElementInfo(page)).tag, 'the cycle wraps back to the note textarea').toBe('TEXTAREA')
 
   // WHEN: Escape closes the (empty) note field
   // THEN: focus returns to the highlight span rather than falling to <body> (the bug)
