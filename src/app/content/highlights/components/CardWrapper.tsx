@@ -95,12 +95,9 @@ function useCardsHeights() {
   return [cardsHeights, onHeightChange] as const;
 }
 
-// Finds the nearest tabbable element before/after `reference` in document order, skipping any
-// `exclude` elements (a highlight's own injected spans, and the card wrapper). Searching the whole
-// document lets Tab/Shift+Tab continue from *after*/*before* the highlight or selection to the true
-// next/previous tab stop - including content outside the highlighter container (e.g. the footer, or
-// a toolbar control). The card wrapper is rendered before the content in the DOM; excluding it keeps
-// its own controls from ever being treated as the adjacent stop.
+// Finds the nearest tabbable element before/after `reference` in document order, excluding a
+// highlight's own spans and the card wrapper. Scanning the whole document (not just the highlighter
+// container) lets Tab continue to the true next/previous stop, e.g. the footer or a toolbar control.
 function findAdjacentContentTabbable(
   reference: Node,
   forward: boolean,
@@ -119,9 +116,9 @@ function findAdjacentContentTabbable(
 }
 
 // The node at the start/end boundary of the current selection, if inside the content container.
-// Used to anchor next/previous-tab-stop routing for a not-yet-saved selection (which has no injected
-// highlight element to anchor on). The boundary node itself (usually a text node, which has no
-// element descendants) is returned so compareDocumentPosition can't pick a tabbable inside it.
+// Anchors tab routing for a not-yet-saved selection, which has no highlight element to anchor on.
+// Returns the boundary node itself (a text node) so compareDocumentPosition can't pick a tabbable
+// inside it.
 function selectionBoundaryNode(container: HTMLElement, end: boolean): Node | null {
   const selection = assertWindow().getSelection();
   if (!selection || selection.rangeCount === 0) {
@@ -132,12 +129,10 @@ function selectionBoundaryNode(container: HTMLElement, end: boolean): Node | nul
   return container.contains(node) ? node : null;
 }
 
-// The card holding the edit/create control lives in a separate DOM layer, so it isn't
-// reachable by Tab in document order from its highlight. useTabRouting bridges that gap
-// using standard Tab/Shift+Tab: it moves focus from the focused highlight (its injected
-// [data-for-screenreaders] span) into the visible card, back to the highlight, and out to
-// the next content control - satisfying keyboard operability (WCAG 2.1.1) without moving
-// the card in the DOM or relying on non-standard keys (Enter/Alt+H) to place focus.
+// The card holding the edit/create control lives in a separate DOM layer, so Tab can't reach it
+// from its highlight in document order. This bridges the gap with standard Tab/Shift+Tab, moving
+// focus between the highlight's [data-for-screenreaders] span, the card, and adjacent content -
+// for keyboard operability (WCAG 2.1.1) without moving the card in the DOM.
 function useTabRouting(
   focusedHighlight: Highlight | undefined,
   element: React.RefObject<HTMLElement>,
@@ -162,17 +157,16 @@ function useTabRouting(
 
       // The card node for the focused highlight (EditCard dialog wrapper or DisplayNote root).
       const cardNode = element.current?.querySelector<HTMLElement>('[data-active="true"]') ?? null;
-      // A card dismissed by Escape (or hidden under a collapsed section) is visibility:hidden,
-      // so it's out of the tab order and its controls can't take focus. Treat it as no card:
-      // route Tab out to the adjacent content instead of trying to focus into it.
+      // A card dismissed by Escape (or under a collapsed section) is visibility:hidden, so its
+      // controls can't take focus. Treat it as no card: route Tab out to the adjacent content.
       const cardHidden = cardNode?.matches('[data-hidden="true"]') ?? false;
       const inCard = Boolean(cardNode?.contains(active));
       // While a note is actively being edited, the EditCard tab trap owns Tab within the
       // card; leave the card boundaries to it.
       const isEditing = Boolean(cardNode?.querySelector('[data-editing="true"]'));
-      // tabbableElementsSelector (not focusableItemQuery) so tabindex="-1" controls -
-      // e.g. the color-picker radios, which are reached via their radiogroup, not Tab -
-      // are excluded and the card's real first/last tab stops are used.
+      // tabbableElementsSelector (not focusableItemQuery) excludes tabindex="-1" controls - e.g.
+      // the color-picker radios, reached via their radiogroup, not Tab - so the card's real
+      // first/last tab stops are used.
       const focusables = cardNode
         ? Array.from(cardNode.querySelectorAll<HTMLElement>(tabbableElementsSelector))
         : [];
@@ -183,7 +177,7 @@ function useTabRouting(
       const startEl = elements[0];
       const isNewSelection = elements.length === 0;
 
-      // Route focus out of the highlight/card to the nearest forward direction content tab stop
+      // Move focus out of the highlight/card to the adjacent content tab stop in the given direction.
       const focusAdjacentContent = (reference: Node | null, forward: boolean, clearSelection: boolean) => {
         event.preventDefault();
         if (clearSelection) {
@@ -207,18 +201,16 @@ function useTabRouting(
           firstFocusable.focus();
           return;
         }
-        // Card was dismissed (Escape): there's nothing to tab into, so continue to the next
-        // content control, mirroring Tab off the last card control and clearing the highlight
-        // focus as native Tab off the highlight would have.
+        // Card was dismissed (Escape): nothing to tab into, so continue to the next content control.
         if (cardHidden) {
           focusAdjacentContent(elements[elements.length - 1] ?? null, true, false);
           return;
         }
       }
 
-      // Shift+Tab from the highlight's screen-reader span breaks out to the previous content
-      // control. Native Shift+Tab would instead land on the edit button (which sits before the
-      // content in the DOM), creating a span<->button loop that can never reach earlier elements.
+      // Shift+Tab from the highlight span breaks out to the previous content control. Native
+      // Shift+Tab would instead land on the edit button (which sits before the content in the DOM),
+      // creating a span<->button loop that can never reach earlier elements.
       if (onHighlightSpan && event.shiftKey && startEl) {
         focusAdjacentContent(startEl, false, false);
         return;
@@ -235,11 +227,9 @@ function useTabRouting(
           return;
         }
 
-        // Otherwise, at a card boundary, continue in the natural tab order to the adjacent content
-        // control: Tab off the last control (existing highlight or new selection) or Shift+Tab off
-        // the first control of a new selection (which has no highlight span to return to). Any
-        // lingering/unsaved selection is discarded first, so focus lands cleanly and doesn't bounce
-        // back to the selected text. This also clears the highlight focus, as native Tab would have.
+        // At a card boundary, continue to the adjacent content control: Tab off the last control, or
+        // Shift+Tab off the first control of a new selection (which has no highlight span to return
+        // to). Any unsaved selection is discarded first so focus doesn't bounce back to it.
         if (goingForward || goingBack) {
           const reference: Node | null = isNewSelection
             ? selectionBoundaryNode(container, goingForward)
@@ -249,9 +239,9 @@ function useTabRouting(
         }
       }
 
-      // New selection: there is no highlight span, and the card lives before the content in the
-      // DOM, so native Tab/Shift+Tab from the selection would jump into the card (or, in Firefox,
-      // detour through <body>) instead of following the content. Route both directions explicitly.
+      // New selection: no highlight span exists, and the card lives before the content in the DOM,
+      // so native Tab/Shift+Tab would jump into the card (or, in Firefox, through <body>) instead of
+      // following the content. Route both directions explicitly.
       if (isNewSelection && !inCard) {
         const selection = assertWindow().getSelection();
         const anchorInContainer = Boolean(
@@ -263,8 +253,7 @@ function useTabRouting(
             event.preventDefault();
             withSelectionPreserved(() => firstFocusable.focus());
           } else if (event.shiftKey) {
-            // Shift+Tab: backward to the previous content control (like the created-highlight case),
-            // discarding the unsaved selection so focus lands cleanly instead of on the card/<body>.
+            // Shift+Tab: back to the previous content control, discarding the unsaved selection.
             focusAdjacentContent(selectionBoundaryNode(container, false), false, true);
           }
         }
@@ -302,9 +291,8 @@ function useFocusedHighlight(
   React.useEffect(() => {
     const handler = () => {
       setShouldFocusCard(false);
-      // The textarea is about to unmount; without moving focus first it falls to <body>,
-      // which breaks Tab/Shift+Tab routing and prevents the card from closing. Return focus
-      // to the highlight span so keyboard nav continues from the highlight (mirrors hideCard).
+      // The textarea is about to unmount; without moving focus first it falls to <body>, breaking
+      // Tab routing. Return focus to the highlight span so keyboard nav continues from there.
       if (isExistingHighlight) {
         focusedHighlight?.focus();
       }

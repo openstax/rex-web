@@ -248,10 +248,9 @@ function ActiveEditCard({
   const annotationEditorRef = React.useRef<HTMLTextAreaElement>(null);
 
 
-  // Only trap Tab while a note is actively being edited, so an unsaved note can't be
-  // tabbed away from. Otherwise the highlight Tab-routing (see CardWrapper) owns the
-  // card boundaries and can move focus out to the surrounding content. The data-editing
-  // marker lets that router detect when the trap is in control and step aside.
+  // Only trap Tab while a note is actively being edited, so an unsaved note can't be tabbed away
+  // from. Otherwise the highlight Tab-routing (see CardWrapper) owns the card boundaries. The
+  // data-editing marker below lets that router detect when the trap is in control and step aside.
   useTrapTabNavigation(ref, editingAnnotation, undefined, editingAnnotation);
 
   return (

@@ -76,8 +76,8 @@ function restoreTextSelection(win: Window, savedRange: Range | null): void {
     return;
   }
 
-  /// Prevent writing a document selection while an editable field is focused, which deactivates its
-  // caret. Otherwise the field keeps its focus ring but won't accept typing until it's clicked.
+  // Don't write a document selection while an editable field is focused: it deactivates the caret,
+  // so the field keeps its focus ring but won't accept typing until it's clicked.
   const active = win.document.activeElement as HTMLElement | null;
   if (active && (active.tagName === 'TEXTAREA' || active.tagName === 'INPUT' || active.isContentEditable)) {
     return;
@@ -103,10 +103,9 @@ function scheduleSelectionRestoration(win: Window, restoreFn: () => void): void 
   }
 }
 
-// Runs a focus-moving callback while preserving the current text selection.
-// Moving focus into a control can collapse an active selection in some browsers
-// (notably Firefox); this saves the range and restores it afterwards. Used by the
-// highlight Tab-routing to move focus into the card without losing a pending selection.
+// Runs a focus-moving callback while preserving the current text selection. Moving focus into a
+// control can collapse an active selection in some browsers (notably Firefox); this saves the range
+// and restores it afterwards, so Tab-routing can focus the card without losing a pending selection.
 export function withSelectionPreserved(fn: () => void): void {
   const win = assertWindow();
   const savedRange = safeSaveTextSelection(win);
