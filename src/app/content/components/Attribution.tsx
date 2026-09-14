@@ -126,6 +126,7 @@ function getAttributionValues(book: BookWithOSWebData, page: Page) {
     introPageTitle,
     introPageUrl,
     originalMaterialLink: null,
+    permissionRequestUrl: 'https://riceuniversity.tfaforms.net/52',
     ...bookIdsWithSpecialAttributionText[book.id] || {},
   };
 }
