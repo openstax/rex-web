@@ -31,23 +31,7 @@ Array [
       }
     />
   </div>,
-  .c0 {
-  height: 1em;
-}
-
-.c1 {
-  height: 1em;
-}
-
-.c3 {
-  height: 1em;
-}
-
-.c2 {
-  height: 1em;
-}
-
-<footer
+  <footer
     className="footer-wrapper"
     data-analytics-region="footer"
   >
@@ -281,7 +265,7 @@ Array [
               >
                 <svg
                   aria-hidden="true"
-                  className="c0"
+                  className="footer-social-icon-svg"
                   viewBox="0 0 320 512"
                 >
                   <path
@@ -307,7 +291,7 @@ Array [
               >
                 <svg
                   aria-hidden="true"
-                  className="c1"
+                  className="footer-social-icon-svg"
                   data-icon="x-twitter"
                   data-prefix="fab"
                   focusable="false"
@@ -339,7 +323,7 @@ Array [
               >
                 <svg
                   aria-hidden="true"
-                  className="c2"
+                  className="footer-social-icon-svg"
                   viewBox="0 0 448 512"
                 >
                   <path
@@ -365,7 +349,7 @@ Array [
               >
                 <svg
                   aria-hidden="true"
-                  className="c3"
+                  className="footer-social-icon-svg"
                   viewBox="0 0 448 512"
                 >
                   <path
@@ -428,23 +412,7 @@ Array [
       }
     />
   </div>,
-  .c0 {
-  height: 1em;
-}
-
-.c1 {
-  height: 1em;
-}
-
-.c3 {
-  height: 1em;
-}
-
-.c2 {
-  height: 1em;
-}
-
-<footer
+  <footer
     className="footer-wrapper"
     data-analytics-region="footer"
   >
@@ -678,7 +646,7 @@ Array [
               >
                 <svg
                   aria-hidden="true"
-                  className="c0"
+                  className="footer-social-icon-svg"
                   viewBox="0 0 320 512"
                 >
                   <path
@@ -704,7 +672,7 @@ Array [
               >
                 <svg
                   aria-hidden="true"
-                  className="c1"
+                  className="footer-social-icon-svg"
                   data-icon="x-twitter"
                   data-prefix="fab"
                   focusable="false"
@@ -736,7 +704,7 @@ Array [
               >
                 <svg
                   aria-hidden="true"
-                  className="c2"
+                  className="footer-social-icon-svg"
                   viewBox="0 0 448 512"
                 >
                   <path
@@ -762,7 +730,7 @@ Array [
               >
                 <svg
                   aria-hidden="true"
-                  className="c3"
+                  className="footer-social-icon-svg"
                   viewBox="0 0 448 512"
                 >
                   <path

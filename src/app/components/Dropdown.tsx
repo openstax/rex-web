@@ -5,7 +5,6 @@ import isUndefined from 'lodash/fp/isUndefined';
 import omitBy from 'lodash/fp/omitBy';
 import React, { ReactNode } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import styled from 'styled-components/macro';
 import classNames from 'classnames';
 import { useFocusLost, useTrapTabNavigation, focusableItemQuery } from '../reactUtils';
 import { useOnEsc } from '../reactUtils';
@@ -23,9 +22,12 @@ interface ToggleProps<T extends ComponentWithRef = ComponentWithRef> {
   [key: string]: unknown;
 }
 
-// Plain React component for DropdownToggle, but wrapped with styled() for backward compatibility
-const DropdownToggleBase = React.forwardRef<HTMLElement, ToggleProps>(
+// Plain React component for DropdownToggle
+export const DropdownToggle = React.forwardRef<HTMLElement, ToggleProps>(
   ({component, className, ...props}, ref) => {
+    // No default data-testid here; cloneElement props take precedence over the
+    // toggle component's own attributes, so a default would clobber the
+    // data-testid a consumer set on its toggle. Select on .dropdown-toggle instead.
     return React.cloneElement(component, {
       ...props,
       className: classNames('dropdown-toggle', className),
@@ -33,9 +35,6 @@ const DropdownToggleBase = React.forwardRef<HTMLElement, ToggleProps>(
     });
   }
 );
-
-// Wrap with styled() for backward compatibility with component selectors
-export const DropdownToggle = styled(DropdownToggleBase)``;
 
 // Plain div for DropdownFocusWrapper
 export const DropdownFocusWrapper = ({ className, children, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
@@ -260,13 +259,11 @@ export type TabHiddenDropdownProps = CommonDropdownProps & (Props | Props & Cont
 
 export type DropdownProps = TabTransparentDropdownProps | TabHiddenDropdownProps;
 
-// Plain React component for Dropdown, but wrapped with styled() for backward compatibility
-const DropdownBase = React.forwardRef<HTMLElement, DropdownProps>(({transparentTab, className, ...props}, ref) => {
+// Plain React component for Dropdown. Consumers that used to reference it with a
+// styled-components component selector target the .dropdown-wrapper class instead.
+const Dropdown = React.forwardRef<HTMLElement, DropdownProps>(({transparentTab, className, ...props}, ref) => {
   const Component = transparentTab !== false ? TabTransparentDropdown : TabHiddenDropDown;
   return <Component ref={ref} className={classNames('dropdown-wrapper', className)} {...props} />;
 });
-
-// Wrap with styled() for backward compatibility with component selectors
-const Dropdown = styled(DropdownBase)``;
 
 export default Dropdown;

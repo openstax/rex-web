@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components/macro';
 import classNames from 'classnames';
 import Times from '../../../components/Times';
 import theme from '../../../theme';
@@ -20,10 +19,8 @@ interface IconProps extends React.SVGAttributes<SVGSVGElement> {
 /**
  * Print icon for Toolbar component.
  * SVG path from Font Awesome Free (https://fontawesome.com - MIT License)
- *
- * Note: Wrapped with styled() to enable styled-components component selector references
  */
-function PrintIconBase({ className, ...props }: IconProps) {
+export function PrintIconComponent({ className, ...props }: IconProps) {
   return (
     <svg
       className={className}
@@ -38,8 +35,6 @@ function PrintIconBase({ className, ...props }: IconProps) {
     </svg>
   );
 }
-
-export const PrintIconComponent = styled(PrintIconBase)``;
 
 export const buttonMinWidth = `45px`;
 
@@ -93,7 +88,7 @@ export const PrintOptWrapper = React.forwardRef<
   );
 });
 
-export const PrintOptions = styled(function PrintOptions({
+export function PrintOptions({
   className,
   ...props
 }: React.HTMLAttributes<HTMLSpanElement> & { theme?: unknown }) {
@@ -105,7 +100,7 @@ export const PrintOptions = styled(function PrintOptions({
       className={classNames('toolbar-print-options', className)}
     />
   );
-})``;
+}
 
 export const PrintIcon = function PrintIcon({
   theme: _theme,

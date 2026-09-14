@@ -15,9 +15,9 @@ jobs:
     - uses: openstax/jira-linked-action@v0.1.15
       with:
         jira_site: openstax
-        jira_project: DISCO
-        jira_email: ${{ secrets.JiraEmail }}
-        jira_token: ${{ secrets.JiraToken }}
+        jira_project: CORE
+        jira_email: ${{ secrets.JIRA_EMAIL }}
+        jira_token: ${{ secrets.JIRA_TOKEN }}
 
   setup:
     name: Setup

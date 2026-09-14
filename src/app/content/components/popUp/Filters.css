@@ -1,0 +1,139 @@
+/* popUp Filters styles - plain CSS version
+ *
+ * Values previously interpolated from theme.ts / PopupConstants.ts are inlined
+ * here with the original expression in a comment.
+ */
+
+/* AngleIcon - the up/down chevron in a filter dropdown toggle */
+.filters-angle-icon {
+  color: #5e6062; /* theme.color.primary.gray.base */
+  width: 1rem; /* filters.dropdownToggle.icon.width */
+  height: 2rem; /* filters.dropdownToggle.icon.height */
+  margin-left: 0.8rem;
+  padding-top: 0.2rem;
+}
+
+.filters-angle-icon.filters-angle-icon-up {
+  transform: rotate(180deg);
+  padding-top: 0;
+  padding-bottom: 0.2rem;
+}
+
+/* Fieldset - groups filter checkboxes behind a visually hidden legend */
+.filters-fieldset {
+  padding: 0;
+  border: none;
+  margin: 0;
+}
+
+/* hiddenButAccessible */
+.filters-fieldset legend {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Toggle - the button that opens a filter dropdown */
+.filters-toggle {
+  position: relative;
+  border-left: 0.1rem solid transparent; /* filters.border */
+  border-right: 0.1rem solid transparent; /* filters.border */
+}
+
+.filters-toggle.filters-toggle-open {
+  z-index: 2;
+  box-shadow: 0 0 0.6rem 0 rgba(0, 0, 0, 0.2);
+  clip-path: inset(0 -0.6rem 0 -0.6rem);
+  background-color: #fff; /* theme.color.white */
+  border-left: 0.1rem solid #d5d5d5; /* filters.border, theme.color.neutral.formBorder */
+  border-right: 0.1rem solid #d5d5d5; /* filters.border, theme.color.neutral.formBorder */
+}
+
+.filters-toggle > div {
+  /* filters.dropdownToggle.topBottom.desktop, filters.dropdownToggle.sides.desktop */
+  padding: 2rem 2.4rem;
+  outline: none;
+  color: #5e6062; /* theme.color.primary.gray.base */
+  font-size: 1.6rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+/* theme.breakpoints.mobile */
+@media screen and (max-width: 75em) {
+  .filters-toggle > div {
+    /* filters.dropdownToggle.topBottom.mobile, filters.dropdownToggle.sides.mobile */
+    padding: 1rem 1.6rem;
+  }
+}
+
+/* FiltersTopBar */
+.popup-filters-top-bar {
+  display: flex;
+  align-items: center;
+  overflow: visible;
+  width: 100%;
+}
+
+/* Filters - the bar the dropdowns and the applied-filters list live in */
+.popup-filters {
+  position: relative;
+  z-index: 2;
+  overflow: visible;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  background: #fff; /* theme.color.neutral.base */
+  border-bottom: 0.1rem solid #d5d5d5; /* filters.border, theme.color.neutral.formBorder */
+}
+
+.popup-filters .dropdown-toggle {
+  font-weight: bold;
+}
+
+/* Dropdown renders .dropdown-wrapper on its outermost element */
+.popup-filters .dropdown-wrapper > *:not(.dropdown-toggle) {
+  top: calc(100% - 0.1rem); /* filters.border */
+  box-shadow: 0 0 0.6rem 0 rgba(0, 0, 0, 0.2);
+
+  /* filters.valueToSubstractFromVH.desktop */
+  max-height: calc(100vh - 26rem);
+}
+
+/* theme.breakpoints.mobile */
+@media screen and (max-width: 75em) {
+  .popup-filters .dropdown-wrapper > *:not(.dropdown-toggle) {
+    /* filters.valueToSubstractFromVH.mobile */
+    max-height: calc(100vh - 18.4rem);
+  }
+}
+
+/* theme.breakpoints.mobileSmall */
+@media screen and (max-width: 30em) {
+  .popup-filters .dropdown-wrapper {
+    position: initial;
+  }
+
+  .popup-filters .dropdown-wrapper > *:not(.dropdown-toggle) {
+    top: auto;
+    margin-top: -0.1rem; /* filters.border */
+  }
+}
+
+@media print {
+  .popup-filters {
+    padding-left: 0;
+  }
+
+  .popup-filters > *:not(.filters-list) {
+    display: none;
+  }
+}

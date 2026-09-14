@@ -32,6 +32,7 @@ exports[`HighlightsHelpInfo matches snapshot when showed 1`] = `
     <svg
       aria-hidden="true"
       className="highlights-help-info__close-icon"
+      data-testid="times-icon"
       viewBox="0 0 352 512"
     >
       <path

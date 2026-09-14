@@ -463,3 +463,9 @@
   width: 100%;
   height: 100%;
 }
+
+/* Social media icon SVGs (FBIcon, TwitterIcon, IGIcon, LinkedInIcon).
+ * Was styled(Base)`height: 1em;` on each of the four in SocialIcons.tsx. */
+.footer-social-icon-svg {
+  height: 1em;
+}

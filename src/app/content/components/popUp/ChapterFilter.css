@@ -1,0 +1,156 @@
+/* ChapterFilter styles - plain CSS version
+ *
+ * Values previously interpolated from theme.ts / PopupConstants.ts are inlined
+ * here with the original expression in a comment.
+ */
+
+/* Row - holds the section columns */
+.chapter-filter-row {
+  display: flex;
+  flex-direction: row;
+}
+
+/* theme.breakpoints.mobile */
+@media screen and (max-width: 75em) {
+  .chapter-filter-row {
+    flex-direction: column;
+    overflow: hidden;
+  }
+}
+
+/* Column - a list of sections */
+.chapter-filter-column {
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* ChapterTitle - book-supplied markup, so the .os-* classes come from content */
+.chapter-filter-title {
+  display: flex;
+  flex-direction: row;
+  white-space: nowrap;
+  margin-left: 0.8rem;
+}
+
+.chapter-filter-title > * {
+  overflow: hidden;
+}
+
+.chapter-filter-title .os-text {
+  flex: 1;
+  text-overflow: ellipsis;
+}
+
+.chapter-filter-title .os-divider {
+  margin: 0 0.4rem;
+}
+
+/* StyledDetailsContainer - one collapsible chapter */
+.chapter-filter-details {
+  width: 400px;
+  border-bottom: 1px solid #d5d5d5; /* theme.color.neutral.formBorder */
+  overflow: visible;
+}
+
+/* theme.breakpoints.mobileSmall */
+@media screen and (max-width: 30em) {
+  .chapter-filter-details {
+    width: 100%;
+  }
+}
+
+/* StyledSummaryButton - the chapter row that expands/collapses its sections */
+.chapter-filter-summary-button {
+  display: block;
+  width: 100%;
+  padding: 1rem 1.6rem;
+  text-align: left;
+}
+
+.chapter-filter-summary-button .chapter-filter-title {
+  float: left;
+  margin-left: 0;
+  text-align: left;
+}
+
+.chapter-filter-summary-button .filters-angle-icon {
+  float: right;
+}
+
+.chapter-filter-summary-button::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* StyledSectionItem - a single selectable section (single-select mode) */
+.chapter-filter-section-item {
+  display: flex;
+  align-items: center;
+  height: 4rem;
+  width: 100%;
+  text-align: left;
+  font-size: 1.4rem;
+  color: #424242; /* theme.color.text.default */
+}
+
+.chapter-filter-section-item[aria-current="true"] {
+  color: #027eb5; /* linkColor */
+}
+
+.chapter-filter-section-item:hover,
+.chapter-filter-section-item:focus {
+  background-color: #f1f1f1; /* theme.color.neutral.pageBackground */
+  color: #0064a0; /* linkHover */
+}
+
+.chapter-filter-section-item .chapter-filter-title {
+  padding-left: 2.5rem;
+  width: 95%;
+}
+
+/* StyledChapterFilterItemWrapper - the collapsible body of a chapter */
+.chapter-filter-item-wrapper {
+  overflow: visible;
+}
+
+/* ChapterFilter container */
+.chapter-filter {
+  color: #424242; /* theme.color.text.default */
+  background: #fff; /* theme.color.white */
+  font-size: 1.4rem;
+
+  /* filters.dropdownContent.padding.topBottom, filters.dropdownContent.padding.sides */
+  padding: 0.8rem 1.6rem;
+  outline: none;
+  overflow: auto;
+  z-index: 1;
+}
+
+.chapter-filter .all-or-none {
+  margin: 0.8rem 0 0.8rem 0.8rem;
+}
+
+.chapter-filter .checkbox-label {
+  padding: 0.8rem;
+}
+
+.chapter-filter .color-indicator {
+  margin: 0 1.6rem 0 1.6rem;
+}
+
+.chapter-filter .chapter-filter-details:last-child {
+  border-bottom: none;
+}
+
+/* theme.breakpoints.mobileSmall */
+@media screen and (max-width: 30em) {
+  .chapter-filter {
+    /* mobileMarginSides * 2 */
+    width: calc(100vw - 1.6rem);
+  }
+}

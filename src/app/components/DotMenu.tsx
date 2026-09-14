@@ -1,6 +1,5 @@
 import React from 'react';
 import classNames from 'classnames';
-import styled from 'styled-components/macro';
 import { PlainButton } from './Button';
 import Dropdown, { DropdownList, DropdownProps } from './Dropdown';
 import './DotMenu.css';
@@ -8,15 +7,14 @@ import './DotMenu.css';
 /**
  * Three-dot vertical menu icon (ellipsis).
  * SVG path from Font Awesome Free (https://fontawesome.com - MIT License)
- *
- * Note: Wrapped with styled() to enable styled-components component selector references
  */
-function DotMenuIconBase({ className, ...props }: React.SVGAttributes<SVGSVGElement>) {
+export function DotMenuIcon({ className, ...props }: React.SVGAttributes<SVGSVGElement>) {
   return (
     <svg
       className={classNames('dot-menu-icon', className)}
       viewBox="0 0 192 512"
       aria-hidden="true"
+      data-testid="dot-menu-icon"
       {...props}
     >
       <path
@@ -27,21 +25,20 @@ function DotMenuIconBase({ className, ...props }: React.SVGAttributes<SVGSVGElem
   );
 }
 
-export const DotMenuIcon = styled(DotMenuIconBase)``;
-
 interface DotMenuToggleProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'children'> {
   isOpen?: boolean;
   [key: `data-${string}`]: unknown;
 }
 
-const DotMenuToggleBase = React.forwardRef<HTMLButtonElement, DotMenuToggleProps>(
-  function DotMenuToggleBase({ isOpen, className, ...props }, ref) {
+export const DotMenuToggle = React.forwardRef<HTMLButtonElement, DotMenuToggleProps>(
+  function DotMenuToggle({ isOpen, className, ...props }, ref) {
     return (
       <PlainButton
         className={classNames('dot-menu-toggle', className)}
         aria-label="Actions"
         aria-expanded={isOpen}
         data-menu-toggle
+        data-testid="dot-menu-toggle"
         {...props}
         ref={ref}
       >
@@ -52,8 +49,6 @@ const DotMenuToggleBase = React.forwardRef<HTMLButtonElement, DotMenuToggleProps
     );
   }
 );
-
-export const DotMenuToggle = styled(DotMenuToggleBase)``;
 
 type DotMenuDropdownListProps = React.ComponentPropsWithoutRef<typeof DropdownList> & {
   rightAlign?: boolean;

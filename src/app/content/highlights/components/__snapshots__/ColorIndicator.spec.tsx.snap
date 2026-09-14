@@ -2,8 +2,9 @@
 
 exports[`ColorIndicator matches snapshot (checked) 1`] = `
 <div
-  className="color-indicator "
+  className="color-indicator"
   data-checked={true}
+  data-testid="color-indicator"
   style={
     Object {
       "--focus-border-color": "#8f7700",
@@ -33,7 +34,8 @@ exports[`ColorIndicator matches snapshot (checked) 1`] = `
 
 exports[`ColorIndicator matches snapshot 1`] = `
 <div
-  className="color-indicator "
+  className="color-indicator"
+  data-testid="color-indicator"
   style={
     Object {
       "--focus-border-color": "#8f7700",

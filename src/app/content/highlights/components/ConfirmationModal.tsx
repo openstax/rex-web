@@ -2,7 +2,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import Button from '../../../components/Button';
 import Modal from '../../../components/Modal';
-import { Body, BodyHeading, Footer } from '../../../components/Modal/styles';
+import { Body, BodyHeading, Footer } from '../../../components/Modal/Modal';
 import './ConfirmationModal.css';
 
 interface Props {

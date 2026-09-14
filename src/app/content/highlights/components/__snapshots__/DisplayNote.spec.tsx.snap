@@ -19,9 +19,10 @@ exports[`DisplayNote matches snapshot 1`] = `
     <button
       aria-expanded={false}
       aria-label="Actions"
-      className="plain-button dot-menu-toggle dropdown-toggle "
+      className="plain-button dot-menu-toggle dropdown-toggle"
       data-menu-toggle={true}
       data-no-card-activate={true}
+      data-testid="dot-menu-toggle"
       onClick={[Function]}
     >
       <div
@@ -29,8 +30,9 @@ exports[`DisplayNote matches snapshot 1`] = `
       >
         <svg
           aria-hidden="true"
-          className="dot-menu-icon "
+          className="dot-menu-icon"
           data-menu-icon={true}
+          data-testid="dot-menu-icon"
           viewBox="0 0 192 512"
         >
           <path
@@ -104,9 +106,10 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
     <button
       aria-expanded={false}
       aria-label="Actions"
-      className="plain-button dot-menu-toggle dropdown-toggle "
+      className="plain-button dot-menu-toggle dropdown-toggle"
       data-menu-toggle={true}
       data-no-card-activate={true}
+      data-testid="dot-menu-toggle"
       onClick={[Function]}
     >
       <div
@@ -114,8 +117,9 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
       >
         <svg
           aria-hidden="true"
-          className="dot-menu-icon "
+          className="dot-menu-icon"
           data-menu-icon={true}
+          data-testid="dot-menu-icon"
           viewBox="0 0 192 512"
         >
           <path
@@ -189,9 +193,10 @@ exports[`DisplayNote matches snapshot when focused with opened dropdown 1`] = `
     <button
       aria-expanded={true}
       aria-label="Actions"
-      className="plain-button dot-menu-toggle dropdown-toggle "
+      className="plain-button dot-menu-toggle dropdown-toggle"
       data-menu-toggle={true}
       data-no-card-activate={true}
+      data-testid="dot-menu-toggle"
       onClick={[Function]}
     >
       <div
@@ -199,8 +204,9 @@ exports[`DisplayNote matches snapshot when focused with opened dropdown 1`] = `
       >
         <svg
           aria-hidden="true"
-          className="dot-menu-icon "
+          className="dot-menu-icon"
           data-menu-icon={true}
+          data-testid="dot-menu-icon"
           viewBox="0 0 192 512"
         >
           <path

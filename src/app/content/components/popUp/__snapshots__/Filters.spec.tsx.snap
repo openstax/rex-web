@@ -1,228 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Filters matches snapshot 1`] = `
-.c10 {
-  height: 1.7rem;
-  margin-right: 0.4rem;
-}
-
-.c10 svg {
-  height: 0.8rem;
-  width: 0.8rem;
-  color: #5e6062;
-}
-
-.c11 {
-  color: #424242;
-  font-weight: 300;
-  color: #5e6062;
-  max-width: 8rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  text-transform: capitalize;
-  line-height: 1.5rem;
-}
-
-.c9 {
-  margin-right: 3.2rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  overflow: visible;
-  height: 4rem;
-}
-
-.c6 {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border: 0;
-}
-
-.c8 {
-  color: #424242;
-  font-size: 1.4rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  width: 100%;
-  margin: 0;
-  padding: 0 2.8rem 1rem 2.8rem;
-  margin-top: -1rem;
-  list-style: none;
-  overflow: visible;
-}
-
-.c5 {
-  color: #5e6062;
-  width: 1rem;
-  height: 2rem;
-  margin-left: 0.8rem;
-  padding-top: 0.2rem;
-}
-
-.c3 {
-  position: relative;
-  border-left: 0.1rem solid transparent;
-  border-right: 0.1rem solid transparent;
-}
-
-.c3 > div {
-  padding: 2rem 2.4rem;
-  outline: none;
-  color: #424242;
-  font-size: 1.6rem;
-  color: #5e6062;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: end;
-  -webkit-justify-content: flex-end;
-  -ms-flex-pack: end;
-  justify-content: flex-end;
-}
-
-.c1 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  overflow: visible;
-  width: 100%;
-}
-
-.c0 {
-  position: relative;
-  z-index: 2;
-  overflow: visible;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-flow: row wrap;
-  -ms-flex-flow: row wrap;
-  flex-flow: row wrap;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  background: #fff;
-  border-bottom: 0.1rem solid #d5d5d5;
-}
-
-.c0 .c4 {
-  font-weight: bold;
-}
-
-.c0 .c2 > *:not(.c4) {
-  top: calc(100% - 0.1rem);
-  box-shadow: 0 0 0.6rem 0 rgba(0,0,0,0.2);
-  max-height: calc(100vh - 26rem);
-}
-
-@media print {
-  .c10 {
-    display: none;
-  }
-}
-
-@media print {
-  .c11 {
-    max-width: -webkit-max-content;
-    max-width: -moz-max-content;
-    max-width: max-content;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c8 {
-    padding: 0 2.4rem 0.4rem 2.4rem;
-  }
-}
-
-@media print {
-  .c8 {
-    margin: 0;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c3 > div {
-    padding: 1rem 1.6rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c0 .c2 > *:not(.c4) {
-    max-height: calc(100vh - 18.4rem);
-  }
-}
-
-@media screen and (max-width:30em) {
-  .c0 .c2 {
-    position: initial;
-  }
-
-  .c0 .c2 > *:not(.c4) {
-    top: auto;
-    margin-top: -0.1rem;
-  }
-}
-
-@media print {
-  .c0 {
-    padding-left: 0;
-  }
-}
-
-@media print {
-  .c0 > *:not(.c7) {
-    display: none;
-  }
-}
-
 <div
-  className="c0"
+  className="popup-filters"
 >
   <div
-    className="c1"
+    className="popup-filters-top-bar"
   >
     <div
-      className="dropdown-wrapper c2 "
+      className="dropdown-wrapper"
     >
       <button
         aria-controls="summary-filter-chapter"
         aria-expanded={false}
         aria-label="Filter highlights by Chapter"
-        className="plain-button c3 dropdown-toggle c4 "
+        className="plain-button filters-toggle dropdown-toggle"
         data-analytics-label="Filter highlights by Chapter"
         onClick={[Function]}
       >
@@ -232,8 +24,7 @@ exports[`Filters matches snapshot 1`] = `
           Chapter
           <svg
             aria-hidden="true"
-            className="c5"
-            direction="down"
+            className="filters-angle-icon"
             viewBox="0 0 320 512"
           >
             <path
@@ -245,13 +36,13 @@ exports[`Filters matches snapshot 1`] = `
       </button>
     </div>
     <div
-      className="dropdown-wrapper c2 "
+      className="dropdown-wrapper"
     >
       <button
         aria-controls="summary-filter-color"
         aria-expanded={false}
         aria-label="Filter highlights by Color"
-        className="plain-button c3 dropdown-toggle c4 "
+        className="plain-button filters-toggle dropdown-toggle"
         data-analytics-label="Filter highlights by Color"
         onClick={[Function]}
       >
@@ -261,8 +52,7 @@ exports[`Filters matches snapshot 1`] = `
           Color
           <svg
             aria-hidden="true"
-            className="c5"
-            direction="down"
+            className="filters-angle-icon"
             viewBox="0 0 320 512"
           >
             <path
@@ -303,7 +93,7 @@ exports[`Filters matches snapshot 1`] = `
           />
         </svg>
         <span
-          className="toolbar-print-options "
+          className="toolbar-print-options"
         >
           Print
         </span>
@@ -311,22 +101,24 @@ exports[`Filters matches snapshot 1`] = `
     </div>
   </div>
   <div
-    className="c6"
+    className="filters-list-status"
     role="status"
   />
   <ul
     aria-atomic="true"
     aria-label="Applied filters"
     aria-live="polite"
-    className="c7 c8"
+    className="filters-list"
+    data-testid="filters-list"
   >
     <li
-      className="c9"
+      className="filters-list-item"
     >
       <button
         aria-label="Remove color blue"
-        className="plain-button c10"
+        className="plain-button filters-list-close-button"
         data-analytics-label="Remove breadcrumb for color blue"
+        data-testid="filters-list-close-button"
         onClick={[Function]}
       >
         <svg
@@ -357,18 +149,19 @@ exports[`Filters matches snapshot 1`] = `
         </svg>
       </button>
       <span
-        className="c11"
+        className="filters-list-item-label"
       >
         blue
       </span>
     </li>
     <li
-      className="c9"
+      className="filters-list-item"
     >
       <button
         aria-label="Remove color green"
-        className="plain-button c10"
+        className="plain-button filters-list-close-button"
         data-analytics-label="Remove breadcrumb for color green"
+        data-testid="filters-list-close-button"
         onClick={[Function]}
       >
         <svg
@@ -399,18 +192,19 @@ exports[`Filters matches snapshot 1`] = `
         </svg>
       </button>
       <span
-        className="c11"
+        className="filters-list-item-label"
       >
         green
       </span>
     </li>
     <li
-      className="c9"
+      className="filters-list-item"
     >
       <button
         aria-label="Remove color pink"
-        className="plain-button c10"
+        className="plain-button filters-list-close-button"
         data-analytics-label="Remove breadcrumb for color pink"
+        data-testid="filters-list-close-button"
         onClick={[Function]}
       >
         <svg
@@ -441,18 +235,19 @@ exports[`Filters matches snapshot 1`] = `
         </svg>
       </button>
       <span
-        className="c11"
+        className="filters-list-item-label"
       >
         pink
       </span>
     </li>
     <li
-      className="c9"
+      className="filters-list-item"
     >
       <button
         aria-label="Remove color purple"
-        className="plain-button c10"
+        className="plain-button filters-list-close-button"
         data-analytics-label="Remove breadcrumb for color purple"
+        data-testid="filters-list-close-button"
         onClick={[Function]}
       >
         <svg
@@ -483,18 +278,19 @@ exports[`Filters matches snapshot 1`] = `
         </svg>
       </button>
       <span
-        className="c11"
+        className="filters-list-item-label"
       >
         purple
       </span>
     </li>
     <li
-      className="c9"
+      className="filters-list-item"
     >
       <button
         aria-label="Remove color yellow"
-        className="plain-button c10"
+        className="plain-button filters-list-close-button"
         data-analytics-label="Remove breadcrumb for color yellow"
+        data-testid="filters-list-close-button"
         onClick={[Function]}
       >
         <svg
@@ -525,7 +321,7 @@ exports[`Filters matches snapshot 1`] = `
         </svg>
       </button>
       <span
-        className="c11"
+        className="filters-list-item-label"
       >
         yellow
       </span>
@@ -535,232 +331,20 @@ exports[`Filters matches snapshot 1`] = `
 `;
 
 exports[`Filters matches snapshot when open color filters 1`] = `
-.c8 {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border: 0;
-}
-
-.c10 {
-  color: #424242;
-  font-size: 1.4rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  width: 100%;
-  margin: 0;
-  padding: 0 2.8rem 1rem 2.8rem;
-  margin-top: -1rem;
-  list-style: none;
-  overflow: visible;
-}
-
-.c5 {
-  color: #5e6062;
-  width: 1rem;
-  height: 2rem;
-  margin-left: 0.8rem;
-  padding-top: 0.2rem;
-}
-
-.c7 {
-  color: #5e6062;
-  width: 1rem;
-  height: 2rem;
-  margin-left: 0.8rem;
-  padding-top: 0.2rem;
-  -webkit-transform: rotate(180deg);
-  -ms-transform: rotate(180deg);
-  transform: rotate(180deg);
-  padding-top: 0;
-  padding-bottom: 0.2rem;
-}
-
-.c3 {
-  position: relative;
-  border-left: 0.1rem solid transparent;
-  border-right: 0.1rem solid transparent;
-}
-
-.c3 > div {
-  padding: 2rem 2.4rem;
-  outline: none;
-  color: #424242;
-  font-size: 1.6rem;
-  color: #5e6062;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: end;
-  -webkit-justify-content: flex-end;
-  -ms-flex-pack: end;
-  justify-content: flex-end;
-}
-
-.c6 {
-  position: relative;
-  border-left: 0.1rem solid transparent;
-  border-right: 0.1rem solid transparent;
-  z-index: 2;
-  box-shadow: 0 0 0.6rem 0 rgba(0,0,0,0.2);
-  -webkit-clip-path: inset(0 -0.6rem 0px -0.6rem);
-  clip-path: inset(0 -0.6rem 0px -0.6rem);
-  background-color: #fff;
-  border-left: 0.1rem solid #d5d5d5;
-  border-right: 0.1rem solid #d5d5d5;
-}
-
-.c6 > div {
-  padding: 2rem 2.4rem;
-  outline: none;
-  color: #424242;
-  font-size: 1.6rem;
-  color: #5e6062;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: end;
-  -webkit-justify-content: flex-end;
-  -ms-flex-pack: end;
-  justify-content: flex-end;
-}
-
-.c1 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  overflow: visible;
-  width: 100%;
-}
-
-.c0 {
-  position: relative;
-  z-index: 2;
-  overflow: visible;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-flow: row wrap;
-  -ms-flex-flow: row wrap;
-  flex-flow: row wrap;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  background: #fff;
-  border-bottom: 0.1rem solid #d5d5d5;
-}
-
-.c0 .c4 {
-  font-weight: bold;
-}
-
-.c0 .c2 > *:not(.c4) {
-  top: calc(100% - 0.1rem);
-  box-shadow: 0 0 0.6rem 0 rgba(0,0,0,0.2);
-  max-height: calc(100vh - 26rem);
-}
-
-@media screen and (max-width:75em) {
-  .c10 {
-    padding: 0 2.4rem 0.4rem 2.4rem;
-  }
-}
-
-@media print {
-  .c10 {
-    margin: 0;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c3 > div {
-    padding: 1rem 1.6rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c6 > div {
-    padding: 1rem 1.6rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c0 .c2 > *:not(.c4) {
-    max-height: calc(100vh - 18.4rem);
-  }
-}
-
-@media screen and (max-width:30em) {
-  .c0 .c2 {
-    position: initial;
-  }
-
-  .c0 .c2 > *:not(.c4) {
-    top: auto;
-    margin-top: -0.1rem;
-  }
-}
-
-@media print {
-  .c0 {
-    padding-left: 0;
-  }
-}
-
-@media print {
-  .c0 > *:not(.c9) {
-    display: none;
-  }
-}
-
 <div
-  className="c0"
+  className="popup-filters"
 >
   <div
-    className="c1"
+    className="popup-filters-top-bar"
   >
     <div
-      className="dropdown-wrapper c2 "
+      className="dropdown-wrapper"
     >
       <button
         aria-controls="summary-filter-chapter"
         aria-expanded={false}
         aria-label="Filter highlights by Chapter"
-        className="plain-button c3 dropdown-toggle c4 "
+        className="plain-button filters-toggle dropdown-toggle"
         data-analytics-label="Filter highlights by Chapter"
         onClick={[Function]}
       >
@@ -770,8 +354,7 @@ exports[`Filters matches snapshot when open color filters 1`] = `
           Chapter
           <svg
             aria-hidden="true"
-            className="c5"
-            direction="down"
+            className="filters-angle-icon"
             viewBox="0 0 320 512"
           >
             <path
@@ -783,13 +366,13 @@ exports[`Filters matches snapshot when open color filters 1`] = `
       </button>
     </div>
     <div
-      className="dropdown-wrapper c2 "
+      className="dropdown-wrapper"
     >
       <button
         aria-controls="summary-filter-color"
         aria-expanded={true}
         aria-label="Filter highlights by Color"
-        className="plain-button c6 dropdown-toggle c4 "
+        className="plain-button filters-toggle filters-toggle-open dropdown-toggle"
         data-analytics-label="Filter highlights by Color"
         onClick={[Function]}
       >
@@ -799,8 +382,7 @@ exports[`Filters matches snapshot when open color filters 1`] = `
           Color
           <svg
             aria-hidden="true"
-            className="c7"
-            direction="up"
+            className="filters-angle-icon filters-angle-icon-up"
             viewBox="0 0 320 512"
           >
             <path
@@ -887,7 +469,7 @@ exports[`Filters matches snapshot when open color filters 1`] = `
           />
         </svg>
         <span
-          className="toolbar-print-options "
+          className="toolbar-print-options"
         >
           Print
         </span>
@@ -895,14 +477,15 @@ exports[`Filters matches snapshot when open color filters 1`] = `
     </div>
   </div>
   <div
-    className="c8"
+    className="filters-list-status"
     role="status"
   />
   <ul
     aria-atomic="true"
     aria-label="Applied filters"
     aria-live="polite"
-    className="c9 c10"
+    className="filters-list"
+    data-testid="filters-list"
   />
 </div>
 `;

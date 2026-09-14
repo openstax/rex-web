@@ -6,13 +6,12 @@
 */
 
 import {
-  ChangeMessageVisibilityCommand,
+  ChangeMessageVisibilityBatchCommand,
   DeleteMessageBatchCommand,
   Message,
   ReceiveMessageCommand,
   SQSClient,
 } from '@aws-sdk/client-sqs';
-import { cpus } from 'os';
 import path from 'path';
 import { Worker } from 'worker_threads';
 import { assertDefined } from '../../src/app/utils';
@@ -21,6 +20,9 @@ import './logUnhandledRejectionsAndExit';
 // Thread timeout = MAX_HEARTBEATS * 15 seconds
 // The timeout must be long enough to render the slowest page, otherwise builds will never finish
 const MAX_HEARTBEATS = 20;
+
+// Each task reserves 2 vCPUs, one per thread
+const WORKER_THREAD_COUNT = 2;
 
 console.log(`Bucket: ${process.env.BUCKET_NAME} (${process.env.BUCKET_REGION})`);
 
@@ -64,18 +66,25 @@ function isFulfilledPromiseResult<Type>(
 ): promiseResult is FulfilledPromiseResult<Type> { return promiseResult.status === 'fulfilled'; }
 
 // Changes the SQS VisibilityTimeout for the given ReceiptHandles to the given number of seconds
+// Errors are caught rather than thrown since an uncaught rejection here would trigger
+// logUnhandledRejectionsAndExit and crash the whole container
 async function changeReceiptHandlesVisibility(receiptHandles: string[], visibilityTimeout: number) {
-  // We use Promise.allSettled() here to prevent failing all messages
-  // in case one or more messages have already been deleted by other workers
-  return allSettled(
-    receiptHandles.map(async(receiptHandle) => sqsClient.send(
-      new ChangeMessageVisibilityCommand({
-        QueueUrl: process.env.WORK_QUEUE_URL,
+  try {
+    const result = await sqsClient.send(new ChangeMessageVisibilityBatchCommand({
+      Entries: receiptHandles.map((receiptHandle, index) => ({
+        Id: index.toString(),
         ReceiptHandle: receiptHandle,
         VisibilityTimeout: visibilityTimeout,
-      })
-    ))
-  );
+      })),
+      QueueUrl: process.env.WORK_QUEUE_URL,
+    }));
+
+    if (result.Failed && result.Failed.length > 0) {
+      console.error('[SQS] [ChangeMessageVisibilityBatch] Some entries failed:', result.Failed);
+    }
+  } catch (error) {
+    console.error('[SQS] [ChangeMessageVisibilityBatch] Request failed:', error);
+  }
 }
 
 // To be used with setInterval() with a delay of around 15000
@@ -245,8 +254,7 @@ async function popWorker() {
   }
 }
 
-// Having a few more worker threads than CPUs seemed to help keep CPU utilization high
-for (const _undefined of Array(Math.ceil(1.5 * cpus().length))) { pushWorker(new SQSWorker()); }
+for (const _undefined of Array(WORKER_THREAD_COUNT)) { pushWorker(new SQSWorker()); }
 
 async function work() {
   while (true) {

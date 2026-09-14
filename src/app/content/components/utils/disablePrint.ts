@@ -11,9 +11,3 @@
  * <div className={disablePrintClass}>Not visible in print</div>
  */
 export const disablePrintClass = 'disable-print';
-
-/**
- * @deprecated Use `disablePrintClass` with className instead.
- * For the styled-components css fragment, import from './disablePrint.legacy'
- */
-export { disablePrint } from './disablePrint.legacy';

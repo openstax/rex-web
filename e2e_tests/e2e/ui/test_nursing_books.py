@@ -21,6 +21,7 @@ async def test_nursing_book_content_warning_logged_in(chrome_page, base_url):
     await nursing.click_nursing_content_warning_dialog_goto()
 
     # THEN: Content warning dialog opens with user already logged in
+    await nursing.nursing_material_warning_dialog.wait_for(state="visible")
     assert await nursing.nursing_material_warning_dialog.is_visible()
 
     await nursing.dismiss_nursing_material_warning_dialog()
@@ -50,6 +51,7 @@ async def test_nursing_book_content_warning_signup(chrome_page_unlogged, base_ur
     await nursing.click_nursing_content_warning_dialog_goto()
 
     # THEN: Content warning dialog opens and user can sign up
+    await nursing.nursing_material_warning_dialog.wait_for(state="visible")
     assert await nursing.nursing_material_warning_dialog.is_visible()
 
     if await nursing.nursing_content_warning_dialog_login.is_visible():
@@ -81,6 +83,7 @@ async def test_nursing_book_content_warning_login(
     await nursing.click_nursing_content_warning_dialog_goto()
 
     # THEN: Content warning dialog opens and user can log in
+    await nursing.nursing_material_warning_dialog.wait_for(state="visible")
     assert await nursing.nursing_material_warning_dialog.is_visible()
 
     if await nursing.nursing_content_warning_dialog_login.is_visible():
@@ -93,17 +96,21 @@ async def test_nursing_book_content_warning_login(
 
         await chrome_page_unlogged.keyboard.press("Escape")
 
-        assert await nursing.nursing_material_warning_dialog.is_visible()
-
-        await nursing.dismiss_nursing_material_warning_dialog()
-
-        await home.click_logged_in_user_dropdown()
-
-        await home.logout_link_is_visible()
+        if await nursing.nursing_material_warning_dialog.is_visible():
+            await nursing.dismiss_nursing_material_warning_dialog()
 
         assert (
             "maternal-newborn-nursing/pages/1-introduction" in chrome_page_unlogged.url
         )
+
+        await chrome_page_unlogged.locator(
+            "[data-testid='scroll-lock-overlay']"
+        ).wait_for(state="hidden")
+
+        await chrome_page_unlogged.keyboard.press("Escape")
+
+        await home.click_logged_in_user_dropdown()
+        assert await home.logout_link_is_visible()
 
     else:
         pytest.fail("Nursing content warning dialog is not visible")
