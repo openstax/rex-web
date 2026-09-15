@@ -320,6 +320,25 @@ describe('useTrapTabNavigation', () => {
     addEventListenerSpy.mockRestore();
     removeEventListenerSpy.mockRestore();
   });
+  it('does not attach listeners when disabled', () => {
+    const container = assertDocument().createElement('div');
+    const b = assertDocument().createElement('button');
+    container.appendChild(b);
+    const addEventListenerSpy = jest.spyOn(container, 'addEventListener');
+
+    const Component = () => {
+      const ref = React.useRef<HTMLElement | null>(container);
+      utils.useTrapTabNavigation(ref, undefined, false, false);
+      return <div />;
+    };
+
+    renderer.create(<Component />);
+    runHooks(renderer);
+
+    expect(addEventListenerSpy).not.toHaveBeenCalledWith('keydown', expect.any(Function), true);
+
+    addEventListenerSpy.mockRestore();
+  });
   it('auto-focuses first focusable element on mount', () => {
     const container = assertDocument().createElement('div');
     const btn1 = assertDocument().createElement('button');
@@ -730,7 +749,11 @@ describe('createTrapTab', () => {
 
     // Tab forward from the last element (should wrap)
     Object.defineProperty(document, 'activeElement', { value: i, writable: false, configurable: true });
-    b.focus = jest.fn();
+    // Focusing the button moves activeElement off the input (as a real browser would)
+    // so restoreTextSelection's editable-field guard lets the selection be restored.
+    b.focus = jest.fn(() => {
+      Object.defineProperty(document, 'activeElement', { value: b, writable: false, configurable: true });
+    });
     preventDefault.mockClear();
 
     trapTab({ key: 'Tab', preventDefault } as unknown as KeyboardEvent);
@@ -889,7 +912,7 @@ describe('createTrapTab', () => {
     } as any;
 
     const getSelectionSpy = jest.spyOn(assertWindow(), 'getSelection').mockReturnValue(mockSelection);
-    
+
     // Mock requestAnimationFrame to be undefined
     const originalRAF = assertWindow().requestAnimationFrame;
     Object.defineProperty(assertWindow(), 'requestAnimationFrame', {
@@ -930,7 +953,7 @@ describe('createTrapTab', () => {
     // When no valid containers are passed, createTrapTab should skip
     // calling assertWindow() and return a noop function immediately.
     const result = utils.createTrapTab();
-    
+
     // Should return null when handler is called
     expect(result({ key: 'Tab' } as KeyboardEvent)).toBeNull();
   });
@@ -1646,5 +1669,120 @@ describe('focusableItemQuery', () => {
 
     expect(focusable.length).toBe(1);
     expect(Array.from(focusable)).toContain(span);
+  });
+});
+
+describe('isTabbable', () => {
+  let root: HTMLElement;
+
+  beforeEach(() => {
+    root = assertDocument().createElement('div');
+    assertDocument().body.appendChild(root);
+  });
+
+  afterEach(() => root.remove());
+
+  const append = <T extends HTMLElement>(el: T, parent: HTMLElement = root) => {
+    parent.appendChild(el);
+    return el;
+  };
+
+  it('accepts natively tabbable controls', () => {
+    const link = append(assertDocument().createElement('a'));
+    link.setAttribute('href', '#somewhere');
+
+    expect(utils.isTabbable(append(assertDocument().createElement('button')))).toBe(true);
+    expect(utils.isTabbable(append(assertDocument().createElement('input')))).toBe(true);
+    expect(utils.isTabbable(append(assertDocument().createElement('select')))).toBe(true);
+    expect(utils.isTabbable(append(assertDocument().createElement('textarea')))).toBe(true);
+    expect(utils.isTabbable(append(assertDocument().createElement('summary')))).toBe(true);
+    expect(utils.isTabbable(link)).toBe(true);
+  });
+
+  it('rejects elements that match tabbableElementsSelector but never take Tab focus', () => {
+    // `ol` is in tabbableElementsSelector only so modals can un-tab the ToC in Firefox, and an
+    // anchor without href / a bare object are not tab stops either. focus() on any of them is a
+    // no-op, so they must not be chosen as Tab targets.
+    expect(utils.isTabbable(append(assertDocument().createElement('ol')))).toBe(false);
+    expect(utils.isTabbable(append(assertDocument().createElement('object')))).toBe(false);
+    expect(utils.isTabbable(append(assertDocument().createElement('a')))).toBe(false);
+    expect(utils.isTabbable(append(assertDocument().createElement('div')))).toBe(false);
+  });
+
+  it('rejects disabled and negative-tabindex controls, accepts a positive tabindex', () => {
+    const disabled = append(assertDocument().createElement('button'));
+    disabled.setAttribute('disabled', 'disabled');
+    const removedFromTabOrder = append(assertDocument().createElement('button'));
+    removedFromTabOrder.setAttribute('tabindex', '-1');
+    const span = append(assertDocument().createElement('span'));
+    span.setAttribute('tabindex', '0');
+
+    expect(utils.isTabbable(disabled)).toBe(false);
+    expect(utils.isTabbable(removedFromTabOrder)).toBe(false);
+    expect(utils.isTabbable(span)).toBe(true);
+  });
+
+  it('rejects controls hidden by CSS, including via an ancestor', () => {
+    const hidden = append(assertDocument().createElement('button'));
+    hidden.style.display = 'none';
+    const invisible = append(assertDocument().createElement('button'));
+    invisible.style.visibility = 'hidden';
+
+    const hiddenParent = append(assertDocument().createElement('div'));
+    hiddenParent.style.display = 'none';
+    const inHiddenParent = append(assertDocument().createElement('button'), hiddenParent);
+
+    expect(utils.isTabbable(hidden)).toBe(false);
+    expect(utils.isTabbable(invisible)).toBe(false);
+    expect(utils.isTabbable(inHiddenParent)).toBe(false);
+  });
+
+  it('rejects controls inside a closed details, but not its summary or an open details', () => {
+    // REX wraps every exercise solution in a closed <details> (wrapSolutions), and a closed
+    // details hides its content without changing the descendants' own computed styles, so this
+    // cannot be caught by the style walk.
+    const makeSolution = (open: boolean) => {
+      const details = append(assertDocument().createElement('details'));
+      if (open) {
+        details.setAttribute('open', 'open');
+      }
+      const summary = assertDocument().createElement('summary');
+      const section = assertDocument().createElement('section');
+      const link = assertDocument().createElement('a');
+      link.setAttribute('href', '#solution');
+      section.appendChild(link);
+      details.append(summary, section);
+      return { link, summary };
+    };
+
+    const closed = makeSolution(false);
+    const open = makeSolution(true);
+
+    expect(utils.isTabbable(closed.link)).toBe(false);
+    expect(utils.isTabbable(closed.summary)).toBe(true);
+    expect(utils.isTabbable(open.link)).toBe(true);
+    expect(utils.isTabbable(open.summary)).toBe(true);
+  });
+
+  it('rejects a second summary and nested content under a closed details', () => {
+    const details = append(assertDocument().createElement('details'));
+    const summary = assertDocument().createElement('summary');
+    // Only the first direct summary is the disclosure widget; a later one is hidden content.
+    const laterSummary = assertDocument().createElement('summary');
+    const openInnerDetails = assertDocument().createElement('details');
+    openInnerDetails.setAttribute('open', 'open');
+    const nestedButton = assertDocument().createElement('button');
+    openInnerDetails.appendChild(nestedButton);
+    details.append(summary, laterSummary, openInnerDetails);
+
+    expect(utils.isTabbable(summary)).toBe(true);
+    expect(utils.isTabbable(laterSummary)).toBe(false);
+    // An open details nested inside a closed one is still hidden by the outer one.
+    expect(utils.isTabbable(nestedButton)).toBe(false);
+  });
+
+  it('rejects detached elements', () => {
+    expect(utils.isTabbable(assertDocument().createElement('button'))).toBe(false);
+    expect(utils.isRenderedForFocus(assertDocument().createElement('button'))).toBe(false);
   });
 });

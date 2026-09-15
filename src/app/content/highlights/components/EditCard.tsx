@@ -248,10 +248,17 @@ function ActiveEditCard({
   const annotationEditorRef = React.useRef<HTMLTextAreaElement>(null);
 
 
-  useTrapTabNavigation(ref, editingAnnotation);
+  // Trap Tab within an existing highlight's edit form so focus cycles its controls. A new
+  // selection's create form instead hands its boundaries to the highlight Tab-routing (see
+  // CardWrapper), which moves focus out to the content; the data-editing marker below tells that
+  // router the trap is in control. editingAnnotation is the re-attach dep so the trap re-scans
+  // focusables when Save/Cancel appear.
+  const isNewSelection = props.highlight.elements.length === 0;
+  const trapActive = !isNewSelection;
+  useTrapTabNavigation(ref, editingAnnotation, undefined, trapActive);
 
   return (
-    <div ref={ref}>
+    <div ref={ref} data-editing={trapActive ? 'true' : undefined}>
       <ColorPicker
         color={props.data?.color}
         onChange={onColorChange}

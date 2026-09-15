@@ -72,16 +72,25 @@ function saveTextSelection(win: Window): Range | null {
 
 // Restores a previously saved text selection
 function restoreTextSelection(win: Window, savedRange: Range | null): void {
-  if (savedRange) {
-    try {
-      const sel = win.getSelection();
-      if (sel) {
-        sel.removeAllRanges();
-        sel.addRange(savedRange);
-      }
-    } catch (e) {
-      // Ignore restoration errors
+  if (!savedRange) {
+    return;
+  }
+
+  // Don't write a document selection while an editable field is focused: it deactivates the caret,
+  // so the field keeps its focus ring but won't accept typing until it's clicked.
+  const active = win.document.activeElement as HTMLElement | null;
+  if (active && (active.tagName === 'TEXTAREA' || active.tagName === 'INPUT' || active.isContentEditable)) {
+    return;
+  }
+
+  try {
+    const sel = win.getSelection();
+    if (sel) {
+      sel.removeAllRanges();
+      sel.addRange(savedRange);
     }
+  } catch (e) {
+    // Ignore restoration errors
   }
 }
 
@@ -92,6 +101,16 @@ function scheduleSelectionRestoration(win: Window, restoreFn: () => void): void 
   } else {
     win.setTimeout(restoreFn, 0);
   }
+}
+
+// Runs a focus-moving callback while preserving the current text selection. Moving focus into a
+// control can collapse an active selection in some browsers (notably Firefox); this saves the range
+// and restores it afterwards, so Tab-routing can focus the card without losing a pending selection.
+export function withSelectionPreserved(fn: () => void): void {
+  const win = assertWindow();
+  const savedRange = safeSaveTextSelection(win);
+  fn();
+  restoreTextSelection(win, savedRange);
 }
 
 // Determines the next focus element when Tab wraps around
@@ -240,14 +259,17 @@ function autoFocusFirstElement(el: HTMLElement): void {
 
 // Supply otherDep when focusable elements might change (see EditCard)
 // Set autoFocus=true to focus the first focusable element on mount (useful for modals/overlays)
+// Set isEnabled=false to leave the trap detached (e.g. so focus can be routed out of the card
+// while it is not actively being edited)
 export function useTrapTabNavigation(
   ref: React.MutableRefObject<HTMLElement | null>,
   otherDep?: unknown,
-  autoFocus?: boolean
+  autoFocus?: boolean,
+  isEnabled = true
 ) {
   React.useEffect(() => {
     const el = ref.current;
-    if (!el?.addEventListener) {
+    if (!el?.addEventListener || !isEnabled) {
       return;
     }
 
@@ -265,7 +287,7 @@ export function useTrapTabNavigation(
     el.addEventListener('keydown', trapTab, true);
 
     return () => el.removeEventListener('keydown', trapTab, true);
-  }, [ref, otherDep, autoFocus]);
+  }, [ref, otherDep, autoFocus, isEnabled]);
 }
 
 export const onFocusInOrOutHandler =
@@ -330,7 +352,7 @@ export const useFocusIn = (
 
 // Based on https://stackoverflow.com/questions/1599660/which-html-elements-can-receive-focus/30753870#30753870
 // and https://allyjs.io/data-tables/focusable.html
-const tabbableElementsSelector = [
+export const tabbableElementsSelector = [
   'a[href]',
   'area[href]',
   'audio',
@@ -352,6 +374,82 @@ const tabbableElementsSelector = [
 ]
   .map((el) => el + `:not([tabindex='-1'])`)
   .join(',');
+
+// tabbableElementsSelector is intentionally broad: its job is to strip tabbability from
+// everything behind a modal, so it matches elements that are not themselves tab stops (`ol` is
+// there for Firefox's scrollable containers, `object`/`embed` never take Tab) and, being a
+// selector, it also matches controls that CSS has hidden. focus() on any of those is a no-op, so
+// code that picks a Tab target from that list, prevents the native Tab, and then focuses its
+// pick can leave focus on nothing - i.e. on <body>. Use isTabbable to narrow such a list to
+// elements focus() will actually move to.
+
+// Elements that take Tab focus by virtue of their tag. Any element with a non-negative tabindex
+// is also a tab stop, whatever its tag, so that is handled separately in isTabbable.
+const nativeTabStopSelector = [
+  'a[href]',
+  'area[href]',
+  'audio[controls]',
+  'button',
+  'iframe',
+  'input:not([type=\'hidden\'])',
+  'select',
+  'summary',
+  'textarea',
+  'video[controls]',
+  '[contentEditable=true]',
+]
+  .map((el) => el + ':not([disabled])')
+  .join(',');
+
+// A closed <details> shows only its summary and hides the rest, but it does so without changing
+// those descendants' own computed styles (the UA hides the content slot / ::details-content), so
+// a style walk cannot see it while focus() still refuses them. This is on the Tab path in REX:
+// wrapSolutions() puts every exercise solution - links and all - inside a closed <details>.
+const isHiddenInClosedDetails = (el: HTMLElement): boolean => {
+  let child: HTMLElement = el;
+
+  for (let node = el.parentElement; node; child = node, node = node.parentElement) {
+    if (node.tagName.toLowerCase() !== 'details' || node.hasAttribute('open')) {
+      continue;
+    }
+    // Only the first direct summary is the disclosure widget, and it stays visible/focusable;
+    // everything else under a closed details is hidden, including any later summary.
+    const disclosureSummary = Array.from(node.children).find(
+      (candidate) => candidate.tagName.toLowerCase() === 'summary'
+    );
+    if (child !== disclosureSummary) {
+      return true;
+    }
+  }
+
+  return false;
+};
+
+// display: none (on the element or any ancestor) and visibility: hidden both make an element
+// unfocusable. Deliberately style-based rather than layout-based (getClientRects/offsetParent) so
+// that it gives the same answer under jsdom, which has no layout.
+export const isRenderedForFocus = (el: HTMLElement): boolean => {
+  const window = assertWindow();
+
+  for (let node: HTMLElement | null = el; node; node = node.parentElement) {
+    const style = window.getComputedStyle(node);
+    if (style.display === 'none' || style.visibility === 'hidden') {
+      return false;
+    }
+  }
+
+  return el.isConnected && !isHiddenInClosedDetails(el);
+};
+
+// Whether focus() on this element would actually move focus to it.
+export const isTabbable = (el: HTMLElement): boolean => {
+  const tabIndex = el.getAttribute('tabindex');
+  const takesFocus = tabIndex === null
+    ? el.matches(nativeTabStopSelector)
+    : Number(tabIndex) >= 0;
+
+  return takesFocus && isRenderedForFocus(el);
+};
 
 // Disables tabbing to content behind modals
 export const disableContentTabbingHandler = (isEnabled: boolean) => () => {
