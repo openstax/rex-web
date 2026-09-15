@@ -1170,6 +1170,81 @@ describe('CardWrapper', () => {
       cleanup();
     });
 
+    it('skips selector matches that are not real tab stops when leaving the card', () => {
+      const { lastButton, nextLink, cleanup } = setupRouting();
+      // `ol` matches tabbableElementsSelector (it is listed there for Firefox's scrollable ToC)
+      // but focus() on it is a no-op, so routing must pass over it to the following link rather
+      // than prevent Tab and strand focus on <body>.
+      const orderedList = assertDocument().createElement('ol');
+      nextLink.parentNode!.insertBefore(orderedList, nextLink);
+      const listFocusSpy = jest.spyOn(orderedList, 'focus');
+      const linkFocusSpy = jest.spyOn(nextLink, 'focus');
+
+      renderer.act(() => {
+        lastButton.focus();
+        dispatchKeyDownEvent({ key: 'Tab' });
+      });
+
+      expect(listFocusSpy).not.toHaveBeenCalled();
+      expect(linkFocusSpy).toHaveBeenCalled();
+      orderedList.remove();
+      cleanup();
+    });
+
+    it('skips content hidden by CSS when leaving the card', () => {
+      const { lastButton, nextLink, cleanup } = setupRouting();
+      const hiddenButton = assertDocument().createElement('button');
+      hiddenButton.style.display = 'none';
+      nextLink.parentNode!.insertBefore(hiddenButton, nextLink);
+      const hiddenFocusSpy = jest.spyOn(hiddenButton, 'focus');
+      const linkFocusSpy = jest.spyOn(nextLink, 'focus');
+
+      renderer.act(() => {
+        lastButton.focus();
+        dispatchKeyDownEvent({ key: 'Tab' });
+      });
+
+      expect(hiddenFocusSpy).not.toHaveBeenCalled();
+      expect(linkFocusSpy).toHaveBeenCalled();
+      hiddenButton.remove();
+      cleanup();
+    });
+
+    it('ignores card controls hidden by CSS when finding the card boundaries', () => {
+      const { srSpan, firstButton, lastButton, cleanup } = setupRouting();
+      // Responsive CSS hides some card controls (e.g. the DisplayNote dropdown on touch layouts);
+      // they still match the selector, so the card's first real tab stop is the next one along.
+      firstButton.style.display = 'none';
+      const hiddenFocusSpy = jest.spyOn(firstButton, 'focus');
+      const visibleFocusSpy = jest.spyOn(lastButton, 'focus');
+
+      renderer.act(() => {
+        srSpan.focus();
+        dispatchKeyDownEvent({ key: 'Tab' });
+      });
+
+      expect(hiddenFocusSpy).not.toHaveBeenCalled();
+      expect(visibleFocusSpy).toHaveBeenCalled();
+      cleanup();
+    });
+
+    it('lets the native Tab happen when there is no adjacent content to move to', () => {
+      const { lastButton, nextLink, cleanup } = setupRouting();
+      // Nothing tabbable follows the card, so preventing Tab would leave focus on a control that
+      // is about to unmount - i.e. on <body>. The browser picks the next stop instead.
+      nextLink.remove();
+      let notPrevented: boolean | undefined;
+
+      renderer.act(() => {
+        lastButton.focus();
+        notPrevented = dispatchKeyDownEvent({ key: 'Tab' });
+      });
+
+      expect(notPrevented).toBe(true);
+      expect(store.getState().content.highlights.currentPage.focused).toBeUndefined();
+      cleanup();
+    });
+
     it('does not route across card boundaries while a note is being edited', () => {
       const { lastButton, nextLink, cleanup } = setupRouting({ editing: true });
       const focusSpy = jest.spyOn(nextLink, 'focus');

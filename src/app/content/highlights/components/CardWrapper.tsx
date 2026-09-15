@@ -7,6 +7,7 @@ import { clearFocusedHighlight } from '../actions';
 import ResizeObserver from 'resize-observer-polyfill';
 import { isHtmlElement, isElement } from '../../../guards';
 import {
+  isTabbable,
   tabbableElementsSelector,
   useFocusHighlight,
   useFocusLost,
@@ -112,7 +113,13 @@ function findAdjacentContentTabbable(
     Boolean(reference.compareDocumentPosition(el) & position)
     && !exclude.some((ex) => ex === el || ex.contains(el))
   );
-  return (forward ? candidates[0] : candidates[candidates.length - 1]) ?? null;
+  // Nearest first in the direction of travel, then the first one focus() would actually move to:
+  // tabbableElementsSelector matches more than real tab stops (`ol`, CSS-hidden controls), and
+  // focusing one of those is a no-op that would strand focus on <body>.
+  if (!forward) {
+    candidates.reverse();
+  }
+  return candidates.find(isTabbable) ?? null;
 }
 
 // The node at the start/end boundary of the current selection, if inside the content container.
@@ -167,10 +174,11 @@ function useTabRouting(
       // are routed here instead.
       const isEditing = Boolean(cardNode?.querySelector('[data-editing="true"]'));
       // tabbableElementsSelector (not focusableItemQuery) excludes tabindex="-1" controls - e.g.
-      // the color-picker radios, reached via their radiogroup, not Tab - so the card's real
-      // first/last tab stops are used.
+      // the color-picker radios, reached via their radiogroup, not Tab. isTabbable then drops the
+      // matches focus() would ignore, notably controls the responsive CSS hides (DisplayNote hides
+      // its dropdown on touch layouts), so the card's real first/last tab stops are used.
       const focusables = cardNode
-        ? Array.from(cardNode.querySelectorAll<HTMLElement>(tabbableElementsSelector))
+        ? Array.from(cardNode.querySelectorAll<HTMLElement>(tabbableElementsSelector)).filter(isTabbable)
         : [];
       const firstFocusable = focusables[0];
       const lastFocusable = focusables[focusables.length - 1];
@@ -181,13 +189,17 @@ function useTabRouting(
 
       // Move focus out of the highlight/card to the adjacent content tab stop in the given direction.
       const focusAdjacentContent = (reference: Node | null, forward: boolean, clearSelection: boolean) => {
-        event.preventDefault();
-        if (clearSelection) {
-          assertWindow().getSelection()?.removeAllRanges();
-        }
         const cardWrapper = element.current;
         const exclude = [...elements, ...(cardWrapper ? [cardWrapper] : [])];
         const target = reference ? findAdjacentContentTabbable(reference, forward, exclude) : null;
+        // With no target to move to, preventing the native Tab would leave focus on a control that
+        // is about to unmount, i.e. on <body>; let the browser choose the next stop instead.
+        if (target) {
+          event.preventDefault();
+        }
+        if (clearSelection) {
+          assertWindow().getSelection()?.removeAllRanges();
+        }
         unfocus();
         target?.focus();
       };

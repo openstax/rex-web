@@ -1671,3 +1671,74 @@ describe('focusableItemQuery', () => {
     expect(Array.from(focusable)).toContain(span);
   });
 });
+
+describe('isTabbable', () => {
+  let root: HTMLElement;
+
+  beforeEach(() => {
+    root = assertDocument().createElement('div');
+    assertDocument().body.appendChild(root);
+  });
+
+  afterEach(() => root.remove());
+
+  const append = <T extends HTMLElement>(el: T, parent: HTMLElement = root) => {
+    parent.appendChild(el);
+    return el;
+  };
+
+  it('accepts natively tabbable controls', () => {
+    const link = append(assertDocument().createElement('a'));
+    link.setAttribute('href', '#somewhere');
+
+    expect(utils.isTabbable(append(assertDocument().createElement('button')))).toBe(true);
+    expect(utils.isTabbable(append(assertDocument().createElement('input')))).toBe(true);
+    expect(utils.isTabbable(append(assertDocument().createElement('select')))).toBe(true);
+    expect(utils.isTabbable(append(assertDocument().createElement('textarea')))).toBe(true);
+    expect(utils.isTabbable(append(assertDocument().createElement('summary')))).toBe(true);
+    expect(utils.isTabbable(link)).toBe(true);
+  });
+
+  it('rejects elements that match tabbableElementsSelector but never take Tab focus', () => {
+    // `ol` is in tabbableElementsSelector only so modals can un-tab the ToC in Firefox, and an
+    // anchor without href / a bare object are not tab stops either. focus() on any of them is a
+    // no-op, so they must not be chosen as Tab targets.
+    expect(utils.isTabbable(append(assertDocument().createElement('ol')))).toBe(false);
+    expect(utils.isTabbable(append(assertDocument().createElement('object')))).toBe(false);
+    expect(utils.isTabbable(append(assertDocument().createElement('a')))).toBe(false);
+    expect(utils.isTabbable(append(assertDocument().createElement('div')))).toBe(false);
+  });
+
+  it('rejects disabled and negative-tabindex controls, accepts a positive tabindex', () => {
+    const disabled = append(assertDocument().createElement('button'));
+    disabled.setAttribute('disabled', 'disabled');
+    const removedFromTabOrder = append(assertDocument().createElement('button'));
+    removedFromTabOrder.setAttribute('tabindex', '-1');
+    const span = append(assertDocument().createElement('span'));
+    span.setAttribute('tabindex', '0');
+
+    expect(utils.isTabbable(disabled)).toBe(false);
+    expect(utils.isTabbable(removedFromTabOrder)).toBe(false);
+    expect(utils.isTabbable(span)).toBe(true);
+  });
+
+  it('rejects controls hidden by CSS, including via an ancestor', () => {
+    const hidden = append(assertDocument().createElement('button'));
+    hidden.style.display = 'none';
+    const invisible = append(assertDocument().createElement('button'));
+    invisible.style.visibility = 'hidden';
+
+    const hiddenParent = append(assertDocument().createElement('div'));
+    hiddenParent.style.display = 'none';
+    const inHiddenParent = append(assertDocument().createElement('button'), hiddenParent);
+
+    expect(utils.isTabbable(hidden)).toBe(false);
+    expect(utils.isTabbable(invisible)).toBe(false);
+    expect(utils.isTabbable(inHiddenParent)).toBe(false);
+  });
+
+  it('rejects detached elements', () => {
+    expect(utils.isTabbable(assertDocument().createElement('button'))).toBe(false);
+    expect(utils.isRenderedForFocus(assertDocument().createElement('button'))).toBe(false);
+  });
+});

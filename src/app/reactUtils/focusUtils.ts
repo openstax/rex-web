@@ -375,6 +375,58 @@ export const tabbableElementsSelector = [
   .map((el) => el + `:not([tabindex='-1'])`)
   .join(',');
 
+// tabbableElementsSelector is intentionally broad: its job is to strip tabbability from
+// everything behind a modal, so it matches elements that are not themselves tab stops (`ol` is
+// there for Firefox's scrollable containers, `object`/`embed` never take Tab) and, being a
+// selector, it also matches controls that CSS has hidden. focus() on any of those is a no-op, so
+// code that picks a Tab target from that list, prevents the native Tab, and then focuses its
+// pick can leave focus on nothing - i.e. on <body>. Use isTabbable to narrow such a list to
+// elements focus() will actually move to.
+
+// Elements that take Tab focus by virtue of their tag. Any element with a non-negative tabindex
+// is also a tab stop, whatever its tag, so that is handled separately in isTabbable.
+const nativeTabStopSelector = [
+  'a[href]',
+  'area[href]',
+  'audio[controls]',
+  'button',
+  'iframe',
+  'input:not([type=\'hidden\'])',
+  'select',
+  'summary',
+  'textarea',
+  'video[controls]',
+  '[contentEditable=true]',
+]
+  .map((el) => el + ':not([disabled])')
+  .join(',');
+
+// display: none (on the element or any ancestor) and visibility: hidden both make an element
+// unfocusable. Deliberately style-based rather than layout-based (getClientRects/offsetParent) so
+// that it gives the same answer under jsdom, which has no layout.
+export const isRenderedForFocus = (el: HTMLElement): boolean => {
+  const window = assertWindow();
+
+  for (let node: HTMLElement | null = el; node; node = node.parentElement) {
+    const style = window.getComputedStyle(node);
+    if (style.display === 'none' || style.visibility === 'hidden') {
+      return false;
+    }
+  }
+
+  return el.isConnected;
+};
+
+// Whether focus() on this element would actually move focus to it.
+export const isTabbable = (el: HTMLElement): boolean => {
+  const tabIndex = el.getAttribute('tabindex');
+  const takesFocus = tabIndex === null
+    ? el.matches(nativeTabStopSelector)
+    : Number(tabIndex) >= 0;
+
+  return takesFocus && isRenderedForFocus(el);
+};
+
 // Disables tabbing to content behind modals
 export const disableContentTabbingHandler = (isEnabled: boolean) => () => {
   if (!isEnabled) {

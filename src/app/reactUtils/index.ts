@@ -23,6 +23,8 @@ export {
   useDrawFocus,
   focusableItemQuery,
   tabbableElementsSelector,
+  isRenderedForFocus,
+  isTabbable,
   createTrapTab,
   useTrapTabNavigation,
   withSelectionPreserved,

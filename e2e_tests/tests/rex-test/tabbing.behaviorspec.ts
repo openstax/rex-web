@@ -62,6 +62,14 @@ async function activeElementInfo(page: Page) {
   })
 }
 
+// Focus falling back to <body> is the exact failure mode this routing exists to prevent, and it
+// silently satisfies "not in the card" / "not the create button" style assertions, so every step
+// that expects focus to move asserts it landed on a real element.
+function expectRealFocusedElement(info: { tag: string | null }, label: string) {
+  expect(info.tag, `${label}: focus is on a real element`).toBeTruthy()
+  expect(info.tag, `${label}: focus did not fall to <body>`).not.toBe('BODY')
+}
+
 // Create a green highlight through the real UI flow: select text -> the "create highlight"
 // button appears -> activate it to open the form -> choose a color (which saves the highlight).
 async function createGreenHighlight(page: Page, bookPage: ContentPage, paraNumber: number) {
@@ -146,6 +154,7 @@ test('new selection: Tab past the create button leaves cleanly and discards the 
   const afterTab = await activeElementInfo(page)
   console.log('after Tab past create button:', afterTab)
 
+  expectRealFocusedElement(afterTab, 'Tab past the create button')
   expect(afterTab.inCard, 'focus left the card').toBe(false)
   expect(afterTab.text, 'focus is no longer on the create button').not.toContain('create highlight')
 
@@ -157,17 +166,24 @@ test('new selection: Tab past the create button leaves cleanly and discards the 
   expect(await page.locator('.highlight').count(), 'no highlight was created').toBe(0)
 
   // Focus continued *forward* (at/after the selection), rather than bouncing to the page top.
-  const bouncedBackward = await page.evaluate((n) => {
+  const relation = await page.evaluate((n) => {
     const para = document.querySelectorAll('p[id*=para]')[n]
     const a = document.activeElement as HTMLElement | null
     if (!para || !a || a === document.body) {
-      return false
+      return { resolved: false, bouncedBackward: false }
     }
     const DOCUMENT_POSITION_PRECEDING = 2
-    // eslint-disable-next-line no-bitwise
-    return Boolean(para.compareDocumentPosition(a) & DOCUMENT_POSITION_PRECEDING)
+    return {
+      // eslint-disable-next-line no-bitwise
+      bouncedBackward: Boolean(para.compareDocumentPosition(a) & DOCUMENT_POSITION_PRECEDING),
+      resolved: true,
+    }
   }, paraNumber)
-  expect(bouncedBackward, 'focus did not bounce to an element before the selection').toBe(false)
+  console.log('tab-past-create relation:', relation)
+  // Asserted unconditionally: an unresolvable comparison (no paragraph, or focus on <body>) is
+  // itself a failure, not a reason to skip the check.
+  expect(relation.resolved, 'the selected paragraph and the focused element both resolved').toBe(true)
+  expect(relation.bouncedBackward, 'focus did not bounce to an element before the selection').toBe(false)
 })
 
 test('new selection: Shift+Tab off the create button goes to previous content, not the toolbar', async ({
@@ -208,21 +224,22 @@ test('new selection: Shift+Tab off the create button goes to previous content, n
     const para = document.querySelectorAll('p[id*=para]')[n]
     const a = document.activeElement as HTMLElement | null
     if (!para || !a || a === document.body) {
-      return { checked: false, precedes: false, inMainContent: false }
+      return { resolved: false, precedes: false, inMainContent: false }
     }
     const DOCUMENT_POSITION_PRECEDING = 2
     return {
-      checked: true,
+      resolved: true,
       // eslint-disable-next-line no-bitwise
       precedes: Boolean(para.compareDocumentPosition(a) & DOCUMENT_POSITION_PRECEDING),
       inMainContent: Boolean(a.closest('#main-content')),
     }
   }, paraNumber)
   console.log('shift-tab target relation:', relation)
-  if (relation.checked) {
-    expect(relation.precedes, 'focus moved backward, to before the selection').toBe(true)
-    expect(relation.inMainContent, 'focus stayed in the content, not the toolbar/card layer').toBe(true)
-  }
+  // Asserted unconditionally: an unresolvable comparison (no paragraph, or focus on <body>)
+  // contradicts the requirement rather than excusing the check.
+  expect(relation.resolved, 'the selected paragraph and the focused element both resolved').toBe(true)
+  expect(relation.precedes, 'focus moved backward, to before the selection').toBe(true)
+  expect(relation.inMainContent, 'focus stayed in the content, not the toolbar/card layer').toBe(true)
 })
 
 test('new selection: Shift+Tab directly from the selection goes to previous content', async ({ page, isMobile }) => {
@@ -261,21 +278,22 @@ test('new selection: Shift+Tab directly from the selection goes to previous cont
     const para = document.querySelectorAll('p[id*=para]')[n]
     const a = document.activeElement as HTMLElement | null
     if (!para || !a || a === document.body) {
-      return { checked: false, precedes: false, inMainContent: false }
+      return { resolved: false, precedes: false, inMainContent: false }
     }
     const DOCUMENT_POSITION_PRECEDING = 2
     return {
-      checked: true,
+      resolved: true,
       // eslint-disable-next-line no-bitwise
       precedes: Boolean(para.compareDocumentPosition(a) & DOCUMENT_POSITION_PRECEDING),
       inMainContent: Boolean(a.closest('#main-content')),
     }
   }, paraNumber)
   console.log('select -> Shift+Tab relation:', relation)
-  if (relation.checked) {
-    expect(relation.precedes, 'focus moved backward, to before the selection').toBe(true)
-    expect(relation.inMainContent, 'focus stayed in the content, not the toolbar/card layer').toBe(true)
-  }
+  // Asserted unconditionally: an unresolvable comparison (no paragraph, or focus on <body>)
+  // contradicts the requirement rather than excusing the check.
+  expect(relation.resolved, 'the selected paragraph and the focused element both resolved').toBe(true)
+  expect(relation.precedes, 'focus moved backward, to before the selection').toBe(true)
+  expect(relation.inMainContent, 'focus stayed in the content, not the toolbar/card layer').toBe(true)
 })
 
 test('existing highlight: edit control is reachable via Tab / Shift+Tab', async ({ page, isMobile }) => {
