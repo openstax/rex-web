@@ -101,7 +101,7 @@ function useCardsHeights() {
 function findAdjacentContentTabbable(
   reference: Node,
   forward: boolean,
-  exclude: HTMLElement[] = []
+  exclude: HTMLElement[]
 ): HTMLElement | null {
   const root = assertDocument().getRootNode();
   const position = forward ? root.DOCUMENT_POSITION_FOLLOWING : root.DOCUMENT_POSITION_PRECEDING;
@@ -205,7 +205,7 @@ function useTabRouting(
         }
         // Card was dismissed (Escape): nothing to tab into, so continue to the next content control.
         if (cardHidden) {
-          focusAdjacentContent(elements[elements.length - 1] ?? null, true, false);
+          focusAdjacentContent(elements[elements.length - 1], true, false);
           return;
         }
       }
@@ -235,7 +235,7 @@ function useTabRouting(
         if (goingForward || goingBack) {
           const reference: Node | null = isNewSelection
             ? selectionBoundaryNode(container, goingForward)
-            : (elements[elements.length - 1] ?? null);
+            : elements[elements.length - 1];
           focusAdjacentContent(reference, goingForward, true);
           return;
         }

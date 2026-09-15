@@ -1400,6 +1400,330 @@ describe('CardWrapper', () => {
       expect(focusSpy).not.toHaveBeenCalled();
       cleanup();
     });
+
+    it('ignores Tab when there is no active element', () => {
+      const { srSpan, firstButton, cleanup } = setupRouting();
+      const focusSpy = jest.spyOn(firstButton, 'focus');
+      const document = assertDocument();
+
+      // Force activeElement to null so the handler bails out before resolving any card.
+      Object.defineProperty(document, 'activeElement', { configurable: true, get: () => null });
+
+      renderer.act(() => {
+        srSpan.focus();
+        dispatchKeyDownEvent({ key: 'Tab' });
+      });
+
+      expect(focusSpy).not.toHaveBeenCalled();
+
+      delete (document as any).activeElement;
+      cleanup();
+    });
+
+    it('routes Tab from the highlight span to next content when the card is hidden (dismissed by Escape)', () => {
+      const document = assertDocument();
+      const highlight = createMockHighlight();
+
+      const highlightElement = document.createElement('span');
+      const srSpan = document.createElement('span');
+      srSpan.setAttribute('data-for-screenreaders', 'true');
+      srSpan.setAttribute('tabindex', '0');
+      highlightElement.appendChild(srSpan);
+      container.appendChild(highlightElement);
+      highlight.elements.push(highlightElement);
+
+      const nextLink = document.createElement('a');
+      nextLink.setAttribute('href', '#next');
+      container.appendChild(nextLink);
+
+      // The active card is marked hidden, as it would be after Escape dismisses it.
+      const cardWrapperElement = document.createElement('div');
+      const cardNode = document.createElement('div');
+      cardNode.setAttribute('data-active', 'true');
+      cardNode.setAttribute('data-hidden', 'true');
+      cardNode.appendChild(document.createElement('button'));
+      cardWrapperElement.appendChild(cardNode);
+      document.body.appendChild(cardWrapperElement);
+
+      store.dispatch(focusHighlight(highlight.id));
+      renderer.create(<Provider store={store}>
+        <CardWrapper container={container} highlights={[highlight]} />
+      </Provider>, { createNodeMock: () => cardWrapperElement });
+      renderer.act(() => undefined);
+
+      const focusSpy = jest.spyOn(nextLink, 'focus');
+      renderer.act(() => {
+        srSpan.focus();
+        dispatchKeyDownEvent({ key: 'Tab' });
+      });
+
+      expect(focusSpy).toHaveBeenCalled();
+      expect(store.getState().content.highlights.currentPage.focused).toBeUndefined();
+      cardWrapperElement.remove();
+    });
+
+    it('handles a missing selection range when routing Tab off the create button', () => {
+      const document = assertDocument();
+      const highlight = createMockHighlight(); // new selection: elements stays []
+
+      const para = document.createElement('p');
+      para.appendChild(document.createTextNode('selected text'));
+      container.appendChild(para);
+      const nextLink = document.createElement('a');
+      nextLink.setAttribute('href', '#next');
+      container.appendChild(nextLink);
+
+      const cardWrapperElement = document.createElement('div');
+      const cardNode = document.createElement('div');
+      cardNode.setAttribute('data-active', 'true');
+      const createButton = document.createElement('button');
+      cardNode.appendChild(createButton);
+      cardWrapperElement.appendChild(cardNode);
+      document.body.appendChild(cardWrapperElement);
+
+      // A live selection with no range: there's no boundary node to anchor tab routing on.
+      const removeAllRanges = jest.fn();
+      const getSelectionSpy = jest.spyOn(window!, 'getSelection').mockReturnValue({
+        isCollapsed: false,
+        rangeCount: 0,
+        removeAllRanges,
+      } as any);
+
+      store.dispatch(focusHighlight(highlight.id));
+      renderer.create(<Provider store={store}>
+        <CardWrapper container={container} highlights={[highlight]} />
+      </Provider>, { createNodeMock: () => cardWrapperElement });
+      renderer.act(() => undefined);
+
+      const focusSpy = jest.spyOn(nextLink, 'focus');
+      renderer.act(() => {
+        createButton.focus();
+        dispatchKeyDownEvent({ key: 'Tab' });
+      });
+
+      // No boundary node means no adjacent content to move to, so nothing is focused.
+      expect(focusSpy).not.toHaveBeenCalled();
+      expect(removeAllRanges).toHaveBeenCalled();
+
+      getSelectionSpy.mockRestore();
+      cardWrapperElement.remove();
+    });
+
+    it('clears focus when a hidden card has no following content to tab to', () => {
+      const document = assertDocument();
+      const highlight = createMockHighlight();
+
+      // A highlight span with no tabbable content anywhere after it.
+      const highlightElement = document.createElement('span');
+      const srSpan = document.createElement('span');
+      srSpan.setAttribute('data-for-screenreaders', 'true');
+      srSpan.setAttribute('tabindex', '0');
+      highlightElement.appendChild(srSpan);
+      container.appendChild(highlightElement);
+      highlight.elements.push(highlightElement);
+
+      const cardWrapperElement = document.createElement('div');
+      const cardNode = document.createElement('div');
+      cardNode.setAttribute('data-active', 'true');
+      cardNode.setAttribute('data-hidden', 'true');
+      cardNode.appendChild(document.createElement('button'));
+      cardWrapperElement.appendChild(cardNode);
+      document.body.appendChild(cardWrapperElement);
+
+      store.dispatch(focusHighlight(highlight.id));
+      renderer.create(<Provider store={store}>
+        <CardWrapper container={container} highlights={[highlight]} />
+      </Provider>, { createNodeMock: () => cardWrapperElement });
+      renderer.act(() => undefined);
+
+      renderer.act(() => {
+        srSpan.focus();
+        dispatchKeyDownEvent({ key: 'Tab' });
+      });
+
+      // No candidate tab stop follows, so focus is simply cleared.
+      expect(store.getState().content.highlights.currentPage.focused).toBeUndefined();
+      cardWrapperElement.remove();
+    });
+
+    it('handles a selection boundary node outside the container when tabbing off the create button', () => {
+      const document = assertDocument();
+      const highlight = createMockHighlight(); // new selection: elements stays []
+
+      const nextLink = document.createElement('a');
+      nextLink.setAttribute('href', '#next');
+      container.appendChild(nextLink);
+
+      const cardWrapperElement = document.createElement('div');
+      const cardNode = document.createElement('div');
+      cardNode.setAttribute('data-active', 'true');
+      const createButton = document.createElement('button');
+      cardNode.appendChild(createButton);
+      cardWrapperElement.appendChild(cardNode);
+      document.body.appendChild(cardWrapperElement);
+
+      // The selection's end boundary is a node outside the content container.
+      const outsideNode = document.createTextNode('outside');
+      const removeAllRanges = jest.fn();
+      const getSelectionSpy = jest.spyOn(window!, 'getSelection').mockReturnValue({
+        isCollapsed: false,
+        rangeCount: 1,
+        getRangeAt: () => ({ endContainer: outsideNode, startContainer: outsideNode }),
+        removeAllRanges,
+      } as any);
+
+      store.dispatch(focusHighlight(highlight.id));
+      renderer.create(<Provider store={store}>
+        <CardWrapper container={container} highlights={[highlight]} />
+      </Provider>, { createNodeMock: () => cardWrapperElement });
+      renderer.act(() => undefined);
+
+      const focusSpy = jest.spyOn(nextLink, 'focus');
+      renderer.act(() => {
+        createButton.focus();
+        dispatchKeyDownEvent({ key: 'Tab' });
+      });
+
+      // The boundary is outside the container, so there's no anchor and nothing is focused.
+      expect(focusSpy).not.toHaveBeenCalled();
+      expect(removeAllRanges).toHaveBeenCalled();
+
+      getSelectionSpy.mockRestore();
+      cardWrapperElement.remove();
+    });
+
+    it('routes Shift+Tab from the highlight span even when the card wrapper ref is unset', () => {
+      const document = assertDocument();
+      const highlight = createMockHighlight();
+
+      const prevLink = document.createElement('a');
+      prevLink.setAttribute('href', '#prev');
+      container.appendChild(prevLink);
+
+      const highlightElement = document.createElement('span');
+      const srSpan = document.createElement('span');
+      srSpan.setAttribute('data-for-screenreaders', 'true');
+      srSpan.setAttribute('tabindex', '0');
+      highlightElement.appendChild(srSpan);
+      container.appendChild(highlightElement);
+      highlight.elements.push(highlightElement);
+
+      store.dispatch(focusHighlight(highlight.id));
+      // createNodeMock returns undefined so element.current stays null.
+      renderer.create(<Provider store={store}>
+        <CardWrapper container={container} highlights={[highlight]} />
+      </Provider>, { createNodeMock: () => undefined });
+      renderer.act(() => undefined);
+
+      const focusSpy = jest.spyOn(prevLink, 'focus');
+      renderer.act(() => {
+        srSpan.focus();
+        dispatchKeyDownEvent({ key: 'Tab', shiftKey: true });
+      });
+
+      expect(focusSpy).toHaveBeenCalled();
+      expect(store.getState().content.highlights.currentPage.focused).toBeUndefined();
+    });
+
+    it('does nothing when Tab lands on the highlight span but the visible card has no focusables', () => {
+      const document = assertDocument();
+      const highlight = createMockHighlight();
+
+      const highlightElement = document.createElement('span');
+      const srSpan = document.createElement('span');
+      srSpan.setAttribute('data-for-screenreaders', 'true');
+      srSpan.setAttribute('tabindex', '0');
+      highlightElement.appendChild(srSpan);
+      container.appendChild(highlightElement);
+      highlight.elements.push(highlightElement);
+
+      const nextLink = document.createElement('a');
+      nextLink.setAttribute('href', '#next');
+      container.appendChild(nextLink);
+
+      // Active, visible card with no tabbable controls inside it.
+      const cardWrapperElement = document.createElement('div');
+      const cardNode = document.createElement('div');
+      cardNode.setAttribute('data-active', 'true');
+      cardWrapperElement.appendChild(cardNode);
+      document.body.appendChild(cardWrapperElement);
+
+      store.dispatch(focusHighlight(highlight.id));
+      renderer.create(<Provider store={store}>
+        <CardWrapper container={container} highlights={[highlight]} />
+      </Provider>, { createNodeMock: () => cardWrapperElement });
+      renderer.act(() => undefined);
+
+      const focusSpy = jest.spyOn(nextLink, 'focus');
+      renderer.act(() => {
+        srSpan.focus();
+        dispatchKeyDownEvent({ key: 'Tab' });
+      });
+
+      // Card is visible but empty, and it isn't hidden, so neither branch moves focus.
+      expect(focusSpy).not.toHaveBeenCalled();
+      expect(store.getState().content.highlights.currentPage.focused).toBe(highlight.id);
+      cardWrapperElement.remove();
+    });
+
+    it('does nothing when Tab is pressed on a non-boundary card control', () => {
+      const { firstButton, highlight, nextLink, cleanup } = setupRouting();
+      const focusSpy = jest.spyOn(nextLink, 'focus');
+
+      renderer.act(() => {
+        // firstButton is not the last control, so a forward Tab is not at a boundary.
+        firstButton.focus();
+        highlight.focus.mockClear();
+        dispatchKeyDownEvent({ key: 'Tab' });
+      });
+
+      expect(focusSpy).not.toHaveBeenCalled();
+      expect(highlight.focus).not.toHaveBeenCalled();
+      cleanup();
+    });
+
+    it('does nothing when Tab is pressed for a new selection whose card has no focusables', () => {
+      const document = assertDocument();
+      const highlight = createMockHighlight(); // new selection: elements stays []
+
+      const para = document.createElement('p');
+      const selectionStartText = document.createTextNode('selected text');
+      para.appendChild(selectionStartText);
+      container.appendChild(para);
+
+      // Active card rendered for the pending selection, but with no tabbable controls.
+      const cardWrapperElement = document.createElement('div');
+      const cardNode = document.createElement('div');
+      cardNode.setAttribute('data-active', 'true');
+      cardWrapperElement.appendChild(cardNode);
+      document.body.appendChild(cardWrapperElement);
+
+      const removeAllRanges = jest.fn();
+      const getSelectionSpy = jest.spyOn(window!, 'getSelection').mockReturnValue({
+        isCollapsed: false,
+        rangeCount: 1,
+        anchorNode: selectionStartText,
+        getRangeAt: () => ({ startContainer: selectionStartText, endContainer: selectionStartText }),
+        removeAllRanges,
+      } as any);
+
+      store.dispatch(focusHighlight(highlight.id));
+      renderer.create(<Provider store={store}>
+        <CardWrapper container={container} highlights={[highlight]} />
+      </Provider>, { createNodeMock: () => cardWrapperElement });
+      renderer.act(() => undefined);
+
+      renderer.act(() => {
+        dispatchKeyDownEvent({ key: 'Tab' });
+      });
+
+      // Forward Tab with no card control to move into leaves the selection intact.
+      expect(removeAllRanges).not.toHaveBeenCalled();
+      expect(store.getState().content.highlights.currentPage.focused).toBe(highlight.id);
+
+      getSelectionSpy.mockRestore();
+      cardWrapperElement.remove();
+    });
   });
 
   describe('data attributes for CSS', () => {
