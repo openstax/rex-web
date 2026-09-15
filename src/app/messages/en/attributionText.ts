@@ -9,7 +9,7 @@ export const defaultText = `
     This book uses the
     <a target="_blank" rel="noopener" href="{bookLicenseUrl}">
       {bookLicenseName} {bookLicenseVersion}
-    </a>, which means that you can reuse and modify the material only for noncommercial purposes, must distribute any derivative works under the same license, and must attribute {copyrightHolder}.{originalMaterialLink, select,
+    </a>, which means that you can reuse and modify the material only for noncommercial purposes, must attribute {copyrightHolder}, and must distribute any derivative works under the same license.{originalMaterialLink, select,
       null {}
       other { The original material is available at: <a target="_blank" rel="noopener" href="{originalMaterialLink}">
         {originalMaterialLink}
