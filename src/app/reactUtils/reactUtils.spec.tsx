@@ -1737,6 +1737,50 @@ describe('isTabbable', () => {
     expect(utils.isTabbable(inHiddenParent)).toBe(false);
   });
 
+  it('rejects controls inside a closed details, but not its summary or an open details', () => {
+    // REX wraps every exercise solution in a closed <details> (wrapSolutions), and a closed
+    // details hides its content without changing the descendants' own computed styles, so this
+    // cannot be caught by the style walk.
+    const makeSolution = (open: boolean) => {
+      const details = append(assertDocument().createElement('details'));
+      if (open) {
+        details.setAttribute('open', 'open');
+      }
+      const summary = assertDocument().createElement('summary');
+      const section = assertDocument().createElement('section');
+      const link = assertDocument().createElement('a');
+      link.setAttribute('href', '#solution');
+      section.appendChild(link);
+      details.append(summary, section);
+      return { link, summary };
+    };
+
+    const closed = makeSolution(false);
+    const open = makeSolution(true);
+
+    expect(utils.isTabbable(closed.link)).toBe(false);
+    expect(utils.isTabbable(closed.summary)).toBe(true);
+    expect(utils.isTabbable(open.link)).toBe(true);
+    expect(utils.isTabbable(open.summary)).toBe(true);
+  });
+
+  it('rejects a second summary and nested content under a closed details', () => {
+    const details = append(assertDocument().createElement('details'));
+    const summary = assertDocument().createElement('summary');
+    // Only the first direct summary is the disclosure widget; a later one is hidden content.
+    const laterSummary = assertDocument().createElement('summary');
+    const openInnerDetails = assertDocument().createElement('details');
+    openInnerDetails.setAttribute('open', 'open');
+    const nestedButton = assertDocument().createElement('button');
+    openInnerDetails.appendChild(nestedButton);
+    details.append(summary, laterSummary, openInnerDetails);
+
+    expect(utils.isTabbable(summary)).toBe(true);
+    expect(utils.isTabbable(laterSummary)).toBe(false);
+    // An open details nested inside a closed one is still hidden by the outer one.
+    expect(utils.isTabbable(nestedButton)).toBe(false);
+  });
+
   it('rejects detached elements', () => {
     expect(utils.isTabbable(assertDocument().createElement('button'))).toBe(false);
     expect(utils.isRenderedForFocus(assertDocument().createElement('button'))).toBe(false);

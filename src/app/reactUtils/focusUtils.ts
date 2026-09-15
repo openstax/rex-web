@@ -401,6 +401,30 @@ const nativeTabStopSelector = [
   .map((el) => el + ':not([disabled])')
   .join(',');
 
+// A closed <details> shows only its summary and hides the rest, but it does so without changing
+// those descendants' own computed styles (the UA hides the content slot / ::details-content), so
+// a style walk cannot see it while focus() still refuses them. This is on the Tab path in REX:
+// wrapSolutions() puts every exercise solution - links and all - inside a closed <details>.
+const isHiddenInClosedDetails = (el: HTMLElement): boolean => {
+  let child: HTMLElement = el;
+
+  for (let node = el.parentElement; node; child = node, node = node.parentElement) {
+    if (node.tagName.toLowerCase() !== 'details' || node.hasAttribute('open')) {
+      continue;
+    }
+    // Only the first direct summary is the disclosure widget, and it stays visible/focusable;
+    // everything else under a closed details is hidden, including any later summary.
+    const disclosureSummary = Array.from(node.children).find(
+      (candidate) => candidate.tagName.toLowerCase() === 'summary'
+    );
+    if (child !== disclosureSummary) {
+      return true;
+    }
+  }
+
+  return false;
+};
+
 // display: none (on the element or any ancestor) and visibility: hidden both make an element
 // unfocusable. Deliberately style-based rather than layout-based (getClientRects/offsetParent) so
 // that it gives the same answer under jsdom, which has no layout.
@@ -414,7 +438,7 @@ export const isRenderedForFocus = (el: HTMLElement): boolean => {
     }
   }
 
-  return el.isConnected;
+  return el.isConnected && !isHiddenInClosedDetails(el);
 };
 
 // Whether focus() on this element would actually move focus to it.

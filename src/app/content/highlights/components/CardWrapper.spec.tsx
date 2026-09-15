@@ -1156,6 +1156,34 @@ describe('CardWrapper', () => {
       cleanup();
     });
 
+    it('skips content inside a closed solution when routing Shift+Tab back through the page', () => {
+      const { srSpan, highlightElement, cleanup } = setupRouting();
+      // REX wraps exercise solutions in a closed <details> (wrapSolutions). Its contents stay
+      // connected and keep ordinary computed styles, but focus() on them is a no-op - so routing
+      // backward must stop at the summary (the real previous tab stop), not at the hidden link.
+      const details = assertDocument().createElement('details');
+      const summary = assertDocument().createElement('summary');
+      const section = assertDocument().createElement('section');
+      const solutionLink = assertDocument().createElement('a');
+      solutionLink.setAttribute('href', '#solution');
+      section.appendChild(solutionLink);
+      details.append(summary, section);
+      container.insertBefore(details, highlightElement);
+
+      const solutionFocusSpy = jest.spyOn(solutionLink, 'focus');
+      const summaryFocusSpy = jest.spyOn(summary, 'focus');
+
+      renderer.act(() => {
+        srSpan.focus();
+        dispatchKeyDownEvent({ key: 'Tab', shiftKey: true });
+      });
+
+      expect(solutionFocusSpy).not.toHaveBeenCalled();
+      expect(summaryFocusSpy).toHaveBeenCalled();
+      details.remove();
+      cleanup();
+    });
+
     it('routes Tab from the last card control to the next content control and clears focus', () => {
       const { lastButton, nextLink, cleanup } = setupRouting();
       const focusSpy = jest.spyOn(nextLink, 'focus');
