@@ -1270,6 +1270,27 @@ describe('CardWrapper', () => {
       cleanup();
     });
 
+    it('treats focus inside a composite boundary control as being at the boundary', () => {
+      const { highlight, firstButton, cleanup } = setupRouting();
+      // A composite control can hand focus to a descendant when it receives it - the colour
+      // picker fieldset focuses its selected radio - so the active element ends up inside the
+      // card's first tab stop rather than being it. Comparing by identity would miss the
+      // boundary and leave Shift+Tab trapped in the card.
+      const inner = assertDocument().createElement('input');
+      inner.setAttribute('type', 'radio');
+      inner.setAttribute('tabindex', '-1');
+      firstButton.appendChild(inner);
+
+      renderer.act(() => {
+        inner.focus();
+        highlight.focus.mockClear();
+        dispatchKeyDownEvent({ key: 'Tab', shiftKey: true });
+      });
+
+      expect(highlight.focus).toHaveBeenCalled();
+      cleanup();
+    });
+
     it('routes Tab from the last card control to the next content control and clears focus', () => {
       const { lastButton, nextLink, cleanup } = setupRouting();
       const focusSpy = jest.spyOn(nextLink, 'focus');

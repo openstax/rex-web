@@ -250,8 +250,14 @@ function useTabRouting(
       }
 
       if (inCard && !isEditing) {
-        const goingBack = event.shiftKey && active === firstFocusable;
-        const goingForward = !event.shiftKey && active === lastFocusable;
+        // Compare by containment, not identity: a composite control can move focus to a
+        // descendant when it receives it (the colour picker fieldset focuses its selected radio),
+        // which would leave the active element inside the boundary control rather than being it,
+        // so the boundary is missed and Tab never routes out of the card.
+        const atFirst = Boolean(firstFocusable?.contains(active));
+        const atLast = Boolean(lastFocusable?.contains(active));
+        const goingBack = event.shiftKey && atFirst;
+        const goingForward = !event.shiftKey && atLast;
 
         // Shift+Tab off the first control of an existing highlight returns to the highlight itself.
         if (goingBack && !isNewSelection) {
