@@ -25,10 +25,9 @@ export const defaultText = `
     Obrazy, aktywności, testy i podobne elementy tego podręcznika objęte prawami autorskimi OpenStax podlegają tej samej licencji – CC-BY-NC-SA. Mogą być wykorzystywane w celach niekomercyjnych z uznaniem autorstwa. Użycie komercyjne wymaga zgody.
   </li>
   <li>
-    <strong>Prośby o zgodę:</strong>: Każdy, kto zamierza włączyć tę treść (w tym tekst, obrazy i inne elementy) do dużych modeli językowych, wykorzystać ją w rozwiązaniach opartych na sztucznej inteligencji, użyć jej komercyjnie (w tym w druku) i/lub ma pytania dotyczące innego przypadku użycia, może skorzystać z naszego
+    <strong>Prośby o zgodę:</strong> Każdy, kto zamierza włączyć tę treść (w tym tekst, obrazy i inne elementy) do dużych modeli językowych, wykorzystać ją w rozwiązaniach opartych na sztucznej inteligencji, użyć jej komercyjnie (w tym w druku) i/lub ma pytania dotyczące innego przypadku użycia, może skorzystać z naszego
     <a target="_blank" rel="noopener" href="{permissionRequestUrl}">
-      formularza wniosku o ponowne wykorzystanie
-    </a>.
+      formularza wniosku o ponowne wykorzystanie</a>.
   </li>
 </ul>
 

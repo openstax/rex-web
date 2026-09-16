@@ -24,10 +24,9 @@ export const defaultText = `
     Las imágenes, actividades, evaluaciones y componentes similares de este libro protegidos por derechos de autor de OpenStax están sujetos a la misma licencia: CC-BY-NC-SA. Pueden utilizarse con fines no comerciales siempre que se otorgue el crédito correspondiente. El uso comercial requiere autorización.
   </li>
   <li>
-    <strong>Solicitudes de permiso:</strong>: Cualquier persona que desee incorporar este contenido (incluidos texto, imágenes y otros componentes) a grandes modelos de lenguaje o LLMs, utilizarlo en productos o servicios de IA, emplearlo con fines comerciales (incluso en formato impreso) o que tenga preguntas sobre otro caso de uso, puede completar nuestro 
+    <strong>Solicitudes de permiso:</strong> Cualquier persona que desee incorporar este contenido (incluidos texto, imágenes y otros componentes) a grandes modelos de lenguaje o LLMs, utilizarlo en productos o servicios de IA, emplearlo con fines comerciales (incluso en formato impreso) o que tenga preguntas sobre otro caso de uso, puede completar nuestro 
     <a target="_blank" rel="noopener" href="{permissionRequestUrl}">
-      formulario de solicitud de reutilización
-    </a>.
+      formulario de solicitud de reutilización</a>.
   </li>
 </ul>
 

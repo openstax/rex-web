@@ -25,10 +25,9 @@ export const defaultText = `
     OpenStax-copyrighted images, activities, assessments, and similar components of this book are subject to the same licensing – CC-BY-NC-SA. They can be used for noncommercial purposes with attribution. Commercial use requires permission.
   </li>
   <li>
-    <strong>Permission requests:</strong>: Anyone who intends to incorporate this content (including text, images, and other components) into large language models, use it in AI offerings, use it commercially (including in print), and/or has questions about another use case is welcome to complete our
+    <strong>Permission requests:</strong> Anyone who intends to incorporate this content (including text, images, and other components) into large language models, use it in AI offerings, use it commercially (including in print), and/or has questions about another use case is welcome to complete our
     <a target="_blank" rel="noopener" href="{permissionRequestUrl}">
-      reuse request form
-    </a>.
+      reuse request form</a>.
   </li>
 </ul>
 
@@ -57,7 +56,7 @@ export const defaultText = `
   <li>
     The information below includes the information needed to generate citations in most 
     major styles (APA, MLA, etc.); you must reformat and organize the information as needed 
-    to fit the requirements of the style.  Use the information below to generate a citation. 
+    to fit the requirements of the style. Use the information below to generate a citation. 
     We recommend using a citation tool such as
     <a target="_blank" rel="noopener" href="https://www.lib.ncsu.edu/citationbuilder/#/default/default">this one</a>.
     <ul>
