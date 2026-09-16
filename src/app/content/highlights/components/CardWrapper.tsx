@@ -173,6 +173,9 @@ function useTabRouting(
       // edit/create button and the new-selection create form carry no marker, so their boundaries
       // are routed here instead.
       const isEditing = Boolean(cardNode?.querySelector('[data-editing="true"]'));
+      if (active.closest('[role="alertdialog"]')) {
+        return;
+      }
       // tabbableElementsSelector (not focusableItemQuery) excludes tabindex="-1" controls - e.g.
       // the color-picker radios, reached via their radiogroup, not Tab. isTabbable then drops the
       // matches focus() would ignore, notably controls the responsive CSS hides (DisplayNote hides
