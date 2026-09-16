@@ -1,26 +1,237 @@
+import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
+import ReactDOM from 'react-dom';
+import { renderToString } from 'react-dom/server';
+import { act } from 'react-dom/test-utils';
 import renderer from 'react-test-renderer';
+import createTestServices from '../../test/createTestServices';
 import createTestStore from '../../test/createTestStore';
 import { book } from '../../test/mocks/archiveLoader';
 import TestContainer from '../../test/TestContainer';
 import { runHooksAsync } from '../../test/utils';
-import { setBookStylesUrl } from '../content/actions';
+import { receiveBook, setBookStylesUrl } from '../content/actions';
 import { State } from '../content/types';
 import { locationChange } from '../navigation/actions';
-import DynamicContentStyles, { ScopedGlobalStyle } from './DynamicContentStyles';
+import { assertDefined } from '../utils/assertions';
+import { assertDocument, assertWindow } from '../utils/browser-assertions';
+import DynamicContentStyles, {
+  DynamicContentStylesProvider,
+  escapeStyleSheetText,
+  ScopedGlobalStyle,
+  scopeStyles,
+} from './DynamicContentStyles';
+
+/*
+ * The prerender runs in node with no dom at all, which is exactly why markup is
+ * its only way to get the stylesheet into the page. A renderToString that leaves
+ * jsdom's document in place exercises the browser path instead, so anything
+ * standing in for the prerender has to take the document away.
+ */
+const prerender = (element: React.ReactElement) => {
+  const documentBack = document;
+  delete (global as any).document;
+
+  try {
+    return renderToString(element);
+  } finally {
+    (global as any).document = documentBack;
+  }
+};
+
+describe('scopeStyles', () => {
+  it('scopes plain selectors under the dynamic style attribute', () => {
+    expect(scopeStyles('.cool { color: red; }'))
+      .toEqual('[data-dynamic-style="true"] .cool{color:red;}');
+  });
+
+  it('scopes each selector in a list', () => {
+    expect(scopeStyles('.a, .b { color: red; }'))
+      .toEqual('[data-dynamic-style="true"] .a,[data-dynamic-style="true"] .b{color:red;}');
+  });
+
+  it('hoists conditional at-rules and scopes the selectors inside them', () => {
+    expect(scopeStyles('@media print { .a { display: none; } }'))
+      .toEqual('@media print{[data-dynamic-style="true"] .a{display:none;}}');
+    expect(scopeStyles('@supports (display: grid) { .a { display: grid; } }'))
+      .toEqual('@supports (display:grid){[data-dynamic-style="true"] .a{display:grid;}}');
+  });
+
+  it('hoists non-selector at-rules without scoping them', () => {
+    expect(scopeStyles("@font-face { font-family: 'B'; }"))
+      .toEqual("@font-face{font-family:'B';}");
+    expect(scopeStyles('@page { margin: 1cm; }'))
+      .toEqual('@page{margin:1cm;}');
+  });
+
+  it('hoists @keyframes and duplicates them for -webkit-', () => {
+    expect(scopeStyles('@keyframes spin { 0% { opacity: 0; } 100% { opacity: 1; } }'))
+      .toEqual(
+        '@-webkit-keyframes spin{0%{opacity:0;}100%{opacity:1;}}'
+        + '@keyframes spin{0%{opacity:0;}100%{opacity:1;}}'
+      );
+  });
+
+  it('leaves keyframe names alone, so animations declared elsewhere still find them', () => {
+    // this is what stylis' `keyframe: false` option buys us: no name namespacing
+    expect(scopeStyles('.a { animation: spin 1s; } @keyframes spin { 0% { opacity: 0; } }'))
+      .toEqual(
+        '[data-dynamic-style="true"] .a{-webkit-animation:spin 1s;animation:spin 1s;}'
+        + '@-webkit-keyframes spin{0%{opacity:0;}}@keyframes spin{0%{opacity:0;}}'
+      );
+  });
+
+  it('lifts @import to the front, where css requires it', () => {
+    expect(scopeStyles(".a { color: red; } @import url('other.css');"))
+      .toEqual("@import url('other.css');[data-dynamic-style=\"true\"] .a{color:red;}");
+  });
+
+  it('adds vendor prefixes', () => {
+    expect(scopeStyles('.a { display: flex; }'))
+      .toContain('-webkit-flex');
+  });
+});
+
+describe('escapeStyleSheetText', () => {
+  // valid css: the sequence is inside a string, so stylis passes it straight through
+  const breakout = '.a { content: "</style><img src=x onerror=alert(1)>"; }';
+
+  it('neutralizes closing style tags, which css can legally contain', () => {
+    const escaped = escapeStyleSheetText(scopeStyles(breakout));
+
+    expect(escaped).not.toContain('</style');
+    // \/ is the css escape for /, so the declaration still means the same thing
+    expect(escaped).toContain('<\\/style>');
+  });
+
+  it('catches the sequence in any case, since html end tags are case insensitive', () => {
+    expect(escapeStyleSheetText('.a { content: "</StYlE >"; }'))
+      .toEqual('.a { content: "<\\/StYlE >"; }');
+  });
+
+  it('is idempotent, because the adopted stylesheet has already been escaped', () => {
+    const once = escapeStyleSheetText(scopeStyles(breakout));
+
+    expect(escapeStyleSheetText(once)).toEqual(once);
+  });
+
+  it('leaves css without the sequence untouched', () => {
+    expect(escapeStyleSheetText(scopeStyles('.a { color: red; }')))
+      .toEqual(scopeStyles('.a { color: red; }'));
+  });
+});
+
+describe('ScopedGlobalStyle', () => {
+  // valid css: the sequence is inside a string, so stylis passes it straight through
+  const breakout = '.a { content: "</style><img src=x onerror=alert(1)>"; }';
+
+  let container: HTMLElement;
+
+  beforeEach(() => {
+    const document = assertDocument();
+    // serializeFirstRender reads the document, so no stylesheet may be left over
+    Array.from(document.querySelectorAll('style[data-dynamic-stylesheet]'))
+      .forEach((element) => element.remove());
+    container = document.createElement('div');
+  });
+
+  afterEach(() => {
+    ReactDOM.unmountComponentAtNode(container);
+  });
+
+  const mount = (css: string) => {
+    act(() => {
+      ReactDOM.render(<ScopedGlobalStyle css={css} />, container);
+    });
+
+    return container.querySelector('style[data-dynamic-stylesheet]')!;
+  };
+
+  /*
+   * The property worth pinning is that the browser never hands the stylesheet to
+   * an html parser at all, and that leaves no trace in the dom to assert against
+   * -- escaped markup parses into exactly the same text as a textContent write.
+   * So watch for the writes themselves.
+   */
+  const recordInnerHtmlWrites = () => {
+    const elementPrototype = assertWindow().Element.prototype;
+    const descriptor = assertDefined(
+      Object.getOwnPropertyDescriptor(elementPrototype, 'innerHTML'),
+      'jsdom defines innerHTML on Element'
+    );
+    const writes: string[] = [];
+
+    Object.defineProperty(elementPrototype, 'innerHTML', {
+      ...descriptor,
+      set(value: string) {
+        writes.push(value);
+        descriptor.set!.call(this, value);
+      },
+    });
+
+    return { restore: () => Object.defineProperty(elementPrototype, 'innerHTML', descriptor), writes };
+  };
+
+  it('never gives react the stylesheet as markup in the browser', () => {
+    const { restore, writes } = recordInnerHtmlWrites();
+
+    try {
+      mount(scopeStyles(breakout));
+    } finally {
+      restore();
+    }
+
+    // react only ever creates the element empty; the effect fills it as text
+    expect(writes).toEqual(['']);
+  });
+
+  it('writes the stylesheet as text in the browser, never as markup', () => {
+    const styleSheet = mount(scopeStyles(breakout));
+
+    expect(container.querySelector('img')).toBeNull();
+    // textContent takes text and only text, so the css needs no escaping at all
+    expect(styleSheet.textContent).toEqual(scopeStyles(breakout));
+    expect(styleSheet.textContent).toContain('</style>');
+  });
+
+  it('updates the same element in place when the styles change', () => {
+    const styleSheet = mount(scopeStyles('.a { color: red; }'));
+
+    act(() => {
+      ReactDOM.render(<ScopedGlobalStyle css={scopeStyles('.a { color: blue; }')} />, container);
+    });
+
+    expect(styleSheet.textContent).toEqual(scopeStyles('.a { color: blue; }'));
+    expect(container.querySelector('style[data-dynamic-stylesheet]')).toBe(styleSheet);
+  });
+
+  it('escapes the stylesheet when the prerender has to serialize it', () => {
+    // no dom, so react has no choice but to write the stylesheet as markup
+    container.innerHTML = prerender(<ScopedGlobalStyle css={scopeStyles(breakout)} />);
+
+    expect(container.querySelectorAll('style')).toHaveLength(1);
+    expect(container.querySelector('img')).toBeNull();
+    // the whole payload stayed inside the stylesheet, as css text
+    expect(container.querySelector('style')!.textContent).toContain('onerror=alert(1)');
+  });
+});
 
 describe('DynamicContentStyles', () => {
-  let Component: (props: { book: State['book'], disable?: boolean }) => JSX.Element;
   let store: ReturnType<typeof createTestStore>;
   let spyFetch: ReturnType<typeof jest.spyOn>;
 
+  const renderApp = (props: { book: State['book'], disable?: boolean }) => renderer.create(
+    <TestContainer store={store}>
+      <DynamicContentStylesProvider>
+        <DynamicContentStyles book={props.book} disable={props.disable}>
+          some text
+        </DynamicContentStyles>
+      </DynamicContentStylesProvider>
+    </TestContainer>
+  );
+
   beforeEach(() => {
     store = createTestStore();
-    Component = (
-      props: { book: State['book'], disable?: boolean }
-    ) => <DynamicContentStyles book={props.book} disable={props.disable}>
-      some text
-    </DynamicContentStyles>;
+    store.dispatch(receiveBook(book));
     spyFetch = jest.spyOn(globalThis, 'fetch')
       .mockImplementation(async() => ({ text: async() => '.cool { color: red; }' }) as any);
   });
@@ -32,9 +243,7 @@ describe('DynamicContentStyles', () => {
   it('fetches styles in content-style param and sets styles and data-dynamic-style', async() => {
     store.dispatch(locationChange({ location: { search: 'content-style=file.css' } } as any));
 
-    const component = renderer.create(<TestContainer store={store}>
-      <Component book={book} />
-    </TestContainer>);
+    const component = renderApp({ book });
 
     await runHooksAsync(renderer);
 
@@ -42,7 +251,8 @@ describe('DynamicContentStyles', () => {
     expect(spyFetch).toHaveBeenCalledWith('file.css');
 
     const globalStyle = component.root.findByType(ScopedGlobalStyle);
-    expect(globalStyle.props.styles).toEqual('.cool { color: red; }');
+    expect(globalStyle.props.css).toEqual(scopeStyles('.cool { color: red; }'));
+    expect(component.root.findByProps({ 'data-dynamic-style': true })).toBeTruthy();
 
     await renderer.act(async() => {
       store.dispatch(locationChange({ location: { search: 'content-style=file2.css' } } as any));
@@ -61,53 +271,135 @@ describe('DynamicContentStyles', () => {
   it('sets styles and data-dynamic-style if bookStylesUrl is in the store and styles are cached', async() => {
     store.dispatch(setBookStylesUrl('../resources/styles/test-styles.css'));
 
-    const component = renderer.create(<TestContainer store={store}>
-      <Component book={book} />
-    </TestContainer>);
+    const component = renderApp({ book });
 
     await runHooksAsync(renderer);
 
     const globalStyle = component.root.findByType(ScopedGlobalStyle);
-    expect(globalStyle.props.styles).toEqual('.cool { color: blue; }');
+    expect(globalStyle.props.css).toEqual(scopeStyles('.cool { color: blue; }'));
   });
 
   it('does not set styles but sets data-dynamic-style if bookStylesUrl is not cached', async() => {
     store.dispatch(setBookStylesUrl('../resources/styles/uncached-styles.css'));
 
-    const component = renderer.create(<TestContainer store={store}>
-      <Component book={book} />
-    </TestContainer>);
+    const component = renderApp({ book });
 
     await runHooksAsync(renderer);
 
-    expect(() => component.root.findByType(ScopedGlobalStyle)).toThrow(
-      'No instances found with node type: "GlobalStyleComponent"'
-    );
+    expect(component.root.findAllByType(ScopedGlobalStyle)).toEqual([]);
+    // still true so the hydrated markup matches the prerendered markup
+    expect(component.root.findByProps({ 'data-dynamic-style': true })).toBeTruthy();
   });
 
-  it('does not set styles and data-dynamic-style if disable is passed', async() => {
+  it('does not set data-dynamic-style if disable is passed', async() => {
     store.dispatch(setBookStylesUrl('../resources/styles/test-styles.css'));
 
-    const component = renderer.create(<TestContainer store={store}>
-      <Component book={book} disable={true} />
-    </TestContainer>);
+    const component = renderApp({ book, disable: true });
 
     await runHooksAsync(renderer);
 
-    expect(() => component.root.findByType(ScopedGlobalStyle)).toThrow(
-      'No instances found with node type: "GlobalStyleComponent"'
-    );
+    expect(component.root.findByProps({ 'data-dynamic-style': false })).toBeTruthy();
   });
 
   it('does not set styles and data-dynamic-style if store and query params not set', async() => {
-    const component = renderer.create(<TestContainer store={store}>
-      <Component book={book} />
-    </TestContainer>);
+    const component = renderApp({ book });
 
     await runHooksAsync(renderer);
 
-    expect(() => component.root.findByType(ScopedGlobalStyle)).toThrow(
-      'No instances found with node type: "GlobalStyleComponent"'
-    );
+    expect(component.root.findAllByType(ScopedGlobalStyle)).toEqual([]);
+    expect(component.root.findByProps({ 'data-dynamic-style': false })).toBeTruthy();
+  });
+});
+
+describe('the prerendered stylesheet', () => {
+  const bookStyles = '.cool { color: blue; }';
+  const bookStylesUrl = '../resources/styles/test-styles.css';
+
+  let store: ReturnType<typeof createTestStore>;
+
+  const tree = (services: ReturnType<typeof createTestServices>) => <TestContainer store={store} services={services}>
+    <DynamicContentStylesProvider>
+      <DynamicContentStyles book={book}>
+        some text
+      </DynamicContentStyles>
+    </DynamicContentStylesProvider>
+  </TestContainer>;
+
+  // the browser builds its own archiveLoader, so nothing is cached in it yet
+  const withColdCache = () => {
+    const services = createTestServices();
+    services.archiveLoader.mock.cachedResource.mockReturnValue(undefined as unknown as string);
+    return services;
+  };
+
+  beforeEach(() => {
+    store = createTestStore();
+    store.dispatch(receiveBook(book));
+  });
+
+  // these tests put things in the real document, and getPrerenderedStyleSheet reads it
+  afterEach(() => {
+    const document = assertDocument();
+    Array.from(document.querySelectorAll('style[data-dynamic-stylesheet], [data-test-container]'))
+      .forEach((element) => element.remove());
+  });
+
+  it('survives hydration, when the client has not cached the styles yet', () => {
+    store.dispatch(setBookStylesUrl(bookStylesUrl));
+
+    const document = assertDocument();
+    const container = document.createElement('div');
+    container.setAttribute('data-test-container', 'true');
+    document.body.appendChild(container);
+
+    // react-redux's useSelector warns about useLayoutEffect on every server render
+    const consoleError = jest.spyOn(console, 'error').mockImplementation(() => undefined);
+
+    // prerendering, where the archiveLoader does have the styles cached
+    container.innerHTML = prerender(tree(createTestServices()));
+
+    expect(container.querySelector('style[data-dynamic-stylesheet]')!.textContent)
+      .toEqual(scopeStyles(bookStyles));
+
+    const clientServices = withColdCache();
+
+    act(() => {
+      ReactDOM.hydrate(tree(clientServices), container);
+    });
+
+    expect(container.querySelector('style[data-dynamic-stylesheet]')!.textContent)
+      .toEqual(scopeStyles(bookStyles));
+    expect(consoleError.mock.calls.filter(([message]) => `${message}`.includes('did not match'))).toEqual([]);
+
+    ReactDOM.unmountComponentAtNode(container);
+    consoleError.mockRestore();
+  });
+
+  it('is dropped when the book has no dynamic styles', async() => {
+    const document = assertDocument();
+    const styleElement = document.createElement('style');
+    styleElement.setAttribute('data-dynamic-stylesheet', 'true');
+    styleElement.textContent = scopeStyles(bookStyles);
+    document.head.appendChild(styleElement);
+
+    // no bookStylesUrl in the store
+    const component = renderer.create(tree(withColdCache()));
+
+    await runHooksAsync(renderer);
+
+    expect(component.root.findAllByType(ScopedGlobalStyle)).toEqual([]);
+  });
+
+  it('is not looked for outside the browser', () => {
+    store.dispatch(setBookStylesUrl(bookStylesUrl));
+
+    const services = withColdCache();
+    const consoleError = jest.spyOn(console, 'error').mockImplementation(() => undefined);
+
+    try {
+      expect(prerender(tree(services))).not.toContain('<style');
+    } finally {
+      consoleError.mockRestore();
+    }
   });
 });
