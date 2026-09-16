@@ -1128,14 +1128,20 @@ describe('CardWrapper', () => {
 
       store.dispatch(focusHighlight(highlight.id));
 
-      renderer.create(<Provider store={store}>
+      const component = renderer.create(<Provider store={store}>
         <CardWrapper container={container} highlights={[highlight]} />
       </Provider>, { createNodeMock: () => cardWrapperElement });
 
       renderer.act(() => undefined);
 
       return {
-        cleanup: () => cardWrapperElement.remove(),
+        // Unmount, not just detach the node: useTabRouting registers a document-level keydown
+        // listener, so leaving the tree mounted would leave later tests running this card's
+        // handler - preventing their events or clearing focus out from under them.
+        cleanup: () => {
+          renderer.act(() => component.unmount());
+          cardWrapperElement.remove();
+        },
         firstButton, highlight, highlightElement, lastButton, nextLink, srSpan,
       };
     };
@@ -1415,7 +1421,7 @@ describe('CardWrapper', () => {
       } as any);
 
       store.dispatch(focusHighlight(highlight.id));
-      renderer.create(<Provider store={store}>
+      const component = renderer.create(<Provider store={store}>
         <CardWrapper container={container} highlights={[highlight]} />
       </Provider>, { createNodeMock: () => cardWrapperElement });
       renderer.act(() => undefined);
@@ -1431,6 +1437,7 @@ describe('CardWrapper', () => {
       expect(store.getState().content.highlights.currentPage.focused).toBeUndefined();
 
       getSelectionSpy.mockRestore();
+      renderer.act(() => component.unmount());
       cardWrapperElement.remove();
     });
 
@@ -1466,7 +1473,7 @@ describe('CardWrapper', () => {
       } as any);
 
       store.dispatch(focusHighlight(highlight.id));
-      renderer.create(<Provider store={store}>
+      const component = renderer.create(<Provider store={store}>
         <CardWrapper container={container} highlights={[highlight]} />
       </Provider>, { createNodeMock: () => cardWrapperElement });
       renderer.act(() => undefined);
@@ -1482,6 +1489,7 @@ describe('CardWrapper', () => {
       expect(store.getState().content.highlights.currentPage.focused).toBeUndefined();
 
       getSelectionSpy.mockRestore();
+      renderer.act(() => component.unmount());
       cardWrapperElement.remove();
     });
 
@@ -1515,7 +1523,7 @@ describe('CardWrapper', () => {
       } as any);
 
       store.dispatch(focusHighlight(highlight.id));
-      renderer.create(<Provider store={store}>
+      const component = renderer.create(<Provider store={store}>
         <CardWrapper container={container} highlights={[highlight]} />
       </Provider>, { createNodeMock: () => cardWrapperElement });
       renderer.act(() => undefined);
@@ -1531,6 +1539,7 @@ describe('CardWrapper', () => {
       expect(store.getState().content.highlights.currentPage.focused).toBeUndefined();
 
       getSelectionSpy.mockRestore();
+      renderer.act(() => component.unmount());
       cardWrapperElement.remove();
     });
 
@@ -1558,7 +1567,7 @@ describe('CardWrapper', () => {
       document.body.appendChild(cardWrapperElement);
 
       store.dispatch(focusHighlight(highlight.id));
-      renderer.create(<Provider store={store}>
+      const component = renderer.create(<Provider store={store}>
         <CardWrapper container={container} highlights={[highlight]} />
       </Provider>, { createNodeMock: () => cardWrapperElement });
       renderer.act(() => undefined);
@@ -1572,6 +1581,7 @@ describe('CardWrapper', () => {
       expect(focusSpy).toHaveBeenCalled();
       expect(store.getState().content.highlights.currentPage.focused).toBeUndefined();
 
+      renderer.act(() => component.unmount());
       cardWrapperElement.remove();
     });
 
@@ -1633,7 +1643,7 @@ describe('CardWrapper', () => {
       document.body.appendChild(cardWrapperElement);
 
       store.dispatch(focusHighlight(highlight.id));
-      renderer.create(<Provider store={store}>
+      const component = renderer.create(<Provider store={store}>
         <CardWrapper container={container} highlights={[highlight]} />
       </Provider>, { createNodeMock: () => cardWrapperElement });
       renderer.act(() => undefined);
@@ -1646,6 +1656,7 @@ describe('CardWrapper', () => {
 
       expect(focusSpy).toHaveBeenCalled();
       expect(store.getState().content.highlights.currentPage.focused).toBeUndefined();
+      renderer.act(() => component.unmount());
       cardWrapperElement.remove();
     });
 
@@ -1677,7 +1688,7 @@ describe('CardWrapper', () => {
       } as any);
 
       store.dispatch(focusHighlight(highlight.id));
-      renderer.create(<Provider store={store}>
+      const component = renderer.create(<Provider store={store}>
         <CardWrapper container={container} highlights={[highlight]} />
       </Provider>, { createNodeMock: () => cardWrapperElement });
       renderer.act(() => undefined);
@@ -1695,6 +1706,7 @@ describe('CardWrapper', () => {
       expect(removeAllRanges).toHaveBeenCalled();
 
       getSelectionSpy.mockRestore();
+      renderer.act(() => component.unmount());
       cardWrapperElement.remove();
     });
 
@@ -1720,7 +1732,7 @@ describe('CardWrapper', () => {
       document.body.appendChild(cardWrapperElement);
 
       store.dispatch(focusHighlight(highlight.id));
-      renderer.create(<Provider store={store}>
+      const component = renderer.create(<Provider store={store}>
         <CardWrapper container={container} highlights={[highlight]} />
       </Provider>, { createNodeMock: () => cardWrapperElement });
       renderer.act(() => undefined);
@@ -1733,6 +1745,7 @@ describe('CardWrapper', () => {
       // No candidate tab stop follows, so focus is simply cleared - once the native Tab has run.
       flushDeferredCleanup();
       expect(store.getState().content.highlights.currentPage.focused).toBeUndefined();
+      renderer.act(() => component.unmount());
       cardWrapperElement.remove();
     });
 
@@ -1763,7 +1776,7 @@ describe('CardWrapper', () => {
       } as any);
 
       store.dispatch(focusHighlight(highlight.id));
-      renderer.create(<Provider store={store}>
+      const component = renderer.create(<Provider store={store}>
         <CardWrapper container={container} highlights={[highlight]} />
       </Provider>, { createNodeMock: () => cardWrapperElement });
       renderer.act(() => undefined);
@@ -1781,6 +1794,7 @@ describe('CardWrapper', () => {
       expect(removeAllRanges).toHaveBeenCalled();
 
       getSelectionSpy.mockRestore();
+      renderer.act(() => component.unmount());
       cardWrapperElement.remove();
     });
 
@@ -1841,7 +1855,7 @@ describe('CardWrapper', () => {
       document.body.appendChild(cardWrapperElement);
 
       store.dispatch(focusHighlight(highlight.id));
-      renderer.create(<Provider store={store}>
+      const component = renderer.create(<Provider store={store}>
         <CardWrapper container={container} highlights={[highlight]} />
       </Provider>, { createNodeMock: () => cardWrapperElement });
       renderer.act(() => undefined);
@@ -1855,6 +1869,7 @@ describe('CardWrapper', () => {
       // Card is visible but empty, and it isn't hidden, so neither branch moves focus.
       expect(focusSpy).not.toHaveBeenCalled();
       expect(store.getState().content.highlights.currentPage.focused).toBe(highlight.id);
+      renderer.act(() => component.unmount());
       cardWrapperElement.remove();
     });
 
@@ -1900,7 +1915,7 @@ describe('CardWrapper', () => {
       } as any);
 
       store.dispatch(focusHighlight(highlight.id));
-      renderer.create(<Provider store={store}>
+      const component = renderer.create(<Provider store={store}>
         <CardWrapper container={container} highlights={[highlight]} />
       </Provider>, { createNodeMock: () => cardWrapperElement });
       renderer.act(() => undefined);
@@ -1914,6 +1929,7 @@ describe('CardWrapper', () => {
       expect(store.getState().content.highlights.currentPage.focused).toBe(highlight.id);
 
       getSelectionSpy.mockRestore();
+      renderer.act(() => component.unmount());
       cardWrapperElement.remove();
     });
   });
