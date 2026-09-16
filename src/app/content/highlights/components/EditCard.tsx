@@ -59,6 +59,7 @@ import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import { ButtonGroup } from '../../../components/Button';
 import { useTrapTabNavigation } from '../../../reactUtils';
 import { MAIN_CONTENT_ID } from '../../../context/constants';
+import { assertDocument } from '../../../utils';
 import { useIntl } from 'react-intl';
 import {
   clearFocusedHighlight,
@@ -157,6 +158,25 @@ function ActiveEditCard({
   const [editingAnnotation, setEditing] = React.useState(Boolean(props?.data?.annotation));
 
   const [confirmingDelete, setConfirmingDelete] = React.useState<boolean>(false);
+
+  // Escape in an emptied textarea makes Note announce hideCardEvent. Moving focus back to the
+  // highlight is not enough on its own: LoginOrEdit renders the form whenever the highlight has a
+  // saved annotation, whatever shouldFocusCard says, so for an annotated highlight the form stayed
+  // open and the next Tab routed straight back into it. Leave edit mode as well, exactly as
+  // Cancel does, so the card collapses to its note display and Tab continues past it.
+  const { onCancel, setAnnotationChangesPending } = props;
+  React.useEffect(() => {
+    const handler = () => {
+      resetAnnotation();
+      setAnnotationChangesPending(false);
+      setEditing(false);
+      onCancel();
+    };
+
+    const document = assertDocument();
+    document.addEventListener('hideCardEvent', handler);
+    return () => document.removeEventListener('hideCardEvent', handler);
+  }, [onCancel, resetAnnotation, setAnnotationChangesPending]);
 
   const { onBlur, hasUnsavedHighlight } = props;
 

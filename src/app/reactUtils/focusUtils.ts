@@ -458,21 +458,42 @@ export const isRenderedForFocus = (el: HTMLElement): boolean => {
 
 // Things focus() always refuses, whatever the tabindex says: a disabled form control, and an
 // input that has no rendered box of its own. tabbableElementsSelector reaches both through its
-// generic `[tabindex]` arm.
+// generic `[tabindex]` arm, which is why the tabindex cannot be trusted on its own.
 const neverFocusableSelector = [
-  'button[disabled]',
-  'input[disabled]',
-  'select[disabled]',
-  'textarea[disabled]',
-  'fieldset[disabled]',
-  'optgroup[disabled]',
-  'option[disabled]',
+  ':disabled',
   'input[type=\'hidden\']',
 ].join(',');
 
+// A form control is also disabled by an ancestor `<fieldset disabled>`, and focus() refuses it
+// even though it carries no attribute of its own - the edit card's ColorPicker is a fieldset.
+// `:disabled` above is specified to cover this, but jsdom only implements the directly-disabled
+// case, so spell the inherited state out rather than leave it untested.
+const formControlSelector = 'button,fieldset,input,optgroup,option,select,textarea';
+
+const isDisabledByAncestorFieldset = (el: HTMLElement): boolean => {
+  if (!el.matches(formControlSelector)) {
+    return false;
+  }
+
+  for (let node = el.parentElement; node; node = node.parentElement) {
+    if (node.tagName.toLowerCase() !== 'fieldset' || !node.hasAttribute('disabled')) {
+      continue;
+    }
+    // The contents of a disabled fieldset's first legend stay enabled.
+    const firstLegend = Array.from(node.children).find(
+      (candidate) => candidate.tagName.toLowerCase() === 'legend'
+    );
+    if (!firstLegend || !firstLegend.contains(el)) {
+      return true;
+    }
+  }
+
+  return false;
+};
+
 // Whether focus() on this element would actually move focus to it.
 export const isTabbable = (el: HTMLElement): boolean => {
-  if (el.matches(neverFocusableSelector)) {
+  if (el.matches(neverFocusableSelector) || isDisabledByAncestorFieldset(el)) {
     return false;
   }
 

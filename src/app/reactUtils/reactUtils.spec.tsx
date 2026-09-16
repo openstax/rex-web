@@ -1801,6 +1801,45 @@ describe('isTabbable', () => {
     expect(utils.isTabbable(disabledInputWithTabIndex)).toBe(false);
   });
 
+  it('rejects controls that inherit disabled from an ancestor fieldset', () => {
+    // A control under <fieldset disabled> carries no disabled attribute of its own, but the
+    // browser still refuses focus() on it. The edit card's ColorPicker is a fieldset.
+    const disabledFieldset = append(assertDocument().createElement('fieldset'));
+    disabledFieldset.setAttribute('disabled', 'disabled');
+    const inheritedButton = assertDocument().createElement('button');
+    const inheritedInput = assertDocument().createElement('input');
+    const withTabIndex = assertDocument().createElement('span');
+    withTabIndex.setAttribute('tabindex', '0');
+    disabledFieldset.append(inheritedButton, inheritedInput, withTabIndex);
+
+    const enabledFieldset = append(assertDocument().createElement('fieldset'));
+    const enabledButton = assertDocument().createElement('button');
+    enabledFieldset.appendChild(enabledButton);
+
+    expect(utils.isTabbable(inheritedButton)).toBe(false);
+    expect(utils.isTabbable(inheritedInput)).toBe(false);
+    expect(utils.isTabbable(disabledFieldset)).toBe(false);
+    expect(utils.isTabbable(enabledButton)).toBe(true);
+    // A plain element with tabindex is not a form control, so it is unaffected by the fieldset.
+    expect(utils.isTabbable(withTabIndex)).toBe(true);
+  });
+
+  it('keeps controls in a disabled fieldset\'s first legend tabbable', () => {
+    // Per spec the first legend's contents stay enabled, so its controls are still tab stops.
+    const disabledFieldset = append(assertDocument().createElement('fieldset'));
+    disabledFieldset.setAttribute('disabled', 'disabled');
+    const legend = assertDocument().createElement('legend');
+    const legendButton = assertDocument().createElement('button');
+    legend.appendChild(legendButton);
+    const laterLegend = assertDocument().createElement('legend');
+    const laterLegendButton = assertDocument().createElement('button');
+    laterLegend.appendChild(laterLegendButton);
+    disabledFieldset.append(legend, laterLegend);
+
+    expect(utils.isTabbable(legendButton)).toBe(true);
+    expect(utils.isTabbable(laterLegendButton)).toBe(false);
+  });
+
   it('rejects a hidden input with no tabindex', () => {
     const hiddenInput = append(assertDocument().createElement('input'));
     hiddenInput.setAttribute('type', 'hidden');

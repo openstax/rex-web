@@ -585,6 +585,43 @@ describe('EditCard', () => {
       cleanup();
     });
 
+    it('hideCardEvent leaves edit mode for an annotated highlight, not just focus', () => {
+      // Escape in an emptied textarea makes Note announce hideCardEvent. LoginOrEdit renders the
+      // form whenever the highlight has a saved annotation, regardless of shouldFocusCard, so
+      // moving focus alone left the form open and the next Tab routed straight back into it.
+      highlight.getStyle.mockReturnValue('red');
+      const data = { ...highlightData, annotation: 'qwer' };
+
+      const { component, cleanup } = renderAuthenticatedEditCard({
+        ...editCardProps,
+        data,
+        isActive: true,
+      });
+
+      // Flush mount effects so the hideCardEvent listener is registered.
+      renderer.act(() => undefined);
+
+      // Editing starts active for an annotated highlight, so Save/Cancel are rendered.
+      expect(component.root.findAllByType('button').length).toBe(2);
+
+      renderer.act(() => {
+        assertDocument().dispatchEvent(new CustomEvent('hideCardEvent', { bubbles: true }));
+      });
+
+      expect(editCardProps.onCancel).toHaveBeenCalled();
+      expect(component.root.findAllByType('button').length).toBe(0);
+
+      // Unmounting detaches the listener, so a later event cannot reach a dead component.
+      (editCardProps.onCancel as jest.Mock).mockClear();
+      renderer.act(() => component.unmount());
+      renderer.act(() => {
+        assertDocument().dispatchEvent(new CustomEvent('hideCardEvent', { bubbles: true }));
+      });
+      expect(editCardProps.onCancel).not.toHaveBeenCalled();
+
+      cleanup();
+    });
+
     it('cancelling resets the form state', () => {
       highlight.getStyle.mockReturnValue('red');
       const data = {
