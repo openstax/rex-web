@@ -1781,8 +1781,111 @@ describe('isTabbable', () => {
     expect(utils.isTabbable(nestedButton)).toBe(false);
   });
 
+  it('rejects disabled and hidden controls even when they carry a positive tabindex', () => {
+    // tabbableElementsSelector reaches these through its generic `[tabindex]` arm, and focus()
+    // refuses them regardless of the attribute.
+    const disabledWithTabIndex = append(assertDocument().createElement('button'));
+    disabledWithTabIndex.setAttribute('disabled', 'disabled');
+    disabledWithTabIndex.setAttribute('tabindex', '0');
+
+    const hiddenInputWithTabIndex = append(assertDocument().createElement('input'));
+    hiddenInputWithTabIndex.setAttribute('type', 'hidden');
+    hiddenInputWithTabIndex.setAttribute('tabindex', '0');
+
+    const disabledInputWithTabIndex = append(assertDocument().createElement('input'));
+    disabledInputWithTabIndex.setAttribute('disabled', 'disabled');
+    disabledInputWithTabIndex.setAttribute('tabindex', '2');
+
+    expect(utils.isTabbable(disabledWithTabIndex)).toBe(false);
+    expect(utils.isTabbable(hiddenInputWithTabIndex)).toBe(false);
+    expect(utils.isTabbable(disabledInputWithTabIndex)).toBe(false);
+  });
+
+  it('rejects a hidden input with no tabindex', () => {
+    const hiddenInput = append(assertDocument().createElement('input'));
+    hiddenInput.setAttribute('type', 'hidden');
+
+    expect(utils.isTabbable(hiddenInput)).toBe(false);
+  });
+
   it('rejects detached elements', () => {
     expect(utils.isTabbable(assertDocument().createElement('button'))).toBe(false);
     expect(utils.isRenderedForFocus(assertDocument().createElement('button'))).toBe(false);
+  });
+});
+
+describe('withSelectionPreserved', () => {
+  let root: HTMLElement;
+  let addRange: jest.Mock;
+  let getSelectionSpy: jest.SpyInstance;
+
+  beforeEach(() => {
+    root = assertDocument().createElement('div');
+    assertDocument().body.appendChild(root);
+    addRange = jest.fn();
+    const savedRange = {} as any;
+    getSelectionSpy = jest.spyOn(assertWindow(), 'getSelection').mockReturnValue({
+      addRange,
+      getRangeAt: () => ({ cloneRange: () => savedRange }),
+      rangeCount: 1,
+      removeAllRanges: jest.fn(),
+    } as any);
+  });
+
+  afterEach(() => {
+    getSelectionSpy.mockRestore();
+    root.remove();
+  });
+
+  const focusNew = (tagName: string, type?: string) => {
+    const el = assertDocument().createElement(tagName) as HTMLElement;
+    if (type) {
+      el.setAttribute('type', type);
+    }
+    root.appendChild(el);
+    el.focus();
+    return el;
+  };
+
+  it('restores the selection when focus lands on a control with no text caret', () => {
+    // ColorPicker moves focus to a radio input while tabbing through the edit form. A radio has no
+    // caret to deactivate, so the pending selection must survive - otherwise the highlight the
+    // caller is preserving the selection for is lost.
+    focusNew('input', 'radio');
+
+    utils.withSelectionPreserved(() => undefined);
+
+    expect(addRange).toHaveBeenCalled();
+  });
+
+  it('restores the selection when focus lands on a checkbox or a button input', () => {
+    focusNew('input', 'checkbox');
+    utils.withSelectionPreserved(() => undefined);
+    expect(addRange).toHaveBeenCalledTimes(1);
+
+    focusNew('input', 'submit');
+    utils.withSelectionPreserved(() => undefined);
+    expect(addRange).toHaveBeenCalledTimes(2);
+  });
+
+  it('leaves the selection alone while a text caret is focused', () => {
+    // Writing a document selection here deactivates the caret: the field keeps its focus ring but
+    // will not accept typing until it is clicked.
+    focusNew('textarea');
+    utils.withSelectionPreserved(() => undefined);
+    expect(addRange).not.toHaveBeenCalled();
+
+    focusNew('input', 'text');
+    utils.withSelectionPreserved(() => undefined);
+    expect(addRange).not.toHaveBeenCalled();
+  });
+
+  it('treats an input with no type as a text field', () => {
+    // A missing or unrecognised type falls back to type=text.
+    focusNew('input');
+
+    utils.withSelectionPreserved(() => undefined);
+
+    expect(addRange).not.toHaveBeenCalled();
   });
 });

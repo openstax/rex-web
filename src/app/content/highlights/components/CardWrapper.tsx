@@ -96,6 +96,13 @@ function useCardsHeights() {
   return [cardsHeights, onHeightChange] as const;
 }
 
+// Native sequential focus visits every positive-tabindex control (in numeric order) before the
+// tabindex=0/naturally-focusable group. Everything this router navigates from - the highlight's
+// screen-reader span, the card controls - sits in that second group, so a positive-tabindex
+// element is never its true next or previous stop. Skipping them keeps us in step with native Tab
+// order; REX has one (NudgeStudyTools uses tabIndex={1}).
+const isInNaturalTabOrder = (el: HTMLElement) => Number(el.getAttribute('tabindex') ?? 0) <= 0;
+
 // Finds the nearest tabbable element before/after `reference` in document order, excluding a
 // highlight's own spans and the card wrapper. Scanning the whole document (not just the highlighter
 // container) lets Tab continue to the true next/previous stop, e.g. the footer or a toolbar control.
@@ -119,7 +126,7 @@ function findAdjacentContentTabbable(
   if (!forward) {
     candidates.reverse();
   }
-  return candidates.find(isTabbable) ?? null;
+  return candidates.find((el) => isInNaturalTabOrder(el) && isTabbable(el)) ?? null;
 }
 
 // The node at the start/end boundary of the current selection, if inside the content container.
@@ -195,16 +202,25 @@ function useTabRouting(
         const cardWrapper = element.current;
         const exclude = [...elements, ...(cardWrapper ? [cardWrapper] : [])];
         const target = reference ? findAdjacentContentTabbable(reference, forward, exclude) : null;
-        // With no target to move to, preventing the native Tab would leave focus on a control that
-        // is about to unmount, i.e. on <body>; let the browser choose the next stop instead.
+        const cleanUp = () => {
+          if (clearSelection) {
+            assertWindow().getSelection()?.removeAllRanges();
+          }
+          unfocus();
+        };
+
         if (target) {
           event.preventDefault();
+          cleanUp();
+          target.focus();
+          return;
         }
-        if (clearSelection) {
-          assertWindow().getSelection()?.removeAllRanges();
-        }
-        unfocus();
-        target?.focus();
+
+        // Nothing to move to, so the native Tab is left alone - but unfocus() unmounts the control
+        // focus is currently on, and the browser resolves the default action after this handler
+        // returns. Tearing the card down now would leave it navigating from a removed node and
+        // falling back to <body>, so let native Tab run first and clean up afterwards.
+        assertWindow().setTimeout(cleanUp, 0);
       };
 
       // Tab from the highlight's screen-reader span moves focus into the card.
@@ -264,7 +280,15 @@ function useTabRouting(
         const anchorInContainer = Boolean(
           selection?.anchorNode && container.contains(selection.anchorNode)
         );
-        if (selection && !selection.isCollapsed && anchorInContainer) {
+        // Focus moving away does not collapse the Selection range, so a stale pending selection
+        // must not let us hijack Tab from an unrelated control - a toolbar button would get
+        // redirected into the create card, or have its selection discarded. Only route when focus
+        // is still in the content, or nowhere in particular (the usual state right after a
+        // mouse selection).
+        const focusInContent = container.contains(active)
+          || active === document.body
+          || active === document.documentElement;
+        if (selection && !selection.isCollapsed && anchorInContainer && focusInContent) {
           if (!event.shiftKey && firstFocusable) {
             // Tab: into the create card, preserving the live selection so it can still be created.
             event.preventDefault();

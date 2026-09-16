@@ -70,16 +70,31 @@ function saveTextSelection(win: Window): Range | null {
     : null;
 }
 
+// Input types with no text caret. Listed as exclusions rather than listing the text-capable types
+// because an input with a missing or unrecognised type falls back to type=text, so defaulting to
+// "has a caret" is the safe direction. This matters for the edit card: ColorPicker focuses a radio
+// input, and treating that as a caret field would drop the selection the caller is preserving.
+const caretlessInputSelector = [
+  'button', 'checkbox', 'color', 'file', 'hidden', 'image', 'radio', 'range', 'reset', 'submit',
+]
+  .map((type) => `input[type='${type}']`)
+  .join(',');
+
+const holdsTextCaret = (el: HTMLElement) =>
+  el.tagName === 'TEXTAREA'
+  || el.isContentEditable
+  || (el.tagName === 'INPUT' && !el.matches(caretlessInputSelector));
+
 // Restores a previously saved text selection
 function restoreTextSelection(win: Window, savedRange: Range | null): void {
   if (!savedRange) {
     return;
   }
 
-  // Don't write a document selection while an editable field is focused: it deactivates the caret,
-  // so the field keeps its focus ring but won't accept typing until it's clicked.
+  // Don't write a document selection while a field with a text caret is focused: it deactivates
+  // the caret, so the field keeps its focus ring but won't accept typing until it's clicked.
   const active = win.document.activeElement as HTMLElement | null;
-  if (active && (active.tagName === 'TEXTAREA' || active.tagName === 'INPUT' || active.isContentEditable)) {
+  if (active && holdsTextCaret(active)) {
     return;
   }
 
@@ -441,8 +456,26 @@ export const isRenderedForFocus = (el: HTMLElement): boolean => {
   return el.isConnected && !isHiddenInClosedDetails(el);
 };
 
+// Things focus() always refuses, whatever the tabindex says: a disabled form control, and an
+// input that has no rendered box of its own. tabbableElementsSelector reaches both through its
+// generic `[tabindex]` arm.
+const neverFocusableSelector = [
+  'button[disabled]',
+  'input[disabled]',
+  'select[disabled]',
+  'textarea[disabled]',
+  'fieldset[disabled]',
+  'optgroup[disabled]',
+  'option[disabled]',
+  'input[type=\'hidden\']',
+].join(',');
+
 // Whether focus() on this element would actually move focus to it.
 export const isTabbable = (el: HTMLElement): boolean => {
+  if (el.matches(neverFocusableSelector)) {
+    return false;
+  }
+
   const tabIndex = el.getAttribute('tabindex');
   const takesFocus = tabIndex === null
     ? el.matches(nativeTabStopSelector)

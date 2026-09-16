@@ -607,6 +607,11 @@ describe('EditCard', () => {
       // Assign the ref with focus spy
       (note.props.textareaRef as any).current = textarea;
       const spyTextareaFocus = jest.spyOn(textarea, 'focus');
+      // The textarea must be in the document for the bubbling hideCardEvent to reach it.
+      assertDocument().body.appendChild(textarea);
+      const hideCardEvents: string[] = [];
+      const hideCardListener = () => hideCardEvents.push('hideCardEvent');
+      assertDocument().addEventListener('hideCardEvent', hideCardListener);
 
       renderer.act(() => {
         note.props.onChange('asdf');
@@ -624,7 +629,14 @@ describe('EditCard', () => {
       expect(note.props.note).toBe('qwer');
       expect(editCardProps.onBlur).not.toHaveBeenCalled();
       expect(component.root.findAllByType('button').length).toBe(0);
-      expect(spyTextareaFocus).toHaveBeenCalled();
+      // Cancelling must not focus the textarea: setEditing(false) unmounts it, so focus would fall
+      // to <body> and the Tab router would lose its boundary. It announces the close instead, and
+      // CardWrapper returns focus to the highlight.
+      expect(spyTextareaFocus).not.toHaveBeenCalled();
+      expect(hideCardEvents).toEqual(['hideCardEvent']);
+
+      assertDocument().removeEventListener('hideCardEvent', hideCardListener);
+      textarea.remove();
       cleanup();
     });
 

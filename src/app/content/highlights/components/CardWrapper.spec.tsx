@@ -1080,6 +1080,16 @@ describe('CardWrapper', () => {
   });
 
   describe('useTabRouting', () => {
+    // When Tab has nowhere to go, focusAdjacentContent leaves the native Tab alone and defers its
+    // cleanup (unfocus + selection clear) so the browser navigates from a still-mounted control.
+    // These tests assert the post-cleanup state, so they run that deferred work explicitly.
+    beforeEach(() => jest.useFakeTimers());
+    afterEach(() => jest.useRealTimers());
+
+    const flushDeferredCleanup = () => renderer.act(() => {
+      jest.runOnlyPendingTimers();
+    });
+
     const setupRouting = ({ isNewSelection = false, editing = false } = {}) => {
       const document = assertDocument();
       const highlight = createMockHighlight();
@@ -1184,6 +1194,76 @@ describe('CardWrapper', () => {
       cleanup();
     });
 
+    it('leaves Tab alone while focus is inside an alert dialog', () => {
+      const { firstButton, cleanup } = setupRouting();
+      // The delete-confirmation alertdialog owns its own focus handling; routing would pull focus
+      // out of it mid-confirmation.
+      const dialog = assertDocument().createElement('div');
+      dialog.setAttribute('role', 'alertdialog');
+      const dialogButton = assertDocument().createElement('button');
+      dialog.appendChild(dialogButton);
+      assertDocument().body.appendChild(dialog);
+      const focusSpy = jest.spyOn(firstButton, 'focus');
+
+      let notPrevented: boolean | undefined;
+      renderer.act(() => {
+        dialogButton.focus();
+        notPrevented = dispatchKeyDownEvent({ key: 'Tab' });
+      });
+
+      expect(focusSpy).not.toHaveBeenCalled();
+      expect(notPrevented).toBe(true);
+      dialog.remove();
+      cleanup();
+    });
+
+    it('skips a positive-tabindex control when leaving the card', () => {
+      const { lastButton, nextLink, cleanup } = setupRouting();
+      // Native sequential focus visits positive-tabindex controls before the whole tabindex=0
+      // group, so one is never the next stop after a card control. REX has such an element
+      // (NudgeStudyTools uses tabIndex={1}); targeting it would jump focus out of order.
+      const prioritised = assertDocument().createElement('button');
+      prioritised.setAttribute('tabindex', '1');
+      nextLink.parentNode!.insertBefore(prioritised, nextLink);
+      const prioritisedFocusSpy = jest.spyOn(prioritised, 'focus');
+      const linkFocusSpy = jest.spyOn(nextLink, 'focus');
+
+      renderer.act(() => {
+        lastButton.focus();
+        dispatchKeyDownEvent({ key: 'Tab' });
+      });
+
+      expect(prioritisedFocusSpy).not.toHaveBeenCalled();
+      expect(linkFocusSpy).toHaveBeenCalled();
+      prioritised.remove();
+      cleanup();
+    });
+
+    it('does not hijack Tab from an unrelated control while a stale selection lingers', () => {
+      const { firstButton, highlightElement, cleanup } = setupRouting({ isNewSelection: true });
+      // Moving focus does not collapse a Selection range, so a pending selection can outlive the
+      // user's attention. Tab from a toolbar control must behave normally rather than being
+      // redirected into the create card.
+      const outsideControl = assertDocument().createElement('button');
+      assertDocument().body.appendChild(outsideControl);
+      const focusSpy = jest.spyOn(firstButton, 'focus');
+      const selectionMock = { isCollapsed: false, rangeCount: 0, anchorNode: highlightElement };
+      const getSelectionSpy = jest.spyOn(window!, 'getSelection').mockReturnValue(selectionMock as any);
+
+      let notPrevented: boolean | undefined;
+      renderer.act(() => {
+        outsideControl.focus();
+        notPrevented = dispatchKeyDownEvent({ key: 'Tab' });
+      });
+
+      expect(focusSpy).not.toHaveBeenCalled();
+      expect(notPrevented).toBe(true);
+
+      getSelectionSpy.mockRestore();
+      outsideControl.remove();
+      cleanup();
+    });
+
     it('routes Tab from the last card control to the next content control and clears focus', () => {
       const { lastButton, nextLink, cleanup } = setupRouting();
       const focusSpy = jest.spyOn(nextLink, 'focus');
@@ -1257,7 +1337,7 @@ describe('CardWrapper', () => {
     });
 
     it('lets the native Tab happen when there is no adjacent content to move to', () => {
-      const { lastButton, nextLink, cleanup } = setupRouting();
+      const { highlight, lastButton, nextLink, cleanup } = setupRouting();
       // Nothing tabbable follows the card, so preventing Tab would leave focus on a control that
       // is about to unmount - i.e. on <body>. The browser picks the next stop instead.
       nextLink.remove();
@@ -1269,6 +1349,10 @@ describe('CardWrapper', () => {
       });
 
       expect(notPrevented).toBe(true);
+      // Still mounted at this point, so the browser's Tab has a node to navigate from.
+      expect(store.getState().content.highlights.currentPage.focused).toBe(highlight.id);
+
+      flushDeferredCleanup();
       expect(store.getState().content.highlights.currentPage.focused).toBeUndefined();
       cleanup();
     });
@@ -1606,6 +1690,8 @@ describe('CardWrapper', () => {
 
       // No boundary node means no adjacent content to move to, so nothing is focused.
       expect(focusSpy).not.toHaveBeenCalled();
+
+      flushDeferredCleanup();
       expect(removeAllRanges).toHaveBeenCalled();
 
       getSelectionSpy.mockRestore();
@@ -1644,7 +1730,8 @@ describe('CardWrapper', () => {
         dispatchKeyDownEvent({ key: 'Tab' });
       });
 
-      // No candidate tab stop follows, so focus is simply cleared.
+      // No candidate tab stop follows, so focus is simply cleared - once the native Tab has run.
+      flushDeferredCleanup();
       expect(store.getState().content.highlights.currentPage.focused).toBeUndefined();
       cardWrapperElement.remove();
     });
@@ -1689,6 +1776,8 @@ describe('CardWrapper', () => {
 
       // The boundary is outside the container, so there's no anchor and nothing is focused.
       expect(focusSpy).not.toHaveBeenCalled();
+
+      flushDeferredCleanup();
       expect(removeAllRanges).toHaveBeenCalled();
 
       getSelectionSpy.mockRestore();
