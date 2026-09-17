@@ -117,7 +117,7 @@ function getAttributionValues(book: BookWithOSWebData, page: Page) {
     bookLatestRevision,
     bookLicenseName: book.license.name,
     bookLicenseUrl: book.license.url,
-    bookLicenseVersion: book.license.version,
+    bookLicenseVersion: book.license.version ? ` ${book.license.version}` : '',
     bookPublishDate,
     bookTitle: book.title,
     copyrightHolder: 'OpenStax',
@@ -126,6 +126,7 @@ function getAttributionValues(book: BookWithOSWebData, page: Page) {
     introPageTitle,
     introPageUrl,
     originalMaterialLink: null,
+    permissionRequestUrl: 'https://openstax.org/r/content-reuse-request',
     ...bookIdsWithSpecialAttributionText[book.id] || {},
   };
 }
