@@ -220,8 +220,7 @@ exports[`assigned route route renders renders a component 1`] = `
   <li>
     This book uses the
     <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"http://example.com\\">
-      Sweet License 1.0
-    </a>, which means that you can reuse and modify the material only for noncommercial purposes, must attribute OpenStax, and must distribute any derivative works under the same license.
+      Sweet License 1.0</a>, which means that you can reuse and modify the material only for noncommercial purposes, must attribute OpenStax, and must distribute any derivative works under the same license.
   </li>
   <li>
     Any commercial printing of this textbook, including using a local or custom printer, must be approved by OpenStax, and proper citation provided.
