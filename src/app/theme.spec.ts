@@ -2,16 +2,15 @@
  * Keeps the theme and the stylesheets honest.
  *
  * Jest maps `*.css` imports to a style mock, so these read the stylesheets off disk
- * with `fs` instead of importing them. REX's half of the audit lives in
- * src/test/cssColors.ts, shared with `script/generate-theme-baseline.ts` so the two
+ * with `fs` instead of importing them. The theme-aware half of the audit lives in
+ * src/test/themeColors.ts, shared with `script/generate-theme-baseline.ts` so the two
  * cannot disagree; the parsing underneath it comes from @openstax/ui-components.
  */
 import { describeColor, stripNoise } from '@openstax/ui-components/theme/cssColors';
 import fs from 'fs';
 import path from 'path';
-import {
-  colorViolations, stylesheetFiles, tokenChoices,
-} from '../test/cssColors';
+import { mediaWidths } from '../test/cssMediaQueries';
+import { colorViolations, stylesheetFiles, tokenChoices } from '../test/themeColors';
 import theme from './theme';
 import { themeCss, themeTokens } from './themeCss';
 
@@ -29,7 +28,7 @@ const relative = (file: string) => path.relative(srcDir, file);
  * and check the counts went down.
  *
  * Each entry identifies the declaration the literal was written in, not just the file
- * and the literal -- see `occurrence` in src/test/cssColors.ts for why.
+ * and the literal -- see `occurrence` in src/test/themeColors.ts for why.
  */
 const baseline = (): {duplicates: string[], unknown: string[]} =>
   JSON.parse(fs.readFileSync(baselinePath, 'utf8'));
@@ -56,7 +55,7 @@ const baseline = (): {duplicates: string[], unknown: string[]} =>
  * track does with `#fff` at two stops of one gradient, and the baseline holds that key
  * once per occurrence. Set membership would call 2 -> 1 no change and let a fixed
  * violation come back for free -- widening the blind spot that `occurrence` in
- * src/test/cssColors.ts deliberately narrows.
+ * src/test/themeColors.ts deliberately narrows.
  *
  * `annotate` decorates the `added` entries only, so that what a new violation should
  * be replaced with is shown where it is useful without becoming part of the identity
@@ -82,6 +81,23 @@ const ratchet = (found: string[], locked: string[], annotate = (entry: string) =
 };
 
 const noDrift = {added: [], removed: []};
+
+/**
+ * A breakpoint is suspicious when it sits within 1em of an accepted boundary without
+ * being one of them.
+ *
+ * Measured from every accepted boundary, not just the three theme values. Each theme
+ * breakpoint has a desktop-side sibling 0.0625em above it -- the `min-width` half of
+ * a pair, per `desktopBreak` -- and those are accepted values too, so a near miss of
+ * one is the same typo. Comparing against the theme values alone let `76.0625em`
+ * through: 1.0625 from `75`, and so not near it, but exactly 1em from the accepted
+ * `75.0625` that it was meant to be.
+ *
+ * The bound is inclusive, so a value exactly 1em out -- the likeliest typo -- is
+ * caught rather than sitting on the edge of the window.
+ */
+const suspiciousBreakpoint = (accepted: number[]) => (size: number) =>
+  !accepted.includes(size) && accepted.some((edge) => Math.abs(edge - size) <= 1);
 
 describe('the baseline ratchet', () => {
   // The comparison the two locked checks are built on, so a bug here does not fail
@@ -124,6 +140,35 @@ describe('the baseline ratchet', () => {
     // byte-identical to what the baseline holds.
     expect(ratchet([], [entry(1)], (found) => `${found} -- use --color-x`))
       .toEqual({added: [], removed: [entry(1)]});
+  });
+});
+
+describe('the breakpoint proximity rule', () => {
+  // 30 and 50 stand in for two theme breakpoints, 30.0625 and 50.0625 for their
+  // desktop-side siblings. Tested directly because the check that uses it can only
+  // report what the tree happens to contain, so a hole in the rule would look
+  // exactly like a clean tree.
+  const suspicious = suspiciousBreakpoint([30, 30.0625, 50, 50.0625]);
+
+  it.each([30, 30.0625, 50, 50.0625])('accepts %sem, which is a boundary', (size) => {
+    expect(suspicious(size)).toBe(false);
+  });
+
+  it.each([29, 31, 49, 51])('catches %sem, which is 1em from a theme value', (size) => {
+    expect(suspicious(size)).toBe(true);
+  });
+
+  it.each([31.0625, 51.0625])(
+    'catches %sem, which is 1em from a desktop-side boundary', (size) => {
+      // measuring from the theme values alone, these are 1.0625 out and passed
+      expect(suspicious(size)).toBe(true);
+    }
+  );
+
+  it.each([28, 37.5, 60.1, 90])('accepts %sem, which is a deliberate breakpoint', (size) => {
+    // component breakpoints are legitimate -- Footer uses 37.5em, 60.1em and 90em --
+    // so only the near misses are reported
+    expect(suspicious(size)).toBe(false);
   });
 });
 
@@ -195,31 +240,41 @@ describe('stylesheets', () => {
     // value meant to be a theme breakpoint but mistyped, e.g. 74em or 75.5em, which
     // silently stops matching where the theme's own queries match. The bound is
     // inclusive so that 74em -- exactly 1em out, and the likeliest typo -- is caught.
+    //
+    // Both spellings of a query count, and every endpoint of a range: see
+    // src/test/cssMediaQueries.ts. `(width <= 74em)` is the same typo as
+    // `(max-width: 74em)` and this check would be worth little if the newer syntax
+    // were the way around it. Values are parsed rather than matched, so `7.4e1em` is
+    // the 74em it means, and `calc(49em + 1em)` is the 50em it means rather than a
+    // 49em that then fails this.
     const themeBreaks = [
       theme.breakpoints.mobileSmallBreak,
       theme.breakpoints.mobileMediumBreak,
       theme.breakpoints.mobileBreak,
     ];
     // the desktop side of a max-width query is the theme value + 0.0625, per desktopBreak
-    const exact = new Set(themeBreaks.reduce(
+    const accepted = themeBreaks.reduce(
       (result: number[], size) => [...result, size, size + 0.0625],
       []
-    ));
+    );
 
     const suspicious: string[] = [];
+    const near = suspiciousBreakpoint(accepted);
 
     for (const file of stylesheetFiles(srcDir)) {
-      const queries = stripNoise(fs.readFileSync(file, 'utf8'))
-        .match(/\((?:min|max)-width:\s*[\d.]+em\)/g) || [];
-
-      queries
-        .map((query) => ({
-          query,
-          size: parseFloat((/([\d.]+)em/.exec(query) as RegExpExecArray)[1]),
-        }))
-        .filter(({size}) => !exact.has(size))
-        .filter(({size}) => themeBreaks.some((themeBreak) => Math.abs(themeBreak - size) <= 1))
-        .forEach(({query}) => suspicious.push(`${relative(file)}: ${query}`));
+      for (const {query, size} of mediaWidths(fs.readFileSync(file, 'utf8'))) {
+        // An endpoint that cannot be resolved to one em length is reported rather
+        // than skipped, the same way the color audit refuses to pass a color it
+        // cannot resolve: a calc() this does not evaluate -- a multiplication, a mix
+        // of units -- could be hiding the very typo the check is for. Nothing in
+        // src/** writes one today. Either write the value out, or teach mediaWidths
+        // the form; do not add it to an allowlist.
+        if (size === null) {
+          suspicious.push(`${relative(file)}: ${query} -- not resolvable to a width in em`);
+        } else if (near(size)) {
+          suspicious.push(`${relative(file)}: ${query}`);
+        }
+      }
     }
 
     expect(suspicious).toEqual([]);

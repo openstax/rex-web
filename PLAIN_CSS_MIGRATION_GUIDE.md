@@ -293,12 +293,15 @@ See `src/app/theme.css` for the full list of 80 tokens.
    against the JS. If this fails, run `yarn generate:theme-css`.
 2. No stylesheet writes a color literal that duplicates a theme value.
 3. No stylesheet introduces a color that is neither a theme value nor explicitly
-   allowlisted in `KNOWN_OFF_PALETTE` (in `src/test/cssColors.ts`) with a reason.
+   allowlisted in `KNOWN_OFF_PALETTE` (in `src/test/themeColors.ts`) with a reason.
 4. No stylesheet reads a `--color-*`/`--z-index-*`/`--padding-*` token that doesn't
    exist — which also keeps component-local variables out of those namespaces.
 5. No `@media` breakpoint sits within 1em of a theme breakpoint without being one,
    which catches a `75em` mistyped as `74em`. The bound is inclusive, so `74em` and
-   `76em` are both caught.
+   `76em` are both caught. Both spellings count and every endpoint of a range does:
+   `(max-width: 74em)`, `(width <= 74em)` and `(30em < width < 74em)` are all read,
+   and `rem` counts as `em` because a media query resolves both against the initial
+   font size (`src/test/cssMediaQueries.ts`).
 
 Checks 2 and 3 are currently locked to a baseline in `src/app/theme.baseline.json`,
 recording the violations that predate the token file. **New** violations fail
@@ -306,8 +309,7 @@ immediately; the baseline only shrinks. If you remove some, run
 `yarn generate:theme-baseline` — the counts it prints should go down.
 
 Each baseline entry names the file, the selector and at-rule it sits under, and the
-property, not just the literal — `app/components/Button.css: .btn:hover { color: #fff }
-is --color-neutral-base`. That is what stops a removed `#fff` and a newly added one
+property, not just the literal — `app/components/Button.css: .btn:hover { color: #fff }`. That is what stops a removed `#fff` and a newly added one
 elsewhere in the same file from cancelling out. Expect the entry to change, and the
 baseline to need regenerating, if you move a declaration or rename a selector; the
 counts are what should not go up.

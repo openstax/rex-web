@@ -1,14 +1,5 @@
 import { colorKey, describeColor } from '@openstax/ui-components/theme/cssColors';
-import { themeColorIndex, tokenChoices } from './cssColors';
-
-/**
- * Only the policy half is tested here. The parsing engine's own cases came across with
- * it to @openstax/ui-components/theme/cssColors.spec.ts, so that the published surface
- * is the tested surface -- duplicating them here is what CORE-2736 removed, and a
- * second copy of the assertions would drift the same way the second copy of the code
- * did. `colorKey` and `describeColor` are imported only to build the keys the index is
- * read by.
- */
+import { themeColorIndex, tokenChoices } from './themeColors';
 
 describe('tokenChoices', () => {
   it('names a single token as itself', () => {

@@ -14,7 +14,7 @@
  */
 import fs from 'fs';
 import path from 'path';
-import { colorViolations } from '../src/test/cssColors';
+import { colorViolations } from '../src/test/themeColors';
 
 const srcDir = path.join(__dirname, '..', 'src');
 const target = path.join(srcDir, 'app', 'theme.baseline.json');
