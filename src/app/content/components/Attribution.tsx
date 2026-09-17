@@ -126,7 +126,7 @@ function getAttributionValues(book: BookWithOSWebData, page: Page) {
     introPageTitle,
     introPageUrl,
     originalMaterialLink: null,
-    permissionRequestUrl: 'https://riceuniversity.tfaforms.net/52',
+    permissionRequestUrl: 'https://openstax.org/r/content-reuse-request',
     ...bookIdsWithSpecialAttributionText[book.id] || {},
   };
 }
