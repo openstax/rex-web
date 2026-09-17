@@ -1,4 +1,12 @@
-import { colorKey, describeColor } from './cssColors';
+/**
+ * Only the policy half is tested here. The parsing engine's own cases live with the
+ * engine, in @openstax/ui-components, so that the published surface is the tested
+ * surface -- src/test/cssColors.spec.ts was the second copy of those assertions, and it
+ * would have drifted the way the second copy of the code did. `colorKey` and
+ * `describeColor` are imported only to build the keys the index is read by.
+ */
+
+import { colorKey, describeColor } from '@openstax/ui-components/theme/cssColors';
 import { themeColorIndex, tokenChoices } from './themeColors';
 
 describe('tokenChoices', () => {

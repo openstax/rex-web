@@ -1,7 +1,13 @@
 /**
  * The REX half of the stylesheet color audit: everything that needs to know about the
  * theme, the generated token file or the shape of this repository. The parsing it is
- * built on is src/test/cssColors.ts, which knows none of that.
+ * built on is @openstax/ui-components/theme/cssColors, which knows none of that.
+ *
+ * That engine used to live here too, as src/test/cssColors.ts. CORE-2731 hand-wrote a
+ * second copy of one that already existed in ui-components, and the two had diverged
+ * before either merged: of the four defects review found in this copy, one was REX-only
+ * and two were shared. CORE-2736 published the engine so there is one copy to fix, and
+ * this file is what is left once it is imported rather than declared.
  *
  * It lives here rather than in src/app/theme.spec.ts so that the spec and
  * `script/generate-theme-baseline.ts` cannot drift apart — the baseline would
@@ -16,7 +22,7 @@ import path from 'path';
 import { themeTokens } from '../app/themeCss';
 import {
   colorKey, describeColor, opaqueKey, StylesheetColor, stylesheetColors,
-} from './cssColors';
+} from '@openstax/ui-components/theme/cssColors';
 
 /**
  * Maps a canonical color key to every `--color-*` token that declares it.

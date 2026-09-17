@@ -14,7 +14,7 @@
  * `calc()` is one endpoint rather than a loose collection of the lengths inside it.
  */
 
-import { stripNoise } from './cssColors';
+import { stripNoise } from '@openstax/ui-components/theme/cssColors';
 
 export interface MediaWidth {
   /** the feature as written, whitespace-collapsed: `(30em < width < 74em)` */
@@ -34,14 +34,14 @@ interface Length {
 }
 
 /**
- * The CSS `<number>` grammar, the same language src/test/cssColors.ts matches, with
- * the two alternatives swapped. There the pattern is anchored at both ends, so their
- * order cannot matter; here it matches a prefix, and `\d+` first would take the `74`
- * of `74.5em` and leave `.5em` behind as the unit. Longest alternative first.
+ * The CSS `<number>` grammar, the same language the color engine matches, with the two
+ * alternatives swapped. There the pattern is anchored at both ends, so their order
+ * cannot matter; here it matches a prefix, and `\d+` first would take the `74` of
+ * `74.5em` and leave `.5em` behind as the unit. Longest alternative first.
  *
- * Copied rather than imported because there it is an internal of the engine, and
- * CORE-2737 replaces that file with the published ui-components module, whose exports
- * are the audit surface rather than its grammars.
+ * Copied rather than imported because it is an internal of
+ * @openstax/ui-components/theme/cssColors, whose exports are the audit surface rather
+ * than its grammars.
  *
  * The exponent is the part that matters here. `[\d.]+em` reads `7.4e1em` as the `1em`
  * at its tail -- a valid spelling of 74em read as 1em, so a mistyped breakpoint would

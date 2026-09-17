@@ -2,13 +2,13 @@
  * Keeps the theme and the stylesheets honest.
  *
  * Jest maps `*.css` imports to a style mock, so these read the stylesheets off disk
- * with `fs` instead of importing them. The audit itself lives in src/test/: the
- * parsing in cssColors.ts, and the theme-aware half in themeColors.ts, which is shared
- * with `script/generate-theme-baseline.ts` so the two cannot disagree.
+ * with `fs` instead of importing them. The theme-aware half of the audit lives in
+ * src/test/themeColors.ts, shared with `script/generate-theme-baseline.ts` so the two
+ * cannot disagree; the parsing underneath it comes from @openstax/ui-components.
  */
+import { describeColor, stripNoise } from '@openstax/ui-components/theme/cssColors';
 import fs from 'fs';
 import path from 'path';
-import { describeColor, stripNoise } from '../test/cssColors';
 import { mediaWidths } from '../test/cssMediaQueries';
 import { colorViolations, stylesheetFiles, tokenChoices } from '../test/themeColors';
 import theme from './theme';
