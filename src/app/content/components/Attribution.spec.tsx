@@ -199,6 +199,37 @@ describe('Attribution', () => {
       expect(component).toMatchSnapshot();
     });
 
+    it('renders a leading space before the license version when a version is present', async() => {
+      const newState = (cloneDeep({
+        content: {
+          ...initialState,
+          book: formatBookData({...book, license: {...book.license, version: '4.0'}}, mockCmsBook),
+          page,
+        },
+      }) as any) as AppState;
+
+      store = createTestStore(newState);
+      const { node: details } = renderToDom(render());
+
+      expect(details.children[1].innerHTML).toMatch(`${book.license.name} 4.0.`);
+    });
+
+    it('doesn\'t render a leading space before an empty license version', async() => {
+      const newState = (cloneDeep({
+        content: {
+          ...initialState,
+          book: formatBookData({...book, license: {...book.license, version: ''}}, mockCmsBook),
+          page,
+        },
+      }) as any) as AppState;
+
+      store = createTestStore(newState);
+      const { node: details } = renderToDom(render());
+
+      expect(details.children[1].innerHTML).toMatch(`${book.license.name}.`);
+      expect(details.children[1].innerHTML).not.toMatch(`${book.license.name} .`);
+    });
+
     it('renders CodeRunnerNote when slug includes python', async() => {
       const saveSlug = mockCmsBook.meta.slug;
 
