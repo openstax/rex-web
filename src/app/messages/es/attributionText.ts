@@ -7,8 +7,7 @@ export const defaultText = `
   </li>
   <li>
     Este libro utiliza la <a target="_blank" rel="noopener" href="{bookLicenseUrl}">
-      {bookLicenseName}{bookLicenseVersion}
-    </a>, lo que significa que puede reutilizar y modificar el material únicamente con fines no comerciales, debe atribuir a {copyrightHolder} y debe distribuir cualquier obra derivada bajo la misma licencia.{originalMaterialLink, select,
+      {bookLicenseName}{bookLicenseVersion}</a>, lo que significa que puede reutilizar y modificar el material únicamente con fines no comerciales, debe atribuir a {copyrightHolder} y debe distribuir cualquier obra derivada bajo la misma licencia.{originalMaterialLink, select,
       null {}
       other { El material original está disponible en: <a target="_blank" rel="noopener" href="{originalMaterialLink}">
         {originalMaterialLink}

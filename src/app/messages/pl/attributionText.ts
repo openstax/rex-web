@@ -8,8 +8,7 @@ export const defaultText = `
   <li>
     Ten podręcznik jest wydany na licencji
     <a target="_blank" rel="noopener" href="{bookLicenseUrl}">
-      {bookLicenseName}{bookLicenseVersion}
-    </a>, co oznacza, że możesz ponownie wykorzystywać i modyfikować materiał wyłącznie w celach niekomercyjnych, musisz uznać autorstwo {copyrightHolder} oraz musisz rozpowszechniać wszelkie utwory zależne na tej samej licencji.{originalMaterialLink, select,
+      {bookLicenseName}{bookLicenseVersion}</a>, co oznacza, że możesz ponownie wykorzystywać i modyfikować materiał wyłącznie w celach niekomercyjnych, musisz uznać autorstwo {copyrightHolder} oraz musisz rozpowszechniać wszelkie utwory zależne na tej samej licencji.{originalMaterialLink, select,
       null {}
       other { Oryginalna publikacja jest dostępna na: <a target="_blank" rel="noopener" href="{originalMaterialLink}">
         {originalMaterialLink}
