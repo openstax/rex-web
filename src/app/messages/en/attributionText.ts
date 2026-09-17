@@ -8,7 +8,7 @@ export const defaultText = `
   <li>
     This book uses the
     <a target="_blank" rel="noopener" href="{bookLicenseUrl}">
-      {bookLicenseName} {bookLicenseVersion}
+      {bookLicenseName}{bookLicenseVersion}
     </a>, which means that you can reuse and modify the material only for noncommercial purposes, must attribute {copyrightHolder}, and must distribute any derivative works under the same license.{originalMaterialLink, select,
       null {}
       other { The original material is available at: <a target="_blank" rel="noopener" href="{originalMaterialLink}">
@@ -87,7 +87,7 @@ export const defaultText = `
 
 <p>
   © {bookLatestRevision, date, medium} {copyrightHolder}. {copyrightHolder, select,
-    OpenStax {Textbook content produced by OpenStax is licensed under a {bookLicenseName} {bookLicenseVersion}. }
+    OpenStax {Textbook content produced by OpenStax is licensed under a {bookLicenseName}{bookLicenseVersion}. }
     other {}}<strong>The OpenStax name, OpenStax logo, OpenStax book covers, OpenStax CNX name, and OpenStax CNX logo, 
     and Rice University name, and Rice University logo trademarks, or wordmarks are not subject to the Creative 
     Commons license and may not be reproduced without the prior and express written consent of Rice University.</strong>

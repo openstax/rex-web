@@ -8,7 +8,7 @@ export const defaultText = `
   <li>
     Ten podręcznik jest wydany na licencji
     <a target="_blank" rel="noopener" href="{bookLicenseUrl}">
-      {bookLicenseName} {bookLicenseVersion}
+      {bookLicenseName}{bookLicenseVersion}
     </a>, co oznacza, że możesz ponownie wykorzystywać i modyfikować materiał wyłącznie w celach niekomercyjnych, musisz uznać autorstwo {copyrightHolder} oraz musisz rozpowszechniać wszelkie utwory zależne na tej samej licencji.{originalMaterialLink, select,
       null {}
       other { Oryginalna publikacja jest dostępna na: <a target="_blank" rel="noopener" href="{originalMaterialLink}">
@@ -81,7 +81,7 @@ Poniższe informacje zawierają dane potrzebne do utworzenia cytowania w większ
 
 <p>
   © {bookLatestRevision, date, medium} {copyrightHolder}. {copyrightHolder, select,
-    OpenStax {Treść książki została wytworzona przez OpenStax na licencji {bookLicenseName} {bookLicenseVersion}. }
+    OpenStax {Treść książki została wytworzona przez OpenStax na licencji {bookLicenseName}{bookLicenseVersion}. }
     other {}}<strong> Nazwa OpenStax, logo OpenStax, okładki OpenStax, nazwa OpenStax CNX oraz OpenStax CNX logo,
  jak również nazwa i logo Rice University oraz powiązane znaki towarowe i słowne, nie podlegają licencji Creative Commons
  i wykorzystanie ich jest dozwolone wyłącznie na mocy uprzedniego pisemnego upoważnienia przez Rice University.</strong>

@@ -7,7 +7,7 @@ export const defaultText = `
   </li>
   <li>
     Este libro utiliza la <a target="_blank" rel="noopener" href="{bookLicenseUrl}">
-      {bookLicenseName} {bookLicenseVersion}
+      {bookLicenseName}{bookLicenseVersion}
     </a>, lo que significa que puede reutilizar y modificar el material únicamente con fines no comerciales, debe atribuir a {copyrightHolder} y debe distribuir cualquier obra derivada bajo la misma licencia.{originalMaterialLink, select,
       null {}
       other { El material original está disponible en: <a target="_blank" rel="noopener" href="{originalMaterialLink}">
@@ -81,7 +81,7 @@ export const defaultText = `
 
 <p>
   © {bookLatestRevision, date, medium} {copyrightHolder}. {copyrightHolder, select,
-    OpenStax {El contenido de los libros de texto que produce OpenStax tiene una licencia de {bookLicenseName} {bookLicenseVersion}. }
+    OpenStax {El contenido de los libros de texto que produce OpenStax tiene una licencia de {bookLicenseName}{bookLicenseVersion}. }
     other {}}<strong>El nombre de OpenStax, el logotipo de OpenStax, las portadas de libros de OpenStax, el nombre de OpenStax CNX y el logotipo de OpenStax CNX, así como el nombre y el logotipo de Rice University (incluidas sus marcas denominativas), no están sujetos a la licencia de Creative Commons y no se pueden reproducir sin el previo y expreso consentimiento por escrito de Rice University.</strong>
 </p>
 `;

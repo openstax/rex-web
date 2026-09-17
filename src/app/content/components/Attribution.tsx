@@ -117,7 +117,7 @@ function getAttributionValues(book: BookWithOSWebData, page: Page) {
     bookLatestRevision,
     bookLicenseName: book.license.name,
     bookLicenseUrl: book.license.url,
-    bookLicenseVersion: book.license.version,
+    bookLicenseVersion: book.license.version ? ` ${book.license.version}` : '',
     bookPublishDate,
     bookTitle: book.title,
     copyrightHolder: 'OpenStax',
