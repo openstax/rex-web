@@ -59,6 +59,7 @@ import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import { ButtonGroup } from '../../../components/Button';
 import { useTrapTabNavigation } from '../../../reactUtils';
 import { MAIN_CONTENT_ID } from '../../../context/constants';
+import { assertDocument } from '../../../utils';
 import { useIntl } from 'react-intl';
 import {
   clearFocusedHighlight,
@@ -158,6 +159,25 @@ function ActiveEditCard({
 
   const [confirmingDelete, setConfirmingDelete] = React.useState<boolean>(false);
 
+  // Escape in an emptied textarea makes Note announce hideCardEvent. Moving focus back to the
+  // highlight is not enough on its own: LoginOrEdit renders the form whenever the highlight has a
+  // saved annotation, whatever shouldFocusCard says, so for an annotated highlight the form stayed
+  // open and the next Tab routed straight back into it. Leave edit mode as well, exactly as
+  // Cancel does, so the card collapses to its note display and Tab continues past it.
+  const { onCancel, setAnnotationChangesPending } = props;
+  React.useEffect(() => {
+    const handler = () => {
+      resetAnnotation();
+      setAnnotationChangesPending(false);
+      setEditing(false);
+      onCancel();
+    };
+
+    const document = assertDocument();
+    document.addEventListener('hideCardEvent', handler);
+    return () => document.removeEventListener('hideCardEvent', handler);
+  }, [onCancel, resetAnnotation, setAnnotationChangesPending]);
+
   const { onBlur, hasUnsavedHighlight } = props;
 
   const blurIfNotEditing = React.useCallback(() => {
@@ -248,10 +268,17 @@ function ActiveEditCard({
   const annotationEditorRef = React.useRef<HTMLTextAreaElement>(null);
 
 
-  useTrapTabNavigation(ref, editingAnnotation);
+  // Trap Tab within an existing highlight's edit form so focus cycles its controls. A new
+  // selection's create form instead hands its boundaries to the highlight Tab-routing (see
+  // CardWrapper), which moves focus out to the content; the data-editing marker below tells that
+  // router the trap is in control. editingAnnotation is the re-attach dep so the trap re-scans
+  // focusables when Save/Cancel appear.
+  const isNewSelection = props.highlight.elements.length === 0;
+  const trapActive = !isNewSelection;
+  useTrapTabNavigation(ref, editingAnnotation, undefined, trapActive);
 
   return (
-    <div ref={ref}>
+    <div ref={ref} data-editing={trapActive ? 'true' : undefined}>
       <ColorPicker
         color={props.data?.color}
         onChange={onColorChange}
