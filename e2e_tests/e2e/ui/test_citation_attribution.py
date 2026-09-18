@@ -9,7 +9,7 @@ from e2e_tests.e2e.ui.pages.home import HomeRex
     "book_slug, page_slug", [("astronomy-2e", "5-2-the-electromagnetic-spectrum")]
 )
 async def test_citation_and_attribution_page(
-    chrome_page, base_url, abl_uuids_slugs, book_slug, page_slug
+    chrome_page, base_url, book_slug, page_slug
 ):
 
     # GIVEN: Playwright, chromium and the rex_base_url
