@@ -13,8 +13,8 @@ export const defaultText = `
       other { The original material is available at: <a target="_blank" rel="noopener" href="{originalMaterialLink}">
         {originalMaterialLink}
       </a>.}
-    }{copyrightHolder, select,
-      OpenStax {}
+    }{isOpenStaxCopyright, select,
+      true {}
       other { Changes were made to the original material, including updates to art, structure, and other content updates.}}
   </li>
   <li>
@@ -51,42 +51,40 @@ export const defaultText = `
 </ul>
 
 <strong role="heading" aria-level="3">Citation information</strong>
-<ul>
-  <li>
-    The information below includes the information needed to generate citations in most 
-    major styles (APA, MLA, etc.); you must reformat and organize the information as needed 
-    to fit the requirements of the style. Use the information below to generate a citation. 
-    We recommend using a citation tool such as
-    <a target="_blank" rel="noopener" href="https://www.lib.ncsu.edu/citationbuilder/#/default/default">this one</a>.
-    <ul>
-      <li>
-        Authors: {bookAuthors}
-      </li>
-      <li>
-        Publisher/website: OpenStax
-      </li>
-      <li>
-        Book title: {bookTitle}
-      </li>
-      <li>
-        Publication date: {bookPublishDate, date, medium}
-      </li>
-      <li>
-        Location: Houston, Texas
-      </li>
-      <li>
-        Book URL: <a target="_blank" rel="noopener" href="https://openstax.org{introPageUrl}">https://openstax.org{introPageUrl}</a>
-      </li>
-      <li>
-        Section URL: <a target="_blank" rel="noopener" href="https://openstax.org{currentPath}">https://openstax.org{currentPath}</a>
-      </li>
-    </ul>
-  </li>
-</ul>
+<p>
+  The information below includes the information needed to generate citations in most 
+  major styles (APA, MLA, etc.); you must reformat and organize the information as needed 
+  to fit the requirements of the style. Use the information below to generate a citation. 
+  We recommend using a citation tool such as
+  <a target="_blank" rel="noopener" href="https://www.lib.ncsu.edu/citationbuilder/#/default/default">this one</a>.
+</p>
+  <ul>
+    <li>
+      Authors: {bookAuthors}
+    </li>
+    <li>
+      Publisher/website: OpenStax
+    </li>
+    <li>
+      Book title: {bookTitle}
+    </li>
+    <li>
+      Publication date: {bookPublishDate, date, medium}
+    </li>
+    <li>
+      Location: Houston, Texas
+    </li>
+    <li>
+      Book URL: <a target="_blank" rel="noopener" href="https://openstax.org{introPageUrl}">https://openstax.org{introPageUrl}</a>
+    </li>
+    <li>
+      Section URL: <a target="_blank" rel="noopener" href="https://openstax.org{currentPath}">https://openstax.org{currentPath}</a>
+    </li>
+  </ul>
 
 <p>
-  © {bookLatestRevision, date, medium} {copyrightHolder}. {copyrightHolder, select,
-    OpenStax {Textbook content produced by OpenStax is licensed under a {bookLicenseName}{bookLicenseVersion}. }
+  © {bookLatestRevision, date, medium} {copyrightHolder}. {isOpenStaxCopyright, select,
+    true {Textbook content produced by OpenStax is licensed under a {bookLicenseName}{bookLicenseVersion}. }
     other {}}<strong>The OpenStax name, OpenStax logo, OpenStax book covers, OpenStax CNX name, and OpenStax CNX logo, 
     and Rice University name, and Rice University logo trademarks, or wordmarks are not subject to the Creative 
     Commons license and may not be reproduced without the prior and express written consent of Rice University.</strong>
