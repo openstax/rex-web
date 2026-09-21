@@ -6,7 +6,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
 >
   <fieldset
     className="color-picker "
-    data-testid="highlight-colours-picker"
+    data-testid="highlight-colors-picker"
     onFocus={[Function]}
     onKeyDown={[Function]}
     role="radiogroup"
