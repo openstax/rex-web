@@ -101,38 +101,36 @@ exports[`Attribution in browser renders CodeRunnerNote when slug includes python
 </ul>
 
 <strong role=\\"heading\\" aria-level=\\"3\\">Citation information</strong>
-<ul>
-  <li>
-    The information below includes the information needed to generate citations in most 
-    major styles (APA, MLA, etc.); you must reformat and organize the information as needed 
-    to fit the requirements of the style. Use the information below to generate a citation. 
-    We recommend using a citation tool such as
-    <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://www.lib.ncsu.edu/citationbuilder/#/default/default\\">this one</a>.
-    <ul>
-      <li>
-        Authors: Bam Bammerson
-      </li>
-      <li>
-        Publisher/website: OpenStax
-      </li>
-      <li>
-        Book title: Test Book 1
-      </li>
-      <li>
-        Publication date: Jun 21, 2012
-      </li>
-      <li>
-        Location: Houston, Texas
-      </li>
-      <li>
-        Book URL: <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://openstax.org/books/programming-python/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\">https://openstax.org/books/programming-python/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units</a>
-      </li>
-      <li>
-        Section URL: <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://openstax.org/books/programming-python/pages/test-page-1\\">https://openstax.org/books/programming-python/pages/test-page-1</a>
-      </li>
-    </ul>
-  </li>
-</ul>
+<p>
+  The information below includes the information needed to generate citations in most 
+  major styles (APA, MLA, etc.); you must reformat and organize the information as needed 
+  to fit the requirements of the style. Use the information below to generate a citation. 
+  We recommend using a citation tool such as
+  <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://www.lib.ncsu.edu/citationbuilder/#/default/default\\">this one</a>.
+</p>
+  <ul>
+    <li>
+      Authors: Bam Bammerson
+    </li>
+    <li>
+      Publisher/website: OpenStax
+    </li>
+    <li>
+      Book title: Test Book 1
+    </li>
+    <li>
+      Publication date: Jun 21, 2012
+    </li>
+    <li>
+      Location: Houston, Texas
+    </li>
+    <li>
+      Book URL: <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://openstax.org/books/programming-python/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\">https://openstax.org/books/programming-python/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units</a>
+    </li>
+    <li>
+      Section URL: <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://openstax.org/books/programming-python/pages/test-page-1\\">https://openstax.org/books/programming-python/pages/test-page-1</a>
+    </li>
+  </ul>
 
 <p>
   © Jun 21, 2012 The Michelson 20MM Foundation. <strong>The OpenStax name, OpenStax logo, OpenStax book covers, OpenStax CNX name, and OpenStax CNX logo, 
@@ -267,38 +265,36 @@ exports[`Attribution in browser renders default attribution 1`] = `
 </ul>
 
 <strong role=\\"heading\\" aria-level=\\"3\\">Citation information</strong>
-<ul>
-  <li>
-    The information below includes the information needed to generate citations in most 
-    major styles (APA, MLA, etc.); you must reformat and organize the information as needed 
-    to fit the requirements of the style. Use the information below to generate a citation. 
-    We recommend using a citation tool such as
-    <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://www.lib.ncsu.edu/citationbuilder/#/default/default\\">this one</a>.
-    <ul>
-      <li>
-        Authors: Bam Bammerson
-      </li>
-      <li>
-        Publisher/website: OpenStax
-      </li>
-      <li>
-        Book title: Test Book 1
-      </li>
-      <li>
-        Publication date: Jun 21, 2012
-      </li>
-      <li>
-        Location: Houston, Texas
-      </li>
-      <li>
-        Book URL: <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\">https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units</a>
-      </li>
-      <li>
-        Section URL: <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://openstax.org/books/book-slug-1/pages/test-page-1\\">https://openstax.org/books/book-slug-1/pages/test-page-1</a>
-      </li>
-    </ul>
-  </li>
-</ul>
+<p>
+  The information below includes the information needed to generate citations in most 
+  major styles (APA, MLA, etc.); you must reformat and organize the information as needed 
+  to fit the requirements of the style. Use the information below to generate a citation. 
+  We recommend using a citation tool such as
+  <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://www.lib.ncsu.edu/citationbuilder/#/default/default\\">this one</a>.
+</p>
+  <ul>
+    <li>
+      Authors: Bam Bammerson
+    </li>
+    <li>
+      Publisher/website: OpenStax
+    </li>
+    <li>
+      Book title: Test Book 1
+    </li>
+    <li>
+      Publication date: Jun 21, 2012
+    </li>
+    <li>
+      Location: Houston, Texas
+    </li>
+    <li>
+      Book URL: <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\">https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units</a>
+    </li>
+    <li>
+      Section URL: <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://openstax.org/books/book-slug-1/pages/test-page-1\\">https://openstax.org/books/book-slug-1/pages/test-page-1</a>
+    </li>
+  </ul>
 
 <p>
   © Jun 21, 2012 OpenStax. Textbook content produced by OpenStax is licensed under a Sweet License 1.0. <strong>The OpenStax name, OpenStax logo, OpenStax book covers, OpenStax CNX name, and OpenStax CNX logo, 
@@ -420,38 +416,36 @@ exports[`Attribution in browser renders special licensing and attribution for HS
 </ul>
 
 <strong role=\\"heading\\" aria-level=\\"3\\">Citation information</strong>
-<ul>
-  <li>
-    The information below includes the information needed to generate citations in most 
-    major styles (APA, MLA, etc.); you must reformat and organize the information as needed 
-    to fit the requirements of the style. Use the information below to generate a citation. 
-    We recommend using a citation tool such as
-    <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://www.lib.ncsu.edu/citationbuilder/#/default/default\\">this one</a>.
-    <ul>
-      <li>
-        Authors: Bam Bammerson
-      </li>
-      <li>
-        Publisher/website: OpenStax
-      </li>
-      <li>
-        Book title: Test Book 1
-      </li>
-      <li>
-        Publication date: Jun 21, 2012
-      </li>
-      <li>
-        Location: Houston, Texas
-      </li>
-      <li>
-        Book URL: <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\">https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units</a>
-      </li>
-      <li>
-        Section URL: <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://openstax.org/books/book-slug-1/pages/test-page-1\\">https://openstax.org/books/book-slug-1/pages/test-page-1</a>
-      </li>
-    </ul>
-  </li>
-</ul>
+<p>
+  The information below includes the information needed to generate citations in most 
+  major styles (APA, MLA, etc.); you must reformat and organize the information as needed 
+  to fit the requirements of the style. Use the information below to generate a citation. 
+  We recommend using a citation tool such as
+  <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://www.lib.ncsu.edu/citationbuilder/#/default/default\\">this one</a>.
+</p>
+  <ul>
+    <li>
+      Authors: Bam Bammerson
+    </li>
+    <li>
+      Publisher/website: OpenStax
+    </li>
+    <li>
+      Book title: Test Book 1
+    </li>
+    <li>
+      Publication date: Jun 21, 2012
+    </li>
+    <li>
+      Location: Houston, Texas
+    </li>
+    <li>
+      Book URL: <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\">https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units</a>
+    </li>
+    <li>
+      Section URL: <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://openstax.org/books/book-slug-1/pages/test-page-1\\">https://openstax.org/books/book-slug-1/pages/test-page-1</a>
+    </li>
+  </ul>
 
 <p>
   © Jun 21, 2012 Texas Education Agency (TEA). <strong>The OpenStax name, OpenStax logo, OpenStax book covers, OpenStax CNX name, and OpenStax CNX logo, 
@@ -571,38 +565,36 @@ exports[`Attribution in browser renders special licensing and attribution for In
 </ul>
 
 <strong role=\\"heading\\" aria-level=\\"3\\">Citation information</strong>
-<ul>
-  <li>
-    The information below includes the information needed to generate citations in most 
-    major styles (APA, MLA, etc.); you must reformat and organize the information as needed 
-    to fit the requirements of the style. Use the information below to generate a citation. 
-    We recommend using a citation tool such as
-    <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://www.lib.ncsu.edu/citationbuilder/#/default/default\\">this one</a>.
-    <ul>
-      <li>
-        Authors: Bam Bammerson
-      </li>
-      <li>
-        Publisher/website: OpenStax
-      </li>
-      <li>
-        Book title: Test Book 1
-      </li>
-      <li>
-        Publication date: Jun 21, 2012
-      </li>
-      <li>
-        Location: Houston, Texas
-      </li>
-      <li>
-        Book URL: <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\">https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units</a>
-      </li>
-      <li>
-        Section URL: <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://openstax.org/books/book-slug-1/pages/test-page-1\\">https://openstax.org/books/book-slug-1/pages/test-page-1</a>
-      </li>
-    </ul>
-  </li>
-</ul>
+<p>
+  The information below includes the information needed to generate citations in most 
+  major styles (APA, MLA, etc.); you must reformat and organize the information as needed 
+  to fit the requirements of the style. Use the information below to generate a citation. 
+  We recommend using a citation tool such as
+  <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://www.lib.ncsu.edu/citationbuilder/#/default/default\\">this one</a>.
+</p>
+  <ul>
+    <li>
+      Authors: Bam Bammerson
+    </li>
+    <li>
+      Publisher/website: OpenStax
+    </li>
+    <li>
+      Book title: Test Book 1
+    </li>
+    <li>
+      Publication date: Jun 21, 2012
+    </li>
+    <li>
+      Location: Houston, Texas
+    </li>
+    <li>
+      Book URL: <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\">https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units</a>
+    </li>
+    <li>
+      Section URL: <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://openstax.org/books/book-slug-1/pages/test-page-1\\">https://openstax.org/books/book-slug-1/pages/test-page-1</a>
+    </li>
+  </ul>
 
 <p>
   © Jun 21, 2012 The Michelson 20MM Foundation. <strong>The OpenStax name, OpenStax logo, OpenStax book covers, OpenStax CNX name, and OpenStax CNX logo, 
@@ -724,38 +716,36 @@ exports[`Attribution in browser renders special licensing and attribution for St
 </ul>
 
 <strong role=\\"heading\\" aria-level=\\"3\\">Citation information</strong>
-<ul>
-  <li>
-    The information below includes the information needed to generate citations in most 
-    major styles (APA, MLA, etc.); you must reformat and organize the information as needed 
-    to fit the requirements of the style. Use the information below to generate a citation. 
-    We recommend using a citation tool such as
-    <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://www.lib.ncsu.edu/citationbuilder/#/default/default\\">this one</a>.
-    <ul>
-      <li>
-        Authors: Bam Bammerson
-      </li>
-      <li>
-        Publisher/website: OpenStax
-      </li>
-      <li>
-        Book title: Test Book 1
-      </li>
-      <li>
-        Publication date: Jun 21, 2012
-      </li>
-      <li>
-        Location: Houston, Texas
-      </li>
-      <li>
-        Book URL: <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\">https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units</a>
-      </li>
-      <li>
-        Section URL: <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://openstax.org/books/book-slug-1/pages/test-page-1\\">https://openstax.org/books/book-slug-1/pages/test-page-1</a>
-      </li>
-    </ul>
-  </li>
-</ul>
+<p>
+  The information below includes the information needed to generate citations in most 
+  major styles (APA, MLA, etc.); you must reformat and organize the information as needed 
+  to fit the requirements of the style. Use the information below to generate a citation. 
+  We recommend using a citation tool such as
+  <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://www.lib.ncsu.edu/citationbuilder/#/default/default\\">this one</a>.
+</p>
+  <ul>
+    <li>
+      Authors: Bam Bammerson
+    </li>
+    <li>
+      Publisher/website: OpenStax
+    </li>
+    <li>
+      Book title: Test Book 1
+    </li>
+    <li>
+      Publication date: Jun 21, 2012
+    </li>
+    <li>
+      Location: Houston, Texas
+    </li>
+    <li>
+      Book URL: <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\">https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units</a>
+    </li>
+    <li>
+      Section URL: <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://openstax.org/books/book-slug-1/pages/test-page-1\\">https://openstax.org/books/book-slug-1/pages/test-page-1</a>
+    </li>
+  </ul>
 
 <p>
   © Jun 21, 2012 Texas Education Agency (TEA). <strong>The OpenStax name, OpenStax logo, OpenStax book covers, OpenStax CNX name, and OpenStax CNX logo, 
