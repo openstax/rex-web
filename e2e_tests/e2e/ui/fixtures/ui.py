@@ -85,21 +85,6 @@ async def chrome_page_unlogged():
 
 
 @pytest.fixture
-def abl_uuids_slugs():
-    """Returns dictionary of uuid:slug values of all collection entries in ABL api"""
-
-    uuids_slugs = {}
-
-    abl_url = "https://corgi.ce.openstax.org/api/abl/"
-    abl_dict = requests.get(abl_url).json()
-
-    for i in abl_dict:
-        uuids_slugs[i["uuid"]] = i["slug"]
-
-    return uuids_slugs
-
-
-@pytest.fixture
 def rex_user(request):
     """Return a rex username"""
     config = request.config
