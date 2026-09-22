@@ -3,7 +3,7 @@ export const defaultText = `
 <strong role="heading" aria-level="3">Ponowne wykorzystanie i redystrybucja tej treści w formacie cyfrowym lub drukowanym:</strong>
 <ul>
   <li>
-    Ten podręcznik nie może być wykorzystywany do trenowania dużych modeli językowych ani w żaden inny sposób przetwarzany przez duże modele językowe lub rozwiązania generatywnej sztucznej inteligencji bez uprzedniej pisemnej zgody OpenStax.
+    Ten podręcznik nie może być wykorzystywany do trenowania dużych modeli językowych ani w żaden inny sposób przetwarzany przez duże modele językowe lub rozwiązania generatywnej sztucznej inteligencji bez uprzedniej pisemnej zgody OpenStax Poland.
   </li>
   <li>
     Ten podręcznik jest wydany na licencji
@@ -13,15 +13,15 @@ export const defaultText = `
       other { Oryginalna publikacja jest dostępna na: <a target="_blank" rel="noopener" href="{originalMaterialLink}">
         {originalMaterialLink}
       </a>.}
-    }{copyrightHolder, select,
-      OpenStax {}
+    }{isOpenStaxCopyright, select,
+      true {}
       other { Wprowadzono modyfikacje oryginalnej publikacji, w tym aktualizacje ilustracji, struktury i treści.}}
   </li>
   <li>
-    Jakikolwiek komercyjny druk tego podręcznika, w tym z wykorzystaniem lokalnej lub niestandardowej drukarni, wymaga zgody OpenStax oraz podania odpowiedniego cytowania.
+    Jakikolwiek komercyjny druk tego podręcznika, w tym z wykorzystaniem lokalnej lub niestandardowej drukarni, wymaga zgody OpenStax Poland oraz podania odpowiedniego cytowania.
   </li>
   <li>
-    Obrazy, aktywności, testy i podobne elementy tego podręcznika objęte prawami autorskimi OpenStax podlegają tej samej licencji – CC-BY-NC-SA. Mogą być wykorzystywane w celach niekomercyjnych z uznaniem autorstwa. Użycie komercyjne wymaga zgody.
+    Obrazy, aktywności, testy i podobne elementy tego podręcznika objęte prawami autorskimi OpenStax Poland podlegają tej samej licencji – CC-BY-NC-SA. Mogą być wykorzystywane w celach niekomercyjnych z uznaniem autorstwa. Użycie komercyjne wymaga zgody.
   </li>
   <li>
     <strong>Prośby o zgodę:</strong> Każdy, kto zamierza włączyć tę treść (w tym tekst, obrazy i inne elementy) do dużych modeli językowych, wykorzystać ją w rozwiązaniach opartych na sztucznej inteligencji, użyć jej komercyjnie (w tym w druku) i/lub ma pytania dotyczące innego przypadku użycia, może skorzystać z naszego
@@ -48,41 +48,40 @@ Jeśli rozpowszechniasz całą książkę lub jej fragment w formacie cyfrowym w
 </ul>
 
 <strong> Cytowanie</strong>
+<p>
+  Poniższe informacje zawierają dane potrzebne do utworzenia cytowania w większości głównych stylów (APA, MLA itp.); musisz przeformatować i zorganizować te informacje zgodnie z wymaganiami danego stylu. Jeśli chcesz zacytować tę książkę, skorzystaj z dostępnych narzędzi do tworzenia wpisów bibliograficznych, jak np.:
+      <a target="_blank" rel="noopener" href="https://www.lib.ncsu.edu/citationbuilder/#/default/default">ten</a>.
+</p>
 <ul>
   <li>
-Poniższe informacje zawierają dane potrzebne do utworzenia cytowania w większości głównych stylów (APA, MLA itp.); musisz przeformatować i zorganizować te informacje zgodnie z wymaganiami danego stylu. Jeśli chcesz zacytować tę książkę, skorzystaj z dostępnych narzędzi do tworzenia wpisów bibliograficznych, jak np.:
-    <a target="_blank" rel="noopener" href="https://www.lib.ncsu.edu/citationbuilder/#/default/default">ten</a>.
-    <ul>
-      <li>
-    Autorzy: {bookAuthors}
-      </li>
-      <li>
-     Wydawca/strona internetowa: OpenStax Poland
-      </li>
-      <li>
-     Tytuł książki: {bookTitle}
-      </li>
-      <li>
-        Data publikacji: {bookPublishDate, date, medium}
-      </li>
-      <li>
-     Miejscowość: Warszawa
-      </li>
-      <li>
-     URL książki: <a href="https://openstax.org{introPageUrl}">https://openstax.org{introPageUrl}</a>
-      </li>
-      <li>
-      URL fragmentu: <a href="https://openstax.org{currentPath}">https://openstax.org{currentPath}</a>
-      </li>
-    </ul>
+Autorzy: {bookAuthors}
+  </li>
+  <li>
+  Wydawca/strona internetowa: OpenStax Poland
+  </li>
+  <li>
+  Tytuł książki: {bookTitle}
+  </li>
+  <li>
+    Data publikacji: {bookPublishDate, date, medium}
+  </li>
+  <li>
+  Miejscowość: Warszawa
+  </li>
+  <li>
+  URL książki: <a href="https://openstax.org{introPageUrl}">https://openstax.org{introPageUrl}</a>
+  </li>
+  <li>
+  URL fragmentu: <a href="https://openstax.org{currentPath}">https://openstax.org{currentPath}</a>
   </li>
 </ul>
 
 <p>
-  © {bookLatestRevision, date, medium} {copyrightHolder}. {copyrightHolder, select,
-    OpenStax {Treść książki została wytworzona przez OpenStax na licencji {bookLicenseName}{bookLicenseVersion}. }
-    other {}}<strong> Nazwa OpenStax, logo OpenStax, okładki OpenStax, nazwa OpenStax CNX oraz OpenStax CNX logo,
- jak również nazwa i logo Rice University oraz powiązane znaki towarowe i słowne, nie podlegają licencji Creative Commons
- i wykorzystanie ich jest dozwolone wyłącznie na mocy uprzedniego pisemnego upoważnienia przez Rice University.</strong>
+  © {bookLatestRevision, date, medium} {copyrightHolder}. {isOpenStaxCopyright, select,
+    true {Treść książki została wytworzona przez OpenStax na licencji {bookLicenseName}{bookLicenseVersion}. }
+    other {}}<strong> Nazwa OpenStax Poland i OpenStax, logo OpenStax Poland i OpenStax, okładki OpenStax Poland iOpenStax, 
+    nazwa OpenStax CNX oraz OpenStax CNX logo, jak również nazwa i logo Rice University oraz powiązane znaki towarowe i słowne, 
+    nie podlegają licencji Creative Commons i wykorzystanie ich jest dozwolone wyłącznie na mocy uprzedniego pisemnego 
+    upoważnienia przez Rice University.</strong>
 </p>
 `;
