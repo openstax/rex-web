@@ -58,29 +58,29 @@ export const defaultText = `
   We recommend using a citation tool such as
   <a target="_blank" rel="noopener" href="https://www.lib.ncsu.edu/citationbuilder/#/default/default">this one</a>.
 </p>
-  <ul>
-    <li>
-      Authors: {bookAuthors}
-    </li>
-    <li>
-      Publisher/website: OpenStax
-    </li>
-    <li>
-      Book title: {bookTitle}
-    </li>
-    <li>
-      Publication date: {bookPublishDate, date, medium}
-    </li>
-    <li>
-      Location: Houston, Texas
-    </li>
-    <li>
-      Book URL: <a target="_blank" rel="noopener" href="https://openstax.org{introPageUrl}">https://openstax.org{introPageUrl}</a>
-    </li>
-    <li>
-      Section URL: <a target="_blank" rel="noopener" href="https://openstax.org{currentPath}">https://openstax.org{currentPath}</a>
-    </li>
-  </ul>
+<ul>
+  <li>
+    Authors: {bookAuthors}
+  </li>
+  <li>
+    Publisher/website: OpenStax
+  </li>
+  <li>
+    Book title: {bookTitle}
+  </li>
+  <li>
+    Publication date: {bookPublishDate, date, medium}
+  </li>
+  <li>
+    Location: Houston, Texas
+  </li>
+  <li>
+    Book URL: <a target="_blank" rel="noopener" href="https://openstax.org{introPageUrl}">https://openstax.org{introPageUrl}</a>
+  </li>
+  <li>
+    Section URL: <a target="_blank" rel="noopener" href="https://openstax.org{currentPath}">https://openstax.org{currentPath}</a>
+  </li>
+</ul>
 
 <p>
   © {bookLatestRevision, date, medium} {copyrightHolder}. {isOpenStaxCopyright, select,
