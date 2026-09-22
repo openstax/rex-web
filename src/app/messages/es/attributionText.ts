@@ -12,8 +12,8 @@ export const defaultText = `
       other { El material original está disponible en: <a target="_blank" rel="noopener" href="{originalMaterialLink}">
         {originalMaterialLink}
       </a>.}
-    }{copyrightHolder, select,
-      OpenStax {}
+    }{isOpenStaxCopyright, select,
+      true {}
       other { Se realizaron cambios en el material original, incluidas actualizaciones de arte, estructura y otras actualizaciones de contenido.}}
   </li>
   <li>
@@ -47,40 +47,38 @@ export const defaultText = `
 </ul>
 
 <strong>Información sobre citas</strong>
+<p>
+  La siguiente información incluye los detalles necesarios para crear una cita utilizando los estilos principales (APA, MLA, etc.). Debe reformatear y organizar la información según sea necesario para cumplir con los requisitos del estilo. Utilice la información que aparece a continuación para generar una cita. Recomendamos utilizar una
+  herramienta de citas como
+  <a target="_blank" rel="noopener" href="https://www.lib.ncsu.edu/citationbuilder/#/default/default">this one</a>.
+</p>
 <ul>
   <li>
-    La siguiente información incluye los detalles necesarios para crear una cita utilizando los estilos principales (APA, MLA, etc.). Debe reformatear y organizar la información según sea necesario para cumplir con los requisitos del estilo. Utilice la información que aparece a continuación para generar una cita. Recomendamos utilizar una
-    herramienta de citas como
-    <a target="_blank" rel="noopener" href="https://www.lib.ncsu.edu/citationbuilder/#/default/default">this one</a>.
-    <ul>
-      <li>
-        Autores: {bookAuthors}
-      </li>
-      <li>
-        Editorial/sitio web: OpenStax
-      </li>
-      <li>
-        Título del libro: {bookTitle}
-      </li>
-      <li>
-        Fecha de publicación: {bookPublishDate, date, medium}
-      </li>
-      <li>
-        Ubicación: Houston, Texas
-      </li>
-      <li>
-        URL del libro: <a href="https://openstax.org{introPageUrl}">https://openstax.org{introPageUrl}</a>
-      </li>
-      <li>
-        URL de la sección: <a href="https://openstax.org{currentPath}">https://openstax.org{currentPath}</a>
-      </li>
-    </ul>
+    Autores: {bookAuthors}
+  </li>
+  <li>
+    Editorial/sitio web: OpenStax
+  </li>
+  <li>
+    Título del libro: {bookTitle}
+  </li>
+  <li>
+    Fecha de publicación: {bookPublishDate, date, medium}
+  </li>
+  <li>
+    Ubicación: Houston, Texas
+  </li>
+  <li>
+    URL del libro: <a href="https://openstax.org{introPageUrl}">https://openstax.org{introPageUrl}</a>
+  </li>
+  <li>
+    URL de la sección: <a href="https://openstax.org{currentPath}">https://openstax.org{currentPath}</a>
   </li>
 </ul>
 
 <p>
-  © {bookLatestRevision, date, medium} {copyrightHolder}. {copyrightHolder, select,
-    OpenStax {El contenido de los libros de texto que produce OpenStax tiene una licencia de {bookLicenseName}{bookLicenseVersion}. }
+  © {bookLatestRevision, date, medium} {copyrightHolder}. {isOpenStaxCopyright, select,
+    true {El contenido de los libros de texto que produce OpenStax tiene una licencia de {bookLicenseName}{bookLicenseVersion}. }
     other {}}<strong>El nombre de OpenStax, el logotipo de OpenStax, las portadas de libros de OpenStax, el nombre de OpenStax CNX y el logotipo de OpenStax CNX, así como el nombre y el logotipo de Rice University (incluidas sus marcas denominativas), no están sujetos a la licencia de Creative Commons y no se pueden reproducir sin el previo y expreso consentimiento por escrito de Rice University.</strong>
 </p>
 `;
