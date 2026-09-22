@@ -112,7 +112,7 @@ function getAttributionValues(book: BookWithOSWebData, page: Page) {
 
   const authorsToDisplay = getAuthors(book);
 
-  return {
+  const values = {
     bookAuthors: authorsToDisplay.map(({value: {name}}) => name).join(', '),
     bookLatestRevision,
     bookLicenseName: book.license.name,
@@ -128,6 +128,12 @@ function getAttributionValues(book: BookWithOSWebData, page: Page) {
     originalMaterialLink: null,
     permissionRequestUrl: 'https://openstax.org/r/content-reuse-request',
     ...bookIdsWithSpecialAttributionText[book.id] || {},
+  };
+
+  return {
+    ...values,
+    isOpenStaxCopyright: values.copyrightHolder === 'OpenStax' || values.copyrightHolder === 'OpenStax Poland'
+      ? 'true' : 'false',
   };
 }
 
