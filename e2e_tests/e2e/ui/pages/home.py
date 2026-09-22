@@ -250,12 +250,14 @@ class HomeRex:
     @property
     def highlights_option_text_colour_check_purple(self):
         return self.page.locator(".highlight-content-wrapper").filter(
-    has_text="notepurple")
+            has_text="notepurple"
+        )
 
     @property
     def highlights_option_text_colour_check_green(self):
         return self.page.locator(".highlight-content-wrapper").filter(
-    has_text="notegreen")
+            has_text="notegreen"
+        )
 
     @pytest.mark.asyncio
     async def small_highlighted_note_box_is_visible(self):
@@ -390,6 +392,28 @@ class HomeRex:
         await self.page.locator("div").get_by_test_id("search-result").get_by_text(
             "about the Sun (88"
         ).click()
+
+    # Citation and Attribution
+
+    async def click_citation_attribution_dropdown(self):
+        citation_locator = self.page.get_by_label("Citation/Attribution")
+        await citation_locator.scroll_into_view_if_needed()
+        await citation_locator.click()
+
+    async def citation_attribution_heading_is_visible(self, heading_name: str):
+        citation_locator = self.page.get_by_role("heading", name=heading_name, level=3)
+        await citation_locator.scroll_into_view_if_needed()
+        return await citation_locator.is_visible()
+
+    @property
+    def citation_attribution_locator(self):
+        return self.page.get_by_test_id("attribution-details")
+
+    @property
+    def citation_attribution_paragraphs(self):
+        # Get all li elements within the attribution details
+        li_items = self.citation_attribution_locator.locator("li")
+        return li_items
 
     # Clears blockers/overlays
 
