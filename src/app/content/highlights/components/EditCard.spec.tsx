@@ -585,6 +585,43 @@ describe('EditCard', () => {
       cleanup();
     });
 
+    it('hideCardEvent leaves edit mode for an annotated highlight, not just focus', () => {
+      // Escape in an emptied textarea makes Note announce hideCardEvent. LoginOrEdit renders the
+      // form whenever the highlight has a saved annotation, regardless of shouldFocusCard, so
+      // moving focus alone left the form open and the next Tab routed straight back into it.
+      highlight.getStyle.mockReturnValue('red');
+      const data = { ...highlightData, annotation: 'qwer' };
+
+      const { component, cleanup } = renderAuthenticatedEditCard({
+        ...editCardProps,
+        data,
+        isActive: true,
+      });
+
+      // Flush mount effects so the hideCardEvent listener is registered.
+      renderer.act(() => undefined);
+
+      // Editing starts active for an annotated highlight, so Save/Cancel are rendered.
+      expect(component.root.findAllByType('button').length).toBe(2);
+
+      renderer.act(() => {
+        assertDocument().dispatchEvent(new CustomEvent('hideCardEvent', { bubbles: true }));
+      });
+
+      expect(editCardProps.onCancel).toHaveBeenCalled();
+      expect(component.root.findAllByType('button').length).toBe(0);
+
+      // Unmounting detaches the listener, so a later event cannot reach a dead component.
+      (editCardProps.onCancel as jest.Mock).mockClear();
+      renderer.act(() => component.unmount());
+      renderer.act(() => {
+        assertDocument().dispatchEvent(new CustomEvent('hideCardEvent', { bubbles: true }));
+      });
+      expect(editCardProps.onCancel).not.toHaveBeenCalled();
+
+      cleanup();
+    });
+
     it('cancelling resets the form state', () => {
       highlight.getStyle.mockReturnValue('red');
       const data = {
@@ -607,6 +644,11 @@ describe('EditCard', () => {
       // Assign the ref with focus spy
       (note.props.textareaRef as any).current = textarea;
       const spyTextareaFocus = jest.spyOn(textarea, 'focus');
+      // The textarea must be in the document for the bubbling hideCardEvent to reach it.
+      assertDocument().body.appendChild(textarea);
+      const hideCardEvents: string[] = [];
+      const hideCardListener = () => hideCardEvents.push('hideCardEvent');
+      assertDocument().addEventListener('hideCardEvent', hideCardListener);
 
       renderer.act(() => {
         note.props.onChange('asdf');
@@ -616,7 +658,7 @@ describe('EditCard', () => {
       expect(note.props.note).toBe('asdf');
 
       const cancel = findByTestId('cancel');
-      
+
       renderer.act(() => {
         cancel.props.onClick({ preventDefault: jest.fn() });
       });
@@ -624,10 +666,45 @@ describe('EditCard', () => {
       expect(note.props.note).toBe('qwer');
       expect(editCardProps.onBlur).not.toHaveBeenCalled();
       expect(component.root.findAllByType('button').length).toBe(0);
-      expect(spyTextareaFocus).toHaveBeenCalled();
+      // Cancelling must not focus the textarea: setEditing(false) unmounts it, so focus would fall
+      // to <body> and the Tab router would lose its boundary. It announces the close instead, and
+      // CardWrapper returns focus to the highlight.
+      expect(spyTextareaFocus).not.toHaveBeenCalled();
+      expect(hideCardEvents).toEqual(['hideCardEvent']);
+
+      assertDocument().removeEventListener('hideCardEvent', hideCardListener);
+      textarea.remove();
       cleanup();
     });
 
+  });
+
+  describe('Tab trapping', () => {
+    const trapMarkers = (component: renderer.ReactTestRenderer) =>
+      component.root.findAll((node) => node.props['data-editing'] === 'true');
+
+    it('marks an existing highlight open edit form as trap-controlled', () => {
+      const { component, cleanup } = renderAuthenticatedEditCard({
+        ...editCardProps,
+        shouldFocusCard: true,
+      });
+
+      // The data-editing marker tells CardWrapper's Tab-routing to step aside so the trap can
+      // cycle the form's controls (color picker, trash, note), instead of routing focus out.
+      expect(trapMarkers(component)).toHaveLength(1);
+      cleanup();
+    });
+
+    it('does not mark a new selection create form', () => {
+      const { component, cleanup } = renderAuthenticatedEditCard({
+        ...editCardProps,
+        highlight: { ...highlight, elements: [] } as unknown as Highlight,
+        shouldFocusCard: true,
+      });
+
+      expect(trapMarkers(component)).toHaveLength(0);
+      cleanup();
+    });
   });
 
   describe('Event Handling', () => {
@@ -691,11 +768,16 @@ describe('EditCard', () => {
       const preventDefault = jest.fn();
       document!.dispatchEvent = jest.fn();
 
-      // Two branches of showCard - must be mousedown of button 0
+      // mousedown only preserves the live selection (preventDefault on primary button);
+      // it no longer dispatches, so the selection isn't collapsed before activation.
       ReactTestUtils.Simulate.mouseDown(button, { preventDefault, button: 1 });
       expect(preventDefault).not.toHaveBeenCalled();
       ReactTestUtils.Simulate.mouseDown(button, { preventDefault, button: 0 });
       expect(preventDefault).toHaveBeenCalled();
+      expect(document!.dispatchEvent).not.toHaveBeenCalled();
+
+      // activation happens on click, which fires for mouse and keyboard (Enter/Space) alike
+      ReactTestUtils.Simulate.click(button);
       expect(document!.dispatchEvent).toHaveBeenCalled();
 
       cleanup();
