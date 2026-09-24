@@ -20,4 +20,9 @@ export HTTPS=${HTTPS:-true}
 export BROWSER=none
 export DISABLE_NEW_JSX_TRANSFORM=true
 
+# webpack 4 (via react-scripts 4) hashes with md4, which OpenSSL 3 removed, so
+# node >= 17 cannot run it without re-enabling the legacy provider. Remove this
+# once we are on react-scripts 5 / webpack 5 (CORE-2854).
+export NODE_OPTIONS="${NODE_OPTIONS:-} --openssl-legacy-provider"
+
 yarn craco start
