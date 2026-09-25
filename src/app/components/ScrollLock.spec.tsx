@@ -167,10 +167,6 @@ describe('MobileScrollLock', () => {
       resetModules();
       ({React, renderToDom, renderer} = reactAndFriends());
 
-      const styled = require('styled-components');
-      // this is broken when unmounting without a dom
-      styled.createGlobalStyle = () => () => null;
-
       MobileScrollLock = require('./ScrollLock').default;
     });
 
