@@ -1130,7 +1130,7 @@ Use this checklist when migrating additional components from styled-components t
 - [ ] Test className composition
 - [ ] Test style prop merging
 - [ ] Test props spreading
-- [ ] Verify tests run with correct Node version (14.x for rex-web)
+- [ ] Verify tests run with correct Node version (see `.nvmrc`)
 
 ### Code Quality
 - [ ] Eliminate code duplication (consider base components)
