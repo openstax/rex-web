@@ -12,6 +12,11 @@ Array [
     <div
       aria-live="polite"
       className="toast-container elevated-toast-container"
+      style={
+        Object {
+          "--toast-container-z-index": 40,
+        }
+      }
     />
   </div>,
   <div
@@ -163,6 +168,11 @@ Array [
     <div
       aria-live="polite"
       className="toast-container elevated-toast-container"
+      style={
+        Object {
+          "--toast-container-z-index": 40,
+        }
+      }
     />
   </div>,
   <div
