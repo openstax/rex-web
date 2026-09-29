@@ -1,10 +1,5 @@
 /**
- * Projection from the JS theme data to CSS custom properties.
- *
- * `theme.css` is generated from this, not hand-written — run
- * `yarn generate:theme-css` after changing anything in `themeData.ts`.
- * `theme.spec.ts` asserts the committed file matches this output exactly, so a
- * missing token, an orphan token and a stale value all fail the same way.
+ * Projection from the JS theme data to the CSS custom properties in `theme.css`.
  */
 import { color, padding, zIndex } from './themeData';
 
@@ -56,10 +51,8 @@ const flatten = (source: object, prefix: string[]): Array<[string, string]> =>
   }, []);
 
 /**
- * The tokens `theme.css` declares, in the order they are written.
- *
- * `--color-link` rather than `--color-link-base` is the one special case: the
- * bare name reads better at the call site and matches ui-components.
+ * The tokens `theme.css` declares, in the order they are written. `--color-link` drops
+ * its `-base` to match ui-components.
  */
 export const themeTokens = (): Array<[string, string]> => [
   ...flatten(color, ['color']).map(([name, value]): [string, string] =>

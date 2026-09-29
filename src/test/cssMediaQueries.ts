@@ -1,17 +1,7 @@
 /**
  * The widths a stylesheet's media queries test, for the breakpoint check in
- * src/app/theme.spec.ts.
- *
- * Its own module rather than a regex in the spec because there are two spellings of
- * the same query and both have to be read. `(max-width: 74em)` is the legacy form;
- * `(width <= 74em)` and `(30em < width < 74em)` are the range forms from Media Queries
- * 4, which this repo's stylelint config supports (`media-feature-range-operator-*` in
- * .stylelintrc.css.json). A check that only understood the colon form would let the
- * mistyped breakpoint it exists to catch through in the other syntax.
- *
- * The values are parsed rather than pattern-matched for the same reason. A dimension
- * is a complete CSS `<number>` and its unit, so `7.4e1em` is 74em and not 1em, and a
- * `calc()` is one endpoint rather than a loose collection of the lengths inside it.
+ * src/app/theme.spec.ts. Parsed rather than pattern-matched, so both the colon and
+ * range syntaxes are read, `7.4e1em` is 74em, and a `calc()` is one endpoint.
  */
 
 import { stripNoise } from './cssColors';
@@ -52,15 +42,8 @@ const LEADING_NUMBER = new RegExp(`^${NUMBER}`, 'i');
 const IS_UNIT = /^(?:[a-z]+|%)?$/;
 
 /**
- * `rem` is `em` in a media query. Inside one, both resolve against the initial value
- * of `font-size` rather than against any element -- there is no element to be
- * relative to -- so `(max-width: 74rem)` and `(max-width: 74em)` match at exactly the
- * same width (Media Queries 4 §1.3). Folding it in means the theme's breakpoints are
- * audited in either spelling, instead of `rem` being a way to write the typo.
- *
- * `px` is not folded in: it is the same length whatever the initial font size is, so
- * comparing it to `75em` would mean assuming that size -- usually 16px, but the user
- * decides.
+ * `rem` is `em` in a media query (Media Queries 4 §1.3). `px` is not folded in:
+ * comparing it to `75em` would mean assuming the user's initial font size.
  */
 const EM_EQUIVALENT: {[unit: string]: string} = {em: 'em', rem: 'em'};
 

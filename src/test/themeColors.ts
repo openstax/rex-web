@@ -69,12 +69,7 @@ export const tokenChoices = (tokens: string[]): string => tokens.length < 2
   ? tokens.join('')
   : `${tokens.slice(0, -1).join(', ')} or ${tokens[tokens.length - 1]}`;
 
-/**
- * Colors that are deliberately not theme values, so they are never reported as
- * unrecognised. Each entry needs a reason: a color only belongs here if snapping it
- * to the nearest palette entry would be a visual change, which is a design decision
- * rather than a refactor.
- */
+/** Deliberate off-palette colors, each keyed to the reason it is not a theme value. */
 export const KNOWN_OFF_PALETTE: {[key: string]: string} = {};
 
 export const stylesheetFiles = (srcDir: string): string[] => {
@@ -116,19 +111,9 @@ export interface ColorViolations {
 }
 
 /**
- * How a color occurrence is identified in the baseline.
- *
- * File and literal alone are not enough: two `#fff`s in one file would be
- * interchangeable, so deleting one and writing a new one somewhere else in that file
- * would leave the sorted baseline unchanged and slip a fresh hardcoded color past the
- * ratchet. Naming the selector and property pins each occurrence to the declaration it
- * was written in.
- *
- * Deliberately not a line number, which would be a stricter identity but would also
- * churn the baseline every time an unrelated rule is inserted above one — and a
- * baseline regenerated for an unrelated reason is exactly where a new color hides.
- * What is left uncaught is a literal moving between two declarations that share a file,
- * a selector and a property, which is to say the same declaration written twice.
+ * How a color occurrence is identified in the baseline (see
+ * PLAIN_CSS_MIGRATION_GUIDE.md, Pattern 2.5). Not a line number, which would churn the
+ * baseline whenever an unrelated rule is inserted above one.
  */
 const occurrence = (file: string, found: StylesheetColor) =>
   `${file}: ${found.context} { ${found.property}: ${found.literal} }`;
