@@ -9,12 +9,7 @@ import { stripNoise } from '@openstax/ui-components/theme/cssColors';
 export interface MediaWidth {
   /** the feature as written, whitespace-collapsed: `(30em < width < 74em)` */
   query: string;
-  /**
-   * One endpoint of it, in em -- a double-ended range yields one entry per endpoint --
-   * or `null` when the endpoint could not be resolved to a single length. The spec
-   * reports `null` rather than skipping it: an expression this cannot evaluate could
-   * be hiding the mistyped breakpoint the check exists to catch.
-   */
+  /** one endpoint in em (a range gives one per end), or `null` if it cannot be resolved */
   size: number | null;
 }
 
@@ -24,18 +19,9 @@ interface Length {
 }
 
 /**
- * The CSS `<number>` grammar, the same language the color engine matches, with the two
- * alternatives swapped. There the pattern is anchored at both ends, so their order
- * cannot matter; here it matches a prefix, and `\d+` first would take the `74` of
- * `74.5em` and leave `.5em` behind as the unit. Longest alternative first.
- *
- * Copied rather than imported because it is an internal of
- * @openstax/ui-components/theme/cssColors, whose exports are the audit surface rather
- * than its grammars.
- *
- * The exponent is the part that matters here. `[\d.]+em` reads `7.4e1em` as the `1em`
- * at its tail -- a valid spelling of 74em read as 1em, so a mistyped breakpoint would
- * sit 1em from nothing and pass.
+ * A CSS number, including decimals and exponents (`74.5`, `7.4e1`). The decimal form is
+ * tried first so `74.5em` is not read as `74` followed by `.5em`. Copied from the
+ * ui-components color parser, which does not export it.
  */
 const NUMBER = '[+-]?(?:\\d*\\.\\d+|\\d+)(?:e[+-]?\\d+)?';
 const LEADING_NUMBER = new RegExp(`^${NUMBER}`, 'i');
@@ -48,14 +34,8 @@ const IS_UNIT = /^(?:[a-z]+|%)?$/;
 const EM_EQUIVALENT: {[unit: string]: string} = {em: 'em', rem: 'em'};
 
 /**
- * The text between `@media` and the `{` that opens its block, for every media rule,
- * at any nesting depth. Reading the prelude rather than scanning the whole stylesheet
- * is what keeps declaration values out: `--page-width: 74em` and
- * `var(--width, 74em)` are not breakpoints, and a bare regex for `width` and an `em`
- * would report both.
- *
- * A prelude that never opens a block -- the end of the file, or a stray `;` -- ends
- * there rather than swallowing the rest of the stylesheet.
+ * The text between each `@media` and its `{`. Only this is read, so declarations like
+ * `--page-width: 74em` are not mistaken for breakpoints.
  */
 const preludes = (css: string): string[] => {
   const found: string[] = [];
@@ -73,10 +53,8 @@ const preludes = (css: string): string[] => {
 };
 
 /**
- * The parenthesised media features in a prelude. Parens are balanced rather than
- * matched to the next `)`, so a feature whose value is itself a function --
- * `(min-width: calc(49em + 1em))` -- is read as one feature instead of being cut in
- * half at the inner paren.
+ * The parenthesised features in a prelude, keeping nested parens whole so that
+ * `(min-width: calc(49em + 1em))` is one feature.
  */
 const features = (prelude: string): string[] => {
   const found: string[] = [];
@@ -97,13 +75,8 @@ const features = (prelude: string): string[] => {
 };
 
 /**
- * The value expressions in a feature: each dimension, and each function call whole.
- *
- * The feature name, the comparison operators and the colon are not values, so a
- * `width`, a `<=` or a `min-` prefix is stepped over rather than read. A function is
- * taken with its arguments so that `calc(49em + 1em)` reaches `resolve` as one
- * endpoint -- reading the lengths inside it separately is what reported that query as
- * 49em and 1em, and then failed it for the 49.
+ * The values in a feature: each number with its unit, and each function call whole.
+ * Feature names, operators and colons are skipped.
  */
 const values = (feature: string): string[] => {
   const found: string[] = [];
@@ -142,17 +115,9 @@ const values = (feature: string): string[] => {
 };
 
 /**
- * A `calc()` body, when it is a sum of lengths that share a unit: `calc(49em + 1em)`
- * is 50em, which is a theme breakpoint exactly and must not be reported.
- *
- * Splitting on the operators is safe because CSS requires whitespace around `+` and
- * `-` inside `calc()`, so neither can be confused with a signed number or an
- * exponent's sign.
- *
- * Anything else is `null`, which the spec reports rather than skips: nested parens,
- * multiplication, a mix of units, or a term that is not a length. Evaluating the
- * general case would be a `calc()` implementation, and guessing at it is how the
- * check would come to pass something it had not understood.
+ * Evaluates a `calc()` that adds or subtracts lengths in one unit: `calc(49em + 1em)`
+ * is 50em. Anything else (nesting, multiplication, mixed units) is `null`. CSS requires
+ * spaces around `+` and `-` in `calc()`, so splitting on them is safe.
  */
 const calcLength = (body: string): Length | null => {
   if (/[()]/.test(body)) { return null; }
@@ -175,14 +140,8 @@ const calcLength = (body: string): Length | null => {
 };
 
 /**
- * A value expression as a length, or `null` when it is not one this understands.
- *
- * The unit has to be an identifier on its own: `74em * 2` leaves `* 2` behind, which
- * is a multiplication rather than a unit, and reading it as an em length would
- * silently accept an endpoint nobody had computed.
- *
- * A hoisted declaration rather than a `const`, because it and `calcLength` call each
- * other: a `calc()` term is itself a value.
+ * A value as a length, or `null` if it is not a plain length or a `calc()` sum.
+ * Declared as a function because it and `calcLength` call each other.
  */
 function resolve(value: string): Length | null {
   const text = value.trim();
@@ -198,22 +157,14 @@ function resolve(value: string): Length | null {
   const written = text.slice(number[0].length).toLowerCase();
   if (!IS_UNIT.test(written)) { return null; }
 
-  // normalised here rather than at the end, so that the terms of
-  // `calc(74rem + 1em)` are seen to share a unit and the sum resolves.
+  // rem becomes em here so that `calc(74rem + 1em)` adds up
   return {size: parseFloat(number[0]), unit: EM_EQUIVALENT[written] || written};
 }
 
 /**
- * Every width endpoint of every media query in a stylesheet, in source order.
- *
- * A feature counts when it names `width` -- so `min-width`, `max-width`, plain `width`
- * in a range, and the deprecated `device-width` spellings -- and each of its value
- * expressions is an endpoint, which is what gets both ends of `(30em < width < 74em)`.
- *
- * Endpoints are reported in em, `rem` included, since the two are the same unit in a
- * media query -- see `EM_EQUIVALENT`. An endpoint in any other unit is dropped rather
- * than reported: `75em` against `1200px` is a comparison this cannot make without
- * assuming an initial font size. There are none in `src/**` today.
+ * Every width endpoint of every media query in a stylesheet, in em. Covers `min-width`,
+ * `max-width`, `device-width` and both ends of a range like `(30em < width < 74em)`.
+ * Endpoints in other units, such as px, are skipped.
  */
 export const mediaWidths = (css: string): MediaWidth[] => {
   const found: MediaWidth[] = [];

@@ -1,10 +1,4 @@
-/**
- * Only the policy half is tested here. The parsing engine's own cases live with the
- * engine, in @openstax/ui-components, so that the published surface is the tested
- * surface -- src/test/cssColors.spec.ts was the second copy of those assertions, and it
- * would have drifted the way the second copy of the code did. `colorKey` and
- * `describeColor` are imported only to build the keys the index is read by.
- */
+// The CSS parser is tested in @openstax/ui-components; these cover REX's side only.
 
 import { colorKey, describeColor } from '@openstax/ui-components/theme/cssColors';
 import { themeColorIndex, tokenChoices } from './themeColors';
@@ -25,9 +19,6 @@ describe('tokenChoices', () => {
 });
 
 describe('themeColorIndex', () => {
-  // The index the duplicate check reads its suggestions out of. It used to hold one
-  // token per color, so whichever came last in the projection was named as *the*
-  // replacement -- see the note on themeColorIndex for the misattributions that caused.
   it('keeps every token that carries a color, not just the last one', () => {
     const black = themeColorIndex()[colorKey(describeColor('#000')!)];
 
@@ -49,7 +40,6 @@ describe('themeColorIndex', () => {
   });
 
   it('leads with the least qualified name, so #fff offers --color-white first', () => {
-    // projection order buried it last behind nine *-foreground tokens
     expect(themeColorIndex()[colorKey(describeColor('#fff')!)][0]).toEqual('--color-white');
   });
 
