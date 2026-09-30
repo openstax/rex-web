@@ -148,9 +148,6 @@ export const BarWrapper = React.forwardRef<HTMLDivElement, BarWrapperProps>(
         )})`
       : undefined;
 
-    const zIndexBig = theme.zIndex.navbar - 1;
-    const zIndexMini = theme.zIndex.navbar - 2;
-
     return (
       <div
         {...props}
@@ -169,8 +166,6 @@ export const BarWrapper = React.forwardRef<HTMLDivElement, BarWrapperProps>(
           '--banner-desktop-mini-height': `${bookBannerDesktopMiniHeight}rem`,
           '--banner-mobile-big-height': `${bookBannerMobileBigHeight}rem`,
           '--banner-mobile-mini-height': `${bookBannerMobileMiniHeight}rem`,
-          '--z-index-big': zIndexBig,
-          '--z-index-mini': zIndexMini,
           '--max-nav-width': `${maxNavWidth}rem`,
           ...style,
         } as React.CSSProperties}

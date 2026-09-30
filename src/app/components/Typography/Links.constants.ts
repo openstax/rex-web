@@ -1,15 +1,9 @@
 /**
- * Link Color Constants
- *
- * Single source of truth for link colors used across Typography components.
- * These constants are:
- * - Imported by Button.tsx (ButtonLink component) and bound as CSS variables
- * - Imported by Typography.legacy.ts for styled-components css fragments
- * - Imported by NavBar/index.tsx for focus outline color
- *
+ * Link colors for JS consumers, re-exported from `app/themeData`.
  * This module has no side effects (no React, no CSS imports).
  */
+import { linkColors } from '../../themeData';
 
-export const linkColor = '#027EB5';
-export const linkHover = '#0064A0';
-export const linkFocusOutline = '#007297';
+export const linkColor = linkColors.base;
+export const linkHover = linkColors.hover;
+export const linkFocusOutline = linkColors.focusOutline;
