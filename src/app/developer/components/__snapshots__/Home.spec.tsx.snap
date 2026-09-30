@@ -734,7 +734,15 @@ Array [
                   Privacy Policy
                 </a>
               </li>
-              <li />
+              <li>
+                <style
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": ".cky-btn-revisit-wrapper.cky-btn-revisit-wrapper, .cky-btn-revisit { display: none; }",
+                    }
+                  }
+                />
+              </li>
             </menu>
           </div>
         </div>

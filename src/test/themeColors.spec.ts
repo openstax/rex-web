@@ -1,4 +1,6 @@
-import { colorKey, describeColor } from './cssColors';
+// The CSS parser is tested in @openstax/ui-components; these cover REX's side only.
+
+import { colorKey, describeColor } from '@openstax/ui-components/theme/cssColors';
 import { themeColorIndex, tokenChoices } from './themeColors';
 
 describe('tokenChoices', () => {
@@ -17,9 +19,6 @@ describe('tokenChoices', () => {
 });
 
 describe('themeColorIndex', () => {
-  // The index the duplicate check reads its suggestions out of. It used to hold one
-  // token per color, so whichever came last in the projection was named as *the*
-  // replacement -- see the note on themeColorIndex for the misattributions that caused.
   it('keeps every token that carries a color, not just the last one', () => {
     const black = themeColorIndex()[colorKey(describeColor('#000')!)];
 
@@ -41,7 +40,6 @@ describe('themeColorIndex', () => {
   });
 
   it('leads with the least qualified name, so #fff offers --color-white first', () => {
-    // projection order buried it last behind nine *-foreground tokens
     expect(themeColorIndex()[colorKey(describeColor('#fff')!)][0]).toEqual('--color-white');
   });
 
