@@ -150,7 +150,6 @@
     "app/content/highlights/components/HighlightStyles.css: .sticky-note { box-shadow: rgba(0, 0, 0, 1) }",
     "app/content/highlights/components/HighlightStyles.css: .sticky-note-bullet::after { box-shadow: rgba(0, 0, 0, 1) }",
     "app/content/highlights/components/Note.css: .note-label { color: #027eb5 }",
-    "app/content/highlights/components/Note.css: .note-textarea { border: #d5d5d5 }",
     "app/content/highlights/components/Note.css: .note-textarea { color: #6f6f6f }",
     "app/content/highlights/components/ShowMyHighlightsStyles.css: @media print .show-my-highlights-body { background: white }",
     "app/content/highlights/components/SummaryPopup/HighlightDeleteWrapper.css: .highlight-delete-wrapper span { color: #fff }",

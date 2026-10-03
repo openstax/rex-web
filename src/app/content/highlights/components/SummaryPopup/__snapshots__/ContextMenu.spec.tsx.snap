@@ -91,6 +91,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
         <li>
           <div
             className="color-picker-wrapper"
+            data-size="small"
           >
             <fieldset
               className="color-picker "
@@ -106,7 +107,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
               tabIndex={0}
             >
               <legend>
-                Choose highlight color
+                Highlight color
               </legend>
               <label
                 aria-label="Apply yellow highlight"

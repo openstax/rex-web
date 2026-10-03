@@ -71,11 +71,12 @@ function nextIdx(idx: number, itemCount: number, key: NavKeys) {
   return idx;
 }
 
-const FSWrapper = ({children}: {children: React.ReactNode}) => (
-  <div className="color-picker-wrapper">{children}</div>
+const FSWrapper = ({size, children}: {size: Props['size'], children: React.ReactNode}) => (
+  <div className="color-picker-wrapper" data-size={size}>{children}</div>
 );
 
 const ColorPicker = ({className, ...props}: Props) => {
+  const intl = useIntl();
   const ref = React.useRef<HTMLDivElement>(null);
   // https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/radiogroup_role#keyboard_interactions
   const handleKeyNavigation = React.useCallback(
@@ -110,7 +111,7 @@ const ColorPicker = ({className, ...props}: Props) => {
   React.useEffect(focusOnSelected, [focusOnSelected]);
 
   return (
-    <FSWrapper>
+    <FSWrapper size={props.size}>
       <fieldset
         className={`color-picker ${className || ''}`}
         style={{'--card-padding': `${cardPadding}rem`} as React.CSSProperties}
@@ -121,7 +122,7 @@ const ColorPicker = ({className, ...props}: Props) => {
         role='radiogroup'
         data-testid='highlight-colors-picker'
       >
-        <legend>Choose highlight color</legend>
+        <legend>{intl.formatMessage({id: 'i18n:highlighting:color-picker:label'})}</legend>
         {highlightStyles.map((style) => <ColorButton key={style.label}
           name={style.label}
           checked={props.multiple ? props.selected.includes(style.label) : props.color === style.label}
