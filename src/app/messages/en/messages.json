@@ -94,6 +94,7 @@
   "i18n:highlighting:card:placeholder-edit": "Edit note",
   "i18n:highlighting:card:show-more": "show more",
   "i18n:highlighting:change-color": "Apply {color} highlight",
+  "i18n:highlighting:color-picker:label": "Highlight color",
   "i18n:highlighting:colors:blue": "blue",
   "i18n:highlighting:colors:green": "green",
   "i18n:highlighting:colors:pink": "pink",

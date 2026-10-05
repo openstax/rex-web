@@ -91,6 +91,7 @@
   "i18n:highlighting:card:placeholder-edit": "Edytuj notatkę",
   "i18n:highlighting:card:show-more": "pokaż więcej",
   "i18n:highlighting:change-color": "Wybierz {color} zakreślacz",
+  "i18n:highlighting:color-picker:label": "Kolor zakreślenia",
   "i18n:highlighting:colors:blue": "niebieski",
   "i18n:highlighting:colors:green": "zielony",
   "i18n:highlighting:colors:pink": "różowy",

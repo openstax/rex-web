@@ -91,6 +91,7 @@
   "i18n:highlighting:card:placeholder-edit": "Editar la nota",
   "i18n:highlighting:card:show-more": "Mostrar más",
   "i18n:highlighting:change-color": "Aplicar resaltado en {color}",
+  "i18n:highlighting:color-picker:label": "Color de resaltado",
   "i18n:highlighting:colors:blue": "azul",
   "i18n:highlighting:colors:green": "verde",
   "i18n:highlighting:colors:pink": "rosado",
