@@ -1,12 +1,28 @@
 /* ColorPicker Component Styles */
 
 .color-picker-wrapper {
+  --picker-label-height: 2rem;
+
   border: 0;
   display: flex;
   flex-direction: row;
+  align-items: flex-start;
 }
 
 .color-picker-wrapper legend {
+  padding: 0 0 0.4rem;
+  font-size: 1.4rem;
+  line-height: 1.6rem;
+  color: var(--color-text-default);
+}
+
+/* Lines the trash button up with the swatches, which sit below the label. */
+.color-picker-wrapper .trash-button {
+  margin-top: calc(var(--picker-label-height) + 0.25rem);
+}
+
+/* The small picker is inside a menu, so its label is only for screen readers. */
+.color-picker-wrapper[data-size="small"] legend {
   position: absolute;
   width: 1px;
   height: 1px;
