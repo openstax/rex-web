@@ -97,6 +97,9 @@ describe('DisplayNote', () => {
     </TestContainer>);
 
     const button = component.root.findByProps({ 'aria-label': 'Close' });
+
+    // focusing it must not activate the card, which would also prompt about unsaved highlights
+    expect(button.props['data-no-card-activate']).toBe(true);
     renderer.act(() => button.props.onClick());
 
     expect(displayNoteProps.onBlur).toHaveBeenCalled();

@@ -144,6 +144,7 @@ const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
         className="display-note-close-button"
         aria-label={intl.formatMessage({id: 'i18n:highlighting:button:close'})}
         onClick={onBlur}
+        data-no-card-activate
       >
         <Times aria-hidden='true' focusable='false' />
       </PlainButton>
