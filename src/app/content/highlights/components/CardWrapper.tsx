@@ -428,16 +428,20 @@ function CardsForHighlights({
     new Map(highlights.map((highlight) => [highlight.id, false]))
   );
 
+  const leaveCard = (highlight: Highlight) => {
+    if (highlight.elements.length) {
+      highlight.focus();
+    } else {
+      window?.getSelection()?.removeAllRanges();
+    }
+  };
+
   // First time, Esc closes it to the instructions; second Esc disappears it
   const hideCard = () => {
     if (!focusedHighlight) {
       return;
     }
-    if (focusedHighlight.elements.length) {
-      focusedHighlight.focus();
-    } else {
-      window?.getSelection()?.removeAllRanges();
-    }
+    leaveCard(focusedHighlight);
     if (shouldFocusCard) {
       setShouldFocusCard(false);
     } else {
@@ -446,9 +450,7 @@ function CardsForHighlights({
   };
   // Same outcome as Escape: focus returns to the highlight and the card is hidden until Enter.
   const closeCard = (highlight: Highlight) => {
-    if (highlight.elements.length) {
-      highlight.focus();
-    }
+    leaveCard(highlight);
     setShouldFocusCard(false);
     dispatch({ type: 'HIDE', id: highlight.id });
   };

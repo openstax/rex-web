@@ -154,8 +154,10 @@ describe('CardWrapper', () => {
     expect((component.root.findByType(Card).props as CardProps).isHidden).toBe(true);
   });
 
-  it('closing a selection-only card hides it without focusing anything', () => {
+  it('closing a selection-only card clears the selection and hides the card', () => {
     const highlight = createMockHighlight('id1');
+    const removeAllRanges = jest.fn();
+    jest.spyOn(window!, 'getSelection').mockReturnValue({ removeAllRanges } as any);
 
     const component = renderer.create(<Provider store={store}>
       <CardWrapper container={container} highlights={[highlight as unknown as Highlight]} />
@@ -167,6 +169,7 @@ describe('CardWrapper', () => {
     renderer.act(() => { (component.root.findByType(Card).props as CardProps).onClose(); });
 
     expect(highlight.focus).not.toHaveBeenCalled();
+    expect(removeAllRanges).toHaveBeenCalled();
     expect((component.root.findByType(Card).props as CardProps).isHidden).toBe(true);
   });
 
