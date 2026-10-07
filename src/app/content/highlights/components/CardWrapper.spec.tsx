@@ -154,6 +154,22 @@ describe('CardWrapper', () => {
     expect((component.root.findByType(Card).props as CardProps).isHidden).toBe(true);
   });
 
+  it('closing a selection-only card hides it without focusing anything', () => {
+    const highlight = createMockHighlight('id1');
+
+    const component = renderer.create(<Provider store={store}>
+      <CardWrapper container={container} highlights={[highlight as unknown as Highlight]} />
+    </Provider>);
+
+    renderer.act(() => { store.dispatch(focusHighlight(highlight.id)); });
+    (highlight.focus as jest.Mock).mockClear();
+
+    renderer.act(() => { (component.root.findByType(Card).props as CardProps).onClose(); });
+
+    expect(highlight.focus).not.toHaveBeenCalled();
+    expect((component.root.findByType(Card).props as CardProps).isHidden).toBe(true);
+  });
+
   it(`handles card's height changes`, () => {
     const component = renderer.create(<Provider store={store}>
       <CardWrapper container={container} highlights={[createMockHighlight(), createMockHighlight()]} />
