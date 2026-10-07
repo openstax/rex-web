@@ -444,6 +444,14 @@ function CardsForHighlights({
       dispatch({ type: 'HIDE', id: focusedHighlight?.id });
     }
   };
+  // Same outcome as Escape: focus returns to the highlight and the card is hidden until Enter.
+  const closeCard = (highlight: Highlight) => {
+    if (highlight.elements.length) {
+      highlight.focus();
+    }
+    setShouldFocusCard(false);
+    dispatch({ type: 'HIDE', id: highlight.id });
+  };
   const showCard = (cardId: string | undefined) => {
     dispatch({ type: 'SHOW', id: cardId });
   };
@@ -469,6 +477,7 @@ function CardsForHighlights({
         onHeightChange={(ref: React.RefObject<HTMLElement>) => onHeightChange(highlight.id, ref)}
         zIndex={highlights.length - index}
         shouldFocusCard={focusThisCard}
+        onClose={() => closeCard(highlight)}
         isHidden={checkIfHiddenByCollapsedAncestor(highlight) || isHiddenByEscape.get(highlight.id)}
       />;
     })}

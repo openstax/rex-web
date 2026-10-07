@@ -28,6 +28,7 @@ exports[`CardWrapper matches snapshot 1`] = `
       }
     }
     isHidden={false}
+    onClose={[Function]}
     onHeightChange={[Function]}
     shouldFocusCard={false}
     zIndex={1}

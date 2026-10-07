@@ -54,6 +54,7 @@ export interface CardProps {
   topOffset?: number;
   highlightOffsets?: { top: number; bottom: number };
   onHeightChange: (ref: React.RefObject<HTMLElement>) => void;
+  onClose: () => void;
   isHidden: boolean;
   preferEnd: boolean;
 }
@@ -267,6 +268,7 @@ function NoteOrCard({
           {...commonProps}
           {...cardElementProps}
           onRemove={onRemove}
+          onClose={props.onClose}
           highlightStyle={style}
           note={annotation}
           focus={props.focus}

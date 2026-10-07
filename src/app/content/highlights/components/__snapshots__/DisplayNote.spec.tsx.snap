@@ -42,7 +42,6 @@ exports[`DisplayNote matches snapshot 1`] = `
   <button
     aria-label="Close"
     className="plain-button display-note-close-button"
-    data-no-card-activate={true}
     onClick={[MockFunction]}
   >
     <svg
@@ -131,7 +130,6 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
   <button
     aria-label="Close"
     className="plain-button display-note-close-button"
-    data-no-card-activate={true}
     onClick={[MockFunction]}
   >
     <svg
@@ -250,7 +248,6 @@ exports[`DisplayNote matches snapshot when focused with opened dropdown 1`] = `
   <button
     aria-label="Close"
     className="plain-button display-note-close-button"
-    data-no-card-activate={true}
     onClick={[MockFunction]}
   >
     <svg

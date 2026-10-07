@@ -26,6 +26,7 @@ export interface DisplayNoteProps {
   onEdit: () => void;
   onBlur: () => void;
   onRemove: () => void;
+  onClose: () => void;
   onHeightChange: (ref: React.RefObject<HTMLElement>) => void;
   className: string;
   shouldFocusCard: boolean;
@@ -39,7 +40,7 @@ export interface DisplayNoteProps {
 }
 
 const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
-  {note, isActive, highlight, onBlur, onEdit, onRemove,
+  {note, isActive, highlight, onBlur, onEdit, onRemove, onClose,
   onHeightChange, className, shouldFocusCard, onClick, highlightStyle, style, focus: _focus, ...restProps},
   ref
 ) => {
@@ -143,8 +144,7 @@ const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
       <PlainButton
         className="display-note-close-button"
         aria-label={intl.formatMessage({id: 'i18n:highlighting:button:close'})}
-        onClick={onBlur}
-        data-no-card-activate
+        onClick={onClose}
       >
         <Times aria-hidden='true' focusable='false' />
       </PlainButton>

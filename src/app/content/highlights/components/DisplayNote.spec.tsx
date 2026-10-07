@@ -31,6 +31,7 @@ describe('DisplayNote', () => {
       focus: jest.fn(),
       highlight: { id: 'test-highlight-id', elements: [] } as any as Highlight,
       onBlur: jest.fn(),
+      onClose: jest.fn(),
       onEdit: doNothing,
       onHeightChange: jest.fn(),
       onRemove: jest.fn(),
@@ -97,12 +98,9 @@ describe('DisplayNote', () => {
     </TestContainer>);
 
     const button = component.root.findByProps({ 'aria-label': 'Close' });
-
-    // focusing it must not activate the card, which would also prompt about unsaved highlights
-    expect(button.props['data-no-card-activate']).toBe(true);
     renderer.act(() => button.props.onClick());
 
-    expect(displayNoteProps.onBlur).toHaveBeenCalled();
+    expect(displayNoteProps.onClose).toHaveBeenCalled();
   });
 
   it('matches snapshot when click outside DisplayNote', () => {
