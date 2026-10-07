@@ -45,6 +45,14 @@ describe('DotMenuToggle', () => {
     expect(button.props['aria-expanded']).toBeUndefined();
   });
 
+  it('uses a supplied aria-label in place of the default', () => {
+    const component = renderer.create(<TestContainer>
+      <DotMenuToggle aria-label='Highlight actions' />
+    </TestContainer>);
+
+    expect(component.root.findByType('button').props['aria-label']).toBe('Highlight actions');
+  });
+
   it('renders with isOpen=true when explicitly set', () => {
     const component = renderer.create(<TestContainer>
       <DotMenuToggle isOpen={true} />

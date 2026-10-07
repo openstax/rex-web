@@ -1,8 +1,9 @@
 /* DotMenu component - three-dot vertical menu icon with dropdown */
 
 .dot-menu-icon {
-  height: 2rem;
-  width: 2rem;
+  display: block;
+  height: 2.4rem;
+  width: 2.4rem;
   padding: 0.2rem;
   color: var(--dot-menu-color, #424242); /* theme.color.primary.gray.darker */
   user-select: none;
@@ -17,9 +18,11 @@
   display: block;
 }
 
-.dot-menu-toggle > div {
-  display: inline-block;
-  outline: none;
+.dot-menu-toggle:focus-visible {
+  /* stylelint-disable declaration-block-no-duplicate-properties -- different browsers */
+  outline: 0.2rem auto Highlight;
+  outline: 0.2rem auto -webkit-focus-ring-color;
+  /* stylelint-enable declaration-block-no-duplicate-properties */
 }
 
 /* Positioning for dropdown-menu container */

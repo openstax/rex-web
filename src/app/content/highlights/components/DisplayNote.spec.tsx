@@ -78,6 +78,30 @@ describe('DisplayNote', () => {
     expect(tree).toMatchSnapshot();
   });
 
+  it('gives the menu toggle and items descriptive labels', () => {
+    const component = renderer.create(<TestContainer store={store}>
+      <DisplayNote {...displayNoteProps} isActive={true} />
+    </TestContainer>);
+
+    renderer.act(() => {
+      component.root.findByType(DropdownToggle).props.onClick();
+    });
+
+    expect(component.root.findAllByType('button').map((button) => button.props['aria-label']))
+      .toEqual(['Highlight actions', 'Edit highlight', 'Delete highlight', 'Close']);
+  });
+
+  it('closes the card from a labelled button', () => {
+    const component = renderer.create(<TestContainer store={store}>
+      <DisplayNote {...displayNoteProps} isActive={true} />
+    </TestContainer>);
+
+    const button = component.root.findByProps({ 'aria-label': 'Close' });
+    renderer.act(() => button.props.onClick());
+
+    expect(displayNoteProps.onBlur).toHaveBeenCalled();
+  });
+
   it('matches snapshot when click outside DisplayNote', () => {
     const onClickOutside = jest.spyOn(onClickOutsideModule, 'useOnClickOutside');
 

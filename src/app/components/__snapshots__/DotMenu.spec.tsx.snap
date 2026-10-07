@@ -16,22 +16,18 @@ exports[`Dropdown matches snapshot 1`] = `
       data-testid="dot-menu-toggle"
       tabIndex={0}
     >
-      <div
-        tabIndex={-1}
+      <svg
+        aria-hidden="true"
+        className="dot-menu-icon"
+        data-menu-icon={true}
+        data-testid="dot-menu-icon"
+        viewBox="0 0 192 512"
       >
-        <svg
-          aria-hidden="true"
-          className="dot-menu-icon"
-          data-menu-icon={true}
-          data-testid="dot-menu-icon"
-          viewBox="0 0 192 512"
-        >
-          <path
-            d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
-            fill="currentColor"
-          />
-        </svg>
-      </div>
+        <path
+          d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
+          fill="currentColor"
+        />
+      </svg>
     </button>
     <div
       className="dropdown-menu dot-menu-left-align"
@@ -70,22 +66,18 @@ exports[`Dropdown matches snapshot 1`] = `
     data-testid="dot-menu-toggle"
     tabIndex={0}
   >
-    <div
-      tabIndex={-1}
+    <svg
+      aria-hidden="true"
+      className="dot-menu-icon"
+      data-menu-icon={true}
+      data-testid="dot-menu-icon"
+      viewBox="0 0 192 512"
     >
-      <svg
-        aria-hidden="true"
-        className="dot-menu-icon"
-        data-menu-icon={true}
-        data-testid="dot-menu-icon"
-        viewBox="0 0 192 512"
-      >
-        <path
-          d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
-          fill="currentColor"
-        />
-      </svg>
-    </div>
+      <path
+        d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
+        fill="currentColor"
+      />
+    </svg>
   </button>
 </div>
 `;
@@ -106,22 +98,18 @@ exports[`Dropdown matches snapshot on right align 1`] = `
       data-testid="dot-menu-toggle"
       tabIndex={0}
     >
-      <div
-        tabIndex={-1}
+      <svg
+        aria-hidden="true"
+        className="dot-menu-icon"
+        data-menu-icon={true}
+        data-testid="dot-menu-icon"
+        viewBox="0 0 192 512"
       >
-        <svg
-          aria-hidden="true"
-          className="dot-menu-icon"
-          data-menu-icon={true}
-          data-testid="dot-menu-icon"
-          viewBox="0 0 192 512"
-        >
-          <path
-            d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
-            fill="currentColor"
-          />
-        </svg>
-      </div>
+        <path
+          d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
+          fill="currentColor"
+        />
+      </svg>
     </button>
     <div
       className="dropdown-menu dot-menu-right-align"
@@ -160,22 +148,18 @@ exports[`Dropdown matches snapshot on right align 1`] = `
     data-testid="dot-menu-toggle"
     tabIndex={0}
   >
-    <div
-      tabIndex={-1}
+    <svg
+      aria-hidden="true"
+      className="dot-menu-icon"
+      data-menu-icon={true}
+      data-testid="dot-menu-icon"
+      viewBox="0 0 192 512"
     >
-      <svg
-        aria-hidden="true"
-        className="dot-menu-icon"
-        data-menu-icon={true}
-        data-testid="dot-menu-icon"
-        viewBox="0 0 192 512"
-      >
-        <path
-          d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
-          fill="currentColor"
-        />
-      </svg>
-    </div>
+      <path
+        d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
+        fill="currentColor"
+      />
+    </svg>
   </button>
 </div>
 `;

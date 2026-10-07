@@ -1,7 +1,9 @@
 import { Highlight } from '@openstax/highlighter';
 import { HTMLElement, FocusEvent } from '@openstax/types/lib.dom';
 import React from 'react';
+import { useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
+import { PlainButton } from '../../../components/Button';
 import Dropdown, { DropdownItem, DropdownList } from '../../../components/Dropdown';
 import Times from '../../../components/Times';
 import { useDebouncedWindowSize, useFocusElement } from '../../../reactUtils';
@@ -47,6 +49,7 @@ const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
   const dropdownRef = React.useRef<HTMLElement>(null);
   const [textToggle, setTextToggle] = React.useState(false);
   const [menuOpen, setMenuOpen] = React.useState(false);
+  const intl = useIntl();
   const [width] = useDebouncedWindowSize();
   const searchQuery = useSelector(query);
   const isTocOpen = useSelector(tocOpen);
@@ -113,26 +116,37 @@ const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
       <Dropdown
         className="dropdown"
         ref={dropdownRef}
-        toggle={<MenuToggle isOpen={menuOpen} data-no-card-activate />}
+        toggle={<MenuToggle
+          isOpen={menuOpen}
+          aria-label={intl.formatMessage({id: 'i18n:highlighting:dropdown:actions:aria-label'})}
+          data-no-card-activate
+        />}
         transparentTab={confirmingDelete}
         open={menuOpen}
         setOpen={setMenuOpen}
         menuClassName='display-note-menu'
       >
         <DropdownList>
-          <DropdownItem message='i18n:highlighting:dropdown:edit' onClick={onEdit} />
+          <DropdownItem
+            message='i18n:highlighting:dropdown:edit'
+            ariaMessage='i18n:highlighting:dropdown:edit-highlight:aria-label'
+            onClick={onEdit}
+          />
           <DropdownItem
             message='i18n:highlighting:dropdown:delete'
+            ariaMessage='i18n:highlighting:dropdown:delete-highlight:aria-label'
             data-testid='delete'
             onClick={() => setConfirmingDelete(true)}
           />
         </DropdownList>
       </Dropdown>
-      <Times
-        className="display-note-close-icon"
+      <PlainButton
+        className="display-note-close-button"
+        aria-label={intl.formatMessage({id: 'i18n:highlighting:button:close'})}
         onClick={onBlur}
-        aria-hidden='true'
-      />
+      >
+        <Times aria-hidden='true' focusable='false' />
+      </PlainButton>
       <div className='note-label'>Note:</div>
       <TruncatedText id={noteId} text={note} isActive={isActive} onChange={() => setTextToggle((state) => !state)} />
       {confirmingDelete && <Confirmation

@@ -50,12 +50,13 @@
   color: #424242; /* theme.color.primary.gray.base */
 }
 
-/* === Close Icon (Times button) === */
-.display-note-close-icon {
-  color: #c2c2c2; /* theme.color.primary.gray.lighter */
+/* === Close button === */
+.display-note-close-button {
+  /* darker than theme.color.primary.gray.lighter (#c2c2c2), which is 1.7:1 on white */
+  color: #757575;
   height: 4.2rem;
   width: 4.2rem;
-  padding: 1.6rem;
+  padding: 1.35rem;
   display: none;
   position: absolute;
   top: 0;
@@ -87,7 +88,7 @@
     display: none;
   }
 
-  .display-note-close-icon {
+  .display-note-close-button {
     display: block;
   }
 }
