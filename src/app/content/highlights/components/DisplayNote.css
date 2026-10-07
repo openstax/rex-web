@@ -52,8 +52,7 @@
 
 /* === Close button === */
 .display-note-close-button {
-  /* darker than theme.color.primary.gray.lighter (#c2c2c2), which is 1.7:1 on white */
-  color: #757575;
+  color: var(--color-primary-gray-base);
   height: 4.2rem;
   width: 4.2rem;
   padding: 1.35rem;
