@@ -88,7 +88,7 @@ describe('DisplayNote', () => {
     });
 
     expect(component.root.findAllByType('button').map((button) => button.props['aria-label']))
-      .toEqual(['Highlight actions', 'Edit highlight', 'Delete highlight', 'Close']);
+      .toEqual(['Actions for highlighted text', 'Edit highlighted text', 'Delete highlighted text', 'Close']);
   });
 
   it('closes the card from a labelled button', () => {

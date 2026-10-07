@@ -18,7 +18,7 @@ exports[`DisplayNote matches snapshot 1`] = `
   >
     <button
       aria-expanded={false}
-      aria-label="Highlight actions"
+      aria-label="Actions for highlighted text"
       className="plain-button dot-menu-toggle dropdown-toggle"
       data-menu-toggle={true}
       data-no-card-activate={true}
@@ -106,7 +106,7 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
   >
     <button
       aria-expanded={false}
-      aria-label="Highlight actions"
+      aria-label="Actions for highlighted text"
       className="plain-button dot-menu-toggle dropdown-toggle"
       data-menu-toggle={true}
       data-no-card-activate={true}
@@ -194,7 +194,7 @@ exports[`DisplayNote matches snapshot when focused with opened dropdown 1`] = `
   >
     <button
       aria-expanded={true}
-      aria-label="Highlight actions"
+      aria-label="Actions for highlighted text"
       className="plain-button dot-menu-toggle dropdown-toggle"
       data-menu-toggle={true}
       data-no-card-activate={true}
@@ -222,7 +222,7 @@ exports[`DisplayNote matches snapshot when focused with opened dropdown 1`] = `
       >
         <li>
           <button
-            aria-label="Edit highlight"
+            aria-label="Edit highlighted text"
             onClick={[Function]}
             onMouseEnter={[Function]}
             tabIndex={0}
@@ -233,7 +233,7 @@ exports[`DisplayNote matches snapshot when focused with opened dropdown 1`] = `
         </li>
         <li>
           <button
-            aria-label="Delete highlight"
+            aria-label="Delete highlighted text"
             onClick={[Function]}
             onMouseEnter={[Function]}
             tabIndex={0}

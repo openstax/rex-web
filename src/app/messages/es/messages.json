@@ -101,7 +101,7 @@
   "i18n:highlighting:confirmation:delete-both": "¿Está seguro de que desea eliminar esta nota y el resaltado?",
   "i18n:highlighting:confirmation:delete-highlight": "¿Está seguro de que desea eliminar este resaltado?",
   "i18n:highlighting:confirmation:delete-note": "¿Está seguro de que desea eliminar esta nota?",
-  "i18n:highlighting:dropdown:actions:aria-label": "Acciones del texto resaltado",
+  "i18n:highlighting:dropdown:actions:aria-label": "Acciones para el texto resaltado",
   "i18n:highlighting:dropdown:add-note": "Agregar nota",
   "i18n:highlighting:dropdown:delete": "Eliminar",
   "i18n:highlighting:dropdown:delete-highlight:aria-label": "Eliminar texto resaltado",

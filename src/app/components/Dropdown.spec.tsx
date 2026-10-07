@@ -408,8 +408,8 @@ describe('DropdownItem', () => {
       <DropdownItem message='i18n:highlighting:dropdown:edit' href='/x' ariaMessage='i18n:highlighting:dropdown:edit-highlight:aria-label' />
     </TestContainer>);
 
-    expect(component.root.findByType('button').props['aria-label']).toBe('Edit highlight');
-    expect(component.root.findByType('a').props['aria-label']).toBe('Edit highlight');
+    expect(component.root.findByType('button').props['aria-label']).toBe('Edit highlighted text');
+    expect(component.root.findByType('a').props['aria-label']).toBe('Edit highlighted text');
     component.root.findAllByType('li').forEach((li) => expect(li.props['aria-label']).toBeUndefined());
   });
 });
