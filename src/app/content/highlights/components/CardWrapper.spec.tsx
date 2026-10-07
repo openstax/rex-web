@@ -157,7 +157,7 @@ describe('CardWrapper', () => {
   it('closing a selection-only card clears the selection and hides the card', () => {
     const highlight = createMockHighlight('id1');
     const removeAllRanges = jest.fn();
-    jest.spyOn(window!, 'getSelection').mockReturnValue({ removeAllRanges } as any);
+    const getSelectionSpy = jest.spyOn(window!, 'getSelection').mockReturnValue({ removeAllRanges } as any);
 
     const component = renderer.create(<Provider store={store}>
       <CardWrapper container={container} highlights={[highlight as unknown as Highlight]} />
@@ -171,6 +171,8 @@ describe('CardWrapper', () => {
     expect(highlight.focus).not.toHaveBeenCalled();
     expect(removeAllRanges).toHaveBeenCalled();
     expect((component.root.findByType(Card).props as CardProps).isHidden).toBe(true);
+
+    getSelectionSpy.mockRestore();
   });
 
   it(`handles card's height changes`, () => {
