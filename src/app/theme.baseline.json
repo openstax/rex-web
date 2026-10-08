@@ -231,7 +231,6 @@
     "app/content/components/Page/PageContent.css: @media screen .page-content .search-highlight, .page-content .search-highlight .math { background-color: #ffea00 }",
     "app/content/components/Page/PageContent.css: @media screen .page-content .search-highlight[aria-current], .page-content .search-highlight[aria-current] .math { background-color: #ff9e4b }",
     "app/content/components/Topbar/Topbar.css: .topbar-hr { border-top: #efeff1 }",
-    "app/content/highlights/components/DisplayNote.css: .display-note-close-icon { color: #c2c2c2 }",
     "app/content/highlights/components/ShowMyHighlightsStyles.css: .show-my-highlights-body { background: #dedede }",
     "app/content/styles/PopupStyles.css: .popup-close-icon:hover { color: #e8e8e8 }",
     "app/content/styles/PopupStyles.css: .popup-header { background: #405c7d }",

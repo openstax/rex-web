@@ -205,8 +205,8 @@ interface DropdownItemProps {
 }
 
 const DropdownItemContent = ({
-  message, href, target, prefix, onClick, dataAnalyticsRegion, dataAnalyticsLabel,
-}: Omit<DropdownItemProps, 'ariaMessage'>) => {
+  message, ariaLabel, href, target, prefix, onClick, dataAnalyticsRegion, dataAnalyticsLabel,
+}: Omit<DropdownItemProps, 'ariaMessage'> & { ariaLabel?: string }) => {
   const analyticsDataProps = omitBy(isUndefined, {
     'data-analytics-label': dataAnalyticsLabel,
     'data-analytics-region': dataAnalyticsRegion,
@@ -220,6 +220,7 @@ return <FormattedMessage id={message}>
     {(msg) => href
       ? <a
         role='button'
+        aria-label={ariaLabel}
         href={href}
         tabIndex={0}
         onClick={onClick}
@@ -230,6 +231,7 @@ return <FormattedMessage id={message}>
       // Safari support tab-navigation of buttons; this operates with space or Enter
       : <button
         type='button'
+        aria-label={ariaLabel}
         tabIndex={0}
         onClick={onClick ? flow(preventDefault, onClick) : preventDefault}
         onMouseEnter={focusMe}
@@ -244,8 +246,11 @@ return <FormattedMessage id={message}>
 export const DropdownItem = ({ariaMessage, ...contentProps}: DropdownItemProps) => {
   const intl = useIntl();
 
-  return <li aria-label={ariaMessage ? intl.formatMessage({id: ariaMessage}) : undefined}>
-    <DropdownItemContent {...contentProps}/>
+  return <li>
+    <DropdownItemContent
+      {...contentProps}
+      ariaLabel={ariaMessage ? intl.formatMessage({id: ariaMessage}) : undefined}
+    />
   </li>;
 };
 
