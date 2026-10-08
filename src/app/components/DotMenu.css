@@ -2,8 +2,8 @@
 
 .dot-menu-icon {
   display: block;
-  height: 2.4rem;
-  width: 2.4rem;
+  height: 2rem;
+  width: 2rem;
   padding: 0.2rem;
   color: var(--dot-menu-color, #424242); /* theme.color.primary.gray.darker */
   user-select: none;
@@ -13,9 +13,12 @@
   color: var(--dot-menu-hover-color, #818181); /* theme.color.secondary.lightGray.darkest */
 }
 
+/* 2.4rem target; the negative margin keeps the layout footprint at the 2rem icon */
 .dot-menu-toggle {
   border: none;
   display: block;
+  padding: 0.2rem;
+  margin: -0.2rem;
 }
 
 .dot-menu-toggle:focus-visible {
