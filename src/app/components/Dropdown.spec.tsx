@@ -400,3 +400,16 @@ describe('Dropdown', () => {
     expect(rootDiv.props.onToggle).toBeUndefined();
   });
 });
+
+describe('DropdownItem', () => {
+  it('puts the aria label on the button and the link, not the list item', () => {
+    const component = renderer.create(<TestContainer>
+      <DropdownItem message='i18n:highlighting:dropdown:edit' ariaMessage='i18n:highlighting:dropdown:edit-highlight:aria-label' />
+      <DropdownItem message='i18n:highlighting:dropdown:edit' href='/x' ariaMessage='i18n:highlighting:dropdown:edit-highlight:aria-label' />
+    </TestContainer>);
+
+    expect(component.root.findByType('button').props['aria-label']).toBe('Edit highlighted text');
+    expect(component.root.findByType('a').props['aria-label']).toBe('Edit highlighted text');
+    component.root.findAllByType('li').forEach((li) => expect(li.props['aria-label']).toBeUndefined());
+  });
+});
