@@ -18,60 +18,61 @@ exports[`DisplayNote matches snapshot 1`] = `
   >
     <button
       aria-expanded={false}
-      aria-label="Actions"
+      aria-label="Actions for highlighted text"
       className="plain-button dot-menu-toggle dropdown-toggle"
       data-menu-toggle={true}
       data-no-card-activate={true}
       data-testid="dot-menu-toggle"
       onClick={[Function]}
     >
-      <div
-        tabIndex={-1}
+      <svg
+        aria-hidden="true"
+        className="dot-menu-icon"
+        data-menu-icon={true}
+        data-testid="dot-menu-icon"
+        viewBox="0 0 192 512"
       >
-        <svg
-          aria-hidden="true"
-          className="dot-menu-icon"
-          data-menu-icon={true}
-          data-testid="dot-menu-icon"
-          viewBox="0 0 192 512"
-        >
-          <path
-            d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
-            fill="currentColor"
-          />
-        </svg>
-      </div>
+        <path
+          d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
+          fill="currentColor"
+        />
+      </svg>
     </button>
   </div>
-  <svg
-    aria-hidden="true"
-    className="display-note-close-icon"
-    height="15px"
+  <button
+    aria-label="Close"
+    className="plain-button display-note-close-button"
     onClick={[MockFunction]}
-    version="1.1"
-    viewBox="0 0 15 15"
-    width="15px"
   >
-    <g
-      fill="none"
-      fillRule="evenodd"
-      stroke="none"
-      strokeWidth="1"
+    <svg
+      aria-hidden="true"
+      focusable="false"
+      height="15px"
+      version="1.1"
+      viewBox="0 0 15 15"
+      width="15px"
     >
       <g
-        fill="currentColor"
-        transform="translate(-302.000000, -18.000000)"
+        fill="none"
+        fillRule="evenodd"
+        stroke="none"
+        strokeWidth="1"
       >
         <g
-          transform="translate(302.000000, 18.000000)"
+          fill="currentColor"
+          transform="translate(-302.000000, -18.000000)"
         >
-          <path
-            d="M7.5,5.41522791 L12.0331524,0.579865364 C12.3077536,0.286957429 12.7165503,0.24816296 12.946282,0.493210121 L13.9861449,1.60239723 C14.2158766,1.84744439 14.1795068,2.28349422 13.9049056,2.57640216 L9.37175324,7.41176471 L13.9049056,12.2471273 C14.1795068,12.5400352 14.2158766,12.976085 13.9861449,13.2211322 L12.946282,14.3303193 C12.7165503,14.5753665 12.3077536,14.536572 12.0331524,14.243664 L7.5,9.4083015 L2.96684761,14.243664 C2.69224642,14.536572 2.2834497,14.5753665 2.05371799,14.3303193 L1.01385508,13.2211322 C0.784123363,12.976085 0.820493178,12.5400352 1.09509437,12.2471273 L5.62824676,7.41176471 L1.09509437,2.57640216 C0.820493178,2.28349422 0.784123363,1.84744439 1.01385508,1.60239723 L2.05371799,0.493210121 C2.2834497,0.24816296 2.69224642,0.286957429 2.96684761,0.579865364 L7.5,5.41522791 Z"
-          />
+          <g
+            transform="translate(302.000000, 18.000000)"
+          >
+            <path
+              d="M7.5,5.41522791 L12.0331524,0.579865364 C12.3077536,0.286957429 12.7165503,0.24816296 12.946282,0.493210121 L13.9861449,1.60239723 C14.2158766,1.84744439 14.1795068,2.28349422 13.9049056,2.57640216 L9.37175324,7.41176471 L13.9049056,12.2471273 C14.1795068,12.5400352 14.2158766,12.976085 13.9861449,13.2211322 L12.946282,14.3303193 C12.7165503,14.5753665 12.3077536,14.536572 12.0331524,14.243664 L7.5,9.4083015 L2.96684761,14.243664 C2.69224642,14.536572 2.2834497,14.5753665 2.05371799,14.3303193 L1.01385508,13.2211322 C0.784123363,12.976085 0.820493178,12.5400352 1.09509437,12.2471273 L5.62824676,7.41176471 L1.09509437,2.57640216 C0.820493178,2.28349422 0.784123363,1.84744439 1.01385508,1.60239723 L2.05371799,0.493210121 C2.2834497,0.24816296 2.69224642,0.286957429 2.96684761,0.579865364 L7.5,5.41522791 Z"
+            />
+          </g>
         </g>
       </g>
-    </g>
-  </svg>
+    </svg>
+  </button>
   <div
     className="note-label"
   >
@@ -105,60 +106,61 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
   >
     <button
       aria-expanded={false}
-      aria-label="Actions"
+      aria-label="Actions for highlighted text"
       className="plain-button dot-menu-toggle dropdown-toggle"
       data-menu-toggle={true}
       data-no-card-activate={true}
       data-testid="dot-menu-toggle"
       onClick={[Function]}
     >
-      <div
-        tabIndex={-1}
+      <svg
+        aria-hidden="true"
+        className="dot-menu-icon"
+        data-menu-icon={true}
+        data-testid="dot-menu-icon"
+        viewBox="0 0 192 512"
       >
-        <svg
-          aria-hidden="true"
-          className="dot-menu-icon"
-          data-menu-icon={true}
-          data-testid="dot-menu-icon"
-          viewBox="0 0 192 512"
-        >
-          <path
-            d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
-            fill="currentColor"
-          />
-        </svg>
-      </div>
+        <path
+          d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
+          fill="currentColor"
+        />
+      </svg>
     </button>
   </div>
-  <svg
-    aria-hidden="true"
-    className="display-note-close-icon"
-    height="15px"
+  <button
+    aria-label="Close"
+    className="plain-button display-note-close-button"
     onClick={[MockFunction]}
-    version="1.1"
-    viewBox="0 0 15 15"
-    width="15px"
   >
-    <g
-      fill="none"
-      fillRule="evenodd"
-      stroke="none"
-      strokeWidth="1"
+    <svg
+      aria-hidden="true"
+      focusable="false"
+      height="15px"
+      version="1.1"
+      viewBox="0 0 15 15"
+      width="15px"
     >
       <g
-        fill="currentColor"
-        transform="translate(-302.000000, -18.000000)"
+        fill="none"
+        fillRule="evenodd"
+        stroke="none"
+        strokeWidth="1"
       >
         <g
-          transform="translate(302.000000, 18.000000)"
+          fill="currentColor"
+          transform="translate(-302.000000, -18.000000)"
         >
-          <path
-            d="M7.5,5.41522791 L12.0331524,0.579865364 C12.3077536,0.286957429 12.7165503,0.24816296 12.946282,0.493210121 L13.9861449,1.60239723 C14.2158766,1.84744439 14.1795068,2.28349422 13.9049056,2.57640216 L9.37175324,7.41176471 L13.9049056,12.2471273 C14.1795068,12.5400352 14.2158766,12.976085 13.9861449,13.2211322 L12.946282,14.3303193 C12.7165503,14.5753665 12.3077536,14.536572 12.0331524,14.243664 L7.5,9.4083015 L2.96684761,14.243664 C2.69224642,14.536572 2.2834497,14.5753665 2.05371799,14.3303193 L1.01385508,13.2211322 C0.784123363,12.976085 0.820493178,12.5400352 1.09509437,12.2471273 L5.62824676,7.41176471 L1.09509437,2.57640216 C0.820493178,2.28349422 0.784123363,1.84744439 1.01385508,1.60239723 L2.05371799,0.493210121 C2.2834497,0.24816296 2.69224642,0.286957429 2.96684761,0.579865364 L7.5,5.41522791 Z"
-          />
+          <g
+            transform="translate(302.000000, 18.000000)"
+          >
+            <path
+              d="M7.5,5.41522791 L12.0331524,0.579865364 C12.3077536,0.286957429 12.7165503,0.24816296 12.946282,0.493210121 L13.9861449,1.60239723 C14.2158766,1.84744439 14.1795068,2.28349422 13.9049056,2.57640216 L9.37175324,7.41176471 L13.9049056,12.2471273 C14.1795068,12.5400352 14.2158766,12.976085 13.9861449,13.2211322 L12.946282,14.3303193 C12.7165503,14.5753665 12.3077536,14.536572 12.0331524,14.243664 L7.5,9.4083015 L2.96684761,14.243664 C2.69224642,14.536572 2.2834497,14.5753665 2.05371799,14.3303193 L1.01385508,13.2211322 C0.784123363,12.976085 0.820493178,12.5400352 1.09509437,12.2471273 L5.62824676,7.41176471 L1.09509437,2.57640216 C0.820493178,2.28349422 0.784123363,1.84744439 1.01385508,1.60239723 L2.05371799,0.493210121 C2.2834497,0.24816296 2.69224642,0.286957429 2.96684761,0.579865364 L7.5,5.41522791 Z"
+            />
+          </g>
         </g>
       </g>
-    </g>
-  </svg>
+    </svg>
+  </button>
   <div
     className="note-label"
   >
@@ -192,29 +194,25 @@ exports[`DisplayNote matches snapshot when focused with opened dropdown 1`] = `
   >
     <button
       aria-expanded={true}
-      aria-label="Actions"
+      aria-label="Actions for highlighted text"
       className="plain-button dot-menu-toggle dropdown-toggle"
       data-menu-toggle={true}
       data-no-card-activate={true}
       data-testid="dot-menu-toggle"
       onClick={[Function]}
     >
-      <div
-        tabIndex={-1}
+      <svg
+        aria-hidden="true"
+        className="dot-menu-icon"
+        data-menu-icon={true}
+        data-testid="dot-menu-icon"
+        viewBox="0 0 192 512"
       >
-        <svg
-          aria-hidden="true"
-          className="dot-menu-icon"
-          data-menu-icon={true}
-          data-testid="dot-menu-icon"
-          viewBox="0 0 192 512"
-        >
-          <path
-            d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
-            fill="currentColor"
-          />
-        </svg>
-      </div>
+        <path
+          d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
+          fill="currentColor"
+        />
+      </svg>
     </button>
     <div
       className="dropdown-menu display-note-menu"
@@ -224,6 +222,7 @@ exports[`DisplayNote matches snapshot when focused with opened dropdown 1`] = `
       >
         <li>
           <button
+            aria-label="Edit highlighted text"
             onClick={[Function]}
             onMouseEnter={[Function]}
             tabIndex={0}
@@ -234,6 +233,7 @@ exports[`DisplayNote matches snapshot when focused with opened dropdown 1`] = `
         </li>
         <li>
           <button
+            aria-label="Delete highlighted text"
             onClick={[Function]}
             onMouseEnter={[Function]}
             tabIndex={0}
@@ -245,35 +245,40 @@ exports[`DisplayNote matches snapshot when focused with opened dropdown 1`] = `
       </menu>
     </div>
   </div>
-  <svg
-    aria-hidden="true"
-    className="display-note-close-icon"
-    height="15px"
+  <button
+    aria-label="Close"
+    className="plain-button display-note-close-button"
     onClick={[MockFunction]}
-    version="1.1"
-    viewBox="0 0 15 15"
-    width="15px"
   >
-    <g
-      fill="none"
-      fillRule="evenodd"
-      stroke="none"
-      strokeWidth="1"
+    <svg
+      aria-hidden="true"
+      focusable="false"
+      height="15px"
+      version="1.1"
+      viewBox="0 0 15 15"
+      width="15px"
     >
       <g
-        fill="currentColor"
-        transform="translate(-302.000000, -18.000000)"
+        fill="none"
+        fillRule="evenodd"
+        stroke="none"
+        strokeWidth="1"
       >
         <g
-          transform="translate(302.000000, 18.000000)"
+          fill="currentColor"
+          transform="translate(-302.000000, -18.000000)"
         >
-          <path
-            d="M7.5,5.41522791 L12.0331524,0.579865364 C12.3077536,0.286957429 12.7165503,0.24816296 12.946282,0.493210121 L13.9861449,1.60239723 C14.2158766,1.84744439 14.1795068,2.28349422 13.9049056,2.57640216 L9.37175324,7.41176471 L13.9049056,12.2471273 C14.1795068,12.5400352 14.2158766,12.976085 13.9861449,13.2211322 L12.946282,14.3303193 C12.7165503,14.5753665 12.3077536,14.536572 12.0331524,14.243664 L7.5,9.4083015 L2.96684761,14.243664 C2.69224642,14.536572 2.2834497,14.5753665 2.05371799,14.3303193 L1.01385508,13.2211322 C0.784123363,12.976085 0.820493178,12.5400352 1.09509437,12.2471273 L5.62824676,7.41176471 L1.09509437,2.57640216 C0.820493178,2.28349422 0.784123363,1.84744439 1.01385508,1.60239723 L2.05371799,0.493210121 C2.2834497,0.24816296 2.69224642,0.286957429 2.96684761,0.579865364 L7.5,5.41522791 Z"
-          />
+          <g
+            transform="translate(302.000000, 18.000000)"
+          >
+            <path
+              d="M7.5,5.41522791 L12.0331524,0.579865364 C12.3077536,0.286957429 12.7165503,0.24816296 12.946282,0.493210121 L13.9861449,1.60239723 C14.2158766,1.84744439 14.1795068,2.28349422 13.9049056,2.57640216 L9.37175324,7.41176471 L13.9049056,12.2471273 C14.1795068,12.5400352 14.2158766,12.976085 13.9861449,13.2211322 L12.946282,14.3303193 C12.7165503,14.5753665 12.3077536,14.536572 12.0331524,14.243664 L7.5,9.4083015 L2.96684761,14.243664 C2.69224642,14.536572 2.2834497,14.5753665 2.05371799,14.3303193 L1.01385508,13.2211322 C0.784123363,12.976085 0.820493178,12.5400352 1.09509437,12.2471273 L5.62824676,7.41176471 L1.09509437,2.57640216 C0.820493178,2.28349422 0.784123363,1.84744439 1.01385508,1.60239723 L2.05371799,0.493210121 C2.2834497,0.24816296 2.69224642,0.286957429 2.96684761,0.579865364 L7.5,5.41522791 Z"
+            />
+          </g>
         </g>
       </g>
-    </g>
-  </svg>
+    </svg>
+  </button>
   <div
     className="note-label"
   >
