@@ -1,36 +1,9 @@
 /**
- * Highlight create/edit control keyboard tab-order.
+ * Keyboard tab-order of the highlight create/edit cards: the controls are reached with Tab and
+ * Shift+Tab (WCAG 2.1.1), and focus returns to the highlight when a card is dismissed.
  *
- * Verifies, in a live browser, that the highlight edit/create control participates in the
- * standard keyboard focus model (WCAG 2.1.1) — the control is reached with Tab/Shift+Tab,
- * not with a non-standard focus key:
- *
- *   New selection (create):
- *     text selection          --Tab-->        the "create highlight" button
- *     the create button       --Enter-->      the note form (keyboard activation) -> pick color -> created
- *
- *   Existing highlight (edit):
- *     highlight span          --Tab-->        the "edit highlight" button
- *     the edit button         --Shift+Tab-->  back to the highlight span
- *     the edit button         --Tab-->        the following content control (focus leaves the card)
- *
- * WHERE TO RUN — these assertions describe the FIXED behavior on this branch. staging.openstax.org
- * does NOT have the fix, so the default run fails the "Tab moves into the card" step (that is the
- * bug). Point the run at an environment built from this branch:
- *
- *   # Local dev server from this branch (HTTPS/self-signed; proxies accounts+highlights to
- *   # dev.openstax.org, so signup + highlighting work with no extra setup):
- *   #   ../start-dev.sh                       # boots this branch on :3001 (slow first boot)
- *   #   npx playwright install chromium       # once, if not already present
- *   cd e2e_tests && URL=https://localhost:3001 \
- *     npx playwright test tests/rex-test/tabbing.behaviorspec.ts --project="Desktop Chrome"
- *
- *   # Or a Heroku review app for this PR:
- *   cd e2e_tests && URL=https://rex-web-<review-app>.herokuapp.com \
- *     npx playwright test tests/rex-test/tabbing.behaviorspec.ts --project="Desktop Chrome"
- *
- * Auth uses rexUserSignup(), which registers a throwaway restmail.net account, so the target
- * env needs accounts + highlights (every full REX environment qualifies).
+ * CI does not run this suite. See "TypeScript Playwright suite" in e2e_tests/README.md for how to
+ * run it. Auth uses rexUserSignup(), which registers a throwaway restmail.net account.
  */
 import { expect } from '@playwright/test'
 import { Page } from 'playwright'
@@ -42,6 +15,10 @@ test.use({ ignoreHTTPSErrors: true })
 
 const BOOK_PAGE = '/books/introduction-anthropology/pages/7-introduction'
 
+// Matches the focusable controls the card's Tab trap considers.
+const FOCUSABLE =
+  "button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[href],[tabindex]:not([tabindex='-1'])"
+
 // The active card wrapper for the focused highlight/selection (edit card or display note).
 const ACTIVE_CARD = '[data-highlight-card][data-active="true"]'
 
@@ -50,13 +27,21 @@ async function activeElementInfo(page: Page) {
   return page.evaluate(() => {
     const a = document.activeElement as HTMLElement | null
     if (!a) {
-      return { tag: null as string | null, inCard: false, isScreenReaderSpan: false, highlightId: null, text: '' }
+      return {
+        tag: null as string | null,
+        inCard: false,
+        isScreenReaderSpan: false,
+        highlightId: null,
+        testId: null,
+        text: '',
+      }
     }
     return {
       tag: a.tagName,
       inCard: Boolean(a.closest('[data-highlight-card]')),
       isScreenReaderSpan: a.hasAttribute('data-for-screenreaders'),
       highlightId: a.getAttribute('data-highlight-id'),
+      testId: a.getAttribute('data-testid'),
       text: (a.textContent || '').trim().slice(0, 50),
     }
   })
@@ -78,6 +63,29 @@ async function createGreenHighlight(page: Page, bookPage: ContentPage, paraNumbe
   await page.locator(`${ACTIVE_CARD} button`).first().click()
   await page.locator('[aria-label="Apply green highlight"]').first().click()
   await page.waitForSelector('.highlight', { timeout: 15000 })
+}
+
+// Same flow, then types a note and saves it, so the highlight shows the note display card.
+async function createAnnotatedHighlight(page: Page, bookPage: ContentPage, paraNumber: number, note: string) {
+  await createGreenHighlight(page, bookPage, paraNumber)
+  await page.locator(`${ACTIVE_CARD} textarea`).fill(note)
+  await page.locator(`${ACTIVE_CARD} [data-testid="save"]`).click()
+  await page.waitForSelector(`${ACTIVE_CARD} [data-testid="dot-menu-toggle"]`, { timeout: 15000 })
+}
+
+// Reloads so the highlight starts passive, then focuses its screen-reader start span.
+async function reloadAndFocusHighlight(page: Page) {
+  await page.reload()
+  await page.waitForSelector('.highlight', { timeout: 20000 })
+  const highlightId = await page.evaluate(
+    () => document.querySelector('.highlight')?.getAttribute('data-highlight-id') ?? null,
+  )
+  expect(highlightId, 'the saved highlight loaded').toBeTruthy()
+
+  await focusHighlightStartSpan(page, highlightId as string)
+  await page.waitForSelector(ACTIVE_CARD, { timeout: 15000 })
+  expect((await activeElementInfo(page)).isScreenReaderSpan, 'focus starts on the highlight span').toBe(true)
+  return highlightId as string
 }
 
 async function focusHighlightStartSpan(page: Page, highlightId: string) {
@@ -142,6 +150,8 @@ test('new selection: Tab past the create button leaves cleanly and discards the 
 
   const paraNumber = randomNum(await bookPage.paracount())
   await bookPage.selectText(paraNumber)
+  // Hold the element: the relation is checked after the DOM may have changed, so an index lookup could miss.
+  const paragraph = await bookPage.paragraph.nth(paraNumber).elementHandle()
   await page.waitForSelector(ACTIVE_CARD, { timeout: 15000 })
   await page.keyboard.press('Tab')
   const onCreate = await activeElementInfo(page)
@@ -166,8 +176,7 @@ test('new selection: Tab past the create button leaves cleanly and discards the 
   expect(await page.locator('.highlight').count(), 'no highlight was created').toBe(0)
 
   // Focus continued *forward* (at/after the selection), rather than bouncing to the page top.
-  const relation = await page.evaluate((n) => {
-    const para = document.querySelectorAll('p[id*=para]')[n]
+  const relation = await page.evaluate((para) => {
     const a = document.activeElement as HTMLElement | null
     if (!para || !a || a === document.body) {
       return { resolved: false, bouncedBackward: false }
@@ -178,7 +187,7 @@ test('new selection: Tab past the create button leaves cleanly and discards the 
       bouncedBackward: Boolean(para.compareDocumentPosition(a) & DOCUMENT_POSITION_PRECEDING),
       resolved: true,
     }
-  }, paraNumber)
+  }, paragraph)
   console.log('tab-past-create relation:', relation)
   // Asserted unconditionally: an unresolvable comparison (no paragraph, or focus on <body>) is
   // itself a failure, not a reason to skip the check.
@@ -202,6 +211,8 @@ test('new selection: Shift+Tab off the create button goes to previous content, n
   const paraCount = await bookPage.paracount()
   const paraNumber = Math.max(1, paraCount - 1)
   await bookPage.selectText(paraNumber)
+  // Hold the element: the relation is checked after the DOM may have changed, so an index lookup could miss.
+  const paragraph = await bookPage.paragraph.nth(paraNumber).elementHandle()
   await page.waitForSelector(ACTIVE_CARD, { timeout: 15000 })
   await page.keyboard.press('Tab')
   expect((await activeElementInfo(page)).tag, 'focus is on the create button').toBe('BUTTON')
@@ -220,8 +231,7 @@ test('new selection: Shift+Tab off the create button goes to previous content, n
   })
   expect(selectionCollapsed, 'the unsaved selection was discarded').toBe(true)
 
-  const relation = await page.evaluate((n) => {
-    const para = document.querySelectorAll('p[id*=para]')[n]
+  const relation = await page.evaluate((para) => {
     const a = document.activeElement as HTMLElement | null
     if (!para || !a || a === document.body) {
       return { resolved: false, precedes: false, inMainContent: false }
@@ -233,7 +243,7 @@ test('new selection: Shift+Tab off the create button goes to previous content, n
       precedes: Boolean(para.compareDocumentPosition(a) & DOCUMENT_POSITION_PRECEDING),
       inMainContent: Boolean(a.closest('#main-content')),
     }
-  }, paraNumber)
+  }, paragraph)
   console.log('shift-tab target relation:', relation)
   // Asserted unconditionally: an unresolvable comparison (no paragraph, or focus on <body>)
   // contradicts the requirement rather than excusing the check.
@@ -255,6 +265,8 @@ test('new selection: Shift+Tab directly from the selection goes to previous cont
   const paraCount = await bookPage.paracount()
   const paraNumber = Math.max(1, paraCount - 1)
   await bookPage.selectText(paraNumber)
+  // Hold the element: the relation is checked after the DOM may have changed, so an index lookup could miss.
+  const paragraph = await bookPage.paragraph.nth(paraNumber).elementHandle()
   await page.waitForSelector(ACTIVE_CARD, { timeout: 15000 })
   expect((await activeElementInfo(page)).inCard, 'focus is in the content at the selection').toBe(false)
 
@@ -274,8 +286,7 @@ test('new selection: Shift+Tab directly from the selection goes to previous cont
   })
   expect(selectionCollapsed, 'the unsaved selection was discarded').toBe(true)
 
-  const relation = await page.evaluate((n) => {
-    const para = document.querySelectorAll('p[id*=para]')[n]
+  const relation = await page.evaluate((para) => {
     const a = document.activeElement as HTMLElement | null
     if (!para || !a || a === document.body) {
       return { resolved: false, precedes: false, inMainContent: false }
@@ -287,7 +298,7 @@ test('new selection: Shift+Tab directly from the selection goes to previous cont
       precedes: Boolean(para.compareDocumentPosition(a) & DOCUMENT_POSITION_PRECEDING),
       inMainContent: Boolean(a.closest('#main-content')),
     }
-  }, paraNumber)
+  }, paragraph)
   console.log('select -> Shift+Tab relation:', relation)
   // Asserted unconditionally: an unresolvable comparison (no paragraph, or focus on <body>)
   // contradicts the requirement rather than excusing the check.
@@ -343,8 +354,8 @@ test('existing highlight: edit control is reachable via Tab / Shift+Tab', async 
   expect(afterCard.inCard, 'Tab past the last control leaves the card').toBe(false)
   expect(afterCard.tag, 'focus lands on a real content element, not <body>').not.toBe('BODY')
 
-  // AND: Shift+Tab from the highlight span breaks OUT to the previous content — it must not toggle
-  // back to the edit button (which sits before the content in the DOM), which would trap focus.
+  // AND: Shift+Tab from the highlight span goes to the previous content, not back to the edit
+  // button (which sits before the content in the DOM).
   await focusHighlightStartSpan(page, highlightId as string)
   await page.waitForSelector(ACTIVE_CARD, { timeout: 15000 })
   expect((await activeElementInfo(page)).isScreenReaderSpan, 'focus is back on the highlight span').toBe(true)
@@ -398,8 +409,8 @@ test('existing highlight: after Escape hides the card, Tab continues to the next
   console.log('after Escape:', afterEscape)
   expect(afterEscape.isScreenReaderSpan, 'Escape keeps focus on the highlight span').toBe(true)
 
-  // THEN: Tab moves forward to the following content — it does NOT get trapped on the highlight by
-  // trying to focus into the now-hidden card (the bug: the second Tab did nothing).
+  // THEN: Tab moves forward to the following content instead of trying to focus into the
+  // hidden card.
   await page.keyboard.press('Tab')
   const afterTab = await activeElementInfo(page)
   console.log('after Escape -> Tab:', afterTab)
@@ -453,25 +464,28 @@ test('existing highlight: the open note form traps Tab, and Escape returns focus
   expect(inNote.inCard, 'Enter moved focus into the card').toBe(true)
   expect(inNote.tag, 'the note entry field is a textarea').toBe('TEXTAREA')
 
-  // AND: the open form traps Tab — cycling stays within the card (reaching the color picker / trash)
-  // instead of escaping to the following content, and wraps back to the note textarea (the bug:
-  // focus left the card before you could reach the other controls by Tab).
-  const cycledTags: Array<string | null> = []
-  for (let i = 0; i < 3; i++) {
+  // AND: the open form traps Tab. The cycle length depends on the browser's tab stops (the colour
+  // radios form one stop, and the fieldset hands focus to the selected radio), so press Tab until
+  // focus returns to the textarea, bounded by the number of focusable controls in the card.
+  const stopCount = await page.locator(`${ACTIVE_CARD} ${FOCUSABLE}`).count()
+  const visited: Array<string | null> = []
+  for (let i = 0; i < stopCount; i++) {
     await page.keyboard.press('Tab')
     const info = await activeElementInfo(page)
     console.log(`after Tab #${i + 1} (trapped form):`, info)
     expect(info.inCard, `Tab #${i + 1} stays within the trapped form`).toBe(true)
-    cycledTags.push(info.tag)
+    visited.push(info.tag)
+    if (info.tag === 'TEXTAREA') {
+      break
+    }
   }
-  expect(
-    cycledTags.some((t) => t !== 'TEXTAREA'),
-    'Tab reaches the color picker / trash controls too',
-  ).toBe(true)
-  expect((await activeElementInfo(page)).tag, 'the cycle wraps back to the note textarea').toBe('TEXTAREA')
+  expect(visited[visited.length - 1], `the cycle returns to the note textarea within ${stopCount} Tabs`).toBe(
+    'TEXTAREA',
+  )
+  expect(visited.length, 'Tab visits other controls before returning').toBeGreaterThan(1)
 
   // WHEN: Escape closes the (empty) note field
-  // THEN: focus returns to the highlight span rather than falling to <body> (the bug)
+  // THEN: focus returns to the highlight span rather than falling to <body>
   await page.keyboard.press('Escape')
   const afterEscape = await activeElementInfo(page)
   console.log('after Escape (from textarea):', afterEscape)
@@ -479,8 +493,7 @@ test('existing highlight: the open note form traps Tab, and Escape returns focus
   expect(afterEscape.isScreenReaderSpan, 'Escape returns focus to the highlight span').toBe(true)
   expect(afterEscape.highlightId, 'focus is on the same highlight').toBe(highlightId)
 
-  // AND: Shift+Tab now routes to the previous content and closes the card (the bug: it jumped
-  // outside the container and left the "Press Enter" card open).
+  // AND: Shift+Tab now routes to the previous content and closes the card
   await page.keyboard.press('Shift+Tab')
   const afterShiftTab = await activeElementInfo(page)
   console.log('after Escape -> Shift+Tab:', afterShiftTab)
@@ -499,4 +512,89 @@ test('existing highlight: the open note form traps Tab, and Escape returns focus
     return Boolean(mark.compareDocumentPosition(a) & DOCUMENT_POSITION_PRECEDING)
   }, highlightId)
   expect(precedesHighlight, 'focus moved backward, before the highlight').toBe(true)
+})
+
+test('annotated highlight: the note card menu button is reachable via Tab / Shift+Tab', async ({ page, isMobile }) => {
+  test.skip(isMobile as boolean, 'desktop only: the card control is hidden on mobile')
+  test.setTimeout(150000)
+
+  // GIVEN: an authenticated user with a saved highlight that has a note
+  const bookPage = new ContentPage(page)
+  await bookPage.open(BOOK_PAGE)
+  await rexUserSignup(page)
+  await expect(page).toHaveURL(BOOK_PAGE)
+  await createAnnotatedHighlight(page, bookPage, randomNum(await bookPage.paracount()), 'tab order note')
+  const highlightId = await reloadAndFocusHighlight(page)
+
+  // WHEN: Tab  THEN: focus moves into the note card, onto its menu button (not an edit button)
+  await page.keyboard.press('Tab')
+  const onMenu = await activeElementInfo(page)
+  console.log('after Tab (note card):', onMenu)
+  expect(onMenu.inCard, 'Tab moves focus into the card').toBe(true)
+  expect(onMenu.testId, 'the first control is the menu button').toBe('dot-menu-toggle')
+
+  // WHEN: Shift+Tab  THEN: focus returns to the same highlight span
+  await page.keyboard.press('Shift+Tab')
+  const backOnHighlight = await activeElementInfo(page)
+  expect(backOnHighlight.isScreenReaderSpan, 'Shift+Tab returns to the highlight').toBe(true)
+  expect(backOnHighlight.highlightId, 'returns to the same highlight').toBe(highlightId)
+
+  // WHEN: Tab into the card, then Tab again  THEN: focus leaves the card to the following content
+  await page.keyboard.press('Tab')
+  expect((await activeElementInfo(page)).inCard, 'Tab is back in the card').toBe(true)
+  await page.keyboard.press('Tab')
+  const afterCard = await activeElementInfo(page)
+  console.log('after Tab (out of note card):', afterCard)
+  expect(afterCard.inCard, 'Tab past the last control leaves the card').toBe(false)
+  expect(afterCard.tag, 'focus lands on a real content element, not <body>').not.toBe('BODY')
+})
+
+test('annotated highlight: Escape in the emptied note form closes it and returns focus to the highlight', async ({
+  page,
+  isMobile,
+}) => {
+  test.skip(isMobile as boolean, 'desktop only: the card control is hidden on mobile')
+  test.setTimeout(150000)
+
+  // GIVEN: an authenticated user with a saved highlight that has a note, focused on its span
+  const note = 'tab order note'
+  const bookPage = new ContentPage(page)
+  await bookPage.open(BOOK_PAGE)
+  await rexUserSignup(page)
+  await expect(page).toHaveURL(BOOK_PAGE)
+  await createAnnotatedHighlight(page, bookPage, randomNum(await bookPage.paracount()), note)
+  const highlightId = await reloadAndFocusHighlight(page)
+
+  // WHEN: the menu is opened and Edit is chosen with the keyboard
+  await page.keyboard.press('Tab')
+  expect((await activeElementInfo(page)).testId, 'Tab reaches the menu button').toBe('dot-menu-toggle')
+  await page.keyboard.press('Enter')
+  const onEdit = await activeElementInfo(page)
+  console.log('after Enter (menu open):', onEdit)
+  expect(onEdit.inCard, 'the open menu takes focus in the card').toBe(true)
+  expect(onEdit.text, 'focus is on the Edit item').toBe('Edit')
+  await page.keyboard.press('Enter')
+
+  // THEN: the note form opens with the saved note
+  const textarea = page.locator(`${ACTIVE_CARD} textarea`)
+  await expect(textarea).toHaveValue(note)
+
+  // WHEN: the note is emptied and Escape is pressed. Activating Edit currently leaves focus on
+  // <body>, so fill() is what puts focus in the field.
+  await textarea.fill('')
+  await page.keyboard.press('Escape')
+
+  // THEN: focus returns to the highlight, and the form is closed rather than left open
+  const afterEscape = await activeElementInfo(page)
+  console.log('after Escape (emptied note):', afterEscape)
+  expect(afterEscape.isScreenReaderSpan, 'Escape returns focus to the highlight span').toBe(true)
+  expect(afterEscape.highlightId, 'focus is on the same highlight').toBe(highlightId)
+  expect(await page.locator('[data-highlight-card] textarea').count(), 'the note form closed').toBe(0)
+
+  // AND: Tab goes to the collapsed note card's menu button, not back into a note form
+  await page.keyboard.press('Tab')
+  const afterTab = await activeElementInfo(page)
+  console.log('after Escape -> Tab:', afterTab)
+  expect(afterTab.testId, 'Tab reaches the note card menu button').toBe('dot-menu-toggle')
+  expect(await page.locator('[data-highlight-card] textarea').count(), 'no note form is open').toBe(0)
 })
