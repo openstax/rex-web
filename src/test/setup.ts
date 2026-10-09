@@ -87,6 +87,7 @@ let mockResizeObserver: any;
 
 resetModules();
 
+// @openstax/ui-components still renders styled-components
 require('jest-styled-components');
 
 afterAll(async() => {
