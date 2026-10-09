@@ -73,6 +73,7 @@ const prepareApp = async(
   stats.promiseCollector += timer();
 
   const state = app.store.getState();
+  // @openstax/ui-components still uses styled-components; collect its CSS until it migrates.
   const styles = new ServerStyleSheet();
   const pathname = navigationSelectors.pathname(state);
 
