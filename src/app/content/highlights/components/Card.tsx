@@ -70,6 +70,7 @@ function useComputedProps(props: CardProps) {
   const { isActive, highlight, focus, onHeightChange, lastActive } = props;
   const { id } = highlight;
   const [editing, setEditing] = React.useState<boolean>(!annotation);
+  const [focusEditor, setFocusEditor] = React.useState<boolean>(false);
   const hasUnsavedHighlight = useSelector(selectHighlights.hasUnsavedHighlight);
   const focusCard = React.useCallback(async() => {
     if (
@@ -103,6 +104,18 @@ function useComputedProps(props: CardProps) {
 
   useFocusIn(element, true, focusCard);
 
+  // Choosing Edit unmounts the focused menu item, so the form has to take focus itself.
+  const startEditing = React.useCallback(() => {
+    setFocusEditor(true);
+    setEditing(true);
+  }, []);
+
+  React.useEffect(() => {
+    if (!editing) {
+      setFocusEditor(false);
+    }
+  }, [editing]);
+
   React.useEffect(() => {
     if (!lastActive) {
       setEditing(false);
@@ -131,11 +144,13 @@ function useComputedProps(props: CardProps) {
       focusCard,
       editing,
       setEditing,
+      startEditing,
+      focusEditor,
       annotation,
       hasUnsavedHighlight,
       commonProps,
     }),
-    [annotation, editing, focusCard, hasUnsavedHighlight, commonProps]
+    [annotation, editing, focusCard, startEditing, focusEditor, hasUnsavedHighlight, commonProps]
   );
 }
 
@@ -196,10 +211,16 @@ function NoteOrCard({
     focusCard,
     editing,
     setEditing,
+    startEditing,
+    focusEditor,
     annotation,
     hasUnsavedHighlight,
     commonProps,
   } = computedProps;
+  const editCardCommonProps = React.useMemo(
+    () => focusEditor ? { ...commonProps, shouldFocusCard: true } : commonProps,
+    [commonProps, focusEditor]
+  );
   const showToast = useConfirmationToastContext();
   const intl = useIntl();
   const onRemove = React.useCallback(() => {
@@ -272,12 +293,12 @@ function NoteOrCard({
           highlightStyle={style}
           note={annotation}
           focus={props.focus}
-          onEdit={() => setEditing(true)}
+          onEdit={startEditing}
         />
       ) : (
         <EditCardWithOnCreate
           cardProps={props}
-          commonProps={commonProps}
+          commonProps={editCardCommonProps}
           cardElementProps={cardElementProps}
           locationFilterId={locationFilterId}
           hasUnsavedHighlight={hasUnsavedHighlight}
