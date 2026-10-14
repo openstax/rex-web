@@ -106,10 +106,11 @@ const isInNaturalTabOrder = (el: HTMLElement) => Number(el.getAttribute('tabinde
 // Finds the nearest tabbable element before/after `reference` in document order, excluding a
 // highlight's own spans and the card wrapper. Scanning the whole document (not just the highlighter
 // container) lets Tab continue to the true next/previous stop, e.g. the footer or a toolbar control.
+// `exclude` takes nulls so callers can pass the card wrapper ref's current value as is.
 function findAdjacentContentTabbable(
   reference: Node,
   forward: boolean,
-  exclude: HTMLElement[]
+  exclude: Array<HTMLElement | null>
 ): HTMLElement | null {
   const root = assertDocument().getRootNode();
   const position = forward ? root.DOCUMENT_POSITION_FOLLOWING : root.DOCUMENT_POSITION_PRECEDING;
@@ -118,7 +119,7 @@ function findAdjacentContentTabbable(
   ).filter((el) =>
     // eslint-disable-next-line no-bitwise
     Boolean(reference.compareDocumentPosition(el) & position)
-    && !exclude.some((ex) => ex === el || ex.contains(el))
+    && !exclude.some((ex) => ex && (ex === el || ex.contains(el)))
   );
   // Nearest first in the direction of travel, then the first one focus() would actually move to:
   // tabbableElementsSelector matches more than real tab stops (`ol`, CSS-hidden controls), and
@@ -197,21 +198,17 @@ function useTabRouting(
       const startEl = elements[0];
       const isNewSelection = elements.length === 0;
 
-      // Move focus out of the highlight/card to the adjacent content tab stop in the given direction.
-      const focusAdjacentContent = (reference: Node | null, forward: boolean, clearSelection: boolean) => {
-        const cardWrapper = element.current;
-        const exclude = [...elements, ...(cardWrapper ? [cardWrapper] : [])];
-        const target = reference ? findAdjacentContentTabbable(reference, forward, exclude) : null;
-        const cleanUp = () => {
-          if (clearSelection) {
-            assertWindow().getSelection()?.removeAllRanges();
-          }
-          unfocus();
-        };
+      // Move focus out of the highlight/card to the adjacent content tab stop in the given direction,
+      // hiding the card. A new selection is kept, and its card stays hidden until the selection
+      // changes, because the highlighter only reports a selection the first time it sees it.
+      const focusAdjacentContent = (reference: Node | null, forward: boolean) => {
+        const target = reference
+          ? findAdjacentContentTabbable(reference, forward, [...elements, element.current])
+          : null;
 
         if (target) {
           event.preventDefault();
-          cleanUp();
+          unfocus();
           target.focus();
           return;
         }
@@ -219,8 +216,8 @@ function useTabRouting(
         // Nothing to move to, so the native Tab is left alone - but unfocus() unmounts the control
         // focus is currently on, and the browser resolves the default action after this handler
         // returns. Tearing the card down now would leave it navigating from a removed node and
-        // falling back to <body>, so let native Tab run first and clean up afterwards.
-        assertWindow().setTimeout(cleanUp, 0);
+        // falling back to <body>, so let native Tab run first and hide the card afterwards.
+        assertWindow().setTimeout(unfocus, 0);
       };
 
       // Tab from the highlight's screen-reader span moves focus into the card.
@@ -236,7 +233,7 @@ function useTabRouting(
         }
         // Card was dismissed (Escape): nothing to tab into, so continue to the next content control.
         if (cardHidden) {
-          focusAdjacentContent(elements[elements.length - 1], true, false);
+          focusAdjacentContent(elements[elements.length - 1], true);
           return;
         }
       }
@@ -245,7 +242,7 @@ function useTabRouting(
       // Shift+Tab would instead land on the edit button (which sits before the content in the DOM),
       // creating a span<->button loop that can never reach earlier elements.
       if (onHighlightSpan && event.shiftKey && startEl) {
-        focusAdjacentContent(startEl, false, false);
+        focusAdjacentContent(startEl, false);
         return;
       }
 
@@ -268,12 +265,12 @@ function useTabRouting(
 
         // At a card boundary, continue to the adjacent content control: Tab off the last control, or
         // Shift+Tab off the first control of a new selection (which has no highlight span to return
-        // to). Any unsaved selection is discarded first so focus doesn't bounce back to it.
+        // to). Hiding the card stops the next Tab from routing straight back into it.
         if (goingForward || goingBack) {
           const reference: Node | null = isNewSelection
             ? selectionBoundaryNode(container, goingForward)
             : elements[elements.length - 1];
-          focusAdjacentContent(reference, goingForward, true);
+          focusAdjacentContent(reference, goingForward);
           return;
         }
       }
@@ -288,7 +285,7 @@ function useTabRouting(
         );
         // Focus moving away does not collapse the Selection range, so a stale pending selection
         // must not let us hijack Tab from an unrelated control - a toolbar button would get
-        // redirected into the create card, or have its selection discarded. Only route when focus
+        // redirected into the create card, or have the card hidden. Only route when focus
         // is still in the content, or nowhere in particular (the usual state right after a
         // mouse selection).
         const focusInContent = container.contains(active)
@@ -300,8 +297,8 @@ function useTabRouting(
             event.preventDefault();
             withSelectionPreserved(() => firstFocusable.focus());
           } else if (event.shiftKey) {
-            // Shift+Tab: back to the previous content control, discarding the unsaved selection.
-            focusAdjacentContent(selectionBoundaryNode(container, false), false, true);
+            // Shift+Tab: back to the previous content control, hiding the card.
+            focusAdjacentContent(selectionBoundaryNode(container, false), false);
           }
         }
       }
@@ -310,6 +307,48 @@ function useTabRouting(
     document.addEventListener('keydown', handler, true);
     return () => document.removeEventListener('keydown', handler, true);
   }, [document, focusedHighlight, element, container, unfocus]);
+}
+
+// When focus is on nothing in particular and text is selected in the content, Tab/Shift+Tab continue
+// from the selection. Firefox does this natively, but Chrome continues from wherever the last focused
+// element was removed - e.g. after Escape hides the login box, the card layer before the content.
+function useTabFromSelection(
+  focusedHighlight: Highlight | undefined,
+  element: React.RefObject<HTMLElement>,
+  container: HTMLElement
+) {
+  const document = assertDocument();
+
+  React.useEffect(() => {
+    // While a card is showing, useTabRouting handles Tab.
+    if (focusedHighlight) {
+      return;
+    }
+
+    const handler = (event: KeyboardEvent) => {
+      if (
+        event.key !== 'Tab'
+        || (document.activeElement !== document.body && document.activeElement !== document.documentElement)
+        || assertWindow().getSelection()?.isCollapsed !== false
+      ) {
+        return;
+      }
+
+      const forward = !event.shiftKey;
+      const reference = selectionBoundaryNode(container, forward);
+      const target = reference
+        ? findAdjacentContentTabbable(reference, forward, [element.current])
+        : null;
+
+      if (target) {
+        event.preventDefault();
+        target.focus();
+      }
+    };
+
+    document.addEventListener('keydown', handler, true);
+    return () => document.removeEventListener('keydown', handler, true);
+  }, [document, focusedHighlight, element, container]);
 }
 
 function useFocusedHighlight(
@@ -397,6 +436,7 @@ function useFocusedHighlight(
   useKeyCombination(highlightKeyCombination, moveFocus, noopKeyCombinationHandler([container, element]));
   // Standard-keyboard path: Tab/Shift+Tab move focus between the highlight and its card.
   useTabRouting(focusedHighlight, element, container, unfocus);
+  useTabFromSelection(focusedHighlight, element, container);
   // Clear shouldFocusCard when focus is lost from the CardWrapper.
   // If we don't do this then card related for the focused highlight will be focused automatically.
   useFocusLost(element, shouldFocusCard && Boolean(isExistingHighlight), React.useCallback(() => {
