@@ -447,7 +447,7 @@ function useFocusedHighlight(
 }
 
 function CardsForHighlights({
-  highlights, container, focusedHighlight, shouldFocusCard, setShouldFocusCard, highlighter,
+  highlights, container, focusedHighlight, shouldFocusCard, setShouldFocusCard, highlighter, unfocus,
 }: {
   highlights: Highlight[];
   container: HTMLElement;
@@ -455,6 +455,7 @@ function CardsForHighlights({
   shouldFocusCard: boolean;
   setShouldFocusCard: (v: boolean) => void;
   highlighter: Highlighter;
+  unfocus: () => void;
 }) {
   const [cardsHeights, onHeightChange] = useCardsHeights();
   const [cardsPositions, offsets] = useCardPositionObserver(
@@ -468,29 +469,29 @@ function CardsForHighlights({
     new Map(highlights.map((highlight) => [highlight.id, false]))
   );
 
-  const leaveCard = (highlight: Highlight) => {
-    if (highlight.elements.length) {
-      highlight.focus();
-    } else {
-      window?.getSelection()?.removeAllRanges();
-    }
-  };
-
-  // First time, Esc closes it to the instructions; second Esc disappears it
+  // For an existing highlight, the first Esc closes the card to the instructions and the second
+  // hides it. For a new selection, Esc hides the card but keeps the selection; the card stays hidden
+  // until the selection changes, and Tab continues from the selection (see useTabFromSelection).
   const hideCard = () => {
     if (!focusedHighlight) {
       return;
     }
-    leaveCard(focusedHighlight);
+    if (focusedHighlight.elements.length === 0) {
+      setShouldFocusCard(false);
+      unfocus();
+      return;
+    }
+    focusedHighlight.focus();
     if (shouldFocusCard) {
       setShouldFocusCard(false);
     } else {
-      dispatch({ type: 'HIDE', id: focusedHighlight?.id });
+      dispatch({ type: 'HIDE', id: focusedHighlight.id });
     }
   };
-  // Same outcome as Escape: focus returns to the highlight and the card is hidden until Enter.
+  // Same outcome as Escape on an existing highlight (the only kind that shows a close button): focus
+  // returns to the highlight and the card is hidden until Enter.
   const closeCard = (highlight: Highlight) => {
-    leaveCard(highlight);
+    highlight.focus();
     setShouldFocusCard(false);
     dispatch({ type: 'HIDE', id: highlight.id });
   };
@@ -561,6 +562,7 @@ const Wrapper = ({ highlights, hasQuery, isTocOpen, container, highlighter, disp
       shouldFocusCard={shouldFocusCard}
       setShouldFocusCard={setShouldFocusCard}
       highlighter={highlighter}
+      unfocus={unfocus}
     />
   </div>;
 };

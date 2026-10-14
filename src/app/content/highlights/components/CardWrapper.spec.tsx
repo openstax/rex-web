@@ -154,23 +154,54 @@ describe('CardWrapper', () => {
     expect((component.root.findByType(Card).props as CardProps).isHidden).toBe(true);
   });
 
-  it('closing a selection-only card clears the selection and hides the card', () => {
+  it('Escape on an existing highlight with its card open closes the card to the instructions', () => {
+    const document = assertDocument();
     const highlight = createMockHighlight('id1');
-    const removeAllRanges = jest.fn();
-    const getSelectionSpy = jest.spyOn(window!, 'getSelection').mockReturnValue({ removeAllRanges } as any);
+    const highlightElement = document.createElement('span');
+    highlight.elements.push(highlightElement);
+    container.appendChild(highlightElement);
 
     const component = renderer.create(<Provider store={store}>
+      <OnEsc />
       <CardWrapper container={container} highlights={[highlight as unknown as Highlight]} />
     </Provider>);
 
     renderer.act(() => { store.dispatch(focusHighlight(highlight.id)); });
+    renderer.act(() => { document.dispatchEvent(new CustomEvent('showCardEvent')); });
     (highlight.focus as jest.Mock).mockClear();
 
-    renderer.act(() => { (component.root.findByType(Card).props as CardProps).onClose(); });
+    renderer.act(() => { dispatchKeyDownEvent({ key: 'Escape' }); });
 
+    const cardProps = component.root.findByType(Card).props as CardProps;
+    expect(highlight.focus).toHaveBeenCalled();
+    expect(cardProps.shouldFocusCard).toBe(false);
+    expect(cardProps.isHidden).toBeFalsy();
+    expect(store.getState().content.highlights.currentPage.focused).toBe(highlight.id);
+  });
+
+  it('Escape on a new selection hides the card but keeps the selection', () => {
+    const highlight = createMockHighlight('id1');
+    const removeAllRanges = jest.fn();
+    const getSelectionSpy = jest.spyOn(assertWindow(), 'getSelection').mockReturnValue(
+      { removeAllRanges } as unknown as ReturnType<ReturnType<typeof assertWindow>['getSelection']>
+    );
+
+    const component = renderer.create(<Provider store={store}>
+      <OnEsc />
+      <CardWrapper container={container} highlights={[highlight as unknown as Highlight]} />
+    </Provider>);
+
+    renderer.act(() => { store.dispatch(focusHighlight(highlight.id)); });
+    renderer.act(() => { assertDocument().dispatchEvent(new CustomEvent('showCardEvent')); });
+    expect((component.root.findByType(Card).props as CardProps).shouldFocusCard).toBe(true);
+    (highlight.focus as jest.Mock).mockClear();
+
+    renderer.act(() => { dispatchKeyDownEvent({ key: 'Escape' }); });
+
+    expect(store.getState().content.highlights.currentPage.focused).toBeUndefined();
+    expect((component.root.findByType(Card).props as CardProps).shouldFocusCard).toBe(false);
     expect(highlight.focus).not.toHaveBeenCalled();
-    expect(removeAllRanges).toHaveBeenCalled();
-    expect((component.root.findByType(Card).props as CardProps).isHidden).toBe(true);
+    expect(removeAllRanges).not.toHaveBeenCalled();
 
     getSelectionSpy.mockRestore();
   });
