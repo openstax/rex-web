@@ -183,28 +183,45 @@ app.services.userLoader.getCurrentUser().then((user) => {
     window.cookieYesActive = true;
   });
 
-  async function shouldSkipGTM() {
+  async function getPortalSchoolData() {
     const pathMatch = window.location.pathname.match(/\/portal\/([^/]+)/);
     if (pathMatch) {
       const portalName = pathMatch[1];
       try {
-        const schoolData = await app.services.osWebLoader.getSchoolDataFromPortalName(portalName);
-
-        if (schoolData?.industry === 'K12') {
-          return true;
-        }
+        return await app.services.osWebLoader.getSchoolDataFromPortalName(portalName);
       } catch (e) {
         // eslint-disable-next-line no-console
         console.error('Error fetching school data', e);
       }
     }
-    return false;
+    return undefined;
   }
 
   (async() => {
-    const skipGTM = await shouldSkipGTM();
+    const schoolData = await getPortalSchoolData();
 
-    if (!skipGTM) {
+    if (schoolData?.industry === 'K12') {
+      if (schoolData.research_agreement_active) {
+        // GTM is skipped for K12 schools, but it is what normally loads event capture,
+        // so load event capture directly for schools with a research agreement.
+        // The analytics helper reads the organization when it loads, so it must be set first.
+        // The user is already set by the establishState initializer.
+        window.dataLayer.push({'os.organization_id': schoolData.salesforce_id});
+
+        // helper.js checks for window.EventCapture (set by standalone.umd.js) only once, when it runs,
+        // and silently skips all event capture if it is missing, so standalone.umd.js must run first.
+        // Scripts added this way run in the order they are added only when not async
+        [
+          'https://ram.openstax.org/quasar/standalone.umd.js',
+          'https://ram.openstax.org/analytics/helper.js',
+        ].forEach((src) => {
+          const script = document.createElement('script');
+          script.async = false;
+          script.src = src;
+          document.head.appendChild(script);
+        });
+      }
+    } else {
       /* eslint-disable no-var, @typescript-eslint/no-non-null-assertion */
       // GTM snippet slightly modified to assume f.parentNode is not null and with const types so ts doesn't complain
       (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
