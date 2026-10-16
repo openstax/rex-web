@@ -1,5 +1,5 @@
 import { Highlight } from '@openstax/highlighter';
-import { Document, HTMLElement, HTMLDivElement } from '@openstax/types/lib.dom';
+import { Document, HTMLElement, HTMLDivElement, Node } from '@openstax/types/lib.dom';
 import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
@@ -154,23 +154,54 @@ describe('CardWrapper', () => {
     expect((component.root.findByType(Card).props as CardProps).isHidden).toBe(true);
   });
 
-  it('closing a selection-only card clears the selection and hides the card', () => {
+  it('Escape on an existing highlight with its card open closes the card to the instructions', () => {
+    const document = assertDocument();
     const highlight = createMockHighlight('id1');
-    const removeAllRanges = jest.fn();
-    const getSelectionSpy = jest.spyOn(window!, 'getSelection').mockReturnValue({ removeAllRanges } as any);
+    const highlightElement = document.createElement('span');
+    highlight.elements.push(highlightElement);
+    container.appendChild(highlightElement);
 
     const component = renderer.create(<Provider store={store}>
+      <OnEsc />
       <CardWrapper container={container} highlights={[highlight as unknown as Highlight]} />
     </Provider>);
 
     renderer.act(() => { store.dispatch(focusHighlight(highlight.id)); });
+    renderer.act(() => { document.dispatchEvent(new CustomEvent('showCardEvent')); });
     (highlight.focus as jest.Mock).mockClear();
 
-    renderer.act(() => { (component.root.findByType(Card).props as CardProps).onClose(); });
+    renderer.act(() => { dispatchKeyDownEvent({ key: 'Escape' }); });
 
+    const cardProps = component.root.findByType(Card).props as CardProps;
+    expect(highlight.focus).toHaveBeenCalled();
+    expect(cardProps.shouldFocusCard).toBe(false);
+    expect(cardProps.isHidden).toBeFalsy();
+    expect(store.getState().content.highlights.currentPage.focused).toBe(highlight.id);
+  });
+
+  it('Escape on a new selection hides the card but keeps the selection', () => {
+    const highlight = createMockHighlight('id1');
+    const removeAllRanges = jest.fn();
+    const getSelectionSpy = jest.spyOn(assertWindow(), 'getSelection').mockReturnValue(
+      { removeAllRanges } as unknown as ReturnType<ReturnType<typeof assertWindow>['getSelection']>
+    );
+
+    const component = renderer.create(<Provider store={store}>
+      <OnEsc />
+      <CardWrapper container={container} highlights={[highlight as unknown as Highlight]} />
+    </Provider>);
+
+    renderer.act(() => { store.dispatch(focusHighlight(highlight.id)); });
+    renderer.act(() => { assertDocument().dispatchEvent(new CustomEvent('showCardEvent')); });
+    expect((component.root.findByType(Card).props as CardProps).shouldFocusCard).toBe(true);
+    (highlight.focus as jest.Mock).mockClear();
+
+    renderer.act(() => { dispatchKeyDownEvent({ key: 'Escape' }); });
+
+    expect(store.getState().content.highlights.currentPage.focused).toBeUndefined();
+    expect((component.root.findByType(Card).props as CardProps).shouldFocusCard).toBe(false);
     expect(highlight.focus).not.toHaveBeenCalled();
-    expect(removeAllRanges).toHaveBeenCalled();
-    expect((component.root.findByType(Card).props as CardProps).isHidden).toBe(true);
+    expect(removeAllRanges).not.toHaveBeenCalled();
 
     getSelectionSpy.mockRestore();
   });
@@ -1119,7 +1150,7 @@ describe('CardWrapper', () => {
 
   describe('useTabRouting', () => {
     // When Tab has nowhere to go, focusAdjacentContent leaves the native Tab alone and defers its
-    // cleanup (unfocus + selection clear) so the browser navigates from a still-mounted control.
+    // cleanup (hiding the card) so the browser navigates from a still-mounted control.
     // These tests assert the post-cleanup state, so they run that deferred work explicitly.
     beforeEach(() => jest.useFakeTimers());
     afterEach(() => jest.useRealTimers());
@@ -1448,7 +1479,7 @@ describe('CardWrapper', () => {
       cleanup();
     });
 
-    it('routes Tab off the create button to next content and discards the unsaved selection', () => {
+    it('routes Tab off the create button to next content and hides the card, keeping the selection', () => {
       const document = assertDocument();
       const highlight = createMockHighlight(); // new selection: elements stays []
 
@@ -1491,7 +1522,7 @@ describe('CardWrapper', () => {
         dispatchKeyDownEvent({ key: 'Tab' });
       });
 
-      expect(removeAllRanges).toHaveBeenCalled();
+      expect(removeAllRanges).not.toHaveBeenCalled();
       expect(focusSpy).toHaveBeenCalled();
       expect(store.getState().content.highlights.currentPage.focused).toBeUndefined();
 
@@ -1500,7 +1531,7 @@ describe('CardWrapper', () => {
       cardWrapperElement.remove();
     });
 
-    it('routes Shift+Tab off the create button to previous content and discards the selection', () => {
+    it('routes Shift+Tab off the create button to previous content and hides the card, keeping the selection', () => {
       const document = assertDocument();
       const highlight = createMockHighlight(); // new selection: elements stays []
 
@@ -1543,7 +1574,7 @@ describe('CardWrapper', () => {
         dispatchKeyDownEvent({ key: 'Tab', shiftKey: true });
       });
 
-      expect(removeAllRanges).toHaveBeenCalled();
+      expect(removeAllRanges).not.toHaveBeenCalled();
       expect(focusSpy).toHaveBeenCalled();
       expect(store.getState().content.highlights.currentPage.focused).toBeUndefined();
 
@@ -1552,7 +1583,7 @@ describe('CardWrapper', () => {
       cardWrapperElement.remove();
     });
 
-    it('routes Shift+Tab from a new selection in the content to previous content', () => {
+    it('routes Shift+Tab from a new selection in the content to previous content, keeping the selection', () => {
       const document = assertDocument();
       const highlight = createMockHighlight(); // new selection: elements stays []
 
@@ -1593,7 +1624,7 @@ describe('CardWrapper', () => {
         dispatchKeyDownEvent({ key: 'Tab', shiftKey: true });
       });
 
-      expect(removeAllRanges).toHaveBeenCalled();
+      expect(removeAllRanges).not.toHaveBeenCalled();
       expect(focusSpy).toHaveBeenCalled();
       expect(store.getState().content.highlights.currentPage.focused).toBeUndefined();
 
@@ -1762,7 +1793,8 @@ describe('CardWrapper', () => {
       expect(focusSpy).not.toHaveBeenCalled();
 
       flushDeferredCleanup();
-      expect(removeAllRanges).toHaveBeenCalled();
+      expect(store.getState().content.highlights.currentPage.focused).toBeUndefined();
+      expect(removeAllRanges).not.toHaveBeenCalled();
 
       getSelectionSpy.mockRestore();
       renderer.act(() => component.unmount());
@@ -1850,7 +1882,8 @@ describe('CardWrapper', () => {
       expect(focusSpy).not.toHaveBeenCalled();
 
       flushDeferredCleanup();
-      expect(removeAllRanges).toHaveBeenCalled();
+      expect(store.getState().content.highlights.currentPage.focused).toBeUndefined();
+      expect(removeAllRanges).not.toHaveBeenCalled();
 
       getSelectionSpy.mockRestore();
       renderer.act(() => component.unmount());
@@ -1990,6 +2023,159 @@ describe('CardWrapper', () => {
       getSelectionSpy.mockRestore();
       renderer.act(() => component.unmount());
       cardWrapperElement.remove();
+    });
+  });
+
+  describe('useTabFromSelection', () => {
+    const mockSelection = ({ isCollapsed = false, boundary }: { isCollapsed?: boolean; boundary: Node }) =>
+      jest.spyOn(assertWindow(), 'getSelection').mockReturnValue({
+        isCollapsed,
+        rangeCount: 1,
+        getRangeAt: () => ({ startContainer: boundary, endContainer: boundary }),
+      } as unknown as ReturnType<ReturnType<typeof assertWindow>['getSelection']>);
+
+    // Content: a link, the selected text, then another link. No card is showing. The card layer
+    // sits before the content in the DOM, as it does in REX.
+    const setupSelection = () => {
+      const document = assertDocument();
+      const prevLink = document.createElement('a');
+      prevLink.setAttribute('href', '#prev');
+      const selectedText = document.createTextNode('selected text');
+      const nextLink = document.createElement('a');
+      nextLink.setAttribute('href', '#next');
+      container.append(prevLink, selectedText, nextLink);
+
+      const cardWrapperElement = document.createElement('div');
+      const cardButton = document.createElement('button');
+      cardWrapperElement.appendChild(cardButton);
+      document.body.insertBefore(cardWrapperElement, container);
+
+      const component = renderer.create(<Provider store={store}>
+        <CardWrapper container={container} highlights={[createMockHighlight()]} />
+      </Provider>, { createNodeMock: () => cardWrapperElement });
+      renderer.act(() => undefined);
+
+      const cleanup = () => {
+        renderer.act(() => component.unmount());
+        cardWrapperElement.remove();
+      };
+
+      return { cardButton, cleanup, component, nextLink, prevLink, selectedText };
+    };
+
+    it('continues Tab from the selection when nothing is focused', () => {
+      const { cleanup, nextLink, selectedText } = setupSelection();
+      const getSelectionSpy = mockSelection({ boundary: selectedText });
+      const focusSpy = jest.spyOn(nextLink, 'focus');
+
+      let notPrevented: boolean | undefined;
+      renderer.act(() => { notPrevented = dispatchKeyDownEvent({ key: 'Tab' }); });
+
+      expect(focusSpy).toHaveBeenCalled();
+      expect(notPrevented).toBe(false);
+      getSelectionSpy.mockRestore();
+      cleanup();
+    });
+
+    it('continues Shift+Tab from the selection when nothing is focused', () => {
+      const { cleanup, prevLink, selectedText } = setupSelection();
+      const getSelectionSpy = mockSelection({ boundary: selectedText });
+      const focusSpy = jest.spyOn(prevLink, 'focus');
+
+      renderer.act(() => { dispatchKeyDownEvent({ key: 'Tab', shiftKey: true }); });
+
+      expect(focusSpy).toHaveBeenCalled();
+      getSelectionSpy.mockRestore();
+      cleanup();
+    });
+
+    it('skips the card layer when continuing Shift+Tab from the selection', () => {
+      const { cardButton, cleanup, prevLink, selectedText } = setupSelection();
+      prevLink.remove();
+      const getSelectionSpy = mockSelection({ boundary: selectedText });
+      const focusSpy = jest.spyOn(cardButton, 'focus');
+
+      renderer.act(() => { dispatchKeyDownEvent({ key: 'Tab', shiftKey: true }); });
+
+      expect(focusSpy).not.toHaveBeenCalled();
+      getSelectionSpy.mockRestore();
+      cleanup();
+    });
+
+    it('leaves Tab alone when a control is focused', () => {
+      const { cleanup, nextLink, prevLink, selectedText } = setupSelection();
+      const getSelectionSpy = mockSelection({ boundary: selectedText });
+      prevLink.focus();
+      const focusSpy = jest.spyOn(nextLink, 'focus');
+
+      renderer.act(() => { dispatchKeyDownEvent({ key: 'Tab' }); });
+
+      expect(focusSpy).not.toHaveBeenCalled();
+      getSelectionSpy.mockRestore();
+      cleanup();
+    });
+
+    it('leaves Tab alone when nothing is selected', () => {
+      const { cleanup, nextLink, selectedText } = setupSelection();
+      const getSelectionSpy = mockSelection({ boundary: selectedText, isCollapsed: true });
+      const focusSpy = jest.spyOn(nextLink, 'focus');
+
+      renderer.act(() => { dispatchKeyDownEvent({ key: 'Tab' }); });
+
+      expect(focusSpy).not.toHaveBeenCalled();
+      getSelectionSpy.mockRestore();
+      cleanup();
+    });
+
+    it('ignores other keys', () => {
+      const { cleanup, nextLink, selectedText } = setupSelection();
+      const getSelectionSpy = mockSelection({ boundary: selectedText });
+      const focusSpy = jest.spyOn(nextLink, 'focus');
+
+      renderer.act(() => { dispatchKeyDownEvent({ key: 'a' }); });
+
+      expect(focusSpy).not.toHaveBeenCalled();
+      getSelectionSpy.mockRestore();
+      cleanup();
+    });
+
+    it('leaves the native Tab alone when nothing follows the selection', () => {
+      const { cleanup, nextLink, selectedText } = setupSelection();
+      nextLink.remove();
+      const getSelectionSpy = mockSelection({ boundary: selectedText });
+
+      let notPrevented: boolean | undefined;
+      renderer.act(() => { notPrevented = dispatchKeyDownEvent({ key: 'Tab' }); });
+
+      expect(notPrevented).toBe(true);
+      getSelectionSpy.mockRestore();
+      cleanup();
+    });
+
+    it('leaves the native Tab alone when the selection is outside the content', () => {
+      const { cleanup, nextLink } = setupSelection();
+      const getSelectionSpy = mockSelection({ boundary: assertDocument().createTextNode('outside') });
+      const focusSpy = jest.spyOn(nextLink, 'focus');
+
+      renderer.act(() => { dispatchKeyDownEvent({ key: 'Tab' }); });
+
+      expect(focusSpy).not.toHaveBeenCalled();
+      getSelectionSpy.mockRestore();
+      cleanup();
+    });
+
+    it('does not route while a card is showing', () => {
+      const { cleanup, component, nextLink, selectedText } = setupSelection();
+      const getSelectionSpy = mockSelection({ boundary: selectedText });
+      const highlight = component.root.findByType(Card).props.highlight as Highlight;
+      renderer.act(() => { store.dispatch(focusHighlight(highlight.id)); });
+      const focusSpy = jest.spyOn(nextLink, 'focus');
+
+      renderer.act(() => { dispatchKeyDownEvent({ key: 'Tab' }); });
+
+      expect(focusSpy).not.toHaveBeenCalled();
+      getSelectionSpy.mockRestore();
+      cleanup();
     });
   });
 
