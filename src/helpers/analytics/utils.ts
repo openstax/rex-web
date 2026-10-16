@@ -10,9 +10,25 @@ import Cookies from 'js-cookie';
 import { findFirstAncestorOrSelf } from '../../app/domUtils';
 import { isHtmlElement, isNode, isWindow } from '../../app/guards';
 import { UnionToIntersection } from '../../app/types';
-import { disableAnalyticsCookie } from './constants';
+import { assertWindow } from '../../app/utils/browser-assertions';
+import { cookieYesConsentCookie, disableAnalyticsCookie } from './constants';
+import { getPortalNameFromPath, portalHasResearchAgreement, portalIsK12 } from './k12Portal';
 
 export const trackingIsDisabled = () => !!Cookies.get(disableAnalyticsCookie);
+
+const hasAnalyticsConsent = () =>
+  (Cookies.get(cookieYesConsentCookie) ?? '').split(',').includes('analytics:yes');
+
+export const eventCaptureIsEnabled = () => {
+  if (trackingIsDisabled()) { return false; }
+
+  const portalName = getPortalNameFromPath(assertWindow().location.pathname);
+  if (portalName === undefined) { return hasAnalyticsConsent(); }
+  // K12 portals show no banner; the district's active research agreement is the basis for collection
+  if (portalHasResearchAgreement(portalName)) { return true; }
+
+  return !portalIsK12(portalName) && hasAnalyticsConsent();
+};
 
 type InteractableConfig<T, S> = {
   events: string[];
