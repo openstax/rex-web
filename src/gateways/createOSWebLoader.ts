@@ -30,6 +30,7 @@ interface OSWebSchoolData {
   salesforce_id: string,
   name: string;
   industry: string;
+  research_agreement_active: boolean;
 }
 
 interface OSWebResponse {
