@@ -200,13 +200,17 @@ app.services.userLoader.getCurrentUser().then((user) => {
   (async() => {
     const schoolData = await getPortalSchoolData();
 
+    // The analytics helper, whether loaded by GTM or directly below, reads the organization
+    // when it loads, so it must be set first. Nothing reads it if no analytics are loaded.
+    if (schoolData) {
+      window.dataLayer.push({'os.organization_id': schoolData.salesforce_id});
+    }
+
     if (schoolData?.industry === 'K12') {
       if (schoolData.research_agreement_active) {
         // GTM is skipped for K12 schools, but it is what normally loads event capture,
         // so load event capture directly for schools with a research agreement.
-        // The analytics helper reads the organization when it loads, so it must be set first.
         // The user is already set by the establishState initializer.
-        window.dataLayer.push({'os.organization_id': schoolData.salesforce_id});
 
         // helper.js checks for window.EventCapture (set by standalone.umd.js) only once, when it runs,
         // and silently skips all event capture if it is missing, so standalone.umd.js must run first.
