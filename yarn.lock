@@ -5366,9 +5366,9 @@
   resolved "https://registry.yarnpkg.com/@openstax/types/-/types-3.1.0.tgz#364a73e321127dfb1cfa36adccdae8e21a0805dc"
   integrity sha512-vy9nFdfw/nRX7iYjpl1CPxHwr8dIog+WVlDQr+EeD31HQ9uQX4I+cNV7jmvx1oiMIofSdrM+OBbmPC9qzAJK+w==
 
-"@openstax/ui-components@openstax/ui-components#1.24.2":
-  version "1.24.2"
-  resolved "https://codeload.github.com/openstax/ui-components/tar.gz/d9cab6482ef6879c60b5338114acca4166565adf"
+"@openstax/ui-components@openstax/ui-components#1.25.1-pre1":
+  version "1.25.1"
+  resolved "https://codeload.github.com/openstax/ui-components/tar.gz/b697eb2a56ed00056a65c68607777cada127c0f8"
   dependencies:
     "@sentry/react" "^10.60.0"
     classnames "^2.3.1"
