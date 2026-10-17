@@ -219,6 +219,59 @@ describe('Card', () => {
     expect(edit).toBeTruthy();
   });
 
+  describe('focusing the edit form', () => {
+    const renderAnnotatedCard = () => {
+      const data = {
+        annotation: 'adsf',
+        color: highlightStyles[0].label,
+        id: highlightData.id,
+      } as HighlightData;
+      store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+      store.dispatch(receivePage({...page, references: []}));
+      store.dispatch(receiveHighlights({highlights: [data], pageId: '123'}));
+      store.dispatch(focusHighlight(highlight.id));
+
+      let component: renderer.ReactTestRenderer;
+      // act so the mount effects have run, as they have by the time a user can choose Edit
+      renderer.act(() => {
+        component = renderer.create(<TestContainer store={store}>
+          <Card {...cardProps} shouldFocusCard={false} />
+        </TestContainer>, {createNodeMock});
+      });
+      return component!;
+    };
+
+    it('asks the edit form to take focus when Edit is chosen', () => {
+      const component = renderAnnotatedCard();
+      expect(component.root.findByType(DisplayNote).props.shouldFocusCard).toBe(false);
+
+      renderer.act(() => {
+        component.root.findByType(DisplayNote).props.onEdit();
+      });
+
+      expect(component.root.findByType(EditCard).props.shouldFocusCard).toBe(true);
+    });
+
+    it('does not ask the note display to take focus once editing ends', () => {
+      const component = renderAnnotatedCard();
+
+      renderer.act(() => {
+        component.root.findByType(DisplayNote).props.onEdit();
+      });
+      renderer.act(() => {
+        component.root.findByType(EditCard).props.onCancel();
+      });
+
+      expect(component.root.findByType(DisplayNote).props.shouldFocusCard).toBe(false);
+
+      renderer.act(() => {
+        component.root.findByType(DisplayNote).props.onEdit();
+      });
+
+      expect(component.root.findByType(EditCard).props.shouldFocusCard).toBe(true);
+    });
+  });
+
   it('switches to display mode when cancelling', () => {
     const data = {
       annotation: 'adsf',
