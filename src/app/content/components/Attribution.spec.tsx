@@ -4,6 +4,7 @@ import { book, page, shortPage } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import { reactAndFriends, resetModules } from '../../../test/utils';
 import { AppState, Store } from '../../types';
+import { assertWindow } from '../../utils';
 import * as actions from '../actions';
 import { initialState } from '../reducer';
 import { formatBookData } from '../utils';
@@ -165,6 +166,26 @@ describe('Attribution', () => {
       const { node: details } = renderToDom(render());
 
       expect(details.children[1].innerHTML).toMatch(`Authors: Jhon Doe, Jonny Doe`);
+    });
+
+    it('shows canonical urls but links within the current portal', () => {
+      store = createTestStore({
+        ...state,
+        navigation: { match: { params: { portalName: 'my-portal' } } },
+      } as unknown as AppState);
+      const { node: details } = renderToDom(render());
+      const sectionLink = Array.from(details.querySelectorAll('a'))
+        .find((a: { textContent: string | null }) => a.textContent?.includes('/pages/'));
+
+      expect(sectionLink?.textContent).toMatch(/^https:\/\/openstax\.org\/books\//);
+      expect(sectionLink?.getAttribute('href')).toBe(sectionLink?.textContent);
+      expect(sectionLink?.getAttribute('data-portal-href'))
+        .toMatch('https://openstax.org/apps/rex/portal/my-portal/books/');
+
+      const open = jest.spyOn(assertWindow(), 'open').mockReturnValue(null);
+      sectionLink?.click();
+
+      expect(open).toHaveBeenCalledWith(sectionLink?.getAttribute('data-portal-href'), '_blank', 'noopener');
     });
 
     it('renders default attribution', async() => {
