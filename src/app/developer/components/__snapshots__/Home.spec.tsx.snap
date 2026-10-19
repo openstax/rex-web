@@ -16,11 +16,7 @@ Array [
   </a>,
   <a
     className="hidden-but-accessible hidden-link"
-    href={
-      Array [
-        "https://openstax.org/accessibility-statement",
-      ]
-    }
+    href="https://openstax.org/accessibility-statement"
     style={
       Object {
         "--z-index-focused-hidden-link": 150,

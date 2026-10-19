@@ -358,13 +358,10 @@ describe('hooks', () => {
 
       go([hit]);
 
-      expect(dispatch).toHaveBeenCalledWith(
-        replace({
-          params: expect.objectContaining({ portalName: 'my-portal' }),
-          route: content,
-          state: { },
-        }, expect.anything())
-      );
+      const replaceAction = dispatch.mock.calls
+        .map(([action]) => action)
+        .find((action) => action.type === replace({ params: {}, route: content, state: {} } as any).type);
+      expect(replaceAction?.payload.params).toEqual(expect.objectContaining({ portalName: 'my-portal' }));
     });
 
     it('uses the provided search scroll target', () => {

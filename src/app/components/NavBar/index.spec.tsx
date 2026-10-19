@@ -533,7 +533,15 @@ describe('content', () => {
             window.document.body.querySelector('[data-testid="nav-overlay"] > a'),
             ''
           );
-          expect(anchor.href).toMatch(new RegExp(`^https?://[^/]+/${portalName}/$`));
+          expect(anchor.getAttribute('href')).toBe(`/${portalName}/`);
+
+          // With no unsaved highlights, the link is left to navigate on its own
+          const event = window.document.createEvent('MouseEvents');
+          event.initEvent('click', true, true);
+          event.preventDefault = jest.fn();
+          anchor.dispatchEvent(event);
+          await Promise.resolve();
+          expect(event.preventDefault).not.toHaveBeenCalled();
 
           await ReactTestUtils.act(async() => {
             unmount();

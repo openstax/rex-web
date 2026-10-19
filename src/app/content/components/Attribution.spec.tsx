@@ -1,10 +1,11 @@
+import { HTMLAnchorElement } from '@openstax/types/lib.dom';
 import cloneDeep from 'lodash/fp/cloneDeep';
 import createTestStore from '../../../test/createTestStore';
 import { book, page, shortPage } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import { reactAndFriends, resetModules } from '../../../test/utils';
 import { AppState, Store } from '../../types';
-import { assertWindow } from '../../utils';
+import { assertNotNull, assertWindow } from '../../utils';
 import * as actions from '../actions';
 import { initialState } from '../reducer';
 import { formatBookData } from '../utils';
@@ -174,18 +175,74 @@ describe('Attribution', () => {
         navigation: { match: { params: { portalName: 'my-portal' } } },
       } as unknown as AppState);
       const { node: details } = renderToDom(render());
-      const sectionLink = Array.from(details.querySelectorAll('a'))
-        .find((a: { textContent: string | null }) => a.textContent?.includes('/pages/'));
+      const link = assertNotNull(
+        details.querySelector('a[data-portal-href]') as HTMLAnchorElement | null,
+        'the attribution has links to the book'
+      );
 
-      expect(sectionLink?.textContent).toMatch(/^https:\/\/openstax\.org\/books\//);
-      expect(sectionLink?.getAttribute('href')).toBe(sectionLink?.textContent);
-      expect(sectionLink?.getAttribute('data-portal-href'))
+      expect(link.textContent).toMatch(/^https:\/\/openstax\.org\/books\//);
+      expect(link.getAttribute('href')).toBe(link.textContent);
+      expect(link.getAttribute('data-portal-href'))
         .toMatch('https://openstax.org/apps/rex/portal/my-portal/books/');
 
       const open = jest.spyOn(assertWindow(), 'open').mockReturnValue(null);
-      sectionLink?.click();
+      link.click();
 
-      expect(open).toHaveBeenCalledWith(sectionLink?.getAttribute('data-portal-href'), '_blank', 'noopener');
+      expect(open).toHaveBeenCalledWith(link.getAttribute('data-portal-href'), '_blank', 'noopener');
+    });
+
+    describe('portal link clicks', () => {
+      const window = assertWindow();
+      const originalLocation = window.location;
+      let assign: jest.Mock;
+      let open: jest.SpyInstance;
+      let onClick: (e: object) => void;
+
+      beforeEach(() => {
+        assign = jest.fn();
+        Object.defineProperty(window, 'location', { configurable: true, value: { assign } });
+        open = jest.spyOn(window, 'open').mockReturnValue(null);
+        onClick = renderer.create(render()).root.find((node) => Boolean(node.props.onAuxClick)).props.onClick;
+      });
+
+      afterEach(() => {
+        Object.defineProperty(window, 'location', { configurable: true, value: originalLocation });
+      });
+
+      const makeLink = (target?: string) => {
+        const link = window.document.createElement('a');
+        link.setAttribute('data-portal-href', 'https://openstax.org/my-portal-page');
+        if (target) {
+          link.setAttribute('target', target);
+        }
+        return link;
+      };
+
+      it('opens a link without a target in the same tab', () => {
+        const preventDefault = jest.fn();
+        onClick({ button: 0, preventDefault, target: makeLink() });
+
+        expect(preventDefault).toHaveBeenCalled();
+        expect(assign).toHaveBeenCalledWith('https://openstax.org/my-portal-page');
+        expect(open).not.toHaveBeenCalled();
+      });
+
+      it('opens a new tab for middle clicks', () => {
+        onClick({ button: 1, preventDefault: jest.fn(), target: makeLink() });
+
+        expect(open).toHaveBeenCalledWith('https://openstax.org/my-portal-page', '_blank', 'noopener');
+      });
+
+      it('ignores right clicks, clicks outside portal links, and targets that are not elements', () => {
+        const preventDefault = jest.fn();
+        onClick({ button: 2, preventDefault, target: makeLink() });
+        onClick({ button: 0, preventDefault, target: window.document.createElement('span') });
+        onClick({ button: 0, preventDefault, target: null });
+
+        expect(preventDefault).not.toHaveBeenCalled();
+        expect(assign).not.toHaveBeenCalled();
+        expect(open).not.toHaveBeenCalled();
+      });
     });
 
     it('renders default attribution', async() => {
