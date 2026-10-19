@@ -12,9 +12,9 @@ import { openToc } from '../../actions';
 import { content } from '../../routes';
 import * as selectContent from '../../selectors';
 import { Book } from '../../types';
-import { getBookPageUrlAndParams } from '../../utils';
 import { findArchiveTreeNodeById } from '../../utils/archiveTreeUtils';
 import { createNavigationMatch } from '../../utils/navigationUtils';
+import { getBookPageUrlAndParams, getCurrentPortalParams } from '../../utils/urlUtils';
 import { clearSearch, openSearchInSidebar, receiveSearchResults, requestSearch, selectSearchResult } from '../actions';
 import { SearchLoadError } from '../errors';
 import { isSearchScrollTarget } from '../guards';
@@ -94,14 +94,13 @@ function filterByQuotedTerms(hits: SearchResultHits, quotedTerms: string[]) {
 }
 
 
-// Builds on the current params, like ContentLink does, to keep the reader in the current portal
 const createTargetPageMatch = (state: AppState, book: Book, pageId: string) => {
   const page = assertDefined(
     findArchiveTreeNodeById(book.tree, pageId),
     'search result pointed to page that wasn\'t in book'
   );
 
-  const {params} = getBookPageUrlAndParams(book, page, selectNavigation.params(state));
+  const {params} = getBookPageUrlAndParams(book, page, getCurrentPortalParams(selectNavigation.params(state)));
 
   return createNavigationMatch(page, book, params);
 };

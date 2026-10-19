@@ -5,7 +5,7 @@ import {
 } from '@openstax/types/lib.dom';
 import defer from 'lodash/fp/defer';
 import flow from 'lodash/fp/flow';
-import { isHtmlElementWithHighlight, isPortaled } from '../../../guards';
+import { isHtmlElementWithHighlight } from '../../../guards';
 import { push } from '../../../navigation/actions';
 import * as selectNavigation from '../../../navigation/selectors';
 import {
@@ -34,7 +34,7 @@ import {
   SystemQueryParams,
 } from '../../types';
 import { isClickWithModifierKeys } from '../../utils/domUtils';
-import { getBookPageUrlAndParams, toRelativeUrl } from '../../utils/urlUtils';
+import { getBookPageUrlAndParams, getCurrentPortalParams, toRelativeUrl } from '../../utils/urlUtils';
 import isDoubleClick from './doubleClick';
 import queryString from 'query-string';
 
@@ -62,10 +62,7 @@ export type ContentLinkProp = ReturnType<typeof mapStateToContentLinkProp> &
 const paramsInCurrentPortal = (
   params: PageReference['params'],
   navigationParams: ContentLinkProp['navigationParams']
-): PageReference['params'] =>
-  isPortaled(navigationParams)
-    ? { ...params, portalName: navigationParams.portalName }
-    : params;
+): PageReference['params'] => ({ ...params, ...getCurrentPortalParams(navigationParams) });
 
 const reducePageReferenceError = (a: HTMLAnchorElement) => {
   a.removeAttribute('href');
