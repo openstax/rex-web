@@ -4,13 +4,15 @@ import { ensureApplicationErrorType } from '../../../../helpers/applicationMessa
 import { replace } from '../../../navigation/actions';
 import * as selectNavigation from '../../../navigation/selectors';
 import { RouteHookBody } from '../../../navigation/types';
-import { ActionHookBody } from '../../../types';
+import { ActionHookBody, AppState } from '../../../types';
 import { SearchResultHits } from '@openstax/open-search-client';
 import { actionHook, isNetworkError } from '../../../utils';
 import { assertDefined } from '../../../utils/assertions';
 import { openToc } from '../../actions';
 import { content } from '../../routes';
 import * as selectContent from '../../selectors';
+import { Book } from '../../types';
+import { getBookPageUrlAndParams } from '../../utils';
 import { findArchiveTreeNodeById } from '../../utils/archiveTreeUtils';
 import { createNavigationMatch } from '../../utils/navigationUtils';
 import { clearSearch, openSearchInSidebar, receiveSearchResults, requestSearch, selectSearchResult } from '../actions';
@@ -92,6 +94,18 @@ function filterByQuotedTerms(hits: SearchResultHits, quotedTerms: string[]) {
 }
 
 
+// Builds on the current params, like ContentLink does, to keep the reader in the current portal
+const createTargetPageMatch = (state: AppState, book: Book, pageId: string) => {
+  const page = assertDefined(
+    findArchiveTreeNodeById(book.tree, pageId),
+    'search result pointed to page that wasn\'t in book'
+  );
+
+  const {params} = getBookPageUrlAndParams(book, page, selectNavigation.params(state));
+
+  return createNavigationMatch(page, book, params);
+};
+
 export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (services) => ({meta}) => {
   const state = services.getState();
   const {page: currentPage, book} = selectContent.bookAndPage(state);
@@ -132,11 +146,7 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
     : { search: queryString.stringify({ query, modal: persistentQueryParams.modal }) };
 
   const navigationMatch = targetPageId
-    ? createNavigationMatch(
-      assertDefined(
-        findArchiveTreeNodeById(book.tree, targetPageId),
-        'search result pointed to page that wasn\'t in book'
-      ), book)
+    ? createTargetPageMatch(state, book, targetPageId)
     : selectNavigation.match(state);
 
   if (navigationMatch) {
