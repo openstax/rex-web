@@ -62,12 +62,11 @@ const serializeFirstRender = (css: string) => escapeStyleSheetText(
 );
 
 export const ScopedGlobalStyle = ({ css }: { css: string }) => {
-  const ref = React.useRef<HTMLStyleElement>(null);
   const [initialHtml] = React.useState(() => serializeFirstRender(css));
 
-  React.useEffect(() => {
-    const styleSheet = ref.current;
-
+  // A callback ref runs during the commit, before paint, so the stylesheet is never a frame behind
+  // the content. useLayoutEffect would too, but it warns when rendered on the server.
+  const writeStyleSheet = React.useCallback((styleSheet: HTMLStyleElement | null) => {
     // already equal when hydrating, so hydration doesn't rewrite the adopted sheet
     if (styleSheet && styleSheet.textContent !== css) {
       styleSheet.textContent = css;
@@ -75,7 +74,7 @@ export const ScopedGlobalStyle = ({ css }: { css: string }) => {
   }, [css]);
 
   return <style
-    ref={ref}
+    ref={writeStyleSheet}
     data-dynamic-stylesheet='true'
     dangerouslySetInnerHTML={{ __html: initialHtml }}
   />;
@@ -116,6 +115,8 @@ const useQueryStyles = () => {
   // Book styles use a hook instead, because effects don't work during pre-rendering
   // (and we don't need query styles during pre-rendering)
   React.useEffect(() => {
+    // Set to false when the url changes or goes away, so a slow response cannot overwrite newer styles.
+    let isCurrent = true;
     const cssfileUrl = queryParams?.['content-style'];
     if (cssfileUrl && typeof cssfileUrl === 'string') {
       if (cacheStyles.has(cssfileUrl)) {
@@ -125,12 +126,18 @@ const useQueryStyles = () => {
           .then((res) => res.text())
           .then((data) => {
             cacheStyles.set(cssfileUrl, data);
-            setQueryStyles(data);
+            if (isCurrent) {
+              setQueryStyles(data);
+            }
           });
       }
     } else {
       setQueryStyles('');
     }
+
+    return () => {
+      isCurrent = false;
+    };
   }, [queryParams]);
 
   return queryStyles;

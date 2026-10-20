@@ -190,6 +190,18 @@ describe('ScopedGlobalStyle', () => {
     expect(container.querySelector('style[data-dynamic-stylesheet]')).toBe(styleSheet);
   });
 
+  it('has the stylesheet in the document as soon as react commits, before anything can paint', () => {
+    // Not wrapped in act, so passive effects have not run yet, as they have not before the first paint.
+    ReactDOM.render(<ScopedGlobalStyle css={scopeStyles('.a { color: red; }')} />, container);
+    const styleSheet = container.querySelector('style[data-dynamic-stylesheet]')!;
+
+    expect(styleSheet.textContent).toEqual(scopeStyles('.a { color: red; }'));
+
+    ReactDOM.render(<ScopedGlobalStyle css={scopeStyles('.a { color: blue; }')} />, container);
+
+    expect(styleSheet.textContent).toEqual(scopeStyles('.a { color: blue; }'));
+  });
+
   it('escapes the stylesheet when the prerender has to serialize it', () => {
     container.innerHTML = prerender(<ScopedGlobalStyle css={scopeStyles(breakout)} />);
 
@@ -250,6 +262,55 @@ describe('DynamicContentStyles', () => {
 
     // Don't call fetch again for the same url
     expect(spyFetch).toHaveBeenCalledTimes(2);
+  });
+
+  describe('a content-style request that finishes late', () => {
+    // Requests that stay pending until the test resolves them, in whatever order it likes.
+    const pendingRequests = () => {
+      const pending: { [url: string]: (css: string) => void } = {};
+
+      spyFetch.mockImplementation((url: any) => new Promise((resolve) => {
+        pending[url] = (css: string) => resolve({ text: async() => css } as any);
+      }));
+
+      return pending;
+    };
+
+    const search = (value: string) => store.dispatch(locationChange({ location: { search: value } } as any));
+
+    it('does not apply styles after the content-style param was removed', async() => {
+      const pending = pendingRequests();
+      search('content-style=stale-removed.css');
+
+      const component = renderApp({ book });
+      await runHooksAsync(renderer);
+
+      await renderer.act(async() => { search(''); });
+      await renderer.act(async() => { pending['stale-removed.css']('.late { color: red; }'); });
+
+      expect(component.root.findAllByType(ScopedGlobalStyle)).toEqual([]);
+      expect(component.root.findAllByProps({ 'data-dynamic-style': true })).toEqual([]);
+
+      // the response was still cached, so asking for it again does not fetch it again
+      await renderer.act(async() => { search('content-style=stale-removed.css'); });
+
+      expect(spyFetch).toHaveBeenCalledTimes(1);
+      expect(component.root.findByType(ScopedGlobalStyle).props.css).toEqual(scopeStyles('.late { color: red; }'));
+    });
+
+    it('does not let an older request overwrite the latest one', async() => {
+      const pending = pendingRequests();
+      search('content-style=stale-first.css');
+
+      const component = renderApp({ book });
+      await runHooksAsync(renderer);
+
+      await renderer.act(async() => { search('content-style=stale-second.css'); });
+      await renderer.act(async() => { pending['stale-second.css']('.second { color: blue; }'); });
+      await renderer.act(async() => { pending['stale-first.css']('.first { color: red; }'); });
+
+      expect(component.root.findByType(ScopedGlobalStyle).props.css).toEqual(scopeStyles('.second { color: blue; }'));
+    });
   });
 
   it('sets styles and data-dynamic-style if bookStylesUrl is in the store and styles are cached', async() => {
