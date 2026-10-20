@@ -23,7 +23,13 @@ export default () => ({
   getBookFromId: jest.fn(() => Promise.resolve(mockCmsBook)),
   getBookFromSlug: jest.fn(() => Promise.resolve(mockCmsBook)),
   getSchoolDataFromPortalName: jest.fn(() => Promise.resolve(
-    { id: 1234, name: 'Test School', salesforce_id: 'test-salesforce-id', industry: 'K12' }
+    {
+      id: 1234,
+      name: 'Test School',
+      salesforce_id: 'test-salesforce-id',
+      industry: 'K12',
+      research_agreement_active: false,
+    }
   )),
   getBookIdFromSlug: jest.fn(() => Promise.resolve('testbook1-uuid')),
   getBookSlugFromId: jest.fn(() => Promise.resolve('book-slug-1')),

@@ -7,18 +7,6 @@ on:
       - main
 
 jobs:
-  linked_issue:
-    name: Jira
-    runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
-    steps:
-    - uses: openstax/jira-linked-action@v0.1.15
-      with:
-        jira_site: openstax
-        jira_project: CORE
-        jira_email: ${{ secrets.JIRA_EMAIL }}
-        jira_token: ${{ secrets.JIRA_TOKEN }}
-
   setup:
     name: Setup
     runs-on: ubuntu-latest

@@ -6,7 +6,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
 >
   <fieldset
     className="color-picker "
-    data-testid="highlight-colours-picker"
+    data-testid="highlight-colors-picker"
     onFocus={[Function]}
     onKeyDown={[Function]}
     role="radiogroup"
@@ -18,7 +18,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
     tabIndex={0}
   >
     <legend>
-      Choose highlight color
+      Highlight color
     </legend>
     <label
       aria-label="Apply yellow highlight"

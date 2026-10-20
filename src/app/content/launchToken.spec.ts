@@ -6,7 +6,8 @@ describe('launchToken', () => {
 
   it('decodes token', () => {
     const token = jwt.sign({
-      sub: JSON.stringify({stuff: 'things'}),
+      sub: 'user-uuid',
+      stuff: 'things',
     }, 'secret');
 
     const replaceStateSpy = jest.fn();
@@ -26,7 +27,7 @@ describe('launchToken', () => {
     const result = pullToken(assertWindow());
 
     expect(result?.tokenString).toEqual(token);
-    expect(result?.tokenData).toEqual(expect.objectContaining({stuff: 'things'}));
+    expect(result?.tokenData).toEqual(expect.objectContaining({sub: 'user-uuid', stuff: 'things'}));
 
     expect(replaceStateSpy).toHaveBeenCalledWith(expect.anything(), expect.anything(),
       assertWindow().location.pathname + '?other=thing'

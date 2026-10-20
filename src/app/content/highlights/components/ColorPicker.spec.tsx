@@ -82,6 +82,22 @@ describe('ColorPicker', () => {
     expect(onChange).not.toHaveBeenCalled();
   });
 
+  it('labels the group with its translated name', () => {
+    const {root} = renderToDom(<TestContainer>
+      <ColorPicker onChange={jest.fn()} />
+    </TestContainer>);
+
+    expect(root.querySelector('fieldset legend')?.textContent).toEqual('Highlight color');
+  });
+
+  it('marks the small variant, whose label is hidden by CSS', () => {
+    const {root} = renderToDom(<TestContainer>
+      <ColorPicker size='small' onChange={jest.fn()} />
+    </TestContainer>);
+
+    expect(root.querySelector('.color-picker-wrapper')?.getAttribute('data-size')).toEqual('small');
+  });
+
   it('calls remove when trashcan is clicked', () => {
     const onChange = jest.fn();
     const onRemove = jest.fn();

@@ -1,0 +1,24 @@
+name: Jira
+
+on:
+  pull_request:
+    # edited means it runs when the PR title and/or description are updated
+    types: [opened, edited, synchronize, reopened]
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  linked_issue:
+    name: Jira
+    # Dependabot's runs get no Jira credentials
+    if: github.event.pull_request.user.login != 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    steps:
+    - uses: openstax/jira-linked-action@v0.1.16
+      with:
+        jira_site: openstax
+        jira_project: CORE
+        jira_email: ${{ secrets.JIRA_EMAIL }}
+        jira_token: ${{ secrets.JIRA_TOKEN }}

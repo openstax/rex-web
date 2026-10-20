@@ -24,7 +24,7 @@
 
 .styled-context-menu [data-menu-toggle] {
   float: right;
-  margin-right: 0.2rem;
+  margin-right: 0;
 }
 
 .styled-dropdown-list {

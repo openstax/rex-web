@@ -42,9 +42,7 @@ export const DotMenuToggle = React.forwardRef<HTMLButtonElement, DotMenuTogglePr
         {...props}
         ref={ref}
       >
-        <div tabIndex={-1}>
-          <DotMenuIcon data-menu-icon />
-        </div>
+        <DotMenuIcon data-menu-icon />
       </PlainButton>
     );
   }

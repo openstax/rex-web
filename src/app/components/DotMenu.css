@@ -1,6 +1,7 @@
 /* DotMenu component - three-dot vertical menu icon with dropdown */
 
 .dot-menu-icon {
+  display: block;
   height: 2rem;
   width: 2rem;
   padding: 0.2rem;
@@ -12,14 +13,19 @@
   color: var(--dot-menu-hover-color, #818181); /* theme.color.secondary.lightGray.darkest */
 }
 
+/* 2.4rem target; the negative margin keeps the layout footprint at the 2rem icon */
 .dot-menu-toggle {
   border: none;
   display: block;
+  padding: 0.2rem;
+  margin: -0.2rem;
 }
 
-.dot-menu-toggle > div {
-  display: inline-block;
-  outline: none;
+.dot-menu-toggle:focus-visible {
+  /* stylelint-disable declaration-block-no-duplicate-properties -- different browsers */
+  outline: 0.2rem auto Highlight;
+  outline: 0.2rem auto -webkit-focus-ring-color;
+  /* stylelint-enable declaration-block-no-duplicate-properties */
 }
 
 /* Positioning for dropdown-menu container */

@@ -6,7 +6,7 @@ from e2e_tests.e2e.ui.pages.home import HomeRex
 @pytest.mark.asyncio
 @pytest.mark.parametrize("book_slug, page_slug", [("astronomy-2e", "preface")])
 async def test_previous_link_hidden_on_first_page(
-    chrome_page, base_url, abl_uuids_slugs, book_slug, page_slug
+    chrome_page, base_url, book_slug, page_slug
 ):
 
     # GIVEN: Playwright, chromium and the rex_base_url
@@ -41,7 +41,7 @@ async def test_previous_link_hidden_on_first_page(
 @pytest.mark.asyncio
 @pytest.mark.parametrize("book_slug, page_slug", [("statistics", "index")])
 async def test_next_link_hidden_on_last_page(
-    chrome_page, base_url, abl_uuids_slugs, book_slug, page_slug
+    chrome_page, base_url, book_slug, page_slug
 ):
 
     # GIVEN: Playwright, chromium and the rex_base_url

@@ -22,22 +22,18 @@ exports[`ContextMenu match snapshot when closed 1`] = `
       data-testid="highlight-dropdown-menu-toggle"
       onClick={[Function]}
     >
-      <div
-        tabIndex={-1}
+      <svg
+        aria-hidden="true"
+        className="dot-menu-icon"
+        data-menu-icon={true}
+        data-testid="dot-menu-icon"
+        viewBox="0 0 192 512"
       >
-        <svg
-          aria-hidden="true"
-          className="dot-menu-icon"
-          data-menu-icon={true}
-          data-testid="dot-menu-icon"
-          viewBox="0 0 192 512"
-        >
-          <path
-            d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
-            fill="currentColor"
-          />
-        </svg>
-      </div>
+        <path
+          d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
+          fill="currentColor"
+        />
+      </svg>
     </button>
   </div>
 </div>
@@ -65,22 +61,18 @@ exports[`ContextMenu match snapshot when open 1`] = `
       data-testid="highlight-dropdown-menu-toggle"
       onClick={[Function]}
     >
-      <div
-        tabIndex={-1}
+      <svg
+        aria-hidden="true"
+        className="dot-menu-icon"
+        data-menu-icon={true}
+        data-testid="dot-menu-icon"
+        viewBox="0 0 192 512"
       >
-        <svg
-          aria-hidden="true"
-          className="dot-menu-icon"
-          data-menu-icon={true}
-          data-testid="dot-menu-icon"
-          viewBox="0 0 192 512"
-        >
-          <path
-            d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
-            fill="currentColor"
-          />
-        </svg>
-      </div>
+        <path
+          d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
+          fill="currentColor"
+        />
+      </svg>
     </button>
     <div
       className="dropdown-menu context-menu"
@@ -91,10 +83,11 @@ exports[`ContextMenu match snapshot when open 1`] = `
         <li>
           <div
             className="color-picker-wrapper"
+            data-size="small"
           >
             <fieldset
               className="color-picker "
-              data-testid="highlight-colours-picker"
+              data-testid="highlight-colors-picker"
               onFocus={[Function]}
               onKeyDown={[Function]}
               role="radiogroup"
@@ -106,7 +99,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
               tabIndex={0}
             >
               <legend>
-                Choose highlight color
+                Highlight color
               </legend>
               <label
                 aria-label="Apply yellow highlight"
@@ -311,10 +304,9 @@ exports[`ContextMenu match snapshot when open 1`] = `
             </fieldset>
           </div>
         </li>
-        <li
-          aria-label="Add note"
-        >
+        <li>
           <button
+            aria-label="Add note"
             onClick={[Function]}
             onMouseEnter={[Function]}
             tabIndex={0}
@@ -333,10 +325,9 @@ exports[`ContextMenu match snapshot when open 1`] = `
             Add note
           </button>
         </li>
-        <li
-          aria-label="Delete"
-        >
+        <li>
           <button
+            aria-label="Delete"
             onClick={[Function]}
             onMouseEnter={[Function]}
             tabIndex={0}

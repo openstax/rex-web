@@ -43,7 +43,11 @@ export const searchSidebarTopOffset = bookBannerMobileMiniHeight
 
 export const contentTextWidth = 82.5;
 
-export const mainContentBackground = '#fff';
+// The theme's white, rather than a third copy of '#fff'. ContentPane still binds it
+// as --main-content-background and ContentPane.css reads that, so this is a JS value
+// today, not a token reference. The sweep should make the CSS default
+// var(--main-content-background, var(--color-neutral-base)) and drop the binding.
+export const mainContentBackground = theme.color.neutral.base;
 
 export const maxContentGutter = 6;
 export const contentWrapperMaxWidth = contentTextWidth + sidebarDesktopWidth + verticalNavbarMaxWidth;

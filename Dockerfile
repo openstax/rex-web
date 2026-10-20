@@ -1,5 +1,5 @@
 # this dockerfile is not for production, its for QA and CI
-FROM debian:bullseye AS utils
+FROM debian:trixie AS utils
 
 # general utils
 RUN apt-get update && apt-get install -y \
@@ -54,23 +54,20 @@ run apt-get update && apt-get install -y \
 RUN apt-get update && apt-get install -y \
   ca-certificates \
   fonts-liberation \
-  gconf-service \
-  libappindicator1 \
-  libasound2 \
-  libatk-bridge2.0-0 \
-  libatk1.0-0 \
+  libasound2t64 \
+  libatk-bridge2.0-0t64 \
+  libatk1.0-0t64 \
   libc6 \
   libcairo2 \
-  libcups2 \
+  libcups2t64 \
   libdbus-1-3 \
   libexpat1 \
   libfontconfig1 \
   libgbm1 \
-  libgcc1 \
-  libgconf-2-4 \
-  libgdk-pixbuf2.0-0 \
-  libglib2.0-0 \
-  libgtk-3-0 \
+  libgcc-s1 \
+  libgdk-pixbuf-2.0-0 \
+  libglib2.0-0t64 \
+  libgtk-3-0t64 \
   libnspr4 \
   libnss3 \
   libpango-1.0-0 \

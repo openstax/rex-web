@@ -3,6 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { HTMLTextAreaElement } from '@openstax/types/lib.dom';
 import Button from '../../../../components/Button';
 import { useOnEsc } from '../../../../reactUtils';
+import { assertDocument } from '../../../../utils';
 import { HighlightData } from '../../types';
 import { setAnnotationChangesPending as setAnnotationChangesPendingAction } from '../../actions';
 
@@ -84,7 +85,13 @@ export function CancelButton({
       setAnnotationChangesPending(false);
       setEditing(false);
       onCancel();
-      textareaRef?.current?.focus();
+      // The textarea unmounts as soon as setEditing(false) renders, so focusing it here would
+      // leave focus on a removed node - i.e. on <body> - and the Tab router would have no
+      // boundary to continue from. Announce that the card is closing instead; CardWrapper returns
+      // focus to the highlight. This is the same event Note dispatches when Escape closes an
+      // empty note, which is why only the annotated case was broken.
+      const source = textareaRef?.current ?? assertDocument();
+      source.dispatchEvent(new CustomEvent('hideCardEvent', { bubbles: true }));
     },
     [resetAnnotation, setAnnotationChangesPending, setEditing, onCancel, textareaRef]
   );

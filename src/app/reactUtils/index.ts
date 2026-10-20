@@ -22,8 +22,12 @@ import { assertDefined } from '../utils';
 export {
   useDrawFocus,
   focusableItemQuery,
+  tabbableElementsSelector,
+  isRenderedForFocus,
+  isTabbable,
   createTrapTab,
   useTrapTabNavigation,
+  withSelectionPreserved,
   onFocusInOrOutHandler,
   useFocusLost,
   useFocusIn,
@@ -99,8 +103,6 @@ export const useOnDOMEvent = (
 
 export const useTimeout = (delay: number, callback: () => void) => {
   const savedCallback = React.useRef<typeof callback>();
-  // ReturnType, not `number`: setTimeout's return type differs between the DOM
-  // lib and @types/node, and this file is typechecked with both in scope.
   const timeout = React.useRef<ReturnType<typeof setTimeout>>();
 
   const timeoutHandler = () => savedCallback.current && savedCallback.current();

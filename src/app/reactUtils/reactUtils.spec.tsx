@@ -320,6 +320,25 @@ describe('useTrapTabNavigation', () => {
     addEventListenerSpy.mockRestore();
     removeEventListenerSpy.mockRestore();
   });
+  it('does not attach listeners when disabled', () => {
+    const container = assertDocument().createElement('div');
+    const b = assertDocument().createElement('button');
+    container.appendChild(b);
+    const addEventListenerSpy = jest.spyOn(container, 'addEventListener');
+
+    const Component = () => {
+      const ref = React.useRef<HTMLElement | null>(container);
+      utils.useTrapTabNavigation(ref, undefined, false, false);
+      return <div />;
+    };
+
+    renderer.create(<Component />);
+    runHooks(renderer);
+
+    expect(addEventListenerSpy).not.toHaveBeenCalledWith('keydown', expect.any(Function), true);
+
+    addEventListenerSpy.mockRestore();
+  });
   it('auto-focuses first focusable element on mount', () => {
     const container = assertDocument().createElement('div');
     const btn1 = assertDocument().createElement('button');
@@ -730,7 +749,11 @@ describe('createTrapTab', () => {
 
     // Tab forward from the last element (should wrap)
     Object.defineProperty(document, 'activeElement', { value: i, writable: false, configurable: true });
-    b.focus = jest.fn();
+    // Focusing the button moves activeElement off the input (as a real browser would)
+    // so restoreTextSelection's editable-field guard lets the selection be restored.
+    b.focus = jest.fn(() => {
+      Object.defineProperty(document, 'activeElement', { value: b, writable: false, configurable: true });
+    });
     preventDefault.mockClear();
 
     trapTab({ key: 'Tab', preventDefault } as unknown as KeyboardEvent);
@@ -889,7 +912,7 @@ describe('createTrapTab', () => {
     } as any;
 
     const getSelectionSpy = jest.spyOn(assertWindow(), 'getSelection').mockReturnValue(mockSelection);
-    
+
     // Mock requestAnimationFrame to be undefined
     const originalRAF = assertWindow().requestAnimationFrame;
     Object.defineProperty(assertWindow(), 'requestAnimationFrame', {
@@ -930,7 +953,7 @@ describe('createTrapTab', () => {
     // When no valid containers are passed, createTrapTab should skip
     // calling assertWindow() and return a noop function immediately.
     const result = utils.createTrapTab();
-    
+
     // Should return null when handler is called
     expect(result({ key: 'Tab' } as KeyboardEvent)).toBeNull();
   });
@@ -1646,5 +1669,262 @@ describe('focusableItemQuery', () => {
 
     expect(focusable.length).toBe(1);
     expect(Array.from(focusable)).toContain(span);
+  });
+});
+
+describe('isTabbable', () => {
+  let root: HTMLElement;
+
+  beforeEach(() => {
+    root = assertDocument().createElement('div');
+    assertDocument().body.appendChild(root);
+  });
+
+  afterEach(() => root.remove());
+
+  const append = <T extends HTMLElement>(el: T, parent: HTMLElement = root) => {
+    parent.appendChild(el);
+    return el;
+  };
+
+  it('accepts natively tabbable controls', () => {
+    const link = append(assertDocument().createElement('a'));
+    link.setAttribute('href', '#somewhere');
+
+    expect(utils.isTabbable(append(assertDocument().createElement('button')))).toBe(true);
+    expect(utils.isTabbable(append(assertDocument().createElement('input')))).toBe(true);
+    expect(utils.isTabbable(append(assertDocument().createElement('select')))).toBe(true);
+    expect(utils.isTabbable(append(assertDocument().createElement('textarea')))).toBe(true);
+    expect(utils.isTabbable(append(assertDocument().createElement('summary')))).toBe(true);
+    expect(utils.isTabbable(link)).toBe(true);
+  });
+
+  it('rejects elements that match tabbableElementsSelector but never take Tab focus', () => {
+    // `ol` is in tabbableElementsSelector only so modals can un-tab the ToC in Firefox, and an
+    // anchor without href / a bare object are not tab stops either. focus() on any of them is a
+    // no-op, so they must not be chosen as Tab targets.
+    expect(utils.isTabbable(append(assertDocument().createElement('ol')))).toBe(false);
+    expect(utils.isTabbable(append(assertDocument().createElement('object')))).toBe(false);
+    expect(utils.isTabbable(append(assertDocument().createElement('a')))).toBe(false);
+    expect(utils.isTabbable(append(assertDocument().createElement('div')))).toBe(false);
+  });
+
+  it('rejects disabled and negative-tabindex controls, accepts a positive tabindex', () => {
+    const disabled = append(assertDocument().createElement('button'));
+    disabled.setAttribute('disabled', 'disabled');
+    const removedFromTabOrder = append(assertDocument().createElement('button'));
+    removedFromTabOrder.setAttribute('tabindex', '-1');
+    const span = append(assertDocument().createElement('span'));
+    span.setAttribute('tabindex', '0');
+
+    expect(utils.isTabbable(disabled)).toBe(false);
+    expect(utils.isTabbable(removedFromTabOrder)).toBe(false);
+    expect(utils.isTabbable(span)).toBe(true);
+  });
+
+  it('rejects controls hidden by CSS, including via an ancestor', () => {
+    const hidden = append(assertDocument().createElement('button'));
+    hidden.style.display = 'none';
+    const invisible = append(assertDocument().createElement('button'));
+    invisible.style.visibility = 'hidden';
+
+    const hiddenParent = append(assertDocument().createElement('div'));
+    hiddenParent.style.display = 'none';
+    const inHiddenParent = append(assertDocument().createElement('button'), hiddenParent);
+
+    expect(utils.isTabbable(hidden)).toBe(false);
+    expect(utils.isTabbable(invisible)).toBe(false);
+    expect(utils.isTabbable(inHiddenParent)).toBe(false);
+  });
+
+  it('rejects controls inside a closed details, but not its summary or an open details', () => {
+    // REX wraps every exercise solution in a closed <details> (wrapSolutions), and a closed
+    // details hides its content without changing the descendants' own computed styles, so this
+    // cannot be caught by the style walk.
+    const makeSolution = (open: boolean) => {
+      const details = append(assertDocument().createElement('details'));
+      if (open) {
+        details.setAttribute('open', 'open');
+      }
+      const summary = assertDocument().createElement('summary');
+      const section = assertDocument().createElement('section');
+      const link = assertDocument().createElement('a');
+      link.setAttribute('href', '#solution');
+      section.appendChild(link);
+      details.append(summary, section);
+      return { link, summary };
+    };
+
+    const closed = makeSolution(false);
+    const open = makeSolution(true);
+
+    expect(utils.isTabbable(closed.link)).toBe(false);
+    expect(utils.isTabbable(closed.summary)).toBe(true);
+    expect(utils.isTabbable(open.link)).toBe(true);
+    expect(utils.isTabbable(open.summary)).toBe(true);
+  });
+
+  it('rejects a second summary and nested content under a closed details', () => {
+    const details = append(assertDocument().createElement('details'));
+    const summary = assertDocument().createElement('summary');
+    // Only the first direct summary is the disclosure widget; a later one is hidden content.
+    const laterSummary = assertDocument().createElement('summary');
+    const openInnerDetails = assertDocument().createElement('details');
+    openInnerDetails.setAttribute('open', 'open');
+    const nestedButton = assertDocument().createElement('button');
+    openInnerDetails.appendChild(nestedButton);
+    details.append(summary, laterSummary, openInnerDetails);
+
+    expect(utils.isTabbable(summary)).toBe(true);
+    expect(utils.isTabbable(laterSummary)).toBe(false);
+    // An open details nested inside a closed one is still hidden by the outer one.
+    expect(utils.isTabbable(nestedButton)).toBe(false);
+  });
+
+  it('rejects disabled and hidden controls even when they carry a positive tabindex', () => {
+    // tabbableElementsSelector reaches these through its generic `[tabindex]` arm, and focus()
+    // refuses them regardless of the attribute.
+    const disabledWithTabIndex = append(assertDocument().createElement('button'));
+    disabledWithTabIndex.setAttribute('disabled', 'disabled');
+    disabledWithTabIndex.setAttribute('tabindex', '0');
+
+    const hiddenInputWithTabIndex = append(assertDocument().createElement('input'));
+    hiddenInputWithTabIndex.setAttribute('type', 'hidden');
+    hiddenInputWithTabIndex.setAttribute('tabindex', '0');
+
+    const disabledInputWithTabIndex = append(assertDocument().createElement('input'));
+    disabledInputWithTabIndex.setAttribute('disabled', 'disabled');
+    disabledInputWithTabIndex.setAttribute('tabindex', '2');
+
+    expect(utils.isTabbable(disabledWithTabIndex)).toBe(false);
+    expect(utils.isTabbable(hiddenInputWithTabIndex)).toBe(false);
+    expect(utils.isTabbable(disabledInputWithTabIndex)).toBe(false);
+  });
+
+  it('rejects controls that inherit disabled from an ancestor fieldset', () => {
+    // A control under <fieldset disabled> carries no disabled attribute of its own, but the
+    // browser still refuses focus() on it. The edit card's ColorPicker is a fieldset.
+    const disabledFieldset = append(assertDocument().createElement('fieldset'));
+    disabledFieldset.setAttribute('disabled', 'disabled');
+    const inheritedButton = assertDocument().createElement('button');
+    const inheritedInput = assertDocument().createElement('input');
+    const withTabIndex = assertDocument().createElement('span');
+    withTabIndex.setAttribute('tabindex', '0');
+    disabledFieldset.append(inheritedButton, inheritedInput, withTabIndex);
+
+    const enabledFieldset = append(assertDocument().createElement('fieldset'));
+    const enabledButton = assertDocument().createElement('button');
+    enabledFieldset.appendChild(enabledButton);
+
+    expect(utils.isTabbable(inheritedButton)).toBe(false);
+    expect(utils.isTabbable(inheritedInput)).toBe(false);
+    expect(utils.isTabbable(disabledFieldset)).toBe(false);
+    expect(utils.isTabbable(enabledButton)).toBe(true);
+    // A plain element with tabindex is not a form control, so it is unaffected by the fieldset.
+    expect(utils.isTabbable(withTabIndex)).toBe(true);
+  });
+
+  it('keeps controls in a disabled fieldset\'s first legend tabbable', () => {
+    // Per spec the first legend's contents stay enabled, so its controls are still tab stops.
+    const disabledFieldset = append(assertDocument().createElement('fieldset'));
+    disabledFieldset.setAttribute('disabled', 'disabled');
+    const legend = assertDocument().createElement('legend');
+    const legendButton = assertDocument().createElement('button');
+    legend.appendChild(legendButton);
+    const laterLegend = assertDocument().createElement('legend');
+    const laterLegendButton = assertDocument().createElement('button');
+    laterLegend.appendChild(laterLegendButton);
+    disabledFieldset.append(legend, laterLegend);
+
+    expect(utils.isTabbable(legendButton)).toBe(true);
+    expect(utils.isTabbable(laterLegendButton)).toBe(false);
+  });
+
+  it('rejects a hidden input with no tabindex', () => {
+    const hiddenInput = append(assertDocument().createElement('input'));
+    hiddenInput.setAttribute('type', 'hidden');
+
+    expect(utils.isTabbable(hiddenInput)).toBe(false);
+  });
+
+  it('rejects detached elements', () => {
+    expect(utils.isTabbable(assertDocument().createElement('button'))).toBe(false);
+    expect(utils.isRenderedForFocus(assertDocument().createElement('button'))).toBe(false);
+  });
+});
+
+describe('withSelectionPreserved', () => {
+  let root: HTMLElement;
+  let addRange: jest.Mock;
+  let getSelectionSpy: jest.SpyInstance;
+
+  beforeEach(() => {
+    root = assertDocument().createElement('div');
+    assertDocument().body.appendChild(root);
+    addRange = jest.fn();
+    const savedRange = {} as any;
+    getSelectionSpy = jest.spyOn(assertWindow(), 'getSelection').mockReturnValue({
+      addRange,
+      getRangeAt: () => ({ cloneRange: () => savedRange }),
+      rangeCount: 1,
+      removeAllRanges: jest.fn(),
+    } as any);
+  });
+
+  afterEach(() => {
+    getSelectionSpy.mockRestore();
+    root.remove();
+  });
+
+  const focusNew = (tagName: string, type?: string) => {
+    const el = assertDocument().createElement(tagName) as HTMLElement;
+    if (type) {
+      el.setAttribute('type', type);
+    }
+    root.appendChild(el);
+    el.focus();
+    return el;
+  };
+
+  it('restores the selection when focus lands on a control with no text caret', () => {
+    // ColorPicker moves focus to a radio input while tabbing through the edit form. A radio has no
+    // caret to deactivate, so the pending selection must survive - otherwise the highlight the
+    // caller is preserving the selection for is lost.
+    focusNew('input', 'radio');
+
+    utils.withSelectionPreserved(() => undefined);
+
+    expect(addRange).toHaveBeenCalled();
+  });
+
+  it('restores the selection when focus lands on a checkbox or a button input', () => {
+    focusNew('input', 'checkbox');
+    utils.withSelectionPreserved(() => undefined);
+    expect(addRange).toHaveBeenCalledTimes(1);
+
+    focusNew('input', 'submit');
+    utils.withSelectionPreserved(() => undefined);
+    expect(addRange).toHaveBeenCalledTimes(2);
+  });
+
+  it('leaves the selection alone while a text caret is focused', () => {
+    // Writing a document selection here deactivates the caret: the field keeps its focus ring but
+    // will not accept typing until it is clicked.
+    focusNew('textarea');
+    utils.withSelectionPreserved(() => undefined);
+    expect(addRange).not.toHaveBeenCalled();
+
+    focusNew('input', 'text');
+    utils.withSelectionPreserved(() => undefined);
+    expect(addRange).not.toHaveBeenCalled();
+  });
+
+  it('treats an input with no type as a text field', () => {
+    // A missing or unrecognised type falls back to type=text.
+    focusNew('input');
+
+    utils.withSelectionPreserved(() => undefined);
+
+    expect(addRange).not.toHaveBeenCalled();
   });
 });

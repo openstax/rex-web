@@ -1,9 +1,5 @@
 Unified **R**eading **Ex**perience
 
-[![Maintainability](https://api.codeclimate.com/v1/badges/c09c521f0a181481a91b/maintainability)](https://codeclimate.com/github/openstax/rex-web/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/c09c521f0a181481a91b/test_coverage)](https://codeclimate.com/github/openstax/rex-web/test_coverage)
-[![Updates](https://pyup.io/repos/github/openstax/rex-web/shield.svg)](https://pyup.io/repos/github/openstax/rex-web/) [![Greenkeeper badge](https://badges.greenkeeper.io/openstax/rex-web.svg)](https://greenkeeper.io/)
-
 ## Confluence
 
 Real documentation is on [confluence](https://openstax.atlassian.net/wiki/spaces/UNIFIED/pages/196936/REX) everything here is just for quick reference.
@@ -25,6 +21,16 @@ yarn
 # start (browser will open automatically)
 yarn start
 ```
+
+### node version
+
+The version in `.nvmrc` is the single source of truth — CI, the CI/QA docker
+image, and `nvm install` all read it.
+
+`build:js` and `script/start.bash` set `NODE_OPTIONS=--openssl-legacy-provider`
+because webpack 4 (via react-scripts 4) hashes with md4, which OpenSSL 3 —
+shipped with node 17 and later — removed. The flag goes away with the
+react-scripts 5 / webpack 5 migration (CORE-2854).
 
 ### to fix scarry untrusted cert warning in chrome
 

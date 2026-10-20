@@ -71,7 +71,6 @@ const Note = ({onChange, onFocus, note, textareaRef, edit = false}: Props) => {
         style={{
           '--note-textarea-width': `${textareaWidth}rem`,
           '--card-padding': `${cardPadding}rem`,
-          '--form-border-color': theme.color.neutral.formBorder,
           '--note-text-color': theme.color.text.label,
         } as React.CSSProperties}
       />

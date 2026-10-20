@@ -24,7 +24,6 @@ Array [
     style={
       Object {
         "--card-padding": "0.8rem",
-        "--form-border-color": "#d5d5d5",
         "--note-text-color": "#6f6f6f",
         "--note-textarea-width": "18.4rem",
       }

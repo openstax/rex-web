@@ -21,12 +21,7 @@ import DynamicContentStyles, {
   scopeStyles,
 } from './DynamicContentStyles';
 
-/*
- * The prerender runs in node with no dom at all, which is exactly why markup is
- * its only way to get the stylesheet into the page. A renderToString that leaves
- * jsdom's document in place exercises the browser path instead, so anything
- * standing in for the prerender has to take the document away.
- */
+// The real prerender has no document; renderToString with jsdom's document present takes the browser path.
 const prerender = (element: React.ReactElement) => {
   const documentBack = document;
   delete (global as any).document;
@@ -72,7 +67,6 @@ describe('scopeStyles', () => {
   });
 
   it('leaves keyframe names alone, so animations declared elsewhere still find them', () => {
-    // this is what stylis' `keyframe: false` option buys us: no name namespacing
     expect(scopeStyles('.a { animation: spin 1s; } @keyframes spin { 0% { opacity: 0; } }'))
       .toEqual(
         '[data-dynamic-style="true"] .a{-webkit-animation:spin 1s;animation:spin 1s;}'
@@ -92,14 +86,13 @@ describe('scopeStyles', () => {
 });
 
 describe('escapeStyleSheetText', () => {
-  // valid css: the sequence is inside a string, so stylis passes it straight through
+  // valid css, so stylis passes it through
   const breakout = '.a { content: "</style><img src=x onerror=alert(1)>"; }';
 
   it('neutralizes closing style tags, which css can legally contain', () => {
     const escaped = escapeStyleSheetText(scopeStyles(breakout));
 
     expect(escaped).not.toContain('</style');
-    // \/ is the css escape for /, so the declaration still means the same thing
     expect(escaped).toContain('<\\/style>');
   });
 
@@ -121,7 +114,7 @@ describe('escapeStyleSheetText', () => {
 });
 
 describe('ScopedGlobalStyle', () => {
-  // valid css: the sequence is inside a string, so stylis passes it straight through
+  // valid css, so stylis passes it through
   const breakout = '.a { content: "</style><img src=x onerror=alert(1)>"; }';
 
   let container: HTMLElement;
@@ -146,12 +139,7 @@ describe('ScopedGlobalStyle', () => {
     return container.querySelector('style[data-dynamic-stylesheet]')!;
   };
 
-  /*
-   * The property worth pinning is that the browser never hands the stylesheet to
-   * an html parser at all, and that leaves no trace in the dom to assert against
-   * -- escaped markup parses into exactly the same text as a textContent write.
-   * So watch for the writes themselves.
-   */
+  // Escaped markup and a textContent write give the same DOM, so watch the innerHTML writes instead.
   const recordInnerHtmlWrites = () => {
     const elementPrototype = assertWindow().Element.prototype;
     const descriptor = assertDefined(
@@ -180,7 +168,6 @@ describe('ScopedGlobalStyle', () => {
       restore();
     }
 
-    // react only ever creates the element empty; the effect fills it as text
     expect(writes).toEqual(['']);
   });
 
@@ -188,7 +175,6 @@ describe('ScopedGlobalStyle', () => {
     const styleSheet = mount(scopeStyles(breakout));
 
     expect(container.querySelector('img')).toBeNull();
-    // textContent takes text and only text, so the css needs no escaping at all
     expect(styleSheet.textContent).toEqual(scopeStyles(breakout));
     expect(styleSheet.textContent).toContain('</style>');
   });
@@ -205,12 +191,10 @@ describe('ScopedGlobalStyle', () => {
   });
 
   it('escapes the stylesheet when the prerender has to serialize it', () => {
-    // no dom, so react has no choice but to write the stylesheet as markup
     container.innerHTML = prerender(<ScopedGlobalStyle css={scopeStyles(breakout)} />);
 
     expect(container.querySelectorAll('style')).toHaveLength(1);
     expect(container.querySelector('img')).toBeNull();
-    // the whole payload stayed inside the stylesheet, as css text
     expect(container.querySelector('style')!.textContent).toContain('onerror=alert(1)');
   });
 });
@@ -287,7 +271,6 @@ describe('DynamicContentStyles', () => {
     await runHooksAsync(renderer);
 
     expect(component.root.findAllByType(ScopedGlobalStyle)).toEqual([]);
-    // still true so the hydrated markup matches the prerendered markup
     expect(component.root.findByProps({ 'data-dynamic-style': true })).toBeTruthy();
   });
 
@@ -325,7 +308,7 @@ describe('the prerendered stylesheet', () => {
     </DynamicContentStylesProvider>
   </TestContainer>;
 
-  // the browser builds its own archiveLoader, so nothing is cached in it yet
+  // the browser's archiveLoader starts with nothing cached
   const withColdCache = () => {
     const services = createTestServices();
     services.archiveLoader.mock.cachedResource.mockReturnValue(undefined as unknown as string);
@@ -337,7 +320,7 @@ describe('the prerendered stylesheet', () => {
     store.dispatch(receiveBook(book));
   });
 
-  // these tests put things in the real document, and getPrerenderedStyleSheet reads it
+  // getPrerenderedStyleSheet reads the real document
   afterEach(() => {
     const document = assertDocument();
     Array.from(document.querySelectorAll('style[data-dynamic-stylesheet], [data-test-container]'))
@@ -355,7 +338,6 @@ describe('the prerendered stylesheet', () => {
     // react-redux's useSelector warns about useLayoutEffect on every server render
     const consoleError = jest.spyOn(console, 'error').mockImplementation(() => undefined);
 
-    // prerendering, where the archiveLoader does have the styles cached
     container.innerHTML = prerender(tree(createTestServices()));
 
     expect(container.querySelector('style[data-dynamic-stylesheet]')!.textContent)
@@ -382,7 +364,6 @@ describe('the prerendered stylesheet', () => {
     styleElement.textContent = scopeStyles(bookStyles);
     document.head.appendChild(styleElement);
 
-    // no bookStylesUrl in the store
     const component = renderer.create(tree(withColdCache()));
 
     await runHooksAsync(renderer);
