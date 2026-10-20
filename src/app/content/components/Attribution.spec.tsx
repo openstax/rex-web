@@ -1,5 +1,6 @@
 import { HTMLAnchorElement } from '@openstax/types/lib.dom';
 import cloneDeep from 'lodash/fp/cloneDeep';
+import { ReactTestInstance } from 'react-test-renderer';
 import createTestStore from '../../../test/createTestStore';
 import { book, page, shortPage } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
@@ -202,7 +203,7 @@ describe('Attribution', () => {
         assign = jest.fn();
         Object.defineProperty(window, 'location', { configurable: true, value: { assign } });
         open = jest.spyOn(window, 'open').mockReturnValue(null);
-        onClick = renderer.create(render()).root.find((node) => Boolean(node.props.onAuxClick)).props.onClick;
+        onClick = renderer.create(render()).root.find((node: ReactTestInstance) => Boolean(node.props.onAuxClick)).props.onClick;
       });
 
       afterEach(() => {
