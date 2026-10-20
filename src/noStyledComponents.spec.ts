@@ -1,5 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
+import * as ts from 'typescript';
 
 /*
  * The styled-components migration (CORE-1685) is finished as far as rex-web's own code
@@ -30,16 +31,20 @@ const searchRoot = '.';
 const sourceExtensions = ['.ts', '.tsx', '.js', '.jsx', '.mjs', '.cjs'];
 const skipDirectories = new Set(['.git', 'node_modules', 'build', 'coverage']);
 
+const isStyledComponents = (specifier: string) =>
+  specifier === 'styled-components' || specifier.startsWith('styled-components/');
+
 /*
- * Matches every way the package or one of its subpaths (the /macro entry being the one we
- * used to use) can be pulled in: a static import or re-export (from ...), a side-effect
- * import, a dynamic import, and a require. The quote has to sit directly against the
- * package name, so jest-styled-components in src/test/setup.ts is not a match.
- *
- * Deliberately written not to match itself, so that this file does not show up in its own
- * results -- which is why the package name never appears quoted in these comments.
+ * Every module a source file pulls in, found with TypeScript's scanner: static imports and
+ * re-exports, side-effect imports, dynamic imports, and require calls. The scanner skips
+ * comments, so a comment between the keyword and the specifier (a webpack magic comment, say)
+ * cannot hide an import, and commented-out code is not a match. The subpath form (the /macro
+ * entry we used to use) counts, and jest-styled-components does not.
  */
-const importPattern = /(?:\bfrom\s*|\bimport\s*\(|\bimport\s+|\brequire\s*\()['"]styled-components(?:\/[^'"]*)?['"]/;
+const importedModules = (source: string) =>
+  ts.preProcessFile(source, true, true).importedFiles.map((file) => file.fileName);
+
+const importsStyledComponents = (source: string) => importedModules(source).some(isStyledComponents);
 
 const repoRoot = path.resolve(__dirname, '..');
 
@@ -62,8 +67,46 @@ const findSourceFiles = (directory: string): string[] => fs
 describe('styled-components', () => {
   it('is imported only by the files that still need it', () => {
     const importers = findSourceFiles(searchRoot)
-      .filter((relativePath) => importPattern.test(fs.readFileSync(path.join(repoRoot, relativePath), 'utf8')));
+      .filter((relativePath) => importsStyledComponents(fs.readFileSync(path.join(repoRoot, relativePath), 'utf8')));
 
     expect(importers.sort()).toEqual(Array.from(allowedImporters).sort());
+  });
+});
+
+describe('finding styled-components imports', () => {
+  const imports: Array<[string, string]> = [
+    ['a default import', `import styled from 'styled-components'`],
+    ['a named import of the macro entry', `import {css} from "styled-components/macro"`],
+    ['a side-effect import', `import 'styled-components'`],
+    ['a re-export', `export * from 'styled-components'`],
+    ['a dynamic import', `import('styled-components')`],
+    ['a dynamic import with a webpack magic comment', `import(/* webpackChunkName: "styles" */ 'styled-components')`],
+    ['a side-effect import with a comment before the specifier', `import /* needed for prerender */ 'styled-components'`],
+    ['a require', `const styled = require('styled-components')`],
+    ['a require with a space before the parenthesis', `require ('styled-components')`],
+    ['a require with a comment before the parenthesis', `require /* note */ ('styled-components')`],
+    ['an import-equals require', `import styled = require('styled-components')`],
+    ['an import after other code', `const a = 1;\nimport('styled-components/native');`],
+  ];
+
+  imports.forEach(([name, source]) => {
+    it(`finds ${name}`, () => {
+      expect(importsStyledComponents(source)).toBe(true);
+    });
+  });
+
+  const notImports: Array<[string, string]> = [
+    ['a line comment', `// import styled from 'styled-components'`],
+    ['a block comment', `/* require('styled-components') */`],
+    ['the name in a string', `const name = 'styled-components';`],
+    ['jest-styled-components', `import 'jest-styled-components'`],
+    ['a package that only starts with the name', `import x from 'styled-components-extras'`],
+    ['an unrelated import', `import React from 'react'`],
+  ];
+
+  notImports.forEach(([name, source]) => {
+    it(`does not match ${name}`, () => {
+      expect(importsStyledComponents(source)).toBe(false);
+    });
   });
 });
