@@ -110,6 +110,9 @@ const QueryStylesContext = React.createContext<string>('');
 const useQueryStyles = () => {
   const [queryStyles, setQueryStyles] = React.useState('');
   const queryParams = useSelector(query);
+  // Only this parameter matters, so a change to any other one does not restart a pending request.
+  const contentStyleParam = queryParams?.['content-style'];
+  const cssfileUrl = typeof contentStyleParam === 'string' ? contentStyleParam : '';
 
   // This effect sets the styles for the query param only
   // Book styles use a hook instead, because effects don't work during pre-rendering
@@ -117,8 +120,7 @@ const useQueryStyles = () => {
   React.useEffect(() => {
     // Set to false when the url changes or goes away, so a slow response cannot overwrite newer styles.
     let isCurrent = true;
-    const cssfileUrl = queryParams?.['content-style'];
-    if (cssfileUrl && typeof cssfileUrl === 'string') {
+    if (cssfileUrl) {
       if (cacheStyles.has(cssfileUrl)) {
         setQueryStyles(assertDefined(cacheStyles.get(cssfileUrl), `we've just checked for this`));
       } else {
@@ -138,7 +140,7 @@ const useQueryStyles = () => {
     return () => {
       isCurrent = false;
     };
-  }, [queryParams]);
+  }, [cssfileUrl]);
 
   return queryStyles;
 };

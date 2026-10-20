@@ -298,6 +298,20 @@ describe('DynamicContentStyles', () => {
       expect(component.root.findByType(ScopedGlobalStyle).props.css).toEqual(scopeStyles('.late { color: red; }'));
     });
 
+    it('is not restarted by a change to another query parameter', async() => {
+      const pending = pendingRequests();
+      search('content-style=stale-unrelated.css');
+
+      const component = renderApp({ book });
+      await runHooksAsync(renderer);
+
+      await renderer.act(async() => { search('content-style=stale-unrelated.css&other=1'); });
+      await renderer.act(async() => { pending['stale-unrelated.css']('.kept { color: green; }'); });
+
+      expect(spyFetch).toHaveBeenCalledTimes(1);
+      expect(component.root.findByType(ScopedGlobalStyle).props.css).toEqual(scopeStyles('.kept { color: green; }'));
+    });
+
     it('does not let an older request overwrite the latest one', async() => {
       const pending = pendingRequests();
       search('content-style=stale-first.css');
