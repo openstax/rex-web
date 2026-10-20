@@ -110,8 +110,9 @@ describe('AccessibilityButtonsWrapper', () => {
         <AccessibilityButtonsWrapper/>
       </TestContainer>);
 
-      expect(root.querySelector('a[href*="accessibility-statement"]')?.getAttribute('href'))
-        .toBe('https://openstax.org/accessibility-statement');
+      const link = root.querySelector('a[href*="accessibility-statement"]');
+      expect(link?.getAttribute('href')).toBe('https://openstax.org/accessibility-statement');
+      expect(link?.getAttribute('target')).toBe('_blank');
     });
 
     it('links to the accessibility page in the current portal', () => {

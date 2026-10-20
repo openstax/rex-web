@@ -37,7 +37,7 @@ const AccessibilityHelpLink = () => {
     : 'https://openstax.org/accessibility-statement';
 
   return <FormattedMessage id='i18n:a11y:accessibilityHelp'>
-    {(txt) => <HiddenLink href={href}>{txt}</HiddenLink>}
+    {(txt) => <HiddenLink href={href} target='_blank' rel='noopener'>{txt}</HiddenLink>}
   </FormattedMessage>;
 };
 
