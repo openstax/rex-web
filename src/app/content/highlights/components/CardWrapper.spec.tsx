@@ -488,7 +488,7 @@ describe('CardWrapper', () => {
 
   it('hideCardEvent does not focus a selection-only highlight (no elements)', () => {
     const document = assertDocument();
-    const selectionHighlight = { id: 'string', elements: [], focus: jest.fn() };
+    const selectionHighlight = createMockHighlight('string');
 
     renderer.create(
       <Provider store={store}>
