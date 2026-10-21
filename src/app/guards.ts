@@ -48,9 +48,12 @@ export const isHtmlElementWithHighlight = (thing: unknown): thing is dom.HTMLEle
 export const isKeyOf = <O extends {[key: string]: unknown}>(obj: O, thing: unknown): thing is keyof O =>
   typeof thing === 'string' && thing in obj;
 
+// Portal names go into links like `/${portalName}/…`, and the route decodes them, so a
+// name with a slash or backslash (from %2F or %5C) could make a link to another host
 export const isPortaled = (thing: unknown): thing is {portalName: string} => (
   typeof thing === 'object' &&
   thing !== null &&
   'portalName' in thing &&
-  typeof thing.portalName === 'string'
+  typeof thing.portalName === 'string' &&
+  !/[/\\]/.test(thing.portalName)
 );
