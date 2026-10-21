@@ -23,6 +23,7 @@ describe('isKeyOf', () => {
 describe('isPortaled', () => {
   it('accepts a portal name', () => {
     expect(guards.isPortaled({portalName: 'my-portal'})).toBe(true);
+    expect(guards.isPortaled({portalName: 'Portal_2'})).toBe(true);
   });
 
   it('rejects things without a portal name', () => {
@@ -32,9 +33,20 @@ describe('isPortaled', () => {
   });
 
   it('rejects portal names that would put another host in a link', () => {
-    // What decoded %2F and %5C route segments become
     expect(guards.isPortaled({portalName: '/example.invalid'})).toBe(false);
     expect(guards.isPortaled({portalName: '\\example.invalid'})).toBe(false);
     expect(guards.isPortaled({portalName: 'a/b'})).toBe(false);
+    expect(guards.isPortaled({portalName: '\t'})).toBe(false);
+    expect(guards.isPortaled({portalName: '\n'})).toBe(false);
+    expect(guards.isPortaled({portalName: '\r'})).toBe(false);
+    expect(guards.isPortaled({portalName: 'my-portal\t'})).toBe(false);
+  });
+
+  it('rejects other characters a portal slug cannot have', () => {
+    expect(guards.isPortaled({portalName: ''})).toBe(false);
+    expect(guards.isPortaled({portalName: 'my portal'})).toBe(false);
+    expect(guards.isPortaled({portalName: 'example.invalid'})).toBe(false);
+    expect(guards.isPortaled({portalName: 'a?b#c'})).toBe(false);
+    expect(guards.isPortaled({portalName: 'szkoła'})).toBe(false);
   });
 });
