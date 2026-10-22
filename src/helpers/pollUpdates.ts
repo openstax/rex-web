@@ -7,6 +7,7 @@ import { assertDocument } from '../app/utils';
 import { APP_ENV, RELEASE_ID } from '../config';
 import { configureEventCapture } from '../gateways/eventCaptureClient';
 import googleAnalyticsClient from '../gateways/googleAnalyticsClient';
+import { initialized } from './analytics/initialization';
 
 /*
  * when a page is initially loaded, the built in release
@@ -68,7 +69,14 @@ const processReleaseId = (store: Store, environment: Environment) => {
   previousObservedReleaseId = releaseId;
 };
 
-const processQuasarConfigs = (environmentConfigs: EnvironmentConfigs) => {
+const processQuasarConfigs = async(environmentConfigs: EnvironmentConfigs) => {
+  // Until event capture is configured, captured events stay queued and are never sent
+  const { enabled } = await initialized();
+
+  if (!enabled) {
+    return;
+  }
+
   if (environmentConfigs.quasar_api === 'default') {
     configureEventCapture();
   } else if (environmentConfigs.quasar_api) {
