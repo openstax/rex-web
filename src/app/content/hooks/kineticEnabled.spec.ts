@@ -1,9 +1,11 @@
+import { resetK12PortalCache } from '../../../helpers/analytics/k12Portal';
 import Sentry from '../../../helpers/Sentry';
 import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';
 import { book, page } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import { receiveFeatureFlags } from '../../featureFlags/actions';
+import { locationChange } from '../../navigation/actions';
 import { MiddlewareAPI, Store } from '../../types';
 import { receiveBook, receivePage } from '../actions';
 import { formatBookData } from '../utils';
@@ -31,6 +33,7 @@ describe('kineticEnabled hook', () => {
   });
 
   beforeEach(() => {
+    resetK12PortalCache();
     store = createTestStore();
 
     dispatch = jest.spyOn(store, 'dispatch');
@@ -128,5 +131,59 @@ describe('kineticEnabled hook', () => {
 
     expect(captureException).toHaveBeenCalledWith(err);
     expect(dispatch).not.toHaveBeenCalled();
+  });
+
+  describe('on a portal route', () => {
+    beforeEach(() => {
+      (global as any).fetch = mockFetch(200, {eligible: true});
+      store.dispatch(locationChange({
+        action: 'PUSH',
+        location: {} as any,
+        match: {params: {portalName: 'some-school'}} as any,
+      }));
+      store.dispatch(receiveBook(combinedBook));
+      dispatch.mockClear();
+    });
+
+    it('does nothing for a K12 school', async() => {
+      helpers.osWebLoader.getSchoolDataFromPortalName.mockReturnValue(Promise.resolve({industry: 'K12'} as any));
+      await hook(receivePage({...page, references: []}));
+
+      expect(fetch).not.toHaveBeenCalled();
+      expect(dispatch).not.toHaveBeenCalled();
+    });
+
+    it('dispatches when the portal has no school data', async() => {
+      helpers.osWebLoader.getSchoolDataFromPortalName.mockReturnValue(Promise.resolve(undefined as any));
+      await hook(receivePage({...page, references: []}));
+
+      expect(dispatch).toHaveBeenCalledWith(receiveFeatureFlags(['kineticEnabled']));
+    });
+
+    it('dispatches when the school lookup fails', async() => {
+      const error = jest.spyOn(console, 'error').mockImplementation(() => undefined);
+      helpers.osWebLoader.getSchoolDataFromPortalName.mockReturnValue(Promise.reject(new Error('boom')));
+      await hook(receivePage({...page, references: []}));
+
+      expect(dispatch).toHaveBeenCalledWith(receiveFeatureFlags(['kineticEnabled']));
+      error.mockRestore();
+    });
+
+    it('dispatches for a non-K12 school', async() => {
+      helpers.osWebLoader.getSchoolDataFromPortalName.mockReturnValue(Promise.resolve({industry: 'HE'} as any));
+      await hook(receivePage({...page, references: []}));
+
+      expect(dispatch).toHaveBeenCalledWith(receiveFeatureFlags(['kineticEnabled']));
+    });
+  });
+
+  it('does not look up school data on a normal page', async() => {
+    (global as any).fetch = mockFetch(200, {eligible: true});
+    store.dispatch(receiveBook(combinedBook));
+    dispatch.mockClear();
+    await hook(receivePage({...page, references: []}));
+
+    expect(helpers.osWebLoader.getSchoolDataFromPortalName).not.toHaveBeenCalled();
+    expect(dispatch).toHaveBeenCalledWith(receiveFeatureFlags(['kineticEnabled']));
   });
 });
