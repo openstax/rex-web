@@ -203,15 +203,12 @@ class HomeRex:
 
     # Highlight box and highlights
 
-    @pytest.mark.asyncio
     async def highlight_box_trash_icon_is_visible(self):
-        return await self.page.get_by_label("Deselect current highlight").is_visible()
+        return await self.page.get_by_test_id("editcard-trash-icon").is_visible()
 
-    @pytest.mark.asyncio
     async def click_highlight_box_trash_icon(self):
-        await self.page.get_by_label("Deselect current highlight").click()
+        await self.page.get_by_test_id("editcard-trash-icon").click()
 
-    @pytest.mark.asyncio
     async def oneclick_highlight_infobox(self):
         await self.page.get_by_label("Edit highlighted note").click()
 
@@ -219,31 +216,21 @@ class HomeRex:
     def highlight_infobox(self):
         return self.page.get_by_label("Edit highlighted note")
 
-    @pytest.mark.asyncio
     async def highlight_box_is_visible(self):
         return await self.page.locator("#note-textarea").is_visible()
 
-    @pytest.mark.asyncio
     async def click_highlight_box_note_field(self):
         await self.page.locator("#note-textarea").click()
 
-    @pytest.mark.asyncio
     async def fill_highlight_box_note_field(self, value):
         await self.page.locator("#note-textarea").fill(value)
 
-    @pytest.mark.asyncio
     async def highlight_box_colours_are_visible(self):
-        return (
-            await self.page.locator("div")
-            .get_by_test_id("highlight-colours-picker")
-            .is_visible()
-        )
+        return await self.page.get_by_test_id("highlight-colors-picker").is_visible()
 
-    @pytest.mark.asyncio
     async def click_highlight_box_purple_colour(self):
         await self.page.locator("div").get_by_title("purple").first.click()
 
-    @pytest.mark.asyncio
     async def click_highlights_option_green_colour(self):
         await self.page.locator("div").get_by_title("green").first.click()
 
@@ -259,7 +246,6 @@ class HomeRex:
             has_text="notegreen"
         )
 
-    @pytest.mark.asyncio
     async def small_highlighted_note_box_is_visible(self):
         return (
             await self.page.get_by_role("dialog")
@@ -267,27 +253,21 @@ class HomeRex:
             .is_visible()
         )
 
-    @pytest.mark.asyncio
     async def click_small_highlight_box_dropdown(self):
         await self.page.get_by_test_id("card").get_by_role("button").click()
 
-    @pytest.mark.asyncio
     async def click_small_highlight_box_delete_button(self):
         await self.page.get_by_test_id("card").get_by_text("Delete").click()
 
-    @pytest.mark.asyncio
     async def click_delete_highlight_button(self):
         await self.page.locator("div").get_by_test_id("confirm").click()
 
-    @pytest.mark.asyncio
     async def click_small_highlight_box_edit_button(self):
         await self.page.get_by_test_id("card").get_by_text("Edit").click()
 
-    @pytest.mark.asyncio
     async def yellow_highlighted_text_is_visible(self):
         return await self.page.locator("mark > span:nth-child(1)").all()
 
-    @pytest.mark.asyncio
     async def click_highlight_box_save_button(self):
         await self.page.locator("div").get_by_test_id("save").click()
 
@@ -295,15 +275,12 @@ class HomeRex:
     def overlapping_highlights_message(self):
         return self.page.locator("div").get_by_test_id("banner-body")
 
-    @pytest.mark.asyncio
     async def overlapping_highlights_message_is_visible(self):
         return await self.page.locator("div").get_by_test_id("banner-body").is_visible()
 
-    @pytest.mark.asyncio
     async def click_new_chapter(self):
         await self.page.locator("div").get_by_text("The Origin of the Moon").click()
 
-    @pytest.mark.asyncio
     async def click_show_hide_solution_link(self):
         button_locator = self.page.locator(
             'summary[data-content="Show/Hide Solution"]'
@@ -313,7 +290,6 @@ class HomeRex:
 
     # Unsaved highlight dialog
 
-    @pytest.mark.asyncio
     async def unsaved_highlight_dialog_is_visible(self):
         return (
             await self.page.locator("div")
@@ -321,7 +297,6 @@ class HomeRex:
             .is_visible()
         )
 
-    @pytest.mark.asyncio
     async def unsaved_highlight_dialog_discard_button_is_visible(self):
         return (
             await self.page.locator("div")
@@ -329,17 +304,14 @@ class HomeRex:
             .is_visible()
         )
 
-    @pytest.mark.asyncio
     async def click_discard_changes_button(self):
         await self.page.locator("div").get_by_test_id("discard-changes").click()
 
-    @pytest.mark.asyncio
     async def unsaved_highlight_dialog_cancel_button_is_visible(self):
         return (
             await self.page.locator("div").get_by_test_id("cancel-discard").is_visible()
         )
 
-    @pytest.mark.asyncio
     async def click_cancel_changes_button(self):
         await self.page.locator("div").get_by_test_id("cancel-discard").click()
 
@@ -349,7 +321,6 @@ class HomeRex:
     def subjects_error_page(self):
         return self.page.locator("h1").get_by_text("Subject not found")
 
-    @pytest.mark.asyncio
     async def click_view_all_subjects_link(self):
         await self.page.locator("a").get_by_text("View all").click()
 
@@ -359,15 +330,12 @@ class HomeRex:
     def content_search_field_is_visible(self):
         return self.page.get_by_test_id("desktop-search-input")
 
-    @pytest.mark.asyncio
     async def click_search(self):
         await self.content_search_field_is_visible.click()
 
-    @pytest.mark.asyncio
     async def fill_search_field(self, value):
         await self.content_search_field_is_visible.fill(value)
 
-    @pytest.mark.asyncio
     async def click_search_magnifier_icon(self):
         await self.page.get_by_role("button", name="Search").click()
 
@@ -375,19 +343,15 @@ class HomeRex:
     def search_result_is_visible(self):
         return self.page.get_by_test_id("search-results-sidebar")
 
-    @pytest.mark.asyncio
     async def close_unsuccessful_search_result_sidebar(self):
         await self.page.get_by_test_id("close-search-noresults").click()
 
-    @pytest.mark.asyncio
     async def close_successful_search_result_sidebar(self):
         await self.page.get_by_test_id("close-search").click()
 
-    @pytest.mark.asyncio
     async def click_first_search_result(self):
         await self.page.locator("details > ol > li > a:nth-child(2)").first.click()
 
-    @pytest.mark.asyncio
     async def click_search_result(self):
         await self.page.locator("div").get_by_test_id("search-result").get_by_text(
             "about the Sun (88"
@@ -417,7 +381,6 @@ class HomeRex:
 
     # Clears blockers/overlays
 
-    @pytest.mark.asyncio
     async def clear_all_blockers(self):
         await self.page.evaluate(
             """() => {
