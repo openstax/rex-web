@@ -184,7 +184,8 @@ describe('Assigned', () => {
     expect(tree.root.findAllByType('a').filter((a) => a.props.href === '/cool/redirect')).toHaveLength(0);
 
     const assign = jest.fn();
-const locationSpy = jest.spyOn(assertWindow().location, 'assign').mockImplementation(assign);
+    const locationSpy = jest.spyOn(assertWindow(), 'location', 'get')
+      .mockReturnValue({ assign } as any as Window['location']);
 
     renderer.act(() => continueButton.props.onClick());
     locationSpy.mockRestore();
