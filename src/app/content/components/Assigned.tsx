@@ -159,6 +159,7 @@ export default () => {
             ? (<FormattedMessage id='i18n:assigned:button:continue'>
               {(msg) => <StyledButton
                 type='button'
+                data-analytics-label='assigned-continue'
                 onClick={() => assertWindow().location.assign(return_url)}
                 variant='primary'
                 size='large'

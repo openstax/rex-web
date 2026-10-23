@@ -181,6 +181,7 @@ describe('Assigned', () => {
 
     const [continueButton] = findContinueButtons(tree);
     expect(continueButton.props.type).toBe('button');
+    expect(continueButton.props['data-analytics-label']).toBe('assigned-continue');
     expect(tree.root.findAllByType('a').filter((a) => a.props.href === '/cool/redirect')).toHaveLength(0);
 
     const assign = jest.fn();
