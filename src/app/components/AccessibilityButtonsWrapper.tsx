@@ -1,12 +1,14 @@
 import { HTMLDivElement } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useAnalyticsEvent } from '../../helpers/analytics';
 import { openKeyboardShortcutsMenu as openKeyboardShortcutsMenuAction } from '../content/keyboardShortcuts/actions';
 import { MAIN_CONTENT_ID } from '../context/constants';
 import { Provider } from '../context/SkipToContent';
 import { scrollTo } from '../domUtils';
+import { isPortaled } from '../guards';
+import * as selectNavigation from '../navigation/selectors';
 import HiddenLink, { HiddenButton } from './HiddenLink';
 import { captureOpeningElement } from '../content/utils/focusManager';
 
@@ -27,6 +29,18 @@ const OpenKeyboardShortcutsMenuLink = () => {
   </FormattedMessage>;
 };
 
+// Every language links to the English page, inside the reader's portal if they are in one
+const AccessibilityHelpLink = () => {
+  const params = useSelector(selectNavigation.params);
+  const href = isPortaled(params)
+    ? `https://openstax.org/${params.portalName}/accessibility-statement`
+    : 'https://openstax.org/accessibility-statement';
+
+  return <FormattedMessage id='i18n:a11y:accessibilityHelp'>
+    {(txt) => <HiddenLink href={href} target='_blank' rel='noopener'>{txt}</HiddenLink>}
+  </FormattedMessage>;
+};
+
 export default class AccessibilityButtonsWrapper extends Component {
   public mainContent: HTMLDivElement | undefined;
 
@@ -35,11 +49,7 @@ export default class AccessibilityButtonsWrapper extends Component {
       <FormattedMessage id='i18n:a11y:skipToContent'>
         {(txt) => <HiddenLink onClick={this.scrollToTarget} href={`#${MAIN_CONTENT_ID}`}>{txt}</HiddenLink>}
       </FormattedMessage>
-      <FormattedMessage id='i18n:a11y:accessibilityHelp'>
-        {(txt) => <FormattedMessage id='i18n:a11y:accessibilityHelp:link'>
-          {(href: string) => <HiddenLink href={href}>{txt}</HiddenLink>}
-        </FormattedMessage>}
-      </FormattedMessage>
+      <AccessibilityHelpLink />
       <OpenKeyboardShortcutsMenuLink />
       {this.props.children}
     </Provider>;

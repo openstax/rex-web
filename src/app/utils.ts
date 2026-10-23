@@ -6,6 +6,7 @@ import { receiveLoggedOut } from './auth/actions';
 import { recordError, showErrorDialog } from './errors/actions';
 import { captureOpeningElement } from './content/utils/focusManager';
 import { notFound } from './errors/routes';
+import { isPortaled } from './guards';
 import { replace } from './navigation/actions';
 import * as selectNavigation from './navigation/selectors';
 import { addToast } from './notifications/actions';
@@ -55,7 +56,15 @@ const makeCatchError = ({ dispatch, getState }: MiddlewareAPI) => (e: Error) => 
     return;
   } else if (e instanceof BookNotFoundError) {
     Sentry.captureException(e);
-    dispatch(replace({ route: notFound, params: { url: selectNavigation.pathname(getState()) }, state: {} }));
+    const navigationParams = selectNavigation.params(getState());
+    dispatch(replace({
+      params: {
+        url: selectNavigation.pathname(getState()),
+        ...(isPortaled(navigationParams) && { portalName: navigationParams.portalName }),
+      },
+      route: notFound,
+      state: {},
+    }));
     return;
   } else if (e instanceof ArchiveBookMissingError) {
     // Most of the app intentionally doesn't render until book data is loaded,

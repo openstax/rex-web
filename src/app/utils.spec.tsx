@@ -122,6 +122,8 @@ describe('actionHook', () => {
     });
     jest.spyOn(selectNavigation, 'pathname')
       .mockReturnValue('url');
+    jest.spyOn(selectNavigation, 'params')
+      .mockReturnValue(undefined);
     const helpers = ({
       dispatch: jest.fn(),
       getState: () => ({} as AppState),
@@ -137,6 +139,34 @@ describe('actionHook', () => {
     expect(Sentry.captureException).toHaveBeenCalled();
     expect(helpers.dispatch).toHaveBeenCalledWith(replace({
       params: {url: 'url'},
+      route: notFound,
+      state: {},
+    }));
+    jest.resetAllMocks();
+  });
+
+  it('keeps the portal when handling BookNotFoundError in a portal', async() => {
+    const hookSpy = jest.fn(async() => Promise.reject(new utils.BookNotFoundError('asd')));
+    Object.defineProperty(utils.assertWindow(), 'location', {
+      value: { replace: jest.fn() },
+    });
+    jest.spyOn(selectNavigation, 'pathname')
+      .mockReturnValue('url');
+    jest.spyOn(selectNavigation, 'params')
+      .mockReturnValue({ portalName: 'my-portal' } as ReturnType<typeof selectNavigation.params>);
+    const helpers = ({
+      dispatch: jest.fn(),
+      getState: () => ({} as AppState),
+      promiseCollector: new PromiseCollector(),
+    } as any) as MiddlewareAPI & AppServices;
+
+    const middleware = utils.actionHook(actions.openToc, () => hookSpy);
+    middleware(helpers)(helpers)((action) => action)(actions.openToc());
+
+    await new Promise((resolve) => setImmediate(resolve)); // clear promise queue
+
+    expect(helpers.dispatch).toHaveBeenCalledWith(replace({
+      params: {url: 'url', portalName: 'my-portal'},
       route: notFound,
       state: {},
     }));

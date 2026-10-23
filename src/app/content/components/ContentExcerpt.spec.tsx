@@ -5,7 +5,7 @@ import createTestStore from '../../../test/createTestStore';
 import { book } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import TestContainer from '../../../test/TestContainer';
-import { Store } from '../../types';
+import { AppState, Store } from '../../types';
 import { receiveBook } from '../actions';
 import { LinkedArchiveTreeSection } from '../types';
 import { formatBookData } from '../utils';
@@ -38,7 +38,7 @@ describe('ContentExcerpt', () => {
     store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
 
     const getUrlSpy = jest.spyOn(routes.content, 'getUrl')
-      .mockReturnValueOnce('/book/book1/page/testbook1-testpage1-uuid');
+      .mockReturnValue('/book/book1/page/testbook1-testpage1-uuid');
 
     const addTargetBlankToLinksMock = jest.spyOn(contentManipulation, 'addTargetBlankToLinks')
       .mockReturnValueOnce(htmlWithTargetBlank);
@@ -52,6 +52,21 @@ describe('ContentExcerpt', () => {
     expect(addTargetBlankToLinksMock).toHaveBeenCalledWith(originalHtml);
     expect(rebaseRelativeContentLinksMock)
       .toHaveBeenCalledWith(htmlWithTargetBlank, '/book/book1/page/testbook1-testpage1-uuid');
+    getUrlSpy.mockRestore();
+  });
+
+  it('keeps links in the current portal but not resources', () => {
+    store = createTestStore({
+      navigation: { match: { params: { portalName: 'my-portal' } } },
+    } as unknown as AppState);
+    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+
+    const component = render(mockSection, '<a href="./other-page"></a><img src="../resources/image.jpg">');
+    const html = component.root.findAll((node) => Boolean(node.props.dangerouslySetInnerHTML))[0]
+      .props.dangerouslySetInnerHTML.__html;
+
+    expect(html).toContain('href="/apps/rex/portal/my-portal/books/');
+    expect(html).not.toContain('src="/apps/rex/portal/');
   });
 
   it('throws error when book is not loaded', () => {

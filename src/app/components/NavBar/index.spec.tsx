@@ -137,6 +137,8 @@ describe('content', () => {
             <MobileDropdown
               user={user}
               currentPath='/test'
+              logoUrl='/'
+              hasUnsavedHighlight={false}
               isOpen={true}
               onOpenChange={onOpenChange}
               onAction={onAction}
@@ -160,6 +162,8 @@ describe('content', () => {
             <MobileDropdown
               user={user}
               currentPath='/test'
+              logoUrl='/'
+              hasUnsavedHighlight={false}
               isOpen={true}
               onOpenChange={onOpenChange}
               onAction={onAction}
@@ -189,6 +193,8 @@ describe('content', () => {
             <MobileDropdown
               user={user}
               currentPath='/test'
+              logoUrl='/'
+              hasUnsavedHighlight={false}
               isOpen={true}
               onOpenChange={onOpenChange}
               onAction={onAction}
@@ -218,6 +224,8 @@ describe('content', () => {
             <MobileDropdown
               user={user}
               currentPath='/test'
+              logoUrl='/'
+              hasUnsavedHighlight={false}
               isOpen={true}
               onOpenChange={onOpenChange}
               onAction={onAction}
@@ -509,6 +517,36 @@ describe('content', () => {
           const { node } = renderToDom(render());
           const anchor = assertNotNull(node.querySelector('[data-testid=\'navbar\'] > a'), '');
           expect(anchor.href).toMatch(new RegExp(`^https?://[^/]+/${portalName}/$`));
+        });
+
+        it('sets the portal href on the mobile menu icon', async() => {
+          mockIsMobile = true;
+          store.dispatch(receiveUser(user));
+          const window = assertWindow();
+          const { node, unmount } = renderToDom(render());
+
+          await ReactTestUtils.act(async() => {
+            assertNotNull(node.querySelector('[data-testid="user-nav-toggle"]'), '').click();
+          });
+
+          const anchor = assertNotNull(
+            window.document.body.querySelector('[data-testid="nav-overlay"] > a'),
+            ''
+          );
+          expect(anchor.getAttribute('href')).toBe(`/${portalName}/`);
+
+          // With no unsaved highlights, the link is left to navigate on its own
+          const event = window.document.createEvent('MouseEvents');
+          event.initEvent('click', true, true);
+          event.preventDefault = jest.fn();
+          anchor.dispatchEvent(event);
+          await Promise.resolve();
+          expect(event.preventDefault).not.toHaveBeenCalled();
+
+          await ReactTestUtils.act(async() => {
+            unmount();
+          });
+          mockIsMobile = false;
         });
       });
     });
