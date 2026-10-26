@@ -58,6 +58,7 @@ describe('poll updates', () => {
     let pollUpdates: typeof import ('./pollUpdates').default;
     let googleAnalyticsClient: typeof import ('../gateways/googleAnalyticsClient').default;
     let quasar: typeof import ('../gateways/eventCaptureClient');
+    let initialization: typeof import ('./analytics/initialization');
 
     beforeEach(() => {
       jest.mock('../config', () => ({
@@ -68,6 +69,7 @@ describe('poll updates', () => {
       pollUpdates = require('./pollUpdates').default;
       googleAnalyticsClient = require('../gateways/googleAnalyticsClient').default;
       quasar = require('../gateways/eventCaptureClient');
+      initialization = require('./analytics/initialization');
     });
 
     it('fetches /rex/environment.json imeediately', () => {
@@ -140,6 +142,7 @@ describe('poll updates', () => {
         },
         release_id: 'releaseid',
       }));
+      initialization.initialize({isK12: false, enabled: true});
 
       const configureSpy = jest.spyOn(quasar, 'configureEventCapture')
         .mockReturnValue(undefined);
@@ -159,6 +162,7 @@ describe('poll updates', () => {
         },
         release_id: 'releaseid',
       }));
+      initialization.initialize({isK12: false, enabled: true});
 
       const configureSpy = jest.spyOn(quasar, 'configureEventCapture')
         .mockReturnValue(undefined);
@@ -169,6 +173,44 @@ describe('poll updates', () => {
       await new Promise((resolve) => setImmediate(resolve)); // clear promise queue
 
       expect(configureSpy).toHaveBeenCalledWith({basePath: 'coolplace.quasar.com'});
+    });
+
+    it('does not initialize quasar analytics without a quasar api', async() => {
+      fetchSpy.mockReturnValue(mockFetchResponse(200, {
+        configs: {},
+        release_id: 'releaseid',
+      }));
+      initialization.initialize({isK12: false, enabled: true});
+
+      const configureSpy = jest.spyOn(quasar, 'configureEventCapture')
+        .mockReturnValue(undefined);
+
+      cancel = pollUpdates(store);
+      jest.runOnlyPendingTimers();
+
+      await new Promise((resolve) => setImmediate(resolve)); // clear promise queue
+
+      expect(configureSpy).not.toHaveBeenCalled();
+    });
+
+    it('does not initialize quasar analytics when analytics are disabled', async() => {
+      fetchSpy.mockReturnValue(mockFetchResponse(200, {
+        configs: {
+          quasar_api: 'default',
+        },
+        release_id: 'releaseid',
+      }));
+      initialization.initialize({isK12: true, enabled: false});
+
+      const configureSpy = jest.spyOn(quasar, 'configureEventCapture')
+        .mockReturnValue(undefined);
+
+      cancel = pollUpdates(store);
+      jest.runOnlyPendingTimers();
+
+      await new Promise((resolve) => setImmediate(resolve)); // clear promise queue
+
+      expect(configureSpy).not.toHaveBeenCalled();
     });
 
     it('dispatches app messages', async() => {
