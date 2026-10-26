@@ -6,7 +6,10 @@ import KineticCTAMobile from '../../../assets/kinetic-cta-mobile.svg';
 import KineticCTA from '../../../assets/kinetic-cta.svg';
 import icon from '../../../assets/kinetic-logo.png';
 import Button from '../../components/Button';
+import { portalIsK12 } from '../../../helpers/analytics/k12Portal';
 import { kineticBannerEnabled } from '../../featureFlags/selectors';
+import { isPortaled } from '../../guards';
+import { params as navigationParams } from '../../navigation/selectors';
 import theme from '../../theme';
 import { isVerticalNavOpenConnector } from './utils/sidebar';
 import './LabsCall.css';
@@ -63,8 +66,11 @@ const LabsCallHeader = isVerticalNavOpenConnector(LabsCallHeaderComponent);
  */
 function LabsCTA() {
   const enabled = useSelector(kineticBannerEnabled);
+  const routeParams = useSelector(navigationParams);
+  // The flag only ever turns on, so a stale one must not follow the reader onto a K12 portal
+  const onK12Portal = isPortaled(routeParams) && portalIsK12(routeParams.portalName);
 
-  if (!enabled) {
+  if (!enabled || onK12Portal) {
     return null;
   }
 

@@ -1,5 +1,8 @@
+import { isK12Portal } from '../../../helpers/analytics/k12Portal';
 import Sentry from '../../../helpers/Sentry';
 import { receiveFeatureFlags } from '../../featureFlags/actions';
+import { isPortaled } from '../../guards';
+import { params as navigationParams } from '../../navigation/selectors';
 import { ActionHookBody } from '../../types';
 import { receivePage } from '../actions';
 import { hasOSWebData } from '../guards';
@@ -12,6 +15,11 @@ const hookBody: ActionHookBody<typeof receivePage> = (services) => async() => {
   const book = select.book(state);
 
   if ((typeof document === 'undefined') || !book || !hasOSWebData(book)) {
+    return;
+  }
+
+  const routeParams = navigationParams(state);
+  if (isPortaled(routeParams) && await isK12Portal(services.osWebLoader, routeParams.portalName)) {
     return;
   }
 
