@@ -15,7 +15,8 @@ async function realClick(page: Page, x: number, y: number) {
 
 async function realClickOn(page: Page, selector: string) {
   const box = await page.locator(selector).first().boundingBox()
-  await realClick(page, box!.x + box!.width / 2, box!.y + box!.height / 2)
+  if (!box) { throw new Error(`${selector} has no bounding box`) }
+  await realClick(page, box.x + box.width / 2, box.y + box.height / 2)
 }
 
 test.describe('profile menu', () => {
