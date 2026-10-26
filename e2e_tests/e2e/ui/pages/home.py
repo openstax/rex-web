@@ -205,13 +205,11 @@ class HomeRex:
 
     # Highlight box and highlights
 
-    @pytest.mark.asyncio
     async def highlight_box_trash_icon_is_visible(self):
-        return await self.page.get_by_label("Deselect current highlight").is_visible()
+        return await self.page.get_by_test_id("editcard-trash-icon").is_visible()
 
-    @pytest.mark.asyncio
     async def click_highlight_box_trash_icon(self):
-        await self.page.get_by_label("Deselect current highlight").click()
+        await self.page.get_by_test_id("editcard-trash-icon").click()
 
     @pytest.mark.asyncio
     async def oneclick_highlight_infobox(self):
@@ -235,16 +233,7 @@ class HomeRex:
 
     @pytest.mark.asyncio
     async def highlight_box_colors_are_visible(self):
-        # this suite runs against the deployed site, so while the `colours` ->
-        # `colors` spelling of the test id is in flight it has to match either
-        # one: the new spelling is not live until the rename deploys, and the old
-        # one comes back if that deploy is rolled back. Narrow this to
-        # `highlight-colors-picker` once the rename is out everywhere.
-        return (
-            await self.page.locator("div")
-            .get_by_test_id(re.compile(r"^highlight-colou?rs-picker$"))
-            .is_visible()
-        )
+        return await self.page.get_by_test_id("highlight-colors-picker").is_visible()
 
     @pytest.mark.asyncio
     async def click_highlight_box_purple_color(self):
