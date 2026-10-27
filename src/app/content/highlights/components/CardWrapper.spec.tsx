@@ -1531,6 +1531,58 @@ describe('CardWrapper', () => {
       cardWrapperElement.remove();
     });
 
+    it('routes Tab off the create button past a selection whose end is in an element', () => {
+      const document = assertDocument();
+      const highlight = createMockHighlight(); // new selection: elements stays []
+
+      // Selected math between two links in one paragraph, with the selection snapped to the whole
+      // math element so its end is (para, 2): after the math, before the next link.
+      const para = document.createElement('p');
+      const prevLink = document.createElement('a');
+      prevLink.setAttribute('href', '#prev');
+      const math = document.createElement('span');
+      const nextLink = document.createElement('a');
+      nextLink.setAttribute('href', '#next');
+      para.append(prevLink, math, nextLink);
+      container.appendChild(para);
+
+      const cardWrapperElement = document.createElement('div');
+      const cardNode = document.createElement('div');
+      cardNode.setAttribute('data-active', 'true');
+      const createButton = document.createElement('button');
+      cardNode.appendChild(createButton);
+      cardWrapperElement.appendChild(cardNode);
+      document.body.appendChild(cardWrapperElement);
+
+      const getSelectionSpy = jest.spyOn(window!, 'getSelection').mockReturnValue({
+        isCollapsed: false,
+        rangeCount: 1,
+        anchorNode: para,
+        getRangeAt: () => ({ startContainer: para, startOffset: 1, endContainer: para, endOffset: 2 }),
+        removeAllRanges: jest.fn(),
+      } as any);
+
+      store.dispatch(focusHighlight(highlight.id));
+      const component = renderer.create(<Provider store={store}>
+        <CardWrapper container={container} highlights={[highlight]} />
+      </Provider>, { createNodeMock: () => cardWrapperElement });
+      renderer.act(() => undefined);
+
+      const nextFocusSpy = jest.spyOn(nextLink, 'focus');
+      const prevFocusSpy = jest.spyOn(prevLink, 'focus');
+      renderer.act(() => {
+        createButton.focus();
+        dispatchKeyDownEvent({ key: 'Tab' });
+      });
+
+      expect(nextFocusSpy).toHaveBeenCalled();
+      expect(prevFocusSpy).not.toHaveBeenCalled();
+
+      getSelectionSpy.mockRestore();
+      renderer.act(() => component.unmount());
+      cardWrapperElement.remove();
+    });
+
     it('routes Shift+Tab off the create button to previous content and hides the card, keeping the selection', () => {
       const document = assertDocument();
       const highlight = createMockHighlight(); // new selection: elements stays []
@@ -2027,11 +2079,13 @@ describe('CardWrapper', () => {
   });
 
   describe('useTabFromSelection', () => {
-    const mockSelection = ({ isCollapsed = false, boundary }: { isCollapsed?: boolean; boundary: Node }) =>
+    const mockSelection = ({ isCollapsed = false, boundary, startOffset = 0, endOffset = 0 }: {
+      isCollapsed?: boolean; boundary: Node; startOffset?: number; endOffset?: number;
+    }) =>
       jest.spyOn(assertWindow(), 'getSelection').mockReturnValue({
         isCollapsed,
         rangeCount: 1,
-        getRangeAt: () => ({ startContainer: boundary, endContainer: boundary }),
+        getRangeAt: () => ({ startContainer: boundary, startOffset, endContainer: boundary, endOffset }),
       } as unknown as ReturnType<ReturnType<typeof assertWindow>['getSelection']>);
 
     // Content: a link, the selected text, then another link. No card is showing. The card layer
@@ -2085,6 +2139,37 @@ describe('CardWrapper', () => {
       renderer.act(() => { dispatchKeyDownEvent({ key: 'Tab', shiftKey: true }); });
 
       expect(focusSpy).toHaveBeenCalled();
+      getSelectionSpy.mockRestore();
+      cleanup();
+    });
+
+    // The selection boundaries are in the container element rather than a text node, as when the
+    // selection is snapped to whole math: the container's children are prevLink, the selected text
+    // and nextLink, and the selection covers child 1 only.
+    it('continues Tab after a selection whose boundary is in an element', () => {
+      const { cleanup, nextLink, prevLink } = setupSelection();
+      const getSelectionSpy = mockSelection({ boundary: container, startOffset: 1, endOffset: 2 });
+      const nextFocusSpy = jest.spyOn(nextLink, 'focus');
+      const prevFocusSpy = jest.spyOn(prevLink, 'focus');
+
+      renderer.act(() => { dispatchKeyDownEvent({ key: 'Tab' }); });
+
+      expect(nextFocusSpy).toHaveBeenCalled();
+      expect(prevFocusSpy).not.toHaveBeenCalled();
+      getSelectionSpy.mockRestore();
+      cleanup();
+    });
+
+    it('continues Shift+Tab before a selection whose boundary is in an element', () => {
+      const { cleanup, nextLink, prevLink } = setupSelection();
+      const getSelectionSpy = mockSelection({ boundary: container, startOffset: 1, endOffset: 2 });
+      const nextFocusSpy = jest.spyOn(nextLink, 'focus');
+      const prevFocusSpy = jest.spyOn(prevLink, 'focus');
+
+      renderer.act(() => { dispatchKeyDownEvent({ key: 'Tab', shiftKey: true }); });
+
+      expect(prevFocusSpy).toHaveBeenCalled();
+      expect(nextFocusSpy).not.toHaveBeenCalled();
       getSelectionSpy.mockRestore();
       cleanup();
     });

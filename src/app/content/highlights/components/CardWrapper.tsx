@@ -1,5 +1,5 @@
 import Highlighter, { Highlight } from '@openstax/highlighter';
-import { HTMLElement, KeyboardEvent, MouseEvent, Node } from '@openstax/types/lib.dom';
+import { HTMLElement, KeyboardEvent, MouseEvent, Node, Range } from '@openstax/types/lib.dom';
 import React from 'react';
 import { connect, useSelector } from 'react-redux';
 import flow from 'lodash/fp/flow';
@@ -103,22 +103,30 @@ function useCardsHeights() {
 // order; REX has one (NudgeStudyTools uses tabIndex={1}).
 const isInNaturalTabOrder = (el: HTMLElement) => Number(el.getAttribute('tabindex') ?? 0) <= 0;
 
-// Finds the nearest tabbable element before/after `reference` in document order, excluding a
+// A point defines a position in the document.
+// It is represented by a collapsed (0-length) Range so that we can call comparePoint() on it.
+// When the offset is 0, the point is at the start of the node, so everything inside the node comes after it.
+function pointAt(node: Node, offset = 0): Range {
+  const point = assertDocument().createRange();
+  point.setStart(node, offset);
+  point.collapse(true);
+  return point;
+}
+
+// Finds the nearest tabbable element before/after the `reference` point in document order, excluding a
 // highlight's own spans and the card wrapper. Scanning the whole document (not just the highlighter
 // container) lets Tab continue to the true next/previous stop, e.g. the footer or a toolbar control.
 // `exclude` takes nulls so callers can pass the card wrapper ref's current value as is.
 function findAdjacentContentTabbable(
-  reference: Node,
+  reference: Range,
   forward: boolean,
   exclude: Array<HTMLElement | null>
 ): HTMLElement | null {
-  const root = assertDocument().getRootNode();
-  const position = forward ? root.DOCUMENT_POSITION_FOLLOWING : root.DOCUMENT_POSITION_PRECEDING;
   const candidates = Array.from(
     assertDocument().body.querySelectorAll<HTMLElement>(tabbableElementsSelector)
   ).filter((el) =>
-    // eslint-disable-next-line no-bitwise
-    Boolean(reference.compareDocumentPosition(el) & position)
+    // comparePoint is 1 when the element's start is after the reference point, -1 when before
+    reference.comparePoint(el, 0) === (forward ? 1 : -1)
     && !exclude.some((ex) => ex && (ex === el || ex.contains(el)))
   );
   // Nearest first in the direction of travel, then the first one focus() would actually move to:
@@ -130,18 +138,18 @@ function findAdjacentContentTabbable(
   return candidates.find((el) => isInNaturalTabOrder(el) && isTabbable(el)) ?? null;
 }
 
-// The node at the start/end boundary of the current selection, if inside the content container.
+// The point at the start/end boundary of the current selection, if inside the content container.
 // Anchors tab routing for a not-yet-saved selection, which has no highlight element to anchor on.
-// Returns the boundary node itself (a text node) so compareDocumentPosition can't pick a tabbable
-// inside it.
-function selectionBoundaryNode(container: HTMLElement, end: boolean): Node | null {
+// Keeps the boundary's offset: when the boundary is in an element (e.g. snapped to before some math)
+// rather than a text node, the offset says which of the element's children are before and after it.
+function selectionBoundary(container: HTMLElement, end: boolean): Range | null {
   const selection = assertWindow().getSelection();
   if (!selection || selection.rangeCount === 0) {
     return null;
   }
   const range = selection.getRangeAt(0);
   const node = end ? range.endContainer : range.startContainer;
-  return container.contains(node) ? node : null;
+  return container.contains(node) ? pointAt(node, end ? range.endOffset : range.startOffset) : null;
 }
 
 // The card holding the edit/create control lives in a separate DOM layer, so Tab can't reach it
@@ -201,7 +209,7 @@ function useTabRouting(
       // Move focus out of the highlight/card to the adjacent content tab stop in the given direction,
       // hiding the card. A new selection is kept, and its card stays hidden until the selection
       // changes, because the highlighter only reports a selection the first time it sees it.
-      const focusAdjacentContent = (reference: Node | null, forward: boolean) => {
+      const focusAdjacentContent = (reference: Range | null, forward: boolean) => {
         const target = reference
           ? findAdjacentContentTabbable(reference, forward, [...elements, element.current])
           : null;
@@ -236,7 +244,7 @@ function useTabRouting(
         }
         // Card was dismissed (Escape): nothing to tab into, so continue to the next content control.
         if (cardHidden) {
-          focusAdjacentContent(elements[elements.length - 1], true);
+          focusAdjacentContent(pointAt(elements[elements.length - 1]), true);
           return;
         }
       }
@@ -245,7 +253,7 @@ function useTabRouting(
       // Shift+Tab would instead land on the edit button (which sits before the content in the DOM),
       // creating a span<->button loop that can never reach earlier elements.
       if (onHighlightSpan && event.shiftKey && startEl) {
-        focusAdjacentContent(startEl, false);
+        focusAdjacentContent(pointAt(startEl), false);
         return;
       }
 
@@ -270,9 +278,9 @@ function useTabRouting(
         // Shift+Tab off the first control of a new selection (which has no highlight span to return
         // to). Hiding the card stops the next Tab from routing straight back into it.
         if (goingForward || goingBack) {
-          const reference: Node | null = isNewSelection
-            ? selectionBoundaryNode(container, goingForward)
-            : elements[elements.length - 1];
+          const reference = isNewSelection
+            ? selectionBoundary(container, goingForward)
+            : pointAt(elements[elements.length - 1]);
           focusAdjacentContent(reference, goingForward);
           return;
         }
@@ -301,7 +309,7 @@ function useTabRouting(
             withSelectionPreserved(() => firstFocusable.focus());
           } else if (event.shiftKey) {
             // Shift+Tab: back to the previous content control, hiding the card.
-            focusAdjacentContent(selectionBoundaryNode(container, false), false);
+            focusAdjacentContent(selectionBoundary(container, false), false);
           }
         }
       }
@@ -338,7 +346,7 @@ function useTabFromSelection(
       }
 
       const forward = !event.shiftKey;
-      const reference = selectionBoundaryNode(container, forward);
+      const reference = selectionBoundary(container, forward);
       const target = reference
         ? findAdjacentContentTabbable(reference, forward, [element.current])
         : null;
