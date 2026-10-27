@@ -12,9 +12,14 @@ import * as selectNavigation from '../../navigation/selectors';
 import { MiddlewareAPI, Store } from '../../types';
 import { setTextSize } from '../actions';
 import * as selectContent from '../selectors';
+import { assertWindow } from '../../utils/browser-assertions';
 import { formatBookData } from '../utils';
 import Assigned from './Assigned';
 import { PrevNextBar } from './PrevNextBar';
+
+const findContinueButtons = (tree: renderer.ReactTestRenderer) => tree.root
+  .findAllByType('button')
+  .filter((button) => button.props.className.includes('assigned-styled-button'));
 
 describe('Assigned', () => {
   let store: Store;
@@ -147,7 +152,7 @@ describe('Assigned', () => {
     const initialPageContent = tree.root.findByProps({ id: 'main-content' })
       .props.dangerouslySetInnerHTML.__html;
 
-    expect(() => tree.root.findByProps({ href: '/cool/redirect' })).toThrow();
+    expect(findContinueButtons(tree)).toHaveLength(0);
 
     await renderer.act(async () => {
       tree.root
@@ -174,9 +179,19 @@ describe('Assigned', () => {
       'href': 'books/book-slug-1/pages/test-page-1',
     })).not.toThrow();
 
-    expect(() => tree.root.findByProps({
-      href: '/cool/redirect',
-    })).not.toThrow();
+    const [continueButton] = findContinueButtons(tree);
+    expect(continueButton.props.type).toBe('button');
+    expect(continueButton.props['data-analytics-label']).toBe('assigned-continue');
+    expect(tree.root.findAllByType('a').filter((a) => a.props.href === '/cool/redirect')).toHaveLength(0);
+
+    const assign = jest.fn();
+    const locationSpy = jest.spyOn(assertWindow(), 'location', 'get')
+      .mockReturnValue({ assign } as any as Window['location']);
+
+    renderer.act(() => continueButton.props.onClick());
+    locationSpy.mockRestore();
+
+    expect(assign).toHaveBeenCalledWith('/cool/redirect');
 
     tree.unmount();
   });
