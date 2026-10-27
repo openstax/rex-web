@@ -209,7 +209,7 @@ function useTabRouting(
         if (target) {
           event.preventDefault();
           unfocus();
-          target.focus();
+          withSelectionPreserved(() => target.focus());
           return;
         }
 
@@ -217,6 +217,9 @@ function useTabRouting(
         // focus is currently on, and the browser resolves the default action after this handler
         // returns. Tearing the card down now would leave it navigating from a removed node and
         // falling back to <body>, so let native Tab run first and hide the card afterwards.
+        // Native Tab follows DOM order from the card, which sits before the content, so going forward it
+        // can land on a tab stop above the selection (and Firefox then drops the selection). Not handled,
+        // because book pages always have tab stops after the content (page navigation, footer).
         assertWindow().setTimeout(unfocus, 0);
       };
 
@@ -283,7 +286,7 @@ function useTabRouting(
         const anchorInContainer = Boolean(
           selection?.anchorNode && container.contains(selection.anchorNode)
         );
-        // Focus moving away does not collapse the Selection range, so a stale pending selection
+        // In Chrome, focus moving away does not collapse the Selection range, so a stale pending selection
         // must not let us hijack Tab from an unrelated control - a toolbar button would get
         // redirected into the create card, or have the card hidden. Only route when focus
         // is still in the content, or nowhere in particular (the usual state right after a
@@ -342,7 +345,7 @@ function useTabFromSelection(
 
       if (target) {
         event.preventDefault();
-        target.focus();
+        withSelectionPreserved(() => target.focus());
       }
     };
 
