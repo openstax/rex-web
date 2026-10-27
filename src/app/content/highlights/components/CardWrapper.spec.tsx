@@ -519,7 +519,7 @@ describe('CardWrapper', () => {
 
   it('hideCardEvent does not focus a selection-only highlight (no elements)', () => {
     const document = assertDocument();
-    const selectionHighlight = { id: 'string', elements: [], focus: jest.fn() };
+    const selectionHighlight = createMockHighlight('string');
 
     renderer.create(
       <Provider store={store}>
@@ -533,6 +533,49 @@ describe('CardWrapper', () => {
 
     renderer.act(() => {
       document?.dispatchEvent(new CustomEvent('hideCardEvent', { bubbles: true }));
+    });
+
+    expect(selectionHighlight.focus).not.toHaveBeenCalled();
+  });
+
+  it('restoreHighlightFocusEvent refocuses an existing highlight', () => {
+    const document = assertDocument();
+    const highlight = createMockHighlight('id1');
+    const highlightElement = document.createElement('span');
+    highlight.elements.push(highlightElement);
+    container.appendChild(highlightElement);
+
+    renderer.create(
+      <Provider store={store}>
+        <CardWrapper container={container} highlights={[highlight as unknown as Highlight]} />
+      </Provider>
+    );
+
+    renderer.act(() => { store.dispatch(focusHighlight(highlight.id)); });
+    (highlight.focus as jest.Mock).mockClear();
+
+    renderer.act(() => {
+      document?.dispatchEvent(new CustomEvent('restoreHighlightFocusEvent'));
+    });
+
+    expect(highlight.focus).toHaveBeenCalled();
+  });
+
+  it('restoreHighlightFocusEvent does not focus a selection-only highlight', () => {
+    const document = assertDocument();
+    const selectionHighlight = createMockHighlight('string');
+
+    renderer.create(
+      <Provider store={store}>
+        <CardWrapper container={container} highlights={[selectionHighlight as unknown as Highlight]} />
+      </Provider>
+    );
+
+    renderer.act(() => { store.dispatch(focusHighlight(selectionHighlight.id)); });
+    selectionHighlight.focus.mockClear();
+
+    renderer.act(() => {
+      document?.dispatchEvent(new CustomEvent('restoreHighlightFocusEvent'));
     });
 
     expect(selectionHighlight.focus).not.toHaveBeenCalled();

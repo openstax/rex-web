@@ -399,6 +399,18 @@ function useFocusedHighlight(
     return () => document.removeEventListener('hideCardEvent', handler);
   }, [document, isExistingHighlight, focusedHighlight]);
 
+  // Cancelling the discard dialog leaves focus on <body>; put it back so Enter reopens the editor
+  React.useEffect(() => {
+    const handler = () => {
+      if (isExistingHighlight) {
+        focusedHighlight?.focus();
+      }
+    };
+
+    document.addEventListener('restoreHighlightFocusEvent', handler);
+    return () => document.removeEventListener('restoreHighlightFocusEvent', handler);
+  }, [document, isExistingHighlight, focusedHighlight]);
+
   // Ensure focusedHighlight is actually focused
   React.useEffect(() => {
     if (isExistingHighlight) {
