@@ -1,3 +1,4 @@
+import { initialized } from '../../../helpers/analytics/initialization';
 import Sentry from '../../../helpers/Sentry';
 import { receiveFeatureFlags } from '../../featureFlags/actions';
 import { ActionHookBody } from '../../types';
@@ -12,6 +13,10 @@ const hookBody: ActionHookBody<typeof receivePage> = (services) => async() => {
   const book = select.book(state);
 
   if ((typeof document === 'undefined') || !book || !hasOSWebData(book)) {
+    return;
+  }
+
+  if ((await initialized()).isK12) {
     return;
   }
 

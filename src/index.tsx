@@ -22,6 +22,7 @@ import createSearchClient from './gateways/createSearchClient';
 import createUserLoader from './gateways/createUserLoader';
 import createImageCDNUtils from './gateways/createImageCDNUtils';
 import { registerGlobalAnalytics } from './helpers/analytics';
+import { initialize } from './helpers/analytics/initialization';
 import loadFont from './helpers/loadFont';
 import { initializeMathJaxMenuPositioning } from './helpers/mathjaxMenuPosition';
 import pollUpdates from './helpers/pollUpdates';
@@ -127,6 +128,29 @@ const sendConsentToAccounts = (consentPreferences: ConsentPreferences) =>
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     .catch((error: any) => Sentry.captureException(error));
 
+async function getPortalSchoolData() {
+  const pathMatch = window.location.pathname.match(/\/portal\/([^/]+)/);
+  if (pathMatch) {
+    const portalName = pathMatch[1];
+    try {
+      return await app.services.osWebLoader.getSchoolDataFromPortalName(portalName);
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.error('Error fetching school data', e);
+    }
+  }
+  return undefined;
+}
+
+const portalSchoolData = getPortalSchoolData();
+
+// The reader's own event capture and the Kinetic invitations wait for this.
+// K12 schools only allow event capture under a research agreement, and never show Kinetic.
+portalSchoolData.then((schoolData) => {
+  const isK12 = schoolData?.industry === 'K12';
+  initialize({isK12, enabled: !isK12 || !!schoolData?.research_agreement_active});
+});
+
 app.services.userLoader.getCurrentUser().then((user) => {
   document.addEventListener('cookieyes_banner_load', (bannerLoadEventData: unknown) => {
     const consentPreferences = user?.consent_preferences;
@@ -183,28 +207,35 @@ app.services.userLoader.getCurrentUser().then((user) => {
     window.cookieYesActive = true;
   });
 
-  async function shouldSkipGTM() {
-    const pathMatch = window.location.pathname.match(/\/portal\/([^/]+)/);
-    if (pathMatch) {
-      const portalName = pathMatch[1];
-      try {
-        const schoolData = await app.services.osWebLoader.getSchoolDataFromPortalName(portalName);
-
-        if (schoolData?.industry === 'K12') {
-          return true;
-        }
-      } catch (e) {
-        // eslint-disable-next-line no-console
-        console.error('Error fetching school data', e);
-      }
-    }
-    return false;
-  }
-
   (async() => {
-    const skipGTM = await shouldSkipGTM();
+    const schoolData = await portalSchoolData;
 
-    if (!skipGTM) {
+    // The analytics helper, whether loaded by GTM or directly below, reads the organization
+    // when it loads, so it must be set first. Nothing reads it if no analytics are loaded.
+    if (schoolData) {
+      window.dataLayer.push({'os.organization_id': schoolData.salesforce_id});
+    }
+
+    if (schoolData?.industry === 'K12') {
+      if (schoolData.research_agreement_active) {
+        // GTM is skipped for K12 schools, but it is what normally loads event capture,
+        // so load event capture directly for schools with a research agreement.
+        // The user is already set by the establishState initializer.
+
+        // helper.js checks for window.EventCapture (set by standalone.umd.js) only once, when it runs,
+        // and silently skips all event capture if it is missing, so standalone.umd.js must run first.
+        // Scripts added this way run in the order they are added only when not async
+        [
+          'https://ram.openstax.org/quasar/standalone.umd.js',
+          'https://ram.openstax.org/analytics/helper.js',
+        ].forEach((src) => {
+          const script = document.createElement('script');
+          script.async = false;
+          script.src = src;
+          document.head.appendChild(script);
+        });
+      }
+    } else {
       /* eslint-disable no-var, @typescript-eslint/no-non-null-assertion */
       // GTM snippet slightly modified to assume f.parentNode is not null and with const types so ts doesn't complain
       (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':

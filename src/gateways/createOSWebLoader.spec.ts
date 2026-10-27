@@ -125,6 +125,7 @@ describe('osWebLoader', () => {
       salesforce_id: 'sfid',
       name: 'Test School',
       industry: 'K12',
+      research_agreement_active: true,
     };
 
     beforeEach(() => {
