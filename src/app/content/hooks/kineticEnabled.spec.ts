@@ -1,3 +1,4 @@
+import * as initialization from '../../../helpers/analytics/initialization';
 import Sentry from '../../../helpers/Sentry';
 import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';
@@ -25,12 +26,16 @@ describe('kineticEnabled hook', () => {
   let helpers: MiddlewareAPI & ReturnType<typeof createTestServices>;
   const fetchBackup = fetch;
 
+  let initialized: jest.SpyInstance;
+
   afterEach(() => {
     (global as any).fetch = fetchBackup;
     captureException.mockRestore();
+    initialized.mockRestore();
   });
 
   beforeEach(() => {
+    initialized = jest.spyOn(initialization, 'initialized').mockResolvedValue({isK12: false, enabled: true});
     store = createTestStore();
 
     dispatch = jest.spyOn(store, 'dispatch');
@@ -115,6 +120,20 @@ describe('kineticEnabled hook', () => {
     await hook(receivePage({...page, references: []}));
 
     expect(dispatch).toHaveBeenCalledWith(receiveFeatureFlags(['kineticEnabled']));
+  });
+
+  it('does nothing on K12 portals', async() => {
+    initialized.mockResolvedValue({isK12: true, enabled: true});
+    (global as any).fetch = mockFetch(200, {
+      eligible: true,
+    });
+    store.dispatch(receiveBook(combinedBook));
+
+    dispatch.mockClear();
+    await hook(receivePage({...page, references: []}));
+
+    expect(fetch).not.toHaveBeenCalled();
+    expect(dispatch).not.toHaveBeenCalled();
   });
 
   it('noops when error', async() => {

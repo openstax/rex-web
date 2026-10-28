@@ -22,6 +22,7 @@ import createSearchClient from './gateways/createSearchClient';
 import createUserLoader from './gateways/createUserLoader';
 import createImageCDNUtils from './gateways/createImageCDNUtils';
 import { registerGlobalAnalytics } from './helpers/analytics';
+import { initialize } from './helpers/analytics/initialization';
 import loadFont from './helpers/loadFont';
 import { initializeMathJaxMenuPositioning } from './helpers/mathjaxMenuPosition';
 import pollUpdates from './helpers/pollUpdates';
@@ -127,6 +128,29 @@ const sendConsentToAccounts = (consentPreferences: ConsentPreferences) =>
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     .catch((error: any) => Sentry.captureException(error));
 
+async function getPortalSchoolData() {
+  const pathMatch = window.location.pathname.match(/\/portal\/([^/]+)/);
+  if (pathMatch) {
+    const portalName = pathMatch[1];
+    try {
+      return await app.services.osWebLoader.getSchoolDataFromPortalName(portalName);
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.error('Error fetching school data', e);
+    }
+  }
+  return undefined;
+}
+
+const portalSchoolData = getPortalSchoolData();
+
+// The reader's own event capture and the Kinetic invitations wait for this.
+// K12 schools only allow event capture under a research agreement, and never show Kinetic.
+portalSchoolData.then((schoolData) => {
+  const isK12 = schoolData?.industry === 'K12';
+  initialize({isK12, enabled: !isK12 || !!schoolData?.research_agreement_active});
+});
+
 app.services.userLoader.getCurrentUser().then((user) => {
   document.addEventListener('cookieyes_banner_load', (bannerLoadEventData: unknown) => {
     const consentPreferences = user?.consent_preferences;
@@ -183,22 +207,8 @@ app.services.userLoader.getCurrentUser().then((user) => {
     window.cookieYesActive = true;
   });
 
-  async function getPortalSchoolData() {
-    const pathMatch = window.location.pathname.match(/\/portal\/([^/]+)/);
-    if (pathMatch) {
-      const portalName = pathMatch[1];
-      try {
-        return await app.services.osWebLoader.getSchoolDataFromPortalName(portalName);
-      } catch (e) {
-        // eslint-disable-next-line no-console
-        console.error('Error fetching school data', e);
-      }
-    }
-    return undefined;
-  }
-
   (async() => {
-    const schoolData = await getPortalSchoolData();
+    const schoolData = await portalSchoolData;
 
     // The analytics helper, whether loaded by GTM or directly below, reads the organization
     // when it loads, so it must be set first. Nothing reads it if no analytics are loaded.
