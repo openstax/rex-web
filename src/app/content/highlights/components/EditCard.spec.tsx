@@ -11,7 +11,7 @@ import { makeFindByTestId } from '../../../../test/reactutils';
 import TestContainer from '../../../../test/TestContainer';
 import * as selectAuth from '../../../auth/selectors';
 import { formatUser } from '../../../auth/utils';
-import { assertDocument, assertNotNull } from '../../../utils';
+import { assertDocument, assertNotNull, assertWindow } from '../../../utils';
 import { highlightStyles } from '../../constants';
 import { updateHighlight } from '../actions';
 import ColorPicker from './ColorPicker';
@@ -905,7 +905,11 @@ describe('EditCard', () => {
         shouldFocusCard: true,
       } as EditCardProps);
 
-      const removeAllRanges = jest.spyOn(assertNotNull(assertDocument().getSelection(), 'no selection'), 'removeAllRanges');
+      // The shared test setup replaces window.getSelection, so make it return the same selection as
+      // document.getSelection; otherwise clearing it through either one would go unnoticed.
+      const selection = assertNotNull(assertDocument().getSelection(), 'no selection');
+      const getSelectionSpy = jest.spyOn(assertWindow(), 'getSelection').mockReturnValue(selection);
+      const removeAllRanges = jest.spyOn(selection, 'removeAllRanges');
 
       const confirmation = component.root.findByProps({ 'mock-confirmation': 'true' });
       renderer.act(() => {
@@ -915,6 +919,7 @@ describe('EditCard', () => {
       expect(editCardProps.onBlur).toHaveBeenCalled();
       expect(removeAllRanges).not.toHaveBeenCalled();
       removeAllRanges.mockRestore();
+      getSelectionSpy.mockRestore();
     });
   });
 });
