@@ -176,9 +176,6 @@ describe('ScrollOffset', () => {
       delete (global as any).window;
       resetModules();
       ({React, renderer, ReactDOM, renderToDom} = reactAndFriends());
-      const styled = require('styled-components');
-      // this is broken when unmounting without a dom
-      styled.createGlobalStyle = () => () => null;
       ScrollOffset = require('./ScrollOffset').default;
     });
 
