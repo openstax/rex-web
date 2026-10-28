@@ -142,13 +142,33 @@ async function getPortalSchoolData() {
   return undefined;
 }
 
-const portalSchoolData = getPortalSchoolData();
+// K12 schools get no GTM, CookieYes or Kinetic, and only get event capture under a research agreement.
+// Assignable launches say whether that applies in their launch token, and portals in the portal's school data.
+async function getSchoolAnalyticsSettings() {
+  const tokenData = app.services.launchToken?.tokenData;
+
+  if (tokenData) {
+    return {
+      isK12: tokenData.disableAnalytics === true,
+      researchAgreementActive: tokenData.researchAgreementActive === true,
+      organizationId: undefined,
+    };
+  }
+
+  const schoolData = await getPortalSchoolData();
+
+  return {
+    isK12: schoolData?.industry === 'K12',
+    researchAgreementActive: !!schoolData?.research_agreement_active,
+    organizationId: schoolData?.salesforce_id,
+  };
+}
+
+const schoolAnalyticsSettings = getSchoolAnalyticsSettings();
 
 // The reader's own event capture and the Kinetic invitations wait for this.
-// K12 schools only allow event capture under a research agreement, and never show Kinetic.
-portalSchoolData.then((schoolData) => {
-  const isK12 = schoolData?.industry === 'K12';
-  initialize({isK12, enabled: !isK12 || !!schoolData?.research_agreement_active});
+schoolAnalyticsSettings.then(({isK12, researchAgreementActive}) => {
+  initialize({isK12, enabled: !isK12 || researchAgreementActive});
 });
 
 app.services.userLoader.getCurrentUser().then((user) => {
@@ -208,16 +228,16 @@ app.services.userLoader.getCurrentUser().then((user) => {
   });
 
   (async() => {
-    const schoolData = await portalSchoolData;
+    const {isK12, researchAgreementActive, organizationId} = await schoolAnalyticsSettings;
 
     // The analytics helper, whether loaded by GTM or directly below, reads the organization
     // when it loads, so it must be set first. Nothing reads it if no analytics are loaded.
-    if (schoolData) {
-      window.dataLayer.push({'os.organization_id': schoolData.salesforce_id});
+    if (organizationId) {
+      window.dataLayer.push({'os.organization_id': organizationId});
     }
 
-    if (schoolData?.industry === 'K12') {
-      if (schoolData.research_agreement_active) {
+    if (isK12) {
+      if (researchAgreementActive) {
         // GTM is skipped for K12 schools, but it is what normally loads event capture,
         // so load event capture directly for schools with a research agreement.
         // The user is already set by the establishState initializer.
