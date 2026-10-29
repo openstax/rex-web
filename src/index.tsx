@@ -230,8 +230,9 @@ app.services.userLoader.getCurrentUser().then((user) => {
   (async() => {
     const {isK12, researchAgreementActive, organizationId} = await schoolAnalyticsSettings;
 
-    // The analytics helper, whether loaded by GTM or directly below, reads the organization
-    // when it loads, so it must be set first. Nothing reads it if no analytics are loaded.
+    // The analytics helper, whether loaded by GTM or directly below, reads the app, release and
+    // organization when it loads, so they must be set first. Nothing reads them if no analytics are loaded.
+    window.dataLayer.push({'os.app': 'rex-web', 'os.release_id': config.CODE_VERSION});
     if (organizationId) {
       window.dataLayer.push({'os.organization_id': organizationId});
     }
