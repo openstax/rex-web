@@ -245,9 +245,13 @@ app.services.userLoader.getCurrentUser().then((user) => {
         // helper.js checks for window.EventCapture (set by standalone.umd.js) only once, when it runs,
         // and silently skips all event capture if it is missing, so standalone.umd.js must run first.
         // Scripts added this way run in the order they are added only when not async
+        // Only production sends events to the production RAM
+        const ramOrigin = config.DEPLOYED_ENV === 'openstax.org'
+          ? 'https://ram.openstax.org'
+          : 'https://dev.ram.sandbox.openstax.org';
         [
-          'https://ram.openstax.org/quasar/standalone.umd.js',
-          'https://ram.openstax.org/analytics/helper.js',
+          `${ramOrigin}/quasar/standalone.umd.js`,
+          `${ramOrigin}/analytics/helper.js`,
         ].forEach((src) => {
           const script = document.createElement('script');
           script.async = false;
