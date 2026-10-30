@@ -5320,13 +5320,13 @@
   dependencies:
     uuid "^8.3.2"
 
-"@openstax/highlighter@https://github.com/openstax/highlighter#1.16.4b":
-  version "1.16.4"
-  resolved "https://github.com/openstax/highlighter#702b3c1241106505240df188b3113b92d29dca5b"
+"@openstax/highlighter@https://github.com/openstax/highlighter#v1.17.0":
+  version "1.17.0"
+  resolved "https://github.com/openstax/highlighter#af021450e8d7ef8fa7ecd31b6f42db094573005c"
   dependencies:
     "@openstax/highlights-client" "0.2.3"
     change-case "^4.0.0"
-    lodash "^4.17.21"
+    lodash "^4.18.1"
     serialize-selection "^1.1.1"
     uuid "^3.3.3"
 
