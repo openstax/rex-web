@@ -44,11 +44,14 @@ export const useUnsavedHighlightsValidator = (hasUnsavedHighlight: boolean) => {
 export const MobileDropdown: FunctionComponent<{
   user: User,
   currentPath: string,
+  logoUrl: string,
+  hasUnsavedHighlight: boolean,
   isOpen: boolean,
   onOpenChange: (isOpen: boolean) => void,
   onAction: (key: React.Key) => void
-}> = ({user, currentPath, isOpen, onOpenChange, onAction}) => {
+}> = ({user, currentPath, logoUrl, hasUnsavedHighlight, isOpen, onOpenChange, onAction}) => {
   const intl = useIntl();
+  const unsavedHighlightsHandler = useUnsavedHighlightsValidator(hasUnsavedHighlight);
   const mobileOverlayBg = Color(theme.color.neutral.base).alpha(0.98).string();
 
   return (
@@ -72,7 +75,12 @@ export const MobileDropdown: FunctionComponent<{
               '--focus-outline-color': linkFocusOutline,
             } as React.CSSProperties}
           >
-            <a aria-hidden='true' tabIndex={-1} href='/'>
+            <a
+              aria-hidden='true'
+              tabIndex={-1}
+              href={logoUrl}
+              onClick={(e) => unsavedHighlightsHandler(e, logoUrl)}
+            >
               <img
                 src={openstaxLogo}
                 alt={intl.formatMessage({ id: 'i18n:nav:logo:alt' })}
@@ -145,10 +153,12 @@ export const MobileDropdown: FunctionComponent<{
 const LoggedInState: FunctionComponent<{
   user: User;
   currentPath: string;
+  logoUrl: string;
   hasUnsavedHighlight: boolean;
 }> = ({
   user,
   currentPath,
+  logoUrl,
   hasUnsavedHighlight,
 }) => {
   const intl = useIntl();
@@ -204,6 +214,8 @@ const LoggedInState: FunctionComponent<{
         <MobileDropdown
           user={user}
           currentPath={currentPath}
+          logoUrl={logoUrl}
+          hasUnsavedHighlight={hasUnsavedHighlight}
           isOpen={overlayOpen}
           onOpenChange={setOverlayOpen}
           onAction={handleAction}
@@ -294,7 +306,12 @@ const NavigationBar = ({user, loggedOut, currentPath, hasUnsavedHighlight, param
           />
         </a>
         {loggedOut && <LoggedOutState currentPath={currentPath} />}
-        {user && <LoggedInState user={user} currentPath={currentPath} hasUnsavedHighlight={hasUnsavedHighlight} />}
+        {user && <LoggedInState
+          user={user}
+          currentPath={currentPath}
+          logoUrl={logoUrl}
+          hasUnsavedHighlight={hasUnsavedHighlight}
+        />}
       </div>
     </div>
   );

@@ -125,6 +125,41 @@ describe('Assigned', () => {
     tree.unmount();
   });
 
+  it('renders the next link with the assigned route params', async () => {
+    jest.spyOn(selectNavigation, 'query').mockReturnValue({
+      section: [page.id, shortPage.id],
+    });
+    jest.spyOn(selectNavigation, 'params').mockReturnValue({ activityId: 'activity' } as any);
+    jest
+      .spyOn(selectContent, 'book')
+      .mockReturnValue(formatBookData(book, mockCmsBook));
+
+    const intl = await createIntl(book.language);
+
+    const tree = renderer.create(
+      <Provider store={store}>
+        <RawIntlProvider value={intl}>
+          <Services.Provider value={services}>
+            <Assigned />
+          </Services.Provider>
+        </RawIntlProvider>
+      </Provider>
+    );
+
+    await renderer.act(async () => {
+      await services.promiseCollector.calm();
+    });
+
+    expect(() =>
+      tree.root.findByProps({
+        'aria-label': 'Next Page',
+        'href': 'books/book-slug-1/pages/3-test-page-4',
+      })
+    ).not.toThrow();
+
+    tree.unmount();
+  });
+
   it('goes to next', async () => {
     jest.spyOn(selectNavigation, 'query').mockReturnValue({
       return_url: '/cool/redirect',

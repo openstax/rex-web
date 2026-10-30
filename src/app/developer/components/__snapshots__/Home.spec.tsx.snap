@@ -16,16 +16,14 @@ Array [
   </a>,
   <a
     className="hidden-but-accessible hidden-link"
-    href={
-      Array [
-        "https://openstax.org/accessibility-statement",
-      ]
-    }
+    href="https://openstax.org/accessibility-statement"
+    rel="noopener"
     style={
       Object {
         "--z-index-focused-hidden-link": 150,
       }
     }
+    target="_blank"
   >
     Go to accessibility page
   </a>,

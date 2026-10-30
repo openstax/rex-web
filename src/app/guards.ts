@@ -48,9 +48,16 @@ export const isHtmlElementWithHighlight = (thing: unknown): thing is dom.HTMLEle
 export const isKeyOf = <O extends {[key: string]: unknown}>(obj: O, thing: unknown): thing is keyof O =>
   typeof thing === 'string' && thing in obj;
 
+// Portal names go into links like `/${portalName}/…`, and the route decodes them, so a
+// name with characters like slashes or tabs (from %2F or %09) could make a link to
+// another host. Only ASCII letters, digits, hyphens and underscores are allowed,
+// which is what every portal page slug uses.
+const PORTAL_NAME = /^[\w-]+$/;
+
 export const isPortaled = (thing: unknown): thing is {portalName: string} => (
   typeof thing === 'object' &&
   thing !== null &&
   'portalName' in thing &&
-  typeof thing.portalName === 'string'
+  typeof thing.portalName === 'string' &&
+  PORTAL_NAME.test(thing.portalName)
 );
