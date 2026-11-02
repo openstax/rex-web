@@ -12,8 +12,6 @@ type PopUpToastNotificationsWrapperProps = React.HTMLAttributes<HTMLDivElement>;
 export function PopUpToastNotificationsWrapper(
   { className, ...props }: PopUpToastNotificationsWrapperProps
 ) {
-  // Destructure theme to remove it, preventing it from being passed to the DOM
-
   return (
     <div
       {...props}

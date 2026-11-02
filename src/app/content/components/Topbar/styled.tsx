@@ -111,7 +111,6 @@ function TimesCircleIcon({ className, ...props }: IconProps) {
   return <TimesCircleIconBase {...props} className={className} />;
 }
 
-// Filter out theme prop before spreading to DOM
 function PlainButton({
   className,
   style,

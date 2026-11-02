@@ -6,7 +6,6 @@ import './HighlightsWrapper.css';
  * HighlightsWrapper component - plain CSS version
  *
  * Note: Wrapped with forwardRef to support ref prop usage in existing code
- * Note: Filters out theme prop to prevent DOM attribute leakage
  */
 export const HighlightsWrapper = React.forwardRef<
   HTMLDivElement,
