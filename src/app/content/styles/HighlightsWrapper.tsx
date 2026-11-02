@@ -10,8 +10,8 @@ import './HighlightsWrapper.css';
  */
 export const HighlightsWrapper = React.forwardRef<
   HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement> & { theme?: unknown }
->(function HighlightsWrapper({ className, theme: _theme, ...domProps }, ref) {
+  React.HTMLAttributes<HTMLDivElement>
+>(function HighlightsWrapper({ className, ...domProps }, ref) {
   return (
     <div
       ref={ref}

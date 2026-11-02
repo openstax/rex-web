@@ -8,7 +8,7 @@ import './LoaderWrapper.css';
  * Note: Filters out theme prop to prevent DOM attribute leakage
  */
 export function LoaderWrapper(
-  { className, theme: _theme, ...domProps }: React.HTMLAttributes<HTMLDivElement> & { theme?: unknown }
+  { className, ...domProps }: React.HTMLAttributes<HTMLDivElement>
 ) {
   return (
     <div

@@ -4,16 +4,14 @@ import theme from '../../../theme';
 import { PopupBody } from '../../styles/PopupStyles';
 import './ShowMyHighlightsStyles.css';
 
-interface ShowMyHighlightsBodyProps extends React.HTMLAttributes<HTMLDivElement> {
-  theme?: unknown;
-}
+type ShowMyHighlightsBodyProps = React.HTMLAttributes<HTMLDivElement>;
 
 /**
  * ShowMyHighlightsBody component - plain CSS version with forwardRef support
  * Extends PopupBody with custom background color
  */
 export const ShowMyHighlightsBody = React.forwardRef<HTMLDivElement, ShowMyHighlightsBodyProps>(
-  function ShowMyHighlightsBody({ className, style, theme: _theme, ...domProps }, ref) {
+  function ShowMyHighlightsBody({ className, style, ...domProps }, ref) {
     return (
       <PopupBody
         ref={ref}

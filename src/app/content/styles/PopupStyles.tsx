@@ -11,14 +11,12 @@ import './PopupStyles.css';
 // Re-export constants from PopupConstants
 export * from './PopupConstants';
 
-interface PopupWrapperProps extends React.HTMLAttributes<HTMLDivElement> {
-  theme?: unknown;
-}
+type PopupWrapperProps = React.HTMLAttributes<HTMLDivElement>;
 
 /**
  * PopupWrapper component - plain CSS version
  */
-export function PopupWrapper({ className, theme: _theme, ...domProps }: PopupWrapperProps) {
+export function PopupWrapper({ className, ...domProps }: PopupWrapperProps) {
   return (
     <div
       {...domProps}
@@ -29,13 +27,12 @@ export function PopupWrapper({ className, theme: _theme, ...domProps }: PopupWra
 
 interface HeaderProps extends React.HTMLAttributes<HTMLDivElement> {
   colorSchema: BookWithOSWebData['theme'];
-  theme?: unknown;
 }
 
 /**
  * Header component - plain CSS version with dynamic theming
  */
-export function Header({ colorSchema, className, style, theme: _theme, ...domProps }: HeaderProps) {
+export function Header({ colorSchema, className, style, ...domProps }: HeaderProps) {
   const backgroundColor = theme.color.primary[colorSchema].base;
   const textColor = theme.color.primary[colorSchema].foreground;
 
@@ -56,15 +53,13 @@ export function Header({ colorSchema, className, style, theme: _theme, ...domPro
   );
 }
 
-interface PopupBodyProps extends React.HTMLAttributes<HTMLDivElement> {
-  theme?: unknown;
-}
+type PopupBodyProps = React.HTMLAttributes<HTMLDivElement>;
 
 /**
  * PopupBody component - plain CSS version with forwardRef support
  */
 export const PopupBody = React.forwardRef<HTMLDivElement, PopupBodyProps>(
-  function PopupBody({ className, style, theme: _theme, ...domProps }, ref) {
+  function PopupBody({ className, style, ...domProps }, ref) {
     return (
         <div
         ref={ref}
@@ -81,15 +76,13 @@ export const PopupBody = React.forwardRef<HTMLDivElement, PopupBodyProps>(
   }
 );
 
-interface ModalProps extends React.HTMLAttributes<HTMLDivElement> {
-  theme?: unknown;
-}
+type ModalProps = React.HTMLAttributes<HTMLDivElement>;
 
 /**
  * Modal component - plain CSS version with forwardRef support
  */
 export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
-  function Modal({ className, style, theme: _theme, ...domProps }, ref) {
+  function Modal({ className, style, ...domProps }, ref) {
     return (
       <div
         ref={ref}
@@ -110,18 +103,11 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
   }
 );
 
-interface CloseIconWrapperProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  theme?: unknown;
-}
+type CloseIconWrapperProps = React.ButtonHTMLAttributes<HTMLButtonElement>;
 
-/**
- * CloseIconWrapper component - plain CSS version
- *
- * Note: PlainButton already filters transient props (starting with $),
- * so we can safely pass props directly without additional filtering.
- */
+/** CloseIconWrapper component - plain CSS version */
 export const CloseIconWrapper = React.forwardRef<HTMLButtonElement, CloseIconWrapperProps>(
-  function CloseIconWrapper({ className, theme: _theme, ...props }, ref) {
+  function CloseIconWrapper({ className, ...props }, ref) {
     return (
       <PlainButton
         ref={ref}
@@ -134,13 +120,12 @@ export const CloseIconWrapper = React.forwardRef<HTMLButtonElement, CloseIconWra
 
 interface CloseIconProps extends React.SVGAttributes<SVGSVGElement> {
   colorSchema: BookWithOSWebData['theme'];
-  theme?: unknown;
 }
 
 /**
  * CloseIcon component - plain CSS version with dynamic theming
  */
-export function CloseIcon({ colorSchema, className, style, theme: _theme, ...domProps }: CloseIconProps) {
+export function CloseIcon({ colorSchema, className, style, ...domProps }: CloseIconProps) {
   const iconColor = theme.color.primary[colorSchema].foreground;
   const iconHoverColor = theme.color.primary[colorSchema].foregroundHover;
 
