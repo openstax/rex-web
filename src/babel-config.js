@@ -18,7 +18,6 @@ module.exports = function(additionalExtensions = ['.ts', '.tsx']) {
       '@babel/preset-react',
     ],
     plugins: [
-      'macros',
       '@babel/transform-runtime',
     ]
   });

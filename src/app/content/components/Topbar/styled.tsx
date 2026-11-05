@@ -111,22 +111,19 @@ function TimesCircleIcon({ className, ...props }: IconProps) {
   return <TimesCircleIconBase {...props} className={className} />;
 }
 
-// Filter out theme prop before spreading to DOM
 function PlainButton({
   className,
   style,
-  theme: _theme,
   ...domProps
-}: React.ButtonHTMLAttributes<HTMLButtonElement> & { theme?: unknown }) {
+}: React.ButtonHTMLAttributes<HTMLButtonElement>) {
   return <PlainButtonBase {...domProps} className={className} style={style} />;
 }
 
 export function TopBarWrapper({
   className,
   style,
-  ...props
-}: React.HTMLAttributes<HTMLDivElement> & { theme?: unknown }) {
-  const { theme: _theme, ...domProps } = props as Record<string, unknown>;
+  ...domProps
+}: React.HTMLAttributes<HTMLDivElement>) {
   return (
     <div
       {...domProps}
@@ -147,11 +144,9 @@ export function TopBarWrapper({
 export function MenuButton({
   className,
   style,
-  ...props
-}: React.ButtonHTMLAttributes<HTMLButtonElement> & { theme?: unknown }) {
+  ...domProps
+}: React.ButtonHTMLAttributes<HTMLButtonElement>) {
   const intl = useIntl();
-  const { theme: _theme, ...domProps } = props as Record<string, unknown>;
-
   return (
     <PlainButton
       {...domProps}
@@ -171,17 +166,14 @@ export function SearchButton({
   colorSchema,
   className,
   style,
-  ...props
+  ...domProps
 }: React.ButtonHTMLAttributes<HTMLButtonElement> & {
   desktop?: boolean;
   mobile?: boolean;
   ariaLabelId?: string;
   colorSchema: BookWithOSWebData['theme'] | null;
-  theme?: unknown;
 }) {
   const intl = useIntl();
-  const { theme: _theme, ...domProps } = props as Record<string, unknown>;
-
   // Compute search icon color
   const searchIconColor = colorSchema
     ? Color(theme.color.primary[colorSchema].base).isDark()
@@ -223,14 +215,11 @@ export function CloseButton({
   formSubmitted,
   className,
   style,
-  ...props
+  ...domProps
 }: React.ButtonHTMLAttributes<HTMLButtonElement> & {
   desktop?: boolean;
   formSubmitted?: boolean;
-  theme?: unknown;
 }) {
-  const { theme: _theme, ...domProps } = props as Record<string, unknown>;
-
   return (
     <PlainButton
       {...domProps}
@@ -249,10 +238,8 @@ export function CloseButton({
 export function CloseIcon({
   className,
   style,
-  ...props
-}: React.SVGAttributes<SVGSVGElement> & { theme?: unknown }) {
-  const { theme: _theme, ...domProps } = props as Record<string, unknown>;
-
+  ...domProps
+}: React.SVGAttributes<SVGSVGElement>) {
   return (
     <Times
       {...domProps}
@@ -273,14 +260,11 @@ export function CloseButtonNew({
   formSubmitted,
   className,
   style,
-  ...props
+  ...domProps
 }: React.ButtonHTMLAttributes<HTMLButtonElement> & {
   desktop?: boolean;
   formSubmitted?: boolean;
-  theme?: unknown;
 }) {
-  const { theme: _theme, ...domProps} = props as Record<string, unknown>;
-
   return (
     <button
       {...domProps}
@@ -300,15 +284,12 @@ export function SearchInputWrapper({
   searchInSidebar,
   className,
   style,
-  ...props
+  ...domProps
 }: React.FormHTMLAttributes<HTMLFormElement> & {
   active?: boolean;
   colorSchema: BookWithOSWebData["theme"] | null;
   searchInSidebar?: boolean;
-  theme?: unknown;
 }) {
-  const { theme: _theme, ...domProps } = props as Record<string, unknown>;
-
   // Compute search icon color for active state
   const searchIconColor = colorSchema
     ? Color(theme.color.primary[colorSchema].base).isDark()
@@ -346,17 +327,14 @@ export function SearchInput({
   autoFocus,
   className,
   style,
-  ...props
+  ...domProps
 }: React.InputHTMLAttributes<HTMLInputElement> & {
   desktop?: boolean;
   mobile?: boolean;
   autoFocus?: boolean;
-  theme?: unknown;
 }) {
   const ref = React.useRef<HTMLInputElement>(null);
   const intl = useIntl();
-  const { theme: _theme, ...domProps } = props as Record<string, unknown>;
-
   React.useEffect(() => {
     if (autoFocus) {
       ref.current?.focus();
@@ -390,11 +368,9 @@ export const SearchPrintWrapper = isVerticalNavOpenConnector(
     ...props
   }: React.HTMLAttributes<HTMLDivElement> & {
     isVerticalNavOpen?: boolean | null;
-    theme?: unknown;
   }) {
     // Filter out non-DOM props injected by isVerticalNavOpenConnector
     const {
-      theme: _theme,
       dispatch: _dispatch,
       isDesktopSearchOpen: _isDesktopSearchOpen,
       isTocOpen: _isTocOpen,
@@ -435,10 +411,8 @@ export const SearchPrintWrapper = isVerticalNavOpenConnector(
 export function MobileSearchContainer({
   className,
   style,
-  ...props
-}: React.HTMLAttributes<HTMLDivElement> & { theme?: unknown }) {
-  const { theme: _theme, ...domProps } = props as Record<string, unknown>;
-
+  ...domProps
+}: React.HTMLAttributes<HTMLDivElement>) {
   return (
     <div
       {...domProps}
@@ -461,13 +435,10 @@ export function MobileSearchWrapper({
   mobileToolbarOpen,
   className,
   style,
-  ...props
+  ...domProps
 }: React.HTMLAttributes<HTMLDivElement> & {
   mobileToolbarOpen: boolean;
-  theme?: unknown;
 }) {
-  const { theme: _theme, ...domProps } = props as Record<string, unknown>;
-
   return (
     <div
       {...domProps}
@@ -489,10 +460,8 @@ export function MobileSearchWrapper({
 export function Hr({
   className,
   style,
-  ...props
-}: React.HTMLAttributes<HTMLHRElement> & { theme?: unknown }) {
-  const { theme: _theme, ...domProps } = props as Record<string, unknown>;
-
+  ...domProps
+}: React.HTMLAttributes<HTMLHRElement>) {
   return (
     <hr
       {...domProps}
@@ -521,10 +490,8 @@ export function LeftArrow({ className, ...props }: IconProps) {
 
 export function InnerText({
   className,
-  ...props
-}: React.HTMLAttributes<HTMLDivElement> & { theme?: unknown }) {
-  const { theme: _theme, ...domProps } = props as Record<string, unknown>;
-
+  ...domProps
+}: React.HTMLAttributes<HTMLDivElement>) {
   return (
     <div {...domProps} className={classNames('topbar-inner-text', className)} />
   );
@@ -533,10 +500,8 @@ export function InnerText({
 export function SearchResultsTextButton({
   className,
   style,
-  ...props
-}: React.ButtonHTMLAttributes<HTMLButtonElement> & { theme?: unknown }) {
-  const { theme: _theme, ...domProps } = props as Record<string, unknown>;
-
+  ...domProps
+}: React.ButtonHTMLAttributes<HTMLButtonElement>) {
   return (
     <PlainButton
       {...domProps}
@@ -550,14 +515,11 @@ export function TextResizerDropdown({
   mobileVariant,
   mobileToolbarOpen,
   className,
-  ...props
+  ...domProps
 }: React.ComponentProps<typeof FilterDropdown> & {
   mobileVariant?: boolean;
   mobileToolbarOpen?: boolean;
-  theme?: unknown;
 }) {
-  const { theme: _theme, ...domProps } = props;
-
   return (
     <FilterDropdown
       {...domProps}
@@ -580,14 +542,11 @@ export function TextResizerMenu({
   textSize,
   className,
   style,
-  ...props
+  ...domProps
 }: React.HTMLAttributes<HTMLDivElement> & {
   bookTheme: BookWithOSWebData["theme"];
   textSize: number;
-  theme?: unknown;
 }) {
-  const { theme: _theme, ...domProps } = props as Record<string, unknown>;
-
   // Compute text resizer gradient
   // Note: Uses root-level CSS variable for gray, but bookTheme color is dynamic
   const textResizerGradient = bookTheme
@@ -619,14 +578,11 @@ export function TextResizerChangeButton({
   children,
   className,
   style,
-  ...props
+  ...domProps
 }: React.ButtonHTMLAttributes<HTMLButtonElement> & {
   ariaLabelId?: string;
-  theme?: unknown;
 }) {
   const intl = useIntl();
-  const { theme: _theme, ...domProps } = props as Record<string, unknown>;
-
   return (
     <PlainButton
       {...domProps}
@@ -644,10 +600,8 @@ export function TextResizerChangeButton({
 export function CloseSearchResultsTextButton({
   className,
   style,
-  ...props
-}: React.ButtonHTMLAttributes<HTMLButtonElement> & { theme?: unknown }) {
-  const { theme: _theme, ...domProps } = props as Record<string, unknown>;
-
+  ...domProps
+}: React.ButtonHTMLAttributes<HTMLButtonElement>) {
   return (
     <SearchResultsTextButton
       {...domProps}

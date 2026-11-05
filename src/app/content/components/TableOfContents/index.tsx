@@ -15,12 +15,11 @@ import { stripIdVersion } from '../../utils/idUtils';
 import { CloseToCAndMobileMenuButton, TOCBackButton, TOCCloseButton } from '../SidebarControl';
 import { Header, HeaderText, SidebarPaneBody } from '../SidebarPane';
 import { LeftArrow, TimesIcon } from '../Toolbar/styled';
-import { ExpandIcon, CollapseIcon } from './styled';
 import ContentLink from '../ContentLink';
 import getNumberWidth, { dividerWidth } from './utils';
 import { createTrapTab, useMatchMobileQuery, useMatchMobileMediumQuery, isSSR } from '../../../reactUtils';
 import { stripHtml } from '../../../utils';
-import { iconSize } from '../../../components/Details';
+import { iconSize, ExpandIcon, CollapseIcon } from '../../../components/Details';
 
 import './TableOfContents.css';
 

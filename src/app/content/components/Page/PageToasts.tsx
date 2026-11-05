@@ -25,9 +25,8 @@ export const getMobileSearchFailureTop = ({mobileToolbarOpen}: {mobileToolbarOpe
  * PageToasts component - Container for page-level toast notifications
  *
  * Migrated from styled-components to plain CSS.
- * Theme-stripping because Assigned.tsx still calls styled(PageToasts)
  */
-function PageToasts({style, theme: _theme, ...props}: React.HTMLAttributes<HTMLDivElement> & {theme?: unknown}) {
+function PageToasts({style, ...props}: React.HTMLAttributes<HTMLDivElement>) {
   const toasts = useSelector(groupedToastNotifications).page;
   const mobileToolbarOpen = useSelector(mobileToolbarOpenSelector);
   const [toastsHidden, setToastsHidden] = React.useState(true);

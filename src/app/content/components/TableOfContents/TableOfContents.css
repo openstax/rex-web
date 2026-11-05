@@ -3,7 +3,6 @@
 /* Summary title for expandable sections */
 .toc-summary-title,
 .toc-content-link {
-  /* labelStyle from Typography.legacy.ts */
   color: var(--color-text-default);
   font-size: 1.4rem;
   line-height: 1.6rem;
