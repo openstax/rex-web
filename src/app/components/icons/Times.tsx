@@ -8,7 +8,7 @@ interface IconProps extends React.SVGAttributes<SVGSVGElement> {
  * TimesIcon component - Font Awesome "times" / "close" icon for content components.
  * SVG path from Font Awesome Free (https://fontawesome.com - MIT License)
  *
- * Usage: Use this Font Awesome-based icon in content components that were migrated from styled-icons.
+ * Usage: Use this Font Awesome-based icon in content components.
  * For UI close buttons (modals, toasts, sidebars), use the existing components/Times.tsx instead.
  */
 function TimesIcon({ className, ...props }: IconProps) {

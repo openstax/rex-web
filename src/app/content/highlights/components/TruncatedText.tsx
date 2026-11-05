@@ -17,7 +17,7 @@ interface Props {
  * Link component for "show more" functionality
  */
 export function Link(
-  { className, style, theme: _theme, ...props }: React.HTMLAttributes<HTMLSpanElement> & { theme?: unknown }
+  { className, style, ...props }: React.HTMLAttributes<HTMLSpanElement>
 ) {
   return (
     <span

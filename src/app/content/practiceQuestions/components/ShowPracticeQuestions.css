@@ -34,8 +34,6 @@
   margin-top: 0;
   margin-bottom: 3rem;
   color: var(--color-text-default);
-
-  /* h4Style from Typography/Headings.legacy.ts */
   font-size: 1.8rem;
   line-height: 2.5rem;
   letter-spacing: -0.02rem;
@@ -45,8 +43,6 @@
   .show-practice-questions-section-title {
     margin: 1.4rem;
     padding: 0;
-
-    /* h4MobileStyle from Typography/Headings.legacy.ts */
     font-size: 1.6rem;
     line-height: 2rem;
   }

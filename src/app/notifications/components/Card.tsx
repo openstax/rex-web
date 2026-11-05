@@ -3,12 +3,9 @@ import classNames from 'classnames';
 import theme from '../../theme';
 /* CSS imported in src/app/notifications/index.ts */
 
-interface GroupProps extends React.HTMLAttributes<HTMLDivElement> {
-  theme?: unknown;
-}
+type GroupProps = React.HTMLAttributes<HTMLDivElement>;
 
-export function Group({ className, style, ...props }: GroupProps) {
-  const { theme: _theme, ...domProps } = props;
+export function Group({ className, style, ...domProps }: GroupProps) {
   return (
     <div
       {...domProps}
@@ -21,12 +18,9 @@ export function Group({ className, style, ...props }: GroupProps) {
   );
 }
 
-interface PProps extends React.HTMLAttributes<HTMLParagraphElement> {
-  theme?: unknown;
-}
+type PProps = React.HTMLAttributes<HTMLParagraphElement>;
 
-export function P({ className, style, ...props }: PProps) {
-  const { theme: _theme, ...domProps } = props;
+export function P({ className, style, ...domProps }: PProps) {
   return (
     <p
       {...domProps}
@@ -39,12 +33,9 @@ export function P({ className, style, ...props }: PProps) {
   );
 }
 
-interface BodyProps extends React.HTMLAttributes<HTMLDivElement> {
-  theme?: unknown;
-}
+type BodyProps = React.HTMLAttributes<HTMLDivElement>;
 
-export function Body({ className, style, children, ...props }: BodyProps) {
-  const { theme: _theme, ...domProps } = props;
+export function Body({ className, style, children, ...domProps }: BodyProps) {
   return (
     <div
       className={classNames('notification-body', className)}
@@ -62,12 +53,9 @@ export function Body({ className, style, children, ...props }: BodyProps) {
   );
 }
 
-interface HeaderProps extends React.HTMLAttributes<HTMLDivElement> {
-  theme?: unknown;
-}
+type HeaderProps = React.HTMLAttributes<HTMLDivElement>;
 
-export function Header({ className, style, ...props }: HeaderProps) {
-  const { theme: _theme, ...domProps } = props;
+export function Header({ className, style, ...domProps }: HeaderProps) {
   return (
     <div
       {...domProps}
