@@ -13,13 +13,9 @@ import { linkColor, linkHover } from '../Typography/Links.constants';
 
 export const modalPadding = 3.0;
 
-// Helper type for props that may have styled-components theme injected
-// When wrapped by styled(), styled-components injects a theme prop that must be filtered out
-type PropsWithPossibleTheme<T> = T & { theme?: unknown };
-
 // ModalWrapper component
 export function ModalWrapper(
-  { className, style, theme: _theme, ...props }: PropsWithPossibleTheme<React.HTMLAttributes<HTMLDivElement>>
+  { className, style, ...props }: React.HTMLAttributes<HTMLDivElement>
 ) {
   return (
     <div
@@ -35,7 +31,7 @@ export function ModalWrapper(
 
 // CardWrapper component
 export function CardWrapper(
-  { className, theme: _theme, ...props }: PropsWithPossibleTheme<React.HTMLAttributes<HTMLDivElement>>
+  { className, ...props }: React.HTMLAttributes<HTMLDivElement>
 ) {
   return (
     <div
@@ -47,7 +43,7 @@ export function CardWrapper(
 
 // Card component
 export function Card(
-  { className, style, theme: _theme, ...props }: PropsWithPossibleTheme<React.HTMLAttributes<HTMLDivElement>>
+  { className, style, ...props }: React.HTMLAttributes<HTMLDivElement>
 ) {
   return (
     <div
@@ -64,7 +60,7 @@ export function Card(
 
 // Header component
 export function Header(
-  { className, style, theme: _theme, ...props }: PropsWithPossibleTheme<React.HTMLAttributes<HTMLElement>>
+  { className, style, ...props }: React.HTMLAttributes<HTMLElement>
 ) {
   return (
     <header
@@ -77,8 +73,8 @@ export function Header(
 
 // Heading component
 export function Heading(
-  { className, style, children, theme: _theme, ...props }:
-    PropsWithPossibleTheme<React.PropsWithChildren<React.HTMLAttributes<HTMLHeadingElement>>>
+  { className, style, children, ...props }:
+    React.PropsWithChildren<React.HTMLAttributes<HTMLHeadingElement>>
 ) {
   return (
     <h1
@@ -93,8 +89,8 @@ export function Heading(
 
 // BodyHeading component
 export function BodyHeading(
-  { className, style, children, theme: _theme, ...props }:
-    PropsWithPossibleTheme<React.PropsWithChildren<React.HTMLAttributes<HTMLHeadingElement>>>
+  { className, style, children, ...props }:
+    React.PropsWithChildren<React.HTMLAttributes<HTMLHeadingElement>>
 ) {
   return (
     <h3
@@ -109,7 +105,7 @@ export function BodyHeading(
 
 // Body component
 export function Body(
-  { className, theme: _theme, ...props }: PropsWithPossibleTheme<React.HTMLAttributes<HTMLDivElement>>
+  { className, ...props }: React.HTMLAttributes<HTMLDivElement>
 ) {
   return (
     <div
@@ -121,7 +117,7 @@ export function Body(
 
 // Mask component
 export function Mask(
-  { className, theme: _theme, ...props }: PropsWithPossibleTheme<React.HTMLAttributes<HTMLDivElement>>
+  { className, ...props }: React.HTMLAttributes<HTMLDivElement>
 ) {
   return (
     <div
@@ -133,7 +129,7 @@ export function Mask(
 
 // Footer component
 export function Footer(
-  { className, theme: _theme, ...props }: PropsWithPossibleTheme<React.HTMLAttributes<HTMLDivElement>>
+  { className, ...props }: React.HTMLAttributes<HTMLDivElement>
 ) {
   return (
     <div
@@ -146,9 +142,9 @@ export function Footer(
 // CloseModalIcon component with forwardRef
 export const CloseModalIcon = React.forwardRef<
   HTMLButtonElement,
-  PropsWithPossibleTheme<React.ButtonHTMLAttributes<HTMLButtonElement>>
+  React.ButtonHTMLAttributes<HTMLButtonElement>
 >(
-  function CloseModalIcon({ className, style, theme: _theme, ...props }, ref) {
+  function CloseModalIcon({ className, style, ...props }, ref) {
     return (
       <button
         ref={ref}
