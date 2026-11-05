@@ -39,8 +39,12 @@ import ReactDOM from 'react-dom';
 jest.mock('./DisplayNote', () => (jest as any).requireActual('react').forwardRef(
   (props: any, ref: any) => <div ref={ref} mock-display-note {...props} />
 ));
+const mockEditFocusRequests: boolean[] = [];
 jest.mock('./EditCard', () => (jest as any).requireActual('react').forwardRef(
-  (props: any, ref: any) => <div ref={ref} mock-edit {...props} />
+  (props: any, ref: any) => {
+    mockEditFocusRequests.push(props.shouldFocusCard);
+    return <div ref={ref} mock-edit {...props} />;
+  }
 ));
 jest.mock('./utils/showConfirmation', () => jest.fn(() => new Promise((res) => res(true))));
 
@@ -231,29 +235,46 @@ describe('Card', () => {
       store.dispatch(receiveHighlights({highlights: [data], pageId: '123'}));
       store.dispatch(focusHighlight(highlight.id));
 
+      const tree = (shouldFocusCard: boolean) => <TestContainer store={store}>
+        <Card {...cardProps} shouldFocusCard={shouldFocusCard} />
+      </TestContainer>;
+
       let component: renderer.ReactTestRenderer;
       // act so the mount effects have run, as they have by the time a user can choose Edit
       renderer.act(() => {
-        component = renderer.create(<TestContainer store={store}>
-          <Card {...cardProps} shouldFocusCard={false} />
-        </TestContainer>, {createNodeMock});
+        component = renderer.create(tree(false), {createNodeMock});
       });
-      return component!;
+      mockEditFocusRequests.length = 0;
+      return {component: component!, tree};
     };
 
     it('asks the edit form to take focus when Edit is chosen', () => {
-      const component = renderAnnotatedCard();
+      const {component} = renderAnnotatedCard();
       expect(component.root.findByType(DisplayNote).props.shouldFocusCard).toBe(false);
 
       renderer.act(() => {
         component.root.findByType(DisplayNote).props.onEdit();
       });
 
+      expect(mockEditFocusRequests).toContain(true);
+    });
+
+    it('stops forcing the request once the form has had it, so later requests reach the form', () => {
+      const {component, tree} = renderAnnotatedCard();
+
+      renderer.act(() => {
+        component.root.findByType(DisplayNote).props.onEdit();
+      });
+      expect(component.root.findByType(EditCard).props.shouldFocusCard).toBe(false);
+
+      renderer.act(() => {
+        component.update(tree(true));
+      });
       expect(component.root.findByType(EditCard).props.shouldFocusCard).toBe(true);
     });
 
     it('does not ask the note display to take focus once editing ends', () => {
-      const component = renderAnnotatedCard();
+      const {component} = renderAnnotatedCard();
 
       renderer.act(() => {
         component.root.findByType(DisplayNote).props.onEdit();
@@ -263,12 +284,6 @@ describe('Card', () => {
       });
 
       expect(component.root.findByType(DisplayNote).props.shouldFocusCard).toBe(false);
-
-      renderer.act(() => {
-        component.root.findByType(DisplayNote).props.onEdit();
-      });
-
-      expect(component.root.findByType(EditCard).props.shouldFocusCard).toBe(true);
     });
   });
 

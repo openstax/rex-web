@@ -110,11 +110,12 @@ function useComputedProps(props: CardProps) {
     setEditing(true);
   }, []);
 
+  // Child effects run first, so the form has focused itself by the time this clears the request.
   React.useEffect(() => {
-    if (!editing) {
+    if (focusEditor) {
       setFocusEditor(false);
     }
-  }, [editing]);
+  }, [focusEditor]);
 
   React.useEffect(() => {
     if (!lastActive) {
