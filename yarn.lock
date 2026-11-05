@@ -5281,15 +5281,15 @@
   dependencies:
     uuid "^8.3.2"
 
-"@openstax/highlighter@https://github.com/openstax/highlighter#v1.17.0":
-  version "1.17.0"
-  resolved "https://github.com/openstax/highlighter#af021450e8d7ef8fa7ecd31b6f42db094573005c"
+"@openstax/highlighter@https://github.com/openstax/highlighter#1.17.1":
+  version "1.17.1"
+  resolved "https://github.com/openstax/highlighter#7e29835514df08de7ca5c5b5a5efefeaab4b7244"
   dependencies:
     "@openstax/highlights-client" "0.2.3"
     change-case "^4.0.0"
     lodash "^4.18.1"
     serialize-selection "^1.1.1"
-    uuid "^3.3.3"
+    uuid "^9.0.1"
 
 "@openstax/highlights-client@0.2.3":
   version "0.2.3"
@@ -22438,7 +22438,7 @@ uuid@8.0.0:
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.0.0.tgz#bc6ccf91b5ff0ac07bbcdbf1c7c4e150db4dbb6c"
   integrity sha512-jOXGuXZAWdsTH7eZLtyXMqUb9EcWMGZNbL9YcGBJl4MH4nrxHmZJhEHvyLFrkxo+28uLb/NYRcStH48fnD0Vzw==
 
-uuid@^3.3.2, uuid@^3.3.3, uuid@^3.4.0:
+uuid@^3.3.2, uuid@^3.4.0:
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.4.0.tgz#b23e4358afa8a202fe7a100af1f5f883f02007ee"
   integrity sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A==
