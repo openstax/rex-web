@@ -12,9 +12,11 @@ If you have cloned this project already then you can skip this, otherwise you'll
 
 `git clone https://github.com/openstax/rex-web.git`
 
-`cd rex-web/playwright`
+`cd rex-web/e2e_tests`
 
 ### Install dependencies
+
+`npm install`
 
 `npx playwright install-deps` (*may be skipped if running Chromium and/or Firefox on Linux; required for Webkit*)
 
@@ -49,14 +51,16 @@ Nothing in CI runs the TypeScript specs in `tests/rex-test/` (`rex.behaviorspec.
 `tabbing.behaviorspec.ts`), so run them yourself when you change what they cover. For example, run
 `tabbing.behaviorspec.ts` after changing highlight card focus handling.
 
-Run a single spec in one browser against staging:
+Install the dependencies first (see "Install dependencies" above), then run a single spec in one
+browser against staging, from the `e2e_tests` directory:
 
 `npx playwright test tests/rex-test/tabbing.behaviorspec.ts --project="Desktop Chrome"`
 
 Point it at another environment with `URL`. Use this to try a change before it reaches staging:
 
-* A local dev server (`yarn start` in the repo root, which serves HTTPS with a self-signed
-  certificate): `URL=<the https URL yarn start prints> npx playwright test ...`
+* A local dev server (`yarn start` in the repo root, which serves HTTPS on port 3000; wait for
+  "Compiled" before running): `URL=https://localhost:3000 npx playwright test ...`. Use `localhost`
+  rather than the network address `yarn start` prints, which may refuse connections.
 * A review app for a pull request: `URL=https://<review-app>.herokuapp.com npx playwright test ...`
 
 The specs sign up a throwaway `restmail.net` account, so the environment needs accounts and
