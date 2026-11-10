@@ -55,13 +55,25 @@ function expectRealFocusedElement(info: { tag: string | null }, label: string) {
   expect(info.tag, `${label}: focus did not fall to <body>`).not.toBe('BODY')
 }
 
+// Resolves when the highlights API answers a create or update request successfully. The UI updates
+// optimistically, so a visible highlight or note does not mean it was saved.
+function waitForHighlightsWrite(page: Page) {
+  return page.waitForResponse(
+    (response) =>
+      response.url().includes('/highlights') && response.request().method() !== 'GET' && response.ok(),
+    { timeout: 15000 },
+  )
+}
+
 // Create a green highlight through the real UI flow: select text -> the "create highlight"
 // button appears -> activate it to open the form -> choose a color (which saves the highlight).
 async function createGreenHighlight(page: Page, bookPage: ContentPage, paraNumber: number) {
   await bookPage.selectText(paraNumber)
   await page.waitForSelector(ACTIVE_CARD, { timeout: 15000 })
   await page.locator(`${ACTIVE_CARD} button`).first().click()
+  const saved = waitForHighlightsWrite(page)
   await page.locator('[aria-label="Apply green highlight"]').first().click()
+  await saved
   await page.waitForSelector('.highlight', { timeout: 15000 })
 }
 
@@ -69,7 +81,9 @@ async function createGreenHighlight(page: Page, bookPage: ContentPage, paraNumbe
 async function createAnnotatedHighlight(page: Page, bookPage: ContentPage, paraNumber: number, note: string) {
   await createGreenHighlight(page, bookPage, paraNumber)
   await page.locator(`${ACTIVE_CARD} textarea`).fill(note)
+  const saved = waitForHighlightsWrite(page)
   await page.locator(`${ACTIVE_CARD} [data-testid="save"]`).click()
+  await saved
   await page.waitForSelector(`${ACTIVE_CARD} [data-testid="dot-menu-toggle"]`, { timeout: 15000 })
 }
 

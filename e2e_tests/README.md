@@ -60,5 +60,7 @@ Point it at another environment with `URL`. Use this to try a change before it r
 * A review app for a pull request: `URL=https://<review-app>.herokuapp.com npx playwright test ...`
 
 The specs sign up a throwaway `restmail.net` account, so the environment needs accounts and
-highlights, as every full REX environment has. They run in the Chromium, Firefox and WebKit projects
-in `playwright.config.ts`. Specs that depend on desktop-only controls skip the mobile projects.
+highlights, as every full REX environment has. They run in the Desktop Chrome and Desktop Firefox
+projects in `playwright.config.ts`. The mobile and tablet projects (Pixel 5, iPhone 12, iPad Pro 11
+landscape) skip them because they depend on desktop-only controls, and there is no desktop WebKit
+project.
