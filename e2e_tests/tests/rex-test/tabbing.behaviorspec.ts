@@ -67,15 +67,17 @@ function waitForHighlightsWrite(page: Page, kind: 'create' | 'update') {
 }
 
 // Create a green highlight through the real UI flow: select text -> the "create highlight"
-// button appears -> activate it to open the form (which creates the highlight) -> choose a color
-// (green is the default, so choosing it sends no further request).
+// button appears -> activate it to open the form (which creates a yellow highlight) -> choose green
+// (which updates it).
 async function createGreenHighlight(page: Page, bookPage: ContentPage, paraNumber: number) {
   await bookPage.selectText(paraNumber)
   await page.waitForSelector(ACTIVE_CARD, { timeout: 15000 })
   const created = waitForHighlightsWrite(page, 'create')
   await page.locator(`${ACTIVE_CARD} button`).first().click()
   await created
+  const colored = waitForHighlightsWrite(page, 'update')
   await page.locator('[aria-label="Apply green highlight"]').first().click()
+  await colored
   await page.waitForSelector('.highlight', { timeout: 15000 })
 }
 
