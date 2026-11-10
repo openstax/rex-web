@@ -135,7 +135,7 @@ test('new selection: Tab reaches the create button, which creates via the keyboa
   expect(await page.locator('.highlight').count(), 'a highlight was created').toBeGreaterThan(0)
 })
 
-test('new selection: Tab past the create button leaves cleanly and discards the selection', async ({
+test('new selection: Tab past the create button leaves cleanly and keeps the selection', async ({
   page,
   isMobile,
 }) => {
@@ -159,7 +159,7 @@ test('new selection: Tab past the create button leaves cleanly and discards the 
   expect(onCreate.tag).toBe('BUTTON')
 
   // WHEN: Tab again (declining to create)  THEN: focus leaves the card cleanly and the unsaved
-  // selection is discarded — no bounce to an earlier highlight and back to the selected text.
+  // selection is kept — no bounce to an earlier highlight and back to the selected text.
   await page.keyboard.press('Tab')
   const afterTab = await activeElementInfo(page)
   console.log('after Tab past create button:', afterTab)
@@ -168,11 +168,11 @@ test('new selection: Tab past the create button leaves cleanly and discards the 
   expect(afterTab.inCard, 'focus left the card').toBe(false)
   expect(afterTab.text, 'focus is no longer on the create button').not.toContain('create highlight')
 
-  const selectionCollapsed = await page.evaluate(() => {
+  const selectionKept = await page.evaluate(() => {
     const s = window.getSelection()
-    return !s || s.isCollapsed
+    return Boolean(s && !s.isCollapsed)
   })
-  expect(selectionCollapsed, 'the unsaved selection was discarded').toBe(true)
+  expect(selectionKept, 'the unsaved selection was kept').toBe(true)
   expect(await page.locator('.highlight').count(), 'no highlight was created').toBe(0)
 
   // Focus continued *forward* (at/after the selection), rather than bouncing to the page top.
@@ -218,18 +218,18 @@ test('new selection: Shift+Tab off the create button goes to previous content, n
   expect((await activeElementInfo(page)).tag, 'focus is on the create button').toBe('BUTTON')
 
   // WHEN: Shift+Tab  THEN: focus goes to the previous tab stop before the selection (in the
-  // content), NOT backward past the whole card layer into the toolbar; the selection is discarded.
+  // content), NOT backward past the whole card layer into the toolbar; the selection is kept.
   await page.keyboard.press('Shift+Tab')
   const afterShiftTab = await activeElementInfo(page)
   console.log('after Shift+Tab off create button:', afterShiftTab)
 
   expect(afterShiftTab.inCard, 'focus left the card').toBe(false)
   expect(afterShiftTab.text, 'focus is no longer on the create button').not.toContain('create highlight')
-  const selectionCollapsed = await page.evaluate(() => {
+  const selectionKept = await page.evaluate(() => {
     const s = window.getSelection()
-    return !s || s.isCollapsed
+    return Boolean(s && !s.isCollapsed)
   })
-  expect(selectionCollapsed, 'the unsaved selection was discarded').toBe(true)
+  expect(selectionKept, 'the unsaved selection was kept').toBe(true)
 
   const relation = await page.evaluate((para) => {
     const a = document.activeElement as HTMLElement | null
@@ -272,7 +272,7 @@ test('new selection: Shift+Tab directly from the selection goes to previous cont
 
   // WHEN: Shift+Tab straight from the selection (without first tabbing to the button)
   // THEN: focus goes backward to previous content — not forward into the card (Chromium) and not
-  // via <body> (Firefox) — and the unsaved selection is discarded.
+  // via <body> (Firefox) — and the unsaved selection is kept.
   await page.keyboard.press('Shift+Tab')
   const afterShiftTab = await activeElementInfo(page)
   console.log('select -> Shift+Tab:', afterShiftTab)
@@ -280,11 +280,11 @@ test('new selection: Shift+Tab directly from the selection goes to previous cont
   expect(afterShiftTab.inCard, 'did not jump forward into the card').toBe(false)
   expect(afterShiftTab.tag, 'did not detour through <body>').not.toBe('BODY')
   expect(afterShiftTab.text, 'focus is not the create button').not.toContain('create highlight')
-  const selectionCollapsed = await page.evaluate(() => {
+  const selectionKept = await page.evaluate(() => {
     const s = window.getSelection()
-    return !s || s.isCollapsed
+    return Boolean(s && !s.isCollapsed)
   })
-  expect(selectionCollapsed, 'the unsaved selection was discarded').toBe(true)
+  expect(selectionKept, 'the unsaved selection was kept').toBe(true)
 
   const relation = await page.evaluate((para) => {
     const a = document.activeElement as HTMLElement | null
