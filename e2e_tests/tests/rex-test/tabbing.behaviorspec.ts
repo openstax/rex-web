@@ -579,9 +579,12 @@ test('annotated highlight: Escape in the emptied note form closes it and returns
   const textarea = page.locator(`${ACTIVE_CARD} textarea`)
   await expect(textarea).toHaveValue(note)
 
-  // WHEN: the note is emptied and Escape is pressed. Activating Edit currently leaves focus on
-  // <body>, so fill() is what puts focus in the field.
-  await textarea.fill('')
+  // THEN: Edit moves focus into the note field
+  await expect(textarea).toBeFocused()
+
+  // WHEN: the note is emptied with the keyboard and Escape is pressed
+  await page.keyboard.press(process.platform === 'darwin' ? 'Meta+A' : 'Control+A')
+  await page.keyboard.press('Backspace')
   await page.keyboard.press('Escape')
 
   // THEN: focus returns to the highlight, and the form is closed rather than left open
