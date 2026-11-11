@@ -11,6 +11,11 @@ describe('parseConsentPreferences', () => {
       .toEqual({accepted: ['analytics'], rejected: []});
   });
 
+  it('returns undefined when neither list is there, so the user is still asked', () => {
+    expect(parseConsentPreferences({})).toBeUndefined();
+    expect(parseConsentPreferences({accepted: 'analytics', rejected: null})).toBeUndefined();
+  });
+
   it('returns undefined for anything that is not an object', () => {
     expect(parseConsentPreferences(undefined)).toBeUndefined();
     expect(parseConsentPreferences(['analytics'])).toBeUndefined();

@@ -15,22 +15,23 @@ import config from './config';
 import './content.css';
 import createArchiveLoader from './gateways/createArchiveLoader';
 import createBookConfigLoader from './gateways/createBookConfigLoader';
-import createConsentClient from './gateways/createConsentClient';
 import createHighlightClient from './gateways/createHighlightClient';
 import createOSWebLoader from './gateways/createOSWebLoader';
 import createPracticeQuestionsLoader from './gateways/createPracticeQuestionsLoader';
+import createRequestAuth from './gateways/createRequestAuth';
 import createSearchClient from './gateways/createSearchClient';
 import createUserLoader from './gateways/createUserLoader';
 import createImageCDNUtils from './gateways/createImageCDNUtils';
 import { registerGlobalAnalytics } from './helpers/analytics';
 import { initialize } from './helpers/analytics/initialization';
+import { getConsentState } from './helpers/consentState';
 import loadFont from './helpers/loadFont';
 import { initializeMathJaxMenuPositioning } from './helpers/mathjaxMenuPosition';
 import pollUpdates from './helpers/pollUpdates';
 import Sentry from './helpers/Sentry';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import { getTokenConsentPreferences, getTokenConsentUrl, pullToken } from './app/content/launchToken';
+import { pullToken } from './app/content/launchToken';
 
 const window = assertWindow('Browser entrypoint must be used in the browser');
 const document = window.document;
@@ -50,7 +51,8 @@ const highlightsUrl = assertDefined(config.REACT_APP_HIGHLIGHTS_URL, 'REACT_APP_
 const mainContent = document.getElementById('main-content');
 
 const launchToken = pullToken(window);
-const userLoader = createUserLoader(accountsUrl, launchToken?.tokenString);
+const userLoader = createUserLoader(accountsUrl);
+const requestAuth = createRequestAuth(launchToken?.tokenString);
 
 const app = createApp({
   initialState: window.__PRELOADED_STATE__,
@@ -59,7 +61,7 @@ const app = createApp({
     bookConfigLoader: createBookConfigLoader(),
     launchToken,
     config,
-    highlightClient: createHighlightClient(highlightsUrl, userLoader.getAuthorizedFetchConfig),
+    highlightClient: createHighlightClient(highlightsUrl, requestAuth.getAuthorizedFetchConfig),
     osWebLoader: createOSWebLoader(osWebUrl),
     practiceQuestionsLoader: createPracticeQuestionsLoader(),
     prerenderedContent: mainContent ? mainContent.innerHTML : undefined,
@@ -167,49 +169,12 @@ schoolAnalyticsSettings.then(({isK12, researchAgreementActive}) => {
   initialize({isK12, enabled: !isK12 || researchAgreementActive});
 });
 
-type ConsentState = {
-  consentPreferences: ConsentPreferences | undefined;
-  // where to save consent changes, if this page is responsible for saving them
-  saveConsent?: (consentPreferences: ConsentPreferences) => Promise<unknown>;
-};
-
-// Launches embedded in another window (subcontent) get consent from the launch token,
-// and the host window saves changes to it.
-// Full window launches read and save consent at the consentUrl their launch token names.
-// Everyone else gets consent from Accounts, and we save changes back to Accounts if they're logged in.
-async function getConsentState(): Promise<ConsentState> {
-  if (launchToken) {
-    const tokenConsentState = {consentPreferences: getTokenConsentPreferences(launchToken.tokenData)};
-    const consentUrl = getTokenConsentUrl(launchToken.tokenData);
-    const isSubcontent = new URLSearchParams(window.location.search).get('subcontent') === 'true';
-
-    if (isSubcontent || !consentUrl) {
-      return tokenConsentState;
-    }
-
-    const consentClient = createConsentClient(consentUrl, userLoader.getAuthorizedFetchConfig);
-
-    try {
-      return {
-        consentPreferences: await consentClient.getConsentPreferences(),
-        saveConsent: consentClient.updateConsentPreferences,
-      };
-    } catch (error) {
-      Sentry.captureException(error);
-      return tokenConsentState;
-    }
-  }
-
-  const user = await userLoader.getCurrentUser();
-  return {
-    consentPreferences: user?.consent_preferences,
-    saveConsent: user
-      ? (consentPreferences) => userLoader.updateUser({ consent_preferences: consentPreferences })
-      : undefined,
-  };
-}
-
-getConsentState().then(({consentPreferences, saveConsent}) => {
+getConsentState({
+  launchToken,
+  userLoader,
+  search: window.location.search,
+  getAuthorizedFetchConfig: requestAuth.getAuthorizedFetchConfig,
+}).then(({consentPreferences, saveConsent}) => {
   const sendConsent = (newConsentPreferences: ConsentPreferences) => saveConsent?.(newConsentPreferences)
     .then(() => window.location.reload())
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -10,6 +10,8 @@ describe('auth establishState', () => {
   let services: AppServices & MiddlewareAPI;
 
   beforeEach(() => {
+    // the test setup shares one dataLayer between tests
+    assertWindow().dataLayer = [];
     services = {
       ...createTestServices(),
       dispatch: jest.fn(),

@@ -1,3 +1,4 @@
+import { getTokenSubject } from '../../content/launchToken';
 import { Initializer } from '../../types';
 import { receiveLoggedOut, receiveUser } from '../actions';
 import { formatUser, launchUser } from '../utils';
@@ -10,8 +11,8 @@ const initializer: Initializer = async({dispatch, userLoader, launchToken}) => {
   // Having a launch token means we're logged in; Accounts is not asked
   if (launchToken) {
     // analytics only needs the user's id, which is the token's subject
-    const uuid = launchToken.tokenData.sub;
-    window.dataLayer.push({user: typeof uuid === 'string' ? {uuid} : undefined});
+    const uuid = getTokenSubject(launchToken.tokenData);
+    window.dataLayer.push({user: uuid ? {uuid} : undefined});
 
     dispatch(receiveUser(launchUser));
     return;

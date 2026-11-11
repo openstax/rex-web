@@ -20,29 +20,64 @@ export const decodeToken = (launchToken: string | undefined) => {
   }
 };
 
+const storageKey = 'launchToken';
+
+// sessionStorage can be unavailable, eg. in a cross-origin iframe with storage blocked;
+// then the token just doesn't survive a reload, like before it was stored
+const tokenStorage = {
+  get: (window: Window) => {
+    try { return window.sessionStorage.getItem(storageKey); } catch { return null; }
+  },
+  set: (window: Window, value: string) => {
+    try { window.sessionStorage.setItem(storageKey, value); } catch { /* not available */ }
+  },
+  remove: (window: Window) => {
+    try { window.sessionStorage.removeItem(storageKey); } catch { /* not available */ }
+  },
+};
+
+const isExpired = (tokenData: JsonCompatibleStruct) =>
+  typeof tokenData.exp === 'number' && tokenData.exp * 1000 <= Date.now();
+
+// A token in the url always wins, and is stored for this tab so the session survives a reload
+// (eg. after saving consent). Without one, the stored token is used unless it has expired.
 export const pullToken = (window: Window) => {
-  const launchToken = new URLSearchParams(window.location.search).get('t');
+  const urlToken = new URLSearchParams(window.location.search).get('t');
 
-  if (!launchToken) {
+  if (urlToken) {
+    // Makes it harder to share the credential by accident, eg. by copying the address bar
+    removeQueryParams(window, ['t']);
+
+    const tokenData = decodeToken(urlToken);
+
+    if (!tokenData) {
+      tokenStorage.remove(window);
+      return undefined;
+    }
+
+    tokenStorage.set(window, urlToken);
+    return {tokenString: urlToken, tokenData};
+  }
+
+  const storedToken = tokenStorage.get(window);
+  const storedTokenData = storedToken ? decodeToken(storedToken) : undefined;
+
+  if (!storedToken || !storedTokenData || isExpired(storedTokenData)) {
+    tokenStorage.remove(window);
     return undefined;
   }
 
-  // Makes it harder to share the credential by accident, eg. by copying the address bar
-  removeQueryParams(window, ['t']);
-
-  const tokenData = decodeToken(launchToken);
-
-  if (!tokenData) {
-    return undefined;
-  }
-
-  return {tokenString: launchToken, tokenData};
+  return {tokenString: storedToken, tokenData: storedTokenData};
 };
 
 export const useLaunchToken = () => {
   const {launchToken} = useServices();
   return launchToken?.tokenData ?? {};
 };
+
+// The token's subject, the user's Accounts uuid
+export const getTokenSubject = (tokenData: JsonCompatibleStruct) =>
+  typeof tokenData.sub === 'string' ? tokenData.sub : undefined;
 
 // The token's consent preferences
 export const getTokenConsentPreferences = (tokenData: JsonCompatibleStruct) =>
