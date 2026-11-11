@@ -28,12 +28,13 @@ import { content } from '../../routes';
 import * as select from '../../selectors';
 import {
   Book,
+  PageReference,
   PageReferenceError,
   PageReferenceMap,
   SystemQueryParams,
 } from '../../types';
 import { isClickWithModifierKeys } from '../../utils/domUtils';
-import { getBookPageUrlAndParams, toRelativeUrl } from '../../utils/urlUtils';
+import { getBookPageUrlAndParams, getCurrentPortalParams, toRelativeUrl } from '../../utils/urlUtils';
 import isDoubleClick from './doubleClick';
 import queryString from 'query-string';
 
@@ -43,6 +44,7 @@ export const mapStateToContentLinkProp = memoizeStateToProps(
     currentPath: selectNavigation.pathname(state),
     focusedHighlight: focused(state),
     hasUnsavedHighlight: hasUnsavedHighlightSelector(state),
+    navigationParams: selectNavigation.params(state),
     page: select.page(state),
     persistentQueryParams: selectNavigation.persistentQueryParameters(state),
     references: select.contentReferences(state),
@@ -55,6 +57,13 @@ export const mapDispatchToContentLinkProp = (dispatch: Dispatch) => ({
 export type ContentLinkProp = ReturnType<typeof mapStateToContentLinkProp> &
   ReturnType<typeof mapDispatchToContentLinkProp>;
 
+// References are resolved without a portal, so links to them have to add the
+// current one to keep the reader in it
+const paramsInCurrentPortal = (
+  params: PageReference['params'],
+  navigationParams: ContentLinkProp['navigationParams']
+): PageReference['params'] => ({ ...params, ...getCurrentPortalParams(navigationParams) });
+
 const reducePageReferenceError = (a: HTMLAnchorElement) => {
   a.removeAttribute('href');
   a.setAttribute(
@@ -66,10 +75,11 @@ const reducePageReferenceError = (a: HTMLAnchorElement) => {
 const reduceReference = (
   reference: PageReferenceMap,
   currentPath: string,
+  navigationParams: ContentLinkProp['navigationParams'],
   a: HTMLAnchorElement,
   options: ReturnType<typeof createNavigationOptions>
 ) => {
-  const path = content.getUrl(reference.params);
+  const path = content.getUrl(paramsInCurrentPortal(reference.params, navigationParams));
   const href = assertNotNull(
     a.getAttribute('href'),
     'it was found by having an href attribute'
@@ -84,7 +94,7 @@ const reduceReference = (
 
 export const reduceReferences = (
   document: Document,
-  { references, currentPath, systemQueryParams }: ContentLinkProp
+  { references, currentPath, navigationParams, systemQueryParams }: ContentLinkProp
 ) => {
   /*
      Testing seems to indicate that exact matches are enough
@@ -124,7 +134,7 @@ export const reduceReferences = (
       if (isPageReferenceError(reference)) {
         reducePageReferenceError(a);
       } else {
-        reduceReference(reference, currentPath, a, options);
+        reduceReference(reference, currentPath, navigationParams, a, options);
       }
     }
     /*
@@ -135,12 +145,16 @@ export const reduceReferences = (
   }
 };
 
-const isPathReferenceForBook = (pathname: string, book: Book) => (
+const isPathReferenceForBook = (
+  pathname: string,
+  book: Book,
+  navigationParams: ContentLinkProp['navigationParams']
+) => (
   ref: PageReferenceMap | PageReferenceError
 ) =>
   isPageReferenceError(ref)
     ? false
-    : content.getUrl(ref.params) === pathname &&
+    : content.getUrl(paramsInCurrentPortal(ref.params, navigationParams)) === pathname &&
       (('slug' in ref.params.book &&
         hasOSWebData(book) &&
         ref.params.book.slug === book.slug) ||
@@ -158,6 +172,7 @@ export const contentLinkHandler = (
     page,
     currentPath,
     hasUnsavedHighlight,
+    navigationParams,
     persistentQueryParams,
   } = getProps();
   const href = anchor.getAttribute('href');
@@ -178,7 +193,7 @@ export const contentLinkHandler = (
   base.search = '';
 
   const { hash, search, pathname } = new URL(href, base.href);
-  const reference = references.find(isPathReferenceForBook(pathname, book));
+  const reference = references.find(isPathReferenceForBook(pathname, book, navigationParams));
 
   if (!reference && !(pathname === currentPath && hash)) {
     return;
@@ -202,10 +217,12 @@ export const contentLinkHandler = (
     ...queryString.parse(search),
     ...persistentQueryParams,
   });
-  const params =
+  const params = paramsInCurrentPortal(
     reference && !isPageReferenceError(reference)
       ? reference.params
-      : getBookPageUrlAndParams(book, page).params;
+      : getBookPageUrlAndParams(book, page).params,
+    navigationParams
+  );
 
   // defer to allow other handlers to execute before nav happens
   defer(() =>

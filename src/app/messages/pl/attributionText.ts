@@ -35,14 +35,14 @@ export const defaultText = `
   <li>
 Jeśli rozpowszechniasz tę książkę w formie drukowanej w celach niekomercyjnych, umieść na każdej jej kartce informację:
     <blockquote>
-Treści dostępne za darmo na https://openstax.org{introPageUrl}
+Treści dostępne za darmo na https://openstax.org{canonicalIntroPageUrl}
     </blockquote>
   </li>
   <li>
 
 Jeśli rozpowszechniasz całą książkę lub jej fragment w formacie cyfrowym w celach niekomercyjnych, dla każdej strony zawierającej treści OpenStax musisz udostępnić utwór zależny na tej samej licencji CC-BY-NC-SA co oryginał oraz na każdym widoku strony umieścić informację:
     <blockquote>
-  Treści dostępne za darmo na <a href="https://openstax.org{introPageUrl}">https://openstax.org{introPageUrl}</a>
+  Treści dostępne za darmo na <a target="_blank" rel="noopener" href="https://openstax.org{canonicalIntroPageUrl}" data-portal-href="https://openstax.org{portalIntroPageUrl}">https://openstax.org{canonicalIntroPageUrl}</a>
     </blockquote>
   </li>
 </ul>
@@ -69,10 +69,10 @@ Autorzy: {bookAuthors}
   Miejscowość: Warszawa
   </li>
   <li>
-  URL książki: <a href="https://openstax.org{introPageUrl}">https://openstax.org{introPageUrl}</a>
+  URL książki: <a target="_blank" rel="noopener" href="https://openstax.org{canonicalIntroPageUrl}" data-portal-href="https://openstax.org{portalIntroPageUrl}">https://openstax.org{canonicalIntroPageUrl}</a>
   </li>
   <li>
-  URL fragmentu: <a href="https://openstax.org{currentPath}">https://openstax.org{currentPath}</a>
+  URL fragmentu: <a target="_blank" rel="noopener" href="https://openstax.org{canonicalCurrentPageUrl}" data-portal-href="https://openstax.org{portalCurrentPageUrl}">https://openstax.org{canonicalCurrentPageUrl}</a>
   </li>
 </ul>
 
