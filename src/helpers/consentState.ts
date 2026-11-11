@@ -1,6 +1,6 @@
 import type { ConsentPreferences } from 'cookieyes';
 import { FetchConfig } from '@openstax/ts-utils/fetch';
-import { getTokenConsentPreferences, getTokenConsentUrl } from '../app/content/launchToken';
+import { getTokenConsentPreferences, getTokenConsentUrl } from '../app/auth/launchToken';
 import { AppServices } from '../app/types';
 import createConsentClient from '../gateways/createConsentClient';
 import Sentry from './Sentry';

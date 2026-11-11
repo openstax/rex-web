@@ -1,6 +1,4 @@
 import { FetchConfig } from '@openstax/ts-utils/fetch';
-import { assertWindow } from '../app/utils/browser-assertions';
-import { removeQueryParams } from '../app/utils/removeQueryParams';
 
 // TODO - remove once Assignable sends a launch token with every link to REX
 // An Accounts token from the `auth` query param. 'embedded' is not a token, it asks the parent window for the user.
@@ -26,16 +24,10 @@ const getAuthorizedFetchConfig = (
   return {credentials: 'include'};
 };
 
-// Picks the credential that requests to our APIs (highlights, consent) are sent with
-export default (launchTokenString?: string) => {
-  const window = assertWindow();
-  const fetchConfig = getAuthorizedFetchConfig(launchTokenString, getAuthQueryToken(window.location.search));
-
-  // With a launch token, `auth` is not used, so remove it to make it harder to share by accident.
-  // Without one, it has to stay so the session survives a reload (eg. after saving consent to Accounts).
-  if (launchTokenString) {
-    removeQueryParams(window, ['auth']);
-  }
+// Picks the credential that requests to our APIs (highlights, consent) are sent with.
+// `search` is the url's query string from before pullToken removed any credentials from it.
+export default (launchTokenString: string | undefined, search: string) => {
+  const fetchConfig = getAuthorizedFetchConfig(launchTokenString, getAuthQueryToken(search));
 
   return {
     getAuthorizedFetchConfig: () => Promise.resolve(fetchConfig),

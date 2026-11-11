@@ -31,7 +31,7 @@ import pollUpdates from './helpers/pollUpdates';
 import Sentry from './helpers/Sentry';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import { pullToken } from './app/content/launchToken';
+import { pullToken } from './app/auth/launchToken';
 
 const window = assertWindow('Browser entrypoint must be used in the browser');
 const document = window.document;
@@ -50,9 +50,12 @@ const searchUrl = assertDefined(config.REACT_APP_SEARCH_URL, 'REACT_APP_SEARCH_U
 const highlightsUrl = assertDefined(config.REACT_APP_HIGHLIGHTS_URL, 'REACT_APP_HIGHLIGHTS_URL must be defined');
 const mainContent = document.getElementById('main-content');
 
-const launchToken = pullToken(window);
+// pullToken removes credentials from the url, so anything else that reads `auth` has to see the url from before:
+// the user loader's ts-utils auth provider reads it when it's created, and createRequestAuth gets initialSearch
+const initialSearch = window.location.search;
 const userLoader = createUserLoader(accountsUrl);
-const requestAuth = createRequestAuth(launchToken?.tokenString);
+const launchToken = pullToken(window);
+const requestAuth = createRequestAuth(launchToken?.tokenString, initialSearch);
 
 const app = createApp({
   initialState: window.__PRELOADED_STATE__,
@@ -172,7 +175,7 @@ schoolAnalyticsSettings.then(({isK12, researchAgreementActive}) => {
 getConsentState({
   launchToken,
   userLoader,
-  search: window.location.search,
+  search: initialSearch,
   getAuthorizedFetchConfig: requestAuth.getAuthorizedFetchConfig,
 }).then(({consentPreferences, saveConsent}) => {
   const sendConsent = (newConsentPreferences: ConsentPreferences) => saveConsent?.(newConsentPreferences)

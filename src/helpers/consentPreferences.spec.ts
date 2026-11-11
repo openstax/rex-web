@@ -6,6 +6,10 @@ describe('parseConsentPreferences', () => {
       .toEqual({accepted: ['analytics'], rejected: ['advertisement']});
   });
 
+  it('fills in a missing accepted list', () => {
+    expect(parseConsentPreferences({rejected: ['analytics']})).toEqual({accepted: [], rejected: ['analytics']});
+  });
+
   it('fills in missing or invalid lists', () => {
     expect(parseConsentPreferences({accepted: ['analytics'], rejected: 'advertisement'}))
       .toEqual({accepted: ['analytics'], rejected: []});

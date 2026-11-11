@@ -181,6 +181,41 @@ describe('launchToken', () => {
       expect(assertWindow().sessionStorage.getItem('launchToken')).toBe(null);
     });
 
+    it('removes auth along with a valid url token', () => {
+      const replaceStateSpy = jest.fn();
+      Object.defineProperty(assertWindow().history, 'replaceState', {writable: true, value: replaceStateSpy});
+      setSearch(`t=${jwt.sign({sub: 'user-uuid'}, 'secret')}&auth=accounts-token&other=thing`);
+
+      pullToken(assertWindow());
+
+      expect(replaceStateSpy).toHaveBeenCalledWith(expect.anything(), expect.anything(),
+        assertWindow().location.pathname + '?other=thing'
+      );
+    });
+
+    it('keeps auth when the url token is invalid, so that session survives a reload', () => {
+      const replaceStateSpy = jest.fn();
+      Object.defineProperty(assertWindow().history, 'replaceState', {writable: true, value: replaceStateSpy});
+      setSearch('t=asdf&auth=accounts-token');
+
+      pullToken(assertWindow());
+
+      expect(replaceStateSpy).toHaveBeenCalledWith(expect.anything(), expect.anything(),
+        assertWindow().location.pathname + '?auth=accounts-token'
+      );
+    });
+
+    it('ignores and discards the stored token when the url has an auth param', () => {
+      const replaceStateSpy = jest.fn();
+      Object.defineProperty(assertWindow().history, 'replaceState', {writable: true, value: replaceStateSpy});
+      assertWindow().sessionStorage.setItem('launchToken', jwt.sign({sub: 'old-launch'}, 'secret'));
+      setSearch('auth=accounts-token');
+
+      expect(pullToken(assertWindow())).toBe(undefined);
+      expect(assertWindow().sessionStorage.getItem('launchToken')).toBe(null);
+      expect(replaceStateSpy).not.toHaveBeenCalled();
+    });
+
     describe('when sessionStorage is unavailable', () => {
       const storageDescriptor = Object.getOwnPropertyDescriptor(assertWindow(), 'sessionStorage');
 
@@ -247,8 +282,18 @@ describe('launchToken', () => {
   });
 
   describe('getTokenConsentUrl', () => {
-    it('returns the token\'s consent url', () => {
-      expect(getTokenConsentUrl({consentUrl: 'https://consent.example/consent'})).toEqual('https://consent.example/consent');
+    it('returns the token\'s consent url on openstax.org or a subdomain', () => {
+      expect(getTokenConsentUrl({consentUrl: 'https://openstax.org/consent'})).toEqual('https://openstax.org/consent');
+      expect(getTokenConsentUrl({consentUrl: 'https://assignable.openstax.org/api/consent'}))
+        .toEqual('https://assignable.openstax.org/api/consent');
+    });
+
+    it('ignores consent urls anywhere else', () => {
+      expect(getTokenConsentUrl({consentUrl: 'https://consent.example/consent'})).toBeUndefined();
+      expect(getTokenConsentUrl({consentUrl: 'https://evilopenstax.org/consent'})).toBeUndefined();
+      expect(getTokenConsentUrl({consentUrl: 'https://openstax.org.example.com/consent'})).toBeUndefined();
+      expect(getTokenConsentUrl({consentUrl: 'http://openstax.org/consent'})).toBeUndefined();
+      expect(getTokenConsentUrl({consentUrl: 'not a url'})).toBeUndefined();
     });
 
     it('returns undefined without one', () => {

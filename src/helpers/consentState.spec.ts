@@ -37,7 +37,7 @@ describe('getConsentState', () => {
 
       const state = await getConsentState({
         getAuthorizedFetchConfig,
-        launchToken: launchToken({consentPreferences: tokenConsent, consentUrl: 'https://consent.example'}),
+        launchToken: launchToken({consentPreferences: tokenConsent, consentUrl: 'https://assignable.openstax.org/consent'}),
         search: '?subcontent=true',
         userLoader,
       });
@@ -64,18 +64,32 @@ describe('getConsentState', () => {
 
       const state = await getConsentState({
         getAuthorizedFetchConfig,
-        launchToken: launchToken({consentPreferences: tokenConsent, consentUrl: 'https://consent.example'}),
+        launchToken: launchToken({consentPreferences: tokenConsent, consentUrl: 'https://assignable.openstax.org/consent'}),
         search: '',
         userLoader,
       });
 
       expect(state.consentPreferences).toEqual(endpointConsent);
-      expect(fetch).toHaveBeenCalledWith('https://consent.example', {headers: {'X-Launch-Token': 'launch-token'}});
+      expect(fetch).toHaveBeenCalledWith('https://assignable.openstax.org/consent', {headers: {'X-Launch-Token': 'launch-token'}});
 
       await state.saveConsent?.(tokenConsent);
-      expect(fetch).toHaveBeenLastCalledWith('https://consent.example', expect.objectContaining({method: 'POST'}));
+      expect(fetch).toHaveBeenLastCalledWith('https://assignable.openstax.org/consent', expect.objectContaining({method: 'POST'}));
       expect(userLoader.getCurrentUser).not.toHaveBeenCalled();
       expect(userLoader.updateUser).not.toHaveBeenCalled();
+    });
+
+    it('ignores a consentUrl outside openstax.org', async() => {
+      (global as any).fetch = mockFetch(200, endpointConsent);
+
+      const state = await getConsentState({
+        getAuthorizedFetchConfig,
+        launchToken: launchToken({consentPreferences: tokenConsent, consentUrl: 'https://consent.example'}),
+        search: '',
+        userLoader,
+      });
+
+      expect(state).toEqual({consentPreferences: tokenConsent});
+      expect(fetch).not.toHaveBeenCalled();
     });
 
     it('falls back to the token\'s consent, without saving, when the consentUrl fails', async() => {
@@ -84,7 +98,7 @@ describe('getConsentState', () => {
 
       const state = await getConsentState({
         getAuthorizedFetchConfig,
-        launchToken: launchToken({consentPreferences: tokenConsent, consentUrl: 'https://consent.example'}),
+        launchToken: launchToken({consentPreferences: tokenConsent, consentUrl: 'https://assignable.openstax.org/consent'}),
         search: '',
         userLoader,
       });

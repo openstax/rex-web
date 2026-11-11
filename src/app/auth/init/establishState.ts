@@ -1,4 +1,4 @@
-import { getTokenSubject } from '../../content/launchToken';
+import { getTokenSubject } from '../launchToken';
 import { Initializer } from '../../types';
 import { receiveLoggedOut, receiveUser } from '../actions';
 import { formatUser, launchUser } from '../utils';
