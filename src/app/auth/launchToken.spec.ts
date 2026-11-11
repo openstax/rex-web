@@ -205,6 +205,28 @@ describe('launchToken', () => {
       );
     });
 
+    it('discards the stored token when the url token is empty', () => {
+      assertWindow().sessionStorage.setItem('launchToken', jwt.sign({sub: 'old-launch'}, 'secret'));
+      setSearch('t=&other=thing');
+
+      expect(pullToken(assertWindow())).toBe(undefined);
+      expect(assertWindow().sessionStorage.getItem('launchToken')).toBe(null);
+    });
+
+    it('rejects an expired url token, keeping auth as a fallback', () => {
+      const replaceStateSpy = jest.fn();
+      Object.defineProperty(assertWindow().history, 'replaceState', {writable: true, value: replaceStateSpy});
+      assertWindow().sessionStorage.setItem('launchToken', jwt.sign({sub: 'old-launch'}, 'secret'));
+      const expiredToken = jwt.sign({sub: 'user-uuid', exp: Math.floor(Date.now() / 1000) - 60}, 'secret');
+      setSearch(`t=${expiredToken}&auth=accounts-token`);
+
+      expect(pullToken(assertWindow())).toBe(undefined);
+      expect(assertWindow().sessionStorage.getItem('launchToken')).toBe(null);
+      expect(replaceStateSpy).toHaveBeenCalledWith(expect.anything(), expect.anything(),
+        assertWindow().location.pathname + '?auth=accounts-token'
+      );
+    });
+
     it('ignores and discards the stored token when the url has an auth param', () => {
       const replaceStateSpy = jest.fn();
       Object.defineProperty(assertWindow().history, 'replaceState', {writable: true, value: replaceStateSpy});

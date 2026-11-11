@@ -43,7 +43,8 @@ const isExpired = (tokenData: JsonCompatibleStruct) =>
 
 // The credentials in the url define the session:
 // - a launch token (`t`) always wins, and is stored for this tab so the session survives a reload (eg. after
-//   saving consent). An `auth` param alongside it is not used, so it's removed too.
+//   saving consent). An `auth` param alongside it is not used, so it's removed too. An empty, invalid or expired
+//   `t` means no launch session, and `auth` is kept as a fallback.
 // - an `auth` param without a launch token (older Assignable links) means no launch session, so any stored token
 //   is discarded and `auth` is left in place, so that session survives a reload.
 // - with neither, the stored token is used unless it has expired.
@@ -52,10 +53,11 @@ export const pullToken = (window: Window) => {
   const searchParams = new URLSearchParams(window.location.search);
   const urlToken = searchParams.get('t');
 
-  if (urlToken) {
+  if (urlToken !== null) {
     const tokenData = decodeToken(urlToken);
 
-    if (!tokenData) {
+    // an empty, invalid or expired url token still ends any stored session, but leaves `auth` as a fallback
+    if (!tokenData || isExpired(tokenData)) {
       removeQueryParams(window, ['t']);
       tokenStorage.remove(window);
       return undefined;
