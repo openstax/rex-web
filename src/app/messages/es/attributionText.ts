@@ -34,13 +34,13 @@ export const defaultText = `
   <li>
     Si redistribuye todo o parte de este libro en formato impreso sin fines comerciales, debe incluir en cada página física la siguiente atribución:
     <blockquote>
-    Acceso gratis en https://openstax.org{introPageUrl}
+    Acceso gratis en https://openstax.org{canonicalIntroPageUrl}
     </blockquote>
   </li>
   <li>
     Si redistribuye todo o parte de este libro en formato digital sin fines comerciales, entonces por cada página que incluya contenido de OpenStax, debe licenciar la obra derivada bajo la misma licencia CC-BY-NC-SA que la original e incluir en cada vista de la página digital la siguiente atribución:
     <blockquote>
-      Acceso gratuito en <a href="https://openstax.org{introPageUrl}">https://openstax.org{introPageUrl}</a>
+      Acceso gratuito en <a target="_blank" rel="noopener" href="https://openstax.org{canonicalIntroPageUrl}" data-portal-href="https://openstax.org{portalIntroPageUrl}">https://openstax.org{canonicalIntroPageUrl}</a>
     </blockquote>
   </li>
   
@@ -69,10 +69,10 @@ export const defaultText = `
     Ubicación: Houston, Texas
   </li>
   <li>
-    URL del libro: <a href="https://openstax.org{introPageUrl}">https://openstax.org{introPageUrl}</a>
+    URL del libro: <a target="_blank" rel="noopener" href="https://openstax.org{canonicalIntroPageUrl}" data-portal-href="https://openstax.org{portalIntroPageUrl}">https://openstax.org{canonicalIntroPageUrl}</a>
   </li>
   <li>
-    URL de la sección: <a href="https://openstax.org{currentPath}">https://openstax.org{currentPath}</a>
+    URL de la sección: <a target="_blank" rel="noopener" href="https://openstax.org{canonicalCurrentPageUrl}" data-portal-href="https://openstax.org{portalCurrentPageUrl}">https://openstax.org{canonicalCurrentPageUrl}</a>
   </li>
 </ul>
 

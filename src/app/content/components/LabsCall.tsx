@@ -7,6 +7,8 @@ import KineticCTA from '../../../assets/kinetic-cta.svg';
 import icon from '../../../assets/kinetic-logo.png';
 import Button from '../../components/Button';
 import { kineticBannerEnabled } from '../../featureFlags/selectors';
+import { isPortaled } from '../../guards';
+import { params } from '../../navigation/selectors';
 import theme from '../../theme';
 import { isVerticalNavOpenConnector } from './utils/sidebar';
 import './LabsCall.css';
@@ -63,6 +65,8 @@ const LabsCallHeader = isVerticalNavOpenConnector(LabsCallHeaderComponent);
  */
 function LabsCTA() {
   const enabled = useSelector(kineticBannerEnabled);
+  const navigationParams = useSelector(params);
+  const kineticUrl = isPortaled(navigationParams) ? `/${navigationParams.portalName}/kinetic/` : '/kinetic/';
 
   if (!enabled) {
     return null;
@@ -99,7 +103,7 @@ function LabsCTA() {
         style={{ '--column-max-width': '13.6rem' } as React.CSSProperties}
       >
         <Button
-          component={<a href='/kinetic/'>
+          component={<a href={kineticUrl}>
             <FormattedMessage id='i18n:toolbar:labs-cta:link'>
               {(msg) => msg}
             </FormattedMessage>

@@ -12,6 +12,10 @@ describe('notFound', () => {
     expect(notFound.getUrl({url: 'url'})).toEqual('/error/404');
   });
 
+  it('produces a url inside the portal', () => {
+    expect(notFound.getUrl({url: 'url', portalName: 'my-portal'})).toEqual('/my-portal/error/404');
+  });
+
   it('produces a query string', () => {
     if (!notFound.getSearch) {
       return expect(notFound.getSearch).toBeTruthy();

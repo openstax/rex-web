@@ -1,9 +1,15 @@
 import pick from 'lodash/fp/pick';
 import { APP_ENV } from '../../../config';
+import { isPortaled } from '../../guards';
 import { content as contentRoute } from '../routes';
 import { Book, BookWithOSWebData, Page, Params } from '../types';
 import { findArchiveTreeNodeById, findArchiveTreeNodeByPageParam } from './archiveTreeUtils';
 import { stripIdVersion } from './idUtils';
+
+// Only the portal carries over from the current route. Other routes, like assigned
+// readings, have params that a content url can't take.
+export const getCurrentPortalParams = (navigationParams: unknown): Pick<Params, 'portalName'> =>
+  isPortaled(navigationParams) ? { portalName: navigationParams.portalName } : {};
 
 export function bookDetailsUrl(book: BookWithOSWebData) {
   return book.polish_site_link || `/details/books/${book.slug}`;

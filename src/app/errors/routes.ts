@@ -5,6 +5,7 @@ const CATCH_ALL = '/books/(.*)';
 
 type Params = {
   url: string;
+  portalName?: string;
 };
 
 const loadableArgs = {
@@ -18,7 +19,8 @@ const loadableArgs = {
 export const notFound: Route<Params> = {
   component: Loadable(loadableArgs),
   getSearch: (params: Params): string => `path=${params.url}`,
-  getUrl: (_params: Params) => '/error/404',
+  // osweb shows its 404 page inside the portal for any unknown page under the portal
+  getUrl: (params: Params) => params.portalName ? `/${params.portalName}/error/404` : '/error/404',
   name: 'NotFound',
   paths: [CATCH_ALL],
 };
