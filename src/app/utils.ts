@@ -22,6 +22,7 @@ import {
 export { merge, getCommonProperties } from '@openstax/ts-utils';
 export * from './utils/assertions';
 export * from './utils/browser-assertions';
+export * from './utils/removeQueryParams';
 
 export const checkActionType = <C extends AnyActionCreator>(actionCreator: C) =>
   (action: AnyAction): action is ReturnType<C> => action.type === getType(actionCreator);

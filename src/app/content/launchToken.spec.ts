@@ -1,5 +1,5 @@
 import * as jwt from 'jsonwebtoken';
-import { pullToken, decodeToken } from './launchToken';
+import { pullToken, decodeToken, getTokenConsentPreferences, getTokenConsentUrl } from './launchToken';
 import { assertWindow } from '../utils/browser-assertions';
 
 describe('launchToken', () => {
@@ -81,6 +81,33 @@ describe('launchToken', () => {
     );
   });
 
+  it('keeps the hash when removing the token', () => {
+    const replaceStateSpy = jest.fn();
+    Object.defineProperty(assertWindow().history, 'replaceState', {
+      writable: true,
+      value: replaceStateSpy,
+    });
+
+    Object.defineProperty(assertWindow(), 'location', {
+      writable: true,
+      value: {
+        ...assertWindow().location,
+        hash: '#term-12',
+        search: `t=asdf&other=thing`,
+      },
+    });
+
+    pullToken(assertWindow());
+
+    expect(replaceStateSpy).toHaveBeenCalledWith(expect.anything(), expect.anything(),
+      assertWindow().location.pathname + '?other=thing#term-12'
+    );
+  });
+
+  it('returns undefined when the token payload is not json', () => {
+    expect(decodeToken(`a.${assertWindow().btoa('notjson')}.b`)).toBe(undefined);
+  });
+
   describe('outside browser', () => {
     const windowBackup = window;
     const documentBackup = document;
@@ -97,6 +124,34 @@ describe('launchToken', () => {
 
     it('works', () => {
       expect(() => decodeToken('asdf')).not.toThrow();
+    });
+  });
+
+  describe('getTokenConsentPreferences', () => {
+    it('returns the token\'s consent preferences', () => {
+      expect(getTokenConsentPreferences({consentPreferences: {accepted: ['analytics'], rejected: ['advertisement']}}))
+        .toEqual({accepted: ['analytics'], rejected: ['advertisement']});
+    });
+
+    it('fills in missing lists', () => {
+      expect(getTokenConsentPreferences({consentPreferences: {accepted: ['analytics']}}))
+        .toEqual({accepted: ['analytics'], rejected: []});
+    });
+
+    it('returns undefined without consent preferences', () => {
+      expect(getTokenConsentPreferences({})).toBeUndefined();
+      expect(getTokenConsentPreferences({consentPreferences: ['analytics']})).toBeUndefined();
+    });
+  });
+
+  describe('getTokenConsentUrl', () => {
+    it('returns the token\'s consent url', () => {
+      expect(getTokenConsentUrl({consentUrl: 'https://consent.example/consent'})).toEqual('https://consent.example/consent');
+    });
+
+    it('returns undefined without one', () => {
+      expect(getTokenConsentUrl({})).toBeUndefined();
+      expect(getTokenConsentUrl({consentUrl: 5})).toBeUndefined();
     });
   });
 });

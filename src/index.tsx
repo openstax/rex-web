@@ -15,6 +15,7 @@ import config from './config';
 import './content.css';
 import createArchiveLoader from './gateways/createArchiveLoader';
 import createBookConfigLoader from './gateways/createBookConfigLoader';
+import createConsentClient from './gateways/createConsentClient';
 import createHighlightClient from './gateways/createHighlightClient';
 import createOSWebLoader from './gateways/createOSWebLoader';
 import createPracticeQuestionsLoader from './gateways/createPracticeQuestionsLoader';
@@ -29,7 +30,7 @@ import pollUpdates from './helpers/pollUpdates';
 import Sentry from './helpers/Sentry';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import { pullToken } from './app/content/launchToken';
+import { getTokenConsentPreferences, getTokenConsentUrl, pullToken } from './app/content/launchToken';
 
 const window = assertWindow('Browser entrypoint must be used in the browser');
 const document = window.document;
@@ -48,14 +49,15 @@ const searchUrl = assertDefined(config.REACT_APP_SEARCH_URL, 'REACT_APP_SEARCH_U
 const highlightsUrl = assertDefined(config.REACT_APP_HIGHLIGHTS_URL, 'REACT_APP_HIGHLIGHTS_URL must be defined');
 const mainContent = document.getElementById('main-content');
 
-const userLoader = createUserLoader(accountsUrl);
+const launchToken = pullToken(window);
+const userLoader = createUserLoader(accountsUrl, launchToken?.tokenString);
 
 const app = createApp({
   initialState: window.__PRELOADED_STATE__,
   services: {
     archiveLoader: createArchiveLoader(),
     bookConfigLoader: createBookConfigLoader(),
-    launchToken: pullToken(window),
+    launchToken,
     config,
     highlightClient: createHighlightClient(highlightsUrl, userLoader.getAuthorizedFetchConfig),
     osWebLoader: createOSWebLoader(osWebUrl),
@@ -122,12 +124,6 @@ function cookiesBlocked(e: Error) {
   return e instanceof DOMException && ['SecurityError', 'NotSupportedError'].includes(e.name);
 }
 
-const sendConsentToAccounts = (consentPreferences: ConsentPreferences) =>
-  userLoader.updateUser({ consent_preferences: consentPreferences })
-    .then(() => window.location.reload())
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    .catch((error: any) => Sentry.captureException(error));
-
 async function getPortalSchoolData() {
   const pathMatch = window.location.pathname.match(/\/portal\/([^/]+)/);
   if (pathMatch) {
@@ -171,16 +167,62 @@ schoolAnalyticsSettings.then(({isK12, researchAgreementActive}) => {
   initialize({isK12, enabled: !isK12 || researchAgreementActive});
 });
 
-app.services.userLoader.getCurrentUser().then((user) => {
+type ConsentState = {
+  consentPreferences: ConsentPreferences | undefined;
+  // where to save consent changes, if this page is responsible for saving them
+  saveConsent?: (consentPreferences: ConsentPreferences) => Promise<unknown>;
+};
+
+// Launches embedded in another window (subcontent) get consent from the launch token,
+// and the host window saves changes to it.
+// Full window launches read and save consent at the consentUrl their launch token names.
+// Everyone else gets consent from Accounts, and we save changes back to Accounts if they're logged in.
+async function getConsentState(): Promise<ConsentState> {
+  if (launchToken) {
+    const tokenConsentState = {consentPreferences: getTokenConsentPreferences(launchToken.tokenData)};
+    const consentUrl = getTokenConsentUrl(launchToken.tokenData);
+    const isSubcontent = new URLSearchParams(window.location.search).get('subcontent') === 'true';
+
+    if (isSubcontent || !consentUrl) {
+      return tokenConsentState;
+    }
+
+    const consentClient = createConsentClient(consentUrl, userLoader.getAuthorizedFetchConfig);
+
+    try {
+      return {
+        consentPreferences: await consentClient.getConsentPreferences(),
+        saveConsent: consentClient.updateConsentPreferences,
+      };
+    } catch (error) {
+      Sentry.captureException(error);
+      return tokenConsentState;
+    }
+  }
+
+  const user = await userLoader.getCurrentUser();
+  return {
+    consentPreferences: user?.consent_preferences,
+    saveConsent: user
+      ? (consentPreferences) => userLoader.updateUser({ consent_preferences: consentPreferences })
+      : undefined,
+  };
+}
+
+getConsentState().then(({consentPreferences, saveConsent}) => {
+  const sendConsent = (newConsentPreferences: ConsentPreferences) => saveConsent?.(newConsentPreferences)
+    .then(() => window.location.reload())
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    .catch((error: any) => Sentry.captureException(error));
+
   document.addEventListener('cookieyes_banner_load', (bannerLoadEventData: unknown) => {
-    const consentPreferences = user?.consent_preferences;
     const typedEventData = bannerLoadEventData as CookieYesBannerLoadEvent;
 
     if (consentPreferences) {
-      // Accounts remembers some state
-      // We always defer to Accounts in this case
+      // Accounts, the consent endpoint or the launch token remembers some state
+      // We always defer to it in this case
 
-      // Only call the CookieYes API if it doesn't match what's in Accounts
+      // Only call the CookieYes API if it doesn't match what's remembered
       let doUpdate = !typedEventData.detail.isUserActionCompleted;
 
       consentPreferences.accepted.forEach((accepted) => {
@@ -202,17 +244,17 @@ app.services.userLoader.getCurrentUser().then((user) => {
       });
       if (doUpdate) { performBannerAction('accept_partial'); }
     } else if (typedEventData.detail.isUserActionCompleted) {
-      // Accounts doesn't have state but somehow CookieYes does
+      // Accounts (or the consent endpoint) doesn't have state but somehow CookieYes does
       // This can happen because of 3rd party cookies enabled, non-embedded launch, etc
       // Ideally we'd clear the CookieYes consent and let users click the banner again,
       // but there's no API to do that
-      // So instead we make a request to save the user consent to Accounts
+      // So instead we make a request to save the user consent
       const currentConsentPreferences: ConsentPreferences = { accepted: [], rejected: [] };
       Object.entries(typedEventData.detail.categories).forEach(([category, accepted]) => {
         const arr = accepted ? currentConsentPreferences.accepted : currentConsentPreferences.rejected;
         arr.push(category);
       });
-      if (user) { sendConsentToAccounts(currentConsentPreferences); }
+      sendConsent(currentConsentPreferences);
     } else {
       // If we don't have a recorded consent and they click the X button, interpret it as "reject all"
       document.getElementsByClassName('cky-banner-btn-close')[0]?.addEventListener(
@@ -221,7 +263,7 @@ app.services.userLoader.getCurrentUser().then((user) => {
     }
 
     document.addEventListener('cookieyes_consent_update', (consentUpdateEventData: unknown) => {
-      if (user) { sendConsentToAccounts((consentUpdateEventData as CookieYesConsentUpdateEvent).detail); }
+      sendConsent((consentUpdateEventData as CookieYesConsentUpdateEvent).detail);
     });
 
     window.cookieYesActive = true;

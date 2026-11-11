@@ -1,37 +1,34 @@
 import { Window } from '@openstax/types/lib.dom';
+import type { JsonCompatibleStruct } from '@openstax/ts-utils/routing';
+import { parseConsentPreferences } from '../../helpers/consentPreferences';
 import { useServices } from '../context/Services';
+import { removeQueryParams } from '../utils/removeQueryParams';
 
 export const decodeToken = (launchToken: string | undefined) => {
   if (!launchToken || typeof window === 'undefined') return undefined;
-
-  let jsonPayload: string;
 
   try {
     // https://stackoverflow.com/a/38552302/14809536
     const base64Url = launchToken.split('.')[1];
     const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-    jsonPayload = decodeURIComponent(window.atob(base64).split('').map((c) => {
+    const jsonPayload = decodeURIComponent(window.atob(base64).split('').map((c) => {
         return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
     }).join(''));
+    return JSON.parse(jsonPayload);
   } catch (e) {
     return undefined;
   }
-
-  return JSON.parse(jsonPayload);
 };
 
 export const pullToken = (window: Window) => {
-  const searchParams = new URLSearchParams(window.location.search);
-
-  const launchToken = searchParams.get('t');
+  const launchToken = new URLSearchParams(window.location.search).get('t');
 
   if (!launchToken) {
     return undefined;
   }
 
-  searchParams.delete('t');
-  const search = searchParams.toString();
-  window.history.replaceState({}, window.document.title, window.location.pathname + (search ? `?${search}` : ''));
+  // Makes it harder to share the credential by accident, eg. by copying the address bar
+  removeQueryParams(window, ['t']);
 
   const tokenData = decodeToken(launchToken);
 
@@ -42,8 +39,15 @@ export const pullToken = (window: Window) => {
   return {tokenString: launchToken, tokenData};
 };
 
-
 export const useLaunchToken = () => {
   const {launchToken} = useServices();
   return launchToken?.tokenData ?? {};
 };
+
+// The token's consent preferences
+export const getTokenConsentPreferences = (tokenData: JsonCompatibleStruct) =>
+  parseConsentPreferences(tokenData.consentPreferences);
+
+// Where to read and save the user's consent preferences in a full window launch
+export const getTokenConsentUrl = (tokenData: JsonCompatibleStruct) =>
+  typeof tokenData.consentUrl === 'string' ? tokenData.consentUrl : undefined;
