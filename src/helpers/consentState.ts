@@ -11,17 +11,19 @@ export type ConsentState = {
   saveConsent?: (consentPreferences: ConsentPreferences) => Promise<unknown>;
 };
 
-// Launches embedded in another window (subcontent) get consent from the launch token,
+// Launch token sessions embedded in another window (subcontent) get consent from the launch token,
 // and the host window saves changes to it.
 // Full window launches read and save consent at the consentUrl their launch token names.
-// Everyone else gets consent from Accounts, and we save changes back to Accounts if they're logged in.
-export const getConsentState = async({launchToken, userLoader, search, getAuthorizedFetchConfig}: {
-  launchToken: AppServices['launchToken'];
+// Everyone else (including `auth` sessions) gets consent from Accounts, and we save changes back to Accounts
+// if they're logged in.
+export const getConsentState = async({sessionCredential, userLoader, search, getAuthorizedFetchConfig}: {
+  sessionCredential: AppServices['sessionCredential'];
   userLoader: AppServices['userLoader'];
   search: string;
   getAuthorizedFetchConfig: () => Promise<FetchConfig>;
 }): Promise<ConsentState> => {
-  if (launchToken) {
+  if (sessionCredential.type === 'launchToken') {
+    const {launchToken} = sessionCredential;
     const tokenConsentState = {consentPreferences: getTokenConsentPreferences(launchToken.tokenData)};
     const consentUrl = getTokenConsentUrl(launchToken.tokenData);
     const isSubcontent = new URLSearchParams(search).get('subcontent') === 'true';

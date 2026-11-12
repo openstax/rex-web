@@ -31,7 +31,7 @@ import pollUpdates from './helpers/pollUpdates';
 import Sentry from './helpers/Sentry';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import { pullToken } from './app/auth/launchToken';
+import { pullCredentials } from './app/auth/credentials';
 
 const window = assertWindow('Browser entrypoint must be used in the browser');
 const document = window.document;
@@ -50,12 +50,9 @@ const searchUrl = assertDefined(config.REACT_APP_SEARCH_URL, 'REACT_APP_SEARCH_U
 const highlightsUrl = assertDefined(config.REACT_APP_HIGHLIGHTS_URL, 'REACT_APP_HIGHLIGHTS_URL must be defined');
 const mainContent = document.getElementById('main-content');
 
-// pullToken removes credentials from the url, so anything else that reads `auth` has to see the url from before:
-// the user loader's ts-utils auth provider reads it when it's created, and createRequestAuth gets initialSearch
-const initialSearch = window.location.search;
+const {launchToken, sessionCredential} = pullCredentials(window);
 const userLoader = createUserLoader(accountsUrl);
-const launchToken = pullToken(window);
-const requestAuth = createRequestAuth(launchToken?.tokenString, initialSearch);
+const requestAuth = createRequestAuth(sessionCredential);
 
 const app = createApp({
   initialState: window.__PRELOADED_STATE__,
@@ -69,6 +66,7 @@ const app = createApp({
     practiceQuestionsLoader: createPracticeQuestionsLoader(),
     prerenderedContent: mainContent ? mainContent.innerHTML : undefined,
     searchClient: createSearchClient(searchUrl),
+    sessionCredential,
     userLoader,
     imageCDNUtils: createImageCDNUtils(),
   },
@@ -173,9 +171,9 @@ schoolAnalyticsSettings.then(({isK12, researchAgreementActive}) => {
 });
 
 getConsentState({
-  launchToken,
+  sessionCredential,
   userLoader,
-  search: initialSearch,
+  search: window.location.search,
   getAuthorizedFetchConfig: requestAuth.getAuthorizedFetchConfig,
 }).then(({consentPreferences, saveConsent}) => {
   const sendConsent = (newConsentPreferences: ConsentPreferences) => saveConsent?.(newConsentPreferences)

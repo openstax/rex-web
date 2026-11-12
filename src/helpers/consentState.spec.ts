@@ -17,9 +17,13 @@ describe('getConsentState', () => {
   const getAuthorizedFetchConfig = () => Promise.resolve({headers: {'X-Launch-Token': 'launch-token'}});
   const tokenConsent = {accepted: ['analytics'], rejected: []};
   const endpointConsent = {accepted: [], rejected: ['analytics']};
+  const cookie = {type: 'cookie' as const};
   let userLoader: ReturnType<typeof createTestServices>['userLoader'];
 
-  const launchToken = (tokenData: {[key: string]: any}) => ({tokenString: 'launch-token', tokenData});
+  const launchSession = (tokenData: {[key: string]: any}) => ({
+    type: 'launchToken' as const,
+    launchToken: {tokenString: 'launch-token', tokenData},
+  });
 
   beforeEach(() => {
     userLoader = createTestServices().userLoader;
@@ -31,13 +35,13 @@ describe('getConsentState', () => {
     (global as any).fetch = fetchBackup;
   });
 
-  describe('with a launch token', () => {
+  describe('with a launch token session', () => {
     it('uses the token\'s consent and does not save in embedded (subcontent) launches', async() => {
       (global as any).fetch = mockFetch(200, endpointConsent);
 
       const state = await getConsentState({
         getAuthorizedFetchConfig,
-        launchToken: launchToken({consentPreferences: tokenConsent, consentUrl: 'https://assignable.openstax.org/consent'}),
+        sessionCredential: launchSession({consentPreferences: tokenConsent, consentUrl: 'https://assignable.openstax.org/consent'}),
         search: '?subcontent=true',
         userLoader,
       });
@@ -50,7 +54,7 @@ describe('getConsentState', () => {
     it('uses the token\'s consent and does not save in full window launches without a consentUrl', async() => {
       const state = await getConsentState({
         getAuthorizedFetchConfig,
-        launchToken: launchToken({consentPreferences: tokenConsent}),
+        sessionCredential: launchSession({consentPreferences: tokenConsent}),
         search: '',
         userLoader,
       });
@@ -64,7 +68,7 @@ describe('getConsentState', () => {
 
       const state = await getConsentState({
         getAuthorizedFetchConfig,
-        launchToken: launchToken({consentPreferences: tokenConsent, consentUrl: 'https://assignable.openstax.org/consent'}),
+        sessionCredential: launchSession({consentPreferences: tokenConsent, consentUrl: 'https://assignable.openstax.org/consent'}),
         search: '',
         userLoader,
       });
@@ -83,7 +87,7 @@ describe('getConsentState', () => {
 
       const state = await getConsentState({
         getAuthorizedFetchConfig,
-        launchToken: launchToken({consentPreferences: tokenConsent, consentUrl: 'https://consent.example'}),
+        sessionCredential: launchSession({consentPreferences: tokenConsent, consentUrl: 'https://consent.example'}),
         search: '',
         userLoader,
       });
@@ -98,7 +102,7 @@ describe('getConsentState', () => {
 
       const state = await getConsentState({
         getAuthorizedFetchConfig,
-        launchToken: launchToken({consentPreferences: tokenConsent, consentUrl: 'https://assignable.openstax.org/consent'}),
+        sessionCredential: launchSession({consentPreferences: tokenConsent, consentUrl: 'https://assignable.openstax.org/consent'}),
         search: '',
         userLoader,
       });
@@ -108,9 +112,28 @@ describe('getConsentState', () => {
     });
   });
 
-  describe('without a launch token', () => {
+  describe('with an auth token', () => {
+    it('reads and saves consent in Accounts, even when the launch has a consentUrl', async() => {
+      (global as any).fetch = mockFetch(200, endpointConsent);
+
+      const state = await getConsentState({
+        getAuthorizedFetchConfig,
+        search: '',
+        sessionCredential: {type: 'auth', token: 'accounts-token'},
+        userLoader,
+      });
+
+      expect(state.consentPreferences).toEqual(testAccountsUser.consent_preferences);
+      expect(fetch).not.toHaveBeenCalled();
+
+      await state.saveConsent?.(tokenConsent);
+      expect(userLoader.updateUser).toHaveBeenCalledWith({consent_preferences: tokenConsent});
+    });
+  });
+
+  describe('with the Accounts cookie', () => {
     it('reads and saves consent in Accounts', async() => {
-      const state = await getConsentState({getAuthorizedFetchConfig, launchToken: undefined, search: '', userLoader});
+      const state = await getConsentState({getAuthorizedFetchConfig, search: '', sessionCredential: cookie, userLoader});
 
       expect(state.consentPreferences).toEqual(testAccountsUser.consent_preferences);
 
@@ -121,7 +144,7 @@ describe('getConsentState', () => {
     it('does not save when logged out', async() => {
       userLoader.getCurrentUser = jest.fn(() => Promise.resolve(undefined));
 
-      const state = await getConsentState({getAuthorizedFetchConfig, launchToken: undefined, search: '', userLoader});
+      const state = await getConsentState({getAuthorizedFetchConfig, search: '', sessionCredential: cookie, userLoader});
 
       expect(state).toEqual({consentPreferences: undefined, saveConsent: undefined});
     });

@@ -39,7 +39,7 @@ describe('auth establishState', () => {
 
   describe('with a launch token', () => {
     beforeEach(() => {
-      services.launchToken = {tokenString: 'token', tokenData: {sub: 'a_uuid'}};
+      services.sessionCredential = {type: 'launchToken', launchToken: {tokenString: 'token', tokenData: {sub: 'a_uuid'}}};
     });
 
     it('dispatches the launched user without asking Accounts', async() => {
@@ -60,12 +60,23 @@ describe('auth establishState', () => {
     });
 
     it('tells analytics there is no user id when the token has no subject', async() => {
-      services.launchToken = {tokenString: 'token', tokenData: {}};
+      services.sessionCredential = {type: 'launchToken', launchToken: {tokenString: 'token', tokenData: {}}};
       establishState(services);
       await Promise.resolve();
 
       expect(assertWindow().dataLayer).toContainEqual({user: undefined});
       expect(services.dispatch).toHaveBeenCalledWith(receiveUser(launchUser));
     });
+  });
+
+  it('asks Accounts for the user in an auth session', async() => {
+    services.sessionCredential = {type: 'auth', token: 'accounts-token'};
+    services.userLoader.getCurrentUser = jest.fn(() => Promise.resolve(testAccountsUser));
+
+    establishState(services);
+    await Promise.resolve();
+
+    expect(services.userLoader.getCurrentUser).toHaveBeenCalled();
+    expect(services.dispatch).toHaveBeenCalledWith(receiveUser(formatUser(testAccountsUser)));
   });
 });
