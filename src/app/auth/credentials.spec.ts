@@ -56,6 +56,7 @@ describe('pullCredentials', () => {
     it.each([
       ['empty', ''],
       ['invalid', 'asdf'],
+      ['non-object', `a.${assertWindow().btoa('[]')}.b`],
       ['expired', expiredToken()],
     ])('treats an %s one as no launch session and discards the stored token', (_, token) => {
       assertWindow().sessionStorage.setItem('launchToken', validToken('old-launch'));

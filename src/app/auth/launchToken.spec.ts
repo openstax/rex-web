@@ -13,6 +13,15 @@ describe('launchToken', () => {
       expect(decodeToken('asdf')).toBe(undefined);
     });
 
+    it.each([
+      ['an array', []],
+      ['a number', 42],
+      ['a string', 'not-claims'],
+      ['null', null],
+    ])('returns undefined when the payload is %s, not an object of claims', (_, payload) => {
+      expect(decodeToken(`a.${assertWindow().btoa(JSON.stringify(payload))}.b`)).toBe(undefined);
+    });
+
     it('returns undefined when the token payload is not json', () => {
       expect(decodeToken(`a.${assertWindow().btoa('notjson')}.b`)).toBe(undefined);
     });

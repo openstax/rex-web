@@ -2,7 +2,11 @@ import type { JsonCompatibleStruct } from '@openstax/ts-utils/routing';
 import { parseConsentPreferences } from '../../helpers/consentPreferences';
 import { useServices } from '../context/Services';
 
-export const decodeToken = (launchToken: string | undefined) => {
+// A token's claims are a JSON object; anything else isn't a valid token
+const isClaims = (value: unknown): value is JsonCompatibleStruct =>
+  !!value && typeof value === 'object' && !Array.isArray(value);
+
+export const decodeToken = (launchToken: string | undefined): JsonCompatibleStruct | undefined => {
   if (!launchToken || typeof window === 'undefined') return undefined;
 
   try {
@@ -12,7 +16,8 @@ export const decodeToken = (launchToken: string | undefined) => {
     const jsonPayload = decodeURIComponent(window.atob(base64).split('').map((c) => {
         return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
     }).join(''));
-    return JSON.parse(jsonPayload);
+    const claims: unknown = JSON.parse(jsonPayload);
+    return isClaims(claims) ? claims : undefined;
   } catch (e) {
     return undefined;
   }
