@@ -22,7 +22,6 @@ import analytics from '../helpers/analytics';
 import FontCollector from '../helpers/FontCollector';
 import PromiseCollector from '../helpers/PromiseCollector';
 import type { SessionCredential } from './auth/credentials';
-import type { LaunchToken } from './auth/launchToken';
 import { State as authState } from './auth/types';
 import { State as contentState } from './content/types';
 import { State as errorsState } from './errors/types';
@@ -51,7 +50,6 @@ export interface AppServices {
   highlightClient: ReturnType<typeof createHighlightClient>;
   history: History;
   intl: {current: IntlShape | null};
-  launchToken?: LaunchToken;
   osWebLoader: ReturnType<typeof createOSWebLoader>;
   practiceQuestionsLoader: ReturnType<typeof createPracticeQuestionsLoader>;
   prerenderedContent?: string;

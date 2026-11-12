@@ -3,7 +3,7 @@ import { testAccountsUser } from '../../../test/mocks/userLoader';
 import { AppServices, MiddlewareAPI } from '../../types';
 import { assertWindow } from '../../utils';
 import { receiveLoggedOut, receiveUser } from '../actions';
-import { formatUser, launchUser } from '../utils';
+import { formatUser } from '../utils';
 import establishState from './establishState';
 
 describe('auth establishState', () => {
@@ -49,7 +49,7 @@ describe('auth establishState', () => {
       await Promise.resolve();
 
       expect(services.userLoader.getCurrentUser).not.toHaveBeenCalled();
-      expect(services.dispatch).toHaveBeenCalledWith(receiveUser(launchUser));
+      expect(services.dispatch).toHaveBeenCalledWith(receiveUser({source: 'launch', uuid: 'a_uuid'}));
     });
 
     it('gives analytics the token\'s subject as the user id', async() => {
@@ -58,19 +58,14 @@ describe('auth establishState', () => {
 
       expect(assertWindow().dataLayer).toContainEqual({user: {uuid: 'a_uuid'}});
     });
-
-    it('tells analytics there is no user id when the token has no subject', async() => {
-      services.sessionCredential = {type: 'launchToken', launchToken: {tokenString: 'token', tokenData: {}}};
-      establishState(services);
-      await Promise.resolve();
-
-      expect(assertWindow().dataLayer).toContainEqual({user: undefined});
-      expect(services.dispatch).toHaveBeenCalledWith(receiveUser(launchUser));
-    });
   });
 
-  it('asks Accounts for the user in an auth session', async() => {
-    services.sessionCredential = {type: 'auth', token: 'accounts-token'};
+  it('asks Accounts for the user in an auth session, even alongside a launch token', async() => {
+    services.sessionCredential = {
+      type: 'auth',
+      token: 'accounts-token',
+      launchToken: {tokenString: 'token', tokenData: {sub: 'a_uuid'}},
+    };
     services.userLoader.getCurrentUser = jest.fn(() => Promise.resolve(testAccountsUser));
 
     establishState(services);

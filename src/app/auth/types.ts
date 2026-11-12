@@ -10,6 +10,7 @@ export interface AccountsProfileUser {
 // A user launched from Assignable; the launch token is their only credential
 export interface LaunchUser {
   source: 'launch';
+  uuid: string;
 }
 
 export type User = AccountsProfileUser | LaunchUser;

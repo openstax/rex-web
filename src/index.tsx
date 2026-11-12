@@ -31,7 +31,7 @@ import pollUpdates from './helpers/pollUpdates';
 import Sentry from './helpers/Sentry';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import { pullCredentials } from './app/auth/credentials';
+import { getLaunchToken, pullCredentials } from './app/auth/credentials';
 
 const window = assertWindow('Browser entrypoint must be used in the browser');
 const document = window.document;
@@ -50,7 +50,7 @@ const searchUrl = assertDefined(config.REACT_APP_SEARCH_URL, 'REACT_APP_SEARCH_U
 const highlightsUrl = assertDefined(config.REACT_APP_HIGHLIGHTS_URL, 'REACT_APP_HIGHLIGHTS_URL must be defined');
 const mainContent = document.getElementById('main-content');
 
-const {launchToken, sessionCredential} = pullCredentials(window);
+const sessionCredential = pullCredentials(window);
 const userLoader = createUserLoader(accountsUrl);
 const requestAuth = createRequestAuth(sessionCredential);
 
@@ -59,7 +59,6 @@ const app = createApp({
   services: {
     archiveLoader: createArchiveLoader(),
     bookConfigLoader: createBookConfigLoader(),
-    launchToken,
     config,
     highlightClient: createHighlightClient(highlightsUrl, requestAuth.getAuthorizedFetchConfig),
     osWebLoader: createOSWebLoader(osWebUrl),
@@ -144,7 +143,7 @@ async function getPortalSchoolData() {
 // K12 schools get no GTM, CookieYes or Kinetic, and only get event capture under a research agreement.
 // Assignable launches say whether that applies in their launch token, and portals in the portal's school data.
 async function getSchoolAnalyticsSettings() {
-  const tokenData = app.services.launchToken?.tokenData;
+  const tokenData = getLaunchToken(sessionCredential)?.tokenData;
 
   if (tokenData) {
     return {

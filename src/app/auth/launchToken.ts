@@ -1,6 +1,5 @@
 import type { JsonCompatibleStruct } from '@openstax/ts-utils/routing';
 import { parseConsentPreferences } from '../../helpers/consentPreferences';
-import { useServices } from '../context/Services';
 
 // A token's claims are a JSON object; anything else isn't a valid token
 const isClaims = (value: unknown): value is JsonCompatibleStruct =>
@@ -23,19 +22,16 @@ export const decodeToken = (launchToken: string | undefined): JsonCompatibleStru
   }
 };
 
-export type LaunchToken = {tokenString: string, tokenData: JsonCompatibleStruct};
+// A launch token's claims always include its subject, the user's Accounts uuid
+export type LaunchTokenClaims = JsonCompatibleStruct & {sub: string};
+
+export type LaunchToken = {tokenString: string, tokenData: LaunchTokenClaims};
+
+export const hasSubject = (tokenData: JsonCompatibleStruct): tokenData is LaunchTokenClaims =>
+  typeof tokenData.sub === 'string';
 
 export const isExpired = (tokenData: JsonCompatibleStruct) =>
   typeof tokenData.exp === 'number' && tokenData.exp * 1000 <= Date.now();
-
-export const useLaunchToken = () => {
-  const {launchToken} = useServices();
-  return launchToken?.tokenData ?? {};
-};
-
-// The token's subject, the user's Accounts uuid
-export const getTokenSubject = (tokenData: JsonCompatibleStruct) =>
-  typeof tokenData.sub === 'string' ? tokenData.sub : undefined;
 
 // The token's consent preferences
 export const getTokenConsentPreferences = (tokenData: JsonCompatibleStruct) =>

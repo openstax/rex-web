@@ -1,5 +1,5 @@
 import * as jwt from 'jsonwebtoken';
-import { decodeToken, getTokenConsentPreferences, getTokenConsentUrl, getTokenSubject, isExpired } from './launchToken';
+import { decodeToken, getTokenConsentPreferences, getTokenConsentUrl, hasSubject, isExpired } from './launchToken';
 import { assertWindow } from '../utils/browser-assertions';
 
 describe('launchToken', () => {
@@ -95,14 +95,14 @@ describe('launchToken', () => {
     });
   });
 
-  describe('getTokenSubject', () => {
-    it('returns the token\'s subject', () => {
-      expect(getTokenSubject({sub: 'a_uuid'})).toEqual('a_uuid');
+  describe('hasSubject', () => {
+    it('is true with a string subject', () => {
+      expect(hasSubject({sub: 'a_uuid'})).toBe(true);
     });
 
-    it('returns undefined without one', () => {
-      expect(getTokenSubject({})).toBeUndefined();
-      expect(getTokenSubject({sub: 5})).toBeUndefined();
+    it('is false without one', () => {
+      expect(hasSubject({})).toBe(false);
+      expect(hasSubject({sub: 5})).toBe(false);
     });
   });
 });

@@ -1,6 +1,6 @@
 import * as jwt from 'jsonwebtoken';
 import { assertWindow } from '../utils/browser-assertions';
-import { pullCredentials } from './credentials';
+import { getLaunchToken, pullCredentials } from './credentials';
 
 describe('pullCredentials', () => {
   let replaceStateSpy: jest.Mock;
@@ -27,10 +27,10 @@ describe('pullCredentials', () => {
       const token = validToken();
       setLocation(`t=${token}`);
 
-      const {launchToken, sessionCredential} = pullCredentials(assertWindow());
-
-      expect(launchToken?.tokenData).toEqual(expect.objectContaining({sub: 'user-uuid'}));
-      expect(sessionCredential).toEqual({type: 'launchToken', launchToken});
+      expect(pullCredentials(assertWindow())).toEqual({
+        type: 'launchToken',
+        launchToken: {tokenString: token, tokenData: expect.objectContaining({sub: 'user-uuid'})},
+      });
       expect(storedToken()).toEqual(token);
     });
 
@@ -49,7 +49,7 @@ describe('pullCredentials', () => {
       const token = validToken('new-launch');
       setLocation(`t=${token}`);
 
-      expect(pullCredentials(assertWindow()).launchToken?.tokenString).toEqual(token);
+      expect(getLaunchToken(pullCredentials(assertWindow()))?.tokenString).toEqual(token);
       expect(storedToken()).toEqual(token);
     });
 
@@ -57,19 +57,20 @@ describe('pullCredentials', () => {
       ['empty', ''],
       ['invalid', 'asdf'],
       ['non-object', `a.${assertWindow().btoa('[]')}.b`],
+      ['subject-less', jwt.sign({stuff: 'things'}, 'secret')],
       ['expired', expiredToken()],
     ])('treats an %s one as no launch session and discards the stored token', (_, token) => {
       assertWindow().sessionStorage.setItem('launchToken', validToken('old-launch'));
       setLocation(`t=${token}`);
 
-      expect(pullCredentials(assertWindow())).toEqual({launchToken: undefined, sessionCredential: {type: 'cookie'}});
+      expect(pullCredentials(assertWindow())).toEqual({type: 'cookie'});
       expect(storedToken()).toBe(null);
     });
 
     it('ignores auth=embedded, which isn\'t a token, and leaves it in the url', () => {
       setLocation(`t=${validToken()}&auth=embedded`);
 
-      expect(pullCredentials(assertWindow()).sessionCredential.type).toEqual('launchToken');
+      expect(pullCredentials(assertWindow()).type).toEqual('launchToken');
       expect(replaceStateSpy).toHaveBeenCalledWith(expect.anything(), expect.anything(),
         assertWindow().location.pathname + '?auth=embedded'
       );
@@ -80,20 +81,19 @@ describe('pullCredentials', () => {
     it('uses it as the credential and leaves it in the url, so it survives a reload', () => {
       setLocation('auth=accounts-token');
 
-      expect(pullCredentials(assertWindow())).toEqual({
-        launchToken: undefined,
-        sessionCredential: {type: 'auth', token: 'accounts-token'},
-      });
+      expect(pullCredentials(assertWindow())).toEqual({type: 'auth', token: 'accounts-token'});
       expect(replaceStateSpy).not.toHaveBeenCalled();
     });
 
-    it('prefers it over a launch token, which is still read for its claims but not stored', () => {
-      setLocation(`t=${validToken()}&auth=accounts-token`);
+    it('prefers it over a launch token, which is kept for its claims but not stored', () => {
+      const token = validToken();
+      setLocation(`t=${token}&auth=accounts-token`);
 
-      const {launchToken, sessionCredential} = pullCredentials(assertWindow());
-
-      expect(sessionCredential).toEqual({type: 'auth', token: 'accounts-token'});
-      expect(launchToken?.tokenData).toEqual(expect.objectContaining({sub: 'user-uuid'}));
+      expect(pullCredentials(assertWindow())).toEqual({
+        type: 'auth',
+        token: 'accounts-token',
+        launchToken: {tokenString: token, tokenData: expect.objectContaining({sub: 'user-uuid'})},
+      });
       expect(storedToken()).toBe(null);
       expect(replaceStateSpy).toHaveBeenCalledWith(expect.anything(), expect.anything(),
         assertWindow().location.pathname + '?auth=accounts-token'
@@ -104,7 +104,7 @@ describe('pullCredentials', () => {
       assertWindow().sessionStorage.setItem('launchToken', validToken('old-launch'));
       setLocation('auth=accounts-token');
 
-      expect(pullCredentials(assertWindow()).launchToken).toBe(undefined);
+      expect(pullCredentials(assertWindow())).toEqual({type: 'auth', token: 'accounts-token'});
       expect(storedToken()).toBe(null);
     });
   });
@@ -115,10 +115,10 @@ describe('pullCredentials', () => {
       assertWindow().sessionStorage.setItem('launchToken', token);
       setLocation('other=thing');
 
-      const {launchToken, sessionCredential} = pullCredentials(assertWindow());
-
-      expect(launchToken?.tokenString).toEqual(token);
-      expect(sessionCredential).toEqual({type: 'launchToken', launchToken});
+      expect(pullCredentials(assertWindow())).toEqual({
+        type: 'launchToken',
+        launchToken: {tokenString: token, tokenData: expect.objectContaining({sub: 'user-uuid'})},
+      });
     });
 
     it.each([
@@ -128,14 +128,14 @@ describe('pullCredentials', () => {
       assertWindow().sessionStorage.setItem('launchToken', token);
       setLocation('');
 
-      expect(pullCredentials(assertWindow())).toEqual({launchToken: undefined, sessionCredential: {type: 'cookie'}});
+      expect(pullCredentials(assertWindow())).toEqual({type: 'cookie'});
       expect(storedToken()).toBe(null);
     });
 
     it('uses the cookie when nothing is stored', () => {
       setLocation('');
 
-      expect(pullCredentials(assertWindow())).toEqual({launchToken: undefined, sessionCredential: {type: 'cookie'}});
+      expect(pullCredentials(assertWindow())).toEqual({type: 'cookie'});
       expect(replaceStateSpy).not.toHaveBeenCalled();
     });
   });
@@ -158,19 +158,36 @@ describe('pullCredentials', () => {
       const token = validToken();
       setLocation(`t=${token}`);
 
-      expect(pullCredentials(assertWindow()).launchToken?.tokenString).toEqual(token);
+      expect(getLaunchToken(pullCredentials(assertWindow()))?.tokenString).toEqual(token);
     });
 
     it('uses the cookie without one', () => {
       setLocation('');
 
-      expect(pullCredentials(assertWindow()).sessionCredential).toEqual({type: 'cookie'});
+      expect(pullCredentials(assertWindow())).toEqual({type: 'cookie'});
     });
 
     it('still uses the auth param', () => {
       setLocation('auth=accounts-token');
 
-      expect(pullCredentials(assertWindow()).sessionCredential).toEqual({type: 'auth', token: 'accounts-token'});
+      expect(pullCredentials(assertWindow())).toEqual({type: 'auth', token: 'accounts-token'});
     });
+  });
+});
+
+describe('getLaunchToken', () => {
+  const launchToken = {tokenString: 'launch-token', tokenData: {sub: 'user-uuid'}};
+
+  it('returns the launch token of a launch token session', () => {
+    expect(getLaunchToken({type: 'launchToken', launchToken})).toBe(launchToken);
+  });
+
+  it('returns the launch token alongside an auth token, for its claims', () => {
+    expect(getLaunchToken({type: 'auth', token: 'accounts-token', launchToken})).toBe(launchToken);
+    expect(getLaunchToken({type: 'auth', token: 'accounts-token'})).toBe(undefined);
+  });
+
+  it('returns undefined for the cookie', () => {
+    expect(getLaunchToken({type: 'cookie'})).toBe(undefined);
   });
 });

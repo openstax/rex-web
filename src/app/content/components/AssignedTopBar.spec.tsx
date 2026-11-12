@@ -74,7 +74,7 @@ describe('AssignedTopBar', () => {
   });
 
   it('renders null with textSize integration', async() => {
-    services.launchToken = {tokenString: '', tokenData: {textSize: 2}};
+    services.sessionCredential = {type: 'launchToken', launchToken: {tokenString: '', tokenData: {sub: 'a_uuid', textSize: 2}}};
 
     const section = { title: '1.1 Section Title' } as LinkedArchiveTreeSection;
     const intl = await createIntl('en');
@@ -98,7 +98,7 @@ describe('AssignedTopBar', () => {
     const dispatch = jest.fn();
     Object.defineProperty(assertWindow(), 'parent', {value: {...assertWindow()}});
     Object.defineProperty(assertDocument(), 'referrer', {value: assertWindow().location.toString()});
-    services.launchToken = {tokenString: '', tokenData: {textSize: 2}};
+    services.sessionCredential = {type: 'launchToken', launchToken: {tokenString: '', tokenData: {sub: 'a_uuid', textSize: 2}}};
     jest.spyOn(redux, 'useDispatch').mockImplementation(() => dispatch);
 
     const section = { title: '1.1 Section Title' } as LinkedArchiveTreeSection;
@@ -135,7 +135,7 @@ describe('AssignedTopBar', () => {
     const dispatch = jest.fn();
     Object.defineProperty(assertWindow(), 'parent', {value: {...assertWindow()}});
     Object.defineProperty(assertDocument(), 'referrer', {value: assertWindow().location.toString()});
-    services.launchToken = {tokenString: '', tokenData: {textSize: 2}};
+    services.sessionCredential = {type: 'launchToken', launchToken: {tokenString: '', tokenData: {sub: 'a_uuid', textSize: 2}}};
     jest.spyOn(redux, 'useDispatch').mockImplementation(() => dispatch);
 
     const section = { title: '1.1 Section Title' } as LinkedArchiveTreeSection;

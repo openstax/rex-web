@@ -22,7 +22,7 @@ describe('getConsentState', () => {
 
   const launchSession = (tokenData: {[key: string]: any}) => ({
     type: 'launchToken' as const,
-    launchToken: {tokenString: 'launch-token', tokenData},
+    launchToken: {tokenString: 'launch-token', tokenData: {sub: 'a_uuid', ...tokenData}},
   });
 
   beforeEach(() => {

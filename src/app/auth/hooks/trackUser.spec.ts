@@ -1,7 +1,6 @@
 import { GoogleAnalyticsClient } from '../../../gateways/googleAnalyticsClient';
 import googleAnalyticsClient from '../../../gateways/googleAnalyticsClient';
 import { receiveUser } from '../actions';
-import { launchUser } from '../utils';
 import { AccountsProfileUser } from '../types';
 import { trackUserHookBody } from './trackUser';
 
@@ -84,7 +83,7 @@ describe('trackUser', () => {
 
   describe('launched user', () => {
     it('does not track the user', async() => {
-      await (trackUserHookBody(helpers))(receiveUser(launchUser));
+      await (trackUserHookBody(helpers))(receiveUser({source: 'launch', uuid: 'a_uuid'}));
       expect(mockGtag).not.toHaveBeenCalled();
     });
   });

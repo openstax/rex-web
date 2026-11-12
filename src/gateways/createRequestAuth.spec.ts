@@ -8,7 +8,7 @@ describe('createRequestAuth', () => {
   });
 
   it('sends a launch token in the X-Launch-Token header', async() => {
-    const launchToken = {tokenString: 'launch-token', tokenData: {}};
+    const launchToken = {tokenString: 'launch-token', tokenData: {sub: 'a_uuid'}};
     expect(await createRequestAuth({type: 'launchToken', launchToken}).getAuthorizedFetchConfig()).toEqual({
       headers: {'X-Launch-Token': 'launch-token'},
     });

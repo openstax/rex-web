@@ -1,4 +1,5 @@
 import { AccountsUser } from '../../gateways/createUserLoader';
+import { LaunchToken } from './launchToken';
 import { AccountsProfileUser, LaunchUser } from './types';
 
 export const formatUser = (user: AccountsUser): AccountsProfileUser => ({
@@ -9,4 +10,7 @@ export const formatUser = (user: AccountsUser): AccountsProfileUser => ({
   uuid: user.uuid,
 });
 
-export const launchUser: LaunchUser = {source: 'launch'};
+export const formatLaunchUser = (launchToken: LaunchToken): LaunchUser => ({
+  source: 'launch',
+  uuid: launchToken.tokenData.sub,
+});
