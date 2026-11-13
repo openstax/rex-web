@@ -9,7 +9,7 @@ import { TopBarWrapper } from './Topbar/styled';
 import { TextResizer } from './Topbar/TextResizer';
 import { topbarDesktopHeight, topbarMobileHeight } from './constants';
 import { TextResizerValue, textResizerValues } from '../constants';
-import { useLaunchToken } from '../launchToken';
+import { useLaunchToken } from '../../auth/credentials';
 import './AssignedTopBar.css';
 
 const useTextResizeIntegration = (handleChange: (value: TextResizerValue) => void) => {

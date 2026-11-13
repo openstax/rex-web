@@ -1,0 +1,28 @@
+import { parseConsentPreferences } from './consentPreferences';
+
+describe('parseConsentPreferences', () => {
+  it('returns both lists', () => {
+    expect(parseConsentPreferences({accepted: ['analytics'], rejected: ['advertisement']}))
+      .toEqual({accepted: ['analytics'], rejected: ['advertisement']});
+  });
+
+  it('fills in a missing accepted list', () => {
+    expect(parseConsentPreferences({rejected: ['analytics']})).toEqual({accepted: [], rejected: ['analytics']});
+  });
+
+  it('fills in missing or invalid lists', () => {
+    expect(parseConsentPreferences({accepted: ['analytics'], rejected: 'advertisement'}))
+      .toEqual({accepted: ['analytics'], rejected: []});
+  });
+
+  it('returns undefined when neither list is there, so the user is still asked', () => {
+    expect(parseConsentPreferences({})).toBeUndefined();
+    expect(parseConsentPreferences({accepted: 'analytics', rejected: null})).toBeUndefined();
+  });
+
+  it('returns undefined for anything that is not an object', () => {
+    expect(parseConsentPreferences(undefined)).toBeUndefined();
+    expect(parseConsentPreferences(['analytics'])).toBeUndefined();
+    expect(parseConsentPreferences('analytics')).toBeUndefined();
+  });
+});

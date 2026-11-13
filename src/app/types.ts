@@ -21,6 +21,7 @@ import createImageCDNUtils from '../gateways/createImageCDNUtils';
 import analytics from '../helpers/analytics';
 import FontCollector from '../helpers/FontCollector';
 import PromiseCollector from '../helpers/PromiseCollector';
+import type { SessionCredential } from './auth/credentials';
 import { State as authState } from './auth/types';
 import { State as contentState } from './content/types';
 import { State as errorsState } from './errors/types';
@@ -29,7 +30,6 @@ import { State as headState } from './head/types';
 import { State as navigationState } from './navigation/types';
 import { State as notificationState } from './notifications/types';
 import { RouterService } from './navigation/routerService';
-import type { JsonCompatibleStruct } from '@openstax/ts-utils/routing';
 
 export interface AppState {
   content: contentState;
@@ -50,12 +50,12 @@ export interface AppServices {
   highlightClient: ReturnType<typeof createHighlightClient>;
   history: History;
   intl: {current: IntlShape | null};
-  launchToken?: {tokenString: string, tokenData: JsonCompatibleStruct};
   osWebLoader: ReturnType<typeof createOSWebLoader>;
   practiceQuestionsLoader: ReturnType<typeof createPracticeQuestionsLoader>;
   prerenderedContent?: string;
   promiseCollector: PromiseCollector;
   searchClient: ReturnType<typeof createSearchClient>;
+  sessionCredential: SessionCredential;
   serviceWorker?: ServiceWorkerRegistration;
   userLoader: ReturnType<typeof createUserLoader>;
   bookConfigLoader: ReturnType<typeof createBookConfigLoader>;

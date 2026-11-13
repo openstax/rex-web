@@ -1,7 +1,7 @@
 import { SearchApi } from '@openstax/open-search-client';
 import { createMemoryHistory } from 'history';
 import config from '../config';
-import type { JsonCompatibleStruct } from '@openstax/ts-utils/routing';
+import type { SessionCredential } from '../app/auth/credentials';
 import createHighlightClient from '../gateways/createHighlightClient';
 import createPracticeQuestionsLoader from '../gateways/createPracticeQuestionsLoader';
 import analytics from '../helpers/analytics';
@@ -31,7 +31,7 @@ export const createTestServices = (args?: {prefetchResolutions: boolean}) => ({
   practiceQuestionsLoader: createPracticeQuestionsLoader(),
   promiseCollector: new PromiseCollector(),
   searchClient: new SearchApi(),
-  launchToken: undefined as undefined | {tokenString: string, tokenData: JsonCompatibleStruct},
+  sessionCredential: {type: 'cookie'} as SessionCredential,
   userLoader: mockUserLoader(),
   imageCDNUtils: createImageCDNUtils(args),
   router: createRouterService([]),

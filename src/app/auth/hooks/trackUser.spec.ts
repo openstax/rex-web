@@ -1,7 +1,7 @@
 import { GoogleAnalyticsClient } from '../../../gateways/googleAnalyticsClient';
 import googleAnalyticsClient from '../../../gateways/googleAnalyticsClient';
 import { receiveUser } from '../actions';
-import { User } from '../types';
+import { AccountsProfileUser } from '../types';
 import { trackUserHookBody } from './trackUser';
 
 declare const window: Window;
@@ -11,14 +11,14 @@ describe('trackUser', () => {
   let mockGtag: any;
   const dispatchMock = jest.fn();
   const helpers: any = {dispatch: dispatchMock};
-  let user: User;
+  let user: AccountsProfileUser;
 
   beforeEach(() => {
     client = googleAnalyticsClient;
     mockGtag = jest.fn<Gtag.Gtag, []>();
     window.gtag = mockGtag;
     client.setTagIds(['foo']);
-    user = {firstName: 'test', isNotGdprLocation: true, lastName: 'test', uuid: 'a_uuid'};
+    user = {source: 'accounts', firstName: 'test', isNotGdprLocation: true, lastName: 'test', uuid: 'a_uuid'};
     jest.resetAllMocks();
   });
 
@@ -81,4 +81,10 @@ describe('trackUser', () => {
     });
   });
 
+  describe('launched user', () => {
+    it('does not track the user', async() => {
+      await (trackUserHookBody(helpers))(receiveUser({source: 'launch', uuid: 'a_uuid'}));
+      expect(mockGtag).not.toHaveBeenCalled();
+    });
+  });
 });

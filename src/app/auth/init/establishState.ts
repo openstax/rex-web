@@ -1,9 +1,20 @@
 import { Initializer } from '../../types';
 import { receiveLoggedOut, receiveUser } from '../actions';
-import { formatUser } from '../utils';
+import { formatLaunchUser, formatUser } from '../utils';
 
-const initializer: Initializer = async({dispatch, userLoader}) => {
+const initializer: Initializer = async({dispatch, userLoader, sessionCredential}) => {
   if (typeof(window) === 'undefined') {
+    return;
+  }
+
+  // A launch token session is logged in; Accounts is not asked
+  if (sessionCredential.type === 'launchToken') {
+    const user = formatLaunchUser(sessionCredential.launchToken);
+
+    // analytics only needs the user's id
+    window.dataLayer.push({user: {uuid: user.uuid}});
+
+    dispatch(receiveUser(user));
     return;
   }
 
