@@ -4,14 +4,18 @@ import { useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import classNames from 'classnames';
 import { scrollTo } from '../../domUtils';
+import { isElement } from '../../guards';
+import * as selectNavigation from '../../navigation/selectors';
 import theme from '../../theme';
 import { AppState } from '../../types';
-import { assertNotNull } from '../../utils';
+import { assertNotNull, assertWindow } from '../../utils';
 import { hasOSWebData } from '../guards';
 import * as select from '../selectors';
-import { Book, BookWithOSWebData, Page } from '../types';
+import { Book, BookWithOSWebData, Page, Params } from '../types';
 import { findDefaultBookPage, getBookPageUrlAndParams } from '../utils';
 import { splitTitleParts } from '../utils/archiveTreeUtils';
+import { isClickWithModifierKeys } from '../utils/domUtils';
+import { getCurrentPortalParams } from '../utils/urlUtils';
 import { bookIdsWithSpecialAttributionText, compensateForUTC, getAuthors, getPublishDate } from './utils/attributionValues';
 import { ExpandIcon, CollapseIcon } from '../../components/Details';
 import { linkColor, linkHover } from '../../components/Typography/Links.constants';
@@ -53,12 +57,35 @@ interface ContentProps extends React.HTMLAttributes<HTMLDivElement> {
   values?: Record<string, Date | string | number | null>;
 }
 
+// The links keep the canonical url in their href so that every way of copying them gives the
+// canonical url, but opening one, in this tab or a new one, keeps the reader in their portal
+const openPortalLink = (e: React.MouseEvent) => {
+  const link = isElement(e.target) ? e.target.closest('a[data-portal-href]') : null;
+
+  // Only the main and middle buttons open links
+  if (!link || e.button > 1) {
+    return;
+  }
+
+  e.preventDefault();
+  const portalHref = assertNotNull(link.getAttribute('data-portal-href'), 'it was found by having the attribute');
+  const window = assertWindow();
+
+  if (e.button === 1 || isClickWithModifierKeys(e) || link.getAttribute('target') === '_blank') {
+    window.open(portalHref, '_blank', 'noopener');
+  } else {
+    window.location.assign(portalHref);
+  }
+};
+
 function Content({ values, className, style, ...props }: ContentProps) {
   const html = useIntl().formatMessage({id: 'i18n:attribution:text'}, values, {ignoreTag: true});
 
   return (
     <div
       {...props}
+      onClick={openPortalLink}
+      onAuxClick={openPortalLink}
       className={classNames('attribution-content', className)}
       style={{
         '--content-text-width': `${contentTextWidth}rem`,
@@ -90,7 +117,7 @@ interface AttributionProps {
   page: Page | undefined;
 }
 
-function getAttributionValues(book: BookWithOSWebData, page: Page) {
+function getAttributionValues(book: BookWithOSWebData, page: Page, portalParams: Pick<Params, 'portalName'>) {
   const introPage = findDefaultBookPage(book);
   const bookWithoutExplicitVersions = {
     ...book,
@@ -100,9 +127,12 @@ function getAttributionValues(book: BookWithOSWebData, page: Page) {
   const [, introTitlePart] = splitTitleParts(introPage.title);
   const [, currentTitlePart] = splitTitleParts(page.title);
   const introPageTitle = `${introTitlePart} - ${book.title} | OpenStax`;
-  const introPageUrl = getBookPageUrlAndParams(bookWithoutExplicitVersions, introPage).url;
-  const currentPageUrl = getBookPageUrlAndParams(bookWithoutExplicitVersions, page).url;
   const currentPageTitle = `${currentTitlePart} - ${book.title} | OpenStax`;
+  // The canonical urls are shown for citing, but the links keep the reader in their portal
+  const canonicalIntroPageUrl = getBookPageUrlAndParams(bookWithoutExplicitVersions, introPage).url;
+  const canonicalCurrentPageUrl = getBookPageUrlAndParams(bookWithoutExplicitVersions, page).url;
+  const portalIntroPageUrl = getBookPageUrlAndParams(bookWithoutExplicitVersions, introPage, portalParams).url;
+  const portalCurrentPageUrl = getBookPageUrlAndParams(bookWithoutExplicitVersions, page, portalParams).url;
 
   assertNotNull(book.publish_date, `BUG: Could not find publication date`);
   const bookPublishDate = getPublishDate(book);
@@ -120,11 +150,13 @@ function getAttributionValues(book: BookWithOSWebData, page: Page) {
     bookLicenseVersion: book.license.version ? ` ${book.license.version}` : '',
     bookPublishDate,
     bookTitle: book.title,
+    canonicalCurrentPageUrl,
+    canonicalIntroPageUrl,
     copyrightHolder: 'OpenStax',
-    currentPath: currentPageUrl,
     currentPageTitle,
     introPageTitle,
-    introPageUrl,
+    portalCurrentPageUrl,
+    portalIntroPageUrl,
     originalMaterialLink: null,
     permissionRequestUrl: 'https://openstax.org/r/content-reuse-request',
     ...bookIdsWithSpecialAttributionText[book.id] || {},
@@ -140,6 +172,7 @@ function getAttributionValues(book: BookWithOSWebData, page: Page) {
 export function Attribution({ book, page }: AttributionProps) {
   const containerRef = useRef<HTMLDetailsElement>(null);
   const previousPageRef = useRef<Page | undefined>(page);
+  const portalParams = getCurrentPortalParams(useSelector(selectNavigation.params));
 
   useEffect(() => {
     const container = containerRef.current;
@@ -172,7 +205,7 @@ export function Attribution({ book, page }: AttributionProps) {
     return null;
   }
 
-  const values = getAttributionValues(book, page);
+  const values = getAttributionValues(book, page, portalParams);
 
   return (
     <details

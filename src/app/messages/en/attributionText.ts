@@ -36,7 +36,7 @@ export const defaultText = `
     If you are redistributing all or part of this book in a noncommercial print format, 
     then you must include on every physical page the following attribution:
     <p>
-      Access for free at https://openstax.org{introPageUrl}
+      Access for free at https://openstax.org{canonicalIntroPageUrl}
     </p>
   </li>
   <li>
@@ -45,7 +45,7 @@ export const defaultText = `
     under the same CC-BY-NC-SA license as the original, and include on every digital page 
     view the following attribution:
     <p>
-      Access for free at <a target="_blank" rel="noopener" href="https://openstax.org{introPageUrl}">https://openstax.org{introPageUrl}</a>
+      Access for free at <a target="_blank" rel="noopener" href="https://openstax.org{canonicalIntroPageUrl}" data-portal-href="https://openstax.org{portalIntroPageUrl}">https://openstax.org{canonicalIntroPageUrl}</a>
     </p>
   </li>
 </ul>
@@ -75,10 +75,10 @@ export const defaultText = `
     Location: Houston, Texas
   </li>
   <li>
-    Book URL: <a target="_blank" rel="noopener" href="https://openstax.org{introPageUrl}">https://openstax.org{introPageUrl}</a>
+    Book URL: <a target="_blank" rel="noopener" href="https://openstax.org{canonicalIntroPageUrl}" data-portal-href="https://openstax.org{portalIntroPageUrl}">https://openstax.org{canonicalIntroPageUrl}</a>
   </li>
   <li>
-    Section URL: <a target="_blank" rel="noopener" href="https://openstax.org{currentPath}">https://openstax.org{currentPath}</a>
+    Section URL: <a target="_blank" rel="noopener" href="https://openstax.org{canonicalCurrentPageUrl}" data-portal-href="https://openstax.org{portalCurrentPageUrl}">https://openstax.org{canonicalCurrentPageUrl}</a>
   </li>
 </ul>
 
