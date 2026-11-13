@@ -10,6 +10,8 @@ export const formatUser = (user: AccountsUser): AccountsProfileUser => ({
   uuid: user.uuid,
 });
 
+// launchToken is unverified in the client, data we use here is untrusted.
+// backend calls verify the token before doing anything on behalf of the user.
 export const formatLaunchUser = (launchToken: LaunchToken): LaunchUser => ({
   source: 'launch',
   uuid: launchToken.tokenData.sub,
