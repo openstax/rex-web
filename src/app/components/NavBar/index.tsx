@@ -7,7 +7,7 @@ import Color from 'color';
 import openstaxLogo from '../../../assets/logo.svg';
 import * as authSelect from '../../auth/selectors';
 import * as selectHighlights from '../../content/highlights/selectors';
-import { User } from '../../auth/types';
+import { AccountsProfileUser, User } from '../../auth/types';
 import * as selectNavigation from '../../navigation/selectors';
 import { AppState } from '../../types';
 import * as guards from '../../guards';
@@ -42,7 +42,7 @@ export const useUnsavedHighlightsValidator = (hasUnsavedHighlight: boolean) => {
 };
 
 export const MobileDropdown: FunctionComponent<{
-  user: User,
+  user: AccountsProfileUser,
   currentPath: string,
   logoUrl: string,
   hasUnsavedHighlight: boolean,
@@ -151,7 +151,7 @@ export const MobileDropdown: FunctionComponent<{
 };
 
 const LoggedInState: FunctionComponent<{
-  user: User;
+  user: AccountsProfileUser;
   currentPath: string;
   logoUrl: string;
   hasUnsavedHighlight: boolean;
@@ -306,7 +306,7 @@ const NavigationBar = ({user, loggedOut, currentPath, hasUnsavedHighlight, param
           />
         </a>
         {loggedOut && <LoggedOutState currentPath={currentPath} />}
-        {user && <LoggedInState
+        {user?.source === 'accounts' && <LoggedInState
           user={user}
           currentPath={currentPath}
           logoUrl={logoUrl}

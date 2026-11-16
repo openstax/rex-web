@@ -23,7 +23,7 @@ describe('HighlightsHelpInfo', () => {
 
   beforeEach(() => {
     store = createTestStore();
-    user = {firstName: 'test', isNotGdprLocation: true, lastName: 'test', uuid: 'a_uuid'};
+    user = {source: 'accounts', firstName: 'test', isNotGdprLocation: true, lastName: 'test', uuid: 'a_uuid'};
   });
 
   it('matches snapshot when hidden', () => {
