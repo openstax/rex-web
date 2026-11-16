@@ -1,11 +1,11 @@
-import { ActionHookBody, AppServices, MiddlewareAPI } from '../../types';
-import { setTextSize } from '../actions';
 import {
   textResizerDefaultValue,
   textResizerStorageKey,
   TextResizerValue,
   textResizerValues,
-} from '../constants';
+} from '@openstax/ui-components';
+import { ActionHookBody, AppServices, MiddlewareAPI } from '../../types';
+import { setTextSize } from '../actions';
 import { textSize } from '../selectors';
 
 export const loadStoredTextSize = (services: MiddlewareAPI & AppServices) => async() => {

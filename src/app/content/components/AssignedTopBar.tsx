@@ -8,7 +8,7 @@ import { LinkedArchiveTreeSection } from '../types';
 import { TopBarWrapper } from './Topbar/styled';
 import { TextResizer } from './Topbar/TextResizer';
 import { topbarDesktopHeight, topbarMobileHeight } from './constants';
-import { TextResizerValue, textResizerValues } from '../constants';
+import { TextResizerValue, textResizerValues } from '@openstax/ui-components';
 import { useLaunchToken } from '../launchToken';
 import './AssignedTopBar.css';
 

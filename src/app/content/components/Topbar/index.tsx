@@ -2,7 +2,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { openMobileMenu, setTextSize } from '../../actions';
-import { TextResizerValue } from '../../constants';
+import { TextResizerValue } from '@openstax/ui-components';
 import { openSearchResultsMobile } from '../../search/actions';
 import * as selectSearch from '../../search/selectors';
 import * as selectContent from '../../selectors';

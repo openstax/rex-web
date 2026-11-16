@@ -1,16 +1,8 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
-import decreaseTextSizeIcon from '../../../../assets/text-size-decrease.svg';
-import increaseTextSizeIcon from '../../../../assets/text-size-increase.svg';
+import { useIntl } from 'react-intl';
+import { TextResizer as TextResizerControl, TextResizerValue } from '@openstax/ui-components';
 import textSizeIcon from '../../../../assets/text-size.svg';
-import { HTMLInputElement } from '@openstax/types/lib.dom';
-import {
-  textResizerDefaultValue,
-  textResizerMaxValue,
-  textResizerMinValue,
-  TextResizerValue,
-  textResizerValues,
-} from '../../constants';
+import theme from '../../../theme';
 import { BookWithOSWebData } from '../../types';
 import * as Styled from './styled';
 
@@ -23,28 +15,11 @@ export interface TextResizerProps {
 }
 
 export const TextResizer = (props: TextResizerProps) => {
-  const onChangeTextSize = (e: React.FormEvent<HTMLInputElement>) => {
-    const target = e.currentTarget;
-    const value = parseInt(target.value, 10) as TextResizerValue;
-    if (!textResizerValues.includes(value)) { return; }
-    props.setTextSize(value);
-  };
-
-  const onDecreaseTextSize = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    const newValue = ((props.textSize || textResizerDefaultValue) - 1);
-    if (newValue < textResizerMinValue) { return; }
-    props.setTextSize(newValue as TextResizerValue);
-  };
-
-  const onIncreaseTextSize = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    const newValue = ((props.textSize || textResizerDefaultValue) + 1);
-    if (newValue > textResizerMaxValue) { return; }
-    props.setTextSize(newValue as TextResizerValue);
-  };
+  const intl = useIntl();
 
   if (props.textSize === null) { return null; }
+
+  const message = (id: string) => intl.formatMessage({ id });
 
   return (
     <Styled.TextResizerDropdown
@@ -59,34 +34,20 @@ export const TextResizer = (props: TextResizerProps) => {
       menuClassName='text-resizer-menu'
       {...props}
     >
-      <Styled.TextResizerMenu id='text-resizer-menu' bookTheme={props.bookTheme} textSize={props.textSize}>
-        <label id='text-resizer-label'><FormattedMessage id='i18n:toolbar:textresizer:popup:heading' /></label>
-        <div className='controls' role='group' aria-labelledby='text-resizer-label'>
-          <Styled.TextResizerChangeButton
-            onClick={onDecreaseTextSize}
-            ariaLabelId='i18n:toolbar:textresizer:button:decrease:aria-label'
-            data-testid='decrease-text-size'
-          >
-            <img aria-hidden='true' src={decreaseTextSizeIcon} alt='' />
-          </Styled.TextResizerChangeButton>
-          <input
-            type='range'
-            step='1'
-            min={textResizerMinValue}
-            max={textResizerMaxValue}
-            onChange={onChangeTextSize}
-            value={props.textSize}
-            data-testid='change-text-size'
-            aria-labelledby='text-resizer-label'
-          />
-          <Styled.TextResizerChangeButton
-            onClick={onIncreaseTextSize}
-            ariaLabelId='i18n:toolbar:textresizer:button:increase:aria-label'
-            data-testid='increase-text-size'
-          >
-            <img aria-hidden='true' src={increaseTextSizeIcon} alt='' />
-          </Styled.TextResizerChangeButton>
+      <Styled.TextResizerMenu id='text-resizer-menu'>
+        <div id='text-resizer-label' className='text-resizer-heading'>
+          {message('i18n:toolbar:textresizer:popup:heading')}
         </div>
+        <TextResizerControl
+          value={props.textSize}
+          onChange={props.setTextSize}
+          aria-labelledby='text-resizer-label'
+          sliderLabel={message('i18n:toolbar:textresizer:popup:heading')}
+          decreaseLabel={message('i18n:toolbar:textresizer:button:decrease:aria-label')}
+          increaseLabel={message('i18n:toolbar:textresizer:button:increase:aria-label')}
+          announcement={(percent) => intl.formatMessage({ id: 'i18n:toolbar:textresizer:announcement' }, { percent })}
+          fillColor={props.bookTheme ? theme.color.primary[props.bookTheme].base : undefined}
+        />
       </Styled.TextResizerMenu>
     </Styled.TextResizerDropdown>
   );
