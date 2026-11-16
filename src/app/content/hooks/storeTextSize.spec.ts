@@ -81,9 +81,19 @@ describe('loadStoredTextSize', () => {
   });
 
   it('loads the value from launchToken', async() => {
-    helpers.launchToken = {tokenString: '', tokenData: {textSize: 2}};
+    helpers.sessionCredential = {type: 'launchToken', launchToken: {tokenString: '', tokenData: {sub: 'a', textSize: 2}}};
     await hook();
     expect(assertWindow().localStorage.getItem).toHaveBeenCalled();
+    expect(storeDispatch).toHaveBeenCalledWith(setTextSize(2));
+  });
+
+  it('loads the value from a launchToken alongside an auth token', async() => {
+    helpers.sessionCredential = {
+      type: 'auth',
+      token: 'accounts-token',
+      launchToken: {tokenString: '', tokenData: {sub: 'a', textSize: 2}},
+    };
+    await hook();
     expect(storeDispatch).toHaveBeenCalledWith(setTextSize(2));
   });
 
