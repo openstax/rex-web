@@ -51,6 +51,10 @@ Nothing in CI runs the TypeScript specs in `tests/rex-test/` (`rex.behaviorspec.
 `tabbing.behaviorspec.ts`), so run them yourself when you change what they cover. For example, run
 `tabbing.behaviorspec.ts` after changing highlight card focus handling.
 
+This is the current approach, not a permanent one. A CI job needs a review-app URL and the accounts
+and highlights setup from `ci.yml`, and the Python suite that CI does run is often red on shared
+test-account data. A non-blocking CI job is the likely next step.
+
 Install the dependencies first (see "Install dependencies" above), then run a single spec in one
 browser against staging, from the `e2e_tests` directory:
 
@@ -64,7 +68,8 @@ Point it at another environment with `URL`. Use this to try a change before it r
 * A review app for a pull request: `URL=https://<review-app>.herokuapp.com npx playwright test ...`
 
 The specs sign up a throwaway `restmail.net` account, so the environment needs accounts and
-highlights, as every full REX environment has. They run in the Desktop Chrome and Desktop Firefox
-projects in `playwright.config.ts`. The mobile and tablet projects (Pixel 5, iPhone 12, iPad Pro 11
+highlights, as every full REX environment has. The specs have only been run in the Desktop Chrome
+project. Desktop Firefox is configured in `playwright.config.ts` but has not been checked, and tab
+order can differ between browsers. The mobile and tablet projects (Pixel 5, iPhone 12, iPad Pro 11
 landscape) skip them because they depend on desktop-only controls, and there is no desktop WebKit
 project.
