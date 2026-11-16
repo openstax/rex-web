@@ -2,7 +2,7 @@ import ReactTestUtils from 'react-dom/test-utils';
 import createTestStore from '../../../test/createTestStore';
 import { reactAndFriends, resetModules } from '../../../test/utils';
 import { receiveLoggedOut, receiveUser } from '../../auth/actions';
-import { User } from '../../auth/types';
+import { AccountsProfileUser } from '../../auth/types';
 import { AppState, Store } from '../../types';
 import { assertWindow } from '../../utils';
 import { assertNotNull } from '../../utils/assertions';
@@ -61,10 +61,10 @@ describe('content', () => {
   describe('in browser', () => {
     let NavBar: any;
     let store: Store;
-    let user: User;
+    let user: AccountsProfileUser;
 
     beforeEach(() => {
-      user = { firstName: 'test', isNotGdprLocation: true, lastName: 'test', uuid: 'some_uuid' };
+      user = { source: 'accounts', firstName: 'test', isNotGdprLocation: true, lastName: 'test', uuid: 'some_uuid' };
       store = createTestStore();
       NavBar = require('.').default;
     });
@@ -596,10 +596,10 @@ describe('content', () => {
   describe('with unsaved highlights', () => {
     let NavBar: any;
     let store: Store;
-    let user: User;
+    let user: AccountsProfileUser;
 
     beforeEach(() => {
-      user = { firstName: 'testUnsaved', isNotGdprLocation: true, lastName: 'test', uuid: 'some_uuid' };
+      user = { source: 'accounts', firstName: 'testUnsaved', isNotGdprLocation: true, lastName: 'test', uuid: 'some_uuid' };
       store = createTestStore();
       store.dispatch(receiveUser(user));
       store.dispatch(setAnnotationChangesPending(true));
