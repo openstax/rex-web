@@ -5281,9 +5281,9 @@
   dependencies:
     uuid "^8.3.2"
 
-"@openstax/highlighter@https://github.com/openstax/highlighter#1.17.1":
-  version "1.17.1"
-  resolved "https://github.com/openstax/highlighter#7e29835514df08de7ca5c5b5a5efefeaab4b7244"
+"@openstax/highlighter@https://github.com/openstax/highlighter#v1.17.2":
+  version "1.17.2"
+  resolved "https://github.com/openstax/highlighter#a52122c9bdc4b8dd48f2fe52c731580ba0224d89"
   dependencies:
     "@openstax/highlights-client" "0.2.3"
     change-case "^4.0.0"
