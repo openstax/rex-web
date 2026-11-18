@@ -3,7 +3,7 @@ import createTestStore from '../../../test/createTestStore';
 import { MiddlewareAPI, Store } from '../../types';
 import { assertWindow } from '../../utils/browser-assertions';
 import { setTextSize } from '../actions';
-import { textResizerDefaultValue, textResizerMaxValue, textResizerMinValue } from '../constants';
+import { textResizerDefaultValue, textResizerMaxValue, textResizerMinValue } from '@openstax/ui-components';
 import storeTextSize, { loadStoredTextSize } from './storeTextSize';
 
 describe('storeTextSize', () => {

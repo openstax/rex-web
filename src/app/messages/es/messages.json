@@ -259,6 +259,7 @@
   "i18n:toolbar:studyguides:popup:button:back-to-top": "Volver al inicio",
   "i18n:toolbar:studyguides:popup:close-button:aria-label": "Cerrar guía de estudio",
   "i18n:toolbar:studyguides:popup:heading": "Guía de estudio",
+  "i18n:toolbar:textresizer:announcement": "Tamaño del texto {percent}",
   "i18n:toolbar:textresizer:button:aria-label": "Cambiar el tamaño del texto",
   "i18n:toolbar:textresizer:button:decrease:aria-label": "Disminuir el tamaño del texto",
   "i18n:toolbar:textresizer:button:increase:aria-label": "Aumentar el tamaño del texto",

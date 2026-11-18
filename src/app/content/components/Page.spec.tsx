@@ -25,7 +25,7 @@ import { AppServices, AppState, MiddlewareAPI, Store } from '../../types';
 import { assertDocument, assertWindow } from '../../utils';
 import * as actions from '../actions';
 import { receivePage } from '../actions';
-import { textResizerDefaultValue } from '../constants';
+import { textResizerDefaultValue } from '@openstax/ui-components';
 import { receiveHighlights } from '../highlights/actions';
 import { initialState } from '../reducer';
 import * as routes from '../routes';
