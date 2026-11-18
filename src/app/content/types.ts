@@ -1,6 +1,6 @@
 import { BooksConfig } from '../../gateways/createBookConfigLoader';
 import { Route, RouteParams } from '../navigation/types';
-import { TextResizerValue } from './constants';
+import { TextResizerValue } from '@openstax/ui-components';
 import { State as HighlightState } from './highlights/types';
 import { State as PracticeQuestionsState } from './practiceQuestions/types';
 import { content } from './routes';

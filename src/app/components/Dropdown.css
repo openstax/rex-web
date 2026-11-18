@@ -152,6 +152,7 @@
   right: 0;
   left: auto;
   top: calc(100% - 1px);
+  margin-top: 0; /* ui-components' own .dropdown-menu sets a negative margin-top */
 }
 
 /* ContextMenu customization for dropdown-menu */

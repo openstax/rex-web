@@ -1,3 +1,4 @@
+import { TextResizer as TextResizerControl } from '@openstax/ui-components';
 import React from 'react';
 import { Provider } from 'react-redux';
 import renderer, { TestRendererOptions } from 'react-test-renderer';
@@ -21,8 +22,7 @@ import TestContainer from '../../../../test/TestContainer';
 import * as Services from '../../../context/Services';
 import { MiddlewareAPI, Store } from '../../../types';
 import { assertDocument } from '../../../utils';
-import { openMobileMenu, setTextSize } from '../../actions';
-import { textResizerMaxValue, textResizerMinValue } from '../../constants';
+import { openMobileMenu, receiveBook, setTextSize } from '../../actions';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import { searchKeyCombination } from '../../highlights/constants';
 import {
@@ -33,6 +33,7 @@ import {
   requestSearch
 } from '../../search/actions';
 import * as searchSelectors from '../../search/selectors';
+import * as selectContent from '../../selectors';
 import { formatBookData } from '../../utils';
 import {
   CloseButtonNew,
@@ -42,6 +43,7 @@ import {
   TextResizerMenu
 } from './styled';
 import { useMatchMobileQuery } from '../../../reactUtils';
+import theme from '../../../theme';
 
 const book = formatBookData(archiveBook, mockCmsBook);
 
@@ -523,143 +525,57 @@ describe('text resizer', () => {
     expect(component).toMatchSnapshot();
   });
 
-  it('changes the text size with buttons', () => {
-    const component = renderer.create(
-      <TestContainer store={store}>
-        <Topbar />
-      </TestContainer>
-    );
-
+  const openMenu = (component: renderer.ReactTestRenderer) => {
     renderer.act(() => {
       component.root
         .findByProps({ 'data-testid': 'text-resizer' })
         .findByProps({ isOpen: false })
         .props.onClick({ preventDefault: jest.fn() });
     });
+    return component.root.findByType(TextResizerControl);
+  };
+
+  const renderOpenMenu = () => openMenu(renderer.create(
+    <TestContainer store={store}>
+      <Topbar />
+    </TestContainer>
+  ));
+
+  it('passes the current size and the translated text to the control', () => {
+    store.dispatch(setTextSize(1));
+    const control = renderOpenMenu();
+
+    expect(control.props.value).toBe(1);
+    expect(control.props.sliderLabel).toBe('Text size');
+    expect(control.props.decreaseLabel).toBe('Decrease text size');
+    expect(control.props.increaseLabel).toBe('Increase text size');
+    expect(control.props.announcement('125%')).toBe('Text size 125%');
+    expect(control.props['aria-labelledby']).toBe('text-resizer-label');
+  });
+
+  it('sets the text size when the control changes', () => {
+    const control = renderOpenMenu();
 
     renderer.act(() => {
-      component.root
-        .findByProps({ 'data-testid': 'decrease-text-size' })
-        .props.onClick({ preventDefault: jest.fn() });
+      control.props.onChange(-1);
     });
 
     expect(dispatch).toHaveBeenCalledWith(setTextSize(-1));
-
-    renderer.act(() => {
-      component.root
-        .findByProps({ 'data-testid': 'increase-text-size' })
-        .props.onClick({ preventDefault: jest.fn() });
-    });
-
-    expect(dispatch).toHaveBeenCalledWith(setTextSize(0));
-
-    renderer.act(() => {
-      component.root
-        .findByProps({ 'data-testid': 'increase-text-size' })
-        .props.onClick({ preventDefault: jest.fn() });
-    });
-
-    expect(dispatch).toHaveBeenCalledWith(setTextSize(1));
-
-    dispatch.mockReset();
-
-    renderer.act(() => {
-      component.root
-        .findByProps({ 'data-testid': 'change-text-size' })
-        .props.onChange({ currentTarget: { value: '3' } });
-    });
-
-    expect(dispatch).toHaveBeenCalledWith(setTextSize(3));
   });
 
-  it('keeps values within bounds', () => {
-    store.dispatch(setTextSize(textResizerMaxValue));
-    dispatch.mockClear();
-    const component = renderer.create(
-      <TestContainer store={store}>
-        <Topbar />
-      </TestContainer>
-    );
+  it('fills the slider with the book color', () => {
+    store.dispatch(receiveBook(book));
+    const control = renderOpenMenu();
 
-    renderer.act(() => {
-      component.root
-        .findByProps({ 'data-testid': 'text-resizer' })
-        .findByProps({ isOpen: false })
-        .props.onClick({ preventDefault: jest.fn() });
-    });
-
-    renderer.act(() => {
-      component.root
-        .findByProps({ 'data-testid': 'increase-text-size' })
-        .props.onClick({ preventDefault: jest.fn() });
-    });
-
-    expect(dispatch).not.toHaveBeenCalledWith(
-      setTextSize((textResizerMaxValue + 1) as any)
-    );
-
-    renderer.act(() => {
-      component.root
-        .findByProps({ 'data-testid': 'decrease-text-size' })
-        .props.onClick({ preventDefault: jest.fn() });
-    });
-
-    expect(dispatch).toHaveBeenCalledWith(
-      setTextSize((textResizerMaxValue - 1) as any)
-    );
-
-    renderer.act(() => {
-      store.dispatch(setTextSize(textResizerMinValue));
-      dispatch.mockClear();
-    });
-
-    renderer.act(() => {
-      component.root
-        .findByProps({ 'data-testid': 'decrease-text-size' })
-        .props.onClick({ preventDefault: jest.fn() });
-    });
-
-    expect(dispatch).not.toHaveBeenCalledWith(
-      setTextSize((textResizerMinValue - 1) as any)
-    );
-
-    renderer.act(() => {
-      component.root
-        .findByProps({ 'data-testid': 'change-text-size' })
-        .props.onChange({ currentTarget: { value: textResizerMaxValue + 1 } });
-    });
-
-    expect(dispatch).not.toHaveBeenCalledWith(
-      setTextSize((textResizerMaxValue + 1) as any)
-    );
-
-    renderer.act(() => {
-      component.root
-        .findByProps({ 'data-testid': 'change-text-size' })
-        .props.onChange({ currentTarget: { value: textResizerMinValue - 1 } });
-    });
-
-    expect(dispatch).not.toHaveBeenCalledWith(
-      setTextSize((textResizerMinValue - 1) as any)
-    );
-
-    renderer.act(() => {
-      component.root
-        .findByProps({ 'data-testid': 'change-text-size' })
-        .props.onChange({ currentTarget: { value: 'invalid' } });
-    });
-
-    expect(dispatch).not.toHaveBeenCalled();
+    expect(book.theme).toBeTruthy();
+    expect(control.props.fillColor).toBe(theme.color.primary[book.theme].base);
   });
 
-  it('applies fallback gray background when bookTheme is not set', () => {
-    // Test the TextResizerMenu styled component directly with undefined bookTheme
-    const component = renderer.create(
-      <TextResizerMenu bookTheme={undefined as any} textSize={0} />
-    );
+  it('leaves the slider fill to the control when there is no book color', () => {
+    const bookTheme = jest.spyOn(selectContent, 'bookTheme').mockReturnValue(undefined as any);
+    const control = renderOpenMenu();
 
-    // When bookTheme is undefined, the styled component should apply
-    // the fallback solid gray background instead of a gradient
-    expect(component.root.findByType(TextResizerMenu).props.bookTheme).toBeUndefined();
+    expect(control.props.fillColor).toBeUndefined();
+    bookTheme.mockRestore();
   });
 });

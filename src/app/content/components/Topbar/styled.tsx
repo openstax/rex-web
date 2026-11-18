@@ -4,7 +4,6 @@ import classNames from 'classnames';
 import SearchIcon from '../../../../assets/SearchIcon';
 import Times from '../../../components/Times';
 import theme from '../../../theme';
-import { textResizerMaxValue, textResizerMinValue } from '../../constants';
 import { BookWithOSWebData } from '../../types';
 import { HTMLInputElement } from '@openstax/types/lib.dom';
 import {
@@ -538,62 +537,14 @@ export function TextResizerDropdown({
 }
 
 export function TextResizerMenu({
-  bookTheme,
-  textSize,
   className,
-  style,
   ...domProps
-}: React.HTMLAttributes<HTMLDivElement> & {
-  bookTheme: BookWithOSWebData["theme"];
-  textSize: number;
-}) {
-  // Compute text resizer gradient
-  // Note: Uses root-level CSS variable for gray, but bookTheme color is dynamic
-  const textResizerGradient = bookTheme
-    ? `linear-gradient(
-        to right,
-        ${theme.color.primary[bookTheme].base}
-          calc((${textSize} - ${textResizerMinValue}) * 100 / (${textResizerMaxValue} - ${textResizerMinValue}) * 1%),
-          var(--color-primary-gray-medium)
-          calc((${textSize} - ${textResizerMinValue}) * 100 / (${textResizerMaxValue} - ${textResizerMinValue}) * 1%)
-      )`
-    : undefined;
-
+}: React.HTMLAttributes<HTMLDivElement>) {
   return (
     <div
       {...domProps}
       className={classNames('topbar-text-resizer-menu', className)}
-      style={
-        {
-          '--text-resizer-gradient': textResizerGradient,
-          ...style,
-        } as React.CSSProperties
-      }
     />
-  );
-}
-
-export function TextResizerChangeButton({
-  ariaLabelId,
-  children,
-  className,
-  style,
-  ...domProps
-}: React.ButtonHTMLAttributes<HTMLButtonElement> & {
-  ariaLabelId?: string;
-}) {
-  const intl = useIntl();
-  return (
-    <PlainButton
-      {...domProps}
-      {...(ariaLabelId && {
-        'aria-label': intl.formatMessage({ id: ariaLabelId }),
-      })}
-      className={classNames('topbar-text-resizer-change-button', className)}
-      style={style}
-    >
-      {children}
-    </PlainButton>
   );
 }
 
