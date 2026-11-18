@@ -339,6 +339,31 @@ describe('hooks', () => {
       );
     });
 
+    it('stays in the current portal', () => {
+      const formattedBook = formatBookData(book, mockCmsBook);
+      store.dispatch(navigationLocationChange({
+        location: { hash: '', search: '' },
+        match: {
+          params: {
+            book: { slug: formattedBook.slug },
+            page: { slug: 'other-page' },
+            portalName: 'my-portal',
+          },
+          route: content,
+        },
+      } as any));
+      store.dispatch(receiveBook(formattedBook));
+      store.dispatch(receivePage({ ...page, references: [] }));
+      store.dispatch(requestSearch('asdf'));
+
+      go([hit]);
+
+      const replaceAction = dispatch.mock.calls
+        .map(([action]) => action)
+        .find((action) => action.type === replace({ params: {}, route: content, state: {} } as any).type);
+      expect(replaceAction?.payload.params).toEqual(expect.objectContaining({ portalName: 'my-portal' }));
+    });
+
     it('uses the provided search scroll target', () => {
       store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
       store.dispatch(receivePage({ ...page, references: [] }));

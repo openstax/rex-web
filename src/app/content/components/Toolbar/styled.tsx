@@ -41,12 +41,11 @@ export const buttonMinWidth = `45px`;
 export const PlainButton = React.forwardRef<
   HTMLButtonElement,
   React.ButtonHTMLAttributes<HTMLButtonElement> & {
-    theme?: unknown;
     isActive?: boolean;
   }
 >(function PlainButton(
   {
-    className, style, theme: _theme, isActive: _isActive, ...domProps
+    className, style, isActive: _isActive, ...domProps
   },
   ref
 ) {
@@ -73,11 +72,8 @@ export const PrintOptWrapper = React.forwardRef<
   HTMLButtonElement,
   React.ButtonHTMLAttributes<HTMLButtonElement> & {
     isActive?: boolean;
-    theme?: unknown;
   }
->(function PrintOptWrapper({ isActive, className, style, ...props }, ref) {
-  const { theme: _theme, ...domProps } = props as Record<string, unknown>;
-
+>(function PrintOptWrapper({ isActive, className, style, ...domProps }, ref) {
   return (
     <PlainButton
       ref={ref}
@@ -90,10 +86,8 @@ export const PrintOptWrapper = React.forwardRef<
 
 export function PrintOptions({
   className,
-  ...props
-}: React.HTMLAttributes<HTMLSpanElement> & { theme?: unknown }) {
-  const { theme: _theme, ...domProps } = props as Record<string, unknown>;
-
+  ...domProps
+}: React.HTMLAttributes<HTMLSpanElement>) {
   return (
     <span
       {...domProps}
@@ -103,11 +97,10 @@ export function PrintOptions({
 }
 
 export const PrintIcon = function PrintIcon({
-  theme: _theme,
   className,
   style,
   ...domProps
-}: React.SVGAttributes<SVGSVGElement> & { theme?: unknown }) {
+}: React.SVGAttributes<SVGSVGElement>) {
   return (
     <PrintIconComponent
       {...domProps}
@@ -121,14 +114,11 @@ export const ToolbarWrapper = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement> & {
     isMobileMenuOpen?: boolean;
-    theme?: unknown;
   }
 >(function ToolbarWrapper(
-  { isMobileMenuOpen, className, style, ...props },
+  { isMobileMenuOpen, className, style, ...domProps },
   ref
 ) {
-  const { theme: _theme, ...domProps } = props as Record<string, unknown>;
-
   return (
     <div
       ref={ref}
@@ -156,10 +146,8 @@ export const ToolbarWrapper = React.forwardRef<
 export const ToolbarMobileHeader = function ToolbarMobileHeader({
   className,
   style,
-  ...props
-}: React.HTMLAttributes<HTMLDivElement> & { theme?: unknown }) {
-  const { theme: _theme, ...domProps } = props as Record<string, unknown>;
-
+  ...domProps
+}: React.HTMLAttributes<HTMLDivElement>) {
   return (
     <div
       {...domProps}
@@ -172,10 +160,8 @@ export const ToolbarMobileHeader = function ToolbarMobileHeader({
 export const ToolbarMobileHeaderTitle = function ToolbarMobileHeaderTitle({
   className,
   style,
-  ...props
-}: React.HTMLAttributes<HTMLSpanElement> & { theme?: unknown }) {
-  const { theme: _theme, ...domProps } = props as Record<string, unknown>;
-
+  ...domProps
+}: React.HTMLAttributes<HTMLSpanElement>) {
   return (
     <span
       {...domProps}
@@ -188,10 +174,8 @@ export const ToolbarMobileHeaderTitle = function ToolbarMobileHeaderTitle({
 export const TimesIcon = function TimesIcon({
   className,
   style,
-  ...props
-}: React.SVGAttributes<SVGSVGElement> & { theme?: unknown }) {
-  const { theme: _theme, ...domProps } = props as Record<string, unknown>;
-
+  ...domProps
+}: React.SVGAttributes<SVGSVGElement>) {
   return (
     <Times
       {...domProps}
@@ -211,10 +195,8 @@ export const TimesIcon = function TimesIcon({
 export const LeftArrow = function LeftArrow({
   className,
   style,
-  ...props
-}: React.SVGAttributes<SVGSVGElement> & { theme?: unknown }) {
-  const { theme: _theme, ...domProps } = props as Record<string, unknown>;
-
+  ...domProps
+}: React.SVGAttributes<SVGSVGElement>) {
   return (
     <ChevronLeftIcon
       {...domProps}
@@ -232,10 +214,8 @@ export const LeftArrow = function LeftArrow({
 
 export const ToolbarElements = function ToolbarElements({
   className,
-  ...props
-}: React.HTMLAttributes<HTMLDivElement> & { theme?: unknown }) {
-  const { theme: _theme, ...domProps } = props as Record<string, unknown>;
-
+  ...domProps
+}: React.HTMLAttributes<HTMLDivElement>) {
   return (
     <div {...domProps} className={classNames('toolbar-elements', className)} />
   );

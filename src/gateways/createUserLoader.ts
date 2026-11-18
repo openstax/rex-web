@@ -9,7 +9,6 @@ export default (url: string) => {
   const authProvider = browserAuthProvider({window: assertWindow()})({auth: {accountsBase: url}});
 
   return {
-    getAuthorizedFetchConfig: authProvider.getAuthorizedFetchConfig,
     getCurrentUser: authProvider.getUser as () => Promise<AccountsUser | undefined>,
     updateUser: authProvider.updateUser,
   };

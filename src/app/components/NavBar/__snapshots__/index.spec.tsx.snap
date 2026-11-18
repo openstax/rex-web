@@ -1,84 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`content in browser assignable user renders 1`] = `
-.c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  width: 3.5rem;
-  height: 3.5rem;
-  border-radius: 50%;
-  border: none;
-  line-height: 1.6rem;
-  font-size: 1.4rem;
-  color: #ffffff;
-  background-color: #007297;
-  cursor: pointer;
-}
-
-.c0:hover {
-  box-shadow: 0 0 0.2rem 0.2rem rgba(0,0,0,0.3);
-}
-
-.c0[data-focused],
-.c0[data-focus-visible] {
-  outline: 0.2rem auto Highlight;
-  outline: 0.2rem auto -webkit-focus-ring-color;
-  outline-offset: 0.2rem;
-}
-
-.c0 svg {
-  width: 1.5rem;
-}
-
-.c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  width: 3.5rem;
-  height: 3.5rem;
-  border-radius: 50%;
-  border: none;
-  line-height: 1.6rem;
-  font-size: 1.4rem;
-  color: #ffffff;
-  background-color: #007297;
-  cursor: pointer;
-}
-
-.c0:hover {
-  box-shadow: 0 0 0.2rem 0.2rem rgba(0,0,0,0.3);
-}
-
-.c0[data-focused],
-.c0[data-focus-visible] {
-  outline: 0.2rem auto Highlight;
-  outline: 0.2rem auto -webkit-focus-ring-color;
-  outline-offset: 0.2rem;
-}
-
-.c0 svg {
-  width: 1.5rem;
-}
-
 <div
   className="navbar-bar-wrapper"
   data-analytics-region="openstax-navbar"
@@ -116,7 +38,7 @@ exports[`content in browser assignable user renders 1`] = `
         aria-expanded={false}
         aria-haspopup={true}
         aria-label="Account actions"
-        className="c0"
+        className="profile-menu-button"
         data-rac=""
         data-react-aria-pressable={true}
         data-testid="user-nav-toggle"
@@ -238,45 +160,6 @@ exports[`content in browser matches snapshot for null state 1`] = `
 `;
 
 exports[`content in browser when logged in matches snapshot 1`] = `
-.c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  width: 3.5rem;
-  height: 3.5rem;
-  border-radius: 50%;
-  border: none;
-  line-height: 1.6rem;
-  font-size: 1.4rem;
-  color: #ffffff;
-  background-color: #007297;
-  cursor: pointer;
-}
-
-.c0:hover {
-  box-shadow: 0 0 0.2rem 0.2rem rgba(0,0,0,0.3);
-}
-
-.c0[data-focused],
-.c0[data-focus-visible] {
-  outline: 0.2rem auto Highlight;
-  outline: 0.2rem auto -webkit-focus-ring-color;
-  outline-offset: 0.2rem;
-}
-
-.c0 svg {
-  width: 1.5rem;
-}
-
 <div
   className="navbar-bar-wrapper"
   data-analytics-region="openstax-navbar"
@@ -314,7 +197,7 @@ exports[`content in browser when logged in matches snapshot 1`] = `
         aria-expanded={false}
         aria-haspopup={true}
         aria-label="Account actions"
-        className="c0"
+        className="profile-menu-button"
         data-rac=""
         data-react-aria-pressable={true}
         data-testid="user-nav-toggle"

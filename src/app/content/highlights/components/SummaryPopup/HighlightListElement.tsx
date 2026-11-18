@@ -17,14 +17,14 @@ import classNames from 'classnames';
 import './HighlightListElement.css';
 
 export const HighlightOuterWrapper = (
-  { className, theme: _theme, ...props }: React.HTMLAttributes<HTMLDivElement> & { theme?: unknown }
+  { className, ...props }: React.HTMLAttributes<HTMLDivElement>
 ) => (
   <div {...props} className={classNames('highlight-outer-wrapper', className)} />
 );
 
 export const HighlightContentWrapper = (
-  { color, className, theme: _theme, ...props }: React.HTMLAttributes<HTMLDivElement> &
-  { color: string; theme?: unknown }
+  { color, className, ...props }: React.HTMLAttributes<HTMLDivElement> &
+  { color: string }
 ) => {
   const style = highlightStyles.find((search) => search.label === color);
 
@@ -43,7 +43,7 @@ export const HighlightContentWrapper = (
 };
 
 export const HiddenLabel = (
-  { className, theme: _theme, ...props }: React.HTMLAttributes<HTMLDivElement> & { theme?: unknown }
+  { className, ...props }: React.HTMLAttributes<HTMLDivElement>
 ) => (
   <div {...props} className={classNames('hidden-but-accessible', className)} />
 );

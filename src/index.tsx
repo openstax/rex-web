@@ -18,18 +18,20 @@ import createBookConfigLoader from './gateways/createBookConfigLoader';
 import createHighlightClient from './gateways/createHighlightClient';
 import createOSWebLoader from './gateways/createOSWebLoader';
 import createPracticeQuestionsLoader from './gateways/createPracticeQuestionsLoader';
+import createRequestAuth from './gateways/createRequestAuth';
 import createSearchClient from './gateways/createSearchClient';
 import createUserLoader from './gateways/createUserLoader';
 import createImageCDNUtils from './gateways/createImageCDNUtils';
 import { registerGlobalAnalytics } from './helpers/analytics';
 import { initialize } from './helpers/analytics/initialization';
+import { getConsentState } from './helpers/consentState';
 import loadFont from './helpers/loadFont';
 import { initializeMathJaxMenuPositioning } from './helpers/mathjaxMenuPosition';
 import pollUpdates from './helpers/pollUpdates';
 import Sentry from './helpers/Sentry';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import { pullToken } from './app/content/launchToken';
+import { getLaunchToken, pullCredentials } from './app/auth/credentials';
 
 const window = assertWindow('Browser entrypoint must be used in the browser');
 const document = window.document;
@@ -48,20 +50,22 @@ const searchUrl = assertDefined(config.REACT_APP_SEARCH_URL, 'REACT_APP_SEARCH_U
 const highlightsUrl = assertDefined(config.REACT_APP_HIGHLIGHTS_URL, 'REACT_APP_HIGHLIGHTS_URL must be defined');
 const mainContent = document.getElementById('main-content');
 
+const sessionCredential = pullCredentials(window);
 const userLoader = createUserLoader(accountsUrl);
+const requestAuth = createRequestAuth(sessionCredential);
 
 const app = createApp({
   initialState: window.__PRELOADED_STATE__,
   services: {
     archiveLoader: createArchiveLoader(),
     bookConfigLoader: createBookConfigLoader(),
-    launchToken: pullToken(window),
     config,
-    highlightClient: createHighlightClient(highlightsUrl, userLoader.getAuthorizedFetchConfig),
+    highlightClient: createHighlightClient(highlightsUrl, requestAuth.getAuthorizedFetchConfig),
     osWebLoader: createOSWebLoader(osWebUrl),
     practiceQuestionsLoader: createPracticeQuestionsLoader(),
     prerenderedContent: mainContent ? mainContent.innerHTML : undefined,
     searchClient: createSearchClient(searchUrl),
+    sessionCredential,
     userLoader,
     imageCDNUtils: createImageCDNUtils(),
   },
@@ -122,12 +126,6 @@ function cookiesBlocked(e: Error) {
   return e instanceof DOMException && ['SecurityError', 'NotSupportedError'].includes(e.name);
 }
 
-const sendConsentToAccounts = (consentPreferences: ConsentPreferences) =>
-  userLoader.updateUser({ consent_preferences: consentPreferences })
-    .then(() => window.location.reload())
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    .catch((error: any) => Sentry.captureException(error));
-
 async function getPortalSchoolData() {
   const pathMatch = window.location.pathname.match(/\/portal\/([^/]+)/);
   if (pathMatch) {
@@ -142,25 +140,54 @@ async function getPortalSchoolData() {
   return undefined;
 }
 
-const portalSchoolData = getPortalSchoolData();
+// K12 schools get no GTM, CookieYes or Kinetic, and only get event capture under a research agreement.
+// Assignable launches say whether that applies in their launch token, and portals in the portal's school data.
+async function getSchoolAnalyticsSettings() {
+  const tokenData = getLaunchToken(sessionCredential)?.tokenData;
+
+  if (tokenData) {
+    return {
+      isK12: tokenData.disableAnalytics === true,
+      researchAgreementActive: tokenData.researchAgreementActive === true,
+      organizationId: undefined,
+    };
+  }
+
+  const schoolData = await getPortalSchoolData();
+
+  return {
+    isK12: schoolData?.industry === 'K12',
+    researchAgreementActive: !!schoolData?.research_agreement_active,
+    organizationId: schoolData?.salesforce_id,
+  };
+}
+
+const schoolAnalyticsSettings = getSchoolAnalyticsSettings();
 
 // The reader's own event capture and the Kinetic invitations wait for this.
-// K12 schools only allow event capture under a research agreement, and never show Kinetic.
-portalSchoolData.then((schoolData) => {
-  const isK12 = schoolData?.industry === 'K12';
-  initialize({isK12, enabled: !isK12 || !!schoolData?.research_agreement_active});
+schoolAnalyticsSettings.then(({isK12, researchAgreementActive}) => {
+  initialize({isK12, enabled: !isK12 || researchAgreementActive});
 });
 
-app.services.userLoader.getCurrentUser().then((user) => {
+getConsentState({
+  sessionCredential,
+  userLoader,
+  search: window.location.search,
+  getAuthorizedFetchConfig: requestAuth.getAuthorizedFetchConfig,
+}).then(({consentPreferences, saveConsent}) => {
+  const sendConsent = (newConsentPreferences: ConsentPreferences) => saveConsent?.(newConsentPreferences)
+    .then(() => window.location.reload())
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    .catch((error: any) => Sentry.captureException(error));
+
   document.addEventListener('cookieyes_banner_load', (bannerLoadEventData: unknown) => {
-    const consentPreferences = user?.consent_preferences;
     const typedEventData = bannerLoadEventData as CookieYesBannerLoadEvent;
 
     if (consentPreferences) {
-      // Accounts remembers some state
-      // We always defer to Accounts in this case
+      // Accounts, the consent endpoint or the launch token remembers some state
+      // We always defer to it in this case
 
-      // Only call the CookieYes API if it doesn't match what's in Accounts
+      // Only call the CookieYes API if it doesn't match what's remembered
       let doUpdate = !typedEventData.detail.isUserActionCompleted;
 
       consentPreferences.accepted.forEach((accepted) => {
@@ -182,17 +209,17 @@ app.services.userLoader.getCurrentUser().then((user) => {
       });
       if (doUpdate) { performBannerAction('accept_partial'); }
     } else if (typedEventData.detail.isUserActionCompleted) {
-      // Accounts doesn't have state but somehow CookieYes does
+      // Accounts (or the consent endpoint) doesn't have state but somehow CookieYes does
       // This can happen because of 3rd party cookies enabled, non-embedded launch, etc
       // Ideally we'd clear the CookieYes consent and let users click the banner again,
       // but there's no API to do that
-      // So instead we make a request to save the user consent to Accounts
+      // So instead we make a request to save the user consent
       const currentConsentPreferences: ConsentPreferences = { accepted: [], rejected: [] };
       Object.entries(typedEventData.detail.categories).forEach(([category, accepted]) => {
         const arr = accepted ? currentConsentPreferences.accepted : currentConsentPreferences.rejected;
         arr.push(category);
       });
-      if (user) { sendConsentToAccounts(currentConsentPreferences); }
+      sendConsent(currentConsentPreferences);
     } else {
       // If we don't have a recorded consent and they click the X button, interpret it as "reject all"
       document.getElementsByClassName('cky-banner-btn-close')[0]?.addEventListener(
@@ -201,23 +228,24 @@ app.services.userLoader.getCurrentUser().then((user) => {
     }
 
     document.addEventListener('cookieyes_consent_update', (consentUpdateEventData: unknown) => {
-      if (user) { sendConsentToAccounts((consentUpdateEventData as CookieYesConsentUpdateEvent).detail); }
+      sendConsent((consentUpdateEventData as CookieYesConsentUpdateEvent).detail);
     });
 
     window.cookieYesActive = true;
   });
 
   (async() => {
-    const schoolData = await portalSchoolData;
+    const {isK12, researchAgreementActive, organizationId} = await schoolAnalyticsSettings;
 
-    // The analytics helper, whether loaded by GTM or directly below, reads the organization
-    // when it loads, so it must be set first. Nothing reads it if no analytics are loaded.
-    if (schoolData) {
-      window.dataLayer.push({'os.organization_id': schoolData.salesforce_id});
+    // The analytics helper, whether loaded by GTM or directly below, reads the app, release and
+    // organization when it loads, so they must be set first. Nothing reads them if no analytics are loaded.
+    window.dataLayer.push({'os.app': 'rex-web', 'os.release_id': config.RELEASE_ID});
+    if (organizationId) {
+      window.dataLayer.push({'os.organization_id': organizationId});
     }
 
-    if (schoolData?.industry === 'K12') {
-      if (schoolData.research_agreement_active) {
+    if (isK12) {
+      if (researchAgreementActive) {
         // GTM is skipped for K12 schools, but it is what normally loads event capture,
         // so load event capture directly for schools with a research agreement.
         // The user is already set by the establishState initializer.
@@ -225,9 +253,13 @@ app.services.userLoader.getCurrentUser().then((user) => {
         // helper.js checks for window.EventCapture (set by standalone.umd.js) only once, when it runs,
         // and silently skips all event capture if it is missing, so standalone.umd.js must run first.
         // Scripts added this way run in the order they are added only when not async
+        // Only production sends events to the production RAM
+        const ramOrigin = config.DEPLOYED_ENV === 'openstax.org'
+          ? 'https://ram.openstax.org'
+          : 'https://dev.ram.sandbox.openstax.org';
         [
-          'https://ram.openstax.org/quasar/standalone.umd.js',
-          'https://ram.openstax.org/analytics/helper.js',
+          `${ramOrigin}/quasar/standalone.umd.js`,
+          `${ramOrigin}/analytics/helper.js`,
         ].forEach((src) => {
           const script = document.createElement('script');
           script.async = false;

@@ -46,9 +46,9 @@ extends StyleProps, Omit<React.HTMLAttributes<HTMLElement>, 'style'> {
 }
 
 function ColorIndicator<T extends React.ComponentType | undefined>(
-  props: React.PropsWithChildren<Props<T> & { theme?: unknown }>
+  props: React.PropsWithChildren<Props<T>>
 ) {
-  const { theme: _theme, children, style, checked, size, component, shape, className, ...otherProps } = props;
+  const { children, style, checked, size, component, shape, className, ...otherProps } = props;
   const indicatorStyle = {
     '--passive-color': style.passive,
     '--focused-color': style.focused,
@@ -98,14 +98,12 @@ export function TrashButton({
   onClick,
   size,
   className,
-  theme: _theme,
   ...props
 }: {
   onClick: React.MouseEventHandler<HTMLButtonElement>;
   size?: 'small';
   className?: string;
   'data-testid'?: string;
-  theme?: unknown;
 }) {
   return (
     <button

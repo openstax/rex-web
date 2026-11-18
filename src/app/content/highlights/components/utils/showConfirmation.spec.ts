@@ -48,6 +48,7 @@ describe('ShowConfirmation', () => {
   let services: AppServices & MiddlewareAPI;
   let store: Store;
   let dispatch: jest.SpyInstance;
+  const restoreFocus = jest.fn();
 
   beforeEach(() => {
     resetModules();
@@ -56,6 +57,7 @@ describe('ShowConfirmation', () => {
     const document = assertDocument();
     document.body.innerHTML = '';
     document.body.appendChild(rootNode);
+    document.addEventListener('restoreHighlightFocusEvent', restoreFocus);
 
     rootNode.insertAdjacentElement = jest.fn().mockImplementation(() => {
       document.body.appendChild(modalNode);
@@ -86,6 +88,10 @@ describe('ShowConfirmation', () => {
     };
   });
 
+  afterEach(() => {
+    assertDocument().removeEventListener('restoreHighlightFocusEvent', restoreFocus);
+  });
+
   it('unmounts on confirmation', async() => {
     store.dispatch(receiveBook(book));
     const answer = await showConfirmation(services);
@@ -103,6 +109,7 @@ describe('ShowConfirmation', () => {
 
     expect(answer).toBe(false);
     expect(dispatch).toHaveBeenCalledWith(focusHighlight(focusedHighlight));
+    expect(restoreFocus).toHaveBeenCalled();
     expect(unmount).toHaveBeenCalledWith(modalNode);
   });
 
@@ -113,6 +120,7 @@ describe('ShowConfirmation', () => {
 
     expect(answer).toBe(false);
     expect(dispatch).not.toHaveBeenCalledWith(focusHighlight(focusedHighlight));
+    expect(restoreFocus).not.toHaveBeenCalled();
     expect(unmount).toHaveBeenCalledWith(modalNode);
   });
 });

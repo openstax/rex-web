@@ -12,11 +12,6 @@ Array [
     <div
       aria-live="polite"
       className="toast-container elevated-toast-container"
-      style={
-        Object {
-          "--toast-container-z-index": 40,
-        }
-      }
     />
   </div>,
   <div
@@ -148,7 +143,7 @@ exports[`EditCard Snapshots and Rendering matches snapshot when focused 1`] = `
         "data-analytics-region": "highlighting-login",
         "drawFocus": false,
         "message": "i18n:highlighting:login:prompt",
-        "onCancel": [Function],
+        "onCancel": [MockFunction],
       }
     }
     mock-confirmation="true"
@@ -168,11 +163,6 @@ Array [
     <div
       aria-live="polite"
       className="toast-container elevated-toast-container"
-      style={
-        Object {
-          "--toast-container-z-index": 40,
-        }
-      }
     />
   </div>,
   <div
@@ -238,7 +228,7 @@ exports[`EditCard Snapshots and Rendering matches snapshot without data 1`] = `
         "data-analytics-region": "highlighting-login",
         "drawFocus": false,
         "message": "i18n:highlighting:login:prompt",
-        "onCancel": [Function],
+        "onCancel": [MockFunction],
       }
     }
     mock-confirmation="true"

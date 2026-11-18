@@ -7,6 +7,7 @@ import { formatBookData } from '../utils';
 import {
   fromRelativeUrl,
   getBookPageUrlAndParams,
+  getCurrentPortalParams,
   getPageIdFromUrlParam,
   setUtmCampaign,
   toRelativeUrl
@@ -72,6 +73,18 @@ describe('getBookPageUrlAndParams', () => {
     expect((result.params.book as any).contentVersion).toBeUndefined();
     expect(result.params.portalName).toBe('portalName');
     expect(result.url).toMatch(/\/portal\/portalName\//);
+  });
+});
+
+describe('getCurrentPortalParams', () => {
+  it('keeps only the portal from the current params', () => {
+    expect(getCurrentPortalParams({ book: { slug: 'book' }, page: { slug: 'page' }, portalName: 'my-portal' }))
+      .toEqual({ portalName: 'my-portal' });
+  });
+
+  it('returns no params outside a portal', () => {
+    expect(getCurrentPortalParams({ activityId: 'activity' })).toEqual({});
+    expect(getCurrentPortalParams(undefined)).toEqual({});
   });
 });
 

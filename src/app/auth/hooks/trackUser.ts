@@ -4,7 +4,7 @@ import { actionHook } from '../../utils';
 import { receiveUser } from '../actions';
 
 export const trackUserHookBody: ActionHookBody<typeof receiveUser> = () => async({payload}) => {
-  if (payload.isNotGdprLocation) {
+  if (payload.source === 'accounts' && payload.isNotGdprLocation) {
 
     googleAnalyticsClient.setUserId(payload.uuid);
   }

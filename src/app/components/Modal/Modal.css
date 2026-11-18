@@ -61,7 +61,6 @@
 
 /* Modal heading (h1 with h4 style) */
 .modal-heading {
-  /* h4Style from Typography/Headings.legacy.ts */
   font-size: 1.8rem;
   line-height: 2.5rem;
   letter-spacing: -0.02rem;
@@ -84,7 +83,6 @@
 
 /* Modal body heading (h3) */
 .modal-body-heading {
-  /* h3Style from Typography/Headings.legacy.ts */
   font-size: 2.4rem;
   line-height: 3rem;
   letter-spacing: -0.02rem;

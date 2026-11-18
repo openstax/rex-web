@@ -6,7 +6,6 @@ import { useAnalyticsEvent } from '../../../../../helpers/analytics';
 import { clearFocusedHighlight } from '../../actions';
 import Confirmation from '../Confirmation';
 import { HTMLElement } from '@openstax/types/lib.dom';
-import { assertWindow } from '../../../../utils';
 import './AuthenticationGate.css';
 
 interface LoginOrEditProps {
@@ -109,10 +108,6 @@ export function LoginConfirmation({
 }) {
   const loginLink = useSelector(selectAuth.loginLink);
   const trackShowLogin = useAnalyticsEvent('showLogin');
-  const onCancel = React.useCallback(() => {
-    onBlur();
-    assertWindow().getSelection()?.removeAllRanges();
-  }, [onBlur]);
 
   React.useEffect(() => {
     trackShowLogin();
@@ -125,7 +120,9 @@ export function LoginConfirmation({
       message='i18n:highlighting:login:prompt'
       confirmMessage='i18n:highlighting:login:link'
       confirmLink={loginLink}
-      onCancel={onCancel}
+      // Hides the login box but keeps the selection, so Tab continues from the selected text. The
+      // box stays hidden until the selection changes.
+      onCancel={onBlur}
       drawFocus={false}
     />
   );

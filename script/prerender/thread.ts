@@ -113,6 +113,8 @@ async function makeTaskFunctionsMap() {
     osWebLoader,
     practiceQuestionsLoader,
     searchClient,
+    // prerendering has no session credentials
+    sessionCredential: {type: 'cookie' as const},
     userLoader,
     imageCDNUtils: createImageCDNUtils({prefetchResolutions: true}),
   };

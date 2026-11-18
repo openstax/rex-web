@@ -19,32 +19,6 @@ export type { ColorSet } from './themeData';
  * <span className={hiddenButAccessibleClass}>Screen reader only text</span>
  */
 export const hiddenButAccessibleClass = 'hidden-but-accessible';
-
-/**
- * @deprecated Use `hiddenButAccessibleClass` with className instead.
- * This CSS string export is for backward compatibility with existing styled-components usage.
- *
- * @example
- * // Old (styled-components):
- * const Label = styled.label`
- *   ${hiddenButAccessible}
- * `;
- *
- * // New (plain CSS):
- * <label className={hiddenButAccessibleClass}>...</label>
- */
-export const hiddenButAccessible = `
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border: 0;
-`;
-
 // Browser default outline for focus items per
 // https://css-tricks.com/copy-the-browsers-native-focus-styles/
 export const defaultFocusOutline = `

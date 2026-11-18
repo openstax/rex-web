@@ -18,6 +18,7 @@ import { Book, Params, SystemQueryParams } from '../types';
 import { getBookPageUrlAndParams, stripIdVersion, toRelativeUrl } from '../utils';
 import { isClickWithModifierKeys } from '../utils/domUtils';
 import { createNavigationMatch } from '../utils/navigationUtils';
+import { getCurrentPortalParams } from '../utils/urlUtils';
 import './ContentLink.css';
 
 interface Props {
@@ -64,7 +65,7 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
     ...anchorProps
   } = props;
 
-  const {url, params} = getBookPageUrlAndParams(book, page, navigationParams);
+  const {url, params} = getBookPageUrlAndParams(book, page, getCurrentPortalParams(navigationParams));
   const navigationMatch = createNavigationMatch(page, book, params);
   const relativeUrl = toRelativeUrl(currentPath, url);
   const bookUid = stripIdVersion(book.id);

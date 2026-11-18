@@ -2,7 +2,6 @@
   "i18n:dev:exportBookPages": "Export Pages",
   "i18n:a11y:skipToContent": "Skip to Content",
   "i18n:a11y:accessibilityHelp": "Go to accessibility page",
-  "i18n:a11y:accessibilityHelp:link": "https://openstax.org/accessibility-statement",
   "i18n:assigned:button:continue": "Mark as done & continue",
   "i18n:a11y:keyboard-shortcuts:menu": "Keyboard shortcuts menu",
   "i18n:a11y:keyboard-shortcuts:heading": "Keyboard Shortcuts",

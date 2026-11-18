@@ -6,11 +6,14 @@ import createTestStore from '../../../../../test/createTestStore';
 import { book as archiveBook } from '../../../../../test/mocks/archiveLoader';
 import TestContainer from '../../../../../test/TestContainer';
 import { locationChange } from '../../../../navigation/actions';
+import { AppState } from '../../../../types';
 import { useCreateHighlightLink } from './utils';
+
+const mockGetBookPageUrlAndParams = jest.fn((..._args: unknown[]) => ({ url: 'mocked/BookPageUrl/And/Params/' }));
 
 jest.mock('../../../utils/urlUtils', () => ({
   ...jest.requireActual('../../../utils/urlUtils'),
-  getBookPageUrlAndParams: () => ({ url: 'mocked/BookPageUrl/And/Params/' }),
+  getBookPageUrlAndParams: (...args: unknown[]) => mockGetBookPageUrlAndParams(...args),
 }));
 
 const mockHighlight = {
@@ -48,6 +51,24 @@ describe('createHighlightLink', () => {
 
     const link = component.root.findByProps({ 'data-testid': 'link' });
     expect(link.children[0]).toEqual(`mocked/BookPageUrl/And/Params/?${target}`);
+  });
+
+  it('keeps the link in the current portal', () => {
+    store = createTestStore({
+      navigation: { match: { params: { portalName: 'my-portal' } }, query: {} },
+    } as unknown as AppState);
+
+    renderer.create(<TestContainer store={store}>
+      <Component book={archiveBook} />
+    </TestContainer>);
+
+    renderer.act(() => {});
+
+    expect(mockGetBookPageUrlAndParams).toHaveBeenLastCalledWith(
+      archiveBook,
+      expect.objectContaining({ slug: archiveBook.tree.contents[0].slug }),
+      { portalName: 'my-portal' }
+    );
   });
 
   it('creates link when book is not passed for highlight', () => {

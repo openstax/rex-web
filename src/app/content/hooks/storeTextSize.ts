@@ -1,3 +1,4 @@
+import { getLaunchToken } from '../../auth/credentials';
 import { ActionHookBody, AppServices, MiddlewareAPI } from '../../types';
 import { setTextSize } from '../actions';
 import {
@@ -9,7 +10,7 @@ import {
 import { textSize } from '../selectors';
 
 export const loadStoredTextSize = (services: MiddlewareAPI & AppServices) => async() => {
-  const { getState, dispatch, launchToken } = services;
+  const { getState, dispatch, sessionCredential } = services;
   const state = getState();
   let storedTextSize;
   let value: TextResizerValue = textResizerDefaultValue;
@@ -18,7 +19,7 @@ export const loadStoredTextSize = (services: MiddlewareAPI & AppServices) => asy
     return;
   }
 
-  const tokenTextSize = launchToken?.tokenData.textSize;
+  const tokenTextSize = getLaunchToken(sessionCredential)?.tokenData.textSize;
 
   if (typeof tokenTextSize === 'number') {
     storedTextSize = tokenTextSize;

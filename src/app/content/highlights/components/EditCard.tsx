@@ -187,26 +187,25 @@ function ActiveEditCard({
   }, [onBlur, hasUnsavedHighlight, editingAnnotation]);
 
   /**
-   * When focus moves to main content, blur and remove selection
-   * if highlight hasn't been created yet.
+   * When focus moves to main content, hide the card if the highlight hasn't been created yet.
+   * The selection is kept; the card stays hidden until the selection changes.
    */
-  const deselectRange = React.useCallback(
+  const blurOnContentFocus = React.useCallback(
     ({ target }: FocusEvent) => {
       const targetAsNode = target as HTMLElement;
       const mainEl = document?.getElementById(MAIN_CONTENT_ID);
 
       if (!props.data?.color && targetAsNode !== mainEl && mainEl?.contains(targetAsNode)) {
         blurIfNotEditing();
-        document?.getSelection()?.removeAllRanges();
       }
     },
     [blurIfNotEditing, props.data?.color]
   );
 
   React.useEffect(() => {
-    document?.addEventListener('focusin', deselectRange);
-    return () => document?.removeEventListener('focusin', deselectRange);
-  }, [deselectRange]);
+    document?.addEventListener('focusin', blurOnContentFocus);
+    return () => document?.removeEventListener('focusin', blurOnContentFocus);
+  }, [blurOnContentFocus]);
 
   const onHeightChange = props.onHeightChange;
   React.useEffect(() => {

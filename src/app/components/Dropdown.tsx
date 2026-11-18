@@ -264,8 +264,7 @@ export type TabHiddenDropdownProps = CommonDropdownProps & (Props | Props & Cont
 
 export type DropdownProps = TabTransparentDropdownProps | TabHiddenDropdownProps;
 
-// Plain React component for Dropdown. Consumers that used to reference it with a
-// styled-components component selector target the .dropdown-wrapper class instead.
+// Consumers that need to target a Dropdown from CSS use the .dropdown-wrapper class.
 const Dropdown = React.forwardRef<HTMLElement, DropdownProps>(({transparentTab, className, ...props}, ref) => {
   const Component = transparentTab !== false ? TabTransparentDropdown : TabHiddenDropDown;
   return <Component ref={ref} className={classNames('dropdown-wrapper', className)} {...props} />;

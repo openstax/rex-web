@@ -95,7 +95,7 @@ exports[`Attribution in browser renders CodeRunnerNote when slug includes python
     under the same CC-BY-NC-SA license as the original, and include on every digital page 
     view the following attribution:
     <p>
-      Access for free at <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://openstax.org/books/programming-python/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\">https://openstax.org/books/programming-python/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units</a>
+      Access for free at <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://openstax.org/books/programming-python/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\" data-portal-href=\\"https://openstax.org/books/programming-python/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\">https://openstax.org/books/programming-python/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units</a>
     </p>
   </li>
 </ul>
@@ -125,10 +125,10 @@ exports[`Attribution in browser renders CodeRunnerNote when slug includes python
     Location: Houston, Texas
   </li>
   <li>
-    Book URL: <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://openstax.org/books/programming-python/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\">https://openstax.org/books/programming-python/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units</a>
+    Book URL: <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://openstax.org/books/programming-python/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\" data-portal-href=\\"https://openstax.org/books/programming-python/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\">https://openstax.org/books/programming-python/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units</a>
   </li>
   <li>
-    Section URL: <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://openstax.org/books/programming-python/pages/test-page-1\\">https://openstax.org/books/programming-python/pages/test-page-1</a>
+    Section URL: <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://openstax.org/books/programming-python/pages/test-page-1\\" data-portal-href=\\"https://openstax.org/books/programming-python/pages/test-page-1\\">https://openstax.org/books/programming-python/pages/test-page-1</a>
   </li>
 </ul>
 
@@ -140,6 +140,8 @@ exports[`Attribution in browser renders CodeRunnerNote when slug includes python
 ",
       }
     }
+    onAuxClick={[Function]}
+    onClick={[Function]}
     style={
       Object {
         "--content-text-width": "82.5rem",
@@ -259,7 +261,7 @@ exports[`Attribution in browser renders default attribution 1`] = `
     under the same CC-BY-NC-SA license as the original, and include on every digital page 
     view the following attribution:
     <p>
-      Access for free at <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\">https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units</a>
+      Access for free at <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\" data-portal-href=\\"https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\">https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units</a>
     </p>
   </li>
 </ul>
@@ -289,10 +291,10 @@ exports[`Attribution in browser renders default attribution 1`] = `
     Location: Houston, Texas
   </li>
   <li>
-    Book URL: <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\">https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units</a>
+    Book URL: <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\" data-portal-href=\\"https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\">https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units</a>
   </li>
   <li>
-    Section URL: <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://openstax.org/books/book-slug-1/pages/test-page-1\\">https://openstax.org/books/book-slug-1/pages/test-page-1</a>
+    Section URL: <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://openstax.org/books/book-slug-1/pages/test-page-1\\" data-portal-href=\\"https://openstax.org/books/book-slug-1/pages/test-page-1\\">https://openstax.org/books/book-slug-1/pages/test-page-1</a>
   </li>
 </ul>
 
@@ -304,6 +306,8 @@ exports[`Attribution in browser renders default attribution 1`] = `
 ",
       }
     }
+    onAuxClick={[Function]}
+    onClick={[Function]}
     style={
       Object {
         "--content-text-width": "82.5rem",
@@ -410,7 +414,7 @@ exports[`Attribution in browser renders special licensing and attribution for HS
     under the same CC-BY-NC-SA license as the original, and include on every digital page 
     view the following attribution:
     <p>
-      Access for free at <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\">https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units</a>
+      Access for free at <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\" data-portal-href=\\"https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\">https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units</a>
     </p>
   </li>
 </ul>
@@ -440,10 +444,10 @@ exports[`Attribution in browser renders special licensing and attribution for HS
     Location: Houston, Texas
   </li>
   <li>
-    Book URL: <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\">https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units</a>
+    Book URL: <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\" data-portal-href=\\"https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\">https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units</a>
   </li>
   <li>
-    Section URL: <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://openstax.org/books/book-slug-1/pages/test-page-1\\">https://openstax.org/books/book-slug-1/pages/test-page-1</a>
+    Section URL: <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://openstax.org/books/book-slug-1/pages/test-page-1\\" data-portal-href=\\"https://openstax.org/books/book-slug-1/pages/test-page-1\\">https://openstax.org/books/book-slug-1/pages/test-page-1</a>
   </li>
 </ul>
 
@@ -455,6 +459,8 @@ exports[`Attribution in browser renders special licensing and attribution for HS
 ",
       }
     }
+    onAuxClick={[Function]}
+    onClick={[Function]}
     style={
       Object {
         "--content-text-width": "82.5rem",
@@ -559,7 +565,7 @@ exports[`Attribution in browser renders special licensing and attribution for In
     under the same CC-BY-NC-SA license as the original, and include on every digital page 
     view the following attribution:
     <p>
-      Access for free at <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\">https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units</a>
+      Access for free at <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\" data-portal-href=\\"https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\">https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units</a>
     </p>
   </li>
 </ul>
@@ -589,10 +595,10 @@ exports[`Attribution in browser renders special licensing and attribution for In
     Location: Houston, Texas
   </li>
   <li>
-    Book URL: <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\">https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units</a>
+    Book URL: <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\" data-portal-href=\\"https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\">https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units</a>
   </li>
   <li>
-    Section URL: <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://openstax.org/books/book-slug-1/pages/test-page-1\\">https://openstax.org/books/book-slug-1/pages/test-page-1</a>
+    Section URL: <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://openstax.org/books/book-slug-1/pages/test-page-1\\" data-portal-href=\\"https://openstax.org/books/book-slug-1/pages/test-page-1\\">https://openstax.org/books/book-slug-1/pages/test-page-1</a>
   </li>
 </ul>
 
@@ -604,6 +610,8 @@ exports[`Attribution in browser renders special licensing and attribution for In
 ",
       }
     }
+    onAuxClick={[Function]}
+    onClick={[Function]}
     style={
       Object {
         "--content-text-width": "82.5rem",
@@ -710,7 +718,7 @@ exports[`Attribution in browser renders special licensing and attribution for St
     under the same CC-BY-NC-SA license as the original, and include on every digital page 
     view the following attribution:
     <p>
-      Access for free at <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\">https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units</a>
+      Access for free at <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\" data-portal-href=\\"https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\">https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units</a>
     </p>
   </li>
 </ul>
@@ -740,10 +748,10 @@ exports[`Attribution in browser renders special licensing and attribution for St
     Location: Houston, Texas
   </li>
   <li>
-    Book URL: <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\">https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units</a>
+    Book URL: <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\" data-portal-href=\\"https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\">https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units</a>
   </li>
   <li>
-    Section URL: <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://openstax.org/books/book-slug-1/pages/test-page-1\\">https://openstax.org/books/book-slug-1/pages/test-page-1</a>
+    Section URL: <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://openstax.org/books/book-slug-1/pages/test-page-1\\" data-portal-href=\\"https://openstax.org/books/book-slug-1/pages/test-page-1\\">https://openstax.org/books/book-slug-1/pages/test-page-1</a>
   </li>
 </ul>
 
@@ -755,6 +763,8 @@ exports[`Attribution in browser renders special licensing and attribution for St
 ",
       }
     }
+    onAuxClick={[Function]}
+    onClick={[Function]}
     style={
       Object {
         "--content-text-width": "82.5rem",

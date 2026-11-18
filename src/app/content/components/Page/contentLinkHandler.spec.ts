@@ -6,7 +6,7 @@ import { book as archiveBook, page } from '../../../../test/mocks/archiveLoader'
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import { resetModules } from '../../../../test/utils';
 import { AppServices, MiddlewareAPI, Store } from '../../../types';
-import { assertDocument } from '../../../utils';
+import { assertDocument, assertWindow } from '../../../utils';
 import * as routes from '../../routes';
 import { formatBookData } from '../../utils';
 import { ContentLinkProp, reduceReferences } from './contentLinkHandler';
@@ -52,6 +52,7 @@ describe('contentLinkHandler', () => {
       focusedHighlight: '',
       hasUnsavedHighlight: false,
       navigate: jest.fn(),
+      navigationParams: undefined,
       page,
       persistentQueryParams: {query: 'hi'},
       references: [],
@@ -97,6 +98,33 @@ describe('contentLinkHandler', () => {
       reduceReferences(document, prop);
       expect(document.body.innerHTML).toMatchInlineSnapshot(
         `"<link url=\\"#foo\\"><a href=\\"books/book-slug-1/pages/page-title#bar\\"></a>"`
+      );
+    });
+
+    it('keeps references in the current portal', () => {
+      const link = '#baz';
+      const document = assertDocument();
+      const anchorElem = document.createElement('a');
+      anchorElem.setAttribute('href', link);
+      document.body.innerHTML = '';
+      document.body.append(anchorElem);
+
+      prop.navigationParams = {
+        book: {slug: book.slug},
+        page: {slug: 'other-page'},
+        portalName: 'my-portal',
+      };
+      prop.references = [{
+        match: link,
+        params: {
+          book: {slug: book.slug},
+          page: {slug: 'page-title'},
+        },
+      }];
+
+      reduceReferences(document, prop);
+      expect(anchorElem.getAttribute('href')).toBe(
+        'apps/rex/portal/my-portal/books/book-slug-1/pages/page-title#baz'
       );
     });
   });
@@ -230,6 +258,69 @@ describe('contentLinkHandler', () => {
         route: contentRoute,
         state: {},
       }, expect.anything());
+    });
+
+    describe('in a portal', () => {
+      beforeEach(() => {
+        prop.navigationParams = {
+          book: {slug: book.slug},
+          page: {slug: 'other-page'},
+          portalName: 'my-portal',
+        };
+      });
+
+      it('intercepts clicking content links and stays in the portal', async() => {
+        anchor.setAttribute('href', `/apps/rex/portal/my-portal/books/${book.slug}/pages/page-title`);
+        prop.references = [{
+          match: `/books/${book.slug}/pages/page-title`,
+          params: {
+            book: {slug: book.slug},
+            page: {slug: 'page-title'},
+          },
+        }];
+
+        const event = {
+          preventDefault: jest.fn(),
+        };
+
+        await handler(event as any);
+
+        expect(event.preventDefault).toHaveBeenCalled();
+
+        await new Promise((resolve) => defer(resolve));
+
+        expect(prop.navigate).toHaveBeenCalledWith({
+          params: {
+            book: {slug: book.slug},
+            page: {slug: 'page-title'},
+            portalName: 'my-portal',
+          },
+          route: contentRoute,
+          state: {},
+        }, expect.anything());
+      });
+
+      it('stays in the portal for links within the current page', async() => {
+        prop.currentPath = assertWindow().location.pathname;
+        anchor.setAttribute('href', '#figure-1');
+
+        const event = {
+          preventDefault: jest.fn(),
+        };
+
+        await handler(event as any);
+
+        expect(event.preventDefault).toHaveBeenCalled();
+
+        await new Promise((resolve) => defer(resolve));
+
+        expect(prop.navigate).toHaveBeenCalledWith(
+          expect.objectContaining({
+            params: expect.objectContaining({portalName: 'my-portal'}),
+          }),
+          expect.objectContaining({hash: '#figure-1'})
+        );
+      });
     });
 
     it('intercepts clicking content links that failed to load due to reference loading error', async() => {

@@ -24,6 +24,7 @@ export default async(services: AppServices & MiddlewareAPI) => {
       resolve(false);
       if (focusedHighlight) {
         services.dispatch(focusHighlight(focusedHighlight));
+        document.dispatchEvent(new CustomEvent('restoreHighlightFocusEvent'));
       }
     };
     ReactDOM.render(

@@ -6,7 +6,7 @@ import React from 'react';
  * Usage: Use this icon for close buttons in UI components like modals, toasts, sidebars,
  * and navigation. This is the original custom icon used throughout the application.
  *
- * For content components that were migrated from styled-icons, use components/icons/Times.tsx (TimesIcon) instead.
+ * For content components, use components/icons/Times.tsx (TimesIcon) instead.
  */
 
 const SvgComponent = (props: Omit<React.SVGProps<SVGElement>, 'ref'>) => (
