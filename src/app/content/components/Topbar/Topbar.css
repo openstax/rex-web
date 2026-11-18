@@ -395,9 +395,16 @@
   padding: 1.4rem;
 }
 
-/* Raises the open toggle's shadow so it does not draw a faint line between the toggle and the menu. */
+/*
+ * The open toggle's shadow is raised so it does not draw a line between the toggle and the menu.
+ * The second shadow is a white strip under the toggle, 1px narrower on each side so it stays inside the
+ * toggle's borders. It hides the menu's top border where pixel snapping leaves a row of it below the toggle.
+ */
 .topbar-text-resizer-dropdown > button.filters-toggle-open {
-  box-shadow: 0 -0.4rem 0.6rem -0.1rem rgba(0, 0, 0, 0.2);
+  box-shadow:
+    0 -0.4rem 0.6rem -0.1rem rgba(0, 0, 0, 0.2),
+    0 2px 0 -1px var(--color-white);
+  clip-path: inset(0 -0.6rem -1px -0.6rem);
 }
 
 .topbar-text-resizer-dropdown.mobile-variant {
