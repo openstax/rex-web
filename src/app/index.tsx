@@ -41,6 +41,9 @@ import './errors/components/ErrorModal.css';
 import './notifications/components/ToastNotifications/ToastNotifications.css';
 import './content/highlights/components/ColorPicker.css';
 import './content/highlights/components/ColorIndicator.css';
+import '@openstax/ui-components/dist/esm/components/Toast.css';
+import '@openstax/ui-components/dist/esm/components/ToastContainer.css';
+import '@openstax/ui-components/dist/esm/components/TextResizer/TextResizer.css';
 import './content/components/ConfirmationToast.css';
 
 export const actions = {

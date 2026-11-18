@@ -178,8 +178,8 @@
     "moduleNameMapper": {
       "//comment//": "remove this when CRA upgrades jest above 28",
       "(.*)@openstax/ts-utils(.*)": "$1@openstax/ts-utils/dist/cjs$2",
-      "(.*)@openstax/ui-components/(.*)": "$1@openstax/ui-components/dist/cjs/$2",
-      "\\.css$": "<rootDir>/__mocks__/styleMock.js"
+      "\\.css$": "<rootDir>/__mocks__/styleMock.js",
+      "(.*)@openstax/ui-components/(.*)": "$1@openstax/ui-components/dist/cjs/$2"
     },
     "setupFilesAfterEnv": [
       "<rootDir>/src/test/setup.ts"
