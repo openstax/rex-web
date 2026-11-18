@@ -1,7 +1,7 @@
 import { HTMLDivElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import classNames from 'classnames';
-import { TextResizerValue, textResizerValueMap, textResizerDefaultValue } from '../content/constants';
+import { TextResizerValue, textResizerValueMap, textResizerDefaultValue } from '@openstax/ui-components';
 import { State } from '../content/types';
 import { MAIN_CONTENT_ID } from '../context/constants';
 import { Consumer } from '../context/SkipToContent';

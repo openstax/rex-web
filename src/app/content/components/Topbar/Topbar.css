@@ -395,6 +395,18 @@
   padding: 1.4rem;
 }
 
+/*
+ * The open toggle's shadow is raised so it does not draw a line between the toggle and the menu.
+ * The second shadow is a white strip under the toggle, 1px narrower on each side so it stays inside the
+ * toggle's borders. It hides the menu's top border where pixel snapping leaves a row of it below the toggle.
+ */
+.topbar-text-resizer-dropdown > button.filters-toggle-open {
+  box-shadow:
+    0 -0.4rem 0.6rem -0.1rem rgba(0, 0, 0, 0.2),
+    0 2px 0 -1px var(--color-white);
+  clip-path: inset(0 -0.6rem -1px -0.6rem);
+}
+
 .topbar-text-resizer-dropdown.mobile-variant {
   /* Will be styled on mobile medium */
 }
@@ -425,84 +437,8 @@
   font-weight: bold;
 }
 
-.topbar-text-resizer-menu label {
+.topbar-text-resizer-menu .text-resizer-heading {
   padding: 1.6rem 1.6rem 0;
-  display: block;
-}
-
-.topbar-text-resizer-menu .controls {
-  display: flex;
-  align-items: center;
-}
-
-.topbar-text-resizer-menu .controls > button {
-  height: 4rem;
-  width: 4.8rem;
-}
-
-.topbar-text-resizer-menu .controls input {
-  appearance: none;
-  background: var(--text-resizer-gradient, var(--color-primary-gray-medium));
-  overflow: visible;
-  height: 0.4rem;
-  width: 12rem;
-  margin: 0.8rem 0.7rem;
-  cursor: pointer;
-}
-
-/* stylelint-disable function-comma-space-after */
-.topbar-text-resizer-menu .controls input[type="range"]::-webkit-slider-runnable-track,
-.topbar-text-resizer-menu .controls input[type="range"]::-moz-range-track {
-  appearance: none;
-  box-shadow: none;
-  border: none;
-  height: 0.2rem;
-  background:
-    repeating-linear-gradient(
-      to right,
-      rgba(0, 0, 0, 0),
-      rgba(0, 0, 0, 0) 19%,
-      #fff 19%,
-      #fff 20%,
-      rgba(0, 0, 0, 0) 20%,
-      rgba(0, 0, 0, 0) 20%
-    );
-}
-/* stylelint-enable function-comma-space-after */
-
-.topbar-text-resizer-menu .controls input[type="range"]::-webkit-slider-runnable-track {
-  height: 0.2rem;
-}
-
-.topbar-text-resizer-menu .controls input[type="range"]::-moz-range-thumb {
-  background: white;
-  height: 1.5rem;
-  width: 0.7rem;
-  border: 1px solid var(--color-primary-gray-base);
-  border-radius: 1px;
-  box-shadow:
-    0 2px 1px -1px rgba(0, 0, 0, 0.04),
-    0 1px 1px 0 rgba(0, 0, 0, 0.14),
-    0 1px 3px 0 rgba(0, 0, 0, 0.12);
-}
-
-.topbar-text-resizer-menu .controls input[type="range"]::-webkit-slider-thumb {
-  appearance: none;
-  background: white;
-  height: 1.5rem;
-  width: 0.8rem;
-  border: 1px solid var(--color-primary-gray-base);
-  border-radius: 1px;
-  box-shadow:
-    0 2px 1px -1px rgba(0, 0, 0, 0.04),
-    0 1px 1px 0 rgba(0, 0, 0, 0.14),
-    0 1px 3px 0 rgba(0, 0, 0, 0.12);
-  margin-top: -6px;
-}
-
-/* Text resizer change button */
-.topbar-text-resizer-change-button {
-  margin: 0.2rem 0.6rem;
 }
 
 /* === Shadow Utility === */

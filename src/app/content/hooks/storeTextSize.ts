@@ -6,7 +6,7 @@ import {
   textResizerStorageKey,
   TextResizerValue,
   textResizerValues,
-} from '../constants';
+} from '@openstax/ui-components';
 import { textSize } from '../selectors';
 
 export const loadStoredTextSize = (services: MiddlewareAPI & AppServices) => async() => {

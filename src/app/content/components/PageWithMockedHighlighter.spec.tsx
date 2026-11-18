@@ -18,7 +18,7 @@ import { scrollTarget } from '../../navigation/selectors';
 import { AppServices, MiddlewareAPI, Store } from '../../types';
 import { assertDocument, assertWindow } from '../../utils';
 import { receivePage } from '../actions';
-import { textResizerDefaultValue } from '../constants';
+import { textResizerDefaultValue } from '@openstax/ui-components';
 import {
   clearFocusedHighlight,
   focusHighlight,

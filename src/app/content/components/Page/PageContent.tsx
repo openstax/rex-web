@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { HTMLDivElement } from '@openstax/types/lib.dom';
 import MainContent from '../../../components/MainContent';
 import theme from '../../../theme';
-import { TextResizerValue } from '../../constants';
+import { TextResizerValue } from '@openstax/ui-components';
 import { State } from '../../types';
 import { highlightStyles } from '../../constants';
 import { contentTextWidth } from '../constants';

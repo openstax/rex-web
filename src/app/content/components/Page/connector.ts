@@ -6,7 +6,7 @@ import * as selectNavigation from '../../../navigation/selectors';
 import { addToast } from '../../../notifications/actions';
 import { AppServices, AppState, MiddlewareAPI } from '../../../types';
 import { merge } from '../../../utils';
-import { TextResizerValue } from '../../constants';
+import { TextResizerValue } from '@openstax/ui-components';
 import { mobileToolbarOpen, query } from '../../search/selectors';
 import * as select from '../../selectors';
 import { State, SystemQueryParams } from '../../types';

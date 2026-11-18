@@ -509,50 +509,51 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
         <div
           className="topbar-text-resizer-menu"
           id="text-resizer-menu"
-          style={
-            Object {
-              "--text-resizer-gradient": "linear-gradient(
-        to right,
-        #002468
-          calc((0 - -2) * 100 / (3 - -2) * 1%),
-          var(--color-primary-gray-medium)
-          calc((0 - -2) * 100 / (3 - -2) * 1%)
-      )",
-            }
-          }
         >
-          <label
+          <div
+            className="text-resizer-heading"
             id="text-resizer-label"
           >
             Text size
-          </label>
+          </div>
           <div
             aria-labelledby="text-resizer-label"
-            className="controls"
+            className="ox-text-resizer"
             role="group"
+            style={
+              Object {
+                "--text-resizer-fill": "#002468",
+                "--text-resizer-progress": "0.4",
+              }
+            }
           >
             <button
               aria-label="Decrease text size"
-              className="toolbar-plain-button topbar-text-resizer-change-button"
-              data-testid="decrease-text-size"
+              className="ox-text-resizer-button"
               onClick={[Function]}
-              style={
-                Object {
-                  "--button-min-width": "45px",
-                  "--toolbar-icon-color": "#5e6062",
-                  "--toolbar-icon-darker-color": "#424242",
-                }
-              }
+              type="button"
             >
-              <img
-                alt=""
+              <svg
                 aria-hidden="true"
-                src="text-size-decrease.svg"
-              />
+                fill="currentColor"
+                height="11"
+                viewBox="0 0 27 11"
+                width="27"
+              >
+                <path
+                  d="M 17.978117 4.000019 C 17.421873 4.000019 17.143738 4.671892 17.537504 5.065629 L 21.556232 9.087501 C 21.799976 9.331244 22.196857 9.331244 22.440599 9.087501 L 26.459358 5.065629 C 26.853096 4.671892 26.574989 4.000019 26.018717 4.000019 Z"
+                  fillRule="evenodd"
+                />
+                <path
+                  d="M 8.014 7.738 L 4.052 7.738 C 3.613331 8.727339 3.394 9.413332 3.394 9.796 C 3.394 10.076001 3.498999 10.253333 3.709 10.328 C 3.919001 10.402667 4.233998 10.440001 4.654 10.440001 L 4.654 11 L 0.818 11 L 0.818 10.440001 C 1.042001 10.412 1.235666 10.374666 1.399 10.328 C 1.562334 10.281333 1.706999 10.216001 1.833 10.132 C 1.959001 10.047999 2.068666 9.938334 2.162 9.802999 C 2.255334 9.667665 2.344 9.502001 2.428 9.306 L 6.11 0.08 L 7.146 0.08 L 10.492 8.256001 C 10.688001 8.732002 10.853666 9.105331 10.989 9.375999 C 11.124334 9.646667 11.268999 9.854332 11.423 9.999001 C 11.577001 10.143667 11.754333 10.243999 11.955 10.3 C 12.155667 10.356001 12.414665 10.398 12.732 10.426001 L 12.732 11 L 7.44 11 L 7.44 10.426001 C 7.888002 10.407333 8.209999 10.360667 8.406 10.285999 C 8.602001 10.211332 8.7 10.062001 8.7 9.837999 C 8.7 9.707333 8.667334 9.539334 8.602 9.334 C 8.536666 9.128666 8.448001 8.876668 8.336 8.578 Z M 4.374 6.898 L 7.706 6.898 L 6.096 2.656 L 6.04 2.656 Z"
+                  fillRule="evenodd"
+                />
+              </svg>
             </button>
             <input
-              aria-labelledby="text-resizer-label"
-              data-testid="change-text-size"
+              aria-label="Text size"
+              aria-valuetext="100%"
+              className="ox-text-resizer-slider"
               max={3}
               min={-2}
               onChange={[Function]}
@@ -562,23 +563,33 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
             />
             <button
               aria-label="Increase text size"
-              className="toolbar-plain-button topbar-text-resizer-change-button"
-              data-testid="increase-text-size"
+              className="ox-text-resizer-button"
               onClick={[Function]}
-              style={
-                Object {
-                  "--button-min-width": "45px",
-                  "--toolbar-icon-color": "#5e6062",
-                  "--toolbar-icon-darker-color": "#424242",
-                }
-              }
+              type="button"
             >
-              <img
-                alt=""
+              <svg
                 aria-hidden="true"
-                src="text-size-increase.svg"
-              />
+                fill="currentColor"
+                height="22"
+                viewBox="0 0 31 22"
+                width="31"
+              >
+                <path
+                  d="M 30.02067 15.000008 C 30.577492 15.000008 30.856361 14.326791 30.462593 13.933084 L 26.441912 9.912403 C 26.197865 9.668324 25.802113 9.668324 25.558064 9.912403 L 21.537382 13.933084 C 21.143646 14.326791 21.422483 15.000008 21.979307 15.000008 Z"
+                  fillRule="evenodd"
+                />
+                <path
+                  d="M 12.018 12.806 L 6.924 12.806 C 6.359997 14.078007 6.078 14.959997 6.078 15.452 C 6.078 15.812002 6.212999 16.039999 6.483 16.136 C 6.753001 16.232 7.157997 16.280001 7.698 16.280001 L 7.698 17 L 2.766 17 L 2.766 16.280001 C 3.054001 16.243999 3.302999 16.195999 3.513 16.136 C 3.723001 16.076 3.908999 15.992001 4.071 15.884 C 4.233001 15.775999 4.374 15.635 4.494 15.461 C 4.614001 15.286999 4.728 15.074001 4.836 14.822001 L 9.57 2.959999 L 10.902 2.959999 L 15.204 13.472 C 15.456001 14.084003 15.668999 14.563998 15.843 14.912001 C 16.017 15.260002 16.202999 15.526999 16.400999 15.712999 C 16.599001 15.899001 16.826998 16.028 17.084999 16.1 C 17.343 16.172001 17.675999 16.226 18.084 16.262001 L 18.084 17 L 11.28 17 L 11.28 16.262001 C 11.856003 16.237999 12.269999 16.178001 12.522 16.082001 C 12.774001 15.986 12.9 15.794002 12.9 15.506001 C 12.9 15.337999 12.858001 15.122002 12.774 14.858 C 12.69 14.593999 12.576001 14.270002 12.432 13.886 Z M 7.338 11.726 L 11.622 11.726 L 9.552 6.272 L 9.48 6.272 Z"
+                  fillRule="evenodd"
+                />
+              </svg>
             </button>
+            <div
+              className="ox-text-resizer-status"
+              role="status"
+            >
+              
+            </div>
           </div>
         </div>
       </div>
