@@ -151,7 +151,7 @@
   background: #fff;
   right: 0;
   left: auto;
-  top: calc(100% - 1px);
+  top: calc(100% - 2px);
   margin-top: 0; /* ui-components' own .dropdown-menu sets a negative margin-top */
 }
 
