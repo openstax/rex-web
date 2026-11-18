@@ -2,6 +2,8 @@ import re
 
 import pytest
 
+from playwright.async_api import expect
+
 
 class HomeRex:
     def __init__(self, page):
@@ -101,12 +103,6 @@ class HomeRex:
     async def click_cookieyes_accept(self):
         await self.page.get_by_role("button", name="Accept All").click()
 
-    # Accessibility page (hidden link: go to accessibility page)
-
-    @property
-    def accessibility_help_content(self):
-        return self.page.locator("#maincontent > div")
-
     # Login
 
     @property
@@ -159,7 +155,10 @@ class HomeRex:
 
     @pytest.mark.asyncio
     async def click_logged_in_user_dropdown(self):
-        await self.page.locator("div").get_by_test_id("user-nav-toggle").click()
+        toggle = self.page.get_by_test_id("user-nav-toggle")
+        await expect(toggle).to_be_enabled()
+        await toggle.click()
+        await toggle.click()
 
     @pytest.mark.asyncio
     async def logout_link_is_visible(self):
@@ -192,6 +191,12 @@ class HomeRex:
     @pytest.mark.asyncio
     async def click_other_text(self):
         await self.page.locator("#fs-id1170323854379").click()
+
+    async def double_click_other_text(self):
+        other_text = (
+            self.page.locator("p").filter(has_text="extremely rare on Earth").first
+        )
+        await other_text.click(click_count=3)
 
     @pytest.mark.asyncio
     async def select_text(self):
@@ -420,3 +425,8 @@ class HomeRex:
             document.querySelectorAll('div[class*="ClickBlocker"]').forEach(el => el.remove());
         }"""
         )
+
+    # Checks selected text
+
+    async def get_selected_text(self) -> str:
+        return await self.page.evaluate("() => window.getSelection().toString()")
