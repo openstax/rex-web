@@ -395,6 +395,11 @@
   padding: 1.4rem;
 }
 
+/* Raises the open toggle's shadow so it does not draw a faint line between the toggle and the menu. */
+.topbar-text-resizer-dropdown > button.filters-toggle-open {
+  box-shadow: 0 -0.4rem 0.6rem -0.1rem rgba(0, 0, 0, 0.2);
+}
+
 .topbar-text-resizer-dropdown.mobile-variant {
   /* Will be styled on mobile medium */
 }
