@@ -3,6 +3,7 @@ import re
 import pytest
 
 from playwright.async_api import expect
+import re
 
 
 class HomeRex:
@@ -224,7 +225,12 @@ class HomeRex:
 
     @pytest.mark.asyncio
     async def oneclick_highlight_infobox(self):
-        await self.page.get_by_label("Edit highlighted note").click()
+        # This element has 2 selector states, edit highlight and create highlight,
+        # so let's use a generic one
+        await self.highlight_infobox.get_by_role(
+            "button",
+            name=re.compile(r"click here to (create|edit) highlight", re.IGNORECASE),
+        ).click()
 
     @property
     def highlight_infobox(self):
@@ -232,19 +238,27 @@ class HomeRex:
 
     @pytest.mark.asyncio
     async def highlight_box_is_visible(self):
-        return await self.page.locator("#note-textarea").is_visible()
+        return await self.page.get_by_label("Edit highlighted note").is_visible()
 
     @pytest.mark.asyncio
     async def click_highlight_box_note_field(self):
-        await self.page.locator("#note-textarea").click()
+        # This element has 2 selector states, Add a note and Edit note,
+        # so let's use a generic one
+        await self.highlight_infobox.get_by_label(
+            re.compile(r"^(Add a note|Edit note)$")
+        ).click()
 
     @pytest.mark.asyncio
     async def fill_highlight_box_note_field(self, value):
-        await self.page.locator("#note-textarea").fill(value)
+        await self.highlight_infobox.get_by_label(
+            re.compile(r"^(Add a note|Edit note)$")
+        ).fill(value)
 
     @pytest.mark.asyncio
     async def highlight_box_colors_are_visible(self):
-        return await self.page.get_by_test_id("highlight-colors-picker").is_visible()
+        return await self.highlight_infobox.get_by_test_id(
+            "highlight-colors-picker"
+        ).is_visible()
 
     @pytest.mark.asyncio
     async def click_highlight_box_purple_color(self):
@@ -310,13 +324,14 @@ class HomeRex:
     async def click_new_chapter(self):
         await self.page.locator("div").get_by_text("The Origin of the Moon").click()
 
-    @pytest.mark.asyncio
     async def click_show_hide_solution_link(self):
-        button_locator = self.page.locator(
-            'summary[data-content="Show/Hide Solution"]'
-        ).first
-        await button_locator.scroll_into_view_if_needed()
-        await button_locator.click()
+        summary = self.page.locator('summary[data-content="Show/Hide Solution"]').first
+
+        await expect(summary).to_be_attached(timeout=60000)
+        await summary.scroll_into_view_if_needed()
+        await expect(summary).to_be_visible()
+
+        await summary.click()
 
     # Unsaved highlight dialog
 
