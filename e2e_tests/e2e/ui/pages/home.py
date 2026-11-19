@@ -153,12 +153,18 @@ class HomeRex:
             .is_visible()
         )
 
-    @pytest.mark.asyncio
     async def click_logged_in_user_dropdown(self):
         toggle = self.page.get_by_test_id("user-nav-toggle")
         await expect(toggle).to_be_enabled()
+
         await toggle.click()
-        await toggle.click()
+        try:
+            await expect(toggle).to_have_attribute(
+                "aria-expanded", "true", timeout=2000
+            )
+        except AssertionError:
+            await toggle.click()
+            await expect(toggle).to_have_attribute("aria-expanded", "true")
 
     @pytest.mark.asyncio
     async def logout_link_is_visible(self):

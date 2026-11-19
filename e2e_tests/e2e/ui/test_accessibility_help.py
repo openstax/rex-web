@@ -31,11 +31,10 @@ async def test_accessibility_help(chrome_page_unlogged, base_url, book_slug, pag
 
     finally:
 
+        await chrome_page_unlogged.keyboard.press("Tab")
+        await chrome_page_unlogged.keyboard.press("Tab")
+
         async with chrome_page_unlogged.expect_popup() as popup_info:
-
-            await chrome_page_unlogged.keyboard.press("Tab")
-            await chrome_page_unlogged.keyboard.press("Tab")
-
             await chrome_page_unlogged.keyboard.press("Enter")
 
         # THEN: Accessibility help page opens
