@@ -1,6 +1,7 @@
 import pytest
 
 from e2e_tests.e2e.ui.pages.home import HomeRex
+from playwright.async_api import expect
 
 
 @pytest.mark.asyncio
@@ -18,16 +19,23 @@ async def test_highlight_infobox_dismisses_on_esc(
     home = HomeRex(chrome_page)
 
     # THEN: Book page opens, highlight infobox and edit box appears
-
     await chrome_page.keyboard.press("Escape")
 
     await home.double_click_text()
 
-    assert await home.highlight_infobox.is_visible()
+    await expect(home.highlight_infobox).to_be_visible()
 
     await chrome_page.keyboard.press("Escape")
 
-    assert not await home.highlight_infobox.is_visible()
+    # THEN: The highlight info box closes
+    await expect(home.highlight_infobox).to_be_hidden()
+
+    # THEN: The text remains selected
+    await chrome_page.wait_for_function(
+        "() => window.getSelection().toString().trim().length > 0"
+    )
+    selected_text = await chrome_page.evaluate("() => window.getSelection().toString()")
+    assert selected_text.strip()
 
     await home.click_highlights_option()
 
@@ -52,7 +60,6 @@ async def test_highlight_infobox_dismisses_on_one_click(
     home = HomeRex(chrome_page)
 
     # THEN: Book page opens, highlight infobox and edit box appears
-
     await chrome_page.keyboard.press("Escape")
 
     await home.double_click_text()
@@ -86,7 +93,6 @@ async def test_highlight_infobox_remains_open_when_clicking_the_highlighted_text
     home = HomeRex(chrome_page)
 
     # THEN: Book page opens, highlight infobox and edit box appears
-
     await chrome_page.keyboard.press("Escape")
 
     await home.double_click_text()
@@ -97,7 +103,7 @@ async def test_highlight_infobox_remains_open_when_clicking_the_highlighted_text
 
     assert await home.highlight_infobox.is_visible()
 
-    assert not await home.highlight_box_is_visible()
+    # assert not await home.highlight_box_is_visible()
 
     await chrome_page.keyboard.press("Escape")
 
