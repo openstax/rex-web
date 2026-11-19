@@ -204,6 +204,18 @@ describe('highlightManager', () => {
     expect(prop.clearFocus).not.toHaveBeenCalled();
   });
 
+  it('noops on highlighter.onFocusOut if there are unsaved changes', async() => {
+    prop.hasUnsavedHighlight = true;
+    highlightManager(element, () => prop, services, intl);
+    expect(Highlighter).toHaveBeenCalled();
+    const options = Highlighter.mock.calls[0][1];
+    // earlier tests leave a highlight element focused, which would make onFocusOut return early
+    (assertDocument().activeElement as HTMLElement | null)?.blur();
+    options.onFocusOut();
+    await new Promise((resolve) => defer(resolve));
+    expect(prop.clearFocus).not.toHaveBeenCalled();
+  });
+
   it('highlights highlights', () => {
     const mockHighlight = {
       ...createMockHighlight(),
