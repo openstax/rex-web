@@ -45,7 +45,7 @@ async def test_highlight_not_saved_in_show_hide_solution(
     # THEN: Solution dialog opens
     await home.click_show_hide_solution_link()
 
-    assert not await home.highlight_box_is_visible()
+    assert await home.highlight_infobox.is_visible()
 
     # THEN: Double click text in solution dropdown
     await chrome_page.locator("#fs-id1165134108431").dblclick()

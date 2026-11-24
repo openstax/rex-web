@@ -3,6 +3,8 @@ import pytest
 from e2e_tests.e2e.ui.pages.home import HomeRex
 
 from playwright.async_api import TimeoutError
+from playwright.async_api import expect
+
 import sys
 
 
@@ -32,13 +34,16 @@ async def test_accessibility_help(chrome_page_unlogged, base_url, book_slug, pag
         await chrome_page_unlogged.keyboard.press("Tab")
         await chrome_page_unlogged.keyboard.press("Tab")
 
-        await chrome_page_unlogged.keyboard.press("Enter")
+        async with chrome_page_unlogged.expect_popup() as popup_info:
+            await chrome_page_unlogged.keyboard.press("Enter")
 
         # THEN: Accessibility help page opens
+        new_tab = await popup_info.value
+        await new_tab.wait_for_load_state("domcontentloaded")
 
-        accessibility_page_content = await home.accessibility_help_content.inner_text()
-
-        assert (
-            "Accessibility" in accessibility_page_content
-            and "OpenStax" in accessibility_page_content
+        top_heading = new_tab.get_by_role("heading", name="Web accessibility", level=2)
+        bottom_heading = new_tab.get_by_role(
+            "heading", name="Accessibility documentation", level=2
         )
+        await expect(top_heading).to_be_visible()
+        await expect(bottom_heading).to_be_visible()

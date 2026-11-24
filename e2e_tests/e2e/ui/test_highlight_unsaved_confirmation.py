@@ -158,16 +158,20 @@ async def test_highlight_unsaved_confirmation_on_small_highlight_dialog(
 
     assert await home.highlight_box_is_visible()
 
+    await home.click_highlight_box_note_field()
+
     await home.fill_highlight_box_note_field("autotest highlight")
 
     await home.click_highlight_box_save_button()
 
     assert home.small_highlighted_note_box_is_visible
 
-    # THEN: Click next page, then click previous page link with unsaved highlights and confirmation dialog pops up
-
+    # THEN: Click next page, then click previous page link
+    # with unsaved highlights and confirmation dialog pops up
     await home.click_small_highlight_box_dropdown()
     await home.click_small_highlight_box_edit_button()
+
+    await home.click_highlight_box_note_field()
 
     await home.fill_highlight_box_note_field("autotest highlight-2")
 
