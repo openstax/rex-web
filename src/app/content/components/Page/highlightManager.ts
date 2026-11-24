@@ -83,6 +83,10 @@ const onFocusOutHighlight = (props: HighlightProp) => defer(() => {
   ) {
     return;
   }
+  // Clearing focus also drops the unsaved flag, so the discard warning would stop appearing
+  if (props.hasUnsavedHighlight) {
+    return;
+  }
   props.clearFocus();
 });
 
